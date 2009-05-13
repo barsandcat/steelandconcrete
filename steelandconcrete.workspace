@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="Workspace">
+		<Project filename="ogre/OgreMain/scripts/OgreMain_linux.cbp" />
+		<Project filename="ogre/PlugIns/OctreeSceneManager/scripts/Plugin_OctreeSceneManager_linux.cbp" />
+		<Project filename="ogre/PlugIns/ParticleFX/scripts/Plugin_ParticleFX_linux.cbp" />
+		<Project filename="ogre/RenderSystems/GL/scripts/RenderSystem_GL_linux.cbp" />
+		<Project filename="ois/LinuxCB/OIS.cbp" />
+		<Project filename="ogreal/ogreal/OgreAL/OgreAL.cbp" />
+		<Project filename="protobuf-2.0.3/vsprojects/libprotobuf.cbp" />
+		<Project filename="protobuf-2.0.3/vsprojects/libprotoc.cbp" />
+		<Project filename="protobuf-2.0.3/vsprojects/protoc.cbp">
+			<Depends filename="protobuf-2.0.3/vsprojects/libprotobuf.cbp" />
+			<Depends filename="protobuf-2.0.3/vsprojects/libprotoc.cbp" />
+		</Project>
+		<Project filename="SAL/SAL.cbp" />
+		<Project filename="src/UnitTests/UnitTests.cbp" />
+		<Project filename="Server.cbp" active="1">
+			<Depends filename="ogre/OgreMain/scripts/OgreMain_linux.cbp" />
+			<Depends filename="protobuf-2.0.3/vsprojects/libprotobuf.cbp" />
+			<Depends filename="protobuf-2.0.3/vsprojects/libprotoc.cbp" />
+			<Depends filename="protobuf-2.0.3/vsprojects/protoc.cbp" />
+			<Depends filename="SAL/SAL.cbp" />
+			<Depends filename="src/UnitTests/UnitTests.cbp" />
+		</Project>
+		<Project filename="LinuxS&amp;C.cbp">
+			<Depends filename="ogre/OgreMain/scripts/OgreMain_linux.cbp" />
+			<Depends filename="ogre/PlugIns/OctreeSceneManager/scripts/Plugin_OctreeSceneManager_linux.cbp" />
+			<Depends filename="ogre/PlugIns/ParticleFX/scripts/Plugin_ParticleFX_linux.cbp" />
+			<Depends filename="ogre/RenderSystems/GL/scripts/RenderSystem_GL_linux.cbp" />
+			<Depends filename="ois/LinuxCB/OIS.cbp" />
+			<Depends filename="ogreal/ogreal/OgreAL/OgreAL.cbp" />
+			<Depends filename="protobuf-2.0.3/vsprojects/libprotobuf.cbp" />
+			<Depends filename="protobuf-2.0.3/vsprojects/libprotoc.cbp" />
+			<Depends filename="protobuf-2.0.3/vsprojects/protoc.cbp" />
+			<Depends filename="SAL/SAL.cbp" />
+			<Depends filename="src/UnitTests/UnitTests.cbp" />
+			<Depends filename="Server.cbp" />
+		</Project>
+	</Workspace>
+</CodeBlocks_workspace_file>

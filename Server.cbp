@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Server" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/steelandconcrete_d_server" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="protobuf-2.0.3/vsprojects/libprotobuf_d.a" />
+					<Add library="ogre/lib/libOgreMain_d.a" />
+					<Add library="SAL/libSAL_d.a" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/steelandconcrete_server" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="protobuf-2.0.3/vsprojects/libprotobuf.a" />
+					<Add library="ogre/lib/libOgreMain.a" />
+					<Add library="SAL/libSAL.a" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add option="-pthread" />
+			<Add directory="src" />
+			<Add directory="src/proto" />
+			<Add directory="ogre/OgreMain/include" />
+			<Add directory="protobuf-2.0.3/src" />
+			<Add directory="SAL" />
+		</Compiler>
+		<Linker>
+			<Add library="pthread" />
+		</Linker>
+		<ExtraCommands>
+			<Add before="make -C src/proto -f Makefile.proto" />
+		</ExtraCommands>
+		<Unit filename="src/ClientConnection.cpp" />
+		<Unit filename="src/ClientConnection.h" />
+		<Unit filename="src/ConnectionManager.cpp" />
+		<Unit filename="src/ConnectionManager.h" />
+		<Unit filename="src/Network.cpp" />
+		<Unit filename="src/Network.h" />
+		<Unit filename="src/Server.cpp" />
+		<Unit filename="src/ServerEdge.cpp" />
+		<Unit filename="src/ServerEdge.h" />
+		<Unit filename="src/ServerGame.cpp" />
+		<Unit filename="src/ServerGame.h" />
+		<Unit filename="src/ServerGeodesicGrid.cpp" />
+		<Unit filename="src/ServerGeodesicGrid.h" />
+		<Unit filename="src/ServerLog.cpp" />
+		<Unit filename="src/ServerLog.h" />
+		<Unit filename="src/ServerTile.cpp" />
+		<Unit filename="src/ServerTile.h" />
+		<Unit filename="src/ServerUnit.cpp" />
+		<Unit filename="src/ServerUnit.h" />
+		<Unit filename="src/proto/Edge.pb.cc" />
+		<Unit filename="src/proto/Edge.pb.h" />
+		<Unit filename="src/proto/Edge.proto" />
+		<Unit filename="src/proto/GeodesicGrid.pb.cc" />
+		<Unit filename="src/proto/GeodesicGrid.pb.h" />
+		<Unit filename="src/proto/GeodesicGrid.proto" />
+		<Unit filename="src/proto/Header.pb.cc" />
+		<Unit filename="src/proto/Header.pb.h" />
+		<Unit filename="src/proto/Header.proto" />
+		<Unit filename="src/proto/Makefile.proto" />
+		<Unit filename="src/proto/Tile.pb.cc" />
+		<Unit filename="src/proto/Tile.pb.h" />
+		<Unit filename="src/proto/Tile.proto" />
+		<Unit filename="src/proto/Unit.pb.cc" />
+		<Unit filename="src/proto/Unit.pb.h" />
+		<Unit filename="src/proto/Unit.proto" />
+		<Unit filename="src/proto/Vector.pb.cc" />
+		<Unit filename="src/proto/Vector.pb.h" />
+		<Unit filename="src/proto/Vector.proto" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
