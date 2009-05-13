@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VisualStudioToolFile
+	Name="proto"
+	Version="8,00"
+	>
+	<Rules>
+		<CustomBuildRule
+			Name="proto"
+			DisplayName="proto"
+			CommandLine="&quot;[protocompiler]&quot; [protodir] [outdir] [Inputs]"
+			Outputs="$(InputName).pb.cc $(InputName).pb.h "
+			FileExtensions="*.proto"
+			ExecutionDescription="Generating proto classes"
+			>
+			<Properties>
+				<StringProperty
+					Name="protocompiler"
+					DisplayName="Protoc path"
+					Category="Path"
+					Description="Protoc path"
+					Switch="[value]"
+					DefaultValue="protoc"
+					Delimited="true"
+					Inheritable="true"
+				/>
+				<StringProperty
+					Name="protodir"
+					DisplayName="Proto files path"
+					Category="Path"
+					Description="Proto files path"
+					Switch="--proto_path=[value]"
+					Delimited="true"
+					Inheritable="true"
+				/>
+				<StringProperty
+					Name="outdir"
+					DisplayName="Output directory"
+					Category="Path"
+					Description="Output directory"
+					Switch="--cpp_out=[value]"
+					Delimited="true"
+					Inheritable="true"
+				/>
+			</Properties>
+		</CustomBuildRule>
+	</Rules>
+</VisualStudioToolFile>

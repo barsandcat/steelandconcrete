@@ -1,0 +1,60 @@
+#!/bin/sh
+# Configuration script for GOODS 
+
+case x$1 in
+x-*) 
+	echo "Usage: config [freebsd|freebsd-pthreads|linux|cygwin|osf|solaris|generic]\n"
+	exit 1
+	;;
+x)
+	# try to guess target
+	target=`uname -s`
+	;;
+*)
+	target=$1
+	;;
+esac
+	
+case $target in	
+	FreeBSD | freebsd)
+		cp makefile.freebsd makefile
+		target="FreeBSD with portable threads"
+		;;
+	freebsd-pthreads)
+		cp makefile.freebsd-pthreads makefile
+		target="FreeBSD with posix threads"
+		;;
+ 	Linux | linux)
+ 		cp makefile.linux makefile
+ 		target="Linux with gcc compile (pthreads)"
+ 		;;
+ 	CYGWIN* | cygwin*)
+ 	    cp makefile.cygwin makefile
+ 		target="CygWin32 and gcc compiler"
+ 		;;
+	OSF* | osf | dunix)
+		cp makefile.osf makefile
+		target="Digital Unix with cxx compiler"
+	  	;;
+	SunOS | solaris)
+		cp makefile.sun makefile
+		target="Solaris with gcc compiler"
+		;;
+        *)
+		gcc_v=`gcc -v 2>&1 | grep "gcc version"`
+		gcc_version=`expr "$gcc_v" : "gcc version [^0-9]*\([0-9]*\.[0-9]*\)"`
+		is_new_gcc=`expr $gcc_version \>= 2.8`
+		if [ $is_new_gcc = 1 ] 
+		then
+		    sed < makefile.gcc > makefile 's/CC = g++/CC = g++ -fno-exceptions/'
+		else    
+		    cp makefile.gcc makefile
+		fi
+		target="generic Unix with $gcc_v compiler"
+		;;
+esac
+
+echo "Makefile is now prepared for $target"
+
+exit 0
+

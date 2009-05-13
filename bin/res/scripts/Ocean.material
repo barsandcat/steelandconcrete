@@ -1,0 +1,15 @@
+material Ocean{
+  technique
+  {
+    pass
+    {
+      texture_unit
+
+      {
+
+        texture Water02.jpg
+
+      }
+    }
+  }
+}

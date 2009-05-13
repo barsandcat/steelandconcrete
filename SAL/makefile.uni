@@ -1,0 +1,91 @@
+# -*- makefile -*-
+# Generic makefile for Unix. 
+# This files should be included from system dependent version of makefile
+# which specifies values of following symbols:
+#   
+#  CC       - C++ compiler
+#  CFLAGS   - flags fro C++ compiler
+#  LD       - linker
+#  LDFLAGS  - flags for linker
+#  AR       - archive library maintainer
+#  ARFLAGS  - flags for archive library maintainer to create library
+#  RANLIB   - archive toc generator
+#  STDLIBS  - list of system libraries (sockets, threads...)
+#  TASK_OBJ - list of system dependent tasking object files 
+#
+#--------------------------------------------------------------------
+
+OBJS = console.o unisock.o unifile.o multfile.o $(TASK_OBJ)
+INCS = stdtp.h console.h task.h ctask.h ptask.h support.h sockio.h unisock.h file.h osfile.h mmapfile.h multfile.h async.h
+
+LIB = libsal.a 
+
+EXAMPLES = testsock tstdgram testtask testqueue
+
+all: $(LIB) $(EXAMPLES)
+
+console.o: console.cxx $(INCS)
+	$(CC) $(CFLAGS) console.cxx
+
+unisock.o: unisock.cxx $(INCS)
+	$(CC) $(CFLAGS) unisock.cxx
+
+ptask.o: ptask.cxx $(INCS)
+	$(CC) $(CFLAGS) ptask.cxx
+
+ctask.o: ctask.cxx $(INCS)
+	$(CC) $(CFLAGS) ctask.cxx
+
+async.o: async.cxx $(INCS)
+	$(CC) $(CFLAGS) async.cxx
+
+
+unifile.o: unifile.cxx $(INCS)
+	$(CC) $(CFLAGS) unifile.cxx
+
+multfile.o: multfile.cxx $(INCS)
+	$(CC) $(CFLAGS) multfile.cxx
+
+
+
+libsal.a: $(OBJS)
+	rm -f libsal.a
+	$(AR) $(ARFLAGS) libsal.a $(OBJS)
+	$(RANLIB) libsal.a
+
+testsock.o: testsock.cxx $(INCS)
+	$(CC) $(CFLAGS) testsock.cxx 
+
+testsock: testsock.o libsal.a
+	$(LD) $(LDFLAGS) -o testsock testsock.o libsal.a $(STDLIBS)
+
+tstdgram.o: tstdgram.cxx $(INCS)
+	$(CC) $(CFLAGS) tstdgram.cxx 
+
+tstdgram: tstdgram.o libsal.a
+	$(LD) $(LDFLAGS) -o tstdgram tstdgram.o libsal.a $(STDLIBS)
+
+testtask.o: testtask.cxx $(INCS)
+	$(CC) $(CFLAGS) testtask.cxx 
+
+testtask: testtask.o libsal.a
+	$(LD) $(LDFLAGS) -o testtask testtask.o libsal.a $(STDLIBS)
+
+testqueue.o: testqueue.cxx $(INCS)
+	$(CC) $(CFLAGS) testqueue.cxx 
+
+testqueue: testqueue.o libsal.a
+	$(LD) $(LDFLAGS) -o testqueue testqueue.o libsal.a $(STDLIBS)
+
+cleanobj:
+	rm -fr *.o *.tgz core *~ cxx_repository
+
+clean: cleanobj
+	rm -f *.a $(EXAMPLES)
+
+tgz:	clean
+	chmod +x config 
+	cd ..; tar cvzf sal.tgz SAL
+
+copytgz: tgz
+	mcopy -o ../sal.tgz a:

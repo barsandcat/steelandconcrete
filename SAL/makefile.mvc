@@ -1,0 +1,95 @@
+# -*- makefile -*-
+# Makefile for Microsoft Windows with Microsoft Visual C++ 5.0 compiler
+
+OBJS = console.obj w32sock.obj winfile.obj multfile.obj wtask.obj
+INCS = stdtp.h console.h task.h wtask.h support.h sockio.h w32sock.h file.h osfile.h mmapfile.h multfile.h
+
+LIBS = sal.lib 
+
+EXAMPLES = testsock.exe tstdgram.exe testtask.exe testqueue.exe
+
+CC = cl
+DEFS = 
+
+#CFLAGS = -c -nologo -YX -Zi -W3 -MTd $(DEFS)
+CFLAGS = -c -Ox -G6 -nologo -YX -Zi -W3 -MT $(DEFS)
+
+LD = $(CC)
+#LDFLAGS = -MTd -Zi -nologo
+LDFLAGS = -MT -Zi -nologo
+
+AR = lib
+ARFLAGS = 
+
+STDLIBS = wsock32.lib
+
+
+all: $(LIBS) $(EXAMPLES)
+
+
+console.obj: console.cxx $(INCS)
+	$(CC) $(CFLAGS) console.cxx
+
+w32sock.obj: w32sock.cxx $(INCS)
+	$(CC) $(CFLAGS) w32sock.cxx
+
+wtask.obj: wtask.cxx $(INCS)
+	$(CC) $(CFLAGS) wtask.cxx
+
+async.obj: async.cxx $(INCS)
+	$(CC) $(CFLAGS) async.cxx
+
+
+winfile.obj: winfile.cxx $(INCS)
+	$(CC) $(CFLAGS) winfile.cxx
+
+multfile.obj: multfile.cxx $(INCS)
+	$(CC) $(CFLAGS) multfile.cxx
+
+
+
+sal.lib: $(OBJS)
+	$(AR) $(ARFLAGS) /OUT:sal.lib $(OBJS)
+
+testsock.obj: testsock.cxx $(INCS)
+	$(CC) $(CFLAGS) testsock.cxx 
+
+testsock.exe: testsock.obj sal.lib
+	$(LD) $(LDFLAGS) testsock.obj sal.lib $(STDLIBS)
+
+tstdgram.obj: tstdgram.cxx $(INCS)
+	$(CC) $(CFLAGS) tstdgram.cxx 
+
+tstdgram.exe: tstdgram.obj sal.lib
+	$(LD) $(LDFLAGS) tstdgram.obj sal.lib $(STDLIBS)
+
+testtask.obj: testtask.cxx $(INCS)
+	$(CC) $(CFLAGS) testtask.cxx 
+
+testtask.exe: testtask.obj sal.lib
+	$(LD) $(LDFLAGS) testtask.obj sal.lib $(STDLIBS)
+
+testqueue.obj: testqueue.cxx $(INCS)
+	$(CC) $(CFLAGS) testqueue.cxx 
+
+testqueue.exe: testqueue.obj sal.lib
+	$(LD) $(LDFLAGS) testqueue.obj sal.lib $(STDLIBS)
+
+
+
+cleanobj:
+	-del *.obj,*.pch,*.pdb,*.ilk,*.dsp,*.dsw,*.ncb,*.opt
+
+
+clean: cleanobj
+	-del *~,*.lib,*.exe
+
+
+zip: clean
+	cd ..
+	-del SAL.zip
+        zip -r SAL.zip SAL
+
+copyzip: zip
+	copy SAL.zip a:
+

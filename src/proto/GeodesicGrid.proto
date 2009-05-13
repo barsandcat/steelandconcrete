@@ -1,0 +1,14 @@
+import "Tile.proto";
+import "Edge.proto";
+
+message GeodesicGridMsg
+{
+  repeated TileMsg tiles = 2;
+  repeated EdgeMsg edges = 3;
+}
+
+message GeodesicGridSizeMsg
+{
+  required uint32 tileCount = 1;
+  required uint32 edgeCount = 2;
+}

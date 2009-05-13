@@ -1,0 +1,25 @@
+# -*- makefile -*-
+# Makefile for Unix with gcc compiler without Posix threads library
+
+CC = g++ -fno-exceptions
+#DEFS = -DCOOPERATIVE_MULTITASKING
+#DEFS = -DPTHREADS 
+#DEFS = -U_WIN32
+
+CFLAGS = -Wall -c -O5 -g $(DEFS)
+#CFLAGS = -Wall -c -g $(DEFS)
+
+LD = $(CC)
+LDFLAGS = -g
+
+AR = ar
+ARFLAGS = -cru
+
+RANLIB = true
+
+STDLIBS=
+
+TASK_OBJ = ctask.o async.o
+#TASK_OBJ = ptask.o
+
+include makefile.uni

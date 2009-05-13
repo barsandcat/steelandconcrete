@@ -1,0 +1,50 @@
+#include <pch.h>
+#include <BirdCamera.h>
+
+BirdCamera::BirdCamera(Ogre::SceneManager* const aSceneManager, Ogre::RenderWindow& aWindow):
+        mCamera(NULL),
+        mVerticalSpeed(0.0),
+        mHorizontalSpeed(0.0),
+        mZoomSpeed(0.0)
+{
+    // Create the camera
+    mCamera = aSceneManager->createCamera("PlayerCam");
+    mCamera->lookAt(Ogre::Vector3(0, 0, -300));
+    mCamera->setNearClipDistance(0.01);
+    mCameraHolder = aSceneManager->getRootSceneNode()->createChildSceneNode("Camera.Holder.node");
+    mCameraNode = mCameraHolder->createChildSceneNode("Camera.node");
+    mCameraNode->setPosition(Ogre::Vector3(0, 0, 3));
+    mCameraNode->attachObject(mCamera);
+    // Create one viewport, entire window
+    aWindow.removeAllViewports();
+    mViewPort = aWindow.addViewport(mCamera);
+    mViewPort->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
+
+    // Alter the camera aspect ratio to match the viewport
+    mCamera->setAspectRatio(Ogre::Real(mViewPort->getActualWidth()) / Ogre::Real(mViewPort->getActualHeight()));
+
+    //mCameraNode->attachObject(mApp.SoundManager().getListener());
+}
+
+void BirdCamera::UpdatePosition(unsigned long aTime)
+{
+    mCameraNode->translate(Ogre::Vector3(0.0f, 0.0f, mZoomSpeed * aTime));
+    if (mCameraNode->getPosition().z < 1.1f)
+    {
+        mCameraNode->setPosition(Ogre::Vector3(0.0f, 0.0f, 1.1f));
+    }
+    mCameraHolder->yaw(mHorizontalSpeed * aTime);
+    mCameraHolder->pitch(mVerticalSpeed * aTime);
+}
+
+void BirdCamera::MouseToRay(const OIS::MouseState &aState, Ogre::Ray* aRay) const
+{
+    Ogre::Real aMouseX = Ogre::Real(aState.X.abs) / aState.width;
+    Ogre::Real aMouseY = Ogre::Real(aState.Y.abs) / aState.height;
+    mCamera->getCameraToViewportRay(aMouseX, aMouseY, aRay);
+}
+
+BirdCamera::~BirdCamera()
+{
+    //dtor
+}

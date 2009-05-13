@@ -1,0 +1,7 @@
+import "Vector.proto";
+
+message TileMsg
+{
+  required int32 tag = 1;
+  required VectorMsg position = 2;
+}
