@@ -10,6 +10,10 @@ ServerGame::ServerGame(): mGrid(NULL), mUnitCount(0)
 {
     task::initialize(task::normal_stack);
     mGrid = new ServerGeodesicGrid(2);
+    for (size_t i = 0; i < 15; ++i)
+    {
+        CreateUnit(mGrid->GetTile(rand() % mGrid->GetTileCount()));
+    }
 }
 
 ServerGame::~ServerGame()
@@ -28,7 +32,7 @@ void ServerGame::MainLoop()
     if (gate->is_ok())
     {
         ConnectionManager manager(*gate, *this);
-        while(true)
+        while (true)
         {
             if (manager.IsAllClientsReady())
             {

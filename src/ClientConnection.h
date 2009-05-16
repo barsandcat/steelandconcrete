@@ -20,7 +20,6 @@ private:
     friend void task_proc ClientConnectionThreadFunction(void* param);
     ServerGame& mGame;
     socket_t& mSocket;
-    ServerUnit* mAvatar;
     bool mLive;
     bool mReady;
 };

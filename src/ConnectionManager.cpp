@@ -34,7 +34,7 @@ ConnectionManager::~ConnectionManager()
 
 bool ConnectionManager::IsAllClientsReady()
 {
-    bool allReady = true;
+    bool allReady = !mClients.empty();
     std::list< ClientConnection* >::iterator i = mClients.begin();
     while(i != mClients.end())
     {

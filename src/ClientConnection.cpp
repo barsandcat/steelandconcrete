@@ -9,11 +9,11 @@ void task_proc ClientConnectionThreadFunction(void *param)
 {
     ClientConnection& self = *(static_cast< ClientConnection* >(param));
     self.mGame.Send(self.mSocket);
-    self.mReady = true;
+    self.mReady = false;
 
     while (self.mSocket.is_ok())
     {
-        //sleep(3);
+        task::sleep(300);
         GetLog() << "Client!" << std::endl;
     }
 
@@ -22,7 +22,6 @@ void task_proc ClientConnectionThreadFunction(void *param)
 
 ClientConnection::ClientConnection(ServerGame& aGame, socket_t& aSocket):mGame(aGame), mSocket(aSocket), mLive(true), mReady(false)
 {
-    mAvatar = &mGame.CreateUnit(mGame.GetGrid().GetTile(rand() % mGame.GetGrid().GetTileCount()));
     task::create(ClientConnectionThreadFunction, this);
 }
 
