@@ -239,6 +239,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\ServerLog.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\ServerTile.cpp"
 				>
 			</File>

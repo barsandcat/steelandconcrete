@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "App.h"
+#include "ClientApp.h"
 
 #define WIN32_LEAN_AND_MEAN
 #include "windows.h"
@@ -50,7 +50,7 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT)
     {
         Ogre::String home = getenv("APPDATA");
         CheckConfigFile(home);
-        App app(home + "\\steelandconcrete\\steelandconcrete.cfg");
+        ClientApp app(home + "\\steelandconcrete\\steelandconcrete.cfg");
         Ogre::LogManager::getSingletonPtr()->logMessage("App ready");
         app.MainLoop();
         Ogre::LogManager::getSingletonPtr()->logMessage("Main loop ended");

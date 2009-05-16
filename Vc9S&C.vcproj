@@ -225,10 +225,6 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
 			>
 			<File
-				RelativePath=".\src\App.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\betagui2\BetaGUI.cpp"
 				>
 			</File>
@@ -237,11 +233,31 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\ClientApp.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\ClientEdge.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\ClientGame.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\ClientGeodesicGrid.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\Edge.cpp"
+				RelativePath=".\src\ClientLog.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\ClientTile.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\ClientUnit.cpp"
 				>
 			</File>
 			<File
@@ -297,10 +313,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\Tile.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\Windows.cpp"
 				>
 			</File>
@@ -310,10 +322,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc"
 			>
 			<File
-				RelativePath=".\src\App.h"
-				>
-			</File>
-			<File
 				RelativePath=".\betagui2\BetaGUI.h"
 				>
 			</File>
@@ -322,11 +330,31 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\ClientApp.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\ClientEdge.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\ClientGame.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\ClientGeodesicGrid.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\Edge.h"
+				RelativePath=".\src\ClientLog.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\ClientTile.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\ClientUnit.h"
 				>
 			</File>
 			<File
@@ -351,10 +379,6 @@
 			</File>
 			<File
 				RelativePath=".\src\SetUpView.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\Tile.h"
 				>
 			</File>
 			<File
@@ -481,6 +505,34 @@
 			</File>
 			<File
 				RelativePath=".\src\proto\Tile.proto"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Unit.pb.cc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\proto\Unit.pb.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Unit.proto"
 				>
 			</File>
 			<File

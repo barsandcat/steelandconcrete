@@ -4,6 +4,7 @@
 #include <ClientConnection.h>
 #include <list>
 #include <sockio.h>
+#include <task.h>
 
 class ServerGame;
 
@@ -15,7 +16,7 @@ public:
     ~ConnectionManager();
 protected:
 private:
-    friend void ManagerThreadFunction(void* param);
+    friend void task_proc ManagerThreadFunction(void* param);
     void NewConnection(socket_t& aSocket);
     bool mQuit;
     socket_t& mGate;

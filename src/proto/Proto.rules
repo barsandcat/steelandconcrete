@@ -7,10 +7,10 @@
 		<CustomBuildRule
 			Name="proto"
 			DisplayName="proto"
-			CommandLine="&quot;[protocompiler]&quot; [protodir] [outdir] [Inputs]"
-			Outputs="$(InputName).pb.cc $(InputName).pb.h "
+			CommandLine="&quot;[protocompiler]&quot; --proto_path=[protodir] --cpp_out=[outdir] [Inputs]"
+			Outputs="[outdir]\$(InputName).pb.h"
 			FileExtensions="*.proto"
-			ExecutionDescription="Generating proto classes"
+			ExecutionDescription="Generating proto classes [Inputs]"
 			>
 			<Properties>
 				<StringProperty
@@ -28,7 +28,7 @@
 					DisplayName="Proto files path"
 					Category="Path"
 					Description="Proto files path"
-					Switch="--proto_path=[value]"
+					Switch="[value]"
 					Delimited="true"
 					Inheritable="true"
 				/>
@@ -37,7 +37,7 @@
 					DisplayName="Output directory"
 					Category="Path"
 					Description="Output directory"
-					Switch="--cpp_out=[value]"
+					Switch="[value]"
 					Delimited="true"
 					Inheritable="true"
 				/>

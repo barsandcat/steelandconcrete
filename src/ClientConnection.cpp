@@ -5,7 +5,7 @@
 #include <ServerTile.h>
 #include <ServerLog.h>
 
-void ClientConnectionThreadFunction(void *param)
+void task_proc ClientConnectionThreadFunction(void *param)
 {
     ClientConnection& self = *(static_cast< ClientConnection* >(param));
     self.mGame.Send(self.mSocket);
@@ -13,7 +13,7 @@ void ClientConnectionThreadFunction(void *param)
 
     while (self.mSocket.is_ok())
     {
-        sleep(3);
+        //sleep(3);
         GetLog() << "Client!" << std::endl;
     }
 

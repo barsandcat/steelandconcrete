@@ -196,6 +196,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\ConnectionManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\proto\Edge.pb.cc"
 				>
 			</File>
@@ -216,11 +220,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\ServerApp.cpp"
+				RelativePath=".\src\ServerEdge.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\ServerEdge.cpp"
+				RelativePath=".\src\ServerGame.cpp"
 				>
 			</File>
 			<File
@@ -228,11 +232,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\ServerLog.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\ServerTile.cpp"
 				>
 			</File>
 			<File
+				RelativePath=".\src\ServerUnit.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\proto\Tile.pb.cc"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Unit.pb.cc"
 				>
 			</File>
 			<File
@@ -247,6 +263,10 @@
 			>
 			<File
 				RelativePath=".\src\ClientConnection.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\ConnectionManager.h"
 				>
 			</File>
 			<File
@@ -266,11 +286,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\ServerApp.h"
+				RelativePath=".\src\ServerEdge.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\ServerEdge.h"
+				RelativePath=".\src\ServerGame.h"
 				>
 			</File>
 			<File
@@ -278,11 +298,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\ServerLog.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\ServerTile.h"
 				>
 			</File>
 			<File
+				RelativePath=".\src\ServerUnit.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\proto\Tile.pb.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Unit.pb.h"
 				>
 			</File>
 			<File
@@ -310,6 +342,10 @@
 		</File>
 		<File
 			RelativePath=".\src\proto\Tile.proto"
+			>
+		</File>
+		<File
+			RelativePath=".\src\proto\Unit.proto"
 			>
 		</File>
 		<File

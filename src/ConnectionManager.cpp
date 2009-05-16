@@ -2,7 +2,7 @@
 #include <ServerLog.h>
 #include <task.h>
 
-void ManagerThreadFunction(void *param)
+void task_proc ManagerThreadFunction(void *param)
 {
     ConnectionManager& self = *(static_cast< ConnectionManager* >(param));
     self.mQuit = !self.mGate.is_ok();

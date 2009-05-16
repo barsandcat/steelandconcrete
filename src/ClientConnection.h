@@ -2,8 +2,11 @@
 #define CLIENTCONNECTION_H
 
 #include <sockio.h>
+#include <task.h>
 class ServerGame;
 class ServerUnit;
+
+void task_proc ClientConnectionThreadFunction(void* param);
 
 class ClientConnection
 {
@@ -14,7 +17,7 @@ public:
     ~ClientConnection();
 protected:
 private:
-    friend void ClientConnectionThreadFunction(void* param);
+    friend void task_proc ClientConnectionThreadFunction(void* param);
     ServerGame& mGame;
     socket_t& mSocket;
     ServerUnit* mAvatar;
