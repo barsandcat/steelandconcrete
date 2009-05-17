@@ -6,102 +6,42 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Win32_Debug">
-				<Option output="../bin/QuickGUI_d" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Win32_Debug" />
-				<Option type="3" />
-				<Option compiler="gcc" />
-				<Option createDefFile="1" />
-				<Option createStaticLib="1" />
-				<Compiler>
-					<Add option="-DWIN32" />
-					<Add option="-D_DEBUG" />
-					<Add option="-D_WINDOWS" />
-					<Add option="-D_USRDLL" />
-					<Add option="-DQUICKGUI_EXPORTS" />
-					<Add option="-W" />
-					<Add option="-g" />
-					<Add option="-O0" />
-					<Add directory="../../Dependencies/include/ogre" />
-					<Add directory="./include" />
-				</Compiler>
-				<ResourceCompiler>
-					<Add directory="../../Dependencies/include/ogre" />
-					<Add directory="./include" />
-				</ResourceCompiler>
-				<Linker>
-					<Add library="OgreMain_d" />
-					<Add directory="../../Dependencies/lib" />
-				</Linker>
-				<ExtraCommands>
-					<Add after="copy ..\bin\QuickGUI_d.dll ..\..\RotM\Debug Win32&#x0D;&#x0A;copy ..\bin\QuickGUI_d.dll ..\..\RotM\Ares\Debug Win32&#x0D;&#x0A;" />
-				</ExtraCommands>
-			</Target>
-			<Target title="Win32_Release">
-				<Option output="../bin/QuickGUI" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Win32_Release" />
-				<Option type="3" />
-				<Option compiler="gcc" />
-				<Option createDefFile="1" />
-				<Option createStaticLib="1" />
-				<Compiler>
-					<Add option="-DWIN32" />
-					<Add option="-DNDEBUG" />
-					<Add option="-D_WINDOWS" />
-					<Add option="-D_USRDLL" />
-					<Add option="-DQUICKGUI_EXPORTS" />
-					<Add option="-W" />
-					<Add directory="../../Dependencies/include/ogre" />
-					<Add directory="./include" />
-				</Compiler>
-				<ResourceCompiler>
-					<Add directory="../../Dependencies/include/ogre" />
-					<Add directory="./include" />
-				</ResourceCompiler>
-				<Linker>
-					<Add library="OgreMain" />
-					<Add directory="../../Dependencies/lib" />
-				</Linker>
-			</Target>
-			<Target title="Linux_Debug">
+			<Target title="Debug">
 				<Option platforms="Unix;" />
-				<Option output="../bin/libQuickGUI_d.so" prefix_auto="0" extension_auto="0" />
+				<Option output="../bin/libQuickGUI_d.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
 				<Option object_output="obj/Linux_Debug" />
-				<Option type="3" />
+				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
-				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-W" />
 					<Add option="-g" />
 					<Add option="-O0" />
 					<Add option="-fPIC" />
-					<Add directory="./include" />
-					<Add directory="/usr/local/include/OGRE" />
 				</Compiler>
 				<ResourceCompiler>
 					<Add directory="./include" />
 				</ResourceCompiler>
 				<Linker>
 					<Add library="OgreMain" />
-					<Add directory="/usr/local/lib/OGRE" />
 				</Linker>
 			</Target>
-			<Target title="Linux_Release">
+			<Target title="Release">
 				<Option platforms="Unix;" />
-				<Option output="../bin/libQuickGUI.so" prefix_auto="0" extension_auto="0" />
+				<Option output="../bin/libQuickGUI.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
 				<Option object_output="obj/Linux_Release" />
-				<Option type="3" />
+				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
-				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-Os" />
 					<Add option="-O3" />
 					<Add option="-W" />
 					<Add option="-fPIC" />
 					<Add directory="./include" />
-					<Add directory="/usr/local/include/OGRE" />
+					<Add directory="../../ogre/OgreMain/include" />
 				</Compiler>
 				<ResourceCompiler>
 					<Add directory="./include" />
@@ -109,10 +49,16 @@
 				<Linker>
 					<Add option="-s" />
 					<Add library="OgreMain" />
-					<Add directory="/usr/local/lib/OGRE" />
 				</Linker>
 			</Target>
 		</Build>
+		<Compiler>
+			<Add directory="./include" />
+			<Add directory="../../ogre/OgreMain/include" />
+		</Compiler>
+		<Linker>
+			<Add directory="../../ogre/lib" />
+		</Linker>
 		<Unit filename="include/QuickGUI.h" />
 		<Unit filename="include/QuickGUIAnchors.h" />
 		<Unit filename="include/QuickGUIBorderEnums.h" />
@@ -239,6 +185,7 @@
 		<Unit filename="src/QuickGUIList.cpp" />
 		<Unit filename="src/QuickGUIListImageItem.cpp" />
 		<Unit filename="src/QuickGUIListItem.cpp" />
+		<Unit filename="src/QuickGUIListPanelItem.cpp" />
 		<Unit filename="src/QuickGUIListTextItem.cpp" />
 		<Unit filename="src/QuickGUIManager.cpp" />
 		<Unit filename="src/QuickGUIMenu.cpp" />
@@ -300,6 +247,7 @@
 		<Extensions>
 			<code_completion />
 			<debugger />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
