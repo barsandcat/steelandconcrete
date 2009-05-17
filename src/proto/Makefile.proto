@@ -1,6 +1,6 @@
 PROTOC=../../protobuf-2.0.3/vsprojects/protoc
 
-all : Tile.pb.cc GeodesicGrid.pb.cc Vector.pb.cc Edge.pb.cc Header.pb.cc Unit.pb.cc
+all : Tile.pb.cc GeodesicGrid.pb.cc Vector.pb.cc Edge.pb.cc Header.pb.cc Unit.pb.cc Request.pb.cc
 
 Tile.pb.cc : Tile.proto
 	$(PROTOC) --cpp_out=. Tile.proto
@@ -19,3 +19,6 @@ Header.pb.cc : Header.proto
 
 Unit.pb.cc : Unit.proto
 	$(PROTOC) --cpp_out=. Unit.proto
+
+Request.pb.cc : Request.proto
+	$(PROTOC) --cpp_out=. Request.proto

@@ -39,7 +39,7 @@ void ServerGame::MainLoop()
                 UpdateUnits();
                 GetLog() << "Game!" << std::endl;
             }
-            ///sleep(3);
+            task::sleep(300);
         }
     }
     GetLog() << "Game over";

@@ -15,8 +15,6 @@ std::string GetErrorText(socket_t& aSocket)
 
 void WriteMessage(socket_t& aSocket, google::protobuf::Message& aMessage)
 {
-    assert(aSocket.is_ok());
-
     int messageSize = aMessage.ByteSize();
     assert(messageSize <= MESSAGE_SIZE);
     char messageBuffer[MESSAGE_SIZE];
@@ -36,8 +34,6 @@ void WriteMessage(socket_t& aSocket, google::protobuf::Message& aMessage)
 
 void ReadMessage(socket_t& aSocket, google::protobuf::Message& aMessage)
 {
-    assert(aSocket.is_ok());
-
     HeaderMsg header;
     header.set_size(0);
     int headerSize = header.ByteSize();

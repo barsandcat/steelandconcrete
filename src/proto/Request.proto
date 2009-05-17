@@ -1,0 +1,12 @@
+enum RequestType
+{
+    Disconnect = 1;
+    Ready = 2;
+}
+
+message RequestMsg
+{
+    required RequestType type = 1;
+}
+
+

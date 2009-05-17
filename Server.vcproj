@@ -216,6 +216,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\proto\Request.pb.cc"
+				>
+			</File>
+			<File
 				RelativePath=".\src\Server.cpp"
 				>
 			</File>
@@ -286,6 +290,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\proto\Request.pb.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\ServerEdge.h"
 				>
 			</File>
@@ -338,6 +346,10 @@
 		</File>
 		<File
 			RelativePath=".\src\proto\Header.proto"
+			>
+		</File>
+		<File
+			RelativePath=".\src\proto\Request.proto"
 			>
 		</File>
 		<File
