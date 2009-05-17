@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="QuickGUIEditor" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option show_notes="0">
+			<notes>
+				<![CDATA[Before compiling, you will need to set the variable OGRE_HOME to the location of your OGRE source code directory.  To do this, go to Project->Build Options->Custom Variables, and edit the value of OGRE_HOME.]]>
+			</notes>
+		</Option>
+		<Build>
+			<Target title="Linux_Debug">
+				<Option platforms="Unix;" />
+				<Option output="../bin/Debug/QuickGUIEditor" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin" />
+				<Option object_output="obj/Linux_Debug" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="QuickGUI_d" />
+				</Linker>
+			</Target>
+			<Target title="Linux_Release">
+				<Option platforms="Unix;" />
+				<Option output="../bin/Release/QuickGUIEditor" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin" />
+				<Option object_output="obj/Linux_Release" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="QuickGUI" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="./include" />
+			<Add directory="../QuickGUI/include" />
+			<Add directory="/usr/local/include/OGRE" />
+		</Compiler>
+		<Linker>
+			<Add option="-Wl,-rpath=.." />
+			<Add library="OgreMain" />
+			<Add library="OIS" />
+			<Add library="GL" />
+			<Add directory="../bin" />
+			<Add directory="." />
+		</Linker>
+		<Unit filename="include/MainForm.h" />
+		<Unit filename="include/QuickGUIEditorApp.h" />
+		<Unit filename="include/Window.h" />
+		<Unit filename="src/MainForm.cpp" />
+		<Unit filename="src/QuickGUIEditorApp.cpp" />
+		<Unit filename="src/Window.cpp" />
+		<Unit filename="src/main.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
