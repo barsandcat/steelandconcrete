@@ -59,10 +59,6 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     // Here we choose to let the system create a default rendering window by passing 'true'
     mRoot->initialise(false);
 
-    // GUI initialization
-    new QuickGUI::Root();
-    QuickGUI::SkinTypeManager::getSingleton().loadTypes();
-
     mWindow = mRoot->createRenderWindow("Steel and concrete", 800, 600, false);
 
     // Set default mipmap level (NB some APIs ignore this)
@@ -71,6 +67,10 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     //mSoundManager = new OgreAL::SoundManager();
 
     Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+
+    // GUI initialization
+    new QuickGUI::Root();
+    QuickGUI::SkinTypeManager::getSingleton().loadTypes();
 
     mDebugOverlay = Ogre::OverlayManager::getSingleton().getByName("Core/DebugOverlay");
 
