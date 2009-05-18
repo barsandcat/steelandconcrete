@@ -12,6 +12,7 @@
 #include <OgreFont.h>
 #include <OgreTextAreaOverlayElement.h>
 #include <OgreAL.h>
+#include <QuickGUI.h>
 
 #ifdef MVC
 #pragma warning(pop)

@@ -29,6 +29,8 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     mOctreePlugin = new Ogre::OctreePlugin();
     mRoot->installPlugin(mOctreePlugin);
 
+    // Register resources
+    QuickGUI::registerScriptReader();
     Ogre::ConfigFile cf;
     cf.load(aConfigFile);
     Ogre::ConfigFile::SettingsIterator i = cf.getSettingsIterator("Resources");
@@ -39,6 +41,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         Ogre::ResourceGroupManager::getSingleton().addResourceLocation(value, name);
         i.moveNext();
     }
+
 
     Ogre::RenderSystem * renderSystem = mRoot->getRenderSystemByName("OpenGL Rendering Subsystem");
     mRoot->setRenderSystem(renderSystem);
@@ -55,6 +58,10 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
 
     // Here we choose to let the system create a default rendering window by passing 'true'
     mRoot->initialise(false);
+
+    // GUI initialization
+    new QuickGUI::Root();
+    QuickGUI::SkinTypeManager::getSingleton().loadTypes();
 
     mWindow = mRoot->createRenderWindow("Steel and concrete", 800, 600, false);
 
@@ -116,6 +123,13 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
 
     mPointer = mGUI->createMousePointer("bgui.pointer", 32, 32);
 
+    QuickGUI::GUIManagerDesc d;
+//    d.sceneManager = mSceneManager;
+//    d.viewport = mCamera->getViewport();
+    d.queueID = Ogre::RENDER_QUEUE_OVERLAY;
+    mGUIManager = QuickGUI::Root::getSingletonPtr()->createGUIManager(d);
+
+
 
     // 2    600
     // 3   2000
@@ -129,7 +143,9 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     {
         mGame = new ClientGame(*this, *sock);
         GetLog() << "Connected";
-        SetState(new EgoView(*mGame));
+    mState = new EgoView(*mGame);
+    mMouse->setEventCallback(mState);
+    mKeyboard->setEventCallback(mState);
     }
 }
 
@@ -145,6 +161,8 @@ ClientApp::~ClientApp()
 
     delete mGame;
     mGame = NULL;
+
+    delete QuickGUI::Root::getSingletonPtr();
 
     delete mRoot;
     mRoot = NULL;
@@ -305,14 +323,4 @@ void ClientApp::UpdateStats()
     {
         /* ignore */
     }
-}
-
-void ClientApp::SetState(GameState * aNewGameState)
-{
-    mMouse->setEventCallback(NULL);
-    mKeyboard->setEventCallback(NULL);
-    delete mState;
-    mState = aNewGameState;
-    mMouse->setEventCallback(mState);
-    mKeyboard->setEventCallback(mState);
 }

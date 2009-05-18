@@ -3,22 +3,33 @@
 
 #include <Ogre.h>
 #include <BetaGUI.h>
-#include <GameState.h>
 #include <BirdCamera.h>
 
 class ClientGame;
 
-class EgoView: public GameState
+class EgoView: public OIS::KeyListener, public OIS::MouseListener, public OIS::JoyStickListener, public BetaGUI::GUIListener
 {
 public:
     EgoView(ClientGame& aGame);
-    virtual ~EgoView();
-    virtual void Frame(unsigned long aFrameTime);
-    virtual bool mouseMoved(const OIS::MouseEvent& arg);
-    virtual bool mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
-    virtual bool mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
-    virtual bool keyPressed(const OIS::KeyEvent& arg);
-    virtual bool keyReleased(const OIS::KeyEvent& arg);
+    ~EgoView();
+    void Frame(unsigned long aFrameTime);
+    bool buttonPressed(const OIS::JoyStickEvent &arg, int button)
+    {
+        return true;
+    }
+    bool buttonReleased(const OIS::JoyStickEvent &arg, int button)
+    {
+        return true;
+    }
+    bool axisMoved(const OIS::JoyStickEvent &arg, int axis)
+    {
+        return true;
+    }
+    bool mouseMoved(const OIS::MouseEvent& arg);
+    bool mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
+    bool mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
+    bool keyPressed(const OIS::KeyEvent& arg);
+    bool keyReleased(const OIS::KeyEvent& arg);
 protected:
 private:
     BetaGUI::Window* mExitWindow;

@@ -1,9 +1,8 @@
 #include <pch.h>
 #include <ClientGame.h>
 #include <EgoView.h>
-#include <SetUpView.h>
 #include <ClientLog.h>
-
+#include <ClientApp.h>
 
 EgoView::EgoView(ClientGame& aGame):
         mGame(aGame),
@@ -169,6 +168,5 @@ void EgoView::Frame(unsigned long aFrameTime)
 
 void EgoView::OnButton(BetaGUI::Button*, BetaGUI::FocusState)
 {
-    mGame.GetApp().SetState(new SetUpView(mGame.GetApp()));
 }
 

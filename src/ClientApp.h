@@ -2,12 +2,14 @@
 #define APP_H
 
 #include <OgreWindowCallback.h>
-#include <GameState.h>
 #include <ClientGeodesicGrid.h>
 #include <ClientGame.h>
 
 #include <OgreAL.h>
 #include <BetaGUI.h>
+#include <QuickGUI.h>
+
+class EgoView;
 
 class ClientApp
 {
@@ -15,7 +17,6 @@ public:
     ClientApp(const Ogre::String aConfigFile);
     ~ClientApp();
     void MainLoop();
-
     void UpdateOISMouseClipping(Ogre::RenderWindow* rw);
     void DestroyOIS(Ogre::RenderWindow* rw);
     Ogre::Root& OgreRoot();
@@ -23,11 +24,11 @@ public:
     OgreAL::SoundManager& SoundManager();
     BetaGUI::GUI& Gui();
     void Quit();
-    void SetState(GameState* aNewGameState);
     ClientGame* GetGame() const { return mGame; }
     OIS::Mouse* GetMouse() const { return mMouse; }
 private:
     BetaGUI::GUI* mGUI;
+    QuickGUI::GUIManager* mGUIManager;
     Ogre::OverlayContainer* mPointer;
     Ogre::Root* mRoot;
     Ogre::Plugin* mOctreePlugin;
@@ -42,7 +43,7 @@ private:
     OIS::Mouse* mMouse;
     OIS::Keyboard* mKeyboard;
     OIS::JoyStick* mJoy;
-    GameState* mState;
+    EgoView* mState;
     ClientGame* mGame;
     void ShowDebugOverlay(bool show);
     void UpdateStats();

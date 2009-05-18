@@ -51,18 +51,22 @@
 			<Add directory="../../ogre/RenderSystems/GL/src/GLSL/include" />
 		</Compiler>
 		<Linker>
+			<Add option="--verbose" />
+			<Add library="Xrandr" />
+			<Add library="Xext" />
+			<Add library="Xaw" />
+			<Add library="X11" />
+			<Add library="RenderSystem_GL" />
 			<Add library="OgreMain" />
 			<Add library="OIS" />
 			<Add library="freeimage" />
 			<Add library="freetype" />
 			<Add library="zzip" />
 			<Add library="pthread" />
-			<Add library="../../ogre/lib/libRenderSystem_GL.a" />
 			<Add library="GLU" />
 			<Add directory="../bin" />
 			<Add directory="." />
 			<Add directory="../../ogre/lib" />
-			<Add directory="/usr/lib" />
 		</Linker>
 		<Unit filename="include/MainForm.h" />
 		<Unit filename="include/QuickGUIEditorApp.h" />

@@ -26,6 +26,7 @@
 					<Add library="Plugin_OctreeSceneManager_d" />
 					<Add library="protobuf_d" />
 					<Add library="SAL/libSAL_d.a" />
+					<Add library="QuickGUI_d" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -47,6 +48,7 @@
 					<Add library="Plugin_OctreeSceneManager" />
 					<Add library="protobuf" />
 					<Add library="SAL/libSAL.a" />
+					<Add library="QuickGUI" />
 				</Linker>
 			</Target>
 		</Build>
@@ -64,6 +66,7 @@
 			<Add directory="protobuf-2.0.3/src" />
 			<Add directory="src/proto" />
 			<Add directory="SAL" />
+			<Add directory="QuickGUI_9_05/QuickGUI/include" />
 		</Compiler>
 		<Linker>
 			<Add option="--verbose" />
@@ -85,6 +88,7 @@
 			<Add directory="ois/lib" />
 			<Add directory="ogreal/ogreal/lib" />
 			<Add directory="protobuf-2.0.3/vsprojects" />
+			<Add directory="QuickGUI_9_05/bin" />
 		</Linker>
 		<ExtraCommands>
 			<Add before="make -C src/proto -f Makefile.proto" />
@@ -109,14 +113,11 @@
 		<Unit filename="src/ClientUnit.h" />
 		<Unit filename="src/EgoView.cpp" />
 		<Unit filename="src/EgoView.h" />
-		<Unit filename="src/GameState.h" />
 		<Unit filename="src/Linux.cpp" />
 		<Unit filename="src/Network.cpp" />
 		<Unit filename="src/Network.h" />
 		<Unit filename="src/OgreWindowCallback.cpp" />
 		<Unit filename="src/OgreWindowCallback.h" />
-		<Unit filename="src/SetUpView.cpp" />
-		<Unit filename="src/SetUpView.h" />
 		<Unit filename="src/pch.cpp" />
 		<Unit filename="src/pch.h">
 			<Option compile="1" />

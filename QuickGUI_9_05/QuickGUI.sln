@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C++ Express 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QuickGUI", "QuickGUI\QuickGUI.vcproj", "{AEF9FF05-DF46-4982-94C4-F8C99A3938A1}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PlayPen", "PlayPen\PlayPen.vcproj", "{F7961F8C-2D1D-4887-A0C2-5F03CE8ADD04}"
