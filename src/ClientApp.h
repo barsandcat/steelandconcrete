@@ -18,8 +18,6 @@ public:
     void MainLoop();
     void UpdateOISMouseClipping(Ogre::RenderWindow* rw);
     void DestroyOIS(Ogre::RenderWindow* rw);
-    void Quit();
-    void Frame(unsigned long aFrameTime);
     bool buttonPressed(const OIS::JoyStickEvent &arg, int button)
     {
         return true;
@@ -59,6 +57,7 @@ private:
     Ogre::SceneManager* mSceneMgr;
     void ShowDebugOverlay(bool show);
     void UpdateStats();
+    void Frame(unsigned long aFrameTime);
 };
 
 #endif // APP_H

@@ -250,13 +250,6 @@ void ClientApp::DestroyOIS(Ogre::RenderWindow* rw)
     }
 }
 
-
-// Override frameStarted event to process that (don't care about frameEnded)
-void ClientApp::Quit()
-{
-    mQuit = true;
-}
-
 void ClientApp::ShowDebugOverlay(bool show)
 {
     if (mDebugOverlay)
@@ -267,8 +260,6 @@ void ClientApp::ShowDebugOverlay(bool show)
             mDebugOverlay->hide();
     }
 }
-
-
 
 void ClientApp::UpdateStats()
 {
