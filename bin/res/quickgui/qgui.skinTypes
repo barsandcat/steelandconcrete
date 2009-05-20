@@ -1,0 +1,2225 @@
+SkinClass Button 
+{ 
+    SkinType default 
+    { 
+        SkinElement default 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.button.png 
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement down 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.button.down.png 
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement over 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.button.over.png 
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+    SkinType default.close
+    { 
+        SkinElement default 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.window.titlebar.close.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement down 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.window.titlebar.close.down.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement over 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.window.titlebar.close.over.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+    SkinType default.vscrollup
+    { 
+        SkinElement default 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.scrollbar.vertical.top.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement down 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.scrollbar.vertical.top.down.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement over 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.scrollbar.vertical.top.over.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+    SkinType default.vscrolldown
+    { 
+        SkinElement default 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.scrollbar.vertical.bottom.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement down 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.scrollbar.vertical.bottom.down.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement over 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.scrollbar.vertical.bottom.over.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+    SkinType default.vslider
+    { 
+        SkinElement default 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.scrollbar.vertical.slider.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement down 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.scrollbar.vertical.slider.down.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement over 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.scrollbar.vertical.slider.over.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+    SkinType default.hscrollleft
+    { 
+        SkinElement default 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.scrollbar.horizontal.left.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement down 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.scrollbar.horizontal.left.down.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement over 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.scrollbar.horizontal.left.over.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+    SkinType default.hscrollright
+    { 
+        SkinElement default 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.scrollbar.horizontal.right.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement down 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.scrollbar.horizontal.right.down.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement over 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.scrollbar.horizontal.right.over.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+    SkinType default.hslider
+    { 
+        SkinElement default 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.scrollbar.horizontal.slider.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement down 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.scrollbar.horizontal.slider.down.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement over 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.scrollbar.horizontal.slider.over.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+    SkinType default.comboboxdropdown
+    { 
+        SkinElement default 
+        { 
+            Border_Bottom 1
+            Border_Left 1
+            Border_Right 1
+            Border_Top 1
+            Texture qgui.combobox.button.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement down 
+        { 
+            Border_Bottom 1
+            Border_Left 1
+            Border_Right 1
+            Border_Top 1
+            Texture qgui.combobox.button.down.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement over 
+        { 
+            Border_Bottom 1
+            Border_Left 1
+            Border_Right 1
+            Border_Top 1
+            Texture qgui.combobox.button.over.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+    SkinType default.treeviewnode.expand
+    { 
+        SkinElement default 
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.treeview.state.max.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+        SkinElement down 
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.treeview.state.max.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+        SkinElement over 
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.treeview.state.max.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+    } 
+
+    SkinType default.treeviewnode.minimize
+    { 
+        SkinElement default 
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.treeview.state.min.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+        SkinElement down 
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.treeview.state.min.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+        SkinElement over 
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.treeview.state.min.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+    } 
+
+}
+
+SkinClass CheckBox
+{ 
+    SkinType default 
+    { 
+        SkinElement checked
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.checkbox.x-ed.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement checked_down
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.checkbox.x-ed.down.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement checked_over
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.checkbox.x-ed.over.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement unchecked
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.checkbox.unchecked.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement unchecked_down
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.checkbox.unchecked.down.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement unchecked_over
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.checkbox.unchecked.over.png
+            TileBackground false 
+            TileBorders true 
+        } 
+    } 
+
+    SkinType default.treeviewcheckboxnode
+    { 
+        SkinElement checked
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.treeview.type.checkbox.checked.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement checked_down
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.treeview.type.checkbox.checked.down.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement checked_over
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.treeview.type.checkbox.checked.over.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement unchecked
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.treeview.type.checkbox.unchecked.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement unchecked_down
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.treeview.type.checkbox.unchecked.down.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement unchecked_over
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.treeview.type.checkbox.unchecked.over.png
+            TileBackground false 
+            TileBorders true 
+        } 
+    } 
+
+}
+
+SkinClass ColorPicker
+{ 
+    SkinType default 
+    { 
+        ComponentType transparencyslider
+        {
+            ClassName Button
+            SkinType default
+        }
+
+        ComponentType colorsource
+        {
+            ClassName Image
+            SkinType ColorPallette
+        }
+
+        SkinElement background
+        { 
+            Border_Bottom 10 
+            Border_Left 10 
+            Border_Right 10 
+            Border_Top 10 
+            Texture qgui.panel.png 
+            TileBackground true 
+            TileBorders false 
+        } 
+
+        SkinElement transparencybackground
+        { 
+            Border_Bottom 0 
+            Border_Left 0 
+            Border_Right 0 
+            Border_Top 0 
+            Texture qgui.colorpicker.transparencybackground.png
+            TileBackground true 
+            TileBorders false 
+        } 
+    } 
+
+}
+
+SkinClass ComboBox
+{ 
+    SkinType default 
+    { 
+        ComponentType dropdownbutton
+        {
+            ClassName Button
+            SkinType default.comboboxdropdown
+        }
+
+        ComponentType dropdownmenupanel
+        {
+            ClassName MenuPanel
+            SkinType default.dropdownlist
+        }
+
+        ComponentType comboboxitem
+        {
+            ClassName ListTextItem
+            SkinType default
+        }
+
+        SkinElement default 
+        { 
+            Border_Bottom 1
+            Border_Left 1
+            Border_Right 1
+            Border_Top 1
+            Texture qgui.combobox.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement down 
+        { 
+            Border_Bottom 1
+            Border_Left 1
+            Border_Right 1
+            Border_Top 1
+            Texture qgui.combobox.down.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement over 
+        { 
+            Border_Bottom 1
+            Border_Left 1
+            Border_Right 1
+            Border_Top 1
+            Texture qgui.combobox.over.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+}
+
+SkinClass Console
+{ 
+    SkinType default 
+    { 
+        SkinElement background
+        { 
+            Border_Bottom 5 
+            Border_Left 5 
+            Border_Right 5 
+            Border_Top 5 
+            Texture qgui.panel.png
+            TileBackground true 
+            TileBorders false 
+        } 
+
+        ComponentType textbox
+        {
+            ClassName TextBox
+            SkinType default
+        }
+
+        ComponentType textarea
+        {
+            ClassName TextArea
+            SkinType default
+        }
+
+    } 
+
+}
+
+SkinClass ContextMenu
+{ 
+    SkinType default 
+    { 
+        ComponentType hscrollbar
+        {
+            ClassName HScrollBar
+            SkinType default
+        }
+
+        ComponentType vscrollbar
+        {
+            ClassName VScrollBar
+            SkinType default
+        }
+
+        ComponentType titlebar
+        {
+            ClassName TitleBar
+            SkinType default
+        }
+        
+        SkinElement background
+        { 
+            Border_Bottom 10 
+            Border_Left 10 
+            Border_Right 10 
+            Border_Top 10 
+            Texture qgui.window.png 
+            TileBackground true 
+            TileBorders true 
+        } 
+
+    } 
+
+}
+
+SkinClass HScrollBar
+{ 
+    SkinType default 
+    { 
+        ComponentType left1
+        {
+            ClassName Button
+            SkinType default.hscrollleft
+        }
+
+        ComponentType left2
+        {
+            ClassName Button
+            SkinType default.hscrollleft
+        }
+
+        ComponentType right1
+        {
+            ClassName Button
+            SkinType default.hscrollright
+        }
+
+        ComponentType right2
+        {
+            ClassName Button
+            SkinType default.hscrollright
+        }
+
+        ComponentType slider
+        {
+            ClassName Button
+            SkinType default.hslider
+        }
+
+        SkinElement bar
+        { 
+            Border_Bottom 1 
+            Border_Left 1 
+            Border_Right 1 
+            Border_Top 1 
+            Texture qgui.scrollbar.horizontal.png
+            TileBackground false 
+            TileBorders true 
+        } 
+    } 
+
+}
+
+SkinClass Image
+{ 
+    SkinType default 
+    { 
+        SkinElement background
+        { 
+        } 
+    } 
+
+    SkinType ColorPallette
+    { 
+        SkinElement background
+        { 
+
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.colorsource.jpg
+            TileBackground false 
+            TileBorders false
+        } 
+    } 
+
+    SkinType MeshViewer 
+    { 
+        SkinElement background
+        { 
+            Border_Bottom 10
+            Border_Left 10
+            Border_Right 10
+            Border_Top 10
+            Texture qgui.panel.png
+            TileBackground true
+            TileBorders false
+        } 
+    } 
+
+}
+
+SkinClass Label
+{ 
+    SkinType default 
+    { 
+        SkinElement background
+        { 
+            Border_Bottom 1 
+            Border_Left 1 
+            Border_Right 1 
+            Border_Top 1 
+            Texture qgui.label.png 
+            TileBackground false 
+            TileBorders true 
+        } 
+    } 
+
+}
+
+SkinClass List
+{ 
+    SkinType default 
+    { 
+        ComponentType hscrollbar
+        {
+            ClassName HScrollBar
+            SkinType default
+        }
+
+        ComponentType vscrollbar
+        {
+            ClassName VScrollBar
+            SkinType default
+        }
+
+        ComponentType listitem
+        {
+            ClassName ListTextItem
+            SkinType default
+        }
+
+        SkinElement background
+        { 
+            Border_Bottom 10 
+            Border_Left 10 
+            Border_Right 10 
+            Border_Top 10 
+            Texture qgui.panel.png 
+            TileBackground true 
+            TileBorders false 
+        } 
+
+    } 
+
+}
+
+SkinClass ListImageItem
+{ 
+    SkinType default 
+    { 
+        SkinElement default
+        { 
+        } 
+
+        SkinElement over
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.toolbar.highlight.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement selected
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.toolbar.background.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+}
+
+SkinClass ListTextItem
+{ 
+    SkinType default 
+    { 
+        SkinElement default
+        { 
+        } 
+
+        SkinElement over
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.toolbar.highlight.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement selected
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.toolbar.background.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+}
+
+SkinClass Menu
+{ 
+    SkinType default 
+    { 
+        ComponentType menupanel
+        {
+            ClassName MenuPanel
+            SkinType default
+        }
+
+        SkinElement default 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.toolbar.background.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement down 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.toolbar.background.png 
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement over 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.toolbar.highlight.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+}
+
+SkinClass MenuTextItem
+{ 
+    SkinType default 
+    { 
+        SkinElement default 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.toolbar.background.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement down 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.toolbar.background.png 
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement over 
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.toolbar.highlight.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+}
+
+SkinClass MenuPanel
+{ 
+    SkinType default 
+    { 
+        ComponentType hscrollbar
+        {
+            ClassName HScrollBar
+            SkinType default
+        }
+
+        ComponentType vscrollbar
+        {
+            ClassName VScrollBar
+            SkinType default
+        }
+
+        SkinElement background
+        { 
+            Border_Bottom 10 
+            Border_Left 10 
+            Border_Right 10 
+            Border_Top 10 
+            Texture qgui.window.png 
+            TileBackground true 
+            TileBorders true 
+        } 
+
+    } 
+
+    SkinType default.dropdownlist
+    { 
+        ComponentType hscrollbar
+        {
+            ClassName HScrollBar
+            SkinType default
+        }
+
+        ComponentType vscrollbar
+        {
+            ClassName VScrollBar
+            SkinType default
+        }
+
+        SkinElement background
+        { 
+            Border_Bottom 2
+            Border_Left 2
+            Border_Right 2
+            Border_Top 2
+            Texture qgui.combobox.list.png 
+            TileBackground true 
+            TileBorders true 
+        } 
+
+    } 
+
+}
+
+SkinClass ModalWindow
+{ 
+    SkinType default 
+    { 
+        ComponentType hscrollbar
+        {
+            ClassName HScrollBar
+            SkinType default
+        }
+
+        ComponentType vscrollbar
+        {
+            ClassName VScrollBar
+            SkinType default
+        }
+
+        ComponentType titlebar
+        {
+            ClassName TitleBar
+            SkinType default
+        }
+        
+        SkinElement background
+        { 
+            Border_Bottom 10 
+            Border_Left 10 
+            Border_Right 10 
+            Border_Top 10 
+            Texture qgui.window.png 
+            TileBackground true 
+            TileBorders true 
+        } 
+
+    } 
+
+}
+
+SkinClass MouseCursor
+{ 
+    SkinType default 
+    { 
+        SkinElement texture
+        { 
+            Border_Bottom 0 
+            Border_Left 0 
+            Border_Right 0 
+            Border_Top 0 
+            Texture qgui.cursor.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+    } 
+
+    SkinType hresize
+    { 
+        SkinElement texture
+        { 
+            Border_Bottom 0 
+            Border_Left 0 
+            Border_Right 0 
+            Border_Top 0 
+            Texture qgui.cursor.resize.leftright.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+    } 
+
+    SkinType vresize
+    { 
+        SkinElement texture
+        { 
+            Border_Bottom 0 
+            Border_Left 0 
+            Border_Right 0 
+            Border_Top 0 
+            Texture qgui.cursor.resize.updown.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+    } 
+
+    SkinType diag1resize
+    { 
+        SkinElement texture
+        { 
+            Border_Bottom 0 
+            Border_Left 0 
+            Border_Right 0 
+            Border_Top 0 
+            Texture qgui.cursor.resize.diagonal1.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+    } 
+
+    SkinType diag2resize
+    { 
+        SkinElement texture
+        { 
+            Border_Bottom 0 
+            Border_Left 0 
+            Border_Right 0 
+            Border_Top 0 
+            Texture qgui.cursor.resize.diagonal2.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+    } 
+
+    SkinType grabable
+    { 
+        SkinElement texture
+        { 
+            Border_Bottom 0 
+            Border_Left 0 
+            Border_Right 0 
+            Border_Top 0 
+            Texture qgui.cursor.grabable.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+    } 
+
+    SkinType grabbed
+    { 
+        SkinElement texture
+        { 
+            Border_Bottom 0 
+            Border_Left 0 
+            Border_Right 0 
+            Border_Top 0 
+            Texture qgui.cursor.grabbed.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+    } 
+
+}
+
+SkinClass Panel
+{ 
+    SkinType default 
+    { 
+        ComponentType hscrollbar
+        {
+            ClassName HScrollBar
+            SkinType default
+        }
+
+        ComponentType vscrollbar
+        {
+            ClassName VScrollBar
+            SkinType default
+        }
+
+        SkinElement background
+        { 
+            Border_Bottom 10 
+            Border_Left 10 
+            Border_Right 10 
+            Border_Top 10 
+            Texture qgui.panel.png 
+            TileBackground true 
+            TileBorders true 
+        } 
+
+    } 
+
+}
+
+SkinClass ProgressBar
+{ 
+    SkinType default 
+    { 
+        SkinElement background
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.progressbar1.background.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement bar
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.progressbar1.bar.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+        SkinElement clipmap
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.progressbar1.clipbox.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+    } 
+
+}
+
+SkinClass PropertyGrid
+{ 
+    SkinType default 
+    { 
+        ComponentType hscrollbar
+        {
+            ClassName HScrollBar
+            SkinType default
+        }
+
+        ComponentType vscrollbar
+        {
+            ClassName VScrollBar
+            SkinType default
+        }
+
+        ComponentType expand
+        {
+            ClassName Button
+            SkinType default.treeviewnode.expand
+        }
+
+        ComponentType minimize
+        {
+            ClassName Button
+            SkinType default.treeviewnode.minimize
+        }
+
+        ComponentType textfield
+        {
+            ClassName TextBox
+            SkinType default
+        }
+
+        ComponentType boolfield
+        {
+            ClassName ComboBox
+            SkinType default
+        }
+
+        ComponentType multifield
+        {
+            ClassName ComboBox
+            SkinType default
+        }
+
+
+        SkinElement background
+        { 
+            Border_Bottom 10 
+            Border_Left 10 
+            Border_Right 10 
+            Border_Top 10 
+            Texture qgui.panel.png 
+            TileBackground true 
+            TileBorders false 
+        } 
+
+    } 
+
+
+    SkinType QuickGUIEditor
+    { 
+        ComponentType hscrollbar
+        {
+            ClassName HScrollBar
+            SkinType default
+        }
+
+        ComponentType vscrollbar
+        {
+            ClassName VScrollBar
+            SkinType default
+        }
+
+        ComponentType expand
+        {
+            ClassName Button
+            SkinType default.treeviewnode.expand
+        }
+
+        ComponentType minimize
+        {
+            ClassName Button
+            SkinType default.treeviewnode.minimize
+        }
+
+        ComponentType textfield
+        {
+            ClassName TextBox
+            SkinType default
+        }
+
+        ComponentType boolfield
+        {
+            ClassName ComboBox
+            SkinType default
+        }
+
+        ComponentType multifield
+        {
+            ClassName ComboBox
+            SkinType default
+        }
+
+
+        SkinElement background
+        { 
+        } 
+
+    } 
+
+}
+
+SkinClass PropertyGridBoolProperty
+{ 
+    SkinType default 
+    { 
+        SkinElement background
+        { 
+            Border_Bottom 1 
+            Border_Left 1 
+            Border_Right 1 
+            Border_Top 1 
+            Texture qgui.label.png 
+            TileBackground false 
+            TileBorders true 
+        } 
+
+	SkinElement icon
+        { 
+            Border_Bottom 0 
+            Border_Left 0 
+            Border_Right 0 
+            Border_Top 0 
+            Texture qgui.treeview.icon.folder.png
+            TileBackground false
+            TileBorders false 
+        } 
+
+	SkinElement selected
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.toolbar.background.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+}
+
+SkinClass PropertyGridComboBoxProperty
+{ 
+    SkinType default 
+    { 
+        SkinElement background
+        { 
+            Border_Bottom 1 
+            Border_Left 1 
+            Border_Right 1 
+            Border_Top 1 
+            Texture qgui.label.png 
+            TileBackground false 
+            TileBorders true 
+        } 
+
+	SkinElement icon
+        { 
+            Border_Bottom 0 
+            Border_Left 0 
+            Border_Right 0 
+            Border_Top 0 
+            Texture qgui.treeview.icon.folder.png
+            TileBackground false
+            TileBorders false 
+        } 
+
+	SkinElement selected
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.toolbar.background.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+}
+
+SkinClass PropertyGridSection
+{ 
+    SkinType default 
+    { 
+        SkinElement background
+        { 
+            Border_Bottom 1 
+            Border_Left 1 
+            Border_Right 1 
+            Border_Top 1 
+            Texture qgui.label.png 
+            TileBackground false 
+            TileBorders true 
+        } 
+
+	SkinElement icon
+        { 
+            Border_Bottom 0 
+            Border_Left 0 
+            Border_Right 0 
+            Border_Top 0 
+            Texture qgui.treeview.icon.folder.png
+            TileBackground false
+            TileBorders false 
+        } 
+
+	SkinElement selected
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.toolbar.background.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+}
+
+SkinClass PropertyGridTextProperty
+{ 
+    SkinType default 
+    { 
+        SkinElement background
+        { 
+            Border_Bottom 1 
+            Border_Left 1 
+            Border_Right 1 
+            Border_Top 1 
+            Texture qgui.label.png 
+            TileBackground false 
+            TileBorders true 
+        } 
+
+	SkinElement icon
+        { 
+            Border_Bottom 0 
+            Border_Left 0 
+            Border_Right 0 
+            Border_Top 0 
+            Texture qgui.treeview.icon.folder.png
+            TileBackground false
+            TileBorders false 
+        } 
+
+	SkinElement selected
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.toolbar.background.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+}
+
+SkinClass RadioButton
+{ 
+    SkinType default 
+    { 
+        SkinElement selected
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.radiobutton.selected.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+        SkinElement selected_down
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.radiobutton.selected.down.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+        SkinElement selected_over
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.radiobutton.selected.over.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+        SkinElement unselected
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.radiobutton.unselected.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+        SkinElement unselected_down
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.radiobutton.unselected.down.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+        SkinElement unselected_over
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.radiobutton.unselected.over.png
+            TileBackground false 
+            TileBorders false
+        } 
+    } 
+
+    SkinType default.treeviewradiobuttonnode
+    { 
+        SkinElement selected
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.treeview.type.radiobutton.selected.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+        SkinElement selected_down
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.treeview.type.radiobutton.selected.down.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+        SkinElement selected_over
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.treeview.type.radiobutton.selected.over.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+        SkinElement unselected
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.treeview.type.radiobutton.unselected.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+        SkinElement unselected_down
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.treeview.type.radiobutton.unselected.down.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+        SkinElement unselected_over
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.treeview.type.radiobutton.unselected.over.png
+            TileBackground false 
+            TileBorders false
+        } 
+
+    } 
+
+}
+
+SkinClass Sheet
+{ 
+    SkinType default 
+    { 
+        ComponentType hscrollbar
+        {
+            ClassName HScrollBar
+            SkinType default
+        }
+
+        ComponentType vscrollbar
+        {
+            ClassName VScrollBar
+            SkinType default
+        }
+
+        SkinElement background
+        { 
+        } 
+
+    } 
+
+}
+
+SkinClass Tab
+{ 
+    SkinType default 
+    { 
+        SkinElement front
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 0
+            Border_Top 0
+            Texture qgui.tab.front.png 
+            TileBackground false 
+            TileBorders true 
+        } 
+
+        SkinElement main
+        { 
+            Border_Bottom 0
+            Border_Left 0
+            Border_Right 5
+            Border_Top 0
+            Texture qgui.tab.main.png 
+            TileBackground false 
+            TileBorders false 
+        } 
+    } 
+
+}
+
+SkinClass TabControl
+{ 
+    SkinType default 
+    { 
+        SkinElement background
+        { 
+            Border_Bottom 10 
+            Border_Left 10 
+            Border_Right 10 
+            Border_Top 10 
+            Texture qgui.panel.png 
+            TileBackground true 
+            TileBorders false
+        } 
+
+    } 
+
+}
+
+SkinClass TabPage
+{ 
+    SkinType default 
+    { 
+        ComponentType tab
+        {
+            ClassName Tab
+            SkinType default
+        }
+
+        ComponentType tab_disabled
+        {
+            ClassName Tab
+            SkinType default
+        }
+
+        ComponentType tab_over
+        {
+            ClassName Tab
+            SkinType default
+        }
+
+        ComponentType tab_selected
+        {
+            ClassName Tab
+            SkinType default
+        }
+
+        ComponentType page
+        {
+            ClassName Panel
+            SkinType default
+        }
+    } 
+
+}
+
+SkinClass TextArea
+{ 
+    SkinType default 
+    { 
+        ComponentType hscrollbar
+        {
+            ClassName HScrollBar
+            SkinType default
+        }
+
+        ComponentType vscrollbar
+        {
+            ClassName VScrollBar
+            SkinType default
+        }
+
+
+        SkinElement background
+        { 
+            Border_Bottom 12 
+            Border_Left 12 
+            Border_Right 12 
+            Border_Top 12 
+            Texture qgui.panel.png 
+            TileBackground true 
+            TileBorders true
+        } 
+
+	SkinElement textoverlay
+        {
+        } 
+
+    } 
+
+}
+
+SkinClass TextBox
+{ 
+    SkinType default 
+    { 
+
+        SkinElement background
+        { 
+            Border_Bottom 3 
+            Border_Left 3 
+            Border_Right 3 
+            Border_Top 3 
+            Texture qgui.textbox.png
+            TileBackground true 
+            TileBorders false 
+        } 
+
+	SkinElement textoverlay
+        {
+        } 
+
+    } 
+
+}
+
+SkinClass TextCursor
+{ 
+    SkinType default 
+    { 
+        SkinElement background
+        { 
+            Border_Bottom 0 
+            Border_Left 0 
+            Border_Right 0 
+            Border_Top 0 
+            Texture qgui.cursor.textselect.png
+            TileBackground false 
+            TileBorders false 
+        } 
+    } 
+
+    SkinType test
+    { 
+        SkinElement background
+        { 
+            Border_Bottom 0 
+            Border_Left 0 
+            Border_Right 0 
+            Border_Top 0 
+            Texture qgui.cursor.textselect2.png
+            TileBackground false 
+            TileBorders false 
+        } 
+    } 
+
+}
+
+SkinClass TitleBar
+{ 
+    SkinType default 
+    { 
+        ComponentType close_button
+        {
+            ClassName Button
+            SkinType default.close
+        }
+        
+        SkinElement background
+        { 
+            Border_Bottom 1
+            Border_Left 1
+            Border_Right 1
+            Border_Top 1
+            Texture qgui.window.titlebar.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+}
+
+SkinClass ToolBar
+{ 
+    SkinType default 
+    { 
+        SkinElement background
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.toolbar.background.png 
+            TileBackground true 
+            TileBorders true 
+        } 
+
+    } 
+
+}
+
+SkinClass TreeView
+{ 
+    SkinType default 
+    { 
+        ComponentType hscrollbar
+        {
+            ClassName HScrollBar
+            SkinType default
+        }
+
+        ComponentType vscrollbar
+        {
+            ClassName VScrollBar
+            SkinType default
+        }
+
+        ComponentType expand
+        {
+            ClassName Button
+            SkinType default.treeviewnode.expand
+        }
+
+        ComponentType minimize
+        {
+            ClassName Button
+            SkinType default.treeviewnode.minimize
+        }
+
+
+        SkinElement background
+        { 
+            Border_Bottom 10 
+            Border_Left 10 
+            Border_Right 10 
+            Border_Top 10 
+            Texture qgui.panel.png 
+            TileBackground true 
+            TileBorders false 
+        } 
+
+    } 
+
+}
+
+SkinClass TreeViewCheckBoxNode
+{ 
+    SkinType default 
+    { 
+        ComponentType checkbox
+        {
+            ClassName CheckBox
+            SkinType default.treeviewcheckboxnode
+        }
+
+        SkinElement background
+        { 
+            Border_Bottom 1 
+            Border_Left 1 
+            Border_Right 1 
+            Border_Top 1 
+            Texture qgui.label.png 
+            TileBackground false 
+            TileBorders true 
+        } 
+
+	SkinElement icon
+        { 
+            Border_Bottom 0 
+            Border_Left 0 
+            Border_Right 0 
+            Border_Top 0 
+            Texture qgui.treeview.icon.folder.png
+            TileBackground false
+            TileBorders false 
+        } 
+
+	SkinElement selected
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.toolbar.background.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+}
+
+SkinClass TreeViewNode
+{ 
+    SkinType default 
+    { 
+        SkinElement background
+        { 
+            Border_Bottom 1 
+            Border_Left 1 
+            Border_Right 1 
+            Border_Top 1 
+            Texture qgui.label.png 
+            TileBackground false 
+            TileBorders true 
+        } 
+
+	SkinElement icon
+        { 
+            Border_Bottom 0 
+            Border_Left 0 
+            Border_Right 0 
+            Border_Top 0 
+            Texture qgui.treeview.icon.folder.png
+            TileBackground false
+            TileBorders false 
+        } 
+
+	SkinElement selected
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.toolbar.background.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+}
+
+SkinClass TreeViewRadioButtonNode
+{ 
+    SkinType default 
+    { 
+        ComponentType radiobutton
+        {
+            ClassName RadioButton
+            SkinType default.treeviewradiobuttonnode
+        }
+
+        SkinElement background
+        { 
+            Border_Bottom 1 
+            Border_Left 1 
+            Border_Right 1 
+            Border_Top 1 
+            Texture qgui.label.png 
+            TileBackground false 
+            TileBorders true 
+        } 
+
+	SkinElement icon
+        { 
+            Border_Bottom 0 
+            Border_Left 0 
+            Border_Right 0 
+            Border_Top 0 
+            Texture qgui.treeview.icon.folder.png
+            TileBackground false
+            TileBorders false 
+        } 
+
+	SkinElement selected
+        { 
+            Border_Bottom 2 
+            Border_Left 2 
+            Border_Right 2 
+            Border_Top 2 
+            Texture qgui.toolbar.background.png
+            TileBackground false 
+            TileBorders true 
+        } 
+
+    } 
+
+}
+
+SkinClass VScrollBar
+{ 
+    SkinType default 
+    { 
+        ComponentType up1
+        {
+            ClassName Button
+            SkinType default.vscrollup
+        }
+
+        ComponentType up2
+        {
+            ClassName Button
+            SkinType default.vscrollup
+        }
+
+        ComponentType down1
+        {
+            ClassName Button
+            SkinType default.vscrolldown
+        }
+
+        ComponentType down2
+        {
+            ClassName Button
+            SkinType default.vscrolldown
+        }
+
+        ComponentType slider
+        {
+            ClassName Button
+            SkinType default.vslider
+        }
+
+        SkinElement bar
+        { 
+            Border_Bottom 1 
+            Border_Left 1 
+            Border_Right 1 
+            Border_Top 1 
+            Texture qgui.scrollbar.vertical.png
+            TileBackground false 
+            TileBorders true 
+        } 
+    } 
+
+}
+
+SkinClass Window
+{ 
+    SkinType default 
+    { 
+        ComponentType hscrollbar
+        {
+            ClassName HScrollBar
+            SkinType default
+        }
+
+        ComponentType vscrollbar
+        {
+            ClassName VScrollBar
+            SkinType default
+        }
+
+        ComponentType titlebar
+        {
+            ClassName TitleBar
+            SkinType default
+        }
+        
+        SkinElement background
+        { 
+            Border_Bottom 10 
+            Border_Left 10 
+            Border_Right 10 
+            Border_Top 10 
+            Texture qgui.window.png 
+            TileBackground true 
+            TileBorders true 
+        } 
+
+    } 
+
+}
