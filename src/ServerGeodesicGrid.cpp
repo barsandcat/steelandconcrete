@@ -5,6 +5,12 @@
 
 ServerGeodesicGrid::ServerGeodesicGrid(int aSize)
 {
+    // 2    600
+    // 3   2000
+    // 4  10000
+    // 5  40000
+    // 6 160000
+
     const Ogre::Real phi = (1.0f + sqrt(5.0f)) / 2.0f;
     int tileCount = (int)(5.0f * pow(2.0f, 2 * aSize + 3)) + 2;
     int edgeCount = tileCount * 6 / 2;

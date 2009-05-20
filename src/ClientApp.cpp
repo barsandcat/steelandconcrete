@@ -19,112 +19,122 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         mSceneMgr(NULL)
 {
     task::initialize(task::normal_stack);
-    mRoot = new Ogre::Root("", "", "Ogre.log");
 
-    // Gl renedr system
-    mGLPlugin = new Ogre::GLPlugin();
-    mRoot->installPlugin(mGLPlugin);
-
-    // Octree scene manager
-    mOctreePlugin = new Ogre::OctreePlugin();
-    mRoot->installPlugin(mOctreePlugin);
-
-    // Register resources
-    QuickGUI::registerScriptReader();
-    Ogre::ConfigFile cf;
-    cf.load(aConfigFile);
-    Ogre::ConfigFile::SettingsIterator i = cf.getSettingsIterator("Resources");
-    while (i.hasMoreElements())
     {
-        Ogre::String name = i.peekNextKey();
-        Ogre::String value = i.peekNextValue();
-        Ogre::ResourceGroupManager::getSingleton().addResourceLocation(value, name);
-        i.moveNext();
+        mRoot = new Ogre::Root("", "", "Ogre.log");
+        GetLog() << "Init OGRE";
+
+        // Gl renedr system
+        mGLPlugin = new Ogre::GLPlugin();
+        mRoot->installPlugin(mGLPlugin);
+
+        // Octree scene manager
+        mOctreePlugin = new Ogre::OctreePlugin();
+        mRoot->installPlugin(mOctreePlugin);
+
+        // Register resources
+        QuickGUI::registerScriptReader();
+        Ogre::ConfigFile cf;
+        cf.load(aConfigFile);
+        Ogre::ConfigFile::SettingsIterator i = cf.getSettingsIterator("Resources");
+        while (i.hasMoreElements())
+        {
+            Ogre::String name = i.peekNextKey();
+            Ogre::String value = i.peekNextValue();
+            Ogre::ResourceGroupManager::getSingleton().addResourceLocation(value, name);
+            i.moveNext();
+        }
+
+
+        Ogre::RenderSystem * renderSystem = mRoot->getRenderSystemByName("OpenGL Rendering Subsystem");
+        mRoot->setRenderSystem(renderSystem);
+
+        Ogre::ConfigFile::SettingsIterator j = cf.getSettingsIterator("OpenGL Rendering Subsystem");
+        while (j.hasMoreElements())
+        {
+            Ogre::String name = j.peekNextKey();
+            Ogre::String value = j.peekNextValue();
+            renderSystem->setConfigOption(name, value);
+            GetLog() << name << " " << value;
+            j.moveNext();
+        }
+
+        // Here we choose to let the system create a default rendering window by passing 'true'
+        mRoot->initialise(false);
+        mWindow = mRoot->createRenderWindow("Steel and concrete", 800, 600, false);
+        // Set default mipmap level (NB some APIs ignore this)
+        Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
+
+        Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+
+        mWindowEventListener = new OgreWindowCallback(*this);
+        Ogre::WindowEventUtilities::addWindowEventListener(mWindow, mWindowEventListener);
+
+        // Scene manager
+        mSceneMgr = OgreRoot().createSceneManager(Ogre::ST_EXTERIOR_CLOSE, "EgoView");
+        mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_NONE);
+        mSceneMgr->setAmbientLight(Ogre::ColourValue::White);
+
+        // Create the camera
+        mBirdCamera = new BirdCamera(mSceneMgr, Window());
+    }
+
+    {
+        GetLog() << "Init OIS";
+        OIS::ParamList pl;
+        size_t windowHnd = 0;
+        std::ostringstream windowHndStr;
+
+        mWindow->getCustomAttribute("WINDOW", &windowHnd);
+        windowHndStr << windowHnd;
+        pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
+        pl.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_FOREGROUND")));
+        pl.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_NONEXCLUSIVE")));
+        pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_FOREGROUND")));
+        pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_NONEXCLUSIVE")));
+        pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
+        pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("false")));
+
+        mInputManager = OIS::InputManager::createInputSystem(pl);
+
+        //Create all devices (We only catch joystick exceptions here, as, most people have Key/Mouse)
+        mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject(OIS::OISKeyboard, true));
+        mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject(OIS::OISMouse, true));
+        try
+        {
+            mJoy = static_cast<OIS::JoyStick*>(mInputManager->createInputObject(OIS::OISJoyStick, true));
+        }
+        catch (...)
+        {
+            mJoy = NULL;
+        }
+
+        //Set initial mouse clipping size
+        UpdateOISMouseClipping(mWindow);
+    }
+
+    {
+        GetLog() << "Init OgreAL";
+        mSoundManager = new OgreAL::SoundManager();
+    }
+
+    {
+        GetLog() << "Init QuickGUI";
+
+        mDebugOverlay = Ogre::OverlayManager::getSingleton().getByName("Core/DebugOverlay");
+        ShowDebugOverlay(true);
+
+        new QuickGUI::Root();
+        QuickGUI::SkinTypeManager::getSingleton().loadTypes();
+
+        QuickGUI::GUIManagerDesc d;
+        d.sceneManager = mSceneMgr;
+        d.viewport = mBirdCamera->GetViewPort();
+        d.queueID = Ogre::RENDER_QUEUE_OVERLAY;
+        mGUIManager = QuickGUI::Root::getSingletonPtr()->createGUIManager(d);
     }
 
 
-    Ogre::RenderSystem * renderSystem = mRoot->getRenderSystemByName("OpenGL Rendering Subsystem");
-    mRoot->setRenderSystem(renderSystem);
-
-    Ogre::ConfigFile::SettingsIterator j = cf.getSettingsIterator("OpenGL Rendering Subsystem");
-    while (j.hasMoreElements())
-    {
-        Ogre::String name = j.peekNextKey();
-        Ogre::String value = j.peekNextValue();
-        renderSystem->setConfigOption(name, value);
-        GetLog() << name << " " << value;
-        j.moveNext();
-    }
-
-    // Here we choose to let the system create a default rendering window by passing 'true'
-    mRoot->initialise(false);
-
-    mWindow = mRoot->createRenderWindow("Steel and concrete", 800, 600, false);
-
-    // Set default mipmap level (NB some APIs ignore this)
-    Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
-
-    mSoundManager = new OgreAL::SoundManager();
-
-    Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
-
-    // GUI initialization
-    new QuickGUI::Root();
-    QuickGUI::SkinTypeManager::getSingleton().loadTypes();
-
-    mDebugOverlay = Ogre::OverlayManager::getSingleton().getByName("Core/DebugOverlay");
-
-    GetLog() << "*** Initializing OIS ***";
-
-    OIS::ParamList pl;
-    size_t windowHnd = 0;
-    std::ostringstream windowHndStr;
-
-    mWindow->getCustomAttribute("WINDOW", &windowHnd);
-    windowHndStr << windowHnd;
-    pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
-    pl.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_FOREGROUND")));
-    pl.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_NONEXCLUSIVE")));
-    pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_FOREGROUND")));
-    pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_NONEXCLUSIVE")));
-    pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
-    pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("false")));
-
-    mInputManager = OIS::InputManager::createInputSystem(pl);
-
-    //Create all devices (We only catch joystick exceptions here, as, most people have Key/Mouse)
-    mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject(OIS::OISKeyboard, true));
-    mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject(OIS::OISMouse, true));
-    try
-    {
-        mJoy = static_cast<OIS::JoyStick*>(mInputManager->createInputObject(OIS::OISJoyStick, true));
-    }
-    catch (...)
-    {
-        mJoy = NULL;
-    }
-
-    //Set initial mouse clipping size
-    UpdateOISMouseClipping(mWindow);
-
-    ShowDebugOverlay(true);
-
-    mWindowEventListener = new OgreWindowCallback(*this);
-    Ogre::WindowEventUtilities::addWindowEventListener(mWindow, mWindowEventListener);
-
-    QuickGUI::GUIManagerDesc d;
-//    d.sceneManager = mSceneManager;
-//    d.viewport = mCamera->getViewport();
-    d.queueID = Ogre::RENDER_QUEUE_OVERLAY;
-    mGUIManager = QuickGUI::Root::getSingletonPtr()->createGUIManager(d);
-
-
-
-    // 2    600
-    // 3   2000
-    // 4  10000
-    // 5  40000
-    // 6 160000
 
     socket_t* sock = socket_t::connect("localhost:4512");
 
@@ -310,7 +320,7 @@ void ClientApp::UpdateStats()
 
 bool ClientApp::mouseMoved(const OIS::MouseEvent &arg)
 {
-	return true;
+    return true;
 }
 
 void ClientApp::UpdateSelectedTilePosition(const OIS::MouseState &aState)
@@ -404,14 +414,6 @@ void ClientApp::Frame(unsigned long aFrameTime)
 
 void ClientApp::EgoView()
 {
-    // Scene manager
-    mSceneMgr = OgreRoot().createSceneManager(Ogre::ST_EXTERIOR_CLOSE, "EgoView");
-    mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_NONE);
-    mSceneMgr->setAmbientLight(Ogre::ColourValue::White);
-
-    // Create the camera
-    mBirdCamera = new BirdCamera(mSceneMgr, Window());
-
     // Planet
     Ogre::StaticGeometry* staticPlanet = mGame->GetGrid().ConstructStaticGeometry(*mSceneMgr);
     assert(staticPlanet);
