@@ -18,12 +18,7 @@ public:
     void MainLoop();
     void UpdateOISMouseClipping(Ogre::RenderWindow* rw);
     void DestroyOIS(Ogre::RenderWindow* rw);
-    Ogre::Root& OgreRoot();
-    Ogre::RenderWindow& Window();
-    OgreAL::SoundManager& SoundManager();
     void Quit();
-    ClientGame* GetGame() const { return mGame; }
-    OIS::Mouse* GetMouse() const { return mMouse; }
     void Frame(unsigned long aFrameTime);
     bool buttonPressed(const OIS::JoyStickEvent &arg, int button)
     {
@@ -61,12 +56,7 @@ private:
 
     ClientGame* mGame;
     BirdCamera* mBirdCamera;
-    ClientTile* mSelectedTile;
-    Ogre::SceneNode* mSelectionMarker;
     Ogre::SceneManager* mSceneMgr;
-    void EgoView();
-    void DeleteEgoView();
-    void UpdateSelectedTilePosition(const OIS::MouseState &aState);
     void ShowDebugOverlay(bool show);
     void UpdateStats();
 };

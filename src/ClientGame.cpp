@@ -5,7 +5,7 @@
 #include <Network.h>
 #include <ClientLog.h>
 
-ClientGame::ClientGame(ClientApp& aApp, socket_t& aSocket): mApp(aApp), mSocket(aSocket), mGrid(aSocket)
+ClientGame::ClientGame(Ogre::SceneManager& aSceneMgr, socket_t& aSocket): mSceneMgr(aSceneMgr), mSocket(aSocket), mGrid(aSocket)
 {
     UnitCountMsg unitCount;
     ReadMessage(aSocket, unitCount);
@@ -21,6 +21,28 @@ ClientGame::ClientGame(ClientApp& aApp, socket_t& aSocket): mApp(aApp), mSocket(
         ));
     }
     GetLog() << "Recived all units";
+
+    // Planet
+    Ogre::StaticGeometry* staticPlanet = mGrid.ConstructStaticGeometry(mSceneMgr);
+    assert(staticPlanet);
+    //mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(mApp.GetPlanet()->ConstructDebugMesh());
+
+    // Units
+    CreateUnitEntities();
+
+    // Create a light
+    Ogre::Light* myLight = mSceneMgr.createLight("Light0");
+    myLight->setType(Ogre::Light::LT_DIRECTIONAL);
+    myLight->setPosition(50, 0, 0);
+    myLight->setDirection(-1, 0, 0);
+    myLight->setDiffuseColour(1, 1, 1);
+    myLight->setSpecularColour(1, 1, 1);
+
+    mSelectedTile = &mGrid.GetTile(0);
+    mSelectionMarker = mSceneMgr.getRootSceneNode()->createChildSceneNode();
+    mSelectionMarker->attachObject(mSceneMgr.createEntity("Marker", Ogre::SceneManager::PT_SPHERE));
+    mSelectionMarker->setScale(Ogre::Vector3(0.001));
+
 }
 
 ClientGame::~ClientGame()
@@ -29,11 +51,25 @@ ClientGame::~ClientGame()
     delete &mSocket;
 }
 
-void ClientGame::CreateUnitEntities(Ogre::SceneManager& aSceneManager) const
+void ClientGame::CreateUnitEntities() const
 {
     std::map< int, ClientUnit* >::const_iterator i = mUnits.begin();
     for (; i != mUnits.end(); ++i)
     {
-        i->second->CreateEntity(aSceneManager);
+        i->second->CreateEntity(mSceneMgr);
     }
 }
+
+void ClientGame::UpdateSelectedTilePosition(Ogre::Ray& aRay)
+{
+    Ogre::Sphere sphere(Ogre::Vector3::ZERO, 1.0f);
+    std::pair<bool, Ogre::Real> res = aRay.intersects(sphere);
+    if (res.first)
+    {
+        Ogre::Vector3 position(aRay.getPoint(res.second));
+        mSelectedTile = mSelectedTile->GetTileAtPosition(position);
+        mSelectionMarker->setPosition(mSelectedTile->GetPosition());
+    }
+    mSelectionMarker->setVisible(res.first);
+}
+

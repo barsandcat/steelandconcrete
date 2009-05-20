@@ -10,17 +10,19 @@ class ClientApp;
 class ClientGame
 {
 public:
-    ClientGame(ClientApp& aApp, socket_t& aSocket);
+    ClientGame(Ogre::SceneManager& aSceneMgr, socket_t& aSocket);
     ~ClientGame();
     ClientGeodesicGrid& GetGrid() { return mGrid; }
-    ClientApp& GetApp() { return mApp; }
-    void CreateUnitEntities(Ogre::SceneManager& aSceneManager) const;
+    void UpdateSelectedTilePosition(Ogre::Ray& aRay);
 protected:
 private:
-    ClientApp& mApp;
+    Ogre::SceneManager& mSceneMgr;
     socket_t& mSocket;
     ClientGeodesicGrid mGrid;
     std::map< int, ClientUnit* > mUnits;
+    ClientTile* mSelectedTile;
+    Ogre::SceneNode* mSelectionMarker;
+    void CreateUnitEntities() const;
 };
 
 #endif // CLIENTGAME_H

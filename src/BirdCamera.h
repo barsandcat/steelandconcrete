@@ -18,7 +18,7 @@ public:
     void ZoomIn() { mZoomSpeed -= zoomAcceleration; }
     void ZoomOut() { mZoomSpeed += zoomAcceleration; }
     void UpdatePosition(unsigned long aTime);
-    void MouseToRay(const OIS::MouseState &aState, Ogre::Ray* aRay) const;
+    Ogre::Ray MouseToRay(const OIS::MouseState &aState) const;
     Ogre::Viewport* GetViewPort() const { return mViewPort; }
     ~BirdCamera();
 protected:

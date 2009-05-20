@@ -71,12 +71,12 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         Ogre::WindowEventUtilities::addWindowEventListener(mWindow, mWindowEventListener);
 
         // Scene manager
-        mSceneMgr = OgreRoot().createSceneManager(Ogre::ST_EXTERIOR_CLOSE, "EgoView");
+        mSceneMgr = mRoot->createSceneManager(Ogre::ST_EXTERIOR_CLOSE, "EgoView");
         mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_NONE);
         mSceneMgr->setAmbientLight(Ogre::ColourValue::White);
 
         // Create the camera
-        mBirdCamera = new BirdCamera(mSceneMgr, Window());
+        mBirdCamera = new BirdCamera(mSceneMgr, *mWindow);
     }
 
     {
@@ -111,6 +111,9 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
 
         //Set initial mouse clipping size
         UpdateOISMouseClipping(mWindow);
+
+        mMouse->setEventCallback(this);
+        mKeyboard->setEventCallback(this);
     }
 
     {
@@ -140,18 +143,20 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
 
     if (sock && sock->is_ok())
     {
-        mGame = new ClientGame(*this, *sock);
         GetLog() << "Connected";
-        EgoView();
-        mMouse->setEventCallback(this);
-        mKeyboard->setEventCallback(this);
+        mGame = new ClientGame(*mSceneMgr, *sock);
     }
 }
 
 ClientApp::~ClientApp()
 {
-    DeleteEgoView();
     GetLog() << "App destructor";
+
+    delete mBirdCamera;
+    mBirdCamera = NULL;
+    mSoundManager->destroyAllSounds();
+    mRoot->destroySceneManager(mSceneMgr);
+
 
     delete mSoundManager;
     mSoundManager = NULL;
@@ -177,17 +182,6 @@ ClientApp::~ClientApp()
     delete mGLPlugin;
     mGLPlugin = NULL;
 }
-
-Ogre::Root & ClientApp::OgreRoot()
-{
-    return *mRoot;
-}
-
-OgreAL::SoundManager & ClientApp::SoundManager()
-{
-    return *mSoundManager;
-}
-
 
 void ClientApp::MainLoop()
 {
@@ -223,11 +217,6 @@ void ClientApp::MainLoop()
     }
     GetLog() << "*** The End ***";
 
-}
-
-Ogre::RenderWindow & ClientApp::Window()
-{
-    return *mWindow;
 }
 
 void ClientApp::UpdateOISMouseClipping(Ogre::RenderWindow* rw)
@@ -323,22 +312,6 @@ bool ClientApp::mouseMoved(const OIS::MouseEvent &arg)
     return true;
 }
 
-void ClientApp::UpdateSelectedTilePosition(const OIS::MouseState &aState)
-{
-    Ogre::Ray ray;
-    Ogre::Sphere sphere(Ogre::Vector3::ZERO, 1.0f);
-
-    mBirdCamera->MouseToRay(aState, &ray);
-
-    std::pair<bool, Ogre::Real> res = ray.intersects(sphere);
-    if (res.first)
-    {
-        Ogre::Vector3 position(ray.getPoint(res.second));
-        mSelectedTile = mSelectedTile->GetTileAtPosition(position);
-        mSelectionMarker->setPosition(mSelectedTile->GetPosition());
-    }
-    mSelectionMarker->setVisible(res.first);
-}
 
 bool ClientApp::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
@@ -409,41 +382,6 @@ void ClientApp::Frame(unsigned long aFrameTime)
 {
     // Camera movement
     mBirdCamera->UpdatePosition(aFrameTime);
-    UpdateSelectedTilePosition(GetMouse()->getMouseState());
-}
-
-void ClientApp::EgoView()
-{
-    // Planet
-    Ogre::StaticGeometry* staticPlanet = mGame->GetGrid().ConstructStaticGeometry(*mSceneMgr);
-    assert(staticPlanet);
-    //mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(mApp.GetPlanet()->ConstructDebugMesh());
-
-    // Units
-    mGame->CreateUnitEntities(*mSceneMgr);
-
-
-    // Create a light
-    Ogre::Light* myLight = mSceneMgr->createLight("Light0");
-    myLight->setType(Ogre::Light::LT_DIRECTIONAL);
-    myLight->setPosition(50, 0, 0);
-    myLight->setDirection(-1, 0, 0);
-    myLight->setDiffuseColour(1, 1, 1);
-    myLight->setSpecularColour(1, 1, 1);
-
-    mSelectedTile = &mGame->GetGrid().GetTile(0);
-    mSelectionMarker = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-    mSelectionMarker->attachObject(mSceneMgr->createEntity("Marker", Ogre::SceneManager::PT_SPHERE));
-    mSelectionMarker->setScale(Ogre::Vector3(0.001));
-
-    GetLog() << "EgoView ready";
-}
-
-
-void ClientApp::DeleteEgoView()
-{
-    delete mBirdCamera;
-    mBirdCamera = NULL;
-    SoundManager().destroyAllSounds();
-    OgreRoot().destroySceneManager(mSceneMgr);
+    Ogre::Ray ray = mBirdCamera->MouseToRay(mMouse->getMouseState());
+    mGame->UpdateSelectedTilePosition(ray);
 }
