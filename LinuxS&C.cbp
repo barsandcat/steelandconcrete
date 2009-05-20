@@ -109,8 +109,6 @@
 		<Unit filename="src/ClientTile.h" />
 		<Unit filename="src/ClientUnit.cpp" />
 		<Unit filename="src/ClientUnit.h" />
-		<Unit filename="src/EgoView.cpp" />
-		<Unit filename="src/EgoView.h" />
 		<Unit filename="src/Linux.cpp" />
 		<Unit filename="src/Network.cpp" />
 		<Unit filename="src/Network.h" />

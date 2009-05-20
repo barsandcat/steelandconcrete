@@ -1,6 +1,5 @@
 #include <pch.h>
 #include <ClientApp.h>
-#include <EgoView.h>
 #include <OgreOctreePlugin.h>
 #include <OgreGLPlugin.h>
 #include <sockio.h>
@@ -15,8 +14,9 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         mMouse(NULL),
         mKeyboard(NULL),
         mJoy(NULL),
-        mState(NULL),
-        mGame(NULL)
+        mGame(NULL),
+        mBirdCamera(NULL),
+        mSceneMgr(NULL)
 {
     task::initialize(task::normal_stack);
     mRoot = new Ogre::Root("", "", "Ogre.log");
@@ -132,15 +132,15 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     {
         mGame = new ClientGame(*this, *sock);
         GetLog() << "Connected";
-        mState = new EgoView(*mGame);
-        mMouse->setEventCallback(mState);
-        mKeyboard->setEventCallback(mState);
+        EgoView();
+        mMouse->setEventCallback(this);
+        mKeyboard->setEventCallback(this);
     }
 }
 
 ClientApp::~ClientApp()
 {
-    delete mState;
+    DeleteEgoView();
     GetLog() << "App destructor";
 
     delete mSoundManager;
@@ -197,7 +197,7 @@ void ClientApp::MainLoop()
             if (mJoy)
                 mJoy->capture();
 
-            mState->Frame(frameTime);
+            Frame(frameTime);
 
             UpdateStats();
             mRoot->renderOneFrame();
@@ -306,4 +306,142 @@ void ClientApp::UpdateStats()
     {
         /* ignore */
     }
+}
+
+bool ClientApp::mouseMoved(const OIS::MouseEvent &arg)
+{
+	return true;
+}
+
+void ClientApp::UpdateSelectedTilePosition(const OIS::MouseState &aState)
+{
+    Ogre::Ray ray;
+    Ogre::Sphere sphere(Ogre::Vector3::ZERO, 1.0f);
+
+    mBirdCamera->MouseToRay(aState, &ray);
+
+    std::pair<bool, Ogre::Real> res = ray.intersects(sphere);
+    if (res.first)
+    {
+        Ogre::Vector3 position(ray.getPoint(res.second));
+        mSelectedTile = mSelectedTile->GetTileAtPosition(position);
+        mSelectionMarker->setPosition(mSelectedTile->GetPosition());
+    }
+    mSelectionMarker->setVisible(res.first);
+}
+
+bool ClientApp::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
+{
+    return true;
+}
+bool ClientApp::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
+{
+    return true;
+}
+bool ClientApp::keyPressed(const OIS::KeyEvent &arg)
+{
+    switch (arg.key)
+    {
+    case OIS::KC_W:
+        mBirdCamera->Up();
+        break;
+    case OIS::KC_S:
+        mBirdCamera->Down();
+        break;
+    case OIS::KC_A:
+        mBirdCamera->Left();
+        break;
+    case OIS::KC_D:
+        mBirdCamera->Right();
+        break;
+    case OIS::KC_SUBTRACT:
+        mBirdCamera->ZoomOut();
+        break;
+    case OIS::KC_ADD:
+        mBirdCamera->ZoomIn();
+        break;
+    default:
+        ;
+
+    }
+    return true;
+}
+bool ClientApp::keyReleased(const OIS::KeyEvent &arg)
+{
+    switch (arg.key)
+    {
+    case OIS::KC_W:
+        mBirdCamera->Down();
+        break;
+    case OIS::KC_S:
+        mBirdCamera->Up();
+        break;
+    case OIS::KC_A:
+        mBirdCamera->Right();
+        break;
+    case OIS::KC_D:
+        mBirdCamera->Left();
+        break;
+    case OIS::KC_SUBTRACT:
+        mBirdCamera->ZoomIn();
+        break;
+    case OIS::KC_ADD:
+        mBirdCamera->ZoomOut();
+        break;
+    default:
+        ;
+    }
+    return true;
+}
+
+
+void ClientApp::Frame(unsigned long aFrameTime)
+{
+    // Camera movement
+    mBirdCamera->UpdatePosition(aFrameTime);
+    UpdateSelectedTilePosition(GetMouse()->getMouseState());
+}
+
+void ClientApp::EgoView()
+{
+    // Scene manager
+    mSceneMgr = OgreRoot().createSceneManager(Ogre::ST_EXTERIOR_CLOSE, "EgoView");
+    mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_NONE);
+    mSceneMgr->setAmbientLight(Ogre::ColourValue::White);
+
+    // Create the camera
+    mBirdCamera = new BirdCamera(mSceneMgr, Window());
+
+    // Planet
+    Ogre::StaticGeometry* staticPlanet = mGame->GetGrid().ConstructStaticGeometry(*mSceneMgr);
+    assert(staticPlanet);
+    //mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(mApp.GetPlanet()->ConstructDebugMesh());
+
+    // Units
+    mGame->CreateUnitEntities(*mSceneMgr);
+
+
+    // Create a light
+    Ogre::Light* myLight = mSceneMgr->createLight("Light0");
+    myLight->setType(Ogre::Light::LT_DIRECTIONAL);
+    myLight->setPosition(50, 0, 0);
+    myLight->setDirection(-1, 0, 0);
+    myLight->setDiffuseColour(1, 1, 1);
+    myLight->setSpecularColour(1, 1, 1);
+
+    mSelectedTile = &mGame->GetGrid().GetTile(0);
+    mSelectionMarker = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+    mSelectionMarker->attachObject(mSceneMgr->createEntity("Marker", Ogre::SceneManager::PT_SPHERE));
+    mSelectionMarker->setScale(Ogre::Vector3(0.001));
+
+    GetLog() << "EgoView ready";
+}
+
+
+void ClientApp::DeleteEgoView()
+{
+    delete mBirdCamera;
+    mBirdCamera = NULL;
+    SoundManager().destroyAllSounds();
+    OgreRoot().destroySceneManager(mSceneMgr);
 }
