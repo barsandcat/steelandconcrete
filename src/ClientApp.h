@@ -22,12 +22,10 @@ public:
     Ogre::Root& OgreRoot();
     Ogre::RenderWindow& Window();
     OgreAL::SoundManager& SoundManager();
-    BetaGUI::GUI& Gui();
     void Quit();
     ClientGame* GetGame() const { return mGame; }
     OIS::Mouse* GetMouse() const { return mMouse; }
 private:
-    BetaGUI::GUI* mGUI;
     QuickGUI::GUIManager* mGUIManager;
     Ogre::OverlayContainer* mPointer;
     Ogre::Root* mRoot;

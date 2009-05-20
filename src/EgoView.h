@@ -2,12 +2,11 @@
 #define EGOVIEW_H
 
 #include <Ogre.h>
-#include <BetaGUI.h>
 #include <BirdCamera.h>
 
 class ClientGame;
 
-class EgoView: public OIS::KeyListener, public OIS::MouseListener, public OIS::JoyStickListener, public BetaGUI::GUIListener
+class EgoView: public OIS::KeyListener, public OIS::MouseListener, public OIS::JoyStickListener
 {
 public:
     EgoView(ClientGame& aGame);
@@ -32,14 +31,11 @@ public:
     bool keyReleased(const OIS::KeyEvent& arg);
 protected:
 private:
-    BetaGUI::Window* mExitWindow;
-    BetaGUI::Button* mExitButton;
     ClientGame& mGame;
     BirdCamera* mBirdCamera;
     ClientTile* mSelectedTile;
     Ogre::SceneNode* mSelectionMarker;
     Ogre::SceneManager* mSceneMgr;
-    void OnButton(BetaGUI::Button*, BetaGUI::FocusState);
     void UpdateSelectedTilePosition(const OIS::MouseState &aState);
 };
 

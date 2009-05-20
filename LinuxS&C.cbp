@@ -93,8 +93,6 @@
 		<ExtraCommands>
 			<Add before="make -C src/proto -f Makefile.proto" />
 		</ExtraCommands>
-		<Unit filename="betagui2/BetaGUI.cpp" />
-		<Unit filename="betagui2/BetaGUI.h" />
 		<Unit filename="src/BirdCamera.cpp" />
 		<Unit filename="src/BirdCamera.h" />
 		<Unit filename="src/ClientApp.cpp" />

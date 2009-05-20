@@ -64,7 +64,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     // Set default mipmap level (NB some APIs ignore this)
     Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 
-    //mSoundManager = new OgreAL::SoundManager();
+    mSoundManager = new OgreAL::SoundManager();
 
     Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
@@ -89,7 +89,6 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_NONEXCLUSIVE")));
     pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
     pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("false")));
-    pl.insert(std::make_pair(std::string("XAutoRepeatOn"), std::string("true")));
 
     mInputManager = OIS::InputManager::createInputSystem(pl);
 
@@ -113,16 +112,6 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     mWindowEventListener = new OgreWindowCallback(*this);
     Ogre::WindowEventUtilities::addWindowEventListener(mWindow, mWindowEventListener);
 
-    mGUI = new BetaGUI::GUI(mWindow);
-    BetaGUI::Style* mBetaGUIStyle = mGUI->createStyle("betagui");
-    mBetaGUIStyle->mWindow_Background = "bgui.window";
-    mBetaGUIStyle->mFontFace = "MgOpen";
-    mBetaGUIStyle->addStyle("button", "background: bgui.button; text-align: center; font-size: 10; decal-size: 10;");
-    mBetaGUIStyle->addStyle("titlebar", "background: bgui.titlebar; font-size: 10;");
-    mBetaGUIStyle->addStyle("textinput", "background: bgui.textinput; font-size: 10; decal-size: 5;");
-
-    mPointer = mGUI->createMousePointer("bgui.pointer", 32, 32);
-
     QuickGUI::GUIManagerDesc d;
 //    d.sceneManager = mSceneManager;
 //    d.viewport = mCamera->getViewport();
@@ -143,9 +132,9 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     {
         mGame = new ClientGame(*this, *sock);
         GetLog() << "Connected";
-    mState = new EgoView(*mGame);
-    mMouse->setEventCallback(mState);
-    mKeyboard->setEventCallback(mState);
+        mState = new EgoView(*mGame);
+        mMouse->setEventCallback(mState);
+        mKeyboard->setEventCallback(mState);
     }
 }
 
@@ -154,7 +143,7 @@ ClientApp::~ClientApp()
     delete mState;
     GetLog() << "App destructor";
 
-    //delete mSoundManager;
+    delete mSoundManager;
     mSoundManager = NULL;
 
     DestroyOIS(mWindow);
@@ -229,12 +218,6 @@ void ClientApp::MainLoop()
 Ogre::RenderWindow & ClientApp::Window()
 {
     return *mWindow;
-}
-
-
-BetaGUI::GUI & ClientApp::Gui()
-{
-    return *mGUI;
 }
 
 void ClientApp::UpdateOISMouseClipping(Ogre::RenderWindow* rw)

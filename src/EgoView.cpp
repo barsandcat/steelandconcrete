@@ -35,11 +35,6 @@ EgoView::EgoView(ClientGame& aGame):
     myLight->setDiffuseColour(1, 1, 1);
     myLight->setSpecularColour(1, 1, 1);
 
-    // Create gui
-    mExitWindow = mGame.GetApp().Gui().createWindow(100, 100, 200, 200, "betagui", BetaGUI::WFT_MOVE, "EgoView", this);
-    BetaGUI::ButtonMethodPtr temp = static_cast<BetaGUI::ButtonMethodPtr>(&EgoView::OnButton);
-    mExitButton = mExitWindow->createButton(50, 50, "Pause", temp);
-
     mSelectedTile = &mGame.GetGrid().GetTile(0);
     mSelectionMarker = mSceneMgr->getRootSceneNode()->createChildSceneNode();
     mSelectionMarker->attachObject(mSceneMgr->createEntity("Marker", Ogre::SceneManager::PT_SPHERE));
@@ -53,18 +48,13 @@ EgoView::~EgoView()
 {
     delete mBirdCamera;
     mBirdCamera = NULL;
-    //mApp.SoundManager().destroyAllSounds();
-    mExitWindow->hide();
-    mGame.GetApp().Gui().destroyWindow(mExitWindow);
+    mGame.GetApp().SoundManager().destroyAllSounds();
     mGame.GetApp().OgreRoot().destroySceneManager(mSceneMgr);
 }
 
 
 bool EgoView::mouseMoved(const OIS::MouseEvent &arg)
 {
-    mGame.GetApp().Gui().injectMouse(Ogre::Real(arg.state.X.abs),
-                           Ogre::Real(arg.state.Y.abs),
-                           arg.state.buttonDown(OIS::MB_Left));
 	return true;
 }
 
@@ -87,18 +77,10 @@ void EgoView::UpdateSelectedTilePosition(const OIS::MouseState &aState)
 
 bool EgoView::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
-    mGame.GetApp().Gui().injectMouse(
-        static_cast<Ogre::Real>(arg.state.X.abs),
-        static_cast<Ogre::Real>(arg.state.Y.abs),
-        arg.state.buttonDown(OIS::MB_Left));
     return true;
 }
 bool EgoView::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
-    mGame.GetApp().Gui().injectMouse(
-        static_cast<Ogre::Real>(arg.state.X.abs),
-        static_cast<Ogre::Real>(arg.state.Y.abs),
-        arg.state.buttonDown(OIS::MB_Left));
     return true;
 }
 bool EgoView::keyPressed(const OIS::KeyEvent &arg)
@@ -164,9 +146,3 @@ void EgoView::Frame(unsigned long aFrameTime)
     mBirdCamera->UpdatePosition(aFrameTime);
     UpdateSelectedTilePosition(mGame.GetApp().GetMouse()->getMouseState());
 }
-
-
-void EgoView::OnButton(BetaGUI::Button*, BetaGUI::FocusState)
-{
-}
-

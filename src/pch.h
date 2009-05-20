@@ -18,7 +18,6 @@
 #pragma warning(pop)
 #endif
 
-#include <BetaGUI.h>
 #include <stdexcept>
 
 #endif // PCH_H
