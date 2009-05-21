@@ -44,7 +44,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;..\..\..\ogre\OgreMain\include;&quot;$(OPENAL_SDK)/include&quot;;../include;../../ogg/include;../../vorbis/include"
-				PreprocessorDefinitions="OGREAL_EXPORT"
+				PreprocessorDefinitions="OGREAL_EXPORT;OGRE_STATIC_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -112,7 +112,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;..\..\..\ogre\OgreMain\include;&quot;$(OPENAL_SDK)/include&quot;;../include;../../ogg/include;../../vorbis/include"
-				PreprocessorDefinitions="OGREAL_EXPORT"
+				PreprocessorDefinitions="OGREAL_EXPORT;OGRE_STATIC_LIB"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"

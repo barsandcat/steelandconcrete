@@ -53,7 +53,7 @@
 				AdditionalOptions="/Zm200"
 				Optimization="0"
 				AdditionalIncludeDirectories="QuickGUI_9_05\QuickGUI\include;SAL;&quot;protobuf-2.0.3\src&quot;;ois\includes;src;betagui2;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre\OgreMain\include;ogre\RenderSystems\GL\src\GLSL\include;ogre\RenderSystems\GL\include;ogre\PlugIns\OctreeSceneManager\include;ogreal\ogreal\include;src\proto"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MVC;OGRE_STATIC_LIB"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MVC;OGRE_STATIC_LIB;OGREAL_EXPORT"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -77,7 +77,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="FreeImage\Source\FreeImageLib\Debug\FreeImaged.lib FreeImage\Source\LibJPEG\Debug\LibJPEG.lib FreeImage\Source\LibMNG\Debug\LibMNG.lib FreeImage\Source\LibOpenJPEG\Debug\LibOpenJPEG.lib FreeImage\Source\LibPNG\Debug\LibPNG.lib FreeImage\Source\LibTIFF\Debug\LibTIFF.lib FreeImage\Source\OpenEXR\Debug\OpenEXR.lib FreeImage\Source\ZLib\Debug\ZLib.lib freetype-2.3.8\objs\freetype238_D.lib ogre\lib\OgreMainStatic_d.lib ogre\lib\Plugin_OctreeSceneManagerStatic_d.lib ogre\lib\Plugin_ParticleFXStatic_d.lib ogre\lib\RenderSystem_GLStatic_d.lib ogreal\ogg\win32\Static_Debug\ogg_static_d.lib ogreal\vorbis\win32\Vorbis_Static_Debug\vorbis_static_d.lib ogreal\vorbis\win32\VorbisFile_Static_Debug\vorbisfile_static_d.lib ogreal\ogreal\OgreAL\Debug\OgreAL.lib OpenAL32.lib ois\lib\OIS_static_d.lib zziplib-0.13.50\msvc8\zziplib-Debug.lib protobuf-2.0.3\vsprojects\Debug\libprotobuf.lib SAL\SAL_d.lib wsock32.lib QuickGUI_9_05\bin\QuickGUI.lib"
+				AdditionalDependencies="FreeImage\Source\FreeImageLib\Debug\FreeImaged.lib FreeImage\Source\LibJPEG\Debug\LibJPEG.lib FreeImage\Source\LibMNG\Debug\LibMNG.lib FreeImage\Source\LibOpenJPEG\Debug\LibOpenJPEG.lib FreeImage\Source\LibPNG\Debug\LibPNG.lib FreeImage\Source\LibTIFF\Debug\LibTIFF.lib FreeImage\Source\OpenEXR\Debug\OpenEXR.lib FreeImage\Source\ZLib\Debug\ZLib.lib freetype-2.3.8\objs\freetype238_D.lib ogre\lib\OgreMainStatic_d.lib ogre\lib\Plugin_OctreeSceneManagerStatic_d.lib ogre\lib\Plugin_ParticleFXStatic_d.lib ogre\lib\RenderSystem_GLStatic_d.lib ogreal\ogg\win32\Static_Debug\ogg_static_d.lib ogreal\vorbis\win32\Vorbis_Static_Debug\vorbis_static_d.lib ogreal\vorbis\win32\VorbisFile_Static_Debug\vorbisfile_static_d.lib ogreal\ogreal\OgreAL\Debug\OgreAL.lib OpenAL32.lib ois\lib\OIS_static_d.lib zziplib-0.13.50\msvc8\zziplib-Debug.lib protobuf-2.0.3\vsprojects\Debug\libprotobuf.lib SAL\SAL_d.lib wsock32.lib QuickGUI_9_05\bin\QuickGUI_d.lib"
 				ShowProgress="2"
 				OutputFile="$(OutDir)/steelandconcrete_d.exe"
 				LinkIncremental="2"
@@ -154,7 +154,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				AdditionalIncludeDirectories="QuickGUI_9_05\QuickGUI\include;SAL;&quot;protobuf-2.0.3\src&quot;;ois\includes;src;betagui2;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre\OgreMain\include;ogre\RenderSystems\GL\src\GLSL\include;ogre\RenderSystems\GL\include;ogre\PlugIns\OctreeSceneManager\include;ogreal\ogreal\include;src\proto"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;MVC;OGRE_STATIC_LIB"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;MVC;OGRE_STATIC_LIB;OGREAL_EXPORT"
 				StringPooling="true"
 				MinimalRebuild="true"
 				RuntimeLibrary="0"
@@ -179,7 +179,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="FreeImage\Source\FreeImageLib\Release\FreeImage.lib FreeImage\Source\LibJPEG\Release\LibJPEG.lib FreeImage\Source\LibMNG\Release\LibMNG.lib FreeImage\Source\LibOpenJPEG\Release\LibOpenJPEG.lib FreeImage\Source\LibPNG\Release\LibPNG.lib FreeImage\Source\LibTIFF\Release\LibTIFF.lib FreeImage\Source\OpenEXR\Release\OpenEXR.lib FreeImage\Source\ZLib\Release\ZLib.lib freetype-2.3.8\objs\freetype238.lib ogre\lib\OgreMainStatic.lib ogre\lib\Plugin_OctreeSceneManagerStatic.lib ogre\lib\Plugin_ParticleFXStatic.lib ogre\lib\RenderSystem_GLStatic.lib ogreal\ogg\win32\Static_Release\ogg_static.lib ogreal\vorbis\win32\Vorbis_Static_Release\vorbis_static.lib ogreal\vorbis\win32\VorbisFile_Static_Release\vorbisfile_static.lib ogreal\ogreal\OgreAL\Release\OgreAL.lib OpenAL32.lib ois\lib\OIS_static.lib zziplib-0.13.50\msvc8\zziplib-Release.lib protobuf-2.0.3\vsprojects\Release\libprotobuf.lib SAL\SAL.lib wsock32.lib QuickGUI_9_05\bin\QuickGUI_d.lib"
+				AdditionalDependencies="FreeImage\Source\FreeImageLib\Release\FreeImage.lib FreeImage\Source\LibJPEG\Release\LibJPEG.lib FreeImage\Source\LibMNG\Release\LibMNG.lib FreeImage\Source\LibOpenJPEG\Release\LibOpenJPEG.lib FreeImage\Source\LibPNG\Release\LibPNG.lib FreeImage\Source\LibTIFF\Release\LibTIFF.lib FreeImage\Source\OpenEXR\Release\OpenEXR.lib FreeImage\Source\ZLib\Release\ZLib.lib freetype-2.3.8\objs\freetype238.lib ogre\lib\OgreMainStatic.lib ogre\lib\Plugin_OctreeSceneManagerStatic.lib ogre\lib\Plugin_ParticleFXStatic.lib ogre\lib\RenderSystem_GLStatic.lib ogreal\ogg\win32\Static_Release\ogg_static.lib ogreal\vorbis\win32\Vorbis_Static_Release\vorbis_static.lib ogreal\vorbis\win32\VorbisFile_Static_Release\vorbisfile_static.lib ogreal\ogreal\OgreAL\Release\OgreAL.lib OpenAL32.lib ois\lib\OIS_static.lib zziplib-0.13.50\msvc8\zziplib-Release.lib protobuf-2.0.3\vsprojects\Release\libprotobuf.lib SAL\SAL.lib wsock32.lib QuickGUI_9_05\bin\QuickGUI.lib"
 				OutputFile="$(OutDir)/steelandconcrete.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;C:\Program Files\OpenAL 1.1 SDK\libs\Win32&quot;;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32&quot;"
