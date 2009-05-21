@@ -38,7 +38,7 @@ void CheckConfigFile(const Ogre::String aHomeDir)
         of << "FileSystem=res/textures" << std::endl;
         of << "FileSystem=res/scripts" << std::endl;
         of << "FileSystem=res/models" << std::endl;
-        of << "FileSystem=res/bgui" << std::endl;
+        of << "FileSystem=res/quickgui" << std::endl;
         of.close();
     }
 }
