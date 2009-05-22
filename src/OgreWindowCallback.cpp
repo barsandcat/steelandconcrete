@@ -14,6 +14,7 @@ OgreWindowCallback::~OgreWindowCallback(void)
 void OgreWindowCallback::windowResized(Ogre::RenderWindow* rw)
 {
     mApp.UpdateOISMouseClipping(rw);
+    mApp.UpdateSheetSize(rw);
 }
 
 //Unattach OIS before window shutdown (very important under Linux)

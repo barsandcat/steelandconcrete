@@ -17,6 +17,7 @@ public:
     ~ClientApp();
     void MainLoop();
     void UpdateOISMouseClipping(Ogre::RenderWindow* rw);
+    void UpdateSheetSize(Ogre::RenderWindow* rw);
     void DestroyOIS(Ogre::RenderWindow* rw);
     bool buttonPressed(const OIS::JoyStickEvent &arg, int button)
     {

@@ -137,8 +137,28 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         mGUIManager = QuickGUI::Root::getSingletonPtr()->createGUIManager(d);
     }
 
-    QuickGUI::Sheet* connectSheet = QuickGUI::SheetManager::getSingleton().createSheet(QuickGUI::DescManager::getSingleton().getDefaultSheetDesc());
-    mGUIManager->setActiveSheet(connectSheet);
+    {
+        GetLog() << "Build main menu";
+        QuickGUI::DescManager& descMgr = QuickGUI::DescManager::getSingleton();
+        QuickGUI::SheetDesc* sd = descMgr.getDefaultSheetDesc();
+        sd->widget_dimensions.size = QuickGUI::Size(800, 600);
+        QuickGUI::Sheet* sheet = QuickGUI::SheetManager::getSingleton().createSheet(sd);
+
+        QuickGUI::PanelDesc* wd = descMgr.getDefaultPanelDesc();
+        wd->widget_dimensions.position = QuickGUI::Point(250, 100);
+        wd->widget_dimensions.size = QuickGUI::Size(300, 400);
+        wd->widget_resizeFromBottom = false;
+        wd->widget_resizeFromLeft = false;
+        wd->widget_resizeFromRight = false;
+        wd->widget_resizeFromTop = false;
+        wd->widget_positionRelativeToParentClientDimensions = true;
+        wd->widget_horizontalAnchor = QuickGUI::ANCHOR_HORIZONTAL_CENTER;
+        wd->widget_verticalAnchor = QuickGUI::ANCHOR_VERTICAL_CENTER;
+
+        sheet->createPanel(wd);
+        mGUIManager->setActiveSheet(sheet);
+        mGUIManager->notifyViewportDimensionsChanged();
+    }
 
     socket_t* sock = socket_t::connect("localhost:4512");
 
@@ -229,6 +249,19 @@ void ClientApp::UpdateOISMouseClipping(Ogre::RenderWindow* rw)
     const OIS::MouseState &ms = mMouse->getMouseState();
     ms.width = width;
     ms.height = height;
+}
+
+void ClientApp::UpdateSheetSize(Ogre::RenderWindow* rw)
+{
+    mGUIManager->notifyViewportDimensionsChanged();
+    unsigned int width, height, depth;
+    int left, top;
+    rw->getMetrics(width, height, depth, left, top);
+    QuickGUI::Sheet* sheet = mGUIManager->getActiveSheet();
+    if (sheet)
+    {
+        sheet->setDimensions(QuickGUI::Rect(0,0, width, height));
+    }
 }
 
 
