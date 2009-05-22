@@ -137,7 +137,8 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         mGUIManager = QuickGUI::Root::getSingletonPtr()->createGUIManager(d);
     }
 
-
+    QuickGUI::Sheet* connectSheet = QuickGUI::SheetManager::getSingleton().createSheet(QuickGUI::DescManager::getSingleton().getDefaultSheetDesc());
+    mGUIManager->setActiveSheet(connectSheet);
 
     socket_t* sock = socket_t::connect("localhost:4512");
 
@@ -298,20 +299,7 @@ void ClientApp::UpdateStats()
     }
 }
 
-bool ClientApp::mouseMoved(const OIS::MouseEvent &arg)
-{
-    return true;
-}
 
-
-bool ClientApp::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
-{
-    return true;
-}
-bool ClientApp::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
-{
-    return true;
-}
 bool ClientApp::keyPressed(const OIS::KeyEvent &arg)
 {
     switch (arg.key)
@@ -338,8 +326,13 @@ bool ClientApp::keyPressed(const OIS::KeyEvent &arg)
         ;
 
     }
+
+    mGUIManager->injectChar(static_cast<Ogre::UTFString::unicode_char>(arg.text));
+    mGUIManager->injectKeyDown(static_cast<QuickGUI::KeyCode>(arg.key));
+
     return true;
 }
+
 bool ClientApp::keyReleased(const OIS::KeyEvent &arg)
 {
     switch (arg.key)
@@ -365,9 +358,36 @@ bool ClientApp::keyReleased(const OIS::KeyEvent &arg)
     default:
         ;
     }
+
+    mGUIManager->injectKeyUp(static_cast<QuickGUI::KeyCode>(arg.key));
+
     return true;
 }
 
+bool ClientApp::mouseMoved(const OIS::MouseEvent &arg)
+{
+    mGUIManager->injectMousePosition(arg.state.X.abs, arg.state.Y.abs);
+
+    float z = arg.state.Z.rel;
+    if (z != 0)
+        mGUIManager->injectMouseWheelChange(z);
+
+    return true;
+}
+
+bool ClientApp::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
+{
+    mGUIManager->injectMouseButtonDown(static_cast<QuickGUI::MouseButtonID>(id));
+
+    return true;
+}
+
+bool ClientApp::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
+{
+    mGUIManager->injectMouseButtonUp(static_cast<QuickGUI::MouseButtonID>(id));
+
+    return true;
+}
 
 void ClientApp::Frame(unsigned long aFrameTime)
 {
