@@ -37,6 +37,7 @@
 			<Depends filename="protobuf-2.0.3/vsprojects/protoc.cbp" />
 			<Depends filename="SAL/SAL.cbp" />
 			<Depends filename="src/UnitTests/UnitTests.cbp" />
+			<Depends filename="QuickGUI_9_05/QuickGUI/QuickGUI.cbp" />
 			<Depends filename="Server.cbp" />
 		</Project>
 	</Workspace>
