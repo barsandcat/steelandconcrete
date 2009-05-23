@@ -161,7 +161,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         bd->widget_dragable = false;
         bd->widget_dimensions.size = QuickGUI::Size(panel->getClientDimensions().size.width * 0.8f, 20);
         bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 20);
-        bd->textDesc.segments.push_back(QuickGUI::TextSegment("micross.14", Ogre::ColourValue::White, "Connect"));
+        bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", Ogre::ColourValue::White, "Connect"));
         panel->createButton(bd);
 
 
