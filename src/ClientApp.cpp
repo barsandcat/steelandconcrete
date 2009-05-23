@@ -144,18 +144,27 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         sd->widget_dimensions.size = QuickGUI::Size(800, 600);
         QuickGUI::Sheet* sheet = QuickGUI::SheetManager::getSingleton().createSheet(sd);
 
-        QuickGUI::PanelDesc* wd = descMgr.getDefaultPanelDesc();
-        wd->widget_dimensions.position = QuickGUI::Point(250, 100);
-        wd->widget_dimensions.size = QuickGUI::Size(300, 400);
-        wd->widget_resizeFromBottom = false;
-        wd->widget_resizeFromLeft = false;
-        wd->widget_resizeFromRight = false;
-        wd->widget_resizeFromTop = false;
-        wd->widget_positionRelativeToParentClientDimensions = true;
-        wd->widget_horizontalAnchor = QuickGUI::ANCHOR_HORIZONTAL_CENTER;
-        wd->widget_verticalAnchor = QuickGUI::ANCHOR_VERTICAL_CENTER;
+        QuickGUI::PanelDesc* pd = descMgr.getDefaultPanelDesc();
+        pd->widget_dimensions.position = QuickGUI::Point(250, 100);
+        pd->widget_dimensions.size = QuickGUI::Size(300, 400);
+        pd->widget_resizeFromBottom = false;
+        pd->widget_resizeFromLeft = false;
+        pd->widget_resizeFromRight = false;
+        pd->widget_resizeFromTop = false;
+        pd->widget_positionRelativeToParentClientDimensions = true;
+        pd->widget_horizontalAnchor = QuickGUI::ANCHOR_HORIZONTAL_CENTER;
+        pd->widget_verticalAnchor = QuickGUI::ANCHOR_VERTICAL_CENTER;
 
-        sheet->createPanel(wd);
+        QuickGUI::Panel* panel = sheet->createPanel(pd);
+
+        QuickGUI::ButtonDesc* bd = descMgr.getDefaultButtonDesc();
+        bd->widget_dragable = false;
+        bd->widget_dimensions.size = QuickGUI::Size(panel->getClientDimensions().size.width * 0.8f, 20);
+        bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 20);
+        bd->textDesc.segments.push_back(QuickGUI::TextSegment("micross.14", Ogre::ColourValue::White, "Connect"));
+        panel->createButton(bd);
+
+
         mGUIManager->setActiveSheet(sheet);
         mGUIManager->notifyViewportDimensionsChanged();
     }
