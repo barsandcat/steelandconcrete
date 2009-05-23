@@ -159,11 +159,30 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
 
         QuickGUI::ButtonDesc* bd = descMgr.getDefaultButtonDesc();
         bd->widget_dragable = false;
-        bd->widget_dimensions.size = QuickGUI::Size(panel->getClientDimensions().size.width * 0.8f, 20);
+        bd->widget_dimensions.size = QuickGUI::Size(panel->getClientDimensions().size.width * 0.8f, 25);
         bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 20);
         bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", Ogre::ColourValue::White, "Connect"));
         panel->createButton(bd);
 
+        bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 60);
+        bd->textDesc.segments.clear();
+        bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", Ogre::ColourValue::White, "English"));
+        panel->createButton(bd);
+
+        bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 100);
+        bd->textDesc.segments.clear();
+        bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", Ogre::ColourValue::White, "Русский"));
+        panel->createButton(bd);
+
+        bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 140);
+        bd->textDesc.segments.clear();
+        bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", Ogre::ColourValue::White, "Українська"));
+        panel->createButton(bd);
+
+        bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 180);
+        bd->textDesc.segments.clear();
+        bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", Ogre::ColourValue::White, "日本"));
+        panel->createButton(bd);
 
         mGUIManager->setActiveSheet(sheet);
         mGUIManager->notifyViewportDimensionsChanged();

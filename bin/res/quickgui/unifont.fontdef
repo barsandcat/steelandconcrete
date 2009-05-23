@@ -4,6 +4,7 @@ unifont.10
    source     unifont-5.1.20080907.ttf
    size       10
    resolution 72
+   code_points 33-166 1024-1279
 } 
 
 unifont.16
@@ -12,6 +13,7 @@ unifont.16
    source     unifont-5.1.20080907.ttf
    size       16
    resolution 72
+   code_points 33-166 1024-1279 19968-40911
 } 
 
 unifont.32
@@ -20,5 +22,6 @@ unifont.32
    source     unifont-5.1.20080907.ttf
    size       32
    resolution 72
+   code_points 33-166 1024-1279
 } 
 
