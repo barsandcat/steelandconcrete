@@ -60,7 +60,7 @@ void ClientGeodesicGrid::InitTiles()
     }
 }
 
-ClientGeodesicGrid::ClientGeodesicGrid(socket_t& aSocket)
+ClientGeodesicGrid::ClientGeodesicGrid(socket_t& aSocket, LoadingSheet& loadingSheet)
 {
     GeodesicGridSizeMsg gridInfo;
     ReadMessage(aSocket, gridInfo);
@@ -75,6 +75,7 @@ ClientGeodesicGrid::ClientGeodesicGrid(socket_t& aSocket)
         mTiles[tile.tag()] = new ClientTile(Ogre::Vector3(tile.position().x(), tile.position().y(), tile.position().z()));
     }
     GetLog() << "Recived all tiles";
+    loadingSheet.SetProgress(10);
 
     for (size_t i = 0; i < gridInfo.edgecount(); ++i)
     {
@@ -83,6 +84,7 @@ ClientGeodesicGrid::ClientGeodesicGrid(socket_t& aSocket)
         mEdges[i] = new ClientEdge(mTiles[edge.tilea()], mTiles[edge.tileb()]);
     }
     GetLog() << "Recived all edges ";
+    loadingSheet.SetProgress(50);
 
     InitTiles();
 }

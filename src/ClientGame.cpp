@@ -9,13 +9,7 @@
 ClientGame::ClientGame(Ogre::SceneManager& aSceneMgr, QuickGUI::GUIManager& aGUIManager, socket_t& aSocket): mSceneMgr(aSceneMgr), mGUIManager(aGUIManager), mSocket(aSocket), mGrid(NULL)
 {
     mLoadingSheet.Activate(mGUIManager);
-
-    Ogre::Root::getSingleton().renderOneFrame();
-
-    mGrid = new ClientGeodesicGrid(aSocket);
-
-    mLoadingSheet.SetProgress(50.0f);
-    Ogre::Root::getSingleton().renderOneFrame();
+    mGrid = new ClientGeodesicGrid(aSocket, mLoadingSheet);
 
     UnitCountMsg unitCount;
     ReadMessage(aSocket, unitCount);
@@ -29,20 +23,19 @@ ClientGame::ClientGame(Ogre::SceneManager& aSceneMgr, QuickGUI::GUIManager& aGUI
                           unit.tag(),
                           new ClientUnit(mGrid->GetTile(unit.tile()), unit.tag())
                       ));
-        float progress = 50.0f + ((i + 1) * 50.0f) / unitCount.count();
-        mLoadingSheet.SetProgress(progress);
-        Ogre::Root::getSingleton().renderOneFrame();
     }
+    mLoadingSheet.SetProgress(60);
     GetLog() << "Recived all units";
-
 
     // Planet
     Ogre::StaticGeometry* staticPlanet = mGrid->ConstructStaticGeometry(mSceneMgr);
+    mLoadingSheet.SetProgress(90);
     assert(staticPlanet);
     //mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(mApp.GetPlanet()->ConstructDebugMesh());
 
     // Units
     CreateUnitEntities();
+    mLoadingSheet.SetProgress(100);
 
     // Create a light
     Ogre::Light* myLight = mSceneMgr.createLight("Light0");

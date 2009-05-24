@@ -3,12 +3,13 @@
 
 #include <ClientTile.h>
 #include <ClientEdge.h>
+#include <LoadingSheet.h>
 #include <sockio.h>
 
 class ClientGeodesicGrid
 {
 public:
-    ClientGeodesicGrid(socket_t& aSocket);
+    ClientGeodesicGrid(socket_t& aSocket, LoadingSheet& loadingSheet);
 
     Ogre::StaticGeometry* ConstructStaticGeometry(Ogre::SceneManager& aSceneManager) const;
     Ogre::ManualObject* ConstructDebugMesh() const;

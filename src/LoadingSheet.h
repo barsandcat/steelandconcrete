@@ -7,8 +7,16 @@ class LoadingSheet
 public:
     LoadingSheet();
     virtual ~LoadingSheet();
-    void Activate(QuickGUI::GUIManager& aGUIManager) { aGUIManager.setActiveSheet(mSheet); }
-    void SetProgress(float aProgress) { mBar->setProgress(aProgress); }
+    void Activate(QuickGUI::GUIManager& aGUIManager)
+    {
+        aGUIManager.setActiveSheet(mSheet);
+        Ogre::Root::getSingleton().renderOneFrame();
+    }
+    void SetProgress(float aProgress)
+    {
+        mBar->setProgress(aProgress);
+        Ogre::Root::getSingleton().renderOneFrame();
+    }
 protected:
 private:
     QuickGUI::Sheet* mSheet;
