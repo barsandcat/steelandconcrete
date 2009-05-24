@@ -8,6 +8,7 @@
 #include <OgreAL.h>
 #include <QuickGUI.h>
 #include <BirdCamera.h>
+#include <MainMenuSheet.h>
 
 
 class ClientApp: public OIS::KeyListener, public OIS::MouseListener, public OIS::JoyStickListener
@@ -57,6 +58,7 @@ private:
     ClientGame* mGame;
     BirdCamera* mBirdCamera;
     Ogre::SceneManager* mSceneMgr;
+    MainMenuSheet* mMainMenu;
     void ShowDebugOverlay(bool show);
     void UpdateStats();
     void Frame(unsigned long aFrameTime);

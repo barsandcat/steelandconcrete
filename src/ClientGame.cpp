@@ -5,29 +5,16 @@
 #include <Network.h>
 #include <ClientLog.h>
 
+
 ClientGame::ClientGame(Ogre::SceneManager& aSceneMgr, QuickGUI::GUIManager& aGUIManager, socket_t& aSocket): mSceneMgr(aSceneMgr), mGUIManager(aGUIManager), mSocket(aSocket), mGrid(NULL)
 {
-    GetLog() << "Build progress bar";
-    QuickGUI::DescManager& descMgr = QuickGUI::DescManager::getSingleton();
-    QuickGUI::SheetDesc* sd = descMgr.getDefaultSheetDesc();
-    sd->widget_dimensions.size = QuickGUI::Size(800, 600);
-    QuickGUI::Sheet* sheet = QuickGUI::SheetManager::getSingleton().createSheet(sd);
-
-
-    QuickGUI::ProgressBarDesc* pb = descMgr.getDefaultProgressBarDesc();
-    pb->widget_dragable = false;
-    pb->widget_dimensions.size = QuickGUI::Size(600, 25);
-    pb->widget_dimensions.position = QuickGUI::Point(100, 300);
-    pb->progressbar_progress = 0.0f;
-    QuickGUI::ProgressBar* bar = sheet->createProgressBar(pb);
-
-    mGUIManager.setActiveSheet(sheet);
+    mLoadingSheet.Activate(mGUIManager);
 
     Ogre::Root::getSingleton().renderOneFrame();
 
     mGrid = new ClientGeodesicGrid(aSocket);
 
-    bar->setProgress(50.0f);
+    mLoadingSheet.SetProgress(50.0f);
     Ogre::Root::getSingleton().renderOneFrame();
 
     UnitCountMsg unitCount;
@@ -43,7 +30,7 @@ ClientGame::ClientGame(Ogre::SceneManager& aSceneMgr, QuickGUI::GUIManager& aGUI
                           new ClientUnit(mGrid->GetTile(unit.tile()), unit.tag())
                       ));
         float progress = 50.0f + ((i + 1) * 50.0f) / unitCount.count();
-        bar->setProgress(progress);
+        mLoadingSheet.SetProgress(progress);
         Ogre::Root::getSingleton().renderOneFrame();
     }
     GetLog() << "Recived all units";

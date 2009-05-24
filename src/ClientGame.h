@@ -3,6 +3,7 @@
 
 #include <ClientUnit.h>
 #include <ClientGeodesicGrid.h>
+#include <LoadingSheet.h>
 #include <sockio.h>
 
 class ClientApp;
@@ -23,6 +24,7 @@ private:
     std::map< int, ClientUnit* > mUnits;
     ClientTile* mSelectedTile;
     Ogre::SceneNode* mSelectionMarker;
+    LoadingSheet mLoadingSheet;
     void CreateUnitEntities() const;
 };
 
