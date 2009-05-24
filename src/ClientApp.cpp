@@ -162,24 +162,26 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         bd->widget_dimensions.size = QuickGUI::Size(panel->getClientDimensions().size.width * 0.8f, 25);
         bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 20);
         bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", Ogre::ColourValue::White, "Connect"));
+        bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_UP] = "OnConnect";
         panel->createButton(bd);
 
-        bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 60);
+        bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_UP] = "";
+        bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 180);
         bd->textDesc.segments.clear();
         bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", Ogre::ColourValue::White, "English"));
         panel->createButton(bd);
 
-        bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 100);
+        bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 220);
         bd->textDesc.segments.clear();
         bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", Ogre::ColourValue::White, "Русский"));
         panel->createButton(bd);
 
-        bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 140);
+        bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 260);
         bd->textDesc.segments.clear();
         bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", Ogre::ColourValue::White, "Українська"));
         panel->createButton(bd);
 
-        bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 180);
+        bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 300);
         bd->textDesc.segments.clear();
         bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", Ogre::ColourValue::White, "日本"));
         panel->createButton(bd);
@@ -187,13 +189,21 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         mGUIManager->setActiveSheet(sheet);
         mGUIManager->notifyViewportDimensionsChanged();
     }
+    QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnConnect", &ClientApp::OnConnect, this);
 
-    socket_t* sock = socket_t::connect("localhost:4512");
+}
 
-    if (sock && sock->is_ok())
+void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
+{
+    GetLog() << "On connect";
+    if (!mGame)
     {
-        GetLog() << "Connected";
-        mGame = new ClientGame(*mSceneMgr, *sock);
+        socket_t* sock = socket_t::connect("localhost:4512");
+        if (sock && sock->is_ok())
+        {
+            GetLog() << "Connected";
+            mGame = new ClientGame(*mSceneMgr, *sock);
+        }
     }
 }
 
@@ -454,6 +464,9 @@ void ClientApp::Frame(unsigned long aFrameTime)
 {
     // Camera movement
     mBirdCamera->UpdatePosition(aFrameTime);
-    Ogre::Ray ray = mBirdCamera->MouseToRay(mMouse->getMouseState());
-    mGame->UpdateSelectedTilePosition(ray);
+    if (mGame)
+    {
+        Ogre::Ray ray = mBirdCamera->MouseToRay(mMouse->getMouseState());
+        mGame->UpdateSelectedTilePosition(ray);
+    }
 }

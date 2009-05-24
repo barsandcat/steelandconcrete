@@ -14,28 +14,29 @@ class ClientApp: public OIS::KeyListener, public OIS::MouseListener, public OIS:
 {
 public:
     ClientApp(const Ogre::String aConfigFile);
-    ~ClientApp();
+    virtual ~ClientApp();
     void MainLoop();
     void UpdateOISMouseClipping(Ogre::RenderWindow* rw);
     void UpdateSheetSize(Ogre::RenderWindow* rw);
     void DestroyOIS(Ogre::RenderWindow* rw);
-    bool buttonPressed(const OIS::JoyStickEvent &arg, int button)
+    void OnConnect(const QuickGUI::EventArgs& args);
+    virtual bool buttonPressed(const OIS::JoyStickEvent &arg, int button)
     {
         return true;
     }
-    bool buttonReleased(const OIS::JoyStickEvent &arg, int button)
+    virtual bool buttonReleased(const OIS::JoyStickEvent &arg, int button)
     {
         return true;
     }
-    bool axisMoved(const OIS::JoyStickEvent &arg, int axis)
+    virtual bool axisMoved(const OIS::JoyStickEvent &arg, int axis)
     {
         return true;
     }
-    bool mouseMoved(const OIS::MouseEvent& arg);
-    bool mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
-    bool mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
-    bool keyPressed(const OIS::KeyEvent& arg);
-    bool keyReleased(const OIS::KeyEvent& arg);
+    virtual bool mouseMoved(const OIS::MouseEvent& arg);
+    virtual bool mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
+    virtual bool mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
+    virtual bool keyPressed(const OIS::KeyEvent& arg);
+    virtual bool keyReleased(const OIS::KeyEvent& arg);
 private:
     QuickGUI::GUIManager* mGUIManager;
     Ogre::OverlayContainer* mPointer;
