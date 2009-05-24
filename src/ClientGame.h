@@ -10,15 +10,16 @@ class ClientApp;
 class ClientGame
 {
 public:
-    ClientGame(Ogre::SceneManager& aSceneMgr, socket_t& aSocket);
+    ClientGame(Ogre::SceneManager& aSceneMgr, QuickGUI::GUIManager& aGUIManager, socket_t& aSocket);
     ~ClientGame();
-    ClientGeodesicGrid& GetGrid() { return mGrid; }
+    ClientGeodesicGrid& GetGrid() { return *mGrid; }
     void UpdateSelectedTilePosition(Ogre::Ray& aRay);
 protected:
 private:
     Ogre::SceneManager& mSceneMgr;
+    QuickGUI::GUIManager& mGUIManager;
     socket_t& mSocket;
-    ClientGeodesicGrid mGrid;
+    ClientGeodesicGrid* mGrid;
     std::map< int, ClientUnit* > mUnits;
     ClientTile* mSelectedTile;
     Ogre::SceneNode* mSelectionMarker;

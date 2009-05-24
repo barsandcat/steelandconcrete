@@ -202,7 +202,7 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
         if (sock && sock->is_ok())
         {
             GetLog() << "Connected";
-            mGame = new ClientGame(*mSceneMgr, *sock);
+            mGame = new ClientGame(*mSceneMgr, *mGUIManager, *sock);
         }
     }
 }
