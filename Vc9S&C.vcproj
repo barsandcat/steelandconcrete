@@ -257,6 +257,18 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\InGameSheet.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\LoadingSheet.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\MainMenuSheet.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\Network.cpp"
 				>
 				<FileConfiguration
@@ -339,6 +351,18 @@
 			</File>
 			<File
 				RelativePath=".\src\ClientUnit.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\InGameSheet.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\LoadingSheet.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\MainMenuSheet.h"
 				>
 			</File>
 			<File
