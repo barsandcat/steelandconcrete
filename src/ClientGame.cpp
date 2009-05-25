@@ -50,6 +50,9 @@ ClientGame::ClientGame(Ogre::SceneManager& aSceneMgr, QuickGUI::GUIManager& aGUI
     mSelectionMarker->attachObject(mSceneMgr.createEntity("Marker", Ogre::SceneManager::PT_SPHERE));
     mSelectionMarker->setScale(Ogre::Vector3(0.001));
 
+    QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnExit", &ClientGame::OnExit, this);
+    QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnTurn", &ClientGame::OnTurn, this);
+
     mIngameSheet.Activate(mGUIManager);
 }
 
@@ -79,5 +82,14 @@ void ClientGame::UpdateSelectedTilePosition(Ogre::Ray& aRay)
         mSelectionMarker->setPosition(mSelectedTile->GetPosition());
     }
     mSelectionMarker->setVisible(res.first);
+}
+
+void ClientGame::OnExit(const QuickGUI::EventArgs& args)
+{
+    GetLog() << "OnExit";
+}
+void ClientGame::OnTurn(const QuickGUI::EventArgs& args)
+{
+    GetLog() << "OnTurn";
 }
 

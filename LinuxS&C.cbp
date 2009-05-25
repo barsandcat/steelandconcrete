@@ -109,7 +109,13 @@
 		<Unit filename="src/ClientTile.h" />
 		<Unit filename="src/ClientUnit.cpp" />
 		<Unit filename="src/ClientUnit.h" />
+		<Unit filename="src/InGameSheet.cpp" />
+		<Unit filename="src/InGameSheet.h" />
 		<Unit filename="src/Linux.cpp" />
+		<Unit filename="src/LoadingSheet.cpp" />
+		<Unit filename="src/LoadingSheet.h" />
+		<Unit filename="src/MainMenuSheet.cpp" />
+		<Unit filename="src/MainMenuSheet.h" />
 		<Unit filename="src/Network.cpp" />
 		<Unit filename="src/Network.h" />
 		<Unit filename="src/OgreWindowCallback.cpp" />

@@ -13,7 +13,9 @@ class ClientGame
 {
 public:
     ClientGame(Ogre::SceneManager& aSceneMgr, QuickGUI::GUIManager& aGUIManager, socket_t& aSocket);
-    ~ClientGame();
+    virtual ~ClientGame(); // Для QuicGUI
+    void OnExit(const QuickGUI::EventArgs& args);
+    void OnTurn(const QuickGUI::EventArgs& args);
     ClientGeodesicGrid& GetGrid() { return *mGrid; }
     void UpdateSelectedTilePosition(Ogre::Ray& aRay);
 protected:
