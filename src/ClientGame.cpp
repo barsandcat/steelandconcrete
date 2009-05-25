@@ -50,6 +50,7 @@ ClientGame::ClientGame(Ogre::SceneManager& aSceneMgr, QuickGUI::GUIManager& aGUI
     mSelectionMarker->attachObject(mSceneMgr.createEntity("Marker", Ogre::SceneManager::PT_SPHERE));
     mSelectionMarker->setScale(Ogre::Vector3(0.001));
 
+    mIngameSheet.Activate(mGUIManager);
 }
 
 ClientGame::~ClientGame()

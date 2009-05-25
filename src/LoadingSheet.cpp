@@ -1,3 +1,4 @@
+#include <pch.h>
 #include <QuickGUI.h>
 #include <LoadingSheet.h>
 

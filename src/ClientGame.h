@@ -4,6 +4,7 @@
 #include <ClientUnit.h>
 #include <ClientGeodesicGrid.h>
 #include <LoadingSheet.h>
+#include <InGameSheet.h>
 #include <sockio.h>
 
 class ClientApp;
@@ -25,6 +26,7 @@ private:
     ClientTile* mSelectedTile;
     Ogre::SceneNode* mSelectionMarker;
     LoadingSheet mLoadingSheet;
+    InGameSheet mIngameSheet;
     void CreateUnitEntities() const;
 };
 
