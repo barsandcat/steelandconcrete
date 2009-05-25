@@ -4,9 +4,15 @@
 #include <Unit.pb.h>
 #include <Network.h>
 #include <ClientLog.h>
+#include <Request.pb.h>
 
 
-ClientGame::ClientGame(Ogre::SceneManager& aSceneMgr, QuickGUI::GUIManager& aGUIManager, socket_t& aSocket): mSceneMgr(aSceneMgr), mGUIManager(aGUIManager), mSocket(aSocket), mGrid(NULL)
+ClientGame::ClientGame(Ogre::SceneManager& aSceneMgr, QuickGUI::GUIManager& aGUIManager, socket_t& aSocket):
+    mSceneMgr(aSceneMgr),
+    mGUIManager(aGUIManager),
+    mSocket(aSocket),
+    mGrid(NULL),
+    mQuit(false)
 {
     mLoadingSheet.Activate(mGUIManager);
     mGrid = new ClientGeodesicGrid(aSocket, mLoadingSheet);
@@ -86,10 +92,14 @@ void ClientGame::UpdateSelectedTilePosition(Ogre::Ray& aRay)
 
 void ClientGame::OnExit(const QuickGUI::EventArgs& args)
 {
+    mQuit = true;
     GetLog() << "OnExit";
 }
 void ClientGame::OnTurn(const QuickGUI::EventArgs& args)
 {
+    RequestMsg msg;
+    msg.set_type(Ready);
+    WriteMessage(mSocket, msg);
     GetLog() << "OnTurn";
 }
 

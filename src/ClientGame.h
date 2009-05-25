@@ -16,7 +16,7 @@ public:
     virtual ~ClientGame(); // Для QuicGUI
     void OnExit(const QuickGUI::EventArgs& args);
     void OnTurn(const QuickGUI::EventArgs& args);
-    ClientGeodesicGrid& GetGrid() { return *mGrid; }
+    bool IsQuit() const { return mQuit; }
     void UpdateSelectedTilePosition(Ogre::Ray& aRay);
 protected:
 private:
@@ -29,6 +29,7 @@ private:
     Ogre::SceneNode* mSelectionMarker;
     LoadingSheet mLoadingSheet;
     InGameSheet mIngameSheet;
+    bool mQuit;
     void CreateUnitEntities() const;
 };
 

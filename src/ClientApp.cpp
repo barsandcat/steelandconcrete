@@ -424,5 +424,6 @@ void ClientApp::Frame(unsigned long aFrameTime)
     {
         Ogre::Ray ray = mBirdCamera->MouseToRay(mMouse->getMouseState());
         mGame->UpdateSelectedTilePosition(ray);
+        mQuit = mGame->IsQuit();
     }
 }
