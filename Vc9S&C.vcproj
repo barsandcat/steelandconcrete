@@ -476,6 +476,46 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\proto\Request.pb.cc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\proto\Request.pb.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Request.proto"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Response.pb.cc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\proto\Response.pb.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Response.proto"
+				>
+			</File>
+			<File
 				RelativePath=".\src\proto\Tile.pb.cc"
 				>
 				<FileConfiguration

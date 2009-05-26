@@ -5,6 +5,7 @@
 #include <Network.h>
 #include <ClientLog.h>
 #include <Request.pb.h>
+#include <Response.pb.h>
 
 
 ClientGame::ClientGame(Ogre::SceneManager& aSceneMgr, QuickGUI::GUIManager& aGUIManager, socket_t& aSocket):
@@ -100,6 +101,8 @@ void ClientGame::OnTurn(const QuickGUI::EventArgs& args)
     RequestMsg msg;
     msg.set_type(Ready);
     WriteMessage(mSocket, msg);
+    ResponseMsg rsp;
+    ReadMessage(mSocket, rsp);
     GetLog() << "OnTurn";
 }
 

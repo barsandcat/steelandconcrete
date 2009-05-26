@@ -1,0 +1,12 @@
+enum ResponseType
+{
+    Ok = 1;
+}
+
+message ResponseMsg
+{
+    required ResponseType type = 1;
+}
+
+
+

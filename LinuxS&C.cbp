@@ -137,6 +137,9 @@
 		<Unit filename="src/proto/Request.pb.cc" />
 		<Unit filename="src/proto/Request.pb.h" />
 		<Unit filename="src/proto/Request.proto" />
+		<Unit filename="src/proto/Response.pb.cc" />
+		<Unit filename="src/proto/Response.pb.h" />
+		<Unit filename="src/proto/Response.proto" />
 		<Unit filename="src/proto/Tile.pb.cc" />
 		<Unit filename="src/proto/Tile.pb.h" />
 		<Unit filename="src/proto/Tile.proto" />

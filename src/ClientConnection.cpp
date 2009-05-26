@@ -6,6 +6,7 @@
 #include <ServerLog.h>
 #include <Request.pb.h>
 #include <Network.h>
+#include <Response.pb.h>
 #include <stdexcept>
 
 void task_proc ClientConnectionThreadFunction(void *param)
@@ -29,6 +30,9 @@ void task_proc ClientConnectionThreadFunction(void *param)
                     GetLog() << "Disconnect" << std::endl;
                     break;
                 case Ready:
+                    ResponseMsg rsp;
+                    rsp.set_type(Ok);
+                    WriteMessage(self.mSocket, rsp);
                     GetLog() << "Ready" << std::endl;
                     self.mReady = true;
                     break;

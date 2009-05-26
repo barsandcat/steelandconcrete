@@ -200,23 +200,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\proto\Edge.pb.cc"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\GeodesicGrid.pb.cc"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Header.pb.cc"
-				>
-			</File>
-			<File
 				RelativePath=".\src\Network.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Request.pb.cc"
 				>
 			</File>
 			<File
@@ -247,18 +231,6 @@
 				RelativePath=".\src\ServerUnit.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\src\proto\Tile.pb.cc"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Unit.pb.cc"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Vector.pb.cc"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -274,23 +246,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\proto\Edge.pb.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\GeodesicGrid.pb.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Header.pb.h"
-				>
-			</File>
-			<File
 				RelativePath=".\src\Network.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Request.pb.h"
 				>
 			</File>
 			<File
@@ -317,18 +273,6 @@
 				RelativePath=".\src\ServerUnit.h"
 				>
 			</File>
-			<File
-				RelativePath=".\src\proto\Tile.pb.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Unit.pb.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Vector.pb.h"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
@@ -336,34 +280,106 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 		</Filter>
-		<File
-			RelativePath=".\src\proto\Edge.proto"
+		<Filter
+			Name="proto"
 			>
-		</File>
-		<File
-			RelativePath=".\src\proto\GeodesicGrid.proto"
-			>
-		</File>
-		<File
-			RelativePath=".\src\proto\Header.proto"
-			>
-		</File>
-		<File
-			RelativePath=".\src\proto\Request.proto"
-			>
-		</File>
-		<File
-			RelativePath=".\src\proto\Tile.proto"
-			>
-		</File>
-		<File
-			RelativePath=".\src\proto\Unit.proto"
-			>
-		</File>
-		<File
-			RelativePath=".\src\proto\Vector.proto"
-			>
-		</File>
+			<File
+				RelativePath=".\src\proto\Edge.pb.cc"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Edge.pb.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Edge.proto"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\GeodesicGrid.pb.cc"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\GeodesicGrid.pb.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\GeodesicGrid.proto"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Header.pb.cc"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Header.pb.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Header.proto"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Request.pb.cc"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Request.pb.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Request.proto"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Response.pb.cc"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Response.pb.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Response.proto"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Tile.pb.cc"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Tile.pb.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Tile.proto"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Unit.pb.cc"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Unit.pb.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Unit.proto"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Vector.pb.cc"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Vector.pb.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Vector.proto"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
