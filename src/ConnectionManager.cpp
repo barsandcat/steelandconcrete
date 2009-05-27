@@ -1,6 +1,8 @@
 #include <ConnectionManager.h>
 #include <ServerLog.h>
+#include <ServerGame.h>
 #include <task.h>
+
 
 void task_proc ManagerThreadFunction(void *param)
 {
@@ -40,7 +42,7 @@ bool ConnectionManager::IsAllClientsReady()
     {
         if ((*i)->IsLive())
         {
-            allReady = allReady && (*i)->IsReady();
+            allReady = allReady && ((*i)->GetLastConfirmedTime() == mGame.GetTime());
             ++i;
         }
         else

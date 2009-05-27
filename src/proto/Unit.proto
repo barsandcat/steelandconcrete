@@ -1,8 +1,8 @@
 message UnitCountMsg
 {
   required uint32 count = 1;
+  required int32 time = 2;
 }
-
 
 message UnitMsg
 {

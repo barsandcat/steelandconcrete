@@ -18,6 +18,7 @@ public:
     void OnTurn(const QuickGUI::EventArgs& args);
     bool IsQuit() const { return mQuit; }
     void UpdateSelectedTilePosition(Ogre::Ray& aRay);
+    void Update(unsigned long aFrameTime);
 protected:
 private:
     Ogre::SceneManager& mSceneMgr;
@@ -30,6 +31,8 @@ private:
     LoadingSheet mLoadingSheet;
     InGameSheet mIngameSheet;
     bool mQuit;
+    int mTime;
+    bool mTurnDone;
     void CreateUnitEntities() const;
 };
 

@@ -9,11 +9,13 @@
 
 
 ClientGame::ClientGame(Ogre::SceneManager& aSceneMgr, QuickGUI::GUIManager& aGUIManager, socket_t& aSocket):
-    mSceneMgr(aSceneMgr),
-    mGUIManager(aGUIManager),
-    mSocket(aSocket),
-    mGrid(NULL),
-    mQuit(false)
+        mSceneMgr(aSceneMgr),
+        mGUIManager(aGUIManager),
+        mSocket(aSocket),
+        mGrid(NULL),
+        mQuit(false),
+        mTime(0),
+        mTurnDone(false)
 {
     mLoadingSheet.Activate(mGUIManager);
     mGrid = new ClientGeodesicGrid(aSocket, mLoadingSheet);
@@ -21,6 +23,7 @@ ClientGame::ClientGame(Ogre::SceneManager& aSceneMgr, QuickGUI::GUIManager& aGUI
     UnitCountMsg unitCount;
     ReadMessage(aSocket, unitCount);
     GetLog() << "Recived unit count " << unitCount.ShortDebugString();
+    mTime = unitCount.time();
 
     for (size_t i = 0; i < unitCount.count(); ++i)
     {
@@ -60,6 +63,7 @@ ClientGame::ClientGame(Ogre::SceneManager& aSceneMgr, QuickGUI::GUIManager& aGUI
     QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnExit", &ClientGame::OnExit, this);
     QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnTurn", &ClientGame::OnTurn, this);
 
+    mIngameSheet.SetTime(mTime);
     mIngameSheet.Activate(mGUIManager);
 }
 
@@ -98,11 +102,58 @@ void ClientGame::OnExit(const QuickGUI::EventArgs& args)
 }
 void ClientGame::OnTurn(const QuickGUI::EventArgs& args)
 {
-    RequestMsg msg;
-    msg.set_type(Ready);
-    WriteMessage(mSocket, msg);
-    ResponseMsg rsp;
-    ReadMessage(mSocket, rsp);
-    GetLog() << "OnTurn";
+    if (!mTurnDone)
+    {
+        RequestMsg req;
+        req.set_type(ConfirmTime);
+        req.set_time(mTime);
+        GetLog() << req.ShortDebugString();
+        WriteMessage(mSocket, req);
+
+        ResponseMsg rsp;
+        ReadMessage(mSocket, rsp);
+        if (rsp.type() == Ok)
+        {
+            mTurnDone = true;
+            GetLog() << "Turn done";
+        }
+        else
+        {
+            GetLog() << rsp.ShortDebugString();
+        }
+
+    }
+}
+
+void ClientGame::Update(unsigned long aFrameTime)
+{
+    if (mTurnDone)
+    {
+        RequestMsg req;
+        req.set_type(GetTime);
+        WriteMessage(mSocket, req);
+
+        ResponseMsg rsp;
+        ReadMessage(mSocket, rsp);
+        switch (rsp.type())
+        {
+        case NewTime:
+            if (rsp.has_time())
+            {
+                mTime = rsp.time();
+                mIngameSheet.SetTime(mTime);
+                mTurnDone = false;
+                GetLog() << "New time " << mTime;
+            }
+            else
+              GetLog() << rsp.ShortDebugString();
+            break;
+        case PleaseWait:
+            break;
+        default:
+            GetLog() << rsp.ShortDebugString();
+            break;
+        }
+    }
 }
 

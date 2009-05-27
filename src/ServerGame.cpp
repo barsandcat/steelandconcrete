@@ -6,7 +6,7 @@
 #include <ServerLog.h>
 #include <ConnectionManager.h>
 
-ServerGame::ServerGame(): mGrid(NULL), mUnitCount(0)
+ServerGame::ServerGame(): mGrid(NULL), mUnitCount(0), mTime(1)
 {
     task::initialize(task::normal_stack);
     mGrid = new ServerGeodesicGrid(2);
@@ -36,8 +36,7 @@ void ServerGame::MainLoop()
         {
             if (manager.IsAllClientsReady())
             {
-                UpdateUnits();
-                GetLog() << "Game!" << std::endl;
+                UpdateGame();
             }
             task::sleep(300);
         }
@@ -58,6 +57,7 @@ void ServerGame::Send(socket_t& aSocket) const
 
     UnitCountMsg count;
     count.set_count(mUnits.size());
+    count.set_time(mTime);
     WriteMessage(aSocket, count);
     ServerUnits::const_iterator i = mUnits.begin();
     GetLog() << "Unit count send" << std::endl;
@@ -72,11 +72,14 @@ void ServerGame::Send(socket_t& aSocket) const
     GetLog() << "All units send" << std::endl;
 }
 
-void ServerGame::UpdateUnits()
+void ServerGame::UpdateGame()
 {
+    GetLog() << "Update Game!" << std::endl;
     ServerUnits::iterator i = mUnits.begin();
     for (; i != mUnits.end(); ++i)
     {
         i->second->Update();
     }
+    ++mTime;
+    GetLog() << "Time: " << mTime << std::endl;
 }

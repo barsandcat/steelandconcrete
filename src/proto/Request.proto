@@ -1,12 +1,14 @@
 enum RequestType
 {
     Disconnect = 1;
-    Ready = 2;
+    ConfirmTime = 2;
+    GetTime = 3;
 }
 
 message RequestMsg
 {
     required RequestType type = 1;
+    optional int32 time = 2;
 }
 
 

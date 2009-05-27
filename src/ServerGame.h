@@ -16,11 +16,13 @@ public:
     ServerGeodesicGrid& GetGrid();
     ServerUnit& CreateUnit(ServerTile& mTile);
     void Send(socket_t& aSocket) const;
+    int GetTime() const { return mTime; }
 protected:
 private:
-    void UpdateUnits();
+    void UpdateGame();
     ServerGeodesicGrid* mGrid;
     int mUnitCount;
+    int mTime;
     ServerUnits mUnits;
 };
 

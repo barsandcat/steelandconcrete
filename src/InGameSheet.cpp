@@ -1,5 +1,6 @@
 #include <pch.h>
-#include "InGameSheet.h"
+#include <InGameSheet.h>
+#include <OgreStringConverter.h>
 
 InGameSheet::InGameSheet()
 {
@@ -7,6 +8,13 @@ InGameSheet::InGameSheet()
     QuickGUI::SheetDesc* sd = descMgr.getDefaultSheetDesc();
     sd->widget_dimensions.size = QuickGUI::Size(800, 600);
     mSheet = QuickGUI::SheetManager::getSingleton().createSheet(sd);
+
+    QuickGUI::LabelDesc* ld = descMgr.getDefaultLabelDesc();
+    ld->widget_dimensions.position = QuickGUI::Point(10, 10);
+    ld->widget_dimensions.size = QuickGUI::Size(200, 25);
+    ld->widget_dragable = false;
+    ld->widget_relativeOpacity = 0.5f;
+    mTime = mSheet->createLabel(ld);
 
     QuickGUI::PanelDesc* pd = descMgr.getDefaultPanelDesc();
     pd->widget_dimensions.position = QuickGUI::Point(0, 500);
@@ -36,6 +44,11 @@ InGameSheet::InGameSheet()
     bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_UP] = "OnExit";
     bd->widget_horizontalAnchor = QuickGUI::ANCHOR_HORIZONTAL_RIGHT;
     panel->createButton(bd);
+}
+
+void InGameSheet::SetTime(int aTime)
+{
+    mTime->setText(Ogre::StringConverter::toString(aTime), "unifont.16", Ogre::ColourValue::White);
 }
 
 InGameSheet::~InGameSheet()

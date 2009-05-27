@@ -13,10 +13,11 @@ public:
         aGUIManager.setActiveSheet(mSheet);
         Ogre::Root::getSingleton().renderOneFrame();
     }
+    void SetTime(int aTime);
 protected:
 private:
     QuickGUI::Sheet* mSheet;
-
+    QuickGUI::Label* mTime;
 };
 
 #endif // INGAMESHEET_H
