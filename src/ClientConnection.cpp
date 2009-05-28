@@ -16,7 +16,6 @@ void task_proc ClientConnectionThreadFunction(void *param)
 
     while (self.mSocket.is_ok())
     {
-        task::sleep(300);
         try
         {
             RequestMsg req;
@@ -27,6 +26,7 @@ void task_proc ClientConnectionThreadFunction(void *param)
                 {
                 case Disconnect:
                     GetLog() << "Disconnect" << std::endl;
+                    self.mGame.SignalClientEvent();
                     break;
                 case ConfirmTime:
                     if (req.has_time())
@@ -36,6 +36,8 @@ void task_proc ClientConnectionThreadFunction(void *param)
                         ResponseMsg rsp;
                         rsp.set_type(Ok);
                         WriteMessage(self.mSocket, rsp);
+
+                        self.mGame.SignalClientEvent();
 
                         GetLog() << "Confirmed time " << req.ShortDebugString() <<  std::endl;
                     }
@@ -69,6 +71,7 @@ void task_proc ClientConnectionThreadFunction(void *param)
         catch (std::runtime_error& e)
         {
             GetLog() << e.what() << std::endl;
+            self.mGame.SignalClientEvent();
         }
     }
 

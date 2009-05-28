@@ -9,6 +9,7 @@
 ServerGame::ServerGame(): mGrid(NULL), mUnitCount(0), mTime(1)
 {
     task::initialize(task::normal_stack);
+    mClientEvent = new event();
     mGrid = new ServerGeodesicGrid(2);
     for (size_t i = 0; i < 15; ++i)
     {
@@ -19,6 +20,7 @@ ServerGame::ServerGame(): mGrid(NULL), mUnitCount(0), mTime(1)
 ServerGame::~ServerGame()
 {
     delete mGrid;
+    delete mClientEvent;
 }
 
 ServerGeodesicGrid& ServerGame::GetGrid()
@@ -34,11 +36,12 @@ void ServerGame::MainLoop()
         ConnectionManager manager(*gate, *this);
         while (true)
         {
+            mClientEvent->wait();
+            mClientEvent->reset();
             if (manager.IsAllClientsReady())
             {
                 UpdateGame();
             }
-            task::sleep(300);
         }
     }
     GetLog() << "Game over";
