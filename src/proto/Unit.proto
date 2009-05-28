@@ -7,6 +7,6 @@ message UnitCountMsg
 message UnitMsg
 {
   required int32 tag = 1;
-  required int32 tile = 2;
+  required uint32 tile = 2;
 }
 

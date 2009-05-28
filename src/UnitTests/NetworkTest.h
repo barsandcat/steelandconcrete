@@ -28,12 +28,12 @@ public:
             ServerTile& tile1 = grid1.GetTile(i);
             ServerTile& tile2 = grid2.GetTile(i);
             TS_ASSERT(tile1.GetPosition().positionCloses(tile2.GetPosition(), 0.00001f));
-            TS_ASSERT_EQUALS(tile1.GetIndex(), i);
-            TS_ASSERT_EQUALS(tile2.GetIndex(), i);
+            TS_ASSERT_EQUALS(tile1.GetTileId(), i);
+            TS_ASSERT_EQUALS(tile2.GetTileId(), i);
             TS_ASSERT_EQUALS(tile1.GetNeighbourCount(), tile2.GetNeighbourCount());
             for (size_t j = 0; j < tile1.GetNeighbourCount(); ++j)
             {
-                TS_ASSERT_EQUALS(tile1.GetNeighbour(j).GetIndex(), tile2.GetNeighbour(j).GetIndex());
+                TS_ASSERT_EQUALS(tile1.GetNeighbour(j).GetTileId(), tile2.GetNeighbour(j).GetTileId());
             }
         }
     }

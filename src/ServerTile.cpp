@@ -3,7 +3,7 @@
 
 ServerTile::ServerTile(const Ogre::Vector3& aPosition):
         mPosition(aPosition),
-        mIndex(0)
+        mTileId(0)
 {
     mNeighbourhood.reserve(6);
 }
@@ -110,6 +110,6 @@ void ServerTile::TransferUnit(ServerTile& aTile)
     {
         aTile.mUnit = mUnit;
         mUnit = NULL;
-        mUnit->SetTile(aTile);
+        mUnit->SetPosition(aTile.GetTileId());
     }
 };

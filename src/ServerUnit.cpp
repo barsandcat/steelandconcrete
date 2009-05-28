@@ -1,6 +1,6 @@
 #include <ServerUnit.h>
-#include <ServerTile.h>
-ServerUnit::ServerUnit(ServerTile& aTile, int aIndex): mTile(&aTile), mIndex(aIndex)
+
+ServerUnit::ServerUnit(TileId aTile, UnitId aUnitId): mPosition(aTile), mUnitId(aUnitId)
 {
     //ctor
 }

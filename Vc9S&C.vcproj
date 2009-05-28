@@ -378,6 +378,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\Typedefs.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\UserInput.h"
 				>
 			</File>

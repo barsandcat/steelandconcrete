@@ -1,6 +1,7 @@
 #ifndef SERVERAPP_H
 #define SERVERAPP_H
 
+#include <Typedefs.h>
 #include <ServerGeodesicGrid.h>
 #include <ClientConnection.h>
 #include <ServerUnit.h>
@@ -10,12 +11,12 @@
 class ServerGame
 {
 public:
-    typedef std::map< int, ServerUnit* > ServerUnits;
+    typedef std::map< UnitId, ServerUnit* > ServerUnits;
     ServerGame();
     ~ServerGame();
     void MainLoop();
     ServerGeodesicGrid& GetGrid();
-    ServerUnit& CreateUnit(ServerTile& mTile);
+    ServerUnit& CreateUnit(TileId aTile);
     void Send(socket_t& aSocket) const;
     int GetTime() const { return mTime; }
     void SignalClientEvent() { mClientEvent->signal(); }

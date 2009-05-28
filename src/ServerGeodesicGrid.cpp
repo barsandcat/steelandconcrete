@@ -152,10 +152,10 @@ void ServerGeodesicGrid::Subdivide()
 
 void ServerGeodesicGrid::InitTiles()
 {
-    for (size_t i = 0; i < mTiles.size(); ++i)
+    for (TileId i = 0; i < mTiles.size(); ++i)
     {
         mTiles[i]->SortNeighbourhood();
-        mTiles[i]->SetIndex(i);
+        mTiles[i]->SetTileId(i);
     }
 }
 
@@ -172,7 +172,7 @@ ServerGeodesicGrid::ServerGeodesicGrid(const Ogre::String aFileName)
             const VectorMsg& vector = tile.position();
             Ogre::Vector3 position(vector.x(), vector.y(), vector.z());
             ServerTile* newTile = new ServerTile(position);
-            newTile->SetIndex(i);
+            newTile->SetTileId(i);
             mTiles.push_back(newTile);
         }
 
@@ -204,8 +204,8 @@ void ServerGeodesicGrid::Save(const Ogre::String aFileName) const
     for (size_t i = 0; i < mEdges.size(); ++i)
     {
         EdgeMsg* edge = grid.add_edges();
-        edge->set_tilea(mEdges[i]->GetTileA().GetIndex());
-        edge->set_tileb(mEdges[i]->GetTileB().GetIndex());
+        edge->set_tilea(mEdges[i]->GetTileA().GetTileId());
+        edge->set_tileb(mEdges[i]->GetTileB().GetTileId());
     }
 
     std::fstream output(aFileName.c_str(), std::ios::out | std::ios::trunc | std::ios::binary);
@@ -235,8 +235,8 @@ void ServerGeodesicGrid::Send(socket_t& aSocket) const
     for (size_t i = 0; i < mEdges.size(); ++i)
     {
         EdgeMsg edge;
-        edge.set_tilea(mEdges[i]->GetTileA().GetIndex());
-        edge.set_tileb(mEdges[i]->GetTileB().GetIndex());
+        edge.set_tilea(mEdges[i]->GetTileA().GetTileId());
+        edge.set_tileb(mEdges[i]->GetTileB().GetTileId());
         WriteMessage(aSocket, edge);
     }
     GetLog() << "Send all edges" << std::endl;

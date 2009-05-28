@@ -1,5 +1,6 @@
 #ifndef SERVERTILE_H
 #define SERVERTILE_H
+#include <Typedefs.h>
 #include <OgreVector3.h>
 
 class ServerUnit;
@@ -19,15 +20,15 @@ public:
     ServerUnit* GetUnit() const { return mUnit; }
     void TransferUnit(ServerTile& aTile);
 
-    size_t GetIndex() const { return mIndex; }
-    void SetIndex(size_t aIndex) { mIndex = aIndex; }
+    TileId GetTileId() const { return mTileId; }
+    void SetTileId(TileId aTileId) { mTileId = aTileId; }
 
     ServerTile* GetTileAtPosition(const Ogre::Vector3& aPosistion);
 protected:
 private:
     std::vector< ServerTile* > mNeighbourhood;
     const Ogre::Vector3 mPosition;
-    size_t mIndex;
+    TileId mTileId;
     ServerUnit* mUnit;
 };
 

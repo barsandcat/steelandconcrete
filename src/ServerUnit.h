@@ -1,21 +1,20 @@
 #ifndef SERVERUNIT_H
 #define SERVERUNIT_H
-
-class ServerTile;
+#include <Typedefs.h>
 
 class ServerUnit
 {
 public:
-    ServerUnit(ServerTile& aTile, int aIndex);
-    void SetTile(ServerTile& aTile) { mTile = &aTile; }
-    ServerTile& GetTile() const { return *mTile; }
-    int GetIndex() const { return mIndex; }
+    ServerUnit(TileId aTile, UnitId aUnitId);
+    void SetPosition(TileId aTile) { mPosition = aTile; }
+    TileId GetPosition() const { return mPosition; }
+    UnitId GetUnitId() const { return mUnitId; }
     virtual ~ServerUnit();
     void Update();
 protected:
 private:
-    ServerTile* mTile;
-    int mIndex;
+    TileId mPosition;
+    UnitId mUnitId;
 };
 
 #endif // SERVERUNIT_H
