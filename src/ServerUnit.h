@@ -1,21 +1,19 @@
 #ifndef SERVERUNIT_H
 #define SERVERUNIT_H
 #include <Typedefs.h>
-#include <Tracer.h>
+class ServerTile;
 
 class ServerUnit
 {
 public:
-    ServerUnit(TileId aTile, UnitId aUnitId);
-    void SetPosition(TileId aTile) { mPosition = aTile; }
-    TileId GetPosition() const { return mPosition; }
+    ServerUnit(ServerTile& aTile, UnitId aUnitId);
+    ServerTile& GetPosition() const { return *mPosition; }
     UnitId GetUnitId() const { return mUnitId; }
     virtual ~ServerUnit();
-    void Update();
+    void Move(size_t aIndex);
 protected:
 private:
-    ChangeList mChangeList;
-    Tracer<TileId, 1> mPosition;
+    ServerTile* mPosition;
     const UnitId mUnitId;
 };
 

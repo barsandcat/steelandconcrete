@@ -103,13 +103,3 @@ ServerTile* ServerTile::GetTileAtPosition(const Ogre::Vector3& aPosistion)
 
     return currentTile;
 }
-
-void ServerTile::TransferUnit(ServerTile& aTile)
-{
-    if (!aTile.mUnit && mUnit)
-    {
-        aTile.mUnit = mUnit;
-        mUnit = NULL;
-        mUnit->SetPosition(aTile.GetTileId());
-    }
-};

@@ -18,7 +18,7 @@ public:
     inline size_t GetNeighbourCount() const { return mNeighbourhood.size(); }
     ServerTile& GetNeighbour(size_t aIndex) const { return *mNeighbourhood[aIndex]; }
     ServerUnit* GetUnit() const { return mUnit; }
-    void TransferUnit(ServerTile& aTile);
+    void SetUnit(ServerUnit* aUnit) { mUnit = aUnit; }
 
     TileId GetTileId() const { return mTileId; }
     void SetTileId(TileId aTileId) { mTileId = aTileId; }

@@ -16,7 +16,7 @@ public:
     ~ServerGame();
     void MainLoop();
     ServerGeodesicGrid& GetGrid();
-    ServerUnit& CreateUnit(TileId aTile);
+    ServerUnit& CreateUnit(ServerTile& aTile);
     void Send(socket_t& aSocket) const;
     int GetTime() const { return mTime; }
     void SignalClientEvent() { mClientEvent->signal(); }

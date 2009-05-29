@@ -13,7 +13,7 @@ ServerGame::ServerGame(): mGrid(NULL), mUnitCount(0), mTime(1)
     mGrid = new ServerGeodesicGrid(2);
     for (size_t i = 0; i < 15; ++i)
     {
-        CreateUnit(rand() % mGrid->GetTileCount());
+        CreateUnit(mGrid->GetTile(rand() % mGrid->GetTileCount()));
     }
 }
 
@@ -47,7 +47,7 @@ void ServerGame::MainLoop()
     GetLog() << "Game over";
 }
 
-ServerUnit& ServerGame::CreateUnit(TileId aTile)
+ServerUnit& ServerGame::CreateUnit(ServerTile& aTile)
 {
     ServerUnit* unit = new ServerUnit(aTile, ++mUnitCount);
     mUnits.insert(std::make_pair(unit->GetUnitId(), unit));
@@ -69,7 +69,7 @@ void ServerGame::Send(socket_t& aSocket) const
     {
         UnitMsg unit;
         unit.set_tag(i->first);
-        unit.set_tile(i->second->GetPosition());
+        unit.set_tile(i->second->GetPosition().GetTileId());
         WriteMessage(aSocket, unit);
     }
     GetLog() << "All units send" << std::endl;
@@ -79,10 +79,16 @@ void ServerGame::UpdateGame()
 {
     GetLog() << "Update Game!" << std::endl;
     ServerUnits::iterator i = mUnits.begin();
+    mTime += 100;
     for (; i != mUnits.end(); ++i)
     {
-        i->second->Update();
+        ServerUnit& unit = *i->second;
+        size_t index = rand() % unit.GetPosition().GetNeighbourCount();
+        if (unit.GetPosition().GetNeighbour(index).GetUnit() == NULL)
+        {
+            unit.Move(index);
+        }
     }
-    ++mTime;
+
     GetLog() << "Time: " << mTime << std::endl;
 }
