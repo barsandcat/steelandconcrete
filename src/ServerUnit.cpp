@@ -1,6 +1,7 @@
 #include <ServerUnit.h>
 
-ServerUnit::ServerUnit(TileId aTile, UnitId aUnitId): mPosition(aTile), mUnitId(aUnitId)
+ServerUnit::ServerUnit(TileId aTile, UnitId aUnitId):
+  mPosition(aTile, mChangeList), mUnitId(aUnitId)
 {
     //ctor
 }

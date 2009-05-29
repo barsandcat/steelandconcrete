@@ -1,27 +1,30 @@
 PROTOC=../../protobuf-2.0.3/vsprojects/protoc
 
-all : Tile.pb.cc GeodesicGrid.pb.cc Vector.pb.cc Edge.pb.cc Header.pb.cc Unit.pb.cc Request.pb.cc Response.pb.cc
+all : Tile.pb.h GeodesicGrid.pb.h Vector.pb.h Edge.pb.h Header.pb.h Unit.pb.h Request.pb.h Response.pb.h ChangeList.pb.h
 
-Tile.pb.cc : Tile.proto
+Tile.pb.h : Tile.proto
 	$(PROTOC) --cpp_out=. Tile.proto
 
-GeodesicGrid.pb.cc : GeodesicGrid.proto
+GeodesicGrid.pb.h : GeodesicGrid.proto
 	$(PROTOC) --cpp_out=. GeodesicGrid.proto
 
-Vector.pb.cc : Vector.proto
+Vector.pb.h : Vector.proto
 	$(PROTOC) --cpp_out=. Vector.proto
 
-Edge.pb.cc : Edge.proto
+Edge.pb.h : Edge.proto
 	$(PROTOC) --cpp_out=. Edge.proto
 
-Header.pb.cc : Header.proto
+Header.pb.h : Header.proto
 	$(PROTOC) --cpp_out=. Header.proto
 
-Unit.pb.cc : Unit.proto
+Unit.pb.h : Unit.proto
 	$(PROTOC) --cpp_out=. Unit.proto
 
-Request.pb.cc : Request.proto
+Request.pb.h : Request.proto
 	$(PROTOC) --cpp_out=. Request.proto
 
-Response.pb.cc : Response.proto
+Response.pb.h : Response.proto
 	$(PROTOC) --cpp_out=. Response.proto
+
+ChangeList.pb.h : ChangeList.proto
+	$(PROTOC) --cpp_out=. ChangeList.proto

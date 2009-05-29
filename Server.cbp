@@ -52,6 +52,8 @@
 		<ExtraCommands>
 			<Add before="make -C src/proto -f Makefile.proto" />
 		</ExtraCommands>
+		<Unit filename="src/Change.h" />
+		<Unit filename="src/ChangeInterface.h" />
 		<Unit filename="src/ClientConnection.cpp" />
 		<Unit filename="src/ClientConnection.h" />
 		<Unit filename="src/ConnectionManager.cpp" />
@@ -71,7 +73,11 @@
 		<Unit filename="src/ServerTile.h" />
 		<Unit filename="src/ServerUnit.cpp" />
 		<Unit filename="src/ServerUnit.h" />
+		<Unit filename="src/Tracer.h" />
 		<Unit filename="src/Typedefs.h" />
+		<Unit filename="src/proto/ChangeList.pb.cc" />
+		<Unit filename="src/proto/ChangeList.pb.h" />
+		<Unit filename="src/proto/ChangeList.proto" />
 		<Unit filename="src/proto/Edge.pb.cc" />
 		<Unit filename="src/proto/Edge.pb.h" />
 		<Unit filename="src/proto/Edge.proto" />

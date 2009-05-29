@@ -1,6 +1,7 @@
 #ifndef SERVERUNIT_H
 #define SERVERUNIT_H
 #include <Typedefs.h>
+#include <Tracer.h>
 
 class ServerUnit
 {
@@ -13,8 +14,9 @@ public:
     void Update();
 protected:
 private:
-    TileId mPosition;
-    UnitId mUnitId;
+    ChangeList mChangeList;
+    Tracer<TileId, 1> mPosition;
+    const UnitId mUnitId;
 };
 
 #endif // SERVERUNIT_H

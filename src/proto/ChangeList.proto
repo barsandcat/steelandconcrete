@@ -1,0 +1,19 @@
+message FieldDiffMsg
+{
+    required int32 id = 1;
+    optional int32 _int = 2;
+    optional bool _bool = 3;
+    optional float _float = 4;
+    optional string _string = 5;
+}
+
+message UnitDiffMsg
+{
+    required int32 unitid = 1;
+    repeated FieldDiffMsg fields = 2;
+}
+
+message ChangeListMsg
+{
+    repeated UnitDiffMsg units = 1;
+}

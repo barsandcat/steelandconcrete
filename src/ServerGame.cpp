@@ -47,7 +47,7 @@ void ServerGame::MainLoop()
     GetLog() << "Game over";
 }
 
-ServerUnit& ServerGame::CreateUnit(size_t aTile)
+ServerUnit& ServerGame::CreateUnit(TileId aTile)
 {
     ServerUnit* unit = new ServerUnit(aTile, ++mUnitCount);
     mUnits.insert(std::make_pair(unit->GetUnitId(), unit));
