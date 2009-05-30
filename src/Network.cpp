@@ -1,6 +1,6 @@
+#include <pch.h>
 #include <Network.h>
 
-#include <stdexcept>
 #include <Header.pb.h>
 
 const int MESSAGE_SIZE = 1024;

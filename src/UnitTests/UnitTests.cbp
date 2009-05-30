@@ -39,6 +39,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-Winvalid-pch" />
 			<Add directory="../../cxxtest" />
 			<Add directory=".." />
 			<Add directory="../../ogre/OgreMain/include" />
@@ -48,6 +49,7 @@
 			<Add directory="../../betagui2" />
 			<Add directory="../proto" />
 			<Add directory="../../SAL" />
+			<Add directory="../../QuickGUI_9_05/QuickGUI/include" />
 		</Compiler>
 		<Linker>
 			<Add library="zzip" />
@@ -78,6 +80,11 @@
 		<Unit filename="../ServerTile.h" />
 		<Unit filename="NetworkTest.cpp" />
 		<Unit filename="NetworkTest.h" />
+		<Unit filename="../pch.cpp" />
+		<Unit filename="../pch.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
 		<Unit filename="../proto/Edge.pb.cc" />
 		<Unit filename="../proto/Edge.pb.h" />
 		<Unit filename="../proto/Edge.proto" />

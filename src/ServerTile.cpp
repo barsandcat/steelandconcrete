@@ -1,4 +1,6 @@
+#include <pch.h>
 #include <ServerTile.h>
+
 #include <ServerUnit.h>
 
 ServerTile::ServerTile(const Ogre::Vector3& aPosition):

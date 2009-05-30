@@ -12,9 +12,11 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-pg" />
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
+					<Add option="-pg" />
 					<Add library="protobuf-2.0.3/vsprojects/libprotobuf_d.a" />
 					<Add library="ogre/lib/libOgreMain_d.a" />
 					<Add library="SAL/libSAL_d.a" />
@@ -37,14 +39,15 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-Wall" />
-			<Add option="-fexceptions" />
-			<Add option="-pthread" />
+			<Add option="-Winvalid-pch" />
 			<Add directory="src" />
 			<Add directory="src/proto" />
 			<Add directory="ogre/OgreMain/include" />
 			<Add directory="protobuf-2.0.3/src" />
 			<Add directory="SAL" />
+			<Add directory="QuickGUI_9_05/QuickGUI/include" />
+			<Add directory="ogreal/ogreal/include" />
+			<Add directory="ois/includes" />
 		</Compiler>
 		<Linker>
 			<Add library="pthread" />
@@ -72,6 +75,11 @@
 		<Unit filename="src/ServerUnit.cpp" />
 		<Unit filename="src/ServerUnit.h" />
 		<Unit filename="src/Typedefs.h" />
+		<Unit filename="src/pch.cpp" />
+		<Unit filename="src/pch.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
 		<Unit filename="src/proto/ChangeList.pb.cc" />
 		<Unit filename="src/proto/ChangeList.pb.h" />
 		<Unit filename="src/proto/ChangeList.proto" />

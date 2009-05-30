@@ -15,15 +15,14 @@
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
-					<Add option="-W" />
+					<Add option="-pg" />
 					<Add option="-g" />
-					<Add option="-O0" />
-					<Add option="-fPIC" />
 				</Compiler>
 				<ResourceCompiler>
 					<Add directory="./include" />
 				</ResourceCompiler>
 				<Linker>
+					<Add option="-pg" />
 					<Add library="OgreMain" />
 				</Linker>
 			</Target>
@@ -38,8 +37,6 @@
 				<Compiler>
 					<Add option="-Os" />
 					<Add option="-O3" />
-					<Add option="-W" />
-					<Add option="-fPIC" />
 					<Add directory="./include" />
 					<Add directory="../../ogre/OgreMain/include" />
 				</Compiler>

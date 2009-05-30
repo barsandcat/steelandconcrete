@@ -1,7 +1,7 @@
 /** All supported Events used in QuickGUI.
 	@remarks
-	Every widget supports functions to fire the events listed below.  
-	These Events will go to the widget's corresponding event handlers, 
+	Every widget supports functions to fire the events listed below.
+	These Events will go to the widget's corresponding event handlers,
 	and call user defined event handlers if they have been created.
 	Events iterate through their child or parent widgets, until it
 	is handled, or there are no more children/parents.
@@ -31,14 +31,14 @@ namespace QuickGUI
 	class _QuickGUIExport EventArgs
 	{
 	public:
-		typedef enum Type
+		enum Type
 		{
 			TYPE_DEFAULT		=  0,
 			TYPE_WIDGET				,
 			TYPE_MOUSE				,
 			TYPE_KEY				,
 			TYPE_SCROLL				,
-			TYPE_TEXT				
+			TYPE_TEXT
 		};
 	public:
 		EventArgs() : handled(false)
@@ -76,7 +76,7 @@ namespace QuickGUI
 	class _QuickGUIExport MouseEventArgs : public WidgetEventArgs
 	{
 	public:
-		MouseEventArgs(Widget* w) : WidgetEventArgs(w) 
+		MouseEventArgs(Widget* w) : WidgetEventArgs(w)
 		{
 			type = TYPE_MOUSE;
 			button = MB_None;
@@ -91,7 +91,7 @@ namespace QuickGUI
 		// holds the bit mask storing buttons that are currently pressed.
 		unsigned int	buttonMask;
 		// holds the amount the scroll wheel has changed.
-		float			wheelChange;	
+		float			wheelChange;
 		//! Bit field that holds status of Alt, Ctrl, Shift
 		unsigned int	keyModifiers;
 	};
@@ -101,7 +101,7 @@ namespace QuickGUI
 	class _QuickGUIExport KeyEventArgs : public WidgetEventArgs
 	{
 	public:
-		KeyEventArgs(Widget* w) : WidgetEventArgs(w) 
+		KeyEventArgs(Widget* w) : WidgetEventArgs(w)
 		{
 			type = TYPE_KEY;
 			scancode = KC_UNASSIGNED;
@@ -116,7 +116,7 @@ namespace QuickGUI
 		}
 
 		// codepoint for the key (only used for Character inputs).
-		Ogre::UTFString::unicode_char	codepoint;		
+		Ogre::UTFString::unicode_char	codepoint;
 		// Scan code of key that caused event (only used for key up & down inputs.
 		KeyCode							scancode;
 		// holds the bit mask storing buttons that are currently pressed.

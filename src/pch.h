@@ -13,11 +13,13 @@
 #include <OgreTextAreaOverlayElement.h>
 #include <OgreAL.h>
 #include <QuickGUI.h>
+#include <Typedefs.h>
+#include <task.h>
+#include <sockio.h>
+#include <stdexcept>
 
 #ifdef MVC
 #pragma warning(pop)
 #endif
-
-#include <stdexcept>
 
 #endif // PCH_H

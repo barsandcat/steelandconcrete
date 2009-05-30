@@ -1,4 +1,6 @@
+#include <pch.h>
 #include <ServerGeodesicGrid.h>
+
 #include <GeodesicGrid.pb.h>
 #include <Network.h>
 #include <ServerLog.h>

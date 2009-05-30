@@ -50,12 +50,14 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;protobuf-2.0.3\src&quot;;SAL;ogre\OgreMain\include;src\proto;src"
+				AdditionalIncludeDirectories="&quot;protobuf-2.0.3\src&quot;;SAL;ogre\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files\OpenAL 1.1 SDK (x86)\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogreal\ogreal\include;QuickGUI_9_05\QuickGUI\include;ois\includes"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;OGRE_STATIC_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="pch.h"
+				PrecompiledHeaderFile="C:\Temp\$(ConfigurationName)$(ProjectName).pch"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -132,11 +134,13 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;protobuf-2.0.3\src&quot;;SAL;ogre\OgreMain\include;src\proto;src"
+				AdditionalIncludeDirectories="&quot;protobuf-2.0.3\src&quot;;SAL;ogre\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files\OpenAL 1.1 SDK (x86)\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogreal\ogreal\include;QuickGUI_9_05\QuickGUI\include;ois\includes"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;OGRE_STATIC_LIB"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="pch.h"
+				PrecompiledHeaderFile="C:\Temp\$(ConfigurationName)$(ProjectName).pch"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -204,6 +208,26 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\pch.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\src\Server.cpp"
 				>
 			</File>
@@ -250,6 +274,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\pch.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\ServerEdge.h"
 				>
 			</File>
@@ -286,6 +314,22 @@
 			<File
 				RelativePath=".\src\proto\Edge.pb.cc"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\proto\Edge.pb.h"
@@ -298,6 +342,22 @@
 			<File
 				RelativePath=".\src\proto\GeodesicGrid.pb.cc"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\proto\GeodesicGrid.pb.h"
@@ -310,6 +370,22 @@
 			<File
 				RelativePath=".\src\proto\Header.pb.cc"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\proto\Header.pb.h"
@@ -322,6 +398,22 @@
 			<File
 				RelativePath=".\src\proto\Request.pb.cc"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\proto\Request.pb.h"
@@ -334,6 +426,22 @@
 			<File
 				RelativePath=".\src\proto\Response.pb.cc"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\proto\Response.pb.h"
@@ -346,6 +454,22 @@
 			<File
 				RelativePath=".\src\proto\Tile.pb.cc"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\proto\Tile.pb.h"
@@ -358,6 +482,22 @@
 			<File
 				RelativePath=".\src\proto\Unit.pb.cc"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\proto\Unit.pb.h"
@@ -370,6 +510,22 @@
 			<File
 				RelativePath=".\src\proto\Vector.pb.cc"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\proto\Vector.pb.h"

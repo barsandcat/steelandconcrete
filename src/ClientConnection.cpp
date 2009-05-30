@@ -1,13 +1,13 @@
+#include <pch.h>
 #include <ClientConnection.h>
+
 #include <ServerGame.h>
-#include <task.h>
 #include <ServerUnit.h>
 #include <ServerTile.h>
 #include <ServerLog.h>
 #include <Request.pb.h>
 #include <Network.h>
 #include <Response.pb.h>
-#include <stdexcept>
 
 void task_proc ClientConnectionThreadFunction(void *param)
 {

@@ -60,12 +60,14 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\SAL;&quot;..\..\protobuf-2.0.3\src&quot;;..\proto;..\..\ogre\OgreMain\include;../../src;../../cxxtest"
+				AdditionalIncludeDirectories="..\..\ogreal\vorbis\include;..\..\ogreal\ogg\include;&quot;C:\Program Files\OpenAL 1.1 SDK (x86)\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;..\..\ogreal\ogreal\include;..\..\SAL;&quot;..\..\protobuf-2.0.3\src&quot;;..\proto;..\..\ogre\OgreMain\include;..\..\QuickGUI_9_05\QuickGUI\include;..\..\ois\includes;../../src;../../cxxtest"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;OGRE_STATIC_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="pch.h"
+				PrecompiledHeaderFile="C:\Temp\$(ConfigurationName)$(ProjectName).pch"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -150,11 +152,13 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\SAL;&quot;..\..\protobuf-2.0.3\src&quot;;..\proto;..\..\ogre\OgreMain\include;../../src;../../cxxtest"
+				AdditionalIncludeDirectories="..\..\ogreal\vorbis\include;..\..\ogreal\ogg\include;&quot;C:\Program Files\OpenAL 1.1 SDK (x86)\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;..\..\ogreal\ogreal\include;..\..\SAL;&quot;..\..\protobuf-2.0.3\src&quot;;..\proto;..\..\ogre\OgreMain\include;..\..\QuickGUI_9_05\QuickGUI\include;..\..\ois\includes;../../src;../../cxxtest"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;OGRE_STATIC_LIB"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="pch.h"
+				PrecompiledHeaderFile="C:\Temp\$(ConfigurationName)$(ProjectName).pch"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -211,24 +215,28 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\proto\Edge.pb.cc"
-				>
-			</File>
-			<File
-				RelativePath="..\proto\GeodesicGrid.pb.cc"
-				>
-			</File>
-			<File
-				RelativePath="..\proto\Header.pb.cc"
-				>
-			</File>
-			<File
 				RelativePath="..\Network.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkTest.cpp"
+				RelativePath="..\pch.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\ServerEdge.cpp"
@@ -246,14 +254,6 @@
 				RelativePath="..\ServerTile.cpp"
 				>
 			</File>
-			<File
-				RelativePath="..\proto\Tile.pb.cc"
-				>
-			</File>
-			<File
-				RelativePath="..\proto\Vector.pb.cc"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -261,20 +261,198 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\Network.h"
+				>
+			</File>
+			<File
+				RelativePath="..\pch.h"
+				>
+			</File>
+			<File
+				RelativePath="..\ServerEdge.h"
+				>
+			</File>
+			<File
+				RelativePath="..\ServerGeodesicGrid.h"
+				>
+			</File>
+			<File
+				RelativePath="..\ServerTile.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Resource Files"
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
+			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+			>
+		</Filter>
+		<Filter
+			Name="proto"
+			>
+			<File
+				RelativePath="..\proto\Edge.pb.cc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\proto\Edge.pb.h"
 				>
+			</File>
+			<File
+				RelativePath="..\proto\Edge.proto"
+				>
+			</File>
+			<File
+				RelativePath="..\proto\GeodesicGrid.pb.cc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\proto\GeodesicGrid.pb.h"
 				>
 			</File>
 			<File
+				RelativePath="..\proto\GeodesicGrid.proto"
+				>
+			</File>
+			<File
+				RelativePath="..\proto\Header.pb.cc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\proto\Header.pb.h"
 				>
 			</File>
 			<File
-				RelativePath="..\Network.h"
+				RelativePath="..\proto\Header.proto"
 				>
+			</File>
+			<File
+				RelativePath="..\proto\Tile.pb.cc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\proto\Tile.pb.h"
+				>
+			</File>
+			<File
+				RelativePath="..\proto\Tile.proto"
+				>
+			</File>
+			<File
+				RelativePath="..\proto\Vector.pb.cc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\proto\Vector.pb.h"
+				>
+			</File>
+			<File
+				RelativePath="..\proto\Vector.proto"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="tests"
+			>
+			<File
+				RelativePath=".\NetworkTest.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\NetworkTest.h"
@@ -296,53 +474,7 @@
 					/>
 				</FileConfiguration>
 			</File>
-			<File
-				RelativePath="..\ServerEdge.h"
-				>
-			</File>
-			<File
-				RelativePath="..\ServerGeodesicGrid.h"
-				>
-			</File>
-			<File
-				RelativePath="..\ServerTile.h"
-				>
-			</File>
-			<File
-				RelativePath="..\proto\Tile.pb.h"
-				>
-			</File>
-			<File
-				RelativePath="..\proto\Vector.pb.h"
-				>
-			</File>
 		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-			>
-		</Filter>
-		<File
-			RelativePath="..\proto\Edge.proto"
-			>
-		</File>
-		<File
-			RelativePath="..\proto\GeodesicGrid.proto"
-			>
-		</File>
-		<File
-			RelativePath="..\proto\Header.proto"
-			>
-		</File>
-		<File
-			RelativePath="..\proto\Tile.proto"
-			>
-		</File>
-		<File
-			RelativePath="..\proto\Vector.proto"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>
