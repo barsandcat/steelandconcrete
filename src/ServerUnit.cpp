@@ -2,6 +2,7 @@
 #include <ServerUnit.h>
 
 #include <ServerTile.h>
+#include <ChangeList.h>
 
 ServerUnit::ServerUnit(ServerTile& aTile, UnitId aUnitId):
   mPosition(&aTile), mUnitId(aUnitId)
@@ -21,4 +22,5 @@ void ServerUnit::Move(size_t aIndex)
     mPosition->SetUnit(NULL);
     mPosition = &newPosition;
     mPosition->SetUnit(this);
+    ChangeList::AddMove(mUnitId, mPosition->GetTileId());
 }

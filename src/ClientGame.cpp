@@ -6,18 +6,16 @@
 #include <ClientLog.h>
 #include <Request.pb.h>
 #include <Response.pb.h>
+#include <ChangeList.pb.h>
+#include <ClientApp.h>
 
-
-ClientGame::ClientGame(Ogre::SceneManager& aSceneMgr, QuickGUI::GUIManager& aGUIManager, socket_t& aSocket):
-        mSceneMgr(aSceneMgr),
-        mGUIManager(aGUIManager),
+ClientGame::ClientGame(socket_t& aSocket):
         mSocket(aSocket),
         mGrid(NULL),
-        mQuit(false),
         mTime(0),
         mTurnDone(false)
 {
-    mLoadingSheet.Activate(mGUIManager);
+    mLoadingSheet.Activate();
     mGrid = new ClientGeodesicGrid(aSocket, mLoadingSheet);
 
     UnitCountMsg unitCount;
@@ -38,7 +36,7 @@ ClientGame::ClientGame(Ogre::SceneManager& aSceneMgr, QuickGUI::GUIManager& aGUI
     GetLog() << "Recived all units";
 
     // Planet
-    Ogre::StaticGeometry* staticPlanet = mGrid->ConstructStaticGeometry(mSceneMgr);
+    Ogre::StaticGeometry* staticPlanet = mGrid->ConstructStaticGeometry();
     mLoadingSheet.SetProgress(90);
     assert(staticPlanet);
     //mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(mApp.GetPlanet()->ConstructDebugMesh());
@@ -48,7 +46,7 @@ ClientGame::ClientGame(Ogre::SceneManager& aSceneMgr, QuickGUI::GUIManager& aGUI
     mLoadingSheet.SetProgress(100);
 
     // Create a light
-    Ogre::Light* myLight = mSceneMgr.createLight("Light0");
+    Ogre::Light* myLight = ClientApp::GetSceneMgr().createLight("Light0");
     myLight->setType(Ogre::Light::LT_DIRECTIONAL);
     myLight->setPosition(50, 0, 0);
     myLight->setDirection(-1, 0, 0);
@@ -56,15 +54,15 @@ ClientGame::ClientGame(Ogre::SceneManager& aSceneMgr, QuickGUI::GUIManager& aGUI
     myLight->setSpecularColour(1, 1, 1);
 
     mSelectedTile = &mGrid->GetTile(0);
-    mSelectionMarker = mSceneMgr.getRootSceneNode()->createChildSceneNode();
-    mSelectionMarker->attachObject(mSceneMgr.createEntity("Marker", Ogre::SceneManager::PT_SPHERE));
+    mSelectionMarker = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
+    mSelectionMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Marker", Ogre::SceneManager::PT_SPHERE));
     mSelectionMarker->setScale(Ogre::Vector3(0.001));
 
     QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnExit", &ClientGame::OnExit, this);
     QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnTurn", &ClientGame::OnTurn, this);
 
     mIngameSheet.SetTime(mTime);
-    mIngameSheet.Activate(mGUIManager);
+    mIngameSheet.Activate();
 }
 
 ClientGame::~ClientGame()
@@ -78,7 +76,7 @@ void ClientGame::CreateUnitEntities() const
     std::map< int, ClientUnit* >::const_iterator i = mUnits.begin();
     for (; i != mUnits.end(); ++i)
     {
-        i->second->CreateEntity(mSceneMgr);
+        i->second->CreateEntity();
     }
 }
 
@@ -97,7 +95,7 @@ void ClientGame::UpdateSelectedTilePosition(Ogre::Ray& aRay)
 
 void ClientGame::OnExit(const QuickGUI::EventArgs& args)
 {
-    mQuit = true;
+    ClientApp::Quit();
     GetLog() << "OnExit";
 }
 void ClientGame::OnTurn(const QuickGUI::EventArgs& args)
@@ -125,6 +123,19 @@ void ClientGame::OnTurn(const QuickGUI::EventArgs& args)
     }
 }
 
+void ClientGame::LoadEvents(const ChangeListMsg& changes)
+{
+    for (int i = 0; i < changes.changes_size(); ++i)
+    {
+        const ChangeMsg& change = changes.changes(i);
+        if (change.has_unitmove())
+        {
+            const UnitMoveMsg& move = change.unitmove();
+            mUnits[move.unitid()]->SetPosition(mGrid->GetTile(move.position()));
+        }
+    }
+}
+
 void ClientGame::Update(unsigned long aFrameTime)
 {
     if (mTurnDone)
@@ -144,6 +155,9 @@ void ClientGame::Update(unsigned long aFrameTime)
                 mIngameSheet.SetTime(mTime);
                 mTurnDone = false;
                 GetLog() << "New time " << mTime;
+                ChangeListMsg changes;
+                ReadMessage(mSocket, changes);
+                LoadEvents(changes);
             }
             else
               GetLog() << rsp.ShortDebugString();

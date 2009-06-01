@@ -5,17 +5,18 @@
 #include <ClientEdge.h>
 #include <LoadingSheet.h>
 #include <sockio.h>
+#include <Typedefs.h>
 
 class ClientGeodesicGrid
 {
 public:
     ClientGeodesicGrid(socket_t& aSocket, LoadingSheet& loadingSheet);
 
-    Ogre::StaticGeometry* ConstructStaticGeometry(Ogre::SceneManager& aSceneManager) const;
+    Ogre::StaticGeometry* ConstructStaticGeometry() const;
     Ogre::ManualObject* ConstructDebugMesh() const;
-    ClientTile& GetTile(size_t aIndex) const { return *mTiles[aIndex]; }
+    ClientTile& GetTile(TileId aIndex) const { return *mTiles[aIndex]; }
     ClientEdge& GetEdge(size_t aIndex) const { return *mEdges[aIndex]; }
-    size_t GetTileCount() const { return mTiles.size(); }
+    TileId GetTileCount() const { return mTiles.size(); }
     size_t GetEdgeCount() const { return mEdges.size(); }
     ~ClientGeodesicGrid();
 protected:

@@ -55,6 +55,8 @@
 		<ExtraCommands>
 			<Add before="make -C src/proto -f Makefile.proto" />
 		</ExtraCommands>
+		<Unit filename="src/ChangeList.cpp" />
+		<Unit filename="src/ChangeList.h" />
 		<Unit filename="src/ClientConnection.cpp" />
 		<Unit filename="src/ClientConnection.h" />
 		<Unit filename="src/ConnectionManager.cpp" />

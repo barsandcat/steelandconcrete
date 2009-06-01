@@ -38,16 +38,23 @@ public:
     virtual bool mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
     virtual bool keyPressed(const OIS::KeyEvent& arg);
     virtual bool keyReleased(const OIS::KeyEvent& arg);
+
+    static QuickGUI::GUIManager& GetGuiMgr();
+    static Ogre::SceneManager& GetSceneMgr();
+    static OgreAL::SoundManager& GetSoundMgr();
+    static void Quit();
 private:
-    QuickGUI::GUIManager* mGUIManager;
+    static QuickGUI::GUIManager* mGUIManager;
+    static Ogre::SceneManager* mSceneMgr;
+    static OgreAL::SoundManager* mSoundManager;
+    static bool mQuit;
+
     Ogre::OverlayContainer* mPointer;
     Ogre::Root* mRoot;
     Ogre::Plugin* mOctreePlugin;
     Ogre::Plugin* mGLPlugin;
     OgreWindowCallback* mWindowEventListener;
-    OgreAL::SoundManager* mSoundManager;
     Ogre::RenderWindow* mWindow;
-    bool mQuit;
     Ogre::Overlay* mDebugOverlay;
     //OIS Input devices
     OIS::InputManager* mInputManager;
@@ -57,7 +64,6 @@ private:
 
     ClientGame* mGame;
     BirdCamera* mBirdCamera;
-    Ogre::SceneManager* mSceneMgr;
     MainMenuSheet* mMainMenu;
     void ShowDebugOverlay(bool show);
     void UpdateStats();

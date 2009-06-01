@@ -1,6 +1,8 @@
 #include <pch.h>
 #include <InGameSheet.h>
 #include <OgreStringConverter.h>
+#include <ClientGame.h>
+#include <ClientApp.h>
 
 InGameSheet::InGameSheet()
 {
@@ -55,3 +57,9 @@ InGameSheet::~InGameSheet()
 {
     //dtor
 }
+
+void InGameSheet::Activate()
+    {
+        ClientApp::GetGuiMgr().setActiveSheet(mSheet);
+        Ogre::Root::getSingleton().renderOneFrame();
+    }

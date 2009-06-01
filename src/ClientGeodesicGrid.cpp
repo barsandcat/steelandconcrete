@@ -3,6 +3,7 @@
 #include <GeodesicGrid.pb.h>
 #include <Network.h>
 #include <ClientLog.h>
+#include <ClientApp.h>
 
 ClientGeodesicGrid::~ClientGeodesicGrid()
 {
@@ -32,8 +33,9 @@ Ogre::ManualObject* ClientGeodesicGrid::ConstructDebugMesh() const
     return manual;
 }
 
-Ogre::StaticGeometry* ClientGeodesicGrid::ConstructStaticGeometry(Ogre::SceneManager& aSceneManager) const
+Ogre::StaticGeometry* ClientGeodesicGrid::ConstructStaticGeometry() const
 {
+    Ogre::SceneManager& aSceneManager = ClientApp::GetSceneMgr();
     Ogre::StaticGeometry* staticPlanet = aSceneManager.createStaticGeometry("Planet.Static");
     for (size_t i = 0; i < mTiles.size(); ++i)
     {

@@ -1,6 +1,7 @@
 #include <pch.h>
 #include <QuickGUI.h>
 #include <LoadingSheet.h>
+#include <ClientApp.h>
 
 LoadingSheet::LoadingSheet()
 {
@@ -20,4 +21,10 @@ LoadingSheet::LoadingSheet()
 LoadingSheet::~LoadingSheet()
 {
     //dtor
+}
+
+void LoadingSheet::Activate()
+{
+    ClientApp::GetGuiMgr().setActiveSheet(mSheet);
+    Ogre::Root::getSingleton().renderOneFrame();
 }

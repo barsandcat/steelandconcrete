@@ -8,11 +8,7 @@ class InGameSheet
 public:
     InGameSheet();
     ~InGameSheet();
-    void Activate(QuickGUI::GUIManager& aGUIManager)
-    {
-        aGUIManager.setActiveSheet(mSheet);
-        Ogre::Root::getSingleton().renderOneFrame();
-    }
+    void Activate();
     void SetTime(int aTime);
 protected:
 private:

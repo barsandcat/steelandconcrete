@@ -9,15 +9,47 @@
 #include <Network.h>
 #include <ClientLog.h>
 
+QuickGUI::GUIManager& ClientApp::GetGuiMgr()
+{
+    assert(ClientApp::mGUIManager && "ClientApp::GetGuiMgr() \
+        нельзя вызывать в конструктори и деструкторе ClientApp!");
+    return *ClientApp::mGUIManager;
+}
+
+Ogre::SceneManager& ClientApp::GetSceneMgr()
+{
+    assert(ClientApp::mSceneMgr && "ClientApp::GetSceneMgr() \
+        нельзя вызывать в конструктори и деструкторе ClientApp!");
+    return *ClientApp::mSceneMgr;
+}
+
+OgreAL::SoundManager& ClientApp::GetSoundMgr()
+{
+    assert(ClientApp::mSoundManager && "ClientApp::GetSoundMgr() \
+        нельзя вызывать в конструктори и деструкторе ClientApp!");
+    return *ClientApp::mSoundManager;
+}
+
+void ClientApp::Quit()
+{
+    mQuit = true;
+}
+
+QuickGUI::GUIManager* ClientApp::mGUIManager = NULL;
+Ogre::SceneManager* ClientApp::mSceneMgr = NULL;
+OgreAL::SoundManager* ClientApp::mSoundManager = NULL;
+bool ClientApp::mQuit = false;
+
 ClientApp::ClientApp(const Ogre::String aConfigFile):
-        mQuit(false),
         mMouse(NULL),
         mKeyboard(NULL),
         mJoy(NULL),
         mGame(NULL),
-        mBirdCamera(NULL),
-        mSceneMgr(NULL)
+        mBirdCamera(NULL)
 {
+    // Только для инициализации!
+    // Ни каких вызовов других функий этого класа, что бы небыло необходимости
+    // проверять поля на то что они инициализированы.
     task::initialize(task::normal_stack);
 
     {
@@ -112,7 +144,12 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         }
 
         //Set initial mouse clipping size
-        UpdateOISMouseClipping(mWindow);
+        unsigned int width, height, depth;
+        int left, top;
+        mWindow->getMetrics(width, height, depth, left, top);
+        const OIS::MouseState &ms = mMouse->getMouseState();
+        ms.width = width;
+        ms.height = height;
 
         mMouse->setEventCallback(this);
         mKeyboard->setEventCallback(this);
@@ -127,7 +164,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         GetLog() << "Init QuickGUI";
 
         mDebugOverlay = Ogre::OverlayManager::getSingleton().getByName("Core/DebugOverlay");
-        ShowDebugOverlay(true);
+        mDebugOverlay->show();
 
         new QuickGUI::Root();
         QuickGUI::SkinTypeManager::getSingleton().loadTypes();
@@ -156,7 +193,7 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
         if (sock && sock->is_ok())
         {
             GetLog() << "Connected";
-            mGame = new ClientGame(*mSceneMgr, *mGUIManager, *sock);
+            mGame = new ClientGame(*sock);
         }
     }
 }
@@ -425,6 +462,5 @@ void ClientApp::Frame(unsigned long aFrameTime)
         Ogre::Ray ray = mBirdCamera->MouseToRay(mMouse->getMouseState());
         mGame->UpdateSelectedTilePosition(ray);
         mGame->Update(aFrameTime);
-        mQuit = mGame->IsQuit();
     }
 }

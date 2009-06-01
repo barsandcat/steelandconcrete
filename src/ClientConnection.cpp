@@ -8,6 +8,7 @@
 #include <Request.pb.h>
 #include <Network.h>
 #include <Response.pb.h>
+#include <ChangeList.h>
 
 void task_proc ClientConnectionThreadFunction(void *param)
 {
@@ -57,6 +58,8 @@ void task_proc ClientConnectionThreadFunction(void *param)
                         rsp.set_time(self.mGame.GetTime());
                         WriteMessage(self.mSocket, rsp);
                         GetLog() << "New time send " << rsp.ShortDebugString() << std::endl;
+                        ChangeList::Write(self.mSocket);
+                        GetLog() << "Change list send" << std::endl;
                     }
                     else
                     {

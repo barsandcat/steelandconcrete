@@ -3,8 +3,7 @@
 
 #include <Header.pb.h>
 
-const int MESSAGE_SIZE = 1024;
-const int HEADER_SIZE = 8;
+const int HEADER_BUFFER_SIZE = 8;
 
 std::string GetErrorText(socket_t& aSocket)
 {
@@ -23,7 +22,7 @@ void WriteMessage(socket_t& aSocket, google::protobuf::Message& aMessage)
     HeaderMsg header;
     header.set_size(messageSize);
     int headerSize = header.ByteSize();
-    char headerBuffer[HEADER_SIZE];
+    char headerBuffer[HEADER_BUFFER_SIZE];
     header.SerializeToArray(headerBuffer, headerSize);
 
     if (!aSocket.write(headerBuffer, headerSize))
@@ -37,7 +36,7 @@ void ReadMessage(socket_t& aSocket, google::protobuf::Message& aMessage)
     HeaderMsg header;
     header.set_size(0);
     int headerSize = header.ByteSize();
-    char headerBuffer[HEADER_SIZE];
+    char headerBuffer[HEADER_BUFFER_SIZE];
     if (!aSocket.read(headerBuffer, headerSize))
         throw std::runtime_error(GetErrorText(aSocket) + " Не удалось прочитать из сокета заголовок!");
     if (!header.ParseFromArray(headerBuffer, headerSize))

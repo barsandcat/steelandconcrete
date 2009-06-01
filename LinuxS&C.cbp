@@ -125,6 +125,9 @@
 			<Option compile="1" />
 			<Option weight="0" />
 		</Unit>
+		<Unit filename="src/proto/ChangeList.pb.cc" />
+		<Unit filename="src/proto/ChangeList.pb.h" />
+		<Unit filename="src/proto/ChangeList.proto" />
 		<Unit filename="src/proto/Edge.pb.cc" />
 		<Unit filename="src/proto/Edge.pb.h" />
 		<Unit filename="src/proto/Edge.proto" />

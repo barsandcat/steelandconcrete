@@ -5,6 +5,7 @@
 #include <Unit.pb.h>
 #include <ServerLog.h>
 #include <ConnectionManager.h>
+#include <ChangeList.h>
 
 ServerGame::ServerGame(): mGrid(NULL), mUnitCount(0), mTime(1)
 {
@@ -78,6 +79,7 @@ void ServerGame::Send(socket_t& aSocket) const
 void ServerGame::UpdateGame()
 {
     GetLog() << "Update Game!" << std::endl;
+    ChangeList::Clear();
     ServerUnits::iterator i = mUnits.begin();
     mTime += 100;
     for (; i != mUnits.end(); ++i)
