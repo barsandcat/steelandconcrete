@@ -200,23 +200,25 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
 
 ClientApp::~ClientApp()
 {
+    // Зачистка системных библиотек.
+    // ТОЛЬКО ДЛЯ ТОГО ЧТО БЫЛО ИНИЦИАЛИЗОРВАНО В КОНСТРУКТОЕ
+    // все остальное должно быть уже почищено!
     GetLog() << "App destructor";
 
     delete mMainMenu;
+    mMainMenu = NULL;
 
     delete mBirdCamera;
     mBirdCamera = NULL;
+
     mSoundManager->destroyAllSounds();
-    mRoot->destroySceneManager(mSceneMgr);
-
-
     delete mSoundManager;
     mSoundManager = NULL;
 
-    DestroyOIS(mWindow);
+    mRoot->destroySceneManager(mSceneMgr);
+    mSceneMgr = NULL;
 
-    delete mGame;
-    mGame = NULL;
+    DestroyOIS(mWindow);
 
     delete QuickGUI::Root::getSingletonPtr();
 
@@ -269,6 +271,9 @@ void ClientApp::MainLoop()
     }
     GetLog() << "*** The End ***";
 
+    // Подчищаем игру
+    delete mGame;
+    mGame = NULL;
 }
 
 void ClientApp::UpdateOISMouseClipping(Ogre::RenderWindow* rw)

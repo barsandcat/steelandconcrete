@@ -67,6 +67,14 @@ ClientGame::ClientGame(socket_t& aSocket):
 
 ClientGame::~ClientGame()
 {
+    delete mGrid;
+
+    std::map< UnitId, ClientUnit* >::iterator i = mUnits.begin();
+    for (; i != mUnits.end(); ++i)
+      delete i->second;
+    mUnits.clear();
+
+    ClientApp::GetSceneMgr().clearScene();
     mSocket.close();
     delete &mSocket;
 }
