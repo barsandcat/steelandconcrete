@@ -20,6 +20,7 @@ public:
     void UpdatePosition(unsigned long aTime);
     Ogre::Ray MouseToRay(const OIS::MouseState &aState) const;
     Ogre::Viewport* GetViewPort() const { return mViewPort; }
+    Ogre::Camera* GetCamera() const { return mCamera; }
     ~BirdCamera();
 protected:
 private:

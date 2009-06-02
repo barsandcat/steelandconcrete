@@ -313,6 +313,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\src\ViewPortWidget.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\Windows.cpp"
 				>
 			</File>
@@ -383,6 +387,10 @@
 			</File>
 			<File
 				RelativePath=".\src\UserInput.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\ViewPortWidget.h"
 				>
 			</File>
 		</Filter>

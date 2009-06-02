@@ -240,6 +240,7 @@ ClientApp::~ClientApp()
 void ClientApp::MainLoop()
 {
     unsigned long frameTime = 1;
+
     GetLog() << "*** The Start ***";
     while (!mQuit)
     {
@@ -296,7 +297,7 @@ void ClientApp::UpdateSheetSize(Ogre::RenderWindow* rw)
     QuickGUI::Sheet* sheet = mGUIManager->getActiveSheet();
     if (sheet)
     {
-        sheet->setDimensions(QuickGUI::Rect(0,0, width, height));
+        sheet->setDimensions(QuickGUI::Rect(0, 0, width, height));
     }
 }
 

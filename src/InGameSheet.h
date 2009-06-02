@@ -2,6 +2,7 @@
 #define INGAMESHEET_H
 
 #include <QuickGUI.h>
+#include <ViewPortWidget.h>
 
 class InGameSheet
 {
@@ -14,6 +15,7 @@ protected:
 private:
     QuickGUI::Sheet* mSheet;
     QuickGUI::Label* mTime;
+    ViewPortWidget mSelectedUnitWidget;
 };
 
 #endif // INGAMESHEET_H

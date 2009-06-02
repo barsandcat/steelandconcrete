@@ -4,7 +4,8 @@
 #include <ClientGame.h>
 #include <ClientApp.h>
 
-InGameSheet::InGameSheet()
+InGameSheet::InGameSheet():
+    mSelectedUnitWidget(100, 100, "SelectedUnit")
 {
     QuickGUI::DescManager& descMgr = QuickGUI::DescManager::getSingleton();
     QuickGUI::SheetDesc* sd = descMgr.getDefaultSheetDesc();
@@ -17,6 +18,10 @@ InGameSheet::InGameSheet()
     ld->widget_dragable = false;
     ld->widget_relativeOpacity = 0.5f;
     mTime = mSheet->createLabel(ld);
+
+    QuickGUI::ImageDesc* id = mSelectedUnitWidget.GetImageDesc();
+    id->widget_dimensions.position = QuickGUI::Point(650, 50);
+    mSheet->createImage(id);
 
     QuickGUI::PanelDesc* pd = descMgr.getDefaultPanelDesc();
     pd->widget_dimensions.position = QuickGUI::Point(0, 500);
