@@ -196,6 +196,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\src\ChangeList.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\ClientConnection.cpp"
 				>
 			</File>
@@ -262,6 +266,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\src\ChangeList.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\ClientConnection.h"
 				>
 			</File>
@@ -311,6 +319,34 @@
 		<Filter
 			Name="proto"
 			>
+			<File
+				RelativePath=".\src\proto\ChangeList.pb.cc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\proto\ChangeList.pb.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\ChangeList.proto"
+				>
+			</File>
 			<File
 				RelativePath=".\src\proto\Edge.pb.cc"
 				>

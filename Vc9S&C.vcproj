@@ -396,6 +396,34 @@
 			Filter="proto"
 			>
 			<File
+				RelativePath=".\src\proto\ChangeList.pb.cc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\proto\ChangeList.pb.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\ChangeList.proto"
+				>
+			</File>
+			<File
 				RelativePath=".\src\proto\Edge.pb.cc"
 				>
 				<FileConfiguration
