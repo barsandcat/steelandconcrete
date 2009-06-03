@@ -5,9 +5,9 @@
 class ViewPortWidget
 {
 public:
-    ViewPortWidget(int aWidth, int aHeight, const char* aName);
+    ViewPortWidget(int aWidth, int aHeight, std::string aName);
     ~ViewPortWidget();
-    QuickGUI::ImageDesc* GetImageDesc() const;
+    std::string& GetName() { return mName; }
 private:
     ViewPortWidget(const ViewPortWidget& other);
     ViewPortWidget& operator=(const ViewPortWidget& other);

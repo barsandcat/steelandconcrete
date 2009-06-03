@@ -4,8 +4,7 @@
 #include <ClientGame.h>
 #include <ClientApp.h>
 
-InGameSheet::InGameSheet():
-    mSelectedUnitWidget(100, 100, "SelectedUnit")
+InGameSheet::InGameSheet()
 {
     QuickGUI::DescManager& descMgr = QuickGUI::DescManager::getSingleton();
     QuickGUI::SheetDesc* sd = descMgr.getDefaultSheetDesc();
@@ -19,10 +18,6 @@ InGameSheet::InGameSheet():
     ld->widget_relativeOpacity = 0.5f;
     mTime = mSheet->createLabel(ld);
 
-    QuickGUI::ImageDesc* id = mSelectedUnitWidget.GetImageDesc();
-    id->widget_dimensions.position = QuickGUI::Point(650, 50);
-    mSheet->createImage(id);
-
     QuickGUI::PanelDesc* pd = descMgr.getDefaultPanelDesc();
     pd->widget_dimensions.position = QuickGUI::Point(0, 500);
     pd->widget_dimensions.size = QuickGUI::Size(800, 100);
@@ -35,6 +30,18 @@ InGameSheet::InGameSheet():
     pd->widget_verticalAnchor = QuickGUI::ANCHOR_VERTICAL_BOTTOM;
 
     QuickGUI::Panel* panel = mSheet->createPanel(pd);
+
+    pd->widget_dimensions.position = QuickGUI::Point(650, 50);
+    pd->containerwidget_supportScrollBars = false;
+    pd->widget_dimensions.size = QuickGUI::Size(150, 150);
+    QuickGUI::Panel* selected = mSheet->createPanel(pd);
+
+    QuickGUI::ImageDesc* id = descMgr.getDefaultImageDesc();
+    id->widget_dimensions.size = selected->getClientDimensions().size;
+    id->widget_dimensions.position = QuickGUI::Point(0, 0);
+    id->image_updateEveryFrame = true;
+    mSelectedImage = selected->createImage(id);
+
 
     QuickGUI::ButtonDesc* bd = descMgr.getDefaultButtonDesc();
     bd->widget_dragable = false;

@@ -8,6 +8,7 @@
 #include <sockio.h>
 #include <ChangeList.pb.h>
 #include <Typedefs.h>
+#include <ViewPortWidget.h>
 
 class ClientApp;
 
@@ -29,6 +30,7 @@ private:
     Ogre::SceneNode* mSelectionMarker;
     LoadingSheet mLoadingSheet;
     InGameSheet mIngameSheet;
+    ViewPortWidget mViewPortWidget;
     int mTime;
     bool mTurnDone;
     void CreateUnitEntities() const;

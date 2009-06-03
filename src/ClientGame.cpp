@@ -12,9 +12,15 @@
 ClientGame::ClientGame(socket_t& aSocket):
         mSocket(aSocket),
         mGrid(NULL),
+        mViewPortWidget(
+            mIngameSheet.GetSelectedWidth(),
+            mIngameSheet.GetSelectedHeight(),
+            "RttTexture"
+            ),
         mTime(0),
         mTurnDone(false)
 {
+    mIngameSheet.SetSelectedName(mViewPortWidget.GetName());
     mLoadingSheet.Activate();
     mGrid = new ClientGeodesicGrid(aSocket, mLoadingSheet);
 
