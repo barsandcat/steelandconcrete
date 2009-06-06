@@ -448,6 +448,10 @@ bool ClientApp::mouseMoved(const OIS::MouseEvent &arg)
 bool ClientApp::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
     mGUIManager->injectMouseButtonDown(static_cast<QuickGUI::MouseButtonID>(id));
+    if (mGame)
+    {
+        mGame->Select();
+    }
 
     return true;
 }
@@ -466,7 +470,7 @@ void ClientApp::Frame(unsigned long aFrameTime)
     if (mGame)
     {
         Ogre::Ray ray = mBirdCamera->MouseToRay(mMouse->getMouseState());
-        mGame->UpdateSelectedTilePosition(ray);
+        mGame->UpdateTileUnderCursor(ray);
         mGame->Update(aFrameTime);
     }
 }

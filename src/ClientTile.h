@@ -2,6 +2,8 @@
 #define TILE_H
 #include <Ogre.h>
 
+class ClientUnit;
+
 class ClientTile
 {
 public:
@@ -16,15 +18,18 @@ public:
     inline size_t GetNeighbourCount() const { return mNeighbourhood.size(); }
     ClientTile* GetNeighbour(size_t aIndex) const { return mNeighbourhood[aIndex]; }
 
-    size_t GetIndex() const { return mIndex; }
-    void SetIndex(size_t aIndex) { mIndex = aIndex; }
+    TileId GetTileId() const { return mTileId; }
+    void SetTileId(TileId aTileId) { mTileId = aTileId; }
 
     ClientTile* GetTileAtPosition(const Ogre::Vector3& aPosistion);
+    ClientUnit* GetUnit() const { return mUnit; }
+    void SetUnit(ClientUnit* aUnit) { mUnit = aUnit; }
 protected:
 private:
     std::vector< ClientTile* > mNeighbourhood;
     const Ogre::Vector3 mPosition;
-    size_t mIndex;
+    TileId mTileId;
+    ClientUnit* mUnit;
 };
 
 #endif // TILE_H

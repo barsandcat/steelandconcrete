@@ -55,10 +55,10 @@ Ogre::StaticGeometry* ClientGeodesicGrid::ConstructStaticGeometry() const
 
 void ClientGeodesicGrid::InitTiles()
 {
-    for (size_t i = 0; i < mTiles.size(); ++i)
+    for (TileId i = 0; i < mTiles.size(); ++i)
     {
         mTiles[i]->SortNeighbourhood();
-        mTiles[i]->SetIndex(i);
+        mTiles[i]->SetTileId(i);
     }
 }
 

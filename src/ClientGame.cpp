@@ -12,6 +12,8 @@
 ClientGame::ClientGame(socket_t& aSocket):
         mSocket(aSocket),
         mGrid(NULL),
+        mTileUnderCursor(NULL),
+        mSelectedUnit(NULL),
         mViewPortWidget(
             mIngameSheet.GetSelectedWidth(),
             mIngameSheet.GetSelectedHeight(),
@@ -59,7 +61,7 @@ ClientGame::ClientGame(socket_t& aSocket):
     myLight->setDiffuseColour(1, 1, 1);
     myLight->setSpecularColour(1, 1, 1);
 
-    mSelectedTile = &mGrid->GetTile(0);
+    mTileUnderCursor = &mGrid->GetTile(0);
     mSelectionMarker = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
     mSelectionMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Marker", Ogre::SceneManager::PT_SPHERE));
     mSelectionMarker->setScale(Ogre::Vector3(0.001));
@@ -94,17 +96,23 @@ void ClientGame::CreateUnitEntities() const
     }
 }
 
-void ClientGame::UpdateSelectedTilePosition(Ogre::Ray& aRay)
+void ClientGame::UpdateTileUnderCursor(Ogre::Ray& aRay)
 {
     Ogre::Sphere sphere(Ogre::Vector3::ZERO, 1.0f);
     std::pair<bool, Ogre::Real> res = aRay.intersects(sphere);
     if (res.first)
     {
         Ogre::Vector3 position(aRay.getPoint(res.second));
-        mSelectedTile = mSelectedTile->GetTileAtPosition(position);
-        mSelectionMarker->setPosition(mSelectedTile->GetPosition());
+        mTileUnderCursor = mTileUnderCursor->GetTileAtPosition(position);
+        mSelectionMarker->setPosition(mTileUnderCursor->GetPosition());
     }
     mSelectionMarker->setVisible(res.first);
+}
+
+void ClientGame::Select()
+{
+    assert(mTileUnderCursor && "Тайл под курсором должен быть!");
+    mSelectedUnit = mTileUnderCursor->GetUnit();
 }
 
 void ClientGame::OnExit(const QuickGUI::EventArgs& args)
@@ -152,6 +160,12 @@ void ClientGame::LoadEvents(const ChangeListMsg& changes)
 
 void ClientGame::Update(unsigned long aFrameTime)
 {
+    mIngameSheet.SetSelectedVisible(mSelectedUnit != NULL);
+    if (mSelectedUnit)
+    {
+        mViewPortWidget.SetNode(&mSelectedUnit->GetNode());
+    }
+
     if (mTurnDone)
     {
         RequestMsg req;

@@ -12,6 +12,7 @@ public:
     void SetPosition(ClientTile& aTile);
     ~ClientUnit();
     Ogre::Entity* CreateEntity();
+    Ogre::SceneNode& GetNode() { return *mNode; }
 protected:
 private:
     ClientTile* mTile;

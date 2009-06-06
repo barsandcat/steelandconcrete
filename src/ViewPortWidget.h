@@ -8,6 +8,7 @@ public:
     ViewPortWidget(int aWidth, int aHeight, std::string aName);
     ~ViewPortWidget();
     std::string& GetName() { return mName; }
+    void SetNode(Ogre::SceneNode* aNode) { mTargetNode = aNode; }
 private:
     ViewPortWidget(const ViewPortWidget& other);
     ViewPortWidget& operator=(const ViewPortWidget& other);
@@ -17,6 +18,7 @@ private:
     std::string mName;
     Ogre::Camera* mCamera;
     Ogre::SceneNode* mCameraNode;
+    Ogre::SceneNode* mTargetNode;
 };
 
 #endif // VIEWPORTWIDGET_H

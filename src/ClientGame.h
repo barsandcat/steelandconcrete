@@ -19,14 +19,16 @@ public:
     virtual ~ClientGame(); // Для QuicGUI
     void OnExit(const QuickGUI::EventArgs& args);
     void OnTurn(const QuickGUI::EventArgs& args);
-    void UpdateSelectedTilePosition(Ogre::Ray& aRay);
+    void UpdateTileUnderCursor(Ogre::Ray& aRay);
     void Update(unsigned long aFrameTime);
+    void Select();
 protected:
 private:
     socket_t& mSocket;
     ClientGeodesicGrid* mGrid;
     std::map< UnitId, ClientUnit* > mUnits;
-    ClientTile* mSelectedTile;
+    ClientTile* mTileUnderCursor;
+    ClientUnit* mSelectedUnit;
     Ogre::SceneNode* mSelectionMarker;
     LoadingSheet mLoadingSheet;
     InGameSheet mIngameSheet;

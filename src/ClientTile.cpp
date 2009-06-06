@@ -3,7 +3,8 @@
 
 ClientTile::ClientTile(const Ogre::Vector3& aPosition):
         mPosition(aPosition),
-        mIndex(0)
+        mTileId(0),
+        mUnit(NULL)
 {
     mNeighbourhood.reserve(6);
 }
