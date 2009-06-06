@@ -8,7 +8,7 @@ public:
     ViewPortWidget(int aWidth, int aHeight, std::string aName);
     ~ViewPortWidget();
     std::string& GetName() { return mName; }
-    void SetNode(Ogre::SceneNode* aNode) { mTargetNode = aNode; }
+    void SetNode(Ogre::SceneNode* aNode);
 private:
     ViewPortWidget(const ViewPortWidget& other);
     ViewPortWidget& operator=(const ViewPortWidget& other);
