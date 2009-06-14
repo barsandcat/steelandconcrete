@@ -63,8 +63,8 @@ ClientGame::ClientGame(socket_t& aSocket):
 
     mTileUnderCursor = &mGrid->GetTile(0);
     mSelectionMarker = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
+    mSelectionMarker->setScale(Ogre::Vector3(0.01));
     mSelectionMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Marker", Ogre::SceneManager::PT_SPHERE));
-    mSelectionMarker->setScale(Ogre::Vector3(0.001));
 
     QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnExit", &ClientGame::OnExit, this);
     QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnTurn", &ClientGame::OnTurn, this);
@@ -104,7 +104,8 @@ void ClientGame::UpdateTileUnderCursor(Ogre::Ray& aRay)
     {
         Ogre::Vector3 position(aRay.getPoint(res.second));
         mTileUnderCursor = mTileUnderCursor->GetTileAtPosition(position);
-        mSelectionMarker->setPosition(mTileUnderCursor->GetPosition());
+        mSelectionMarker->getParent()->removeChild(mSelectionMarker);
+        mTileUnderCursor->GetNode().addChild(mSelectionMarker);
     }
     mSelectionMarker->setVisible(res.first);
 }

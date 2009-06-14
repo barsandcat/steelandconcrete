@@ -2,12 +2,13 @@
 #include <ClientTile.h>
 #include <ClientApp.h>
 
-ClientTile::ClientTile(TileId aId, const Ogre::Vector3& aPosition):
+ClientTile::ClientTile(TileId aId, float scale, const Ogre::Vector3& aPosition):
         mNode(*ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode(aPosition)),
         mTileId(aId),
         mUnit(NULL)
 {
     mNeighbourhood.reserve(6);
+    mNode.setScale(Ogre::Vector3(scale));
  }
 
 ClientTile::~ClientTile()

@@ -7,7 +7,7 @@ ClientUnit::ClientUnit(ClientTile& aTile, UnitId aUnitId): mTile(&aTile), mUnitI
 {
     mTile->SetUnit(this);
     mNode = mTile->GetNode().createChildSceneNode();
-    mNode->setScale(Ogre::Vector3(0.0011));
+    mNode->setScale(Ogre::Vector3(0.01));
     mNode->setDirection(mTile->GetPosition(), Ogre::SceneNode::TS_LOCAL, Ogre::Vector3::UNIT_Y);
 }
 

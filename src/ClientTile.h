@@ -7,7 +7,7 @@ class ClientUnit;
 class ClientTile
 {
 public:
-    explicit ClientTile(TileId aId, const Ogre::Vector3& aPosition);
+    explicit ClientTile(TileId aId, float scale, const Ogre::Vector3& aPosition);
     ~ClientTile();
     void AddNeighbour(ClientTile* aTile) { mNeighbourhood.push_back(aTile); }
     void RemoveNeighbour(ClientTile* aTile);

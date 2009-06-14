@@ -219,6 +219,7 @@ void ServerGeodesicGrid::Send(socket_t& aSocket) const
     GeodesicGridSizeMsg gridInfo;
     gridInfo.set_tilecount(mTiles.size());
     gridInfo.set_edgecount(mEdges.size());
+    gridInfo.set_scale((mTiles[0]->GetPosition() - mTiles[0]->GetNeighbour(0).GetPosition()).length());
     WriteMessage(aSocket, gridInfo);
     GetLog() << "Grid info send " << gridInfo.ShortDebugString() << std::endl;
 

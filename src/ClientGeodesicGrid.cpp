@@ -68,6 +68,7 @@ ClientGeodesicGrid::ClientGeodesicGrid(socket_t& aSocket, LoadingSheet& loadingS
     GetLog() << "Recived grid info " << gridInfo.ShortDebugString();
     mTiles.resize(gridInfo.tilecount());
     mEdges.resize(gridInfo.edgecount());
+    float scale = gridInfo.scale();
 
     for (size_t i = 0; i < gridInfo.tilecount(); ++i)
     {
@@ -75,6 +76,7 @@ ClientGeodesicGrid::ClientGeodesicGrid(socket_t& aSocket, LoadingSheet& loadingS
         ReadMessage(aSocket, tile);
         mTiles[tile.tag()] = new ClientTile(
             tile.tag(),
+            scale,
             Ogre::Vector3(tile.position().x(), tile.position().y(), tile.position().z())
         );
     }
