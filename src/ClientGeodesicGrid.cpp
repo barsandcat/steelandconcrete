@@ -58,7 +58,6 @@ void ClientGeodesicGrid::InitTiles()
     for (TileId i = 0; i < mTiles.size(); ++i)
     {
         mTiles[i]->SortNeighbourhood();
-        mTiles[i]->SetTileId(i);
     }
 }
 
@@ -74,7 +73,10 @@ ClientGeodesicGrid::ClientGeodesicGrid(socket_t& aSocket, LoadingSheet& loadingS
     {
         TileMsg tile;
         ReadMessage(aSocket, tile);
-        mTiles[tile.tag()] = new ClientTile(Ogre::Vector3(tile.position().x(), tile.position().y(), tile.position().z()));
+        mTiles[tile.tag()] = new ClientTile(
+            tile.tag(),
+            Ogre::Vector3(tile.position().x(), tile.position().y(), tile.position().z())
+        );
     }
     GetLog() << "Recived all tiles";
     loadingSheet.SetProgress(10);

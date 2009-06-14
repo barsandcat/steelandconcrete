@@ -6,10 +6,8 @@
 ClientUnit::ClientUnit(ClientTile& aTile, UnitId aUnitId): mTile(&aTile), mUnitId(aUnitId)
 {
     mTile->SetUnit(this);
-    Ogre::String indexName = Ogre::StringConverter::toString(mUnitId);
-    mNode = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode(indexName + "Unit.node");
+    mNode = mTile->GetNode().createChildSceneNode();
     mNode->setScale(Ogre::Vector3(0.0011));
-    mNode->setPosition(mTile->GetPosition());
     mNode->setDirection(mTile->GetPosition(), Ogre::SceneNode::TS_LOCAL, Ogre::Vector3::UNIT_Y);
 }
 
@@ -30,7 +28,8 @@ Ogre::Entity* ClientUnit::CreateEntity()
 void ClientUnit::SetPosition(ClientTile& aTile)
 {
     mTile->SetUnit(NULL);
+    mTile->GetNode().removeChild(mNode);
     aTile.SetUnit(this);
+    aTile.GetNode().addChild(mNode);
     mTile = &aTile;
-    mNode->setPosition(mTile->GetPosition());
 }

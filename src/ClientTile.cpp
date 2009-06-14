@@ -1,13 +1,14 @@
 #include <pch.h>
 #include <ClientTile.h>
+#include <ClientApp.h>
 
-ClientTile::ClientTile(const Ogre::Vector3& aPosition):
-        mPosition(aPosition),
-        mTileId(0),
+ClientTile::ClientTile(TileId aId, const Ogre::Vector3& aPosition):
+        mNode(*ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode(aPosition)),
+        mTileId(aId),
         mUnit(NULL)
 {
     mNeighbourhood.reserve(6);
-}
+ }
 
 ClientTile::~ClientTile()
 {
@@ -62,38 +63,38 @@ Ogre::MeshPtr ClientTile::ConstructMesh(const Ogre::String& aMeshName) const
 
     // Vetex setup
     //0
-    manual.position((mPosition + GetNeighbour(0)->mPosition + GetNeighbour(1)->mPosition).normalisedCopy());
-    manual.normal(mPosition);
+    manual.position((GetPosition() + GetNeighbour(0)->GetPosition() + GetNeighbour(1)->GetPosition()).normalisedCopy());
+    manual.normal(GetPosition());
     manual.textureCoord(pentagon ? pentagonHorizont : hexagonStep, 0);
     //1
-    manual.position((mPosition + GetNeighbour(1)->mPosition + GetNeighbour(2)->mPosition).normalisedCopy());
-    manual.normal(mPosition);
+    manual.position((GetPosition() + GetNeighbour(1)->GetPosition() + GetNeighbour(2)->GetPosition()).normalisedCopy());
+    manual.normal(GetPosition());
     manual.textureCoord(0, 0.5);
     //2
-    manual.position((mPosition + GetNeighbour(2)->mPosition + GetNeighbour(3)->mPosition).normalisedCopy());
-    manual.normal(mPosition);
+    manual.position((GetPosition() + GetNeighbour(2)->GetPosition() + GetNeighbour(3)->GetPosition()).normalisedCopy());
+    manual.normal(GetPosition());
     manual.textureCoord(pentagon ? pentagonHorizont : hexagonStep, 1);
     //3
-    manual.position((mPosition + GetNeighbour(3)->mPosition + GetNeighbour(4)->mPosition).normalisedCopy());
-    manual.normal(mPosition);
+    manual.position((GetPosition() + GetNeighbour(3)->GetPosition() + GetNeighbour(4)->GetPosition()).normalisedCopy());
+    manual.normal(GetPosition());
     manual.textureCoord(1.0f - (pentagon ? 0 : hexagonStep), 1.0f - (pentagon ? pentagonBottomStep : 0));
 
     if (pentagon)
     {
         //4
-        manual.position((mPosition + GetNeighbour(4)->mPosition + GetNeighbour(0)->mPosition).normalisedCopy());
-        manual.normal(mPosition);
+        manual.position((GetPosition() + GetNeighbour(4)->GetPosition() + GetNeighbour(0)->GetPosition()).normalisedCopy());
+        manual.normal(GetPosition());
         manual.textureCoord(1.0f, pentagonBottomStep);
     }
     else
     {
         //4
-        manual.position((mPosition + GetNeighbour(4)->mPosition + GetNeighbour(5)->mPosition).normalisedCopy());
-        manual.normal(mPosition);
+        manual.position((GetPosition() + GetNeighbour(4)->GetPosition() + GetNeighbour(5)->GetPosition()).normalisedCopy());
+        manual.normal(GetPosition());
         manual.textureCoord(1.0f, 0.5f);
         //5
-        manual.position((mPosition + GetNeighbour(5)->mPosition + GetNeighbour(0)->mPosition).normalisedCopy());
-        manual.normal(mPosition);
+        manual.position((GetPosition() + GetNeighbour(5)->GetPosition() + GetNeighbour(0)->GetPosition()).normalisedCopy());
+        manual.normal(GetPosition());
         manual.textureCoord(1.0f - hexagonStep, 0.0f);
     }
 
@@ -158,7 +159,7 @@ void ClientTile::SortNeighbourhood()
 {
     assert(mNeighbourhood[0]);
     std::sort(mNeighbourhood.begin(), mNeighbourhood.end(), CompareEdgesAltitude);
-    std::sort(mNeighbourhood.begin() + 1, mNeighbourhood.end(), CompareEdgesAngles(mPosition, mNeighbourhood[0]->mPosition));
+    std::sort(mNeighbourhood.begin() + 1, mNeighbourhood.end(), CompareEdgesAngles(GetPosition(), mNeighbourhood[0]->GetPosition()));
 }
 
 
@@ -177,17 +178,17 @@ Ogre::Real CalcDistance(const Ogre::Vector3& a, const Ogre::Vector3& b)
 
 ClientTile* ClientTile::GetTileAtPosition(const Ogre::Vector3& aPosistion)
 {
-    Ogre::Real min = CalcDistance(mNeighbourhood[0]->mPosition, mPosition);
+    Ogre::Real min = CalcDistance(mNeighbourhood[0]->GetPosition(), GetPosition());
     ClientTile* currentTile = this;
 
-    while (CalcDistance(currentTile->mPosition, aPosistion) > min)
+    while (CalcDistance(currentTile->GetPosition(), aPosistion) > min)
     {
         ClientTile* bestNeighbour = currentTile->GetNeighbour(0);
-        Ogre::Real bestDistance = CalcDistance(bestNeighbour->mPosition, aPosistion);
+        Ogre::Real bestDistance = CalcDistance(bestNeighbour->GetPosition(), aPosistion);
         for (size_t i = 1; i < currentTile->GetNeighbourCount(); ++i)
         {
             ClientTile* neighbour = currentTile->GetNeighbour(i);
-            Ogre::Real distance = CalcDistance(neighbour->mPosition, aPosistion);
+            Ogre::Real distance = CalcDistance(neighbour->GetPosition(), aPosistion);
             if (distance < bestDistance)
             {
                 bestDistance = distance;
