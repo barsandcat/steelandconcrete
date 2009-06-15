@@ -64,7 +64,7 @@ void ServerGame::Send(socket_t& aSocket) const
     count.set_time(mTime);
     WriteMessage(aSocket, count);
     ServerUnits::const_iterator i = mUnits.begin();
-    GetLog() << "Unit count send" << std::endl;
+    GetLog() << "Unit count send";
 
     for (;i != mUnits.end(); ++i)
     {
@@ -73,12 +73,12 @@ void ServerGame::Send(socket_t& aSocket) const
         unit.set_tile(i->second->GetPosition().GetTileId());
         WriteMessage(aSocket, unit);
     }
-    GetLog() << "All units send" << std::endl;
+    GetLog() << "All units send";
 }
 
 void ServerGame::UpdateGame()
 {
-    GetLog() << "Update Game!" << std::endl;
+    GetLog() << "Update Game!";
     ChangeList::Clear();
     ServerUnits::iterator i = mUnits.begin();
     mTime += 100;
@@ -92,5 +92,5 @@ void ServerGame::UpdateGame()
         }
     }
 
-    GetLog() << "Time: " << mTime << std::endl;
+    GetLog() << "Time: " << mTime;
 }

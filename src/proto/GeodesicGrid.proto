@@ -7,6 +7,16 @@ message GeodesicGridMsg
   repeated EdgeMsg edges = 3;
 }
 
+message TileListMsg
+{
+  repeated TileMsg tiles = 1;
+}
+
+message EdgeListMsg
+{
+  repeated EdgeMsg edges = 1;
+}
+
 message GeodesicGridSizeMsg
 {
   required uint32 tileCount = 1;

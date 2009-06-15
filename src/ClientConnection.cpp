@@ -26,7 +26,7 @@ void task_proc ClientConnectionThreadFunction(void *param)
                 switch (req.type())
                 {
                 case Disconnect:
-                    GetLog() << "Disconnect" << std::endl;
+                    GetLog() << "Disconnect";
                     self.mGame.SignalClientEvent();
                     break;
                 case ConfirmTime:
@@ -57,9 +57,9 @@ void task_proc ClientConnectionThreadFunction(void *param)
                         rsp.set_type(NewTime);
                         rsp.set_time(self.mGame.GetTime());
                         WriteMessage(self.mSocket, rsp);
-                        GetLog() << "New time send " << rsp.ShortDebugString() << std::endl;
+                        GetLog() << "New time send " << rsp.ShortDebugString();
                         ChangeList::Write(self.mSocket);
-                        GetLog() << "Change list send" << std::endl;
+                        GetLog() << "Change list send";
                     }
                     else
                     {
@@ -73,7 +73,7 @@ void task_proc ClientConnectionThreadFunction(void *param)
         }
         catch (std::runtime_error& e)
         {
-            GetLog() << e.what() << std::endl;
+            GetLog() << e.what();
             self.mGame.SignalClientEvent();
         }
     }
@@ -93,5 +93,5 @@ ClientConnection::~ClientConnection()
 {
     mSocket.close();
     delete &mSocket;
-    GetLog() << "Socket deletd" << std::endl;
+    GetLog() << "Socket deletd";
 }

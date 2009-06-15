@@ -70,24 +70,31 @@ ClientGeodesicGrid::ClientGeodesicGrid(socket_t& aSocket, LoadingSheet& loadingS
     mEdges.resize(gridInfo.edgecount());
     float scale = gridInfo.scale();
 
-    for (size_t i = 0; i < gridInfo.tilecount(); ++i)
+    for (size_t i = 0; i < gridInfo.tilecount();)
     {
-        TileMsg tile;
-        ReadMessage(aSocket, tile);
-        mTiles[tile.tag()] = new ClientTile(
-            tile.tag(),
-            scale,
-            Ogre::Vector3(tile.position().x(), tile.position().y(), tile.position().z())
-        );
+        TileListMsg tiles;
+        ReadMessage(aSocket, tiles);
+        for (size_t j = 0; j < tiles.tiles_size(); ++j)
+        {
+            TileMsg tile = tiles.tiles(j);
+            mTiles[tile.tag()] = new ClientTile(tile.tag(), scale,
+                                                Ogre::Vector3(tile.position().x(), tile.position().y(), tile.position().z()));
+            ++i;
+        }
     }
     GetLog() << "Recived all tiles";
     loadingSheet.SetProgress(10);
 
-    for (size_t i = 0; i < gridInfo.edgecount(); ++i)
+    for (size_t i = 0; i < gridInfo.edgecount();)
     {
-        EdgeMsg edge;
-        ReadMessage(aSocket, edge);
-        mEdges[i] = new ClientEdge(mTiles[edge.tilea()], mTiles[edge.tileb()]);
+        EdgeListMsg edges;
+        ReadMessage(aSocket, edges);
+        for (size_t j = 0; j < edges.edges_size(); ++j)
+        {
+            EdgeMsg edge = edges.edges(j);
+            mEdges[i] = new ClientEdge(mTiles[edge.tilea()], mTiles[edge.tileb()]);
+            ++i;
+        }
     }
     GetLog() << "Recived all edges ";
     loadingSheet.SetProgress(50);

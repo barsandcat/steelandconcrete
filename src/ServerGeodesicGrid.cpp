@@ -214,6 +214,24 @@ void ServerGeodesicGrid::Save(const Ogre::String aFileName) const
     grid.SerializeToOstream(&output);
 }
 
+int GetTileMsgSize()
+{
+    TileMsg tile;
+    tile.set_tag(google::protobuf::kint32max);
+    tile.mutable_position()->set_x(0.1234567f);
+    tile.mutable_position()->set_y(0.1234567f);
+    tile.mutable_position()->set_z(0.1234567f);
+    return tile.ByteSize();
+}
+
+int GetEdgeMsgSize()
+{
+    EdgeMsg edge;
+    edge.set_tilea(google::protobuf::kint32max);
+    edge.set_tileb(google::protobuf::kint32max);
+    return edge.ByteSize();
+}
+
 void ServerGeodesicGrid::Send(socket_t& aSocket) const
 {
     GeodesicGridSizeMsg gridInfo;
@@ -221,26 +239,41 @@ void ServerGeodesicGrid::Send(socket_t& aSocket) const
     gridInfo.set_edgecount(mEdges.size());
     gridInfo.set_scale((mTiles[0]->GetPosition() - mTiles[0]->GetNeighbour(0).GetPosition()).length());
     WriteMessage(aSocket, gridInfo);
-    GetLog() << "Grid info send " << gridInfo.ShortDebugString() << std::endl;
-
-    for (size_t i = 0; i < mTiles.size(); ++i)
+    GetLog() << "Grid info send " << gridInfo.ShortDebugString();
+    int tilesPerMessage = MESSAGE_SIZE / GetTileMsgSize() - 1;
+    GetLog() << "Tiles per message " << tilesPerMessage;
+    for (size_t i = 0; i < mTiles.size();)
     {
-        TileMsg tile;
-        tile.set_tag(i);
-        Ogre::Vector3 pos = mTiles[i]->GetPosition();
-        tile.mutable_position()->set_x(pos.x);
-        tile.mutable_position()->set_y(pos.y);
-        tile.mutable_position()->set_z(pos.z);
-        WriteMessage(aSocket, tile);
+        TileListMsg tiles;
+        for (size_t j = 0; j < tilesPerMessage && i < mTiles.size(); ++j)
+        {
+            TileMsg* tile = tiles.add_tiles();
+            Ogre::Vector3 pos = mTiles[i]->GetPosition();
+            tile->set_tag(i);
+            tile->mutable_position()->set_x(pos.x);
+            tile->mutable_position()->set_y(pos.y);
+            tile->mutable_position()->set_z(pos.z);
+            ++i;
+        }
+        WriteMessage(aSocket, tiles);
     }
-    GetLog() << "Send all tiles" << std::endl;
 
-    for (size_t i = 0; i < mEdges.size(); ++i)
+    GetLog() << "Send all tiles";
+
+    int edgesPerMessage = MESSAGE_SIZE / GetEdgeMsgSize() - 1;
+    GetLog() << "Edges per message " << edgesPerMessage;
+    for (size_t i = 0; i < mEdges.size();)
     {
-        EdgeMsg edge;
-        edge.set_tilea(mEdges[i]->GetTileA().GetTileId());
-        edge.set_tileb(mEdges[i]->GetTileB().GetTileId());
-        WriteMessage(aSocket, edge);
+        int size = 0;
+        EdgeListMsg edges;
+        for (size_t j = 0; j < edgesPerMessage && i < mEdges.size(); ++j)
+        {
+            EdgeMsg* edge = edges.add_edges();
+            edge->set_tilea(mEdges[i]->GetTileA().GetTileId());
+            edge->set_tileb(mEdges[i]->GetTileB().GetTileId());
+            ++i;
+        }
+        WriteMessage(aSocket, edges);
     }
-    GetLog() << "Send all edges" << std::endl;
+    GetLog() << "Send all edges";
 }

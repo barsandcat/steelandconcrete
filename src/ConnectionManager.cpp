@@ -8,7 +8,7 @@ void task_proc ManagerThreadFunction(void *param)
 {
     ConnectionManager& self = *(static_cast< ConnectionManager* >(param));
     self.mQuit = !self.mGate.is_ok();
-    GetLog() << "Gate " << (self.mQuit ? "not opened" : "opened") << std::endl;
+    GetLog() << "Gate " << (self.mQuit ? "not opened" : "opened");
     while (!self.mQuit)
     {
         socket_t* clientSocket = self.mGate.accept();
