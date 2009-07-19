@@ -10,6 +10,7 @@
 #include <BirdCamera.h>
 #include <MainMenuSheet.h>
 
+void LaunchServer();
 
 class ClientApp: public OIS::KeyListener, public OIS::MouseListener, public OIS::JoyStickListener
 {

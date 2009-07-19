@@ -208,22 +208,7 @@ void ClientApp::OnCreate(const QuickGUI::EventArgs& args)
     GetLog() << "On create";
     if (!mGame)
     {
-        pid_t pID = fork();
-        if (pID == 0) // child
-        {
-            // Code only executed by child process
-            char* const cmd[] = { "steelandconcrete_d_server", (char *)0 };
-            execv("steelandconcrete_d_server", cmd);
-
-        }
-        else if (pID < 0) // failed to fork
-        {
-            GetLog() << "Not launced";
-        }
-        else // parent
-        {
-            GetLog() << "Launched";
-        }
+        LaunchServer();
     }
 }
 

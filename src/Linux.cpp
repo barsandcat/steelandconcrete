@@ -39,6 +39,26 @@ void CheckConfigFile(const Ogre::String aHomeDir)
     }
 }
 
+void LaunchServer()
+{
+    pid_t pID = fork();
+    if (pID == 0) // child
+    {
+        // Code only executed by child process
+        char* const cmd[] = { "steelandconcrete_d_server", (char *)0 };
+        execv("steelandconcrete_d_server", cmd);
+
+    }
+    else if (pID < 0) // failed to fork
+    {
+        GetLog() << "Not launced";
+    }
+    else // parent
+    {
+        GetLog() << "Launched";
+    }
+}
+
 
 int main(int argc, char **argv)
 {
