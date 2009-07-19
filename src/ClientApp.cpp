@@ -182,6 +182,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         mGUIManager->notifyViewportDimensionsChanged();
     }
     QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnConnect", &ClientApp::OnConnect, this);
+    QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnCreate", &ClientApp::OnCreate, this);
 }
 
 void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
@@ -194,6 +195,30 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
         {
             GetLog() << "Connected";
             mGame = new ClientGame(*sock);
+        }
+    }
+}
+
+void ClientApp::OnCreate(const QuickGUI::EventArgs& args)
+{
+    GetLog() << "On create";
+    if (!mGame)
+    {
+        pid_t pID = fork();
+        if (pID == 0) // child
+        {
+            // Code only executed by child process
+            char* const cmd[] = { "steelandconcrete_d_server", (char *)0 };
+            execv("steelandconcrete_d_server", cmd);
+
+        }
+        else if (pID < 0) // failed to fork
+        {
+            GetLog() << "Not launced";
+        }
+        else // parent
+        {
+            GetLog() << "Launched";
         }
     }
 }

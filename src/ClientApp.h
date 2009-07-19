@@ -21,6 +21,7 @@ public:
     void UpdateSheetSize(Ogre::RenderWindow* rw);
     void DestroyOIS(Ogre::RenderWindow* rw);
     void OnConnect(const QuickGUI::EventArgs& args);
+    void OnCreate(const QuickGUI::EventArgs& args);
     virtual bool buttonPressed(const OIS::JoyStickEvent &arg, int button)
     {
         return true;

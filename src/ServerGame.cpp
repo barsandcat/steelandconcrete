@@ -11,7 +11,7 @@ ServerGame::ServerGame(): mGrid(NULL), mUnitCount(0), mTime(1)
 {
     task::initialize(task::normal_stack);
     mClientEvent = new event();
-    mGrid = new ServerGeodesicGrid(5);
+    mGrid = new ServerGeodesicGrid(4);
     for (size_t i = 0; i < 15; ++i)
     {
         CreateUnit(mGrid->GetTile(rand() % mGrid->GetTileCount()));
