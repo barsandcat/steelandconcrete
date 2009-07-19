@@ -116,6 +116,11 @@ void ClientGame::Select()
     mSelectedUnit = mTileUnderCursor->GetUnit();
 }
 
+void ClientGame::Act()
+{
+    assert(mTileUnderCursor && "Тайл под курсором должен быть!");
+}
+
 void ClientGame::OnExit(const QuickGUI::EventArgs& args)
 {
     ClientApp::Quit();

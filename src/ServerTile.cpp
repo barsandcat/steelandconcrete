@@ -80,28 +80,3 @@ Ogre::Real CalcDistance(const Ogre::Vector3& a, const Ogre::Vector3& b)
 {
     return acos(a.dotProduct(b));
 }
-
-ServerTile* ServerTile::GetTileAtPosition(const Ogre::Vector3& aPosistion)
-{
-    Ogre::Real min = CalcDistance(mNeighbourhood[0]->mPosition, mPosition);
-    ServerTile* currentTile = this;
-
-    while (CalcDistance(currentTile->mPosition, aPosistion) > min)
-    {
-        ServerTile* bestNeighbour = &currentTile->GetNeighbour(0);
-        Ogre::Real bestDistance = CalcDistance(bestNeighbour->mPosition, aPosistion);
-        for (size_t i = 1; i < currentTile->GetNeighbourCount(); ++i)
-        {
-            ServerTile& neighbour = currentTile->GetNeighbour(i);
-            Ogre::Real distance = CalcDistance(neighbour.mPosition, aPosistion);
-            if (distance < bestDistance)
-            {
-                bestDistance = distance;
-                bestNeighbour = &neighbour;
-            }
-        }
-        currentTile = bestNeighbour;
-    }
-
-    return currentTile;
-}

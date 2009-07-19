@@ -181,8 +181,9 @@ ClientTile* ClientTile::GetTileAtPosition(const Ogre::Vector3& aPosistion)
 {
     Ogre::Real min = CalcDistance(mNeighbourhood[0]->GetPosition(), GetPosition());
     ClientTile* currentTile = this;
+    int counter = 0;
 
-    while (CalcDistance(currentTile->GetPosition(), aPosistion) > min)
+    while (CalcDistance(currentTile->GetPosition(), aPosistion) > min && counter < 1000)
     {
         ClientTile* bestNeighbour = currentTile->GetNeighbour(0);
         Ogre::Real bestDistance = CalcDistance(bestNeighbour->GetPosition(), aPosistion);
@@ -197,6 +198,7 @@ ClientTile* ClientTile::GetTileAtPosition(const Ogre::Vector3& aPosistion)
             }
         }
         currentTile = bestNeighbour;
+        ++counter;
     }
 
     return currentTile;

@@ -22,8 +22,6 @@ public:
 
     TileId GetTileId() const { return mTileId; }
     void SetTileId(TileId aTileId) { mTileId = aTileId; }
-
-    ServerTile* GetTileAtPosition(const Ogre::Vector3& aPosistion);
 protected:
 private:
     std::vector< ServerTile* > mNeighbourhood;

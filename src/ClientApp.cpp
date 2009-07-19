@@ -450,7 +450,17 @@ bool ClientApp::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
     mGUIManager->injectMouseButtonDown(static_cast<QuickGUI::MouseButtonID>(id));
     if (mGame)
     {
-        mGame->Select();
+        switch (id)
+        {
+        case OIS::MB_Left:
+            mGame->Select();
+            break;
+        case OIS::MB_Right:
+            mGame->Act();
+            break;
+        default:
+            ;
+        }
     }
 
     return true;

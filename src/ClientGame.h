@@ -22,6 +22,7 @@ public:
     void UpdateTileUnderCursor(Ogre::Ray& aRay);
     void Update(unsigned long aFrameTime);
     void Select();
+    void Act();
 protected:
 private:
     socket_t& mSocket;
