@@ -51,6 +51,7 @@ int main(int argc, char **argv)
         GetLog() << "ClientApp ready";
         app.MainLoop();
         GetLog() << "Main loop ended";
+        chdir("cpd");
     }
     catch (std::exception& e)
     {
