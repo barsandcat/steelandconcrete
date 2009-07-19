@@ -190,11 +190,15 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
     GetLog() << "On connect";
     if (!mGame)
     {
-        socket_t* sock = socket_t::connect("localhost:4512");
+        socket_t* sock = socket_t::connect("localhost:4512", socket_t::sock_any_domain, 3, 1);
         if (sock && sock->is_ok())
         {
             GetLog() << "Connected";
             mGame = new ClientGame(*sock);
+        }
+        else
+        {
+            GetLog() << "Not connected";
         }
     }
 }
