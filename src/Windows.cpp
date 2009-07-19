@@ -43,6 +43,10 @@ void CheckConfigFile(const Ogre::String aHomeDir)
     }
 }
 
+void LaunchServer()
+{
+}
+
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT)
 {
     // Create application object
