@@ -42,6 +42,7 @@ void CheckConfigFile(const Ogre::String aHomeDir)
 
 int main(int argc, char **argv)
 {
+    int res = -1;
     // Create application object
     try
     {
@@ -51,17 +52,18 @@ int main(int argc, char **argv)
         GetLog() << "ClientApp ready";
         app.MainLoop();
         GetLog() << "Main loop ended";
-        chdir("cpd");
+        res = 0;
     }
     catch (std::exception& e)
     {
         std::cerr << "An exception has occured: " << e.what();
-        return 1;
+        res = 1;
     }
     catch (...)
     {
         std::cerr << "Exception!";
-        return 2;
+        res = 2;
     }
-    return 0;
+    chdir("cpd"); // this is to save gmon.out
+    return res;
 }
