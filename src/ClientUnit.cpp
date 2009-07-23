@@ -3,7 +3,7 @@
 #include <ClientTile.h>
 #include <ClientApp.h>
 
-ClientUnit::ClientUnit(ClientTile& aTile, UnitId aUnitId): mTile(&aTile), mUnitId(aUnitId)
+ClientUnit::ClientUnit(ClientTile& aTile, UnitId aUnitId): mTile(&aTile), mTarget(NULL), mUnitId(aUnitId)
 {
     mTile->SetUnit(this);
     mNode = mTile->GetNode().createChildSceneNode();
@@ -32,4 +32,9 @@ void ClientUnit::SetPosition(ClientTile& aTile)
     aTile.SetUnit(this);
     aTile.GetNode().addChild(mNode);
     mTile = &aTile;
+}
+
+void ClientUnit::SetTarget(ClientTile* aTile)
+{
+    mTarget = aTile;
 }

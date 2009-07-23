@@ -31,6 +31,7 @@ private:
     ClientTile* mTileUnderCursor;
     ClientUnit* mSelectedUnit;
     Ogre::SceneNode* mSelectionMarker;
+    Ogre::SceneNode* mTargetMarker;
     LoadingSheet mLoadingSheet;
     InGameSheet mIngameSheet;
     ViewPortWidget mViewPortWidget;

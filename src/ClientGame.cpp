@@ -66,6 +66,11 @@ ClientGame::ClientGame(socket_t& aSocket):
     mSelectionMarker->setScale(Ogre::Vector3(0.01));
     mSelectionMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Marker", Ogre::SceneManager::PT_SPHERE));
 
+    mTargetMarker = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
+    mTargetMarker->setScale(Ogre::Vector3(0.01));
+    mTargetMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Target", Ogre::SceneManager::PT_SPHERE));
+    mTargetMarker->setVisible(false);
+
     QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnExit", &ClientGame::OnExit, this);
     QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnTurn", &ClientGame::OnTurn, this);
 
@@ -114,11 +119,36 @@ void ClientGame::Select()
 {
     assert(mTileUnderCursor && "Тайл под курсором должен быть!");
     mSelectedUnit = mTileUnderCursor->GetUnit();
+    if (mSelectedUnit)
+    {
+        ClientTile* tile = mSelectedUnit->GetTarget();
+        if (tile)
+        {
+            mTargetMarker->getParent()->removeChild(mTargetMarker);
+            tile->GetNode().addChild(mTargetMarker);
+            mTargetMarker->setVisible(true);
+        }
+        else
+        {
+            mTargetMarker->setVisible(false);
+        }
+    }
+    else
+    {
+        mTargetMarker->setVisible(false);
+    }
 }
 
 void ClientGame::Act()
 {
     assert(mTileUnderCursor && "Тайл под курсором должен быть!");
+    if (mSelectedUnit)
+    {
+        mSelectedUnit->SetTarget(mTileUnderCursor);
+        mTargetMarker->getParent()->removeChild(mTargetMarker);
+        mTileUnderCursor->GetNode().addChild(mTargetMarker);
+        mTargetMarker->setVisible(true);
+    }
 }
 
 void ClientGame::OnExit(const QuickGUI::EventArgs& args)

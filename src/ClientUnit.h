@@ -10,12 +10,15 @@ class ClientUnit
 public:
     ClientUnit(ClientTile& aTile, UnitId aUnitId);
     void SetPosition(ClientTile& aTile);
+    void SetTarget(ClientTile* aTile);
+    ClientTile* GetTarget() const { return mTarget; }
     ~ClientUnit();
     Ogre::Entity* CreateEntity();
     Ogre::SceneNode& GetNode() { return *mNode; }
 protected:
 private:
     ClientTile* mTile;
+    ClientTile* mTarget;
     Ogre::SceneNode* mNode;
     UnitId mUnitId;
 };
