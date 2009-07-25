@@ -7,9 +7,9 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="..\..\Common\bin\debug\OgreXMLConverter.exe" prefix_auto="0" extension_auto="0" />
-				<Option working_dir="..\..\Common\bin\Debug" />
-				<Option object_output="..\obj\Debug" />
+				<Option output="../../../../bin/OgreXMLConverter_d" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="../../../../bin" />
+				<Option object_output="../../../../obj/Debug" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option projectResourceIncludeDirsRelation="1" />
@@ -21,9 +21,9 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="..\..\Common\bin\Release\OgreXMLConverter.exe" prefix_auto="0" extension_auto="0" />
-				<Option working_dir="..\..\Common\bin\Release" />
-				<Option object_output="..\obj\Release" />
+				<Option output="../../../../bin/OgreXMLConverter_d" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="../../../../bin" />
+				<Option object_output="../../../../obj/Release" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option projectResourceIncludeDirsRelation="1" />
@@ -41,34 +41,39 @@
 		</VirtualTargets>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add option="-mthreads" />
-			<Add option="-fmessage-length=0" />
-			<Add option="-fexceptions" />
-			<Add option="-fident" />
-			<Add option="-pipe" />
+			<Add option="-pthread" />
 			<Add option="-DTIXML_USE_STL" />
-			<Add directory="..\include" />
-			<Add directory="..\..\..\OgreMain\include" />
+			<Add directory="../include" />
+			<Add directory="../../../OgreMain/include" />
 		</Compiler>
 		<Linker>
-			<Add option="-Wl,--enable-auto-image-base" />
-			<Add option="-Wl,--add-stdcall-alias" />
-			<Add directory="..\..\Common\bin\$(TARGET_NAME)" />
+			<Add library="freetype" />
+			<Add library="zzip" />
+			<Add library="freeimage" />
+			<Add library="Xt" />
+			<Add library="X11" />
+			<Add library="Xext" />
+			<Add library="Xrandr" />
+			<Add library="Xaw" />
+			<Add library="pthread" />
+			<Add directory="../../../lib" />
 		</Linker>
-		<Unit filename="..\include\OgreXMLMeshSerializer.h" />
-		<Unit filename="..\include\OgreXMLPrerequisites.h" />
-		<Unit filename="..\include\OgreXMLSkeletonSerializer.h" />
-		<Unit filename="..\include\tinystr.h" />
-		<Unit filename="..\include\tinyxml.h" />
-		<Unit filename="..\src\OgreXMLMeshSerializer.cpp" />
-		<Unit filename="..\src\OgreXMLSkeletonSerializer.cpp" />
-		<Unit filename="..\src\main.cpp" />
-		<Unit filename="..\src\tinystr.cpp" />
-		<Unit filename="..\src\tinyxml.cpp" />
-		<Unit filename="..\src\tinyxmlerror.cpp" />
-		<Unit filename="..\src\tinyxmlparser.cpp" />
+		<Unit filename="../include/OgreXMLMeshSerializer.h" />
+		<Unit filename="../include/OgreXMLPrerequisites.h" />
+		<Unit filename="../include/OgreXMLSkeletonSerializer.h" />
+		<Unit filename="../include/tinystr.h" />
+		<Unit filename="../include/tinyxml.h" />
+		<Unit filename="../src/OgreXMLMeshSerializer.cpp" />
+		<Unit filename="../src/OgreXMLSkeletonSerializer.cpp" />
+		<Unit filename="../src/main.cpp" />
+		<Unit filename="../src/tinystr.cpp" />
+		<Unit filename="../src/tinyxml.cpp" />
+		<Unit filename="../src/tinyxmlerror.cpp" />
+		<Unit filename="../src/tinyxmlparser.cpp" />
 		<Extensions>
 			<code_completion />
+			<envvars />
+			<debugger />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
