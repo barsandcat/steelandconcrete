@@ -42,6 +42,7 @@ ViewPortWidget::ViewPortWidget(const ViewPortWidget& other)
 
 ViewPortWidget& ViewPortWidget::operator=(const ViewPortWidget & rhs)
 {
+	return *this;
 }
 
 void ViewPortWidget::SetNode(Ogre::SceneNode* aNode)
