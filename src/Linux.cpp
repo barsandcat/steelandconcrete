@@ -15,7 +15,7 @@ void CheckConfigFile(const Ogre::String aHomeDir)
     {
         mkdir(configDir.c_str(), S_IRUSR | S_IWUSR | S_IXUSR);
     }
-    Ogre::String configFile = configDir + "/steelandconcrete.cfg";
+    Ogre::String configFile = configDir + "/steelandconcrete1.cfg";
     if (!FileExists(configFile))
     {
         std::ofstream of(configFile.c_str());
@@ -68,7 +68,7 @@ int main(int argc, char **argv)
     {
         Ogre::String home = getenv("HOME");
         CheckConfigFile(home);
-        ClientApp app(home + "/.steelandconcrete/steelandconcrete.cfg");
+        ClientApp app(home + "/.steelandconcrete/steelandconcrete1.cfg");
         GetLog() << "ClientApp ready";
         app.MainLoop();
         GetLog() << "Main loop ended";

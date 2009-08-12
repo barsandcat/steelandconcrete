@@ -17,7 +17,7 @@ void CheckConfigFile(const Ogre::String aHomeDir)
     {
         CreateDirectory(ConfigDir.c_str(), NULL); 
     }
-    Ogre::String ConfigFile = ConfigDir + "\\steelandconcrete.cfg";
+    Ogre::String ConfigFile = ConfigDir + "\\steelandconcrete1.cfg";
     if (!FileExists(ConfigFile))
     {
         std::ofstream of(ConfigFile.c_str());
@@ -54,7 +54,7 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT)
     {
         Ogre::String home = getenv("APPDATA");
         CheckConfigFile(home);
-        ClientApp app(home + "\\steelandconcrete\\steelandconcrete.cfg");
+        ClientApp app(home + "\\steelandconcrete\\steelandconcrete1.cfg");
         Ogre::LogManager::getSingletonPtr()->logMessage("App ready");
         app.MainLoop();
         Ogre::LogManager::getSingletonPtr()->logMessage("Main loop ended");
