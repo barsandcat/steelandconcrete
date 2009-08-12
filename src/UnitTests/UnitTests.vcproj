@@ -60,7 +60,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\ogreal\vorbis\include;..\..\ogreal\ogg\include;&quot;C:\Program Files\OpenAL 1.1 SDK (x86)\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;..\..\ogreal\ogreal\include;..\..\SAL;&quot;..\..\protobuf-2.0.3\src&quot;;..\proto;..\..\ogre\OgreMain\include;..\..\QuickGUI_9_05\QuickGUI\include;..\..\ois\includes;../../src;../../cxxtest"
+				AdditionalIncludeDirectories="..\..\ogreal\vorbis\include;..\..\ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;..\..\ogreal\ogreal\include;..\..\SAL;&quot;..\..\protobuf-2.0.3\src&quot;;..\proto;..\..\ogre\OgreMain\include;..\..\QuickGUI_9_05\QuickGUI\include;..\..\ois\includes;../../src;../../cxxtest"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;OGRE_STATIC_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -152,7 +152,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\ogreal\vorbis\include;..\..\ogreal\ogg\include;&quot;C:\Program Files\OpenAL 1.1 SDK (x86)\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;..\..\ogreal\ogreal\include;..\..\SAL;&quot;..\..\protobuf-2.0.3\src&quot;;..\proto;..\..\ogre\OgreMain\include;..\..\QuickGUI_9_05\QuickGUI\include;..\..\ois\includes;../../src;../../cxxtest"
+				AdditionalIncludeDirectories="..\..\ogreal\vorbis\include;..\..\ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;..\..\ogreal\ogreal\include;..\..\SAL;&quot;..\..\protobuf-2.0.3\src&quot;;..\proto;..\..\ogre\OgreMain\include;..\..\QuickGUI_9_05\QuickGUI\include;..\..\ois\includes;../../src;../../cxxtest"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;OGRE_STATIC_LIB"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
