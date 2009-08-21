@@ -9,6 +9,7 @@ ClientTile::ClientTile(TileId aId, float scale, const Ogre::Vector3& aPosition):
 {
     mNeighbourhood.reserve(6);
     mNode.setScale(Ogre::Vector3(scale));
+	mNode.setDirection(aPosition, Ogre::Node::TS_LOCAL, Ogre::Vector3::UNIT_Z);
  }
 
 ClientTile::~ClientTile()
