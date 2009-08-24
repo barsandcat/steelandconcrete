@@ -67,8 +67,7 @@ ClientGame::ClientGame(socket_t& aSocket):
     mSelectionMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Marker", Ogre::SceneManager::PT_SPHERE));
 
     mTargetMarker = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
-    mTargetMarker->setScale(Ogre::Vector3(0.01));
-    mTargetMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Target", Ogre::SceneManager::PT_SPHERE));
+    mTargetMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Target", "TargetMarker.mesh"));
     mTargetMarker->setVisible(false);
 
     QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnExit", &ClientGame::OnExit, this);
