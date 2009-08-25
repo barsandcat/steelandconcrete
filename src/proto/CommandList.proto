@@ -1,16 +1,16 @@
-message UnitMoveMsg
+message CommandMoveMsg
 {
     required int32 unitid = 1;
     required uint32 position = 2;
 }
 
-message ChangeMsg
+message CommandMsg
 {
-    optional UnitMoveMsg unitmove = 1;
+    optional CommandMoveMsg commandmove = 1;
 }
 
-message ChangeListMsg
+message CommandListMsg
 {
     required bool last = 1;
-    repeated ChangeMsg changes = 2;
+    repeated CommandMsg commands = 2;
 }
