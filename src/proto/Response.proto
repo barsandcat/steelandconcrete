@@ -1,16 +1,21 @@
+import "ChangeList.proto";
+
 enum ResponseType
 {
     Ok = 1;
     NotOk = 2;
     NewTime = 3;
     PleaseWait = 4;
+    Changes = 5;    
 }
 
 message ResponseMsg
-{
-    required ResponseType type = 1;
-    optional string reason = 2;
-    optional int32 time = 3;
+{    
+    required ResponseType type = 1;    
+    optional bool last = 2 [default = true];
+    optional string reason = 3;
+    optional int32 time = 4;    
+    repeated ChangeMsg changes = 5;
 }
 
 
