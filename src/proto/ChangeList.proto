@@ -9,8 +9,3 @@ message ChangeMsg
     optional UnitMoveMsg unitmove = 1;
 }
 
-message ChangeListMsg
-{
-    required bool last = 1;
-    repeated ChangeMsg changes = 2;
-}
