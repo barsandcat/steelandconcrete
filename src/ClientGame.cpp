@@ -180,7 +180,7 @@ void ClientGame::OnTurn(const QuickGUI::EventArgs& args)
     }
 }
 
-void ClientGame::LoadEvents(const ChangeListMsg& changes)
+void ClientGame::LoadEvents(const ResponseMsg& changes)
 {
     for (int i = 0; i < changes.changes_size(); ++i)
     {
@@ -218,7 +218,7 @@ void ClientGame::Update(unsigned long aFrameTime)
                 mIngameSheet.SetTime(mTime);
                 mTurnDone = false;
                 GetLog() << "New time " << mTime;
-                ChangeListMsg changes;
+                ResponseMsg changes;
                 ReadMessage(mSocket, changes);
                 LoadEvents(changes);
             }

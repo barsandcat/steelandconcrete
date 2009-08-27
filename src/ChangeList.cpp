@@ -3,7 +3,7 @@
 
 #include <Network.h>
 
-ChangeListMsg ChangeList::mChangeList;
+ResponseMsg ChangeList::mChangeList;
 
 void ChangeList::AddMove(UnitId aUnit, TileId aPosition)
 {
@@ -20,5 +20,6 @@ void ChangeList::Clear()
 void ChangeList::Write(socket_t& aSocket)
 {
     mChangeList.set_last(true);
+	mChangeList.set_type(Changes);
     WriteMessage(aSocket, mChangeList);
 }
