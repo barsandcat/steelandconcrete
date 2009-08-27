@@ -6,7 +6,7 @@
 #include <LoadingSheet.h>
 #include <InGameSheet.h>
 #include <sockio.h>
-#include <ChangeList.pb.h>
+#include <Response.pb.h>
 #include <Typedefs.h>
 #include <ViewPortWidget.h>
 
@@ -38,7 +38,7 @@ private:
     int mTime;
     bool mTurnDone;
     void CreateUnitEntities() const;
-    void LoadEvents(const ChangeListMsg& changes);
+    void LoadEvents(const ResponseMsg& changes);
 };
 
 #endif // CLIENTGAME_H
