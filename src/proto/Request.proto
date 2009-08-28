@@ -1,14 +1,19 @@
+import "CommandList.proto";
+
 enum RequestType
 {
     Disconnect = 1;
     ConfirmTime = 2;
     GetTime = 3;
+    Commands = 4;
 }
 
 message RequestMsg
 {
     required RequestType type = 1;
-    optional int32 time = 2;
+    optional bool last = 2 [default = true];
+    optional int32 time = 3;
+    repeated CommandMsg commands = 4;
 }
 
 

@@ -9,8 +9,3 @@ message CommandMsg
     optional CommandMoveMsg commandmove = 1;
 }
 
-message CommandListMsg
-{
-    required bool last = 1;
-    repeated CommandMsg commands = 2;
-}

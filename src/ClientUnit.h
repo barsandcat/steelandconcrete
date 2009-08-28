@@ -15,6 +15,7 @@ public:
     ~ClientUnit();
     Ogre::Entity* CreateEntity();
     Ogre::SceneNode& GetNode() { return *mNode; }
+	UnitId GetUnitId() const { return mUnitId; }
 protected:
 private:
     ClientTile* mTile;

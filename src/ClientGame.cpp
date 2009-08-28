@@ -155,6 +155,27 @@ void ClientGame::OnExit(const QuickGUI::EventArgs& args)
     ClientApp::Quit();
     GetLog() << "OnExit";
 }
+
+void ClientGame::SendCommands()
+{
+	RequestMsg req;
+	req.set_type(Commands);
+	req.set_last(false);
+	std::map< UnitId, ClientUnit* >::iterator i = mUnits.begin();
+    for (; i != mUnits.end(); ++i)
+	{
+		ClientUnit* unit = i->second;
+		if (unit->GetTarget())
+		{
+			CommandMsg* command = req.add_commands();
+			CommandMoveMsg* move = command->mutable_commandmove();
+			move->set_unitid(unit->GetUnitId());
+			move->set_position(unit->GetTarget()->GetTileId());
+		}
+	}
+	WriteMessage(mSocket, req);
+}
+
 void ClientGame::OnTurn(const QuickGUI::EventArgs& args)
 {
     if (!mTurnDone)
@@ -164,6 +185,8 @@ void ClientGame::OnTurn(const QuickGUI::EventArgs& args)
         req.set_time(mTime);
         GetLog() << req.ShortDebugString();
         WriteMessage(mSocket, req);
+
+		//SendCommands();
 
         ResponseMsg rsp;
         ReadMessage(mSocket, rsp);
