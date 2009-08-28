@@ -348,6 +348,34 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\proto\CommandList.pb.cc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\proto\CommandList.pb.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\CommandList.proto"
+				>
+			</File>
+			<File
 				RelativePath=".\src\proto\Edge.pb.cc"
 				>
 				<FileConfiguration
