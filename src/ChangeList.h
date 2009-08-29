@@ -9,7 +9,7 @@ class ChangeList
 public:
     static void AddMove(UnitId aUnit, TileId aPosition);
     static void Clear();
-    static void Write(socket_t& aSocket);
+    static void Write(socket_t& aSocket, GameTime aTime);
 private:
     static ResponseMsg mChangeList;
 };

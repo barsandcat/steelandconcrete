@@ -9,7 +9,7 @@ public:
     InGameSheet();
     ~InGameSheet();
     void Activate();
-    void SetTime(int aTime);
+    void SetTime(GameTime aTime);
     int GetSelectedWidth() { return mSelectedImage->getWidth(); }
     int GetSelectedHeight() { return mSelectedImage->getHeight(); }
     void SetSelectedName(std::string aName) { return mSelectedImage->setImage(aName); }

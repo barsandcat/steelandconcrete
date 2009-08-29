@@ -18,7 +18,7 @@ ClientGame::ClientGame(socket_t& aSocket):
             mIngameSheet.GetSelectedWidth(),
             mIngameSheet.GetSelectedHeight(),
             "RttTexture"
-            ),
+        ),
         mTime(0),
         mTurnDone(false)
 {
@@ -83,7 +83,7 @@ ClientGame::~ClientGame()
 
     std::map< UnitId, ClientUnit* >::iterator i = mUnits.begin();
     for (; i != mUnits.end(); ++i)
-      delete i->second;
+        delete i->second;
     mUnits.clear();
 
     ClientApp::GetSceneMgr().clearScene();
@@ -156,37 +156,30 @@ void ClientGame::OnExit(const QuickGUI::EventArgs& args)
     GetLog() << "OnExit";
 }
 
-void ClientGame::SendCommands()
-{
-	RequestMsg req;
-	req.set_type(Commands);
-	req.set_last(false);
-	std::map< UnitId, ClientUnit* >::iterator i = mUnits.begin();
-    for (; i != mUnits.end(); ++i)
-	{
-		ClientUnit* unit = i->second;
-		if (unit->GetTarget())
-		{
-			CommandMsg* command = req.add_commands();
-			CommandMoveMsg* move = command->mutable_commandmove();
-			move->set_unitid(unit->GetUnitId());
-			move->set_position(unit->GetTarget()->GetTileId());
-		}
-	}
-	WriteMessage(mSocket, req);
-}
-
 void ClientGame::OnTurn(const QuickGUI::EventArgs& args)
 {
     if (!mTurnDone)
     {
         RequestMsg req;
-        req.set_type(ConfirmTime);
+        req.set_type(Commands);
         req.set_time(mTime);
+        req.set_last(true);
+
+        std::map< UnitId, ClientUnit* >::iterator i = mUnits.begin();
+        for (; i != mUnits.end(); ++i)
+        {
+            ClientUnit* unit = i->second;
+            if (unit->GetTarget())
+            {
+                CommandMsg* command = req.add_commands();
+                CommandMoveMsg* move = command->mutable_commandmove();
+                move->set_unitid(unit->GetUnitId());
+                move->set_position(unit->GetTarget()->GetTileId());
+            }
+        }
+
         GetLog() << req.ShortDebugString();
         WriteMessage(mSocket, req);
-
-		//SendCommands();
 
         ResponseMsg rsp;
         ReadMessage(mSocket, rsp);
@@ -234,19 +227,17 @@ void ClientGame::Update(unsigned long aFrameTime)
         ReadMessage(mSocket, rsp);
         switch (rsp.type())
         {
-        case NewTime:
+        case Changes:
             if (rsp.has_time())
             {
                 mTime = rsp.time();
                 mIngameSheet.SetTime(mTime);
                 mTurnDone = false;
+                LoadEvents(rsp);
                 GetLog() << "New time " << mTime;
-                ResponseMsg changes;
-                ReadMessage(mSocket, changes);
-                LoadEvents(changes);
             }
             else
-              GetLog() << rsp.ShortDebugString();
+                GetLog() << rsp.ShortDebugString();
             break;
         case PleaseWait:
             break;

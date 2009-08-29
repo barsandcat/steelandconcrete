@@ -60,7 +60,7 @@ InGameSheet::InGameSheet()
     panel->createButton(bd);
 }
 
-void InGameSheet::SetTime(int aTime)
+void InGameSheet::SetTime(GameTime aTime)
 {
     mTime->setText(Ogre::StringConverter::toString(aTime), "unifont.16", Ogre::ColourValue::White);
 }

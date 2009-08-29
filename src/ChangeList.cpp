@@ -17,9 +17,10 @@ void ChangeList::Clear()
 {
     mChangeList.Clear();
 }
-void ChangeList::Write(socket_t& aSocket)
+void ChangeList::Write(socket_t& aSocket, GameTime aTime)
 {
-    mChangeList.set_last(true);
 	mChangeList.set_type(Changes);
+	mChangeList.set_last(true);
+	mChangeList.set_time(aTime);
     WriteMessage(aSocket, mChangeList);
 }

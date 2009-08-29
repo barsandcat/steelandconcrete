@@ -29,7 +29,7 @@ void task_proc ClientConnectionThreadFunction(void *param)
                     GetLog() << "Disconnect";
                     self.mGame.SignalClientEvent();
                     break;
-                case ConfirmTime:
+                case Commands:
                     if (req.has_time())
                     {
                         self.mLastConfirmedTime = req.time();
@@ -53,12 +53,7 @@ void task_proc ClientConnectionThreadFunction(void *param)
                 case GetTime:
                     if (self.mGame.GetTime() > self.mLastConfirmedTime)
                     {
-                        ResponseMsg rsp;
-                        rsp.set_type(NewTime);
-                        rsp.set_time(self.mGame.GetTime());
-                        WriteMessage(self.mSocket, rsp);
-                        GetLog() << "New time send " << rsp.ShortDebugString();
-                        ChangeList::Write(self.mSocket);
+                        ChangeList::Write(self.mSocket, self.mGame.GetTime());
                         GetLog() << "Change list send";
                     }
                     else
