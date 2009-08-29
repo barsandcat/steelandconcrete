@@ -32,12 +32,12 @@ void task_proc ClientConnectionThreadFunction(void *param)
                 case Commands:
                     if (req.has_time())
                     {
+                        self.mGame.LoadCommands(req);
                         self.mLastConfirmedTime = req.time();
 
                         ResponseMsg rsp;
                         rsp.set_type(Ok);
                         WriteMessage(self.mSocket, rsp);
-
                         self.mGame.SignalClientEvent();
 
                         GetLog() << "Confirmed time " << req.ShortDebugString() <<  std::endl;

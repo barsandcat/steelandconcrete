@@ -5,7 +5,7 @@
 #include <ChangeList.h>
 
 ServerUnit::ServerUnit(ServerTile& aTile, UnitId aUnitId):
-  mPosition(&aTile), mUnitId(aUnitId)
+  mPosition(&aTile), mUnitId(aUnitId), mTarget(NULL)
 {
     //ctor
 }
@@ -15,12 +15,20 @@ ServerUnit::~ServerUnit()
     //dtor
 }
 
-void ServerUnit::Move(size_t aIndex)
+void ServerUnit::Move(ServerTile& aNewPosition)
 {
-    ServerTile& newPosition = mPosition->GetNeighbour(aIndex);
-    assert(newPosition.GetUnit() == NULL);
     mPosition->SetUnit(NULL);
-    mPosition = &newPosition;
+    mPosition = &aNewPosition;
     mPosition->SetUnit(this);
     ChangeList::AddMove(mUnitId, mPosition->GetTileId());
+}
+
+void ServerUnit::ExecuteCommand()
+{
+    if (mTarget && !mTarget->GetUnit())
+    {
+        Move(*mTarget);
+        mTarget = NULL;
+        ChangeList::AddCommandDone(mUnitId);
+    }
 }
