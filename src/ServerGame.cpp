@@ -85,12 +85,22 @@ void ServerGame::UpdateGame()
     for (; i != mUnits.end(); ++i)
     {
         ServerUnit& unit = *i->second;
-        size_t index = rand() % unit.GetPosition().GetNeighbourCount();
-        if (unit.GetPosition().GetNeighbour(index).GetUnit() == NULL)
-        {
-            unit.Move(index);
-        }
+        unit.ExecuteCommand();
     }
 
     GetLog() << "Time: " << mTime;
+}
+
+
+void ServerGame::LoadCommands(const RequestMsg& commands)
+{
+    for (int i = 0; i < commands.commands_size(); ++i)
+    {
+        const CommandMsg& command = commands.commands(i);
+        if (command.has_commandmove())
+        {
+            const CommandMoveMsg& move = command.commandmove();
+            mUnits[move.unitid()]->SetCommand(mGrid->GetTile(move.position()));
+        }
+    }
 }

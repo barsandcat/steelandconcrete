@@ -24,3 +24,10 @@ void ChangeList::Write(socket_t& aSocket, GameTime aTime)
 	mChangeList.set_time(aTime);
     WriteMessage(aSocket, mChangeList);
 }
+
+void ChangeList::AddCommandDone(UnitId aUnit)
+{
+    ChangeMsg* change = mChangeList.add_changes();
+    CommandDoneMsg* command = change->mutable_commanddone();
+    command->set_unitid(aUnit);
+}

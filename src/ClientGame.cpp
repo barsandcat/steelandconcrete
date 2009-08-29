@@ -206,6 +206,11 @@ void ClientGame::LoadEvents(const ResponseMsg& changes)
             const UnitMoveMsg& move = change.unitmove();
             mUnits[move.unitid()]->SetPosition(mGrid->GetTile(move.position()));
         }
+        else if (change.has_commanddone())
+        {
+            const CommandDoneMsg& command = change.commanddone();
+            mUnits[command.unitid()]->SetTarget(NULL);
+        }
     }
 }
 

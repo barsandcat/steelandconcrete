@@ -4,8 +4,14 @@ message UnitMoveMsg
     required uint32 position = 2;
 }
 
+message CommandDoneMsg
+{
+    required int32 unitid = 1;
+}
+
 message ChangeMsg
 {
     optional UnitMoveMsg unitmove = 1;
+    optional CommandDoneMsg commanddone = 2;
 }
 
