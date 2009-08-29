@@ -1,6 +1,6 @@
 PROTOC=../../protobuf-2.0.3/vsprojects/protoc
 
-all : Tile.pb.h GeodesicGrid.pb.h Vector.pb.h Edge.pb.h Header.pb.h Unit.pb.h Request.pb.h Response.pb.h ChangeList.pb.h
+all : Tile.pb.h GeodesicGrid.pb.h Vector.pb.h Edge.pb.h Header.pb.h Unit.pb.h Request.pb.h Response.pb.h ChangeList.pb.h CommandList.pb.h
 
 Tile.pb.h : Tile.proto
 	$(PROTOC) --cpp_out=. Tile.proto
@@ -28,3 +28,6 @@ Response.pb.h : Response.proto
 
 ChangeList.pb.h : ChangeList.proto
 	$(PROTOC) --cpp_out=. ChangeList.proto
+
+CommandList.pb.h : CommandList.proto
+	$(PROTOC) --cpp_out=. CommandList.proto

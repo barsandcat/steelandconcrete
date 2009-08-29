@@ -38,7 +38,7 @@ private:
     int mTime;
     bool mTurnDone;
     void CreateUnitEntities() const;
-	void ClientGame::SendCommands();
+	void SendCommands();
     void LoadEvents(const ResponseMsg& changes);
 };
 
