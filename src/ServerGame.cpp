@@ -7,7 +7,7 @@
 #include <ConnectionManager.h>
 #include <ChangeList.h>
 
-ServerGame::ServerGame(): mGrid(NULL), mUnitCount(0), mTime(1)
+ServerGame::ServerGame(): mGrid(NULL), mUnitCount(0), mTime(30), mTimeStep(30)
 {
     task::initialize(task::normal_stack);
     mClientEvent = new event();
@@ -81,7 +81,7 @@ void ServerGame::UpdateGame()
     GetLog() << "Update Game!";
     ChangeList::Clear();
     ServerUnits::iterator i = mUnits.begin();
-    mTime += 100;
+    mTime += mTimeStep;
     for (; i != mUnits.end(); ++i)
     {
         ServerUnit& unit = *i->second;

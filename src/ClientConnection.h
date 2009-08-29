@@ -13,7 +13,7 @@ class ClientConnection
 public:
     ClientConnection(ServerGame& aGame, socket_t& aSocket);
     bool IsLive() const { return mLive; }
-    int GetLastConfirmedTime() const { return mLastConfirmedTime; }
+    GameTime GetLastConfirmedTime() const { return mLastConfirmedTime; }
     ~ClientConnection();
 protected:
 private:
@@ -21,7 +21,7 @@ private:
     ServerGame& mGame;
     socket_t& mSocket;
     bool mLive;
-    int mLastConfirmedTime;
+    GameTime mLastConfirmedTime;
 };
 
 #endif // CLIENTCONNECTION_H

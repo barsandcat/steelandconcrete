@@ -18,14 +18,15 @@ public:
     ServerGeodesicGrid& GetGrid();
     ServerUnit& CreateUnit(ServerTile& aTile);
     void Send(socket_t& aSocket) const;
-    int GetTime() const { return mTime; }
+    GameTime GetTime() const { return mTime; }
     void SignalClientEvent() { mClientEvent->signal(); }
 protected:
 private:
     void UpdateGame();
     ServerGeodesicGrid* mGrid;
     int mUnitCount;
-    int mTime;
+    GameTime mTime;
+    GameTime mTimeStep;
     ServerUnits mUnits;
     event* mClientEvent;
 };

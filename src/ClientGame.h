@@ -35,10 +35,9 @@ private:
     LoadingSheet mLoadingSheet;
     InGameSheet mIngameSheet;
     ViewPortWidget mViewPortWidget;
-    int mTime;
+    GameTime mTime;
     bool mTurnDone;
     void CreateUnitEntities() const;
-	void SendCommands();
     void LoadEvents(const ResponseMsg& changes);
 };
 
