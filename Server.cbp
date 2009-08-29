@@ -85,6 +85,9 @@
 		<Unit filename="src/proto/ChangeList.pb.cc" />
 		<Unit filename="src/proto/ChangeList.pb.h" />
 		<Unit filename="src/proto/ChangeList.proto" />
+		<Unit filename="src/proto/CommandList.pb.cc" />
+		<Unit filename="src/proto/CommandList.pb.h" />
+		<Unit filename="src/proto/CommandList.proto" />
 		<Unit filename="src/proto/Edge.pb.cc" />
 		<Unit filename="src/proto/Edge.pb.h" />
 		<Unit filename="src/proto/Edge.proto" />
