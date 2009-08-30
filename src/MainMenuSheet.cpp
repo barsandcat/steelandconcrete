@@ -35,7 +35,7 @@ MainMenuSheet::MainMenuSheet()
     bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 60);
     bd->textDesc.segments.clear();
     bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", Ogre::ColourValue::White, "Connect"));
-    bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_UP] = "OnConnect";
+    bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_UP] = "OnBrowse";
     panel->createButton(bd);
 
     bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_UP] = "";

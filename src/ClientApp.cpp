@@ -178,11 +178,24 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
 
     {
         mMainMenu = new MainMenuSheet();
+        mServerBrowserSheet = new ServerBrowserSheet();
         mMainMenu->Activate(*mGUIManager);
         mGUIManager->notifyViewportDimensionsChanged();
     }
+    QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnBrowse", &ClientApp::OnBrowse, this);
     QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnConnect", &ClientApp::OnConnect, this);
     QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnCreate", &ClientApp::OnCreate, this);
+    QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnMainMenu", &ClientApp::OnMainMenu, this);
+}
+
+void ClientApp::OnBrowse(const QuickGUI::EventArgs& args)
+{
+    mServerBrowserSheet->Activate(*mGUIManager);
+}
+
+void ClientApp::OnMainMenu(const QuickGUI::EventArgs& args)
+{
+    mMainMenu->Activate(*mGUIManager);
 }
 
 void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
@@ -190,7 +203,8 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
     GetLog() << "On connect";
     if (!mGame)
     {
-        socket_t* sock = socket_t::connect("localhost:4512", socket_t::sock_any_domain, 3, 1);
+        Ogre::String connection = mServerBrowserSheet->GetConnection();
+        socket_t* sock = socket_t::connect(connection.c_str(), socket_t::sock_any_domain, 3, 1);
         if (sock && sock->is_ok())
         {
             GetLog() << "Connected";
