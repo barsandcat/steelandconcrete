@@ -21,7 +21,7 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="../../../../bin/OgreXMLConverter_d" prefix_auto="0" extension_auto="0" />
+				<Option output="../../../../bin/OgreXMLConverter" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="../../../../bin" />
 				<Option object_output="../../../../obj/Release" />
 				<Option type="1" />
