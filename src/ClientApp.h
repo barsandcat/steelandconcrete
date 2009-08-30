@@ -9,6 +9,7 @@
 #include <QuickGUI.h>
 #include <BirdCamera.h>
 #include <MainMenuSheet.h>
+#include <ServerBrowserSheet.h>
 
 void LaunchServer();
 
@@ -21,8 +22,12 @@ public:
     void UpdateOISMouseClipping(Ogre::RenderWindow* rw);
     void UpdateSheetSize(Ogre::RenderWindow* rw);
     void DestroyOIS(Ogre::RenderWindow* rw);
+
     void OnConnect(const QuickGUI::EventArgs& args);
     void OnCreate(const QuickGUI::EventArgs& args);
+    void OnBrowse(const QuickGUI::EventArgs& args);
+    void OnMainMenu(const QuickGUI::EventArgs& args);
+
     virtual bool buttonPressed(const OIS::JoyStickEvent &arg, int button)
     {
         return true;
@@ -67,6 +72,7 @@ private:
     ClientGame* mGame;
     BirdCamera* mBirdCamera;
     MainMenuSheet* mMainMenu;
+    ServerBrowserSheet* mServerBrowserSheet;
     void ShowDebugOverlay(bool show);
     void UpdateStats();
     void Frame(unsigned long aFrameTime);
