@@ -7,11 +7,11 @@
 #include <ConnectionManager.h>
 #include <ChangeList.h>
 
-ServerGame::ServerGame(): mGrid(NULL), mUnitCount(0), mTime(30), mTimeStep(30)
+ServerGame::ServerGame(std::string aAddress, int aPort, int aSize): mGrid(NULL), mUnitCount(0), mTime(30), mTimeStep(30)
 {
     task::initialize(task::normal_stack);
     mClientEvent = new event();
-    mGrid = new ServerGeodesicGrid(4);
+    mGrid = new ServerGeodesicGrid(aSize);
     for (size_t i = 0; i < 15; ++i)
     {
         CreateUnit(mGrid->GetTile(rand() % mGrid->GetTileCount()));
