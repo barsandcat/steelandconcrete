@@ -12,6 +12,7 @@ ServerGame::ServerGame(std::string aAddress, int aPort, int aSize): mGrid(NULL),
     task::initialize(task::normal_stack);
     mClientEvent = new event();
     mGrid = new ServerGeodesicGrid(aSize);
+    GetLog() << "Size " << aSize << " Tile count " << mGrid->GetTileCount();
     for (size_t i = 0; i < 15; ++i)
     {
         CreateUnit(mGrid->GetTile(rand() % mGrid->GetTileCount()));

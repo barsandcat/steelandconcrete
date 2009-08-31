@@ -45,7 +45,6 @@
 		</Build>
 		<Compiler>
 			<Add option="-w" />
-			<Add option="-g" />
 			<Add option="-DOGRE_AL_EXPORT" />
 			<Add directory="../include" />
 			<Add directory="../../../ogre/OgreMain/include" />
