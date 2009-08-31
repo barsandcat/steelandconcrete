@@ -105,6 +105,9 @@ namespace Ogre {
         static String toString(unsigned long val, 
             unsigned short width = 0, char fill = ' ', 
             std::ios::fmtflags flags = std::ios::fmtflags(0) );
+		static String StringConverter::toString(unsigned long long val, 
+            unsigned short width = 0, char fill = ' ', 
+            std::ios::fmtflags flags = std::ios::fmtflags(0) );
 #endif
         /** Converts a long to a String. */
         static String toString(long val, 

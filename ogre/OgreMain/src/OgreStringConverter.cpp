@@ -129,6 +129,18 @@ namespace Ogre {
         return stream.str();
     }
     //-----------------------------------------------------------------------
+	    String StringConverter::toString(unsigned long long val, 
+        unsigned short width, char fill, std::ios::fmtflags flags)
+    {
+        StringUtil::StrStreamType stream;
+		stream.width(width);
+        stream.fill(fill);
+        if (flags)
+            stream.setf(flags);
+        stream << val;
+        return stream.str();
+    }
+    //-----------------------------------------------------------------------
 #endif
     String StringConverter::toString(long val, 
         unsigned short width, char fill, std::ios::fmtflags flags)
