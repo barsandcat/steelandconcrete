@@ -48,6 +48,7 @@
 			<Add directory="QuickGUI_9_05/QuickGUI/include" />
 			<Add directory="ogreal/ogreal/include" />
 			<Add directory="ois/includes" />
+			<Add directory="tclap-1.1.0/include" />
 		</Compiler>
 		<Linker>
 			<Add library="pthread" />

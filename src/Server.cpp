@@ -18,7 +18,9 @@ int main(int argc, char **argv)
         TCLAP::ValueArg<int> port("p", "port", "Port", false, 4512, "int");
         cmd.add(port);
 
-        TCLAP::ValueArg<int> size("s", "size", "Map size", false, 4, "int");
+        TCLAP::ValueArg<int> size("s", "size",
+            "Map size: 1 - 162, 2 - 642, 3 - 2562, 4 - 10242, 5 - 40962, 6 - 163842, 7 - 655362 tiles",
+            false, 4, "int");
         cmd.add(size);
 
         // Parse the args.
