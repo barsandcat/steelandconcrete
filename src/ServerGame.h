@@ -13,7 +13,7 @@ class ServerGame
 {
 public:
     typedef std::map< UnitId, ServerUnit* > ServerUnits;
-    ServerGame();
+    ServerGame(std::string aAddress, int aPort, int aSize);
     ~ServerGame();
     void MainLoop();
     ServerGeodesicGrid& GetGrid();
