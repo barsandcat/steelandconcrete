@@ -204,7 +204,7 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
     if (!mGame)
     {
         Ogre::String connection = mServerBrowserSheet->GetConnection();
-        socket_t* sock = socket_t::connect(connection.c_str(), socket_t::sock_any_domain, 3, 1);
+        socket_t* sock = socket_t::connect(connection.c_str(), socket_t::sock_global_domain, 3, 1);
         if (sock && sock->is_ok())
         {
             GetLog() << "Connected";
@@ -212,7 +212,7 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
         }
         else
         {
-            GetLog() << "Not connected";
+            GetLog() << "Not connected " << GetErrorText(*sock);
         }
     }
 }

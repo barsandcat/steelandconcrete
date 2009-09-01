@@ -13,9 +13,9 @@ class ServerGame
 {
 public:
     typedef std::map< UnitId, ServerUnit* > ServerUnits;
-    ServerGame(std::string aAddress, int aPort, int aSize);
+    ServerGame(int aSize);
     ~ServerGame();
-    void MainLoop();
+    void MainLoop(Ogre::String aAddress, Ogre::String aPort);
     ServerGeodesicGrid& GetGrid();
     ServerUnit& CreateUnit(ServerTile& aTile);
     void Send(socket_t& aSocket) const;
