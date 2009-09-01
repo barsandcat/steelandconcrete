@@ -35,26 +35,25 @@ Section "Files (required)"
   SetOutPath $INSTDIR
   
   ; Put file there
-  File "steelandconcrete.exe"
-  File "steelandconcrete_server.exe"    
+  File "bin\steelandconcrete.exe"
+  File "bin\steelandconcrete_server.exe"      
+
   
-  SetOutPath "$INSTDIR\res"
+  File /r "bin\*.mesh"
+  File /r "bin\*.material"
+  File /r "bin\*.skeleton"
+  File /r "bin\*.fontdef"
+  File /r "bin\*.program"
+  File /r "bin\*.overlay"
+  File /r "bin\*.glsl"
+  File /r "bin\*.hlsl"
+  File /r "bin\*.cg"
+  File /r "bin\*.skinTypes"  
   
-  File /r "res\*.mesh"
-  File /r "res\*.material"
-  File /r "res\*.skeleton"
-  File /r "res\*.fontdef"
-  File /r "res\*.program"
-  File /r "res\*.overlay"
-  File /r "res\*.glsl"
-  File /r "res\*.hlsl"
-  File /r "res\*.cg"
-  File /r "res\*.skinTypes"  
-  
-  File /r "res\*.wav"
-  File /r "res\*.png"
-  File /r "res\*.jpg"  
-  File /r "res\*.ttf"
+  File /r "bin\*.wav"
+  File /r "bin\*.png"
+  File /r "bin\*.jpg"  
+  File /r "bin\*.ttf"
   
   
   ; Write the installation path into the registry
@@ -71,7 +70,7 @@ SectionEnd
 
 ; Optional section (can be disabled by the user)
 Section "Start Menu Shortcuts"
-  SetOutPath $INSTDIR
+
   CreateDirectory "$SMPROGRAMS\steelandconcrete"
   CreateShortCut "$SMPROGRAMS\steelandconcrete\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
   CreateShortCut "$SMPROGRAMS\steelandconcrete\server.lnk" "$INSTDIR\steelandconcrete_server.exe" "" "$INSTDIR\steelandconcrete_server.exe" 0
@@ -92,11 +91,11 @@ Section "Uninstall"
   ; Remove files and uninstaller
   Delete "$INSTDIR\steelandconcrete.exe"
   Delete "$INSTDIR\steelandconcrete_server.exe"
+  Delete "$INSTDIR\uninstall.exe"
 
-  ; Remove shortcuts, if any
   Delete "$SMPROGRAMS\steelandconcrete\*.*"
+  Delete "$INSTDIR\*.log"
 
-  ; Remove directories used
   RMDir /r "$INSTDIR\res"  
   RMDir "$SMPROGRAMS\steelandconcrete"
   RMDir "$INSTDIR"
