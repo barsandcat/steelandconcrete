@@ -6,6 +6,7 @@
 
 const int MESSAGE_SIZE = 1200;
 
+std::string GetErrorText(socket_t& aSocket);
 void WriteMessage(socket_t& aSocket, google::protobuf::Message& aMessage);
 void ReadMessage(socket_t& aSocket, google::protobuf::Message& aMessage);
 

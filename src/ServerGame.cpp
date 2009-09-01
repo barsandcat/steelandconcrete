@@ -7,7 +7,7 @@
 #include <ConnectionManager.h>
 #include <ChangeList.h>
 
-ServerGame::ServerGame(std::string aAddress, int aPort, int aSize): mGrid(NULL), mUnitCount(0), mTime(30), mTimeStep(30)
+ServerGame::ServerGame(int aSize): mGrid(NULL), mUnitCount(0), mTime(30), mTimeStep(30)
 {
     task::initialize(task::normal_stack);
     mClientEvent = new event();
@@ -30,9 +30,11 @@ ServerGeodesicGrid& ServerGame::GetGrid()
     return *mGrid;
 }
 
-void ServerGame::MainLoop()
+void ServerGame::MainLoop(Ogre::String aAddress, Ogre::String aPort)
 {
-    socket_t* gate = socket_t::create_local("localhost:4512");
+    Ogre::String connection = aAddress + ":" + aPort;
+    GetLog() << "Connecting to " << connection;
+    socket_t* gate = socket_t::create_global(connection.c_str());
     if (gate->is_ok())
     {
         ConnectionManager manager(*gate, *this);

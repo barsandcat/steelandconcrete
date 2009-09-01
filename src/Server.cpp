@@ -12,10 +12,10 @@ int main(int argc, char **argv)
         // Define the command line object.
         TCLAP::CmdLine cmd("Steelandconcrete server", ' ');
 
-        TCLAP::ValueArg<std::string> address("a", "address", "Server address", false, "localhost", "string");
+        TCLAP::ValueArg<Ogre::String> address("a", "address", "Server address", false, "localhost", "string");
         cmd.add(address);
 
-        TCLAP::ValueArg<int> port("p", "port", "Port", false, 4512, "int");
+        TCLAP::ValueArg<Ogre::String> port("p", "port", "Port", false, "4512", "string");
         cmd.add(port);
 
         TCLAP::ValueArg<int> size("s", "size",
@@ -26,8 +26,8 @@ int main(int argc, char **argv)
         // Parse the args.
         cmd.parse( argc, argv );
 
-        ServerGame app(address.getValue(), port.getValue(), size.getValue());
-        app.MainLoop();
+        ServerGame app(size.getValue());
+        app.MainLoop(address.getValue(), port.getValue());
     }
     catch (std::exception& e)
     {
