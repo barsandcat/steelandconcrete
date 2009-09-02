@@ -54,6 +54,7 @@
 			<Add library="pthread" />
 		</Linker>
 		<ExtraCommands>
+			<Add before="./get_revision.sh" />
 			<Add before="make -C src/proto -f Makefile.proto" />
 		</ExtraCommands>
 		<Unit filename="src/ChangeList.cpp" />
