@@ -3,14 +3,14 @@
 #include <tclap/CmdLine.h>
 
 #include <iostream>
-
+#include <svn_revision.h>
 
 int main(int argc, char **argv)
 {
     try
     {
         // Define the command line object.
-        TCLAP::CmdLine cmd("Steelandconcrete server", ' ');
+        TCLAP::CmdLine cmd("Steelandconcrete server ", ' ', SVN_REVISION);
 
         TCLAP::ValueArg<Ogre::String> address("a", "address", "Server address", false, "localhost", "string");
         cmd.add(address);
