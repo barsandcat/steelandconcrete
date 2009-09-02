@@ -94,6 +94,7 @@
 			<Add directory="QuickGUI_9_05/bin" />
 		</Linker>
 		<ExtraCommands>
+			<Add before="./get_revision.sh" />
 			<Add before="make -C src/proto -f Makefile.proto" />
 		</ExtraCommands>
 		<Unit filename="src/BirdCamera.cpp" />
@@ -162,6 +163,7 @@
 		<Unit filename="src/proto/Vector.pb.cc" />
 		<Unit filename="src/proto/Vector.pb.h" />
 		<Unit filename="src/proto/Vector.proto" />
+		<Unit filename="src/svn_revision.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
