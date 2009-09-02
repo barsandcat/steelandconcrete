@@ -100,6 +100,7 @@
 		<Unit filename="src/proto/Header.pb.h" />
 		<Unit filename="src/proto/Header.proto" />
 		<Unit filename="src/proto/Makefile.proto" />
+		<Unit filename="src/proto/ProtocolVersion.h" />
 		<Unit filename="src/proto/Request.pb.cc" />
 		<Unit filename="src/proto/Request.pb.h" />
 		<Unit filename="src/proto/Request.proto" />

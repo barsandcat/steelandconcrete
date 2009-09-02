@@ -4,13 +4,16 @@
 
 #include <iostream>
 #include <svn_revision.h>
+#include <ProtocolVersion.h>
 
 int main(int argc, char **argv)
 {
     try
     {
         // Define the command line object.
-        TCLAP::CmdLine cmd("Steelandconcrete server ", ' ', SVN_REVISION);
+        Ogre::String version = Ogre::StringConverter::toString(ProtocolVersion) +
+            "." + SVN_REVISION;
+        TCLAP::CmdLine cmd("Steelandconcrete server", ' ', version.c_str());
 
         TCLAP::ValueArg<Ogre::String> address("a", "address", "Server address", false, "localhost", "string");
         cmd.add(address);
