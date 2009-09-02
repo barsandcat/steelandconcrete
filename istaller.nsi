@@ -1,8 +1,10 @@
+!system 'get_version.bat'
+!include version.nsh
 ; The name of the installer
-Name "Steel and concrete installer"
+Name "Steel and concrete ${VERSION}"
 
 ; The file to write
-OutFile "setup_steelandconcrete.exe"
+OutFile "setup_steelandconcrete_${VERSION}.exe"
 
 ; The default installation directory
 InstallDir "$PROGRAMFILES\steelandconcrete"
@@ -60,7 +62,7 @@ Section "Files (required)"
   WriteRegStr HKLM "SOFTWARE\steelandconcrete" "Install_Dir" "$INSTDIR"
   
   ; Write the uninstall keys for Windows
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\steelandconcrete" "DisplayName" "NSIS Example2"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\steelandconcrete" "DisplayName" "steelandconcrete ${VERSION}"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\steelandconcrete" "UninstallString" '"$INSTDIR\uninstall.exe"'
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\steelandconcrete" "NoModify" 1
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\steelandconcrete" "NoRepair" 1
@@ -72,9 +74,8 @@ SectionEnd
 Section "Start Menu Shortcuts"
 
   CreateDirectory "$SMPROGRAMS\steelandconcrete"
-  CreateShortCut "$SMPROGRAMS\steelandconcrete\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
-  CreateShortCut "$SMPROGRAMS\steelandconcrete\server.lnk" "$INSTDIR\steelandconcrete_server.exe" "" "$INSTDIR\steelandconcrete_server.exe" 0
   CreateShortCut "$SMPROGRAMS\steelandconcrete\steelandconcrete.lnk" "$INSTDIR\steelandconcrete.exe" "" "$INSTDIR\steelandconcrete.exe" 0  
+  CreateShortCut "$SMPROGRAMS\steelandconcrete\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
   
 SectionEnd
 

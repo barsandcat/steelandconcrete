@@ -29,6 +29,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="SubWCRev $(SolutionDir) svn_revision.template src\svn_revision.h"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -126,6 +127,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="SubWCRev $(SolutionDir) svn_revision.template src\svn_revision.h"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
