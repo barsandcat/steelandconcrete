@@ -31,6 +31,7 @@ private:
     GameTime mTimeStep;
     ServerUnits mUnits;
     event* mClientEvent;
+    mutex* mGameMutex;
 };
 
 #endif // SERVERAPP_H
