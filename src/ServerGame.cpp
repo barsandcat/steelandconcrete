@@ -11,6 +11,7 @@ ServerGame::ServerGame(int aSize): mGrid(NULL), mUnitCount(0), mTime(30), mTimeS
 {
     task::initialize(task::normal_stack);
     mClientEvent = new event();
+    mGameMutex = new mutex();
     mGrid = new ServerGeodesicGrid(aSize);
     GetLog() << "Size " << aSize << " Tile count " << mGrid->GetTileCount();
     for (size_t i = 0; i < 15; ++i)
@@ -23,6 +24,7 @@ ServerGame::~ServerGame()
 {
     delete mGrid;
     delete mClientEvent;
+    delete mGameMutex;
 }
 
 ServerGeodesicGrid& ServerGame::GetGrid()
@@ -81,6 +83,7 @@ void ServerGame::Send(socket_t& aSocket) const
 
 void ServerGame::UpdateGame()
 {
+    mGameMutex->enter();
     GetLog() << "Update Game!";
     ChangeList::Clear();
     ServerUnits::iterator i = mUnits.begin();
@@ -92,11 +95,13 @@ void ServerGame::UpdateGame()
     }
 
     GetLog() << "Time: " << mTime;
+    mGameMutex->leave();
 }
 
 
 void ServerGame::LoadCommands(const RequestMsg& commands)
 {
+    mGameMutex->enter();
     for (int i = 0; i < commands.commands_size(); ++i)
     {
         const CommandMsg& command = commands.commands(i);
@@ -106,4 +111,5 @@ void ServerGame::LoadCommands(const RequestMsg& commands)
             mUnits[move.unitid()]->SetCommand(mGrid->GetTile(move.position()));
         }
     }
+    mGameMutex->leave();
 }
