@@ -15,9 +15,10 @@ public:
     bool IsLive() const { return mLive; }
     GameTime GetLastConfirmedTime() const { return mLastConfirmedTime; }
     ~ClientConnection();
+    void Execute();
 protected:
 private:
-    friend void task_proc ClientConnectionThreadFunction(void* param);
+
     ServerGame& mGame;
     socket_t& mSocket;
     bool mLive;

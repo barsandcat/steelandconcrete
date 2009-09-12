@@ -14,9 +14,9 @@ public:
     ConnectionManager(socket_t& aGate, ServerGame& aGame);
     bool IsAllClientsReady();
     ~ConnectionManager();
+    void Execute();
 protected:
 private:
-    friend void task_proc ManagerThreadFunction(void* param);
     void NewConnection(socket_t& aSocket);
     bool mQuit;
     socket_t& mGate;
