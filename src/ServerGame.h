@@ -18,7 +18,7 @@ public:
     void MainLoop(Ogre::String aAddress, Ogre::String aPort);
     ServerGeodesicGrid& GetGrid();
     ServerUnit& CreateUnit(ServerTile& aTile);
-    void Send(socket_t& aSocket) const;
+    void Send(socket_t& aSocket);
     GameTime GetTime() const { return mTime; }
     void SignalClientEvent() { mClientEvent->signal(); }
     void LoadCommands(const RequestMsg& commands);

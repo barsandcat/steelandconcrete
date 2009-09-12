@@ -42,6 +42,9 @@ ClientGame::ClientGame(socket_t& aSocket):
     }
     mLoadingSheet.SetProgress(60);
     GetLog() << "Recived all units";
+    mAvatar = mUnits[unitCount.avatar()];
+    ClientApp::GetCamera().Goto(mAvatar->GetPosition().GetPosition());
+
 
     // Planet
     Ogre::StaticGeometry* staticPlanet = mGrid->ConstructStaticGeometry();

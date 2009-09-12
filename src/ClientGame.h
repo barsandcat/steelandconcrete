@@ -30,6 +30,7 @@ private:
     std::map< UnitId, ClientUnit* > mUnits;
     ClientTile* mTileUnderCursor;
     ClientUnit* mSelectedUnit;
+    ClientUnit* mAvatar;
     Ogre::SceneNode* mSelectionMarker;
     Ogre::SceneNode* mTargetMarker;
     LoadingSheet mLoadingSheet;

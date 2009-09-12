@@ -42,9 +42,9 @@ void ClientConnection::Execute()
                         ResponseMsg rsp;
                         rsp.set_type(Ok);
                         WriteMessage(mSocket, rsp);
-                        mGame.SignalClientEvent();
+                        GetLog() << "Confirmed time " << req.ShortDebugString();
 
-                        GetLog() << "Confirmed time " << req.ShortDebugString() <<  std::endl;
+                        mGame.SignalClientEvent();
                     }
                     else
                     {

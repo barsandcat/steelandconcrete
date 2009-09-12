@@ -37,6 +37,11 @@ void BirdCamera::UpdatePosition(unsigned long aTime)
     mCameraHolder->pitch(mVerticalSpeed * aTime);
 }
 
+void BirdCamera::Goto(const Ogre::Vector3 &aPosition)
+{
+    mCameraHolder->lookAt(aPosition, Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
+}
+
 Ogre::Ray BirdCamera::MouseToRay(const OIS::MouseState &aState) const
 {
     Ogre::Real aMouseX = Ogre::Real(aState.X.abs) / aState.width;

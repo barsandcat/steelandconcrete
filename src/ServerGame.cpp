@@ -14,10 +14,6 @@ ServerGame::ServerGame(int aSize): mGrid(NULL), mUnitCount(0), mTime(30), mTimeS
     mGameMutex = new mutex();
     mGrid = new ServerGeodesicGrid(aSize);
     GetLog() << "Size " << aSize << " Tile count " << mGrid->GetTileCount();
-    for (size_t i = 0; i < 15; ++i)
-    {
-        CreateUnit(mGrid->GetTile(rand() % mGrid->GetTileCount()));
-    }
 }
 
 ServerGame::~ServerGame()
@@ -50,6 +46,10 @@ void ServerGame::MainLoop(Ogre::String aAddress, Ogre::String aPort)
             }
         }
     }
+    else
+    {
+        GetLog() << "Gate " << GetErrorText(*gate);
+    }
     GetLog() << "Game over";
 }
 
@@ -60,16 +60,21 @@ ServerUnit& ServerGame::CreateUnit(ServerTile& aTile)
     return *unit;
 }
 
-void ServerGame::Send(socket_t& aSocket) const
+void ServerGame::Send(socket_t& aSocket)
 {
+    critical_section(*mGameMutex);
+
     mGrid->Send(aSocket);
 
     UnitCountMsg count;
+    ServerUnit& avatar = CreateUnit(mGrid->GetTile(rand() % mGrid->GetTileCount()));
+    avatar.SetMaster(avatar.GetUnitId());
+    count.set_avatar(avatar.GetUnitId());
     count.set_count(mUnits.size());
     count.set_time(mTime);
     WriteMessage(aSocket, count);
     ServerUnits::const_iterator i = mUnits.begin();
-    GetLog() << "Unit count send";
+    GetLog() << "Unit count send; " << count.ShortDebugString() ;
 
     for (;i != mUnits.end(); ++i)
     {
@@ -83,7 +88,8 @@ void ServerGame::Send(socket_t& aSocket) const
 
 void ServerGame::UpdateGame()
 {
-    mGameMutex->enter();
+    critical_section(*mGameMutex);
+
     GetLog() << "Update Game!";
     ChangeList::Clear();
     ServerUnits::iterator i = mUnits.begin();
@@ -95,13 +101,12 @@ void ServerGame::UpdateGame()
     }
 
     GetLog() << "Time: " << mTime;
-    mGameMutex->leave();
 }
 
 
 void ServerGame::LoadCommands(const RequestMsg& commands)
 {
-    mGameMutex->enter();
+    critical_section(*mGameMutex);
     for (int i = 0; i < commands.commands_size(); ++i)
     {
         const CommandMsg& command = commands.commands(i);
@@ -111,5 +116,4 @@ void ServerGame::LoadCommands(const RequestMsg& commands)
             mUnits[move.unitid()]->SetCommand(mGrid->GetTile(move.position()));
         }
     }
-    mGameMutex->leave();
 }

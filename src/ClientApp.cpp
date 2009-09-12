@@ -30,6 +30,13 @@ OgreAL::SoundManager& ClientApp::GetSoundMgr()
     return *ClientApp::mSoundManager;
 }
 
+BirdCamera& ClientApp::GetCamera()
+{
+    assert(mBirdCamera && "ClientApp::GetCamera() \
+        нельзя вызывать в конструкторе и деструкторе ClientApp!");
+    return *mBirdCamera;
+}
+
 void ClientApp::Quit()
 {
     mQuit = true;
@@ -38,14 +45,14 @@ void ClientApp::Quit()
 QuickGUI::GUIManager* ClientApp::mGUIManager = NULL;
 Ogre::SceneManager* ClientApp::mSceneMgr = NULL;
 OgreAL::SoundManager* ClientApp::mSoundManager = NULL;
+BirdCamera* ClientApp::mBirdCamera = NULL;
 bool ClientApp::mQuit = false;
 
 ClientApp::ClientApp(const Ogre::String aConfigFile):
         mMouse(NULL),
         mKeyboard(NULL),
         mJoy(NULL),
-        mGame(NULL),
-        mBirdCamera(NULL)
+        mGame(NULL)
 {
     // Только для инициализации!
     // Ни каких вызовов других функий этого класа, что бы небыло необходимости
