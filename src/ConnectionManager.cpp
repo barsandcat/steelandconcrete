@@ -55,5 +55,6 @@ bool ConnectionManager::IsAllClientsReady()
             i = mClients.erase(i);
         }
     }
+    GetLog() << "Clients " << (allReady ? "ready" : "not ready");
     return allReady;
 }

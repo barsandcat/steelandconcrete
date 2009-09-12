@@ -10,6 +10,7 @@ class ClientUnit
 public:
     ClientUnit(ClientTile& aTile, UnitId aUnitId);
     void SetPosition(ClientTile& aTile);
+    ClientTile& GetPosition() const { return *mTile; }
     void SetTarget(ClientTile* aTile);
     ClientTile* GetTarget() const { return mTarget; }
     ~ClientUnit();

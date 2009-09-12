@@ -50,10 +50,12 @@ public:
     static Ogre::SceneManager& GetSceneMgr();
     static OgreAL::SoundManager& GetSoundMgr();
     static void Quit();
+    static BirdCamera& GetCamera();
 private:
     static QuickGUI::GUIManager* mGUIManager;
     static Ogre::SceneManager* mSceneMgr;
     static OgreAL::SoundManager* mSoundManager;
+    static BirdCamera* mBirdCamera;
     static bool mQuit;
 
     Ogre::OverlayContainer* mPointer;
@@ -70,7 +72,6 @@ private:
     OIS::JoyStick* mJoy;
 
     ClientGame* mGame;
-    BirdCamera* mBirdCamera;
     MainMenuSheet* mMainMenu;
     ServerBrowserSheet* mServerBrowserSheet;
     void ShowDebugOverlay(bool show);
