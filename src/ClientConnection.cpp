@@ -12,33 +12,37 @@
 
 void task_proc ClientConnectionThreadFunction(void *param)
 {
-    ClientConnection& self = *(static_cast< ClientConnection* >(param));
-    self.mGame.Send(self.mSocket);
+    static_cast< ClientConnection* >(param)->Execute();
+}
 
-    while (self.mSocket.is_ok())
+void ClientConnection::Execute()
+{
+    mGame.Send(mSocket);
+
+    while (mSocket.is_ok())
     {
         try
         {
             RequestMsg req;
-            ReadMessage(self.mSocket, req);
+            ReadMessage(mSocket, req);
             if (req.has_type())
             {
                 switch (req.type())
                 {
                 case Disconnect:
                     GetLog() << "Disconnect";
-                    self.mGame.SignalClientEvent();
+                    mGame.SignalClientEvent();
                     break;
                 case Commands:
                     if (req.has_time())
                     {
-                        self.mGame.LoadCommands(req);
-                        self.mLastConfirmedTime = req.time();
+                        mGame.LoadCommands(req);
+                        mLastConfirmedTime = req.time();
 
                         ResponseMsg rsp;
                         rsp.set_type(Ok);
-                        WriteMessage(self.mSocket, rsp);
-                        self.mGame.SignalClientEvent();
+                        WriteMessage(mSocket, rsp);
+                        mGame.SignalClientEvent();
 
                         GetLog() << "Confirmed time " << req.ShortDebugString() <<  std::endl;
                     }
@@ -47,20 +51,20 @@ void task_proc ClientConnectionThreadFunction(void *param)
                         ResponseMsg rsp;
                         rsp.set_type(NotOk);
                         rsp.set_reason("No time!");
-                        WriteMessage(self.mSocket, rsp);
+                        WriteMessage(mSocket, rsp);
                     }
                     break;
                 case GetTime:
-                    if (self.mGame.GetTime() > self.mLastConfirmedTime)
+                    if (mGame.GetTime() > mLastConfirmedTime)
                     {
-                        ChangeList::Write(self.mSocket, self.mGame.GetTime());
+                        ChangeList::Write(mSocket, mGame.GetTime());
                         GetLog() << "Change list send";
                     }
                     else
                     {
                         ResponseMsg rsp;
                         rsp.set_type(PleaseWait);
-                        WriteMessage(self.mSocket, rsp);
+                        WriteMessage(mSocket, rsp);
                     }
                     break;
                 }
@@ -69,11 +73,11 @@ void task_proc ClientConnectionThreadFunction(void *param)
         catch (std::runtime_error& e)
         {
             GetLog() << e.what();
-            self.mGame.SignalClientEvent();
+            mGame.SignalClientEvent();
         }
     }
 
-    self.mLive = false;
+    mLive = false;
 }
 
 ClientConnection::ClientConnection(ServerGame& aGame, socket_t& aSocket):

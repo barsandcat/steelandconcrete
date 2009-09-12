@@ -6,15 +6,19 @@
 
 void task_proc ManagerThreadFunction(void *param)
 {
-    ConnectionManager& self = *(static_cast< ConnectionManager* >(param));
-    self.mQuit = !self.mGate.is_ok();
-    GetLog() << "Gate " << (self.mQuit ? "not opened" : "opened");
-    while (!self.mQuit)
+    static_cast< ConnectionManager* >(param)->Execute();
+}
+
+void ConnectionManager::Execute()
+{
+    mQuit = !mGate.is_ok();
+    GetLog() << "Gate " << (mQuit ? "not opened" : "opened");
+    while (!mQuit)
     {
-        socket_t* clientSocket = self.mGate.accept();
+        socket_t* clientSocket = mGate.accept();
         if (clientSocket->is_ok())
-            self.NewConnection(*clientSocket);
-        self.mQuit = !self.mGate.is_ok();
+            NewConnection(*clientSocket);
+        mQuit = !mGate.is_ok();
     }
 }
 
