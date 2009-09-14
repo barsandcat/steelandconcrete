@@ -44,7 +44,7 @@ namespace OgreAL {
 	 * @remarks
 	 * There is only ever one listener in the scene and it is created
 	 * when the SoundManager is initialized.  To get the reference to
-	 * the listener use SoundManager::getListener.  The listener can
+	 * the listener use SoundManager::getListener.  The listener can 
 	 * be attached to an Ogre::SceneNode or placed at some point in space.
 	 *
 	 * @see Ogre::MovableObject
@@ -54,7 +54,7 @@ namespace OgreAL {
 	{
 	protected:
 		/*
-		** Constructors are protected to enforce the use of the
+		** Constructors are protected to enforce the use of the 
 		** factory via SoundManager::createListener
 		*/
 		/** Default Constructor. */
@@ -71,8 +71,8 @@ namespace OgreAL {
 		/** Returns a pointer to the Listener singleton object */
 		static Listener* getSingletonPtr();
 
-		/**
-		 * Sets the gain.
+		/** 
+		 * Sets the gain. 
 		 * @param gain The gain where 1.0 is full volume and 0.0 is off
 		 * @note Gain should be positive
 		 */
@@ -135,13 +135,15 @@ namespace OgreAL {
 		/** Overridden from MovableObject */
 		const Ogre::AxisAlignedBox& getBoundingBox() const;
 		/** Overridden from MovableObject */
-		Ogre::Real getBoundingRadius() const {return 0; /* Not Visible */}
+		Ogre::Real getBoundingRadius() const {return 0; /* Not Visible */} 
 		/** Overridden from MovableObject */
 		void _updateRenderQueue(Ogre::RenderQueue* queue);
 		/** Overridden from MovableObject */
 		void _notifyAttached(Ogre::Node* parent, bool isTagPoint = false);
+	#if OGRE_VERSION_MAJOR == 1 && OGRE_VERSION_MINOR == 6
 		/** Overridden from MovableObject */
 		virtual void visitRenderables(Ogre::Renderable::Visitor* visitor, bool debugRenderables = false){}
+	#endif
 
 	protected:
 		/// Internal method for synchronising with parent node (if any)
@@ -186,7 +188,7 @@ namespace OgreAL {
 		void destroyInstance(Ogre::MovableObject* obj);
 
 	protected:
-		Ogre::MovableObject* createInstanceImpl(const Ogre::String& name,
+		Ogre::MovableObject* createInstanceImpl(const Ogre::String& name, 
 			const Ogre::NameValuePairList* params = 0);
 	};
 } // Namespace
