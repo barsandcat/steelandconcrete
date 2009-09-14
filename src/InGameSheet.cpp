@@ -48,6 +48,7 @@ InGameSheet::InGameSheet()
     bd->widget_dimensions.size = QuickGUI::Size(60, 60);
     bd->widget_dimensions.position = QuickGUI::Point(10, 10);
     bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", Ogre::ColourValue::White, "Turn"));
+    bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_DOWN] = "OnClick";
     bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_UP] = "OnTurn";
     bd->widget_horizontalAnchor = QuickGUI::ANCHOR_HORIZONTAL_LEFT;
     panel->createButton(bd);
@@ -55,6 +56,7 @@ InGameSheet::InGameSheet()
     bd->widget_dimensions.position = QuickGUI::Point(710, 10);
     bd->textDesc.segments.clear();
     bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", Ogre::ColourValue::White, "Exit"));
+    bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_DOWN] = "OnClick";
     bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_UP] = "OnExit";
     bd->widget_horizontalAnchor = QuickGUI::ANCHOR_HORIZONTAL_RIGHT;
     panel->createButton(bd);

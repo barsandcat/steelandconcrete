@@ -30,6 +30,7 @@ ServerBrowserSheet::ServerBrowserSheet()
     bd->widget_dimensions.size = QuickGUI::Size(width, 25);
     bd->widget_dimensions.position = QuickGUI::Point(ident, 200);
     bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", Ogre::ColourValue::White, "Connect"));
+    bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_DOWN] = "OnClick";
     bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_UP] = "OnConnect";
     panel->createButton(bd);
 
@@ -39,6 +40,7 @@ ServerBrowserSheet::ServerBrowserSheet()
     bd->widget_dimensions.position = QuickGUI::Point(ident, 240);
     bd->textDesc.segments.clear();
     bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", Ogre::ColourValue::White, "Return"));
+    bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_DOWN] = "OnClick";
     bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_UP] = "OnMainMenu";
     panel->createButton(bd);
 
