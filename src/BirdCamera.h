@@ -3,6 +3,7 @@
 
 #include <Ogre.h>
 #include <OIS.h>
+#include <OgreAL.h>
 
 static const Ogre::Real zoomAcceleration = 0.000002;
 static const Ogre::Degree rotationAcceleration(0.00002);
@@ -22,6 +23,7 @@ public:
     Ogre::Viewport* GetViewPort() const { return mViewPort; }
     void Goto(const Ogre::Vector3 &aPosition);
     ~BirdCamera();
+    void AttachListener(OgreAL::Listener* aListener);
 protected:
 private:
     Ogre::Camera* mCamera;

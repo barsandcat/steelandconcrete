@@ -55,3 +55,8 @@ BirdCamera::~BirdCamera()
 {
     //dtor
 }
+
+void BirdCamera::AttachListener(OgreAL::Listener* aListener)
+{
+    mCameraNode->attachObject(aListener);
+}
