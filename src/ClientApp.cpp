@@ -165,6 +165,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     {
         GetLog() << "Init OgreAL";
         mSoundManager = new OgreAL::SoundManager();
+        mBirdCamera->AttachListener(mSoundManager->getListener());
     }
 
     {
@@ -195,18 +196,37 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnMainMenu", &ClientApp::OnMainMenu, this);
 }
 
+void ClientApp::PlayClick()
+{
+    OgreAL::Sound *sound = NULL;
+    if (mSoundManager->hasSound("click"))
+    {
+        sound = mSoundManager->getSound("click");
+    }
+    else
+    {
+        sound = mSoundManager->createSound("click", "clickclick.ogg", false, false);
+        sound->setRelativeToListener(true);
+    }
+    
+    sound->play();
+}
+
 void ClientApp::OnBrowse(const QuickGUI::EventArgs& args)
 {
+    PlayClick();
     mServerBrowserSheet->Activate(*mGUIManager);
 }
 
 void ClientApp::OnMainMenu(const QuickGUI::EventArgs& args)
 {
+    PlayClick();
     mMainMenu->Activate(*mGUIManager);
 }
 
 void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
 {
+    PlayClick();
     GetLog() << "On connect";
     if (!mGame)
     {
@@ -226,6 +246,7 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
 
 void ClientApp::OnCreate(const QuickGUI::EventArgs& args)
 {
+    PlayClick();
     GetLog() << "On create";
     if (!mGame)
     {

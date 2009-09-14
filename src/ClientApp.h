@@ -52,6 +52,7 @@ public:
     static void Quit();
     static BirdCamera& GetCamera();
 private:
+    void PlayClick();
     static QuickGUI::GUIManager* mGUIManager;
     static Ogre::SceneManager* mSceneMgr;
     static OgreAL::SoundManager* mSoundManager;

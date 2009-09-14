@@ -53,6 +53,7 @@ Section "Files (required)"
   File /r "bin\*.skinTypes"  
   
   File /r "bin\*.wav"
+  File /r "bin\*.ogg"
   File /r "bin\*.png"
   File /r "bin\*.jpg"  
   File /r "bin\*.ttf"
