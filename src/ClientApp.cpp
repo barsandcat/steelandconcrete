@@ -194,39 +194,37 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnConnect", &ClientApp::OnConnect, this);
     QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnCreate", &ClientApp::OnCreate, this);
     QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnMainMenu", &ClientApp::OnMainMenu, this);
+    QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnClick", &ClientApp::OnClick, this);
 }
 
-void ClientApp::PlayClick()
+void ClientApp::OnClick(const QuickGUI::EventArgs& args)
 {
     OgreAL::Sound *sound = NULL;
     if (mSoundManager->hasSound("click"))
     {
         sound = mSoundManager->getSound("click");
+        sound->stop();
     }
     else
     {
         sound = mSoundManager->createSound("click", "clickclick.ogg", false, false);
         sound->setRelativeToListener(true);
     }
-    
     sound->play();
 }
 
 void ClientApp::OnBrowse(const QuickGUI::EventArgs& args)
 {
-    PlayClick();
     mServerBrowserSheet->Activate(*mGUIManager);
 }
 
 void ClientApp::OnMainMenu(const QuickGUI::EventArgs& args)
 {
-    PlayClick();
     mMainMenu->Activate(*mGUIManager);
 }
 
 void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
 {
-    PlayClick();
     GetLog() << "On connect";
     if (!mGame)
     {
@@ -246,7 +244,6 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
 
 void ClientApp::OnCreate(const QuickGUI::EventArgs& args)
 {
-    PlayClick();
     GetLog() << "On create";
     if (!mGame)
     {
