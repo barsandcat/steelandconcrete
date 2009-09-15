@@ -45,6 +45,18 @@ void CheckConfigFile(const Ogre::String aHomeDir)
 
 void LaunchServer()
 {
+    STARTUPINFO si;
+    PROCESS_INFORMATION pi;
+
+    ZeroMemory( &si, sizeof(si) );
+    si.cb = sizeof(si);
+    ZeroMemory( &pi, sizeof(pi) );
+
+
+    CreateProcess("steelandconcrete_server.exe", NULL, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi);    
+    
+    CloseHandle( pi.hProcess );
+    CloseHandle( pi.hThread );    
 }
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT)
