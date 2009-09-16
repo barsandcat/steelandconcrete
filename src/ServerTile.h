@@ -23,6 +23,8 @@ public:
 
     TileId GetTileId() const { return mTileId; }
     void SetTileId(TileId aTileId) { mTileId = aTileId; }
+
+    void SetBuilding(ServerBuilding* aBuilding) { mBuilding = aBuilding; }
 protected:
 private:
     std::vector< ServerTile* > mNeighbourhood;

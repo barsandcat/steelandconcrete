@@ -7,7 +7,7 @@
 ServerUnit::ServerUnit(ServerTile& aTile, UnitId aUnitId):
   mPosition(&aTile), mUnitId(aUnitId), mTarget(NULL)
 {
-    //ctor
+    mPosition->SetUnit(this);
 }
 
 ServerUnit::~ServerUnit()

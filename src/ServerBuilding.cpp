@@ -1,9 +1,11 @@
 #include <pch.h>
 #include <ServerBuilding.h>
+#include <ServerTile.h>
 
-ServerBuilding::ServerBuilding(BuildingId aBuildingId): mBuildingId(aBuildingId)
+ServerBuilding::ServerBuilding(ServerTile* aTile, BuildingId aBuildingId): 
+    mBuildingId(aBuildingId), mTile(aTile)
 {
-
+    mTile->SetBuilding(this);
 }
 
 ServerBuilding::~ServerBuilding()
@@ -11,7 +13,7 @@ ServerBuilding::~ServerBuilding()
 
 }
 
-ServerBuilding::ServerBuilding(const ServerBuilding& other)
+ServerBuilding::ServerBuilding(const ServerBuilding& other): mBuildingId(-1), mTile(NULL)
 {
 
 }
