@@ -7,13 +7,17 @@
 #include <ConnectionManager.h>
 #include <ChangeList.h>
 
-ServerGame::ServerGame(int aSize): mGrid(NULL), mUnitCount(0), mTime(30), mTimeStep(30)
+ServerGame::ServerGame(int aSize): mGrid(NULL), mUnitCount(0), mBuildingCount(0), mTime(30), mTimeStep(30)
 {
     task::initialize(task::normal_stack);
     mClientEvent = new event();
     mGameMutex = new mutex();
     mGrid = new ServerGeodesicGrid(aSize);
     GetLog() << "Size " << aSize << " Tile count " << mGrid->GetTileCount();
+    for (size_t i = 0; i < 15; ++i)
+    {
+        CreateBuilding(&mGrid->GetTile(rand() % mGrid->GetTileCount()));
+    }
 }
 
 ServerGame::~ServerGame()
@@ -58,6 +62,13 @@ ServerUnit& ServerGame::CreateUnit(ServerTile& aTile)
     ServerUnit* unit = new ServerUnit(aTile, ++mUnitCount);
     mUnits.insert(std::make_pair(unit->GetUnitId(), unit));
     return *unit;
+}
+
+ServerBuilding& ServerGame::CreateBuilding(ServerTile* aTile)
+{
+    ServerBuilding* building = new ServerBuilding(aTile, ++mBuildingCount);
+    mBuildings.insert(std::make_pair(building->GetBuildingId(), building));
+    return *building;
 }
 
 void ServerGame::Send(socket_t& aSocket)

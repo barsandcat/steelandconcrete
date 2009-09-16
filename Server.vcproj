@@ -239,6 +239,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\ServerBuilding.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\ServerEdge.cpp"
 				>
 			</File>
@@ -286,6 +290,10 @@
 			</File>
 			<File
 				RelativePath=".\src\pch.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\ServerBuilding.h"
 				>
 			</File>
 			<File
