@@ -4,6 +4,7 @@
 #include <OgreVector3.h>
 
 class ServerUnit;
+class ServerBuilding;
 
 class ServerTile
 {
@@ -28,6 +29,7 @@ private:
     const Ogre::Vector3 mPosition;
     TileId mTileId;
     ServerUnit* mUnit;
+    ServerBuilding* mBuilding;
 };
 
 #endif // SERVERTILE_H

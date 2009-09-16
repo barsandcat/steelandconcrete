@@ -9,6 +9,7 @@ using google::protobuf::int32;
 
 typedef uint32 TileId;
 typedef int32 UnitId;
+typedef int32 BuildingId;
 typedef uint64 GameTime;
 
 #endif // TYPEDEFS_H_INCLUDED
