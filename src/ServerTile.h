@@ -15,8 +15,8 @@ public:
     void RemoveNeighbour(ServerTile& aTile);
     void SortNeighbourhood();
 
-    inline const Ogre::Vector3& GetPosition() const { return mPosition; }
-    inline size_t GetNeighbourCount() const { return mNeighbourhood.size(); }
+    const Ogre::Vector3& GetPosition() const { return mPosition; }
+    size_t GetNeighbourCount() const { return mNeighbourhood.size(); }
     ServerTile& GetNeighbour(size_t aIndex) const { return *mNeighbourhood[aIndex]; }
     ServerUnit* GetUnit() const { return mUnit; }
     void SetUnit(ServerUnit* aUnit) { mUnit = aUnit; }
