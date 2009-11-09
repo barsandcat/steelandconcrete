@@ -145,6 +145,9 @@
 		<Unit filename="src/proto/GeodesicGrid.pb.cc" />
 		<Unit filename="src/proto/GeodesicGrid.pb.h" />
 		<Unit filename="src/proto/GeodesicGrid.proto" />
+		<Unit filename="src/proto/Handshake.pb.cc" />
+		<Unit filename="src/proto/Handshake.pb.h" />
+		<Unit filename="src/proto/Handshake.proto" />
 		<Unit filename="src/proto/Header.pb.cc" />
 		<Unit filename="src/proto/Header.pb.h" />
 		<Unit filename="src/proto/Header.proto" />

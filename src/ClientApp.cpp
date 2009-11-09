@@ -6,8 +6,11 @@
 #include <task.h>
 #include <Header.pb.h>
 #include <Vector.pb.h>
+#include <Handshake.pb.h>
 #include <Network.h>
 #include <ClientLog.h>
+#include <svn_revision.h>
+#include <ProtocolVersion.h>
 
 QuickGUI::GUIManager& ClientApp::GetGuiMgr()
 {
@@ -233,7 +236,16 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
         if (sock && sock->is_ok())
         {
             GetLog() << "Connected";
-            mGame = new ClientGame(*sock);
+            ConnectionRequestMsg req;
+            req.set_protocolversion(ProtocolVersion);
+            WriteMessage(*sock, req);
+
+            ConnectionResponseMsg res;
+            ReadMessage(*sock, res);
+            if (res.result() == Allowed)
+            {
+                mGame = new ClientGame(*sock);
+            }
         }
         else
         {
