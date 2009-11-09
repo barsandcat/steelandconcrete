@@ -3,6 +3,9 @@
 
 #include <ServerLog.h>
 #include <ServerGame.h>
+#include <Handshake.pb.h>
+#include <Network.h>
+#include <ProtocolVersion.h>
 
 void task_proc ManagerThreadFunction(void *param)
 {
@@ -17,7 +20,27 @@ void ConnectionManager::Execute()
     {
         socket_t* clientSocket = mGate.accept();
         if (clientSocket->is_ok())
-            NewConnection(*clientSocket);
+        {
+            ConnectionRequestMsg req;
+            ReadMessage(*clientSocket, req);
+            GetLog() << "Client request " << req.ShortDebugString();
+
+            ConnectionResponseMsg res;
+            res.set_protocolversion(ProtocolVersion);
+            if (req.protocolversion() == ProtocolVersion)
+            {
+                res.set_result(Allowed);
+                WriteMessage(*clientSocket, res);
+                NewConnection(*clientSocket);
+            }
+            else
+            {
+                res.set_result(WrongVersion);
+                WriteMessage(*clientSocket, res);
+                clientSocket->close();
+                delete clientSocket;
+            }
+        }
         mQuit = !mGate.is_ok();
     }
 }
