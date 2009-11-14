@@ -66,8 +66,6 @@
 		<Unit filename="src/Network.cpp" />
 		<Unit filename="src/Network.h" />
 		<Unit filename="src/Server.cpp" />
-		<Unit filename="src/ServerBuilding.cpp" />
-		<Unit filename="src/ServerBuilding.h" />
 		<Unit filename="src/ServerEdge.cpp" />
 		<Unit filename="src/ServerEdge.h" />
 		<Unit filename="src/ServerGame.cpp" />
