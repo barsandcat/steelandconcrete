@@ -4,7 +4,6 @@
 #include <OgreVector3.h>
 
 class ServerUnit;
-class ServerBuilding;
 
 class ServerTile
 {
@@ -24,14 +23,12 @@ public:
     TileId GetTileId() const { return mTileId; }
     void SetTileId(TileId aTileId) { mTileId = aTileId; }
 
-    void SetBuilding(ServerBuilding* aBuilding) { mBuilding = aBuilding; }
 protected:
 private:
     std::vector< ServerTile* > mNeighbourhood;
     const Ogre::Vector3 mPosition;
     TileId mTileId;
     ServerUnit* mUnit;
-    ServerBuilding* mBuilding;
 };
 
 #endif // SERVERTILE_H

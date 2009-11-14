@@ -2,13 +2,11 @@
 #include <ServerTile.h>
 
 #include <ServerUnit.h>
-#include <ServerBuilding.h>
 
 ServerTile::ServerTile(const Ogre::Vector3& aPosition):
         mPosition(aPosition),
         mTileId(0),
-		mUnit(NULL),
-		mBuilding(NULL)
+		mUnit(NULL)
 {
     mNeighbourhood.reserve(6);
 }
