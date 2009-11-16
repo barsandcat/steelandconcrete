@@ -228,7 +228,7 @@ int GetTileMsgSize()
     tile.mutable_position()->set_x(0.1234567f);
     tile.mutable_position()->set_y(0.1234567f);
     tile.mutable_position()->set_z(0.1234567f);
-    tile.set_height(1.0f);
+    tile.set_height(10000);
     return tile.ByteSize();
 }
 
