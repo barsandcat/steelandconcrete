@@ -22,20 +22,20 @@ ServerGeodesicGrid::ServerGeodesicGrid(int aSize)
 
     // Vertices of icoshaedron
 
-    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, 1.0f, phi).normalisedCopy()));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, 1.0f, -phi).normalisedCopy()));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, -1.0f, phi).normalisedCopy()));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, -1.0f, -phi).normalisedCopy()));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, 1.0f, phi).normalisedCopy(), rand()));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, 1.0f, -phi).normalisedCopy(), rand()));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, -1.0f, phi).normalisedCopy(), rand()));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, -1.0f, -phi).normalisedCopy(), rand()));
 
-    mTiles.push_back(new ServerTile(Ogre::Vector3(1.0f, phi, 0.0f).normalisedCopy()));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(1.0f, -phi, 0.0f).normalisedCopy()));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(-1.0f, phi, 0.0f).normalisedCopy()));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(-1.0f, -phi, 0.0f).normalisedCopy()));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(1.0f, phi, 0.0f).normalisedCopy(), rand()));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(1.0f, -phi, 0.0f).normalisedCopy(), rand()));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(-1.0f, phi, 0.0f).normalisedCopy(), rand()));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(-1.0f, -phi, 0.0f).normalisedCopy(), rand()));
 
-    mTiles.push_back(new ServerTile(Ogre::Vector3(phi, 0.0f, 1.0f).normalisedCopy()));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(phi, 0.0f, -1.0f).normalisedCopy()));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(-phi, 0.0f, 1.0f).normalisedCopy()));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(-phi, 0.0f, -1.0f).normalisedCopy()));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(phi, 0.0f, 1.0f).normalisedCopy(), rand()));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(phi, 0.0f, -1.0f).normalisedCopy(), rand()));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(-phi, 0.0f, 1.0f).normalisedCopy(), rand()));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(-phi, 0.0f, -1.0f).normalisedCopy(), rand()));
 
     // Link icoshaedron
 
@@ -116,7 +116,8 @@ void ServerGeodesicGrid::Subdivide()
     for (size_t i = 0; i < mEdges.size(); ++i)
     {
         ServerEdge* edge = mEdges[i];
-        ServerTile* tile = new ServerTile((edge->GetTileA().GetPosition() + edge->GetTileB().GetPosition()).normalisedCopy());
+        float height = edge->GetTileA().GetHeight() + edge->GetTileB().GetHeight() / 2;
+        ServerTile* tile = new ServerTile((edge->GetTileA().GetPosition() + edge->GetTileB().GetPosition()).normalisedCopy(), height);
         newEdges.push_back(new ServerEdge(*tile, edge->GetTileA()));
         newEdges.push_back(new ServerEdge(*tile, edge->GetTileB()));
         newTiles.push_back(tile);
@@ -173,7 +174,7 @@ ServerGeodesicGrid::ServerGeodesicGrid(const Ogre::String aFileName)
             const TileMsg& tile = grid.tiles(i);
             const VectorMsg& vector = tile.position();
             Ogre::Vector3 position(vector.x(), vector.y(), vector.z());
-            ServerTile* newTile = new ServerTile(position);
+            ServerTile* newTile = new ServerTile(position, tile.height());
             newTile->SetTileId(i);
             mTiles.push_back(newTile);
         }
@@ -198,6 +199,7 @@ void ServerGeodesicGrid::Save(const Ogre::String aFileName) const
         Ogre::Vector3 pos = mTiles[i]->GetPosition();
         TileMsg* tile = grid.add_tiles();
         tile->set_tag(i);
+        tile->set_height(mTiles[i]->GetHeight());
         tile->mutable_position()->set_x(pos.x);
         tile->mutable_position()->set_y(pos.y);
         tile->mutable_position()->set_z(pos.z);

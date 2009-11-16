@@ -3,10 +3,11 @@
 
 #include <ServerUnit.h>
 
-ServerTile::ServerTile(const Ogre::Vector3& aPosition):
+ServerTile::ServerTile(const Ogre::Vector3& aPosition, float aHeight):
         mPosition(aPosition),
         mTileId(0),
-		mUnit(NULL)
+		mUnit(NULL),
+		mHeight(aHeight)
 {
     mNeighbourhood.reserve(6);
 }
