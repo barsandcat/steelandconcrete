@@ -8,7 +8,7 @@ class ServerUnit;
 class ServerTile
 {
 public:
-    explicit ServerTile(const Ogre::Vector3& aPosition);
+    explicit ServerTile(const Ogre::Vector3& aPosition, float aHeight);
     ~ServerTile();
     void AddNeighbour(ServerTile& aTile) { mNeighbourhood.push_back(&aTile); }
     void RemoveNeighbour(ServerTile& aTile);
@@ -22,11 +22,13 @@ public:
 
     TileId GetTileId() const { return mTileId; }
     void SetTileId(TileId aTileId) { mTileId = aTileId; }
+    float GetHeight() const { return mHeight; }
 
 protected:
 private:
     std::vector< ServerTile* > mNeighbourhood;
     const Ogre::Vector3 mPosition;
+    const float mHeight;
     TileId mTileId;
     ServerUnit* mUnit;
 };
