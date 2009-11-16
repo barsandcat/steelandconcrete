@@ -65,8 +65,6 @@
 		<ExtraCommands>
 			<Add before="make -C ../../src/proto -f Makefile.proto" />
 			<Add before="make -f Makefile.cxxtest" />
-			<Add after="../../bin/UnitTests" />
-			<Mode after="always" />
 		</ExtraCommands>
 		<Unit filename="../Network.cpp" />
 		<Unit filename="../Network.h" />

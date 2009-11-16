@@ -7,12 +7,12 @@
 #include <ConnectionManager.h>
 #include <ChangeList.h>
 
-ServerGame::ServerGame(int aSize): mGrid(NULL), mUnitCount(0), mBuildingCount(0), mTime(30), mTimeStep(30)
+ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0), mBuildingCount(0), mTime(30), mTimeStep(30)
 {
     task::initialize(task::normal_stack);
     mClientEvent = new event();
     mGameMutex = new mutex();
-    mGrid = new ServerGeodesicGrid(aSize);
+    mGrid = new ServerGeodesicGrid(aSize, aSeaLevel);
     GetLog() << "Size " << aSize << " Tile count " << mGrid->GetTileCount();
 }
 

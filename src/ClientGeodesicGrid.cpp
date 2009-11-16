@@ -69,6 +69,7 @@ ClientGeodesicGrid::ClientGeodesicGrid(socket_t& aSocket, LoadingSheet& loadingS
     mTiles.resize(gridInfo.tilecount());
     mEdges.resize(gridInfo.edgecount());
     float scale = gridInfo.scale();
+    int32 seaLevel = gridInfo.sealevel();
 
     for (size_t i = 0; i < gridInfo.tilecount();)
     {
@@ -77,7 +78,7 @@ ClientGeodesicGrid::ClientGeodesicGrid(socket_t& aSocket, LoadingSheet& loadingS
         for (size_t j = 0; j < tiles.tiles_size(); ++j)
         {
             TileMsg tile = tiles.tiles(j);
-            mTiles[tile.tag()] = new ClientTile(tile.tag(), scale,
+            mTiles[tile.tag()] = new ClientTile(tile.tag(), scale, tile.height() > seaLevel,
                                                 Ogre::Vector3(tile.position().x(), tile.position().y(), tile.position().z()));
             ++i;
         }

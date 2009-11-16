@@ -5,7 +5,7 @@
 #include <Network.h>
 #include <ServerLog.h>
 
-ServerGeodesicGrid::ServerGeodesicGrid(int aSize)
+ServerGeodesicGrid::ServerGeodesicGrid(int aSize, int32 aSeaLevel): mSeaLevel(aSeaLevel)
 {
     // 2    600
     // 3   2000
@@ -19,23 +19,24 @@ ServerGeodesicGrid::ServerGeodesicGrid(int aSize)
 
     mTiles.reserve(tileCount);
     mEdges.reserve(edgeCount);
+    const int32 SEA_LEVEL_MAX = 10000;
 
     // Vertices of icoshaedron
 
-    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, 1.0f, phi).normalisedCopy(), rand()));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, 1.0f, -phi).normalisedCopy(), rand()));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, -1.0f, phi).normalisedCopy(), rand()));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, -1.0f, -phi).normalisedCopy(), rand()));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, 1.0f, phi).normalisedCopy(), rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, 1.0f, -phi).normalisedCopy(), rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, -1.0f, phi).normalisedCopy(), rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, -1.0f, -phi).normalisedCopy(), rand() % SEA_LEVEL_MAX));
 
-    mTiles.push_back(new ServerTile(Ogre::Vector3(1.0f, phi, 0.0f).normalisedCopy(), rand()));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(1.0f, -phi, 0.0f).normalisedCopy(), rand()));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(-1.0f, phi, 0.0f).normalisedCopy(), rand()));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(-1.0f, -phi, 0.0f).normalisedCopy(), rand()));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(1.0f, phi, 0.0f).normalisedCopy(), rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(1.0f, -phi, 0.0f).normalisedCopy(), rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(-1.0f, phi, 0.0f).normalisedCopy(), rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(-1.0f, -phi, 0.0f).normalisedCopy(), rand() % SEA_LEVEL_MAX));
 
-    mTiles.push_back(new ServerTile(Ogre::Vector3(phi, 0.0f, 1.0f).normalisedCopy(), rand()));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(phi, 0.0f, -1.0f).normalisedCopy(), rand()));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(-phi, 0.0f, 1.0f).normalisedCopy(), rand()));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(-phi, 0.0f, -1.0f).normalisedCopy(), rand()));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(phi, 0.0f, 1.0f).normalisedCopy(), rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(phi, 0.0f, -1.0f).normalisedCopy(), rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(-phi, 0.0f, 1.0f).normalisedCopy(), rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(-phi, 0.0f, -1.0f).normalisedCopy(), rand() % SEA_LEVEL_MAX));
 
     // Link icoshaedron
 
@@ -116,7 +117,7 @@ void ServerGeodesicGrid::Subdivide()
     for (size_t i = 0; i < mEdges.size(); ++i)
     {
         ServerEdge* edge = mEdges[i];
-        float height = edge->GetTileA().GetHeight() + edge->GetTileB().GetHeight() / 2;
+        int32 height = (edge->GetTileA().GetHeight() + edge->GetTileB().GetHeight()) / 2;
         ServerTile* tile = new ServerTile((edge->GetTileA().GetPosition() + edge->GetTileB().GetPosition()).normalisedCopy(), height);
         newEdges.push_back(new ServerEdge(*tile, edge->GetTileA()));
         newEdges.push_back(new ServerEdge(*tile, edge->GetTileB()));
@@ -162,13 +163,14 @@ void ServerGeodesicGrid::InitTiles()
     }
 }
 
-ServerGeodesicGrid::ServerGeodesicGrid(const Ogre::String aFileName)
+ServerGeodesicGrid::ServerGeodesicGrid(const Ogre::String aFileName): mSeaLevel(0)
 {
     GeodesicGridMsg grid;
     std::fstream input(aFileName.c_str(), std::ios::in | std::ios::binary);
     if (grid.ParseFromIstream(&input))
     {
         mTiles.reserve(grid.tiles_size());
+        mSeaLevel = grid.sealevel();
         for (int i = 0; i < grid.tiles_size(); ++i)
         {
             const TileMsg& tile = grid.tiles(i);
@@ -193,6 +195,7 @@ ServerGeodesicGrid::ServerGeodesicGrid(const Ogre::String aFileName)
 void ServerGeodesicGrid::Save(const Ogre::String aFileName) const
 {
     GeodesicGridMsg grid;
+    grid.set_sealevel(mSeaLevel);
 
     for (size_t i = 0; i < mTiles.size(); ++i)
     {
@@ -223,6 +226,7 @@ int GetTileMsgSize()
     tile.mutable_position()->set_x(0.1234567f);
     tile.mutable_position()->set_y(0.1234567f);
     tile.mutable_position()->set_z(0.1234567f);
+    tile.set_height(1.0f);
     return tile.ByteSize();
 }
 
@@ -240,6 +244,7 @@ void ServerGeodesicGrid::Send(socket_t& aSocket) const
     gridInfo.set_tilecount(mTiles.size());
     gridInfo.set_edgecount(mEdges.size());
     gridInfo.set_scale((mTiles[0]->GetPosition() - mTiles[0]->GetNeighbour(0).GetPosition()).length());
+    gridInfo.set_sealevel(mSeaLevel);
     WriteMessage(aSocket, gridInfo);
     GetLog() << "Grid info send " << gridInfo.ShortDebugString();
     int tilesPerMessage = MESSAGE_SIZE / GetTileMsgSize() - 1;
@@ -252,6 +257,7 @@ void ServerGeodesicGrid::Send(socket_t& aSocket) const
             TileMsg* tile = tiles.add_tiles();
             Ogre::Vector3 pos = mTiles[i]->GetPosition();
             tile->set_tag(i);
+            tile->set_height(mTiles[i]->GetHeight());
             tile->mutable_position()->set_x(pos.x);
             tile->mutable_position()->set_y(pos.y);
             tile->mutable_position()->set_z(pos.z);

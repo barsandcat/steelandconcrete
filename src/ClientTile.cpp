@@ -2,10 +2,11 @@
 #include <ClientTile.h>
 #include <ClientApp.h>
 
-ClientTile::ClientTile(TileId aId, float scale, const Ogre::Vector3& aPosition):
+ClientTile::ClientTile(TileId aId, float scale, bool ground, const Ogre::Vector3& aPosition):
         mNode(*ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode(aPosition)),
         mTileId(aId),
-        mUnit(NULL)
+        mUnit(NULL),
+        mGround(ground)
 {
     mNeighbourhood.reserve(6);
     mNode.setScale(Ogre::Vector3(scale));
@@ -46,7 +47,7 @@ Ogre::MeshPtr ClientTile::ConstructMesh(const Ogre::String& aMeshName) const
 
     Ogre::Vector3 point;
     Ogre::String material;
-    if (rand() > RAND_MAX * 0.5)
+    if (mGround)
     {
         material = "Grassland";
     }
