@@ -117,7 +117,9 @@ void ServerGeodesicGrid::Subdivide()
     for (size_t i = 0; i < mEdges.size(); ++i)
     {
         ServerEdge* edge = mEdges[i];
-        int32 height = (edge->GetTileA().GetHeight() + edge->GetTileB().GetHeight()) / 2;
+        float rnd = (rand() % 100 + 1) / 100.0f + 0.5f;
+        int32 height = (edge->GetTileA().GetHeight() + edge->GetTileB().GetHeight()) / 2 * rnd;
+
         ServerTile* tile = new ServerTile((edge->GetTileA().GetPosition() + edge->GetTileB().GetPosition()).normalisedCopy(), height);
         newEdges.push_back(new ServerEdge(*tile, edge->GetTileA()));
         newEdges.push_back(new ServerEdge(*tile, edge->GetTileB()));
