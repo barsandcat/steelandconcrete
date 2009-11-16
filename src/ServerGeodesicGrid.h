@@ -8,7 +8,7 @@
 class ServerGeodesicGrid
 {
 public:
-    ServerGeodesicGrid(int aSize);
+    ServerGeodesicGrid(int aSize, int32 aSeaLevel);
     ServerGeodesicGrid(const Ogre::String aFileName);
 
     void Save(const Ogre::String aFileName) const;
@@ -22,6 +22,7 @@ protected:
 private:
     std::vector< ServerTile* > mTiles;
     std::vector< ServerEdge* > mEdges;
+    int32 mSeaLevel;
     void Subdivide();
     void InitTiles();
 };

@@ -13,7 +13,7 @@ class ServerGame
 {
 public:
     typedef std::map< UnitId, ServerUnit* > ServerUnits;
-    ServerGame(int aSize);
+    ServerGame(int aSize, int32 aSeaLevel);
     ~ServerGame();
     void MainLoop(Ogre::String aAddress, Ogre::String aPort);
     ServerGeodesicGrid& GetGrid();

@@ -21,15 +21,20 @@ int main(int argc, char **argv)
         TCLAP::ValueArg<Ogre::String> port("p", "port", "Port", false, "4512", "string");
         cmd.add(port);
 
-        TCLAP::ValueArg<int> size("s", "size",
+        TCLAP::ValueArg<int32> size("s", "size",
             "Map size: 1 - 162, 2 - 642, 3 - 2562, 4 - 10242, 5 - 40962, 6 - 163842, 7 - 655362 tiles",
             false, 4, "int");
         cmd.add(size);
 
+        TCLAP::ValueArg<int32> seaLevel("l", "sealevel",
+            "Sea level: 0-10000",
+            false, 5000, "int");
+        cmd.add(seaLevel);
+
         // Parse the args.
         cmd.parse( argc, argv );
 
-        ServerGame app(size.getValue());
+        ServerGame app(size.getValue(), seaLevel.getValue());
         app.MainLoop(address.getValue(), port.getValue());
     }
     catch (std::exception& e)

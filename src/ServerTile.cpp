@@ -3,7 +3,7 @@
 
 #include <ServerUnit.h>
 
-ServerTile::ServerTile(const Ogre::Vector3& aPosition, float aHeight):
+ServerTile::ServerTile(const Ogre::Vector3& aPosition, int32 aHeight):
         mPosition(aPosition),
         mTileId(0),
 		mUnit(NULL),

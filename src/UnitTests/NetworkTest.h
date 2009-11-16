@@ -17,7 +17,7 @@ class MyTestSuite : public CxxTest::TestSuite
 public:
     void TestGeodesicGridSave()
     {
-        ServerGeodesicGrid grid1(0);
+        ServerGeodesicGrid grid1(0, 5000);
         grid1.Save("test.gg");
         ServerGeodesicGrid grid2("test.gg");
 
