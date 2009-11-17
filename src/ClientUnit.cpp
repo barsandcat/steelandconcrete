@@ -7,7 +7,7 @@ ClientUnit::ClientUnit(ClientTile& aTile, UnitId aUnitId): mTile(&aTile), mTarge
 {
     mTile->SetUnit(this);
     mNode = mTile->GetNode().createChildSceneNode();
-    mNode->setScale(Ogre::Vector3(0.01));
+    mNode->setScale(Ogre::Vector3(0.1));
 }
 
 ClientUnit::~ClientUnit()
@@ -18,7 +18,7 @@ ClientUnit::~ClientUnit()
 Ogre::Entity* ClientUnit::CreateEntity()
 {
     Ogre::String indexName = Ogre::StringConverter::toString(mUnitId);
-    Ogre::Entity* unit = ClientApp::GetSceneMgr().createEntity(indexName + "Unit.entity", "robot.mesh");
+    Ogre::Entity* unit = ClientApp::GetSceneMgr().createEntity(indexName + "Unit.entity", "Zebra.mesh");
     mNode->attachObject(unit);
     mNode->setVisible(true);
     return unit;
