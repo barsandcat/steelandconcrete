@@ -44,8 +44,8 @@ def GetArmatureObject(bObject):
 		else:
 			# check modifier stack, use last armature modifier
 			for modifier in bObject.modifiers:
-				if ((modifier.type == Blender.Modifier.Type['ARMATURE'])
-					and modifier[Blender.Modifier.Settings.VERTGROUP]):
+				if ((modifier.type == Blender.Modifier.Types.ARMATURE)
+					and modifier[Blender.Modifier.Settings.VGROUPS]):
 					bArmatureObject = modifier[Blender.Modifier.Settings.OBJECT]
 	return bArmatureObject
 
@@ -191,6 +191,8 @@ class ArmatureAnimation:
 		# FIXME: does not work with multiple actions
 		if (actionAtExportTime is not None):
 			actionAtExportTime.setActive(armatureExporter.getArmatureObject())
+		else:
+			armatureExporter.getArmatureObject().action = None
 		Blender.Set('curframe', frameAtExportTime)
 		armatureExporter.getArmatureObject().evaluatePose(frameAtExportTime)
 		return
@@ -640,7 +642,10 @@ class ArmatureExporter:
 			
 			# restore current settings
 			Blender.Set('curframe', frameAtExportTime)
-			actionAtExportTime.setActive(self.bArmatureObject)
+			if (actionAtExportTime is not None):
+				actionAtExportTime.setActive(self.bArmatureObject)
+			else:
+				self.bArmatureObject.action = None
 		return
 	def _writeAnimations(self, f, indentation=0):
 		if (len(self.animationList) > 0):

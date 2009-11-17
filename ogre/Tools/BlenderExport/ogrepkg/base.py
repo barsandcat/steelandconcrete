@@ -8,12 +8,12 @@
 # modify it under the terms of the GNU Lesser General Public
 # License as published by the Free Software Foundation; either
 # version 2.1 of the License, or (at your option) any later version.
-#
+# 
 # This library is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # Lesser General Public License for more details.
-#
+# 
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -32,15 +32,15 @@ import Blender
 
 def indent(indent):
 	"""Indentation.
-
+	
 	   @param indent Level of indentation.
 	   @return String.
 	"""
 	return "	"*indent
-
+	
 class Singleton:
 	"""Ensure that a class has at most one instance.
-
+	
 	@cvar instances Existing instances.
 	"""
 	instances = {}
@@ -105,10 +105,10 @@ class View:
 
 class Log(Singleton, Model):
 	"""Logs messages and status.
-
+	
 	   Logs messages as a list of strings and keeps track of the status.
 	   Possible status values are info, warning and error.
-
+	   
 	   @cvar INFO info status
 	   @cvar WARNING warning status
 	   @cvar ERROR error status
@@ -129,17 +129,17 @@ class Log(Singleton, Model):
 		return
 	def logInfo(self, message):
 		"""Logs an info message.
-
+		
 		   @param message message string
 		"""
 		self.messageList.append((Log.INFO, message))
 		self._notify()
-		return
+		return		
 	def logWarning(self, message):
 		"""Logs a warning message.
-
+		
 		   The status is set to <code>Log.WARNING</code> if it is not already <code>Log.ERROR</code>.
-
+		   
 		   @param message message string
 		"""
 		self.messageList.append((Log.WARNING, "Warning: "+message))
@@ -149,9 +149,9 @@ class Log(Singleton, Model):
 		return
 	def logError(self, message):
 		"""Logs an error message.
-
+		
 		   The status is set to <code>Log.ERROR</code>.
-
+		   
 		   @param message message string
 		"""
 		self.messageList.append((Log.ERROR, "Error: "+message))
@@ -160,20 +160,20 @@ class Log(Singleton, Model):
 		return
 	def getStatus(self):
 		"""Gets the current status.
-
+		
 		   The status can be
 		   <ul>
 		   <li><code>Log.INFO</code>
 		   <li><code>Log.WARNING</code>
 		   <li><code>Log.ERROR</code>
 		   </ul>
-
+		   
 		   @return status
 		"""
 		return self.status
 	def getMessageList(self):
 		"""Returns the list of log messages.
-
+		
 		   @return list of tuples (status, message)
 		"""
 		return self.messageList
@@ -196,7 +196,7 @@ class PackageSettings(Singleton):
 			Blender.Text.unlink(oldSettingsText)
 		# write new configuration text
 		settingsText = Blender.Text.New(self.textName)
-		#settingsText.write('OGRE Package settings file.\n\nThis file is automatically created. Please don\'t edit this file directly.\n\n')
+		settingsText.write('OGRE Package settings file.\n\nThis file is automatically created. Please don\'t edit this file directly.\n\n')
 		try:
 			# pickle
 			settingsText.write(pickle.dumps(self.dict))
@@ -205,7 +205,7 @@ class PackageSettings(Singleton):
 		return
 	def clearNoneExistingObjects(self):
 		"""Maintainance method.
-
+		
 		   As settigns are shared among the package, they get never deleted automatically.
 		   All settings that are loaded are saved again. Therefore it is advisable to clear
 		   the object settings for deleted objects from time to time. Applications that use
@@ -218,7 +218,7 @@ class PackageSettings(Singleton):
 		return
 	def setSetting(self, key, value):
 		"""Saves a setting to the package dict.
-
+		
 		   Note: 'objectDict' is a reserved key.
 		"""
 		self.dict[key] = value
@@ -239,7 +239,7 @@ class PackageSettings(Singleton):
 		if self.dict['objectDict'].has_key(objectName):
 			if self.dict['objectDict'][objectName].has_key(key):
 				value = self.dict['objectDict'][objectName][key]
-		return value
+		return value	
 	def load(self):
 		"""Load from Blender text 'OgrePackage.cfg'.
 		"""
@@ -248,8 +248,8 @@ class PackageSettings(Singleton):
 			# compose string from text and unpickle
 			try:
 				# unpickle
-				self.dict = pickle.loads(string.join(settingsText.asLines(),'\n'))
-			except:
+				self.dict = pickle.loads(string.join(settingsText.asLines()[4:],'\n'))
+			except (pickle.PickleError):
 				Log.getSingleton().logError('Couldn\'t unpickle package settings!')
 				self.dict = {'objectDict':{}}
 		return
@@ -383,10 +383,10 @@ class OgreXMLConverter(Singleton):
 		return self.converter
 	def setConverter(self, converter):
 		"""Sets converter executable.
-
+		   
 		   Also saves converter location in Blender's registry. If <code>None</code>
 		   is passed, the converter is searched in $PATH.
-
+		   
 		   @param converter Location of OgreXMLConverter.
 		"""
 		self.converter = converter
@@ -406,7 +406,7 @@ class OgreXMLConverter(Singleton):
 		return
 	def findConverter(self):
 		"""Find converter in path.
-
+		
 		   @return converter location or <code>None</code> if converter is not found.
 		"""
 		converter = None
@@ -423,7 +423,7 @@ class OgreXMLConverter(Singleton):
 		return converter
 	def convert(self, filename, arguments=''):
 		"""Converts given file with the OgreXMLConverter.
-
+		
 		   @param filename The xml filename to pass to the converter.
 		   @param arguments Additional arguments to pass to the converter.
 		"""
@@ -508,15 +508,15 @@ class ConvertibleXMLFile:
 
 class PathName:
 	"""Splits a pathname independent of the underlying os.
-
+	
 	   Blender saves pathnames in the os specific manner. Using os.path may result in problems
-	   when the export is done on a different os than the creation of the .blend file.
+	   when the export is done on a different os than the creation of the .blend file.	   
 	"""
 	def __init__(self, pathName):
 		self.pathName = pathName
 		return
 	def dirname(self):
-		return os.path.dirname(self.pathName)
+		return os.path.dirname(self.pathName) 
 	def basename(self):
 		baseName = os.path.basename(self.pathName)
 		# split from non-os directories
