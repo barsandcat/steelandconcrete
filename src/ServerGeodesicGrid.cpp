@@ -5,6 +5,8 @@
 #include <Network.h>
 #include <ServerLog.h>
 
+const int32 SEA_LEVEL_MAX = 10000;
+
 ServerGeodesicGrid::ServerGeodesicGrid(int aSize, int32 aSeaLevel): mSeaLevel(aSeaLevel)
 {
     // 2    600
@@ -19,7 +21,6 @@ ServerGeodesicGrid::ServerGeodesicGrid(int aSize, int32 aSeaLevel): mSeaLevel(aS
 
     mTiles.reserve(tileCount);
     mEdges.reserve(edgeCount);
-    const int32 SEA_LEVEL_MAX = 10000;
 
     // Vertices of icoshaedron
 
@@ -117,10 +118,14 @@ void ServerGeodesicGrid::Subdivide()
     for (size_t i = 0; i < mEdges.size(); ++i)
     {
         ServerEdge* edge = mEdges[i];
-        float rnd = (rand() % 100 + 1) / 100.0f + 0.5f;
-        int32 height = (edge->GetTileA().GetHeight() + edge->GetTileB().GetHeight()) / 2 * rnd;
+        const Ogre::Vector3& a = edge->GetTileA().GetPosition();
+        const Ogre::Vector3& b = edge->GetTileB().GetPosition();
 
-        ServerTile* tile = new ServerTile((edge->GetTileA().GetPosition() + edge->GetTileB().GetPosition()).normalisedCopy(), height);
+        int32 err = a.distance(b) * SEA_LEVEL_MAX;
+        float rnd = (rand() % 100 + 1) / 100.0f - 0.5f;
+        int32 height = (edge->GetTileA().GetHeight() + edge->GetTileB().GetHeight()) / 2 + rnd * err;
+
+        ServerTile* tile = new ServerTile((a + b).normalisedCopy(), height);
         newEdges.push_back(new ServerEdge(*tile, edge->GetTileA()));
         newEdges.push_back(new ServerEdge(*tile, edge->GetTileB()));
         newTiles.push_back(tile);
@@ -228,7 +233,7 @@ int GetTileMsgSize()
     tile.mutable_position()->set_x(0.1234567f);
     tile.mutable_position()->set_y(0.1234567f);
     tile.mutable_position()->set_z(0.1234567f);
-    tile.set_height(10000);
+    tile.set_height(SEA_LEVEL_MAX);
     return tile.ByteSize();
 }
 
@@ -249,7 +254,7 @@ void ServerGeodesicGrid::Send(socket_t& aSocket) const
     gridInfo.set_sealevel(mSeaLevel);
     WriteMessage(aSocket, gridInfo);
     GetLog() << "Grid info send " << gridInfo.ShortDebugString();
-    int tilesPerMessage = MESSAGE_SIZE / GetTileMsgSize() - 1;
+    int tilesPerMessage = MESSAGE_SIZE / (GetTileMsgSize() * 1.2);
     GetLog() << "Tiles per message " << tilesPerMessage;
     for (size_t i = 0; i < mTiles.size();)
     {
