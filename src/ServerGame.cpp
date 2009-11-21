@@ -13,8 +13,26 @@ ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0), 
     task::initialize(task::normal_stack);
     mClientEvent = new event();
     mGameMutex = new mutex();
+    // Create map
     mGrid = new ServerGeodesicGrid(aSize, aSeaLevel);
     GetLog() << "Size " << aSize << " Tile count " << mGrid->GetTileCount();
+    // Populate
+    for (size_t i = 0; i < mGrid->GetTileCount(); ++i)
+    {
+        if (mGrid->GetTile(i).GetHeight() > aSeaLevel)
+        {
+            switch (rand() % 10)
+            {
+            case 1:
+                CreateUnit(mGrid->GetTile(i), VC::LIVE | VC::ANIMAL | VC::HERBIVORES);
+                break;
+            case 6:
+                CreateUnit(mGrid->GetTile(i), VC::LIVE | VC::PLANT);
+                break;
+            }
+        }
+    }
+
 }
 
 ServerGame::~ServerGame()
@@ -77,7 +95,7 @@ void ServerGame::Send(socket_t& aSocket)
     ServerUnits::const_iterator i = mUnits.begin();
     GetLog() << "Unit count send; " << count.ShortDebugString() ;
 
-    for (;i != mUnits.end(); ++i)
+    for (; i != mUnits.end(); ++i)
     {
         UnitMsg unit;
         i->second->FillUnitMsg(unit);

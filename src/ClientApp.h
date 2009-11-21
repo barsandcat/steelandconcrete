@@ -59,13 +59,11 @@ private:
     static BirdCamera* mBirdCamera;
     static bool mQuit;
 
-    Ogre::OverlayContainer* mPointer;
     Ogre::Root* mRoot;
     Ogre::Plugin* mOctreePlugin;
     Ogre::Plugin* mGLPlugin;
     OgreWindowCallback* mWindowEventListener;
     Ogre::RenderWindow* mWindow;
-    Ogre::Overlay* mDebugOverlay;
     //OIS Input devices
     OIS::InputManager* mInputManager;
     OIS::Mouse* mMouse;
@@ -75,8 +73,6 @@ private:
     ClientGame* mGame;
     MainMenuSheet* mMainMenu;
     ServerBrowserSheet* mServerBrowserSheet;
-    void ShowDebugOverlay(bool show);
-    void UpdateStats();
     void Frame(unsigned long aFrameTime);
 };
 

@@ -20,7 +20,7 @@ public:
     void OnExit(const QuickGUI::EventArgs& args);
     void OnTurn(const QuickGUI::EventArgs& args);
     void UpdateTileUnderCursor(Ogre::Ray& aRay);
-    void Update(unsigned long aFrameTime);
+    void Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats);
     void Select();
     void Act();
 protected:

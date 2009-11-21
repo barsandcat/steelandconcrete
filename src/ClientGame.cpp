@@ -217,9 +217,10 @@ void ClientGame::LoadEvents(const ResponseMsg& changes)
     }
 }
 
-void ClientGame::Update(unsigned long aFrameTime)
+void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats)
 {
     mIngameSheet.SetSelectedVisible(mSelectedUnit != NULL);
+    mIngameSheet.UpdateStats(aStats);
     if (mSelectedUnit)
     {
         mViewPortWidget.SetNode(&mSelectedUnit->GetNode());
