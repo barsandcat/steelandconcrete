@@ -1,5 +1,6 @@
 #include <pch.h>
 #include <ClientApp.h>
+
 #include <OgreOctreePlugin.h>
 #include <OgreGLPlugin.h>
 #include <sockio.h>
@@ -242,7 +243,7 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
 
             ConnectionResponseMsg res;
             ReadMessage(*sock, res);
-            if (res.result() == Allowed)
+            if (res.result() == CONNECTION_ALLOWED)
             {
                 mGame = new ClientGame(*sock);
             }

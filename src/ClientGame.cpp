@@ -164,7 +164,7 @@ void ClientGame::OnTurn(const QuickGUI::EventArgs& args)
     if (!mTurnDone)
     {
         RequestMsg req;
-        req.set_type(Commands);
+        req.set_type(REQUEST_COMMANDS);
         req.set_time(mTime);
         req.set_last(true);
 
@@ -186,7 +186,7 @@ void ClientGame::OnTurn(const QuickGUI::EventArgs& args)
 
         ResponseMsg rsp;
         ReadMessage(mSocket, rsp);
-        if (rsp.type() == Ok)
+        if (rsp.type() == RESPONSE_OK)
         {
             mTurnDone = true;
             GetLog() << "Turn done";
@@ -228,14 +228,14 @@ void ClientGame::Update(unsigned long aFrameTime)
     if (mTurnDone)
     {
         RequestMsg req;
-        req.set_type(GetTime);
+        req.set_type(REQUEST_GET_TIME);
         WriteMessage(mSocket, req);
 
         ResponseMsg rsp;
         ReadMessage(mSocket, rsp);
         switch (rsp.type())
         {
-        case Changes:
+        case RESPONSE_CHANGES:
             if (rsp.has_time())
             {
                 mTime = rsp.time();
@@ -247,7 +247,7 @@ void ClientGame::Update(unsigned long aFrameTime)
             else
                 GetLog() << rsp.ShortDebugString();
             break;
-        case PleaseWait:
+        case RESPONSE_PLEASE_WAIT:
             break;
         default:
             GetLog() << rsp.ShortDebugString();

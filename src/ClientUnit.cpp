@@ -18,7 +18,7 @@ ClientUnit::~ClientUnit()
 Ogre::Entity* ClientUnit::CreateEntity()
 {
     Ogre::String indexName = Ogre::StringConverter::toString(mUnitId);
-    Ogre::Entity* unit = ClientApp::GetSceneMgr().createEntity(indexName + "Unit.entity", "Zebra.mesh");
+    Ogre::Entity* unit = ClientApp::GetSceneMgr().createEntity(indexName + "Unit.entity", "Grass.mesh");
     mNode->attachObject(unit);
     mNode->setVisible(true);
     return unit;
