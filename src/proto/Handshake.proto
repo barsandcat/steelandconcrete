@@ -5,12 +5,12 @@ message ConnectionRequestMsg
 
 enum ConnectionResponseType
 {
-    Allowed = 1;
-    WrongVersion = 2;
+    CONNECTION_ALLOWED = 1;
+    CONNECTION_WRONG_VERSION = 2;
 }
 
 message ConnectionResponseMsg
 {
-  optional ConnectionResponseType result = 1 [default = Allowed];
+  optional ConnectionResponseType result = 1 [default = CONNECTION_ALLOWED];
   optional uint32 protocolVersion = 2 [default = 0];
 }

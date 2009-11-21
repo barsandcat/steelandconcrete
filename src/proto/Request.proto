@@ -2,9 +2,9 @@ import "CommandList.proto";
 
 enum RequestType
 {
-    Disconnect = 1;
-    GetTime = 2;
-    Commands = 3;
+    REQUEST_DISCONNECT = 1;
+    REQUEST_GET_TIME = 2;
+    REQUEST_COMMANDS = 3;
 }
 
 message RequestMsg

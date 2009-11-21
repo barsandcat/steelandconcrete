@@ -29,13 +29,13 @@ void ConnectionManager::Execute()
             res.set_protocolversion(ProtocolVersion);
             if (req.protocolversion() == ProtocolVersion)
             {
-                res.set_result(Allowed);
+                res.set_result(CONNECTION_ALLOWED);
                 WriteMessage(*clientSocket, res);
                 NewConnection(*clientSocket);
             }
             else
             {
-                res.set_result(WrongVersion);
+                res.set_result(CONNECTION_WRONG_VERSION);
                 WriteMessage(*clientSocket, res);
                 clientSocket->close();
                 delete clientSocket;

@@ -2,10 +2,10 @@ import "ChangeList.proto";
 
 enum ResponseType
 {
-    Ok = 1;
-    NotOk = 2;
-    PleaseWait = 3;
-    Changes = 4;
+    RESPONSE_OK = 1;
+    RESPONSE_NOK = 2;
+    RESPONSE_PLEASE_WAIT = 3;
+    RESPONSE_CHANGES = 4;
 }
 
 message ResponseMsg

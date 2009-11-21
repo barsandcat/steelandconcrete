@@ -29,18 +29,18 @@ void ClientConnection::Execute()
             {
                 switch (req.type())
                 {
-                case Disconnect:
+                case REQUEST_DISCONNECT:
                     GetLog() << "Disconnect";
                     mGame.SignalClientEvent();
                     break;
-                case Commands:
+                case REQUEST_COMMANDS:
                     if (req.has_time())
                     {
                         mGame.LoadCommands(req);
                         mLastConfirmedTime = req.time();
 
                         ResponseMsg rsp;
-                        rsp.set_type(Ok);
+                        rsp.set_type(RESPONSE_OK);
                         WriteMessage(mSocket, rsp);
                         GetLog() << "Confirmed time " << req.ShortDebugString();
 
@@ -49,12 +49,12 @@ void ClientConnection::Execute()
                     else
                     {
                         ResponseMsg rsp;
-                        rsp.set_type(NotOk);
+                        rsp.set_type(RESPONSE_NOK);
                         rsp.set_reason("No time!");
                         WriteMessage(mSocket, rsp);
                     }
                     break;
-                case GetTime:
+                case REQUEST_GET_TIME:
                     if (mGame.GetTime() > mLastConfirmedTime)
                     {
                         ChangeList::Write(mSocket, mGame.GetTime());
@@ -63,7 +63,7 @@ void ClientConnection::Execute()
                     else
                     {
                         ResponseMsg rsp;
-                        rsp.set_type(PleaseWait);
+                        rsp.set_type(RESPONSE_PLEASE_WAIT);
                         WriteMessage(mSocket, rsp);
                     }
                     break;
