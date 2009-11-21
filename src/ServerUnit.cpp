@@ -4,8 +4,8 @@
 #include <ServerTile.h>
 #include <ChangeList.h>
 
-ServerUnit::ServerUnit(ServerTile& aTile, UnitId aUnitId):
-  mPosition(&aTile), mUnitId(aUnitId), mTarget(NULL)
+ServerUnit::ServerUnit(ServerTile& aTile, UnitId aUnitId, uint32 aVisualCode):
+  mPosition(&aTile), mUnitId(aUnitId), mTarget(NULL), mVisualCode(aVisualCode)
 {
     mPosition->SetUnit(this);
 }
@@ -31,4 +31,11 @@ void ServerUnit::ExecuteCommand()
         mTarget = NULL;
         ChangeList::AddCommandDone(mUnitId);
     }
+}
+
+void ServerUnit::FillUnitMsg(UnitMsg& aUnitMsg) const
+{
+    aUnitMsg.set_tag(mUnitId);
+    aUnitMsg.set_tile(mPosition->GetTileId());
+    aUnitMsg.set_visual(mVisualCode);
 }

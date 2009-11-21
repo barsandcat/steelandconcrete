@@ -1,12 +1,14 @@
 #ifndef SERVERUNIT_H
 #define SERVERUNIT_H
 #include <Typedefs.h>
+#include <Unit.pb.h>
+
 class ServerTile;
 
 class ServerUnit
 {
 public:
-    ServerUnit(ServerTile& aTile, UnitId aUnitId);
+    ServerUnit(ServerTile& aTile, UnitId aUnitId, uint32 aVisualCode);
     ServerTile& GetPosition() const { return *mPosition; }
     UnitId GetUnitId() const { return mUnitId; }
     virtual ~ServerUnit();
@@ -14,12 +16,14 @@ public:
     void SetCommand(ServerTile& aTile) { mTarget = &aTile; }
     void ExecuteCommand();
     void SetMaster(UnitId aMaster) { mMaster = aMaster; }
+    void FillUnitMsg(UnitMsg& aUnitMsg) const;
 protected:
 private:
     ServerTile* mPosition;
     const UnitId mUnitId;
     ServerTile* mTarget;
     UnitId mMaster;
+    uint32 mVisualCode;
 };
 
 #endif // SERVERUNIT_H

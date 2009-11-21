@@ -6,6 +6,7 @@
 #include <ServerLog.h>
 #include <ConnectionManager.h>
 #include <ChangeList.h>
+#include <VisualCodes.h>
 
 ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0), mBuildingCount(0), mTime(30), mTimeStep(30)
 {
@@ -53,9 +54,9 @@ void ServerGame::MainLoop(Ogre::String aAddress, Ogre::String aPort)
     GetLog() << "Game over";
 }
 
-ServerUnit& ServerGame::CreateUnit(ServerTile& aTile)
+ServerUnit& ServerGame::CreateUnit(ServerTile& aTile, uint32 aVisualCode)
 {
-    ServerUnit* unit = new ServerUnit(aTile, ++mUnitCount);
+    ServerUnit* unit = new ServerUnit(aTile, ++mUnitCount, aVisualCode);
     mUnits.insert(std::make_pair(unit->GetUnitId(), unit));
     return *unit;
 }
@@ -67,7 +68,7 @@ void ServerGame::Send(socket_t& aSocket)
     mGrid->Send(aSocket);
 
     UnitCountMsg count;
-    ServerUnit& avatar = CreateUnit(mGrid->GetTile(rand() % mGrid->GetTileCount()));
+    ServerUnit& avatar = CreateUnit(mGrid->GetTile(rand() % mGrid->GetTileCount()), VC::LIVE | VC::ANIMAL | VC::HUMAN);
     avatar.SetMaster(avatar.GetUnitId());
     count.set_avatar(avatar.GetUnitId());
     count.set_count(mUnits.size());
@@ -79,8 +80,7 @@ void ServerGame::Send(socket_t& aSocket)
     for (;i != mUnits.end(); ++i)
     {
         UnitMsg unit;
-        unit.set_tag(i->first);
-        unit.set_tile(i->second->GetPosition().GetTileId());
+        i->second->FillUnitMsg(unit);
         WriteMessage(aSocket, unit);
     }
     GetLog() << "All units send";

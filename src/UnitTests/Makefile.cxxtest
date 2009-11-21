@@ -1,3 +1,7 @@
 TESTGEN=../../cxxtest/cxxtestgen.py
+all : NetworkTest.cpp VisualCodesTest.cpp
 NetworkTest.cpp: NetworkTest.h
 	$(TESTGEN) --runner=ParenPrinter -o NetworkTest.cpp NetworkTest.h
+
+VisualCodesTest.cpp: VisualCodesTest.h
+	$(TESTGEN) --part -o VisualCodesTest.cpp VisualCodesTest.h

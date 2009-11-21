@@ -37,7 +37,7 @@ ClientGame::ClientGame(socket_t& aSocket):
         ReadMessage(aSocket, unit);
         mUnits.insert(std::make_pair(
                           unit.tag(),
-                          new ClientUnit(mGrid->GetTile(unit.tile()), unit.tag())
+                          new ClientUnit(mGrid->GetTile(unit.tile()), unit)
                       ));
     }
     mLoadingSheet.SetProgress(60);
