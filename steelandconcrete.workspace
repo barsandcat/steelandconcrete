@@ -14,8 +14,8 @@
 			<Depends filename="protobuf-2.0.3/vsprojects/libprotoc.cbp" />
 		</Project>
 		<Project filename="SAL/SAL.cbp" />
-		<Project filename="src/UnitTests/UnitTests.cbp" />
 		<Project filename="QuickGUI_9_05/QuickGUI/QuickGUI.cbp" />
+		<Project filename="src/UnitTests/UnitTests.cbp" />
 		<Project filename="Server.cbp">
 			<Depends filename="ogre/OgreMain/scripts/OgreMain_linux.cbp" />
 			<Depends filename="protobuf-2.0.3/vsprojects/libprotobuf.cbp" />

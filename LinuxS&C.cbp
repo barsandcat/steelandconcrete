@@ -126,8 +126,11 @@
 		<Unit filename="src/OgreWindowCallback.h" />
 		<Unit filename="src/ServerBrowserSheet.cpp" />
 		<Unit filename="src/ServerBrowserSheet.h" />
+		<Unit filename="src/Typedefs.h" />
 		<Unit filename="src/ViewPortWidget.cpp" />
 		<Unit filename="src/ViewPortWidget.h" />
+		<Unit filename="src/VisualCodes.cpp" />
+		<Unit filename="src/VisualCodes.h" />
 		<Unit filename="src/pch.cpp" />
 		<Unit filename="src/pch.h">
 			<Option compile="1" />

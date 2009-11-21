@@ -78,6 +78,10 @@
 		<Unit filename="../ServerTile.h" />
 		<Unit filename="NetworkTest.cpp" />
 		<Unit filename="NetworkTest.h" />
+		<Unit filename="VisualCodesTest.cpp" />
+		<Unit filename="VisualCodesTest.h" />
+		<Unit filename="../VisualCodes.cpp" />
+		<Unit filename="../VisualCodes.h" />
 		<Unit filename="../pch.cpp" />
 		<Unit filename="../pch.h">
 			<Option compile="1" />
