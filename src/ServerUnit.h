@@ -17,6 +17,7 @@ public:
     void ExecuteCommand();
     void SetMaster(UnitId aMaster) { mMaster = aMaster; }
     void FillUnitMsg(UnitMsg& aUnitMsg) const;
+    bool UpdateAgeAndIsTimeToDie(GameTime aPeriod);
 protected:
 private:
     ServerTile* mPosition;
@@ -24,6 +25,7 @@ private:
     ServerTile* mTarget;
     UnitId mMaster;
     uint32 mVisualCode;
+    uint32 mAge;
 };
 
 #endif // SERVERUNIT_H
