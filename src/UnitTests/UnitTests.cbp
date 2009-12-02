@@ -66,6 +66,8 @@
 			<Add before="make -C ../../src/proto -f Makefile.proto" />
 			<Add before="make -f Makefile.cxxtest" />
 		</ExtraCommands>
+		<Unit filename="../ChangeList.cpp" />
+		<Unit filename="../ChangeList.h" />
 		<Unit filename="../Network.cpp" />
 		<Unit filename="../Network.h" />
 		<Unit filename="../ServerEdge.cpp" />
@@ -76,8 +78,12 @@
 		<Unit filename="../ServerLog.h" />
 		<Unit filename="../ServerTile.cpp" />
 		<Unit filename="../ServerTile.h" />
+		<Unit filename="../ServerUnit.cpp" />
+		<Unit filename="../ServerUnit.h" />
 		<Unit filename="NetworkTest.cpp" />
 		<Unit filename="NetworkTest.h" />
+		<Unit filename="ServerUnitTest.cpp" />
+		<Unit filename="ServerUnitTest.h" />
 		<Unit filename="VisualCodesTest.cpp" />
 		<Unit filename="VisualCodesTest.h" />
 		<Unit filename="../VisualCodes.cpp" />
@@ -87,24 +93,39 @@
 			<Option compile="1" />
 			<Option weight="0" />
 		</Unit>
+		<Unit filename="../proto/ChangeList.pb.cc" />
+		<Unit filename="../proto/ChangeList.pb.h" />
+		<Unit filename="../proto/ChangeList.proto" />
+		<Unit filename="../proto/CommandList.pb.cc" />
+		<Unit filename="../proto/CommandList.pb.h" />
+		<Unit filename="../proto/CommandList.proto" />
 		<Unit filename="../proto/Edge.pb.cc" />
 		<Unit filename="../proto/Edge.pb.h" />
 		<Unit filename="../proto/Edge.proto" />
 		<Unit filename="../proto/GeodesicGrid.pb.cc" />
 		<Unit filename="../proto/GeodesicGrid.pb.h" />
-		<Unit filename="../proto/GeodesicGrid.proto">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="../proto/GeodesicGrid.proto" />
+		<Unit filename="../proto/Handshake.pb.cc" />
+		<Unit filename="../proto/Handshake.pb.h" />
+		<Unit filename="../proto/Handshake.proto" />
 		<Unit filename="../proto/Header.pb.cc" />
 		<Unit filename="../proto/Header.pb.h" />
+		<Unit filename="../proto/Header.proto" />
 		<Unit filename="../proto/Makefile.proto">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="../proto/Request.pb.cc" />
+		<Unit filename="../proto/Request.pb.h" />
+		<Unit filename="../proto/Request.proto" />
+		<Unit filename="../proto/Response.pb.cc" />
+		<Unit filename="../proto/Response.pb.h" />
+		<Unit filename="../proto/Response.proto" />
 		<Unit filename="../proto/Tile.pb.cc" />
 		<Unit filename="../proto/Tile.pb.h" />
-		<Unit filename="../proto/Tile.proto">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="../proto/Tile.proto" />
+		<Unit filename="../proto/Unit.pb.cc" />
+		<Unit filename="../proto/Unit.pb.h" />
+		<Unit filename="../proto/Unit.proto" />
 		<Unit filename="../proto/Vector.pb.cc" />
 		<Unit filename="../proto/Vector.pb.h" />
 		<Unit filename="../proto/Vector.proto" />
