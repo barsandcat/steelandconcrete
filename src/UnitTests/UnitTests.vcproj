@@ -215,6 +215,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\ChangeList.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\Network.cpp"
 				>
 			</File>
@@ -254,12 +258,24 @@
 				RelativePath="..\ServerTile.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\ServerUnit.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\VisualCodes.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath="..\ChangeList.h"
+				>
+			</File>
 			<File
 				RelativePath="..\Network.h"
 				>
@@ -280,6 +296,14 @@
 				RelativePath="..\ServerTile.h"
 				>
 			</File>
+			<File
+				RelativePath="..\ServerUnit.h"
+				>
+			</File>
+			<File
+				RelativePath="..\VisualCodes.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
@@ -290,6 +314,62 @@
 		<Filter
 			Name="proto"
 			>
+			<File
+				RelativePath="..\proto\ChangeList.pb.cc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\proto\ChangeList.pb.h"
+				>
+			</File>
+			<File
+				RelativePath="..\proto\ChangeList.proto"
+				>
+			</File>
+			<File
+				RelativePath="..\proto\CommandList.pb.cc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\proto\CommandList.pb.h"
+				>
+			</File>
+			<File
+				RelativePath="..\proto\CommandList.proto"
+				>
+			</File>
 			<File
 				RelativePath="..\proto\Edge.pb.cc"
 				>
@@ -347,6 +427,34 @@
 				>
 			</File>
 			<File
+				RelativePath="..\proto\Handshake.pb.cc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\proto\Handshake.pb.h"
+				>
+			</File>
+			<File
+				RelativePath="..\proto\Handshake.proto"
+				>
+			</File>
+			<File
 				RelativePath="..\proto\Header.pb.cc"
 				>
 				<FileConfiguration
@@ -375,6 +483,62 @@
 				>
 			</File>
 			<File
+				RelativePath="..\proto\Request.pb.cc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\proto\Request.pb.h"
+				>
+			</File>
+			<File
+				RelativePath="..\proto\Request.proto"
+				>
+			</File>
+			<File
+				RelativePath="..\proto\Response.pb.cc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\proto\Response.pb.h"
+				>
+			</File>
+			<File
+				RelativePath="..\proto\Response.proto"
+				>
+			</File>
+			<File
 				RelativePath="..\proto\Tile.pb.cc"
 				>
 				<FileConfiguration
@@ -400,6 +564,34 @@
 			</File>
 			<File
 				RelativePath="..\proto\Tile.proto"
+				>
+			</File>
+			<File
+				RelativePath="..\proto\Unit.pb.cc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\proto\Unit.pb.h"
+				>
+			</File>
+			<File
+				RelativePath="..\proto\Unit.proto"
 				>
 			</File>
 			<File
@@ -471,8 +663,57 @@
 					<Tool
 						Name="CxxTest"
 						runner="1"
+						Part="false"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\ServerUnitTest.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\ServerUnitTest.h"
+				>
+			</File>
+			<File
+				RelativePath=".\VisualCodesTest.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\VisualCodesTest.h"
+				>
 			</File>
 		</Filter>
 	</Files>

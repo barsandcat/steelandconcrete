@@ -7,10 +7,10 @@
 		<CustomBuildRule
 			Name="CxxTest"
 			DisplayName="CxxTest"
-			CommandLine="[testgen] [runner] [output] [Inputs]"
+			CommandLine="[testgen] [runner] [Part] [output] [Inputs]"
 			Outputs="$(InputName).cpp"
 			FileExtensions="*.test.h"
-			ExecutionDescription="Generating tests"
+			ExecutionDescription="Generating tests [Inputs]"
 			>
 			<Properties>
 				<StringProperty
@@ -47,6 +47,14 @@
 					Category="Output"
 					Switch="-o [value]"
 					DefaultValue="$(InputName).cpp"
+				/>
+				<BooleanProperty
+					Name="Part"
+					DisplayName="Part"
+					Category="Option"
+					Description="Part"
+					Switch="--part"
+					DefaultValue="true"
 				/>
 			</Properties>
 		</CustomBuildRule>
