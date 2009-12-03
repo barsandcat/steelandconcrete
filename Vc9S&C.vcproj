@@ -323,6 +323,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\VisualCodes.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\Windows.cpp"
 				>
 			</File>
@@ -401,6 +405,10 @@
 			</File>
 			<File
 				RelativePath=".\src\ViewPortWidget.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\VisualCodes.h"
 				>
 			</File>
 		</Filter>
@@ -523,6 +531,34 @@
 			</File>
 			<File
 				RelativePath=".\src\proto\GeodesicGrid.proto"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Handshake.pb.cc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\proto\Handshake.pb.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\proto\Handshake.proto"
 				>
 			</File>
 			<File
