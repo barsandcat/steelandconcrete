@@ -23,6 +23,7 @@ private:
     ClientTile* mTile;
     ClientTile* mTarget;
     Ogre::SceneNode* mNode;
+    Ogre::Entity* mEntity;
     const UnitId mUnitId;
     const uint32 mVisualCode;
 };

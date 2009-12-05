@@ -15,7 +15,8 @@ std::string GetErrorText(socket_t& aSocket)
 void WriteMessage(socket_t& aSocket, google::protobuf::Message& aMessage)
 {
     int messageSize = aMessage.ByteSize();
-    assert(messageSize <= MESSAGE_SIZE);
+    if (messageSize > MESSAGE_SIZE)
+        throw std::runtime_error("Размер собщения привышает MESSAGE_SIZE!");
     char messageBuffer[MESSAGE_SIZE];
     aMessage.SerializeToArray(messageBuffer, messageSize);
 
@@ -43,7 +44,9 @@ void ReadMessage(socket_t& aSocket, google::protobuf::Message& aMessage)
         throw std::runtime_error("Не удалось разобрать заголовок!");
 
     int messageSize = header.size();
-    assert(messageSize <= MESSAGE_SIZE);
+    if (messageSize > MESSAGE_SIZE)
+        throw std::runtime_error("Размер собщения привышает MESSAGE_SIZE!");
+
     char messageBuffer[MESSAGE_SIZE];
     if (!aSocket.read(messageBuffer, messageSize))
         throw std::runtime_error(GetErrorText(aSocket) + " Не удалось прочитать из сокета сообщение!");

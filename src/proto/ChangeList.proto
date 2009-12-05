@@ -9,9 +9,15 @@ message CommandDoneMsg
     required int32 unitid = 1;
 }
 
+message RemoveMsg
+{
+    required int32 unitid = 1;
+}
+
 message ChangeMsg
 {
     optional UnitMoveMsg unitmove = 1;
     optional CommandDoneMsg commanddone = 2;
+    optional RemoveMsg remove = 3;
 }
 

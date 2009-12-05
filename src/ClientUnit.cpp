@@ -7,6 +7,7 @@
 
 ClientUnit::ClientUnit(ClientTile& aTile, UnitMsg& aUnitMsg):
     mTile(&aTile),
+    mEntity(NULL),
     mTarget(NULL),
     mUnitId(aUnitMsg.tag()),
     mVisualCode(aUnitMsg.visual())
@@ -18,16 +19,17 @@ ClientUnit::ClientUnit(ClientTile& aTile, UnitMsg& aUnitMsg):
 
 ClientUnit::~ClientUnit()
 {
-    //dtor
+    delete mEntity;
+    delete mNode;
 }
 
 Ogre::Entity* ClientUnit::CreateEntity()
 {
     Ogre::String indexName = Ogre::StringConverter::toString(mUnitId);
-    Ogre::Entity* unit = ClientApp::GetSceneMgr().createEntity(indexName + "Unit.entity", GetMesh(mVisualCode));
-    mNode->attachObject(unit);
+    Ogre::Entity* mEntity = ClientApp::GetSceneMgr().createEntity(indexName + "Unit.entity", GetMesh(mVisualCode));
+    mNode->attachObject(mEntity);
     mNode->setVisible(true);
-    return unit;
+    return mEntity;
 }
 
 void ClientUnit::SetPosition(ClientTile& aTile)

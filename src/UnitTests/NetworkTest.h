@@ -11,10 +11,33 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <DummySocket.h>
+#include <ChangeList.h>
 
 class MyTestSuite : public CxxTest::TestSuite
 {
 public:
+    void setUp()
+    {
+        mSocket = new DummySocket();
+    }
+
+    void tearDown()
+    {
+        delete mSocket;
+    }
+
+    void TestChangeList()
+    {
+        ChangeList::Clear();
+        ChangeList::AddMove(1, 1);
+        for (int i = 0; i < 1000; ++i)
+        {
+            ChangeList::AddRemove(1);
+        }
+        TS_ASSERT_THROWS_NOTHING(ChangeList::Write(*mSocket, 0));
+    }
+
     void TestGeodesicGridSave()
     {
         ServerGeodesicGrid grid1(0, 5000);
@@ -37,7 +60,8 @@ public:
             }
         }
     }
-
+private:
+    DummySocket* mSocket;
 
 };
 

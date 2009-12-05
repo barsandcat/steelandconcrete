@@ -13,6 +13,7 @@ ServerUnit::ServerUnit(ServerTile& aTile, UnitId aUnitId, uint32 aVisualCode):
 
 ServerUnit::~ServerUnit()
 {
+    ChangeList::AddRemove(mUnitId);
     //dtor
 }
 
@@ -44,5 +45,5 @@ void ServerUnit::FillUnitMsg(UnitMsg& aUnitMsg) const
 bool ServerUnit::UpdateAgeAndIsTimeToDie(GameTime aPeriod)
 {
     mAge += aPeriod;
-    return mAge > 100;
+    return mAge > 100 + rand() % 100;
 }
