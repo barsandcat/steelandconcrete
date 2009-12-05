@@ -8,7 +8,8 @@
 #include <ChangeList.h>
 #include <VisualCodes.h>
 
-ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0), mBuildingCount(0), mTime(30), mTimeStep(30)
+ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0),
+    mTime(30), mTimeStep(30)
 {
     task::initialize(task::normal_stack);
     mClientEvent = new event();
@@ -114,8 +115,19 @@ void ServerGame::UpdateGame()
     mTime += mTimeStep;
     for (; i != mUnits.end(); ++i)
     {
-        ServerUnit& unit = *i->second;
-        unit.ExecuteCommand();
+        ServerUnit* unit = i->second;
+        assert(unit);
+        if (unit->UpdateAgeAndIsTimeToDie(mTimeStep))
+        {
+            ServerUnits::iterator del = i;
+            ++i;
+            delete unit;
+            mUnits.erase(del);
+        }
+        else
+        {
+            unit->ExecuteCommand();
+        }
     }
 
     GetLog() << "Time: " << mTime;

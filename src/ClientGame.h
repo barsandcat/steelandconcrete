@@ -15,6 +15,7 @@ class ClientApp;
 class ClientGame
 {
 public:
+    typedef std::map< UnitId, ClientUnit* > ClientUnits;
     ClientGame(socket_t& aSocket);
     virtual ~ClientGame(); // Для QuicGUI
     void OnExit(const QuickGUI::EventArgs& args);
@@ -27,7 +28,7 @@ protected:
 private:
     socket_t& mSocket;
     ClientGeodesicGrid* mGrid;
-    std::map< UnitId, ClientUnit* > mUnits;
+    ClientUnits mUnits;
     ClientTile* mTileUnderCursor;
     ClientUnit* mSelectedUnit;
     ClientUnit* mAvatar;

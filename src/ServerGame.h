@@ -27,7 +27,6 @@ private:
     void UpdateGame();
     ServerGeodesicGrid* mGrid;
     int mUnitCount;
-    int mBuildingCount;
     GameTime mTime;
     GameTime mTimeStep;
     ServerUnits mUnits;

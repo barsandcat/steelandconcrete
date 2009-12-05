@@ -214,6 +214,14 @@ void ClientGame::LoadEvents(const ResponseMsg& changes)
             const CommandDoneMsg& command = change.commanddone();
             mUnits[command.unitid()]->SetTarget(NULL);
         }
+        else if (change.has_remove())
+        {
+            const RemoveMsg& command = change.remove();
+            ClientUnits::iterator i = mUnits.find(command.unitid());
+            ClientUnit* unit = i->second;
+            delete unit;
+            mUnits.erase(i);
+        }
     }
 }
 
