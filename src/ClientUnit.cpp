@@ -19,14 +19,16 @@ ClientUnit::ClientUnit(ClientTile& aTile, UnitMsg& aUnitMsg):
 
 ClientUnit::~ClientUnit()
 {
-    delete mEntity;
-    delete mNode;
+    ClientApp::GetSceneMgr().destroyEntity(mEntity);
+    ClientApp::GetSceneMgr().destroySceneNode(mNode);
+    mEntity = NULL;
+    mNode = NULL;
 }
 
 Ogre::Entity* ClientUnit::CreateEntity()
 {
     Ogre::String indexName = Ogre::StringConverter::toString(mUnitId);
-    Ogre::Entity* mEntity = ClientApp::GetSceneMgr().createEntity(indexName + "Unit.entity", GetMesh(mVisualCode));
+    mEntity = ClientApp::GetSceneMgr().createEntity(indexName + "Unit.entity", GetMesh(mVisualCode));
     mNode->attachObject(mEntity);
     mNode->setVisible(true);
     return mEntity;

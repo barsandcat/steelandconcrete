@@ -29,13 +29,15 @@ public:
 
     void TestChangeList()
     {
-        ChangeList::Clear();
-        ChangeList::AddMove(1, 1);
-        for (int i = 0; i < 1000; ++i)
+        for (int j = 0; j < 10; ++j)
         {
-            ChangeList::AddRemove(1);
+            ChangeList::Clear();
+            for (int i = 0; i < 100; ++i)
+            {
+                ChangeList::AddRemove(1);
+            }
+            TS_ASSERT_THROWS_NOTHING(ChangeList::Write(*mSocket, 0));
         }
-        TS_ASSERT_THROWS_NOTHING(ChangeList::Write(*mSocket, 0));
     }
 
     void TestGeodesicGridSave()

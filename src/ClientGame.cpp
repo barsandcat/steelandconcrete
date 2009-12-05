@@ -10,17 +10,17 @@
 #include <ClientApp.h>
 
 ClientGame::ClientGame(socket_t& aSocket):
-        mSocket(aSocket),
-        mGrid(NULL),
-        mTileUnderCursor(NULL),
-        mSelectedUnit(NULL),
-        mViewPortWidget(
-            mIngameSheet.GetSelectedWidth(),
-            mIngameSheet.GetSelectedHeight(),
-            "RttTexture"
-        ),
-        mTime(0),
-        mTurnDone(false)
+    mSocket(aSocket),
+    mGrid(NULL),
+    mTileUnderCursor(NULL),
+    mSelectedUnit(NULL),
+    mViewPortWidget(
+        mIngameSheet.GetSelectedWidth(),
+        mIngameSheet.GetSelectedHeight(),
+        "RttTexture"
+    ),
+    mTime(0),
+    mTurnDone(false)
 {
     mIngameSheet.SetSelectedName(mViewPortWidget.GetName());
     mLoadingSheet.Activate();
@@ -245,16 +245,16 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
         switch (rsp.type())
         {
         case RESPONSE_CHANGES:
-            if (rsp.has_time())
+            while (!rsp.last())
             {
-                mTime = rsp.time();
-                mIngameSheet.SetTime(mTime);
-                mTurnDone = false;
                 LoadEvents(rsp);
-                GetLog() << "New time " << mTime;
+                rsp.Clear();
+                ReadMessage(mSocket, rsp);
             }
-            else
-                GetLog() << rsp.ShortDebugString();
+            LoadEvents(rsp);
+            mTime = rsp.time();
+            mIngameSheet.SetTime(mTime);
+            mTurnDone = false;
             break;
         case RESPONSE_PLEASE_WAIT:
             break;

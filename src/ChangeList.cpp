@@ -7,7 +7,7 @@ std::list< ResponseMsg > ChangeList::mChangeList;
 
 ChangeMsg* ChangeList::GetChangeMsg()
 {
-    if (!mChangeList.empty())
+    if (!mChangeList.empty() && (mChangeList.front().ByteSize() + 20 < MESSAGE_SIZE))
     {
         return mChangeList.front().add_changes();
     }
@@ -15,7 +15,7 @@ ChangeMsg* ChangeList::GetChangeMsg()
     {
         ResponseMsg msg;
         msg.set_type(RESPONSE_CHANGES);
-        mChangeList.push_back(msg);
+        mChangeList.push_front(msg);
         return msg.add_changes();
     }
 
@@ -35,10 +35,26 @@ void ChangeList::Clear()
 }
 void ChangeList::Write(socket_t& aSocket, GameTime aTime)
 {
-	mChangeList.front().set_type(RESPONSE_CHANGES);
-	mChangeList.front().set_last(true);
-	mChangeList.front().set_time(aTime);
-    WriteMessage(aSocket, mChangeList.front());
+    if (!mChangeList.empty())
+    {
+        while (!mChangeList.empty())
+        {
+            ResponseMsg& msg = mChangeList.front();
+            msg.set_type(RESPONSE_CHANGES);
+            msg.set_last(mChangeList.begin() == mChangeList.end());
+            msg.set_time(aTime);
+            WriteMessage(aSocket, msg);
+            mChangeList.pop_front();
+        }
+    }
+    else
+    {
+        ResponseMsg msg;
+        msg.set_type(RESPONSE_CHANGES);
+        msg.set_last(true);
+        msg.set_time(aTime);
+        WriteMessage(aSocket, msg);
+    }
 }
 
 void ChangeList::AddCommandDone(UnitId aUnit)
