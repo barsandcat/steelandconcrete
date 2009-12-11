@@ -5,45 +5,49 @@
 
 std::list< ResponseMsg > ChangeList::mChangeList;
 
-ChangeMsg* ChangeList::GetChangeMsg()
+void ChangeList::AddChangeMsg(ChangeMsg& aChange)
 {
-    if (!mChangeList.empty() && (mChangeList.front().ByteSize() + 20 < MESSAGE_SIZE))
+    if (!mChangeList.empty() && (mChangeList.front().changes_size() < 250))
     {
-        return mChangeList.front().add_changes();
+        *(mChangeList.front().add_changes()) = aChange;
     }
     else
     {
         ResponseMsg msg;
         msg.set_type(RESPONSE_CHANGES);
+        msg.set_last(true);
+        if (!mChangeList.empty())
+        {
+            mChangeList.front().set_last(false);
+        }
         mChangeList.push_front(msg);
-        return msg.add_changes();
+        *(msg.add_changes()) = aChange;
     }
 
 }
 
 void ChangeList::AddMove(UnitId aUnit, TileId aPosition)
 {
-    ChangeMsg* change = GetChangeMsg();
-    UnitMoveMsg* move = change->mutable_unitmove();
+    ChangeMsg change;
+    UnitMoveMsg* move = change.mutable_unitmove();
     move->set_unitid(aUnit);
     move->set_position(aPosition);
+    AddChangeMsg(change);
 }
 
 void ChangeList::Clear()
 {
     mChangeList.clear();
 }
-void ChangeList::Write(socket_t& aSocket, GameTime aTime)
+void ChangeList::Write(Network& aNetwork, GameTime aTime)
 {
     if (!mChangeList.empty())
     {
         while (!mChangeList.empty())
         {
             ResponseMsg& msg = mChangeList.front();
-            msg.set_type(RESPONSE_CHANGES);
-            msg.set_last(mChangeList.begin() == mChangeList.end());
             msg.set_time(aTime);
-            WriteMessage(aSocket, msg);
+            aNetwork.WriteMessage(msg);
             mChangeList.pop_front();
         }
     }
@@ -53,20 +57,22 @@ void ChangeList::Write(socket_t& aSocket, GameTime aTime)
         msg.set_type(RESPONSE_CHANGES);
         msg.set_last(true);
         msg.set_time(aTime);
-        WriteMessage(aSocket, msg);
+        aNetwork.WriteMessage(msg);
     }
 }
 
 void ChangeList::AddCommandDone(UnitId aUnit)
 {
-    ChangeMsg* change = GetChangeMsg();
-    CommandDoneMsg* command = change->mutable_commanddone();
+    ChangeMsg change;
+    CommandDoneMsg* command = change.mutable_commanddone();
     command->set_unitid(aUnit);
+    AddChangeMsg(change);
 }
 
 void ChangeList::AddRemove(UnitId aUnit)
 {
-    ChangeMsg* change = GetChangeMsg();
-    RemoveMsg* command = change->mutable_remove();
+    ChangeMsg change;
+    RemoveMsg* command = change.mutable_remove();
     command->set_unitid(aUnit);
+    AddChangeMsg(change);
 }

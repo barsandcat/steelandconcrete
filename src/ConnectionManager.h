@@ -17,7 +17,7 @@ public:
     void Execute();
 protected:
 private:
-    void NewConnection(socket_t& aSocket);
+    void NewConnection(Network* aNetwork);
     bool mQuit;
     socket_t& mGate;
     ServerGame& mGame;

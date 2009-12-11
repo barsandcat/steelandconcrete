@@ -21,8 +21,9 @@ void ConnectionManager::Execute()
         socket_t* clientSocket = mGate.accept();
         if (clientSocket->is_ok())
         {
+            Network* net = new Network(clientSocket);
             ConnectionRequestMsg req;
-            ReadMessage(*clientSocket, req);
+            net->ReadMessage(req);
             GetLog() << "Client request " << req.ShortDebugString();
 
             ConnectionResponseMsg res;
@@ -30,15 +31,14 @@ void ConnectionManager::Execute()
             if (req.protocolversion() == ProtocolVersion)
             {
                 res.set_result(CONNECTION_ALLOWED);
-                WriteMessage(*clientSocket, res);
-                NewConnection(*clientSocket);
+                net->WriteMessage(res);
+                NewConnection(net);
             }
             else
             {
                 res.set_result(CONNECTION_WRONG_VERSION);
-                WriteMessage(*clientSocket, res);
-                clientSocket->close();
-                delete clientSocket;
+                net->WriteMessage(res);
+                delete net;
             }
         }
         mQuit = !mGate.is_ok();
@@ -51,9 +51,9 @@ ConnectionManager::ConnectionManager(socket_t& aGate, ServerGame& aGame):
     task::create(ManagerThreadFunction, this);
 }
 
-void ConnectionManager::NewConnection(socket_t& aSocket)
+void ConnectionManager::NewConnection(Network* aNetwork)
 {
-    mClients.push_back(new ClientConnection(mGame, aSocket));
+    mClients.push_back(new ClientConnection(mGame, aNetwork));
 }
 
 ConnectionManager::~ConnectionManager()

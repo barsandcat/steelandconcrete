@@ -4,6 +4,7 @@
 #include <ServerTile.h>
 #include <ServerEdge.h>
 #include <sockio.h>
+#include <Network.h>
 
 class ServerGeodesicGrid
 {
@@ -12,7 +13,7 @@ public:
     ServerGeodesicGrid(const Ogre::String aFileName);
 
     void Save(const Ogre::String aFileName) const;
-    void Send(socket_t& aSocket) const;
+    void Send(Network& aNetwokr) const;
     ServerTile& GetTile(size_t aIndex) const { return *mTiles[aIndex]; }
     ServerEdge& GetEdge(size_t aIndex) const { return *mEdges[aIndex]; }
     size_t GetTileCount() const { return mTiles.size(); }

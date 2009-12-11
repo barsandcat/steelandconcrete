@@ -9,8 +9,7 @@
 #include <ChangeList.pb.h>
 #include <ClientApp.h>
 
-ClientGame::ClientGame(socket_t& aSocket):
-    mSocket(aSocket),
+ClientGame::ClientGame(Network* aNetwork):
     mGrid(NULL),
     mTileUnderCursor(NULL),
     mSelectedUnit(NULL),
@@ -20,21 +19,22 @@ ClientGame::ClientGame(socket_t& aSocket):
         "RttTexture"
     ),
     mTime(0),
-    mTurnDone(false)
+    mTurnDone(false),
+    mNetwork(aNetwork)
 {
     mIngameSheet.SetSelectedName(mViewPortWidget.GetName());
     mLoadingSheet.Activate();
-    mGrid = new ClientGeodesicGrid(aSocket, mLoadingSheet);
+    mGrid = new ClientGeodesicGrid(*mNetwork, mLoadingSheet);
 
     UnitCountMsg unitCount;
-    ReadMessage(aSocket, unitCount);
+    mNetwork->ReadMessage(unitCount);
     GetLog() << "Recived unit count " << unitCount.ShortDebugString();
     mTime = unitCount.time();
 
     for (size_t i = 0; i < unitCount.count(); ++i)
     {
         UnitMsg unit;
-        ReadMessage(aSocket, unit);
+        mNetwork->ReadMessage(unit);
         mUnits.insert(std::make_pair(
                           unit.tag(),
                           new ClientUnit(mGrid->GetTile(unit.tile()), unit)
@@ -90,8 +90,7 @@ ClientGame::~ClientGame()
     mUnits.clear();
 
     ClientApp::GetSceneMgr().clearScene();
-    mSocket.close();
-    delete &mSocket;
+    delete mNetwork;
 }
 
 void ClientGame::CreateUnitEntities() const
@@ -182,10 +181,10 @@ void ClientGame::OnTurn(const QuickGUI::EventArgs& args)
         }
 
         GetLog() << req.ShortDebugString();
-        WriteMessage(mSocket, req);
+        mNetwork->WriteMessage(req);
 
         ResponseMsg rsp;
-        ReadMessage(mSocket, rsp);
+        mNetwork->ReadMessage(rsp);
         if (rsp.type() == RESPONSE_OK)
         {
             mTurnDone = true;
@@ -238,10 +237,10 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
     {
         RequestMsg req;
         req.set_type(REQUEST_GET_TIME);
-        WriteMessage(mSocket, req);
+        mNetwork->WriteMessage(req);
 
         ResponseMsg rsp;
-        ReadMessage(mSocket, rsp);
+        mNetwork->ReadMessage(rsp);
         switch (rsp.type())
         {
         case RESPONSE_CHANGES:
@@ -249,7 +248,7 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
             {
                 LoadEvents(rsp);
                 rsp.Clear();
-                ReadMessage(mSocket, rsp);
+                mNetwork->ReadMessage(rsp);
             }
             LoadEvents(rsp);
             mTime = rsp.time();

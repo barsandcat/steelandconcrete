@@ -9,6 +9,7 @@
 #include <Response.pb.h>
 #include <Typedefs.h>
 #include <ViewPortWidget.h>
+#include <Network.h>
 
 class ClientApp;
 
@@ -16,7 +17,7 @@ class ClientGame
 {
 public:
     typedef std::map< UnitId, ClientUnit* > ClientUnits;
-    ClientGame(socket_t& aSocket);
+    ClientGame(Network* aNetwork);
     virtual ~ClientGame(); // Для QuicGUI
     void OnExit(const QuickGUI::EventArgs& args);
     void OnTurn(const QuickGUI::EventArgs& args);
@@ -26,7 +27,6 @@ public:
     void Act();
 protected:
 private:
-    socket_t& mSocket;
     ClientGeodesicGrid* mGrid;
     ClientUnits mUnits;
     ClientTile* mTileUnderCursor;
@@ -39,6 +39,7 @@ private:
     ViewPortWidget mViewPortWidget;
     GameTime mTime;
     bool mTurnDone;
+    Network* mNetwork;
     void CreateUnitEntities() const;
     void LoadEvents(const ResponseMsg& changes);
 };

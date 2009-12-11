@@ -245,14 +245,14 @@ int GetEdgeMsgSize()
     return edge.ByteSize();
 }
 
-void ServerGeodesicGrid::Send(socket_t& aSocket) const
+void ServerGeodesicGrid::Send(Network& aNetwork) const
 {
     GeodesicGridSizeMsg gridInfo;
     gridInfo.set_tilecount(mTiles.size());
     gridInfo.set_edgecount(mEdges.size());
     gridInfo.set_scale((mTiles[0]->GetPosition() - mTiles[0]->GetNeighbour(0).GetPosition()).length());
     gridInfo.set_sealevel(mSeaLevel);
-    WriteMessage(aSocket, gridInfo);
+    aNetwork.WriteMessage(gridInfo);
     GetLog() << "Grid info send " << gridInfo.ShortDebugString();
     int tilesPerMessage = MESSAGE_SIZE / (GetTileMsgSize() * 1.2);
     GetLog() << "Tiles per message " << tilesPerMessage;
@@ -270,7 +270,7 @@ void ServerGeodesicGrid::Send(socket_t& aSocket) const
             tile->mutable_position()->set_z(pos.z);
             ++i;
         }
-        WriteMessage(aSocket, tiles);
+        aNetwork.WriteMessage(tiles);
     }
 
     GetLog() << "Send all tiles";
@@ -288,7 +288,7 @@ void ServerGeodesicGrid::Send(socket_t& aSocket) const
             edge->set_tileb(mEdges[i]->GetTileB().GetTileId());
             ++i;
         }
-        WriteMessage(aSocket, edges);
+        aNetwork.WriteMessage(edges);
     }
     GetLog() << "Send all edges";
 }

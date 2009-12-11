@@ -61,10 +61,10 @@ void ClientGeodesicGrid::InitTiles()
     }
 }
 
-ClientGeodesicGrid::ClientGeodesicGrid(socket_t& aSocket, LoadingSheet& loadingSheet)
+ClientGeodesicGrid::ClientGeodesicGrid(Network& aNetwork, LoadingSheet& aLoadingSheet)
 {
     GeodesicGridSizeMsg gridInfo;
-    ReadMessage(aSocket, gridInfo);
+    aNetwork.ReadMessage(gridInfo);
     GetLog() << "Recived grid info " << gridInfo.ShortDebugString();
     mTiles.resize(gridInfo.tilecount());
     mEdges.resize(gridInfo.edgecount());
@@ -74,7 +74,7 @@ ClientGeodesicGrid::ClientGeodesicGrid(socket_t& aSocket, LoadingSheet& loadingS
     for (size_t i = 0; i < gridInfo.tilecount();)
     {
         TileListMsg tiles;
-        ReadMessage(aSocket, tiles);
+        aNetwork.ReadMessage(tiles);
         for (size_t j = 0; j < tiles.tiles_size(); ++j)
         {
             TileMsg tile = tiles.tiles(j);
@@ -84,12 +84,12 @@ ClientGeodesicGrid::ClientGeodesicGrid(socket_t& aSocket, LoadingSheet& loadingS
         }
     }
     GetLog() << "Recived all tiles";
-    loadingSheet.SetProgress(10);
+    aLoadingSheet.SetProgress(10);
 
     for (size_t i = 0; i < gridInfo.edgecount();)
     {
         EdgeListMsg edges;
-        ReadMessage(aSocket, edges);
+        aNetwork.ReadMessage(edges);
         for (size_t j = 0; j < edges.edges_size(); ++j)
         {
             EdgeMsg edge = edges.edges(j);
@@ -98,7 +98,7 @@ ClientGeodesicGrid::ClientGeodesicGrid(socket_t& aSocket, LoadingSheet& loadingS
         }
     }
     GetLog() << "Recived all edges ";
-    loadingSheet.SetProgress(50);
+    aLoadingSheet.SetProgress(50);
 
     InitTiles();
 }
