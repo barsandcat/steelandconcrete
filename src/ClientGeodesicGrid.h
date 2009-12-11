@@ -6,11 +6,12 @@
 #include <LoadingSheet.h>
 #include <sockio.h>
 #include <Typedefs.h>
+#include <Network.h>
 
 class ClientGeodesicGrid
 {
 public:
-    ClientGeodesicGrid(socket_t& aSocket, LoadingSheet& loadingSheet);
+    ClientGeodesicGrid(Network& aNetwork, LoadingSheet& aLoadingSheet);
 
     Ogre::StaticGeometry* ConstructStaticGeometry() const;
     Ogre::ManualObject* ConstructDebugMesh() const;

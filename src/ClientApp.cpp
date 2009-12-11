@@ -233,23 +233,29 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
     {
         Ogre::String connection = mServerBrowserSheet->GetConnection();
         socket_t* sock = socket_t::connect(connection.c_str(), socket_t::sock_global_domain, 3, 1);
-        if (sock && sock->is_ok())
+        if (sock->is_ok())
         {
+            Network* net = new Network(sock);
             GetLog() << "Connected";
             ConnectionRequestMsg req;
             req.set_protocolversion(ProtocolVersion);
-            WriteMessage(*sock, req);
+            net->WriteMessage(req);
 
             ConnectionResponseMsg res;
-            ReadMessage(*sock, res);
+            net->ReadMessage(res);
             if (res.result() == CONNECTION_ALLOWED)
             {
-                mGame = new ClientGame(*sock);
+                mGame = new ClientGame(net);
+            }
+            else
+            {
+                delete net;
             }
         }
         else
         {
             GetLog() << "Not connected " << GetErrorText(*sock);
+            delete sock;
         }
     }
 }

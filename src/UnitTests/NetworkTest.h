@@ -13,18 +13,19 @@
 #include <cstdlib>
 #include <DummySocket.h>
 #include <ChangeList.h>
+#include <Network.h>
 
 class MyTestSuite : public CxxTest::TestSuite
 {
 public:
     void setUp()
     {
-        mSocket = new DummySocket();
+        mNetwork = new Network(new DummySocket());
     }
 
     void tearDown()
     {
-        delete mSocket;
+        delete mNetwork;
     }
 
     void TestChangeList()
@@ -32,11 +33,11 @@ public:
         for (int j = 0; j < 10; ++j)
         {
             ChangeList::Clear();
-            for (int i = 0; i < 100; ++i)
+            for (int i = 0; i < 50 * j; ++i)
             {
                 ChangeList::AddRemove(1);
             }
-            TS_ASSERT_THROWS_NOTHING(ChangeList::Write(*mSocket, 0));
+            TS_ASSERT_THROWS_NOTHING(ChangeList::Write(*mNetwork, 0));
         }
     }
 
@@ -63,7 +64,7 @@ public:
         }
     }
 private:
-    DummySocket* mSocket;
+    Network* mNetwork;
 
 };
 

@@ -17,14 +17,14 @@ void task_proc ClientConnectionThreadFunction(void *param)
 
 void ClientConnection::Execute()
 {
-    mGame.Send(mSocket);
+    mGame.Send(*mNetwork);
 
-    while (mSocket.is_ok())
+    while (mNetwork->IsOk())
     {
         try
         {
             RequestMsg req;
-            ReadMessage(mSocket, req);
+            mNetwork->ReadMessage(req);
             if (req.has_type())
             {
                 switch (req.type())
@@ -41,7 +41,7 @@ void ClientConnection::Execute()
 
                         ResponseMsg rsp;
                         rsp.set_type(RESPONSE_OK);
-                        WriteMessage(mSocket, rsp);
+                        mNetwork->WriteMessage(rsp);
                         GetLog() << "Confirmed time " << req.ShortDebugString();
 
                         mGame.SignalClientEvent();
@@ -51,20 +51,20 @@ void ClientConnection::Execute()
                         ResponseMsg rsp;
                         rsp.set_type(RESPONSE_NOK);
                         rsp.set_reason("No time!");
-                        WriteMessage(mSocket, rsp);
+                        mNetwork->WriteMessage(rsp);
                     }
                     break;
                 case REQUEST_GET_TIME:
                     if (mGame.GetTime() > mLastConfirmedTime)
                     {
-                        ChangeList::Write(mSocket, mGame.GetTime());
+                        ChangeList::Write(*mNetwork, mGame.GetTime());
                         GetLog() << "Change list send";
                     }
                     else
                     {
                         ResponseMsg rsp;
                         rsp.set_type(RESPONSE_PLEASE_WAIT);
-                        WriteMessage(mSocket, rsp);
+                        mNetwork->WriteMessage(rsp);
                     }
                     break;
                 }
@@ -80,8 +80,8 @@ void ClientConnection::Execute()
     mLive = false;
 }
 
-ClientConnection::ClientConnection(ServerGame& aGame, socket_t& aSocket):
-        mGame(aGame), mSocket(aSocket), mLive(true),
+ClientConnection::ClientConnection(ServerGame& aGame, Network* aNetwork):
+        mGame(aGame), mNetwork(aNetwork), mLive(true),
         mLastConfirmedTime(0)
 {
     mLastConfirmedTime = mGame.GetTime() - 1;
@@ -90,7 +90,6 @@ ClientConnection::ClientConnection(ServerGame& aGame, socket_t& aSocket):
 
 ClientConnection::~ClientConnection()
 {
-    mSocket.close();
-    delete &mSocket;
+    delete mNetwork;
     GetLog() << "Socket deletd";
 }

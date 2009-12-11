@@ -80,11 +80,11 @@ ServerUnit& ServerGame::CreateUnit(ServerTile& aTile, uint32 aVisualCode)
     return *unit;
 }
 
-void ServerGame::Send(socket_t& aSocket)
+void ServerGame::Send(Network& aNetwork)
 {
     critical_section(*mGameMutex);
 
-    mGrid->Send(aSocket);
+    mGrid->Send(aNetwork);
 
     UnitCountMsg count;
     ServerUnit& avatar = CreateUnit(mGrid->GetTile(rand() % mGrid->GetTileCount()), VC::LIVE | VC::ANIMAL | VC::HUMAN);
@@ -92,7 +92,7 @@ void ServerGame::Send(socket_t& aSocket)
     count.set_avatar(avatar.GetUnitId());
     count.set_count(mUnits.size());
     count.set_time(mTime);
-    WriteMessage(aSocket, count);
+    aNetwork.WriteMessage(count);
     ServerUnits::const_iterator i = mUnits.begin();
     GetLog() << "Unit count send; " << count.ShortDebugString() ;
 
@@ -100,7 +100,7 @@ void ServerGame::Send(socket_t& aSocket)
     {
         UnitMsg unit;
         i->second->FillUnitMsg(unit);
-        WriteMessage(aSocket, unit);
+        aNetwork.WriteMessage(unit);
     }
     GetLog() << "All units send";
 }

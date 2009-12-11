@@ -12,13 +12,33 @@ std::string GetErrorText(socket_t& aSocket)
     return buffer;
 }
 
-void WriteMessage(socket_t& aSocket, google::protobuf::Message& aMessage)
+
+Network::Network(socket_t* aSocket): mSocket(aSocket), mMessageBuffer(NULL), mBufferSize(0)
+{
+    assert(aSocket);
+}
+
+Network::~Network()
+{
+    delete mMessageBuffer;
+    mSocket->close();
+    delete mSocket;
+}
+
+void Network::AllocBuffer(int aSize)
+{
+    if (aSize > mBufferSize)
+    {
+        delete mMessageBuffer;
+        mMessageBuffer = new char[aSize];
+    }
+}
+
+void Network::WriteMessage(google::protobuf::Message& aMessage)
 {
     int messageSize = aMessage.ByteSize();
-    if (messageSize > MESSAGE_SIZE)
-        throw std::runtime_error("Размер собщения привышает MESSAGE_SIZE!");
-    char messageBuffer[MESSAGE_SIZE];
-    aMessage.SerializeToArray(messageBuffer, messageSize);
+    AllocBuffer(messageSize);
+    aMessage.SerializeToArray(mMessageBuffer, messageSize);
 
     HeaderMsg header;
     header.set_size(messageSize);
@@ -26,30 +46,36 @@ void WriteMessage(socket_t& aSocket, google::protobuf::Message& aMessage)
     char headerBuffer[HEADER_BUFFER_SIZE];
     header.SerializeToArray(headerBuffer, headerSize);
 
-    if (!aSocket.write(headerBuffer, headerSize))
-        throw std::runtime_error(GetErrorText(aSocket) + " Неудалось записать в сокет загловок!");
-    if (!aSocket.write(messageBuffer, messageSize))
-        throw std::runtime_error(GetErrorText(aSocket) + " Неудалось записать в сокет сообщение!");
+    if (!mSocket->write(headerBuffer, headerSize))
+    {
+        throw std::runtime_error(GetErrorText(*mSocket) + " Неудалось записать в сокет загловок!");
+    }
+    if (!mSocket->write(mMessageBuffer, messageSize))
+    {
+        throw std::runtime_error(GetErrorText(*mSocket) + " Неудалось записать в сокет сообщение!");
+    }
 }
 
-void ReadMessage(socket_t& aSocket, google::protobuf::Message& aMessage)
+void Network::ReadMessage(google::protobuf::Message& aMessage)
 {
     HeaderMsg header;
     header.set_size(0);
     int headerSize = header.ByteSize();
     char headerBuffer[HEADER_BUFFER_SIZE];
-    if (!aSocket.read(headerBuffer, headerSize))
-        throw std::runtime_error(GetErrorText(aSocket) + " Не удалось прочитать из сокета заголовок!");
+    if (!mSocket->read(headerBuffer, headerSize))
+        throw std::runtime_error(GetErrorText(*mSocket) + " Не удалось прочитать из сокета заголовок!");
     if (!header.ParseFromArray(headerBuffer, headerSize))
         throw std::runtime_error("Не удалось разобрать заголовок!");
 
     int messageSize = header.size();
-    if (messageSize > MESSAGE_SIZE)
-        throw std::runtime_error("Размер собщения привышает MESSAGE_SIZE!");
+    AllocBuffer(messageSize);
 
-    char messageBuffer[MESSAGE_SIZE];
-    if (!aSocket.read(messageBuffer, messageSize))
-        throw std::runtime_error(GetErrorText(aSocket) + " Не удалось прочитать из сокета сообщение!");
-    if (!aMessage.ParseFromArray(messageBuffer, messageSize))
+    if (!mSocket->read(mMessageBuffer, messageSize))
+    {
+        throw std::runtime_error(GetErrorText(*mSocket) + " Не удалось прочитать из сокета сообщение!");
+    }
+    if (!aMessage.ParseFromArray(mMessageBuffer, messageSize))
+    {
         throw std::runtime_error("Не удалось разобрать сообщение!");
+    }
 }
