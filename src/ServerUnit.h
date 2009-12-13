@@ -8,7 +8,7 @@ class ServerTile;
 class ServerUnit
 {
 public:
-    ServerUnit(ServerTile& aTile, UnitId aUnitId, uint32 aVisualCode);
+    ServerUnit(ServerTile& aTile, UnitId aUnitId, uint32 aVisualCode, uint32 aMaxAge);
     ServerTile& GetPosition() const { return *mPosition; }
     UnitId GetUnitId() const { return mUnitId; }
     virtual ~ServerUnit();
@@ -26,6 +26,7 @@ private:
     UnitId mMaster;
     uint32 mVisualCode;
     uint32 mAge;
+    const uint32 mMaxAge;
 };
 
 #endif // SERVERUNIT_H

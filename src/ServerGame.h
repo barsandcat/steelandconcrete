@@ -17,7 +17,7 @@ public:
     ~ServerGame();
     void MainLoop(Ogre::String aAddress, Ogre::String aPort);
     ServerGeodesicGrid& GetGrid();
-    ServerUnit& CreateUnit(ServerTile& aTile, uint32 aVisualCode);
+    ServerUnit& CreateUnit(ServerTile& aTile, uint32 aVisualCode, uint32 aMaxAge);
     void Send(Network& aNetwork);
     GameTime GetTime() const { return mTime; }
     void SignalClientEvent() { mClientEvent->signal(); }

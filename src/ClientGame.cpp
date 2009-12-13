@@ -218,6 +218,10 @@ void ClientGame::LoadEvents(const ResponseMsg& changes)
             const RemoveMsg& command = change.remove();
             ClientUnits::iterator i = mUnits.find(command.unitid());
             ClientUnit* unit = i->second;
+            if (mSelectedUnit == unit)
+            {
+                mSelectedUnit = NULL;
+            }
             delete unit;
             mUnits.erase(i);
         }

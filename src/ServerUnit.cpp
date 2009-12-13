@@ -4,9 +4,9 @@
 #include <ServerTile.h>
 #include <ChangeList.h>
 
-ServerUnit::ServerUnit(ServerTile& aTile, UnitId aUnitId, uint32 aVisualCode):
+ServerUnit::ServerUnit(ServerTile& aTile, UnitId aUnitId, uint32 aVisualCode, uint32 aMaxAge):
   mPosition(&aTile), mUnitId(aUnitId), mTarget(NULL),
-  mVisualCode(aVisualCode), mAge(0)
+  mVisualCode(aVisualCode), mAge(0), mMaxAge(aMaxAge)
 {
     mPosition->SetUnit(this);
 }
@@ -45,5 +45,5 @@ void ServerUnit::FillUnitMsg(UnitMsg& aUnitMsg) const
 bool ServerUnit::UpdateAgeAndIsTimeToDie(GameTime aPeriod)
 {
     mAge += aPeriod;
-    return mAge > 100 + rand() % 100;
+    return mAge > mMaxAge + rand() % mMaxAge;
 }
