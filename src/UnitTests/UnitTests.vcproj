@@ -219,6 +219,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\DummySocket.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\Network.cpp"
 				>
 			</File>
@@ -274,6 +278,10 @@
 			>
 			<File
 				RelativePath="..\ChangeList.h"
+				>
+			</File>
+			<File
+				RelativePath="..\DummySocket.h"
 				>
 			</File>
 			<File
