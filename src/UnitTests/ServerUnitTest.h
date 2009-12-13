@@ -12,7 +12,7 @@ public:
     void setUp()
     {
         mTile = new ServerTile(Ogre::Vector3::UNIT_X, 5000);
-        mUnit = new ServerUnit(*mTile, 0, 0);
+        mUnit = new ServerUnit(*mTile, 0, 0, 100);
     }
 
     void tearDown()

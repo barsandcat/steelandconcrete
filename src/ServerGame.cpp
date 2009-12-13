@@ -25,10 +25,10 @@ ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0),
             switch (rand() % 10)
             {
             case 1:
-                CreateUnit(mGrid->GetTile(i), VC::LIVE | VC::ANIMAL | VC::HERBIVORES);
+                CreateUnit(mGrid->GetTile(i), VC::LIVE | VC::ANIMAL | VC::HERBIVORES, 500);
                 break;
             case 6:
-                CreateUnit(mGrid->GetTile(i), VC::LIVE | VC::PLANT);
+                CreateUnit(mGrid->GetTile(i), VC::LIVE | VC::PLANT, 100);
                 break;
             }
         }
@@ -73,9 +73,9 @@ void ServerGame::MainLoop(Ogre::String aAddress, Ogre::String aPort)
     GetLog() << "Game over";
 }
 
-ServerUnit& ServerGame::CreateUnit(ServerTile& aTile, uint32 aVisualCode)
+ServerUnit& ServerGame::CreateUnit(ServerTile& aTile, uint32 aVisualCode, uint32 aMaxAge)
 {
-    ServerUnit* unit = new ServerUnit(aTile, ++mUnitCount, aVisualCode);
+    ServerUnit* unit = new ServerUnit(aTile, ++mUnitCount, aVisualCode, aMaxAge);
     mUnits.insert(std::make_pair(unit->GetUnitId(), unit));
     return *unit;
 }
@@ -87,7 +87,7 @@ void ServerGame::Send(Network& aNetwork)
     mGrid->Send(aNetwork);
 
     UnitCountMsg count;
-    ServerUnit& avatar = CreateUnit(mGrid->GetTile(rand() % mGrid->GetTileCount()), VC::LIVE | VC::ANIMAL | VC::HUMAN);
+    ServerUnit& avatar = CreateUnit(mGrid->GetTile(rand() % mGrid->GetTileCount()), VC::LIVE | VC::ANIMAL | VC::HUMAN, 999999);
     avatar.SetMaster(avatar.GetUnitId());
     count.set_avatar(avatar.GetUnitId());
     count.set_count(mUnits.size());
