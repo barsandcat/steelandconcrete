@@ -226,7 +226,6 @@ void ClientGame::LoadEvents(const ResponseMsg& changes)
             {
                 mSelectedUnit = NULL;
             }
-            GetLog() << "Delete " << unit->GetUnitId();
             delete unit;
             mUnits.erase(i);
         }
