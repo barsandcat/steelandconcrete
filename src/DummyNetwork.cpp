@@ -6,11 +6,17 @@
 
 void DummyNetwork::WriteMessage(google::protobuf::Message& aMessage)
 {
+    const google::protobuf::Reflection* reflection = aMessage.GetReflection();
     const google::protobuf::FieldDescriptor* fieldDescriptor = aMessage.GetDescriptor()->FindFieldByName("last");
     if (fieldDescriptor)
     {
-        const google::protobuf::Reflection* reflection = aMessage.GetReflection();
         mIsLastWrited = reflection->GetBool(aMessage, fieldDescriptor);
+    }
+
+    fieldDescriptor = aMessage.GetDescriptor()->FindFieldByName("changes");
+    if (fieldDescriptor)
+    {
+        mChangesWrited += reflection->FieldSize(aMessage, fieldDescriptor);
     }
 }
 
@@ -24,7 +30,7 @@ bool DummyNetwork::IsOk()
     return true;
 }
 
-DummyNetwork::DummyNetwork(): mIsLastWrited(false)
+DummyNetwork::DummyNetwork(): mIsLastWrited(false), mChangesWrited(0)
 {
     //ctor
 }

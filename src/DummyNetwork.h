@@ -12,9 +12,11 @@ public:
     virtual void ReadMessage(google::protobuf::Message& aMessage);
     virtual bool IsOk();
     bool IsLastWrited() const { return mIsLastWrited; }
+    int GetChangesWrited() const { return mChangesWrited; }
 protected:
 private:
    bool mIsLastWrited;
+   int mChangesWrited;
 };
 
 #endif // DUMMYNETWORK_H
