@@ -1,7 +1,7 @@
 #include <pch.h>
 #include <ChangeList.h>
 
-#include <Network.h>
+#include <ServerLog.h>
 
 std::list< ResponseMsg > ChangeList::mChangeList;
 
@@ -39,7 +39,7 @@ void ChangeList::Clear()
 {
     mChangeList.clear();
 }
-void ChangeList::Write(Network& aNetwork, GameTime aTime)
+void ChangeList::Write(INetwork& aNetwork, GameTime aTime)
 {
     if (!mChangeList.empty())
     {
@@ -47,6 +47,7 @@ void ChangeList::Write(Network& aNetwork, GameTime aTime)
         {
             ResponseMsg& msg = mChangeList.front();
             msg.set_time(aTime);
+            GetLog() << "Write block " << msg.last();
             aNetwork.WriteMessage(msg);
             mChangeList.pop_front();
         }
