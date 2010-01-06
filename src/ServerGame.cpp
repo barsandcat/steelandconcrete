@@ -121,7 +121,6 @@ void ServerGame::UpdateGame()
         {
             ServerUnits::iterator del = i;
             ++i;
-            GetLog() << "Delete " << unit->GetUnitId();
             delete unit;
             mUnits.erase(del);
         }

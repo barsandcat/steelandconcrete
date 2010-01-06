@@ -16,12 +16,13 @@ void ChangeList::AddChangeMsg(ChangeMsg& aChange)
         ResponseMsg msg;
         msg.set_type(RESPONSE_CHANGES);
         msg.set_last(true);
+        *(msg.add_changes()) = aChange;
+
         if (!mChangeList.empty())
         {
             mChangeList.front().set_last(false);
         }
         mChangeList.push_front(msg);
-        *(msg.add_changes()) = aChange;
     }
 
 }
