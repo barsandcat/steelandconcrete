@@ -112,7 +112,6 @@ void ServerGame::UpdateGame()
     GetLog() << "Update Game!";
     ChangeList::Clear();
     ServerUnits::iterator i = mUnits.begin();
-    mTime += mTimeStep;
     for (; i != mUnits.end(); ++i)
     {
         ServerUnit* unit = i->second;
@@ -129,6 +128,7 @@ void ServerGame::UpdateGame()
             unit->ExecuteCommand();
         }
     }
+    mTime += mTimeStep;
 
     GetLog() << "Time: " << mTime;
 }
