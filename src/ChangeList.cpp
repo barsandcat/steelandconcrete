@@ -45,11 +45,10 @@ void ChangeList::Write(INetwork& aNetwork, GameTime aTime)
     {
         while (!mChangeList.empty())
         {
-            ResponseMsg& msg = mChangeList.front();
+            ResponseMsg& msg = mChangeList.back();
             msg.set_time(aTime);
-            GetLog() << "Write block " << msg.last();
             aNetwork.WriteMessage(msg);
-            mChangeList.pop_front();
+            mChangeList.pop_back();
         }
     }
     else

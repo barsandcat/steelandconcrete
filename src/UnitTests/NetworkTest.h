@@ -31,22 +31,27 @@ public:
     void TestChangeListOneBlock()
     {
         ChangeList::Clear();
-        for (int i = 0; i < 50; ++i)
+        const int count = 50;
+        for (int i = 0; i < count; ++i)
         {
             ChangeList::AddRemove(i);
         }
-        TS_ASSERT_THROWS_NOTHING(ChangeList::Write(*mNetwork, 0));
+        ChangeList::Write(*mNetwork, 0);
+        TS_ASSERT(mNetwork->IsLastWrited());
+        TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count);
     }
 
     void TestChangeListTwoBlock()
     {
         ChangeList::Clear();
-        for (int i = 0; i < 400; ++i)
+        const int count = 400;
+        for (int i = 0; i < count; ++i)
         {
             ChangeList::AddRemove(i);
         }
-        TS_ASSERT_THROWS_NOTHING(ChangeList::Write(*mNetwork, 0));
+        ChangeList::Write(*mNetwork, 0);
         TS_ASSERT(mNetwork->IsLastWrited());
+        TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count);
     }
 
 
