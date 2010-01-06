@@ -217,11 +217,16 @@ void ClientGame::LoadEvents(const ResponseMsg& changes)
         {
             const RemoveMsg& command = change.remove();
             ClientUnits::iterator i = mUnits.find(command.unitid());
+            if (mUnits.end() == i)
+            {
+                throw std::out_of_range("Server requested removal of non existing unit " + command.ShortDebugString());
+            }
             ClientUnit* unit = i->second;
             if (mSelectedUnit == unit)
             {
                 mSelectedUnit = NULL;
             }
+            GetLog() << "Delete " << unit->GetUnitId();
             delete unit;
             mUnits.erase(i);
         }

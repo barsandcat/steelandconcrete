@@ -121,6 +121,7 @@ void ServerGame::UpdateGame()
         {
             ServerUnits::iterator del = i;
             ++i;
+            GetLog() << "Delete " << unit->GetUnitId();
             delete unit;
             mUnits.erase(del);
         }
@@ -143,7 +144,16 @@ void ServerGame::LoadCommands(const RequestMsg& commands)
         if (command.has_commandmove())
         {
             const CommandMoveMsg& move = command.commandmove();
-            mUnits[move.unitid()]->SetCommand(mGrid->GetTile(move.position()));
+            ServerUnits::iterator i = mUnits.find(move.unitid());
+            if (mUnits.end() != i)
+            {
+                i->second->SetCommand(mGrid->GetTile(move.position()));
+            }
+            else
+            {
+                GetLog() << "Move command for non existing unit! " << command.ShortDebugString();
+            }
+
         }
     }
 }

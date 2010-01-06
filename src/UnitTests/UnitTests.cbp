@@ -68,8 +68,11 @@
 		</ExtraCommands>
 		<Unit filename="../ChangeList.cpp" />
 		<Unit filename="../ChangeList.h" />
+		<Unit filename="../DummyNetwork.cpp" />
+		<Unit filename="../DummyNetwork.h" />
 		<Unit filename="../DummySocket.cpp" />
 		<Unit filename="../DummySocket.h" />
+		<Unit filename="../INetwork.h" />
 		<Unit filename="../Network.cpp" />
 		<Unit filename="../Network.h" />
 		<Unit filename="../ServerEdge.cpp" />

@@ -13,14 +13,14 @@
 #include <cstdlib>
 #include <DummySocket.h>
 #include <ChangeList.h>
-#include <Network.h>
+#include <DummyNetwork.h>
 
 class MyTestSuite : public CxxTest::TestSuite
 {
 public:
     void setUp()
     {
-        mNetwork = new Network(new DummySocket());
+        mNetwork = new DummyNetwork();
     }
 
     void tearDown()
@@ -28,18 +28,27 @@ public:
         delete mNetwork;
     }
 
-    void TestChangeList()
+    void TestChangeListOneBlock()
     {
-        for (int j = 0; j < 10; ++j)
+        ChangeList::Clear();
+        for (int i = 0; i < 50; ++i)
         {
-            ChangeList::Clear();
-            for (int i = 0; i < 50 * j; ++i)
-            {
-                ChangeList::AddRemove(1);
-            }
-            TS_ASSERT_THROWS_NOTHING(ChangeList::Write(*mNetwork, 0));
+            ChangeList::AddRemove(i);
         }
+        TS_ASSERT_THROWS_NOTHING(ChangeList::Write(*mNetwork, 0));
     }
+
+    void TestChangeListTwoBlock()
+    {
+        ChangeList::Clear();
+        for (int i = 0; i < 400; ++i)
+        {
+            ChangeList::AddRemove(i);
+        }
+        TS_ASSERT_THROWS_NOTHING(ChangeList::Write(*mNetwork, 0));
+        TS_ASSERT(mNetwork->IsLastWrited());
+    }
+
 
     void TestGeodesicGridSave()
     {
@@ -64,7 +73,7 @@ public:
         }
     }
 private:
-    Network* mNetwork;
+    DummyNetwork* mNetwork;
 
 };
 
