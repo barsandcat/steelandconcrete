@@ -20,13 +20,13 @@ public:
     bool UpdateAgeAndIsTimeToDie(GameTime aPeriod);
 protected:
 private:
-    ServerTile* mPosition;
     const UnitId mUnitId;
+    const uint32 mVisualCode;
+    const uint32 mMaxAge;
+    ServerTile* mPosition;
     ServerTile* mTarget;
     UnitId mMaster;
-    uint32 mVisualCode;
     uint32 mAge;
-    const uint32 mMaxAge;
 };
 
 #endif // SERVERUNIT_H
