@@ -2,69 +2,56 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="RenderSystem_GL" />
+		<Option title="RenderSystem_GL1.6.5" />
 		<Option platforms="Unix;" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
 				<Option platforms="Unix;" />
-				<Option output="../../../lib/RenderSystem_GL_d.so" prefix_auto="0" extension_auto="0" />
-				<Option object_output="../obj/Debug" />
+				<Option output="../../../../lib/libRenderSystem_GL_d.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../obj/RenderSystemGLDebugLinux" />
 				<Option external_deps="../../../lib/libOgreMain_d.so;" />
-				<Option type="3" />
+				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option projectResourceIncludeDirsRelation="0" />
 				<Compiler>
+					<Add option="-pg" />
 					<Add option="-g" />
 					<Add option="-DDEBUG" />
 				</Compiler>
 				<Linker>
+					<Add option="-pg" />
 					<Add library="OgreMain_d" />
 				</Linker>
-				<ExtraCommands>
-					<Add after="cp $($(TARGET_NAME)_OUTPUT_FILE) ../../../Samples/Common/bin/$(TARGET_NAME)" />
-				</ExtraCommands>
 			</Target>
 			<Target title="Release">
 				<Option platforms="Unix;" />
-				<Option output="../../../lib/RenderSystem_GL.so" prefix_auto="0" extension_auto="0" />
-				<Option object_output="../obj/Release" />
+				<Option output="../../../../lib/libRenderSystem_GL.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../obj/RenderSystemGLReleaseLinux" />
 				<Option external_deps="../../../lib/libOgreMain.so;" />
-				<Option type="3" />
+				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option projectResourceIncludeDirsRelation="0" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-O3" />
 					<Add option="-DNDEBUG" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 					<Add library="OgreMain" />
 				</Linker>
-				<ExtraCommands>
-					<Add after="cp $($(TARGET_NAME)_OUTPUT_FILE) ../../../Samples/Common/bin/$(TARGET_NAME)" />
-				</ExtraCommands>
 			</Target>
 		</Build>
 		<VirtualTargets>
 			<Add alias="All" targets="Debug;Release;" />
 		</VirtualTargets>
 		<Compiler>
-			<Add option="-Wall" />
-			<Add option="-fmessage-length=0" />
-			<Add option="-fexceptions" />
-			<Add option="-fident" />
-			<Add option="-pipe" />
-			<Add option="-fvisibility=hidden" />
-			<Add option="-fvisibility-inlines-hidden" />
-			<Add option="-fPIC" />
 			<Add option="-DOGRE_GL_USE_MULTITEXTURING" />
-			<Add option="-DOGRE_GLPLUGIN_EXPORTS" />
-			<Add option="-DOGRE_GCC_VISIBILITY" />
-			<Add option="-DPIC" />
+			<Add option="-DOGRE_STATIC_LIB" />
 			<Add option="-DYY_NEVER_INTERACTIVE" />
 			<Add option="-DYY_NO_UNPUT" />
-			<Add option="-DHAVE_CONFIG_H" />
 			<Add directory="../include" />
 			<Add directory="../../../OgreMain/include" />
 			<Add directory="../src/nvparse" />
@@ -74,14 +61,7 @@
 			<Add directory="../src/GLX" />
 		</Compiler>
 		<Linker>
-			<Add library="X11" />
-			<Add library="Xext" />
-			<Add library="GL" />
-			<Add library="Xrandr" />
-			<Add library="Xxf86vm" />
-			<Add library="GLU" />
-			<Add directory="../../../Samples/Common/bin/$(TARGET_NAME)" />
-			<Add directory="/usr/X11R6/lib" />
+			<Add directory="../../../../lib" />
 		</Linker>
 		<Unit filename="../include/GL/gl.h" />
 		<Unit filename="../include/GL/glew.h" />
@@ -217,6 +197,13 @@
 			<code_completion />
 			<envvars />
 			<debugger />
+			<lib_finder>
+				<lib name="glu" />
+				<lib name="xt" />
+				<lib name="xext" />
+				<lib name="xrandr" />
+				<lib name="xxf86vm" />
+			</lib_finder>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

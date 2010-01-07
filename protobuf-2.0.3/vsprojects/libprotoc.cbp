@@ -7,9 +7,9 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="libprotoc_d" prefix_auto="1" extension_auto="1" />
+				<Option output="../../lib/libprotoc_d" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
-				<Option object_output="Debug" />
+				<Option object_output="../../obj/ProtocDebugLinux" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -26,9 +26,9 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="libprotoc" prefix_auto="1" extension_auto="1" />
+				<Option output="../../lib/libprotoc" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
-				<Option object_output="Release" />
+				<Option object_output="../../obj/ProtocReleaseLinux" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />

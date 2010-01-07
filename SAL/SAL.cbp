@@ -7,9 +7,9 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="libSAL_d" prefix_auto="1" extension_auto="1" />
+				<Option output="../lib/libSAL_d" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
-				<Option object_output="obj/Debug/" />
+				<Option object_output="../obj/SALDebugLinux" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -22,9 +22,9 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="libSAL" prefix_auto="1" extension_auto="1" />
+				<Option output="../lib/libSAL" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
-				<Option object_output="obj/Release/" />
+				<Option object_output="../obj/SALReleaseLinux" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />

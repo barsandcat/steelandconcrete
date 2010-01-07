@@ -11,7 +11,7 @@
 				<Option platforms="Unix;" />
 				<Option output="bin/steelandconcrete_d" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="bin" />
-				<Option object_output="obj/linux/Debug/" />
+				<Option object_output="obj/ClientDebugLinux" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -26,7 +26,7 @@
 					<Add library="OgreAL_d" />
 					<Add library="Plugin_OctreeSceneManager_d" />
 					<Add library="protobuf_d" />
-					<Add library="SAL/libSAL_d.a" />
+					<Add library="SAL_d" />
 					<Add library="QuickGUI_d" />
 				</Linker>
 			</Target>
@@ -34,7 +34,7 @@
 				<Option platforms="Unix;" />
 				<Option output="bin/steelandconcrete" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="bin" />
-				<Option object_output="obj/linux/Release/" />
+				<Option object_output="obj/ClientReleaseLinux" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -48,10 +48,8 @@
 					<Add library="OgreAL" />
 					<Add library="Plugin_OctreeSceneManager" />
 					<Add library="protobuf" />
-					<Add library="SAL/libSAL.a" />
+					<Add library="SAL" />
 					<Add library="QuickGUI" />
-					<Add library="vorbis" />
-					<Add library="vorbisfile" />
 				</Linker>
 			</Target>
 		</Build>
@@ -59,39 +57,24 @@
 			<Add option="-Winvalid-pch" />
 			<Add directory="src" />
 			<Add directory="betagui2" />
-			<Add directory="ogre/OgreMain/include" />
+			<Add directory="ogre1.6.5/OgreMain/include" />
 			<Add directory="ogreal/ogreal/include" />
 			<Add directory="ois/includes" />
-			<Add directory="ogre/PlugIns/OctreeSceneManager/include" />
-			<Add directory="ogre/RenderSystems/GL/include" />
-			<Add directory="ogre/RenderSystems/GL/src/GLX" />
-			<Add directory="ogre/RenderSystems/GL/src/GLSL/include" />
+			<Add directory="ogre1.6.5/PlugIns/OctreeSceneManager/include" />
+			<Add directory="ogre1.6.5/RenderSystems/GL/include" />
+			<Add directory="ogre1.6.5/RenderSystems/GL/src/GLX" />
+			<Add directory="ogre1.6.5/RenderSystems/GL/src/GLSL/include" />
 			<Add directory="protobuf-2.0.3/src" />
 			<Add directory="src/proto" />
 			<Add directory="SAL" />
 			<Add directory="QuickGUI_9_05/QuickGUI/include" />
 		</Compiler>
 		<Linker>
-			<Add option="--verbose" />
-			<Add library="GLU" />
-			<Add library="freetype" />
+			<Add library="pthread" />
 			<Add library="freeimage" />
-			<Add library="zzip" />
-			<Add library="Xt" />
-			<Add library="Xaw" />
-			<Add library="openal" />
-			<Add library="ogg" />
-			<Add library="vorbis" />
-			<Add library="vorbisfile" />
-			<Add library="X11" />
-			<Add library="Xext" />
-			<Add library="Xrandr" />
-			<Add library="Xxf86vm" />
-			<Add directory="ogre/lib" />
-			<Add directory="ois/lib" />
-			<Add directory="ogreal/ogreal/lib" />
-			<Add directory="protobuf-2.0.3/vsprojects" />
-			<Add directory="QuickGUI_9_05/bin" />
+			<Add library="GL" />
+			<Add library="GLU" />
+			<Add directory="lib" />
 		</Linker>
 		<ExtraCommands>
 			<Add before="./get_revision.sh" />
@@ -175,6 +158,16 @@
 			<code_completion />
 			<envvars />
 			<debugger />
+			<lib_finder>
+				<lib name="zziplib" />
+				<lib name="freetype2" />
+				<lib name="openal" />
+				<lib name="ogg" />
+				<lib name="vorbis" />
+				<lib name="vorbisfile" />
+				<lib name="xaw7" />
+				<lib name="xrandr" />
+			</lib_finder>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
