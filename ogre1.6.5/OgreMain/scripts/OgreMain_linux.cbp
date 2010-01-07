@@ -48,11 +48,7 @@
 			<Add directory="../src/nedmalloc" />
 		</Compiler>
 		<Linker>
-			<Add library="freetype" />
 			<Add library="freeimage" />
-			<Add library="zzip" />
-			<Add library="Xt" />
-			<Add library="Xaw" />
 		</Linker>
 		<Unit filename="../include/GLX/OgreConfigDialogImp.h" />
 		<Unit filename="../include/GLX/OgreErrorDialogImp.h" />
@@ -476,6 +472,8 @@
 			<debugger />
 			<lib_finder>
 				<lib name="freetype2" />
+				<lib name="xt" />
+				<lib name="zziplib" />
 			</lib_finder>
 		</Extensions>
 	</Project>
