@@ -42,6 +42,7 @@
 		<Project filename="ogre/Tools/XMLConverter/scripts/XMLConverter.cbp">
 			<Depends filename="ogre/OgreMain/scripts/OgreMain_linux.cbp" />
 		</Project>
-		<Project filename="ogre1.6.5/OgreMain/scripts/OgreMain_linux.cbp" active="1" />
+		<Project filename="ogre1.6.5/OgreMain/scripts/OgreMain_linux.cbp" />
+		<Project filename="ogre1.6.5/Tools/XMLConverter/scripts/XMLConverter.cbp" active="1" />
 	</Workspace>
 </CodeBlocks_workspace_file>
