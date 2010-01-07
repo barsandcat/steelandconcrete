@@ -1,4 +1,4 @@
-PROTOC=../../protobuf-2.0.3/vsprojects/protoc
+PROTOC=../../bin/protoc
 
 all : Tile.pb.h GeodesicGrid.pb.h Vector.pb.h Edge.pb.h Header.pb.h Unit.pb.h Request.pb.h Response.pb.h ChangeList.pb.h CommandList.pb.h Handshake.pb.h
 

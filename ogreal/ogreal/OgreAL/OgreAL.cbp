@@ -7,9 +7,9 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="../lib/libOgreAL_d" prefix_auto="1" extension_auto="1" />
+				<Option output="../../../lib/libOgreAL_d" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
-				<Option object_output="Debug" />
+				<Option object_output="../../../obj/OgreALDebugLinux" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -19,12 +19,13 @@
 				</Compiler>
 				<Linker>
 					<Add option="-pg" />
+					<Add library="OgreMain_d" />
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="../lib/libOgreAL" prefix_auto="1" extension_auto="1" />
+				<Option output="../../../lib/libOgreAL" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
-				<Option object_output="Release" />
+				<Option object_output="../../../obj/OgreALReleaseLinux" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -33,13 +34,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add directory="$(OGRE_SRC)/OgreMain/lib/Release" />
-					<Add directory="$(OGRE_HOME)/bin/Release" />
-					<Add directory="$(OPENAL_SDK)/libs/Win32" />
-					<Add directory="$(ALUT_BIN)/lib" />
-					<Add directory="../../ogg/win32/Static_Release" />
-					<Add directory="../../vorbis/win32/Vorbis_Static_Release" />
-					<Add directory="../../vorbis/win32/VorbisFile_Static_Release" />
+					<Add library="OgreMain" />
 				</Linker>
 			</Target>
 		</Build>
@@ -47,14 +42,10 @@
 			<Add option="-w" />
 			<Add option="-DOGRE_AL_EXPORT" />
 			<Add directory="../include" />
-			<Add directory="../../../ogre/OgreMain/include" />
+			<Add directory="../../../ogre1.6.5/OgreMain/include" />
 		</Compiler>
 		<Linker>
-			<Add library="OgreMain" />
-			<Add library="vorbis" />
-			<Add library="vorbisfile" />
-			<Add library="ogg" />
-			<Add directory="../../../ogre/lib" />
+			<Add directory="../../../lib" />
 		</Linker>
 		<Unit filename="../include/OgreAL.h" />
 		<Unit filename="../include/OgreALException.h" />
@@ -75,6 +66,12 @@
 			<code_completion />
 			<envvars />
 			<debugger />
+			<lib_finder>
+				<lib name="vorbisfile" />
+				<lib name="vorbis" />
+				<lib name="ogg" />
+				<lib name="openal" />
+			</lib_finder>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

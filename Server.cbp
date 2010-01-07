@@ -8,7 +8,8 @@
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/steelandconcrete_d_server" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Debug/" />
+				<Option working_dir="bin" />
+				<Option object_output="obj/ServerDebugLinux" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -17,14 +18,15 @@
 				</Compiler>
 				<Linker>
 					<Add option="-pg" />
-					<Add library="protobuf-2.0.3/vsprojects/libprotobuf_d.a" />
-					<Add library="ogre/lib/libOgreMain_d.a" />
-					<Add library="SAL/libSAL_d.a" />
+					<Add library="protobuf_d" />
+					<Add library="OgreMain_d" />
+					<Add library="SAL_d" />
 				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/steelandconcrete_server" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Release/" />
+				<Option working_dir="bin" />
+				<Option object_output="obj/ServerReleaseLinux" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -32,9 +34,9 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="protobuf-2.0.3/vsprojects/libprotobuf.a" />
-					<Add library="ogre/lib/libOgreMain.a" />
-					<Add library="SAL/libSAL.a" />
+					<Add library="protobuf" />
+					<Add library="OgreMain" />
+					<Add library="SAL" />
 				</Linker>
 			</Target>
 		</Build>
@@ -42,7 +44,7 @@
 			<Add option="-Winvalid-pch" />
 			<Add directory="src" />
 			<Add directory="src/proto" />
-			<Add directory="ogre/OgreMain/include" />
+			<Add directory="ogre1.6.5/OgreMain/include" />
 			<Add directory="protobuf-2.0.3/src" />
 			<Add directory="SAL" />
 			<Add directory="QuickGUI_9_05/QuickGUI/include" />
@@ -52,6 +54,7 @@
 		</Compiler>
 		<Linker>
 			<Add library="pthread" />
+			<Add directory="lib" />
 		</Linker>
 		<ExtraCommands>
 			<Add before="./get_revision.sh" />

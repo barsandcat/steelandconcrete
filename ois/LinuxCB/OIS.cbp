@@ -7,9 +7,9 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="../lib/libOIS_d.a" prefix_auto="0" extension_auto="0" />
+				<Option output="../../lib/libOIS_d.a" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="" />
-				<Option object_output="../lib/obj/debug" />
+				<Option object_output="../../obj/OISDebugLinux" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -18,36 +18,26 @@
 					<Add option="-pg" />
 					<Add option="-g" />
 					<Add option="-D_DEBUG" />
-					<Add option="-DOIS_JOYEVENTS" />
 					<Add directory="../includes" />
 				</Compiler>
 				<Linker>
 					<Add option="-pg" />
-					<Add library="libXaw" />
-					<Add library="libX11" />
-					<Add directory="/usr/lib" />
-					<Add directory="/usr/lib/X11R6" />
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="../lib/libOIS.a" prefix_auto="0" extension_auto="0" />
+				<Option output="../../lib/libOIS.a" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="" />
-				<Option object_output="../lib/obj/release" />
+				<Option object_output="../../obj/OISReleaseLinux" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Option projectResourceIncludeDirsRelation="2" />
 				<Compiler>
 					<Add option="-O3" />
-					<Add option="-DOIS_JOYEVENTS" />
 					<Add directory="../includes" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="libXaw" />
-					<Add library="libX11" />
-					<Add directory="/usr/lib" />
-					<Add directory="/usr/lib/X11R6" />
 				</Linker>
 			</Target>
 		</Build>
@@ -56,6 +46,7 @@
 		</VirtualTargets>
 		<Compiler>
 			<Add option="-w" />
+			<Add option="-DOIS_JOYEVENTS" />
 		</Compiler>
 		<Unit filename="../includes/OIS.h" />
 		<Unit filename="../includes/OISConfig.h" />
