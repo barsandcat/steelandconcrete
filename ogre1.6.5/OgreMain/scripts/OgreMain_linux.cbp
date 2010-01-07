@@ -2,71 +2,50 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="OgreMain" />
+		<Option title="OgreMain1.6.5" />
 		<Option platforms="Unix;" />
 		<Option pch_mode="0" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
 				<Option platforms="Unix;" />
-				<Option output="../../lib/libOgreMain_d" prefix_auto="1" extension_auto="1" />
-				<Option object_output="../obj/Debug/" />
-				<Option type="3" />
+				<Option output="../../../lib/libOgreMain_d" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../obj/OgreMainDebugLinux" />
+				<Option type="2" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-pg" />
 					<Add option="-g" />
 					<Add option="-DDEBUG" />
 				</Compiler>
-				<ExtraCommands>
-					<Add after="cp $($(TARGET_NAME)_OUTPUT_FILE) ../../Samples/Common/bin/$(TARGET_NAME)" />
-					<Add after="cp $($(TARGET_NAME)_OUTPUT_FILE) ../../Tools/Common/bin/$(TARGET_NAME)" />
-				</ExtraCommands>
+				<Linker>
+					<Add option="-pg" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option platforms="Unix;" />
-				<Option output="../../lib/libOgreMain" prefix_auto="1" extension_auto="1" />
-				<Option object_output="../obj/Release/" />
-				<Option type="3" />
+				<Option output="../../../lib/libOgreMain" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../obj/OgreMainReleaseLinux" />
+				<Option type="2" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-O3" />
 					<Add option="-DNDEBUG" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 				</Linker>
-				<ExtraCommands>
-					<Add after="cp $($(TARGET_NAME)_OUTPUT_FILE) ../../Samples/Common/bin/$(TARGET_NAME)" />
-					<Add after="cp $($(TARGET_NAME)_OUTPUT_FILE) ../../Tools/Common/bin/$(TARGET_NAME)" />
-				</ExtraCommands>
 			</Target>
 		</Build>
 		<VirtualTargets>
 			<Add alias="All" targets="Debug;Release;" />
 		</VirtualTargets>
 		<Compiler>
-			<Add option="-Wall" />
-			<Add option="-fmessage-length=0" />
-			<Add option="-fexceptions" />
-			<Add option="-fident" />
-			<Add option="-pipe" />
-			<Add option="-Winvalid-pch" />
-			<Add option="-fvisibility=hidden" />
-			<Add option="-fvisibility-inlines-hidden" />
-			<Add option="-fPIC" />
-			<Add option="-DOGRE_NONCLIENT_BUILD" />
-			<Add option="-DOGRE_GCC_VISIBILITY" />
-			<Add option="-DHAVE_CONFIG_H" />
-			<Add option="-DPIC" />
+			<Add option="-DOGRE_STATIC_LIB" />
 			<Add directory="../include" />
-			<Add directory="/usr/include/gtk-2.0" />
-			<Add directory="/usr/lib/gtk-2.0/include" />
-			<Add directory="/usr/include/atk-1.0" />
-			<Add directory="/usr/include/cairo" />
-			<Add directory="/usr/include/pango-1.0" />
-			<Add directory="/usr/include/glib-2.0" />
-			<Add directory="/usr/lib/glib-2.0/include" />
-			<Add directory="/usr/include/freetype2" />
+			<Add directory="../src/nedmalloc" />
 		</Compiler>
 		<Linker>
 			<Add library="freetype" />
@@ -495,6 +474,9 @@
 			<code_completion />
 			<envvars />
 			<debugger />
+			<lib_finder>
+				<lib name="freetype2" />
+			</lib_finder>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
