@@ -22,7 +22,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="bin"
-			IntermediateDirectory="obj\windows\$(ConfigurationName)$(PlatformName)"
+			IntermediateDirectory="obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)\VCProjectDefaults\UpgradeFromVC70.vsprops"
 			CharacterSet="2"
@@ -36,7 +36,7 @@
 			/>
 			<Tool
 				Name="proto"
-				protocompiler="$(SolutionDir)protobuf-2.0.3\vsprojects\protoc.exe"
+				protocompiler="$(SolutionDir)bin\protoc.exe"
 				protodir="src\proto"
 				outdir="src\proto"
 			/>
@@ -53,7 +53,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="QuickGUI_9_05\QuickGUI\include;SAL;&quot;protobuf-2.0.3\src&quot;;ois\includes;src;betagui2;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre\OgreMain\include;ogre\RenderSystems\GL\src\GLSL\include;ogre\RenderSystems\GL\include;ogre\PlugIns\OctreeSceneManager\include;ogreal\ogreal\include;src\proto"
+				AdditionalIncludeDirectories="QuickGUI_9_05\QuickGUI\include;SAL;&quot;protobuf-2.0.3\src&quot;;ois\includes;src;betagui2;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre1.6.5\OgreMain\include;ogre1.6.5\RenderSystems\GL\src\GLSL\include;ogre1.6.5\RenderSystems\GL\include;ogre1.6.5\PlugIns\OctreeSceneManager\include;ogreal\ogreal\include;src\proto"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MVC;OGRE_STATIC_LIB;OGREAL_EXPORT"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -78,11 +78,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="FreeImage\Source\FreeImageLib\Debug\FreeImaged.lib FreeImage\Source\LibJPEG\Debug\LibJPEG.lib FreeImage\Source\LibMNG\Debug\LibMNG.lib FreeImage\Source\LibOpenJPEG\Debug\LibOpenJPEG.lib FreeImage\Source\LibPNG\Debug\LibPNG.lib FreeImage\Source\LibTIFF\Debug\LibTIFF.lib FreeImage\Source\OpenEXR\Debug\OpenEXR.lib FreeImage\Source\ZLib\Debug\ZLib.lib freetype-2.3.8\objs\freetype238_D.lib ogre\lib\OgreMainStatic_d.lib ogre\lib\Plugin_OctreeSceneManagerStatic_d.lib ogre\lib\Plugin_ParticleFXStatic_d.lib ogre\lib\RenderSystem_GLStatic_d.lib ogreal\ogg\win32\Static_Debug\ogg_static_d.lib ogreal\vorbis\win32\Vorbis_Static_Debug\vorbis_static_d.lib ogreal\vorbis\win32\VorbisFile_Static_Debug\vorbisfile_static_d.lib ogreal\ogreal\OgreAL\Debug\OgreAL.lib OpenAL32.lib ois\lib\OIS_static_d.lib zziplib-0.13.50\msvc8\zziplib-Debug.lib protobuf-2.0.3\vsprojects\Debug\libprotobuf.lib SAL\SAL_d.lib wsock32.lib QuickGUI_9_05\bin\QuickGUI_d.lib"
+				AdditionalDependencies="FreeImage_d.lib LibJPEG_d.lib LibMNG_d.lib LibOpenJPEG_d.lib LibPNG_d.lib LibTIFF_d.lib OpenEXR_d.lib ZLib_d.lib freetype238MT_D.lib OgreMain_d.lib Plugin_OctreeSceneManagerStatic_d.lib Plugin_ParticleFXStatic_d.lib RenderSystem_GLStatic_d.lib ogg_static_d.lib vorbis_static_d.lib vorbisfile_static_d.lib OgreAL_d.lib OpenAL32.lib OIS_static_d.lib zziplib_d.lib libprotobuf_d.lib SAL_d.lib wsock32.lib QuickGUI_d.lib"
 				ShowProgress="2"
 				OutputFile="$(OutDir)/steelandconcrete_d.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\libs\Win32&quot;"
+				AdditionalLibraryDirectories="lib"
 				IgnoreAllDefaultLibraries="false"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/steelandconcrete.pdb"
@@ -113,13 +113,13 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine=""
+				CommandLine="$(OutDir)\UnitTests_d.exe"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="bin"
-			IntermediateDirectory="obj\windows\$(ConfigurationName)$(PlatformName)"
+			IntermediateDirectory="obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)\VCProjectDefaults\UpgradeFromVC70.vsprops"
 			CharacterSet="2"
@@ -134,7 +134,7 @@
 			/>
 			<Tool
 				Name="proto"
-				protocompiler="$(SolutionDir)protobuf-2.0.3\vsprojects\protoc.exe"
+				protocompiler="$(SolutionDir)bin\protoc.exe"
 				protodir="src\proto"
 				outdir="src\proto"
 			/>
@@ -155,7 +155,7 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="QuickGUI_9_05\QuickGUI\include;SAL;&quot;protobuf-2.0.3\src&quot;;ois\includes;src;betagui2;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre\OgreMain\include;ogre\RenderSystems\GL\src\GLSL\include;ogre\RenderSystems\GL\include;ogre\PlugIns\OctreeSceneManager\include;ogreal\ogreal\include;src\proto"
+				AdditionalIncludeDirectories="QuickGUI_9_05\QuickGUI\include;SAL;&quot;protobuf-2.0.3\src&quot;;ois\includes;src;betagui2;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre1.6.5\OgreMain\include;ogre1.6.5\RenderSystems\GL\src\GLSL\include;ogre1.6.5\RenderSystems\GL\include;ogre1.6.5\PlugIns\OctreeSceneManager\include;ogreal\ogreal\include;src\proto"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;MVC;OGRE_STATIC_LIB;OGREAL_EXPORT"
 				StringPooling="true"
 				MinimalRebuild="true"
@@ -181,10 +181,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="FreeImage\Source\FreeImageLib\Release\FreeImage.lib FreeImage\Source\LibJPEG\Release\LibJPEG.lib FreeImage\Source\LibMNG\Release\LibMNG.lib FreeImage\Source\LibOpenJPEG\Release\LibOpenJPEG.lib FreeImage\Source\LibPNG\Release\LibPNG.lib FreeImage\Source\LibTIFF\Release\LibTIFF.lib FreeImage\Source\OpenEXR\Release\OpenEXR.lib FreeImage\Source\ZLib\Release\ZLib.lib freetype-2.3.8\objs\freetype238.lib ogre\lib\OgreMainStatic.lib ogre\lib\Plugin_OctreeSceneManagerStatic.lib ogre\lib\Plugin_ParticleFXStatic.lib ogre\lib\RenderSystem_GLStatic.lib ogreal\ogg\win32\Static_Release\ogg_static.lib ogreal\vorbis\win32\Vorbis_Static_Release\vorbis_static.lib ogreal\vorbis\win32\VorbisFile_Static_Release\vorbisfile_static.lib ogreal\ogreal\OgreAL\Release\OgreAL.lib OpenAL32.lib ois\lib\OIS_static.lib zziplib-0.13.50\msvc8\zziplib-Release.lib protobuf-2.0.3\vsprojects\Release\libprotobuf.lib SAL\SAL.lib wsock32.lib QuickGUI_9_05\bin\QuickGUI.lib"
+				AdditionalDependencies="FreeImage.lib LibJPEG.lib LibMNG.lib LibOpenJPEG.lib LibPNG.lib LibTIFF.lib OpenEXR.lib ZLib.lib freetype238MT.lib OgreMain.lib Plugin_OctreeSceneManagerStatic.lib Plugin_ParticleFXStatic.lib RenderSystem_GLStatic.lib ogg_static.lib vorbis_static.lib vorbisfile_static.lib OgreAL.lib OpenAL32.lib OIS_static.lib zziplib.lib libprotobuf.lib SAL.lib wsock32.lib QuickGUI.lib"
 				OutputFile="$(OutDir)/steelandconcrete.exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;C:\Program Files\OpenAL 1.1 SDK\libs\Win32&quot;;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32&quot;"
+				AdditionalLibraryDirectories="lib"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -215,7 +215,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine=""
+				CommandLine="$(OutDir)\UnitTests.exe"
 			/>
 		</Configuration>
 	</Configurations>

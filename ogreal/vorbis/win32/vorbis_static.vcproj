@@ -4,6 +4,7 @@
 	Version="9,00"
 	Name="vorbis_static"
 	ProjectGUID="{F88DC819-3F9B-48FE-8110-4168ED30D98D}"
+	RootNamespace="vorbis_static"
 	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
@@ -16,8 +17,8 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\Vorbis_Static_Release"
-			IntermediateDirectory=".\Vorbis_Static_Release"
+			OutputDirectory="..\..\..\lib"
+			IntermediateDirectory="..\..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
@@ -50,11 +51,11 @@
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				PrecompiledHeaderFile=".\Vorbis_Static_Release/vorbis_static.pch"
-				AssemblerListingLocation=".\Vorbis_Static_Release/"
-				ObjectFile=".\Vorbis_Static_Release/"
-				ProgramDataBaseFileName=".\Vorbis_Static_Release/"
+				AssemblerListingLocation="$(IntDir)\"
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="$(IntDir)\"
 				BrowseInformation="1"
-				WarningLevel="3"
+				WarningLevel="0"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -70,7 +71,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Vorbis_Static_Release\vorbis_static.lib"
+				OutputFile="$(OutDir)\vorbis_static.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -93,8 +94,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\Vorbis_Static_Debug"
-			IntermediateDirectory=".\Vorbis_Static_Debug"
+			OutputDirectory="..\..\..\lib"
+			IntermediateDirectory="..\..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
@@ -125,10 +126,10 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				PrecompiledHeaderFile=".\Vorbis_Static_Debug/vorbis_static.pch"
-				AssemblerListingLocation=".\Vorbis_Static_Debug/"
-				ObjectFile=".\Vorbis_Static_Debug/"
-				ProgramDataBaseFileName=".\Vorbis_Static_Debug/"
-				WarningLevel="3"
+				AssemblerListingLocation="$(IntDir)\"
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="$(IntDir)\"
+				WarningLevel="0"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="4"
 			/>
@@ -145,7 +146,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="Vorbis_Static_Debug\vorbis_static_d.lib"
+				OutputFile="$(OutDir)\vorbis_static_d.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool

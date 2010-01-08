@@ -74,7 +74,7 @@ InGameSheet::InGameSheet()
 
 void InGameSheet::SetTime(GameTime aTime)
 {
-    mTime->setText(Ogre::StringConverter::toString(aTime), "unifont.16", Ogre::ColourValue::White);
+    mTime->setText(Ogre::StringConverter::toString((size_t)aTime), "unifont.16", Ogre::ColourValue::White);
 }
 
 void InGameSheet::UpdateStats(const Ogre::RenderTarget::FrameStats& aStats)

@@ -18,16 +18,16 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
-			IntermediateDirectory="Debug"
+			OutputDirectory="..\..\lib"
+			IntermediateDirectory="..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="del $(ConfigurationName)\vc80.idb"
-				CommandLine="del $(ConfigurationName)\vc80.idb"
+				Description=""
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -66,7 +66,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="zziplib-$(ConfigurationName).lib"
+				OutputFile="$(OutDir)\zziplib_d.lib"
 				AdditionalLibraryDirectories=""
 			/>
 			<Tool
@@ -83,22 +83,22 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="del $(ConfigurationName)\vc80.idb"
-				CommandLine="del $(ConfigurationName)\vc80.idb"
+				Description=""
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
-			IntermediateDirectory="Release"
+			OutputDirectory="..\..\lib"
+			IntermediateDirectory="..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="del $(ConfigurationName)\vc80.idb"
-				CommandLine="del $(ConfigurationName)\vc80.idb"
+				Description=""
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -138,7 +138,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="zziplib-$(ConfigurationName).lib"
+				OutputFile="$(OutDir)\zziplib.lib"
 				AdditionalLibraryDirectories=""
 			/>
 			<Tool
@@ -155,8 +155,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="del $(ConfigurationName)\vc80.idb"
-				CommandLine="del $(ConfigurationName)\vc80.idb"
+				Description=""
+				CommandLine=""
 			/>
 		</Configuration>
 	</Configurations>

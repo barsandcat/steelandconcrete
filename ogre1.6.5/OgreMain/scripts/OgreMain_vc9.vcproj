@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="OgreMain"
 	ProjectGUID="{35AFBABB-DF05-43DE-91A7-BB828A874015}"
 	RootNamespace="OgreMain"
@@ -18,205 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\lib"
-			IntermediateDirectory="..\obj\$(ConfigurationName)"
-			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)\VCProjectDefaults\UpgradeFromVC70.vsprops"
-			CharacterSet="2"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\include;..\..\Dependencies\include;..\src\nedmalloc"
-				PreprocessorDefinitions="WIN32;_DEBUG;_USRDLL;_MT;OGRE_NONCLIENT_BUILD;FREEIMAGE_LIB"
-				MinimalRebuild="true"
-				ExceptionHandling="2"
-				BasicRuntimeChecks="3"
-				SmallerTypeCheck="true"
-				RuntimeLibrary="3"
-				BufferSecurityCheck="true"
-				EnableFunctionLevelLinking="true"
-				FloatingPointModel="2"
-				DisableLanguageExtensions="false"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="OgreStableHeaders.h"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="4"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="kernel32.lib user32.lib zziplibd.lib zlibd.lib freetype235_D.lib freeimaged.lib"
-				OutputFile="$(OutDir)/OgreMain_d.dll"
-				Version="0.99"
-				LinkIncremental="2"
-				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\..\Dependencies\lib\$(ConfigurationName)"
-				IgnoreAllDefaultLibraries="false"
-				IgnoreDefaultLibraryNames="LIBCD;LIBCMTD"
-				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/OgreMain_d.pdb"
-				SubSystem="1"
-				OptimizeForWindows98="1"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
-				ImportLibrary="$(OutDir)/OgreMain_d.lib"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-				UseFAT32Workaround="true"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) ..\..\Samples\Common\bin\$(ConfigurationName)&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) ..\..\Tools\Common\bin\$(ConfigurationName)&#x0D;&#x0A;"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Release|Win32"
-			OutputDirectory="..\..\lib"
-			IntermediateDirectory="..\obj\$(ConfigurationName)"
-			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)\VCProjectDefaults\UpgradeFromVC70.vsprops"
-			CharacterSet="2"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="2"
-				InlineFunctionExpansion="2"
-				EnableIntrinsicFunctions="true"
-				FavorSizeOrSpeed="1"
-				OmitFramePointers="true"
-				EnableFiberSafeOptimizations="true"
-				AdditionalIncludeDirectories="..\include;..\..\Dependencies\include;..\src\nedmalloc"
-				PreprocessorDefinitions="WIN32;NDEBUG;_USRDLL;_MT;OGRE_NONCLIENT_BUILD;FREEIMAGE_LIB"
-				StringPooling="true"
-				MinimalRebuild="true"
-				ExceptionHandling="2"
-				RuntimeLibrary="2"
-				BufferSecurityCheck="false"
-				EnableFunctionLevelLinking="true"
-				FloatingPointModel="2"
-				DisableLanguageExtensions="false"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="OgreStableHeaders.h"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="kernel32.lib user32.lib zziplib.lib zlib.lib freetype235.lib freeimage.lib"
-				OutputFile="$(OutDir)/OgreMain.dll"
-				Version="0.99"
-				LinkIncremental="1"
-				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\..\Dependencies\lib\$(ConfigurationName)"
-				IgnoreAllDefaultLibraries="false"
-				IgnoreDefaultLibraryNames=""
-				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/OgreMain.pdb"
-				SubSystem="1"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				OptimizeForWindows98="1"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
-				ImportLibrary="$(OutDir)/OgreMain.lib"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-				UseFAT32Workaround="true"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) ..\..\Samples\Common\bin\$(ConfigurationName)&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) ..\..\Tools\Common\bin\$(ConfigurationName)&#x0D;&#x0A;"
-			/>
-		</Configuration>
-		<Configuration
-			Name="DebugStaticLib|Win32"
-			OutputDirectory="..\..\lib"
-			IntermediateDirectory="..\obj\$(ConfigurationName)"
+			OutputDirectory="..\..\..\lib"
+			IntermediateDirectory="..\..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)\VCProjectDefaults\UpgradeFromVC70.vsprops"
 			CharacterSet="2"
@@ -240,13 +43,13 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\include;..\..\Dependencies\include;..\src\nedmalloc"
+				AdditionalIncludeDirectories="..\include;..\src\nedmalloc;..\..\..\FreeImage\Source;&quot;..\..\..\freetype-2.3.8\include&quot;;&quot;..\..\..\zziplib-0.13.50&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_USRDLL;_MT;OGRE_NONCLIENT_BUILD;FREEIMAGE_LIB;OGRE_STATIC_LIB"
 				MinimalRebuild="true"
 				ExceptionHandling="2"
 				BasicRuntimeChecks="3"
 				SmallerTypeCheck="true"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				BufferSecurityCheck="true"
 				EnableFunctionLevelLinking="true"
 				FloatingPointModel="2"
@@ -268,9 +71,9 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="zziplibd.lib freetype235_D.lib freeimaged.lib zlibd.lib "
-				OutputFile="$(OutDir)\$(ProjectName)Static_d.lib"
-				AdditionalLibraryDirectories="..\..\lib;..\..\Dependencies\lib\Debug"
+				AdditionalDependencies="zziplib_d.lib freetype238MT_D.lib freeimage_d.lib zlib_d.lib "
+				OutputFile="$(OutDir)\$(ProjectName)_d.lib"
+				AdditionalLibraryDirectories="..\..\..\lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -286,13 +89,13 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy ..\obj\DebugStaticLib\OgreWin32Resources.res ..\..\lib\OgreWin32Resources_d.res"
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
-			Name="ReleaseStaticLib|Win32"
-			OutputDirectory="..\..\lib"
-			IntermediateDirectory="..\obj\$(ConfigurationName)"
+			Name="Release|Win32"
+			OutputDirectory="..\..\..\lib"
+			IntermediateDirectory="..\..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)\VCProjectDefaults\UpgradeFromVC70.vsprops"
 			CharacterSet="2"
@@ -320,12 +123,12 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
-				AdditionalIncludeDirectories="..\include;..\..\Dependencies\include;..\src\nedmalloc"
+				AdditionalIncludeDirectories="..\include;..\src\nedmalloc;..\..\..\FreeImage\Source;&quot;..\..\..\freetype-2.3.8\include&quot;;&quot;..\..\..\zziplib-0.13.50&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_USRDLL;_MT;OGRE_NONCLIENT_BUILD;FREEIMAGE_LIB;OGRE_STATIC_LIB"
 				StringPooling="true"
 				MinimalRebuild="false"
 				ExceptionHandling="2"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				BufferSecurityCheck="false"
 				EnableFunctionLevelLinking="true"
 				FloatingPointModel="2"
@@ -347,9 +150,9 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="zziplib.lib freetype235.lib freeimage.lib zlib.lib"
-				OutputFile="$(OutDir)\$(ProjectName)Static.lib"
-				AdditionalLibraryDirectories="..\..\lib;..\..\Dependencies\lib\Release"
+				AdditionalDependencies="zziplib.lib freetype238MT.lib FreeImage.lib zlib.lib"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+				AdditionalLibraryDirectories="..\..\..\lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -365,7 +168,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy ..\obj\ReleaseStaticLib\OgreWin32Resources.res ..\..\lib\OgreWin32Resources.res"
+				CommandLine=""
 			/>
 		</Configuration>
 	</Configurations>
@@ -822,24 +625,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="OgreStableHeaders.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugStaticLib|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="OgreStableHeaders.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseStaticLib|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"

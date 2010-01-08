@@ -25,7 +25,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="..\..\bin"
-			IntermediateDirectory="$(ConfigurationName)"
+			IntermediateDirectory="..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="1"
 			CharacterSet="1"
 			>
@@ -44,7 +44,7 @@
 			/>
 			<Tool
 				Name="proto"
-				protocompiler="$(SolutionDir)protobuf-2.0.3\vsprojects\protoc.exe"
+				protocompiler="$(SolutionDir)bin\protoc.exe"
 				protodir="..\proto"
 				outdir="..\proto"
 			/>
@@ -60,7 +60,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\ogreal\vorbis\include;..\..\ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;..\..\ogreal\ogreal\include;..\..\SAL;&quot;..\..\protobuf-2.0.3\src&quot;;..\proto;..\..\ogre\OgreMain\include;..\..\QuickGUI_9_05\QuickGUI\include;..\..\ois\includes;../../src;../../cxxtest"
+				AdditionalIncludeDirectories="..\..\ogreal\vorbis\include;..\..\ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;..\..\ogreal\ogreal\include;..\..\SAL;&quot;..\..\protobuf-2.0.3\src&quot;;..\proto;..\..\ogre1.6.5\OgreMain\include;..\..\QuickGUI_9_05\QuickGUI\include;..\..\ois\includes;../../src;../../cxxtest"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;OGRE_STATIC_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -82,8 +82,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="..\..\ogre\lib\OgreMainStatic_d.lib ..\..\protobuf-2.0.3\vsprojects\Debug\libprotobuf.lib ..\..\SAL\SAL_d.lib wsock32.lib"
+				AdditionalDependencies="OgreMain_d.lib libprotobuf_d.lib SAL_d.lib wsock32.lib"
+				OutputFile="$(OutDir)\$(ProjectName)_d.exe"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="..\..\lib"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -109,13 +111,13 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Runnig tests"
-				CommandLine="..\..\bin\$(ProjectName).exe"
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\..\bin\"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\..\bin"
+			IntermediateDirectory="..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -135,7 +137,7 @@
 			/>
 			<Tool
 				Name="proto"
-				protocompiler="$(SolutionDir)protobuf-2.0.3\vsprojects\protoc.exe"
+				protocompiler="$(SolutionDir)bin\protoc.exe"
 				protodir="..\proto"
 				outdir="..\proto"
 			/>
@@ -152,7 +154,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\ogreal\vorbis\include;..\..\ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;..\..\ogreal\ogreal\include;..\..\SAL;&quot;..\..\protobuf-2.0.3\src&quot;;..\proto;..\..\ogre\OgreMain\include;..\..\QuickGUI_9_05\QuickGUI\include;..\..\ois\includes;../../src;../../cxxtest"
+				AdditionalIncludeDirectories="..\..\ogreal\vorbis\include;..\..\ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;..\..\ogreal\ogreal\include;..\..\SAL;&quot;..\..\protobuf-2.0.3\src&quot;;..\proto;..\..\ogre1.6.5\OgreMain\include;..\..\QuickGUI_9_05\QuickGUI\include;..\..\ois\includes;../../src;../../cxxtest"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;OGRE_STATIC_LIB"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
@@ -173,8 +175,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="..\..\ogre\lib\OgreMainStatic.lib ..\..\protobuf-2.0.3\vsprojects\Release\libprotobuf.lib ..\..\SAL\SAL.lib wsock32.lib"
+				AdditionalDependencies="OgreMain.lib libprotobuf.lib SAL.lib wsock32.lib"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\..\lib"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -202,7 +205,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Runnig tests"
-				CommandLine="..\..\bin\$(ProjectName).exe"
+				CommandLine=""
 			/>
 		</Configuration>
 	</Configurations>
@@ -216,6 +219,10 @@
 			>
 			<File
 				RelativePath="..\ChangeList.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\DummyNetwork.cpp"
 				>
 			</File>
 			<File
@@ -278,6 +285,10 @@
 			>
 			<File
 				RelativePath="..\ChangeList.h"
+				>
+			</File>
+			<File
+				RelativePath="..\DummyNetwork.h"
 				>
 			</File>
 			<File
