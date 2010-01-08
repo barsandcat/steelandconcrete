@@ -78,11 +78,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="FreeImage_d.lib LibJPEG_d.lib LibMNG_d.lib LibOpenJPEG_d.lib LibPNG_d.lib LibTIFF_d.lib OpenEXR_d.lib ZLib_d.lib freetype238MT_D.lib OgreMain_d.lib Plugin_OctreeSceneManagerStatic_d.lib Plugin_ParticleFXStatic_d.lib RenderSystem_GLStatic_d.lib ogg_static_d.lib vorbis_static_d.lib vorbisfile_static_d.lib OgreAL_d.lib OpenAL32.lib OIS_static_d.lib zziplib_d.lib libprotobuf_d.lib SAL_d.lib wsock32.lib QuickGUI_d.lib"
+				AdditionalDependencies="FreeImage_d.lib LibJPEG_d.lib LibMNG_d.lib LibOpenJPEG_d.lib LibPNG_d.lib LibTIFF_d.lib OpenEXR_d.lib ZLib_d.lib freetype238MT_D.lib OgreMain_d.lib Plugin_OctreeSceneManagerStatic_d.lib RenderSystem_GLStatic_d.lib ogg_static_d.lib vorbis_static_d.lib vorbisfile_static_d.lib OgreAL_d.lib OpenAL32.lib OIS_static_d.lib zziplib_d.lib libprotobuf_d.lib SAL_d.lib wsock32.lib QuickGUI_d.lib"
 				ShowProgress="2"
 				OutputFile="$(OutDir)/steelandconcrete_d.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="lib"
+				AdditionalLibraryDirectories="&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32&quot;;lib"
 				IgnoreAllDefaultLibraries="false"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/steelandconcrete.pdb"
@@ -181,10 +181,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="FreeImage.lib LibJPEG.lib LibMNG.lib LibOpenJPEG.lib LibPNG.lib LibTIFF.lib OpenEXR.lib ZLib.lib freetype238MT.lib OgreMain.lib Plugin_OctreeSceneManagerStatic.lib Plugin_ParticleFXStatic.lib RenderSystem_GLStatic.lib ogg_static.lib vorbis_static.lib vorbisfile_static.lib OgreAL.lib OpenAL32.lib OIS_static.lib zziplib.lib libprotobuf.lib SAL.lib wsock32.lib QuickGUI.lib"
+				AdditionalDependencies="FreeImage.lib LibJPEG.lib LibMNG.lib LibOpenJPEG.lib LibPNG.lib LibTIFF.lib OpenEXR.lib ZLib.lib freetype238MT.lib OgreMain.lib Plugin_OctreeSceneManagerStatic.lib RenderSystem_GLStatic.lib ogg_static.lib vorbis_static.lib vorbisfile_static.lib OgreAL.lib OpenAL32.lib OIS_static.lib zziplib.lib libprotobuf.lib SAL.lib wsock32.lib QuickGUI.lib"
 				OutputFile="$(OutDir)/steelandconcrete.exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="lib"
+				AdditionalLibraryDirectories="&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32&quot;;lib"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
