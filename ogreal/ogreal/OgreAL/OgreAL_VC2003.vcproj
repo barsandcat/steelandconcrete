@@ -18,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\..\..\lib"
+			IntermediateDirectory="..\..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="1"
@@ -43,14 +43,14 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;..\..\..\ogre\OgreMain\include;&quot;$(OPENAL_SDK)/include&quot;;../include;../../ogg/include;../../vorbis/include"
+				AdditionalIncludeDirectories="&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;..\..\..\ogre1.6.5\OgreMain\include;&quot;$(OPENAL_SDK)/include&quot;;../include;../../ogg/include;../../vorbis/include"
 				PreprocessorDefinitions="OGREAL_EXPORT;OGRE_STATIC_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				WarningLevel="0"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -65,7 +65,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\OgreAL.lib"
+				OutputFile="$(OutDir)\OgreAL_d.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -87,8 +87,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\..\..\lib"
+			IntermediateDirectory="..\..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="1"
@@ -111,12 +111,12 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;..\..\..\ogre\OgreMain\include;&quot;$(OPENAL_SDK)/include&quot;;../include;../../ogg/include;../../vorbis/include"
+				AdditionalIncludeDirectories="&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;..\..\..\ogre1.6.5\OgreMain\include;&quot;$(OPENAL_SDK)/include&quot;;../include;../../ogg/include;../../vorbis/include"
 				PreprocessorDefinitions="OGREAL_EXPORT;OGRE_STATIC_LIB"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				WarningLevel="0"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 			/>
 			<Tool

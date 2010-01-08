@@ -4,6 +4,7 @@
 	Version="9,00"
 	Name="ogg_static"
 	ProjectGUID="{70A51CDE-83A3-44AB-8B77-642B39760F5C}"
+	RootNamespace="ogg_static"
 	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
@@ -16,8 +17,8 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\Static_Release"
-			IntermediateDirectory=".\Static_Release"
+			OutputDirectory="..\..\..\lib"
+			IntermediateDirectory="..\..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
@@ -49,10 +50,10 @@
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				PrecompiledHeaderFile=".\Static_Release/ogg_static.pch"
-				AssemblerListingLocation=".\Static_Release/"
-				ObjectFile=".\Static_Release/"
-				ProgramDataBaseFileName=".\Static_Release/"
-				WarningLevel="3"
+				AssemblerListingLocation="$(IntDir)\"
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="$(IntDir)\"
+				WarningLevel="0"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -68,7 +69,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Static_Release\ogg_static.lib"
+				OutputFile="$(OutDir)\ogg_static.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -91,8 +92,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\Static_Debug"
-			IntermediateDirectory=".\Static_Debug"
+			OutputDirectory="..\..\..\lib"
+			IntermediateDirectory="..\..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
@@ -123,10 +124,10 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				PrecompiledHeaderFile=".\Static_Debug/ogg_static.pch"
-				AssemblerListingLocation=".\Static_Debug/"
-				ObjectFile=".\Static_Debug/"
-				ProgramDataBaseFileName=".\Static_Debug/"
-				WarningLevel="3"
+				AssemblerListingLocation="$(IntDir)\"
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="$(IntDir)\"
+				WarningLevel="0"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="4"
 			/>
@@ -143,7 +144,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="Static_Debug\ogg_static_d.lib"
+				OutputFile="$(OutDir)\ogg_static_d.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
