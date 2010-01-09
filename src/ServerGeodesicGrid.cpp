@@ -226,25 +226,6 @@ void ServerGeodesicGrid::Save(const Ogre::String aFileName) const
     grid.SerializeToOstream(&output);
 }
 
-int GetTileMsgSize()
-{
-    TileMsg tile;
-    tile.set_tag(google::protobuf::kint32max);
-    tile.mutable_position()->set_x(0.1234567f);
-    tile.mutable_position()->set_y(0.1234567f);
-    tile.mutable_position()->set_z(0.1234567f);
-    tile.set_height(SEA_LEVEL_MAX);
-    return tile.ByteSize();
-}
-
-int GetEdgeMsgSize()
-{
-    EdgeMsg edge;
-    edge.set_tilea(google::protobuf::kint32max);
-    edge.set_tileb(google::protobuf::kint32max);
-    return edge.ByteSize();
-}
-
 void ServerGeodesicGrid::Send(Network& aNetwork) const
 {
     GeodesicGridSizeMsg gridInfo;
@@ -254,8 +235,7 @@ void ServerGeodesicGrid::Send(Network& aNetwork) const
     gridInfo.set_sealevel(mSeaLevel);
     aNetwork.WriteMessage(gridInfo);
     GetLog() << "Grid info send " << gridInfo.ShortDebugString();
-    int tilesPerMessage = MESSAGE_SIZE / (GetTileMsgSize() * 1.2);
-    GetLog() << "Tiles per message " << tilesPerMessage;
+    const size_t tilesPerMessage = 100;
     for (size_t i = 0; i < mTiles.size();)
     {
         TileListMsg tiles;
@@ -275,8 +255,7 @@ void ServerGeodesicGrid::Send(Network& aNetwork) const
 
     GetLog() << "Send all tiles";
 
-    int edgesPerMessage = MESSAGE_SIZE / GetEdgeMsgSize() - 1;
-    GetLog() << "Edges per message " << edgesPerMessage;
+    const size_t edgesPerMessage = 100;
     for (size_t i = 0; i < mEdges.size();)
     {
         int size = 0;

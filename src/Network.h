@@ -20,8 +20,6 @@ private:
     int mBufferSize;
 };
 
-const int MESSAGE_SIZE = 1200;
-
 std::string GetErrorText(socket_t& aSocket);
 
 #endif // NETWORK_H_INCLUDED
