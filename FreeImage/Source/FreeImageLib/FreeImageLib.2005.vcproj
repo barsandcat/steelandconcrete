@@ -93,7 +93,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy Debug\FreeImaged.lib ..\..\Dist&#x0D;&#x0A;copy ..\FreeImage.h ..\..\Dist&#x0D;&#x0A;"
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
@@ -174,7 +174,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy Release\FreeImage.lib ..\..\Dist&#x0D;&#x0A;copy ..\FreeImage.h ..\..\Dist&#x0D;&#x0A;"
+				CommandLine=""
 			/>
 		</Configuration>
 	</Configurations>

@@ -2,6 +2,9 @@
 <CodeBlocks_workspace_file>
 	<Workspace title="Workspace">
 		<Project filename="ois/LinuxCB/OIS.cbp" />
+		<Project filename="ogre1.6.5/OgreMain/scripts/OgreMain_linux.cbp" />
+		<Project filename="ogre1.6.5/PlugIns/OctreeSceneManager/scripts/Plugin_OctreeSceneManager_linux.cbp" />
+		<Project filename="ogre1.6.5/RenderSystems/GL/scripts/RenderSystem_GL_linux.cbp" />
 		<Project filename="ogreal/ogreal/OgreAL/OgreAL.cbp" />
 		<Project filename="protobuf-2.0.3/vsprojects/libprotobuf.cbp" />
 		<Project filename="protobuf-2.0.3/vsprojects/libprotoc.cbp" />
@@ -9,9 +12,6 @@
 			<Depends filename="protobuf-2.0.3/vsprojects/libprotobuf.cbp" />
 			<Depends filename="protobuf-2.0.3/vsprojects/libprotoc.cbp" />
 		</Project>
-		<Project filename="ogre1.6.5/OgreMain/scripts/OgreMain_linux.cbp" />
-		<Project filename="ogre1.6.5/PlugIns/OctreeSceneManager/scripts/Plugin_OctreeSceneManager_linux.cbp" />
-		<Project filename="ogre1.6.5/RenderSystems/GL/scripts/RenderSystem_GL_linux.cbp" />
 		<Project filename="SAL/SAL.cbp" />
 		<Project filename="QuickGUI_9_05/QuickGUI/QuickGUI.cbp" />
 		<Project filename="src/UnitTests/UnitTests.cbp" />
@@ -22,7 +22,21 @@
 			<Depends filename="SAL/SAL.cbp" />
 			<Depends filename="src/UnitTests/UnitTests.cbp" />
 		</Project>
-		<Project filename="LinuxS&amp;C.cbp" active="1" />
+		<Project filename="LinuxS&amp;C.cbp" active="1">
+			<Depends filename="ois/LinuxCB/OIS.cbp" />
+			<Depends filename="ogre1.6.5/OgreMain/scripts/OgreMain_linux.cbp" />
+			<Depends filename="ogre1.6.5/PlugIns/OctreeSceneManager/scripts/Plugin_OctreeSceneManager_linux.cbp" />
+			<Depends filename="ogre1.6.5/RenderSystems/GL/scripts/RenderSystem_GL_linux.cbp" />
+			<Depends filename="ogreal/ogreal/OgreAL/OgreAL.cbp" />
+			<Depends filename="protobuf-2.0.3/vsprojects/libprotobuf.cbp" />
+			<Depends filename="protobuf-2.0.3/vsprojects/libprotoc.cbp" />
+			<Depends filename="protobuf-2.0.3/vsprojects/protoc.cbp" />
+			<Depends filename="SAL/SAL.cbp" />
+			<Depends filename="QuickGUI_9_05/QuickGUI/QuickGUI.cbp" />
+			<Depends filename="src/UnitTests/UnitTests.cbp" />
+			<Depends filename="Server.cbp" />
+			<Depends filename="ogre1.6.5/Tools/XMLConverter/scripts/XMLConverter.cbp" />
+		</Project>
 		<Project filename="ogre1.6.5/Tools/XMLConverter/scripts/XMLConverter.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

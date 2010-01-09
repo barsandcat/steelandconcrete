@@ -63,7 +63,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)\$(ProjectName)_d.exe"
-				LinkIncremental="2"
+				LinkIncremental="0"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				RandomizedBaseAddress="1"
@@ -135,7 +135,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				LinkIncremental="2"
+				LinkIncremental="0"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
