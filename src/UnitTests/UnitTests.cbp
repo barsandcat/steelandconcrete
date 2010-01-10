@@ -80,6 +80,8 @@
 		<Unit filename="../ServerTile.h" />
 		<Unit filename="../ServerUnit.cpp" />
 		<Unit filename="../ServerUnit.h" />
+		<Unit filename="../UnitClass.cpp" />
+		<Unit filename="../UnitClass.h" />
 		<Unit filename="NetworkTest.cpp" />
 		<Unit filename="NetworkTest.h" />
 		<Unit filename="ServerUnitTest.cpp" />

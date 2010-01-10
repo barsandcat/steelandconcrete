@@ -83,6 +83,8 @@
 		<Unit filename="src/ServerUnit.cpp" />
 		<Unit filename="src/ServerUnit.h" />
 		<Unit filename="src/Typedefs.h" />
+		<Unit filename="src/UnitClass.cpp" />
+		<Unit filename="src/UnitClass.h" />
 		<Unit filename="src/pch.cpp" />
 		<Unit filename="src/pch.h">
 			<Option compile="1" />

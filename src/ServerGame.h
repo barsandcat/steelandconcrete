@@ -17,7 +17,7 @@ public:
     ~ServerGame();
     void MainLoop(Ogre::String aAddress, Ogre::String aPort);
     ServerGeodesicGrid& GetGrid();
-    ServerUnit& CreateUnit(ServerTile& aTile, uint32 aVisualCode, uint32 aMaxAge);
+    ServerUnit& CreateUnit(ServerTile& aTile, const UnitClass& aClass);
     void Send(Network& aNetwork);
     GameTime GetTime() const { return mTime; }
     void SignalClientEvent() { mClientEvent->signal(); }
@@ -30,6 +30,9 @@ private:
     GameTime mTime;
     GameTime mTimeStep;
     ServerUnits mUnits;
+    UnitClass mGrass;
+    UnitClass mZebra;
+    UnitClass mAvatar;
     event* mClientEvent;
     mutex* mGameMutex;
 };
