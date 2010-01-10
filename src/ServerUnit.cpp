@@ -5,8 +5,8 @@
 #include <ChangeList.h>
 
 ServerUnit::ServerUnit(ServerTile& aTile, const UnitClass& aClass, UnitId aUnitId):
-  mPosition(&aTile), mUnitId(aUnitId), mTarget(NULL),
-  mClass(aClass),  mAge(0)
+    mPosition(&aTile), mUnitId(aUnitId), mTarget(NULL),
+    mClass(aClass),  mAge(0)
 {
     mPosition->SetUnit(this);
 }
@@ -27,18 +27,21 @@ void ServerUnit::Move(ServerTile& aNewPosition)
 
 void ServerUnit::ExecuteCommand()
 {
-    if (mTarget && !mTarget->GetUnit())
+    if(mClass.GetMaxSpeed() > 0)
     {
-        Move(*mTarget);
-        mTarget = NULL;
-        ChangeList::AddCommandDone(mUnitId);
-    }
-    else
-    {
-        ServerTile& randomTile = mPosition->GetNeighbour(rand() % mPosition->GetNeighbourCount());
-        if (!randomTile.GetUnit())
+        if(mTarget && !mTarget->GetUnit())
         {
-            Move(randomTile);
+            Move(*mTarget);
+            mTarget = NULL;
+            ChangeList::AddCommandDone(mUnitId);
+        }
+        else
+        {
+            ServerTile& randomTile = mPosition->GetNeighbour(rand() % mPosition->GetNeighbourCount());
+            if(!randomTile.GetUnit())
+            {
+                Move(randomTile);
+            }
         }
     }
 }
@@ -55,3 +58,4 @@ bool ServerUnit::UpdateAgeAndIsTimeToDie(GameTime aPeriod)
     mAge += aPeriod;
     return mAge > mClass.GetMaxAge() + rand() % mClass.GetMaxAge();
 }
+

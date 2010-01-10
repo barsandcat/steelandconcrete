@@ -10,9 +10,9 @@
 
 ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0),
     mTime(30), mTimeStep(30),
-    mGrass(VC::LIVE | VC::PLANT, 100),
-    mZebra(VC::LIVE | VC::ANIMAL | VC::HERBIVORES, 500),
-    mAvatar(VC::LIVE | VC::ANIMAL | VC::HUMAN, 999999)
+    mGrass(VC::LIVE | VC::PLANT, 100, 0),
+    mZebra(VC::LIVE | VC::ANIMAL | VC::HERBIVORES, 500, 1),
+    mAvatar(VC::LIVE | VC::ANIMAL | VC::HUMAN, 999999, 1)
 {
     task::initialize(task::normal_stack);
     mClientEvent = new event();

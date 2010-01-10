@@ -22,8 +22,6 @@ BirdCamera::BirdCamera(Ogre::SceneManager* const aSceneManager, Ogre::RenderWind
 
     // Alter the camera aspect ratio to match the viewport
     mCamera->setAspectRatio(Ogre::Real(mViewPort->getActualWidth()) / Ogre::Real(mViewPort->getActualHeight()));
-
-    //mCameraNode->attachObject(mApp.SoundManager().getListener());
 }
 
 void BirdCamera::UpdatePosition(unsigned long aTime)

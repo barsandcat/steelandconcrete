@@ -1,7 +1,7 @@
 #include "UnitClass.h"
 
-UnitClass::UnitClass(uint32 aVisualCode, uint32 aMaxAge):
-mVisualCode(aVisualCode), mMaxAge(aMaxAge)
+UnitClass::UnitClass(uint32 aVisualCode, uint32 aMaxAge, uint32 aMaxSpeed):
+mVisualCode(aVisualCode), mMaxAge(aMaxAge), mMaxSpeed(aMaxSpeed)
 {
     //ctor
 }
