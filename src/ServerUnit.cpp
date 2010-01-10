@@ -33,6 +33,14 @@ void ServerUnit::ExecuteCommand()
         mTarget = NULL;
         ChangeList::AddCommandDone(mUnitId);
     }
+    else
+    {
+        ServerTile& randomTile = mPosition->GetNeighbour(rand() % mPosition->GetNeighbourCount());
+        if (!randomTile.GetUnit())
+        {
+            Move(randomTile);
+        }
+    }
 }
 
 void ServerUnit::FillUnitMsg(UnitMsg& aUnitMsg) const
