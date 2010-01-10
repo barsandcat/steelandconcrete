@@ -11,7 +11,7 @@ class ServerUnitTest: public CxxTest::TestSuite
 public:
     void setUp()
     {
-        mClass = new UnitClass(0, 100);
+        mClass = new UnitClass(0, 100, 1);
         mTile = new ServerTile(Ogre::Vector3::UNIT_X, 5000);
         mUnit = new ServerUnit(*mTile, *mClass, 0);
     }
