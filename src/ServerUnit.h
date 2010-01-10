@@ -1,14 +1,16 @@
 #ifndef SERVERUNIT_H
 #define SERVERUNIT_H
+
 #include <Typedefs.h>
 #include <Unit.pb.h>
+#include <UnitClass.h>
 
 class ServerTile;
 
 class ServerUnit
 {
 public:
-    ServerUnit(ServerTile& aTile, UnitId aUnitId, uint32 aVisualCode, uint32 aMaxAge);
+    ServerUnit(ServerTile& aTile, const UnitClass& aClass, UnitId aUnitId);
     ServerTile& GetPosition() const { return *mPosition; }
     UnitId GetUnitId() const { return mUnitId; }
     virtual ~ServerUnit();
@@ -21,8 +23,7 @@ public:
 protected:
 private:
     const UnitId mUnitId;
-    const uint32 mVisualCode;
-    const uint32 mMaxAge;
+    const UnitClass& mClass;
     ServerTile* mPosition;
     ServerTile* mTarget;
     UnitId mMaster;

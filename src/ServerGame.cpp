@@ -9,7 +9,10 @@
 #include <VisualCodes.h>
 
 ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0),
-    mTime(30), mTimeStep(30)
+    mTime(30), mTimeStep(30),
+    mGrass(VC::LIVE | VC::PLANT, 100),
+    mZebra(VC::LIVE | VC::ANIMAL | VC::HERBIVORES, 500),
+    mAvatar(VC::LIVE | VC::ANIMAL | VC::HUMAN, 999999)
 {
     task::initialize(task::normal_stack);
     mClientEvent = new event();
@@ -25,10 +28,10 @@ ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0),
             switch (rand() % 10)
             {
             case 1:
-                CreateUnit(mGrid->GetTile(i), VC::LIVE | VC::ANIMAL | VC::HERBIVORES, 500);
+                CreateUnit(mGrid->GetTile(i), mZebra);
                 break;
             case 6:
-                CreateUnit(mGrid->GetTile(i), VC::LIVE | VC::PLANT, 100);
+                CreateUnit(mGrid->GetTile(i), mGrass);
                 break;
             }
         }
@@ -73,9 +76,9 @@ void ServerGame::MainLoop(Ogre::String aAddress, Ogre::String aPort)
     GetLog() << "Game over";
 }
 
-ServerUnit& ServerGame::CreateUnit(ServerTile& aTile, uint32 aVisualCode, uint32 aMaxAge)
+ServerUnit& ServerGame::CreateUnit(ServerTile& aTile, const UnitClass& aClass)
 {
-    ServerUnit* unit = new ServerUnit(aTile, ++mUnitCount, aVisualCode, aMaxAge);
+    ServerUnit* unit = new ServerUnit(aTile, aClass, ++mUnitCount);
     mUnits.insert(std::make_pair(unit->GetUnitId(), unit));
     return *unit;
 }
@@ -87,7 +90,7 @@ void ServerGame::Send(Network& aNetwork)
     mGrid->Send(aNetwork);
 
     UnitCountMsg count;
-    ServerUnit& avatar = CreateUnit(mGrid->GetTile(rand() % mGrid->GetTileCount()), VC::LIVE | VC::ANIMAL | VC::HUMAN, 999999);
+    ServerUnit& avatar = CreateUnit(mGrid->GetTile(rand() % mGrid->GetTileCount()), mAvatar);
     avatar.SetMaster(avatar.GetUnitId());
     count.set_avatar(avatar.GetUnitId());
     count.set_count(mUnits.size());

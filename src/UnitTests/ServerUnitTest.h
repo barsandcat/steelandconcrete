@@ -11,14 +11,16 @@ class ServerUnitTest: public CxxTest::TestSuite
 public:
     void setUp()
     {
+        mClass = new UnitClass(0, 100);
         mTile = new ServerTile(Ogre::Vector3::UNIT_X, 5000);
-        mUnit = new ServerUnit(*mTile, 0, 0, 100);
+        mUnit = new ServerUnit(*mTile, *mClass, 0);
     }
 
     void tearDown()
     {
         delete mUnit;
         delete mTile;
+        delete mClass;
     }
 
     void TestAgeZero()
@@ -33,6 +35,7 @@ public:
 private:
     ServerUnit* mUnit;
     ServerTile* mTile;
+    UnitClass* mClass;
 };
 
 #endif
