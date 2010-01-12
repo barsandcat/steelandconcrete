@@ -14,8 +14,9 @@
 		</Project>
 		<Project filename="SAL/SAL.cbp" />
 		<Project filename="QuickGUI_9_05/QuickGUI/QuickGUI.cbp" />
+		<Project filename="ogre1.6.5/Tools/XMLConverter/scripts/XMLConverter.cbp" />
 		<Project filename="src/UnitTests/UnitTests.cbp" />
-		<Project filename="Server.cbp" active="1">
+		<Project filename="Server.cbp">
 			<Depends filename="protobuf-2.0.3/vsprojects/libprotobuf.cbp" />
 			<Depends filename="protobuf-2.0.3/vsprojects/libprotoc.cbp" />
 			<Depends filename="protobuf-2.0.3/vsprojects/protoc.cbp" />
@@ -37,6 +38,6 @@
 			<Depends filename="Server.cbp" />
 			<Depends filename="ogre1.6.5/Tools/XMLConverter/scripts/XMLConverter.cbp" />
 		</Project>
-		<Project filename="ogre1.6.5/Tools/XMLConverter/scripts/XMLConverter.cbp" />
+		<Project filename="DummyClient.cbp" active="1" />
 	</Workspace>
 </CodeBlocks_workspace_file>
