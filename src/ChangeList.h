@@ -13,8 +13,8 @@ public:
     static void Write(INetwork& aNetwork, GameTime aTime);
     static void AddRemove(UnitId aUnit);
 private:
-    static std::list< ResponseMsg > mChangeList;
-    static void AddChangeMsg(ChangeMsg& aChange);
+    static std::list< ResponseMsg* > mChangeList;
+    static ChangeMsg* AddChangeMsg();
 };
 
 #endif // CHANGELIST_H

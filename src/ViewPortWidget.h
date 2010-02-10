@@ -2,13 +2,14 @@
 #define VIEWPORTWIDGET_H
 #include <QuickGUI.h>
 
+class ClientUnit;
 class ViewPortWidget
 {
 public:
     ViewPortWidget(int aWidth, int aHeight, std::string aName);
     ~ViewPortWidget();
     std::string& GetName() { return mName; }
-    void SetNode(Ogre::SceneNode* aNode);
+    void SetUnit(ClientUnit* aUnit);
 private:
     ViewPortWidget(const ViewPortWidget& other);
     ViewPortWidget& operator=(const ViewPortWidget& other);

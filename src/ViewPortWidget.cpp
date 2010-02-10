@@ -45,10 +45,23 @@ ViewPortWidget& ViewPortWidget::operator=(const ViewPortWidget & rhs)
 	return *this;
 }
 
-void ViewPortWidget::SetNode(Ogre::SceneNode* aNode)
+void ViewPortWidget::SetUnit(ClientUnit* aUnit)
 {
-    mTargetNode->removeChild(mCameraNode);
-    mTargetNode = aNode;
-    mTargetNode->addChild(mCameraNode);
+    Ogre::SceneNode* parent = mCameraNode->getParentSceneNode();
+    if (aUnit)
+    {
+        if (parent)
+        {
+            parent->removeChild(mCameraNode);
+        }
+        aUnit->GetNode().addChild(mCameraNode);
+    }
+    else
+    {
+        if (parent)
+        {
+            parent->removeChild(mCameraNode);
+        }
+    }
 }
 
