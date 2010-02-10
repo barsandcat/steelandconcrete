@@ -197,6 +197,18 @@ void ClientGame::OnTurn(const QuickGUI::EventArgs& args)
 
     }
 }
+ClientUnit& ClientGame::GetUnit(UnitId aUnitId)
+{
+    ClientUnits::iterator i = mUnits.find(aUnitId);
+    if(mUnits.end() != i)
+    {
+        return *(i->second);
+    }
+    else
+    {
+        throw std::out_of_range("No such unit " + Ogre::StringConverter::toString(aUnitId));
+    }
+}
 
 void ClientGame::LoadEvents(const ResponseMsg& changes)
 {
@@ -206,12 +218,12 @@ void ClientGame::LoadEvents(const ResponseMsg& changes)
         if (change.has_unitmove())
         {
             const UnitMoveMsg& move = change.unitmove();
-            mUnits[move.unitid()]->SetPosition(mGrid->GetTile(move.position()));
+            GetUnit(move.unitid()).SetPosition(mGrid->GetTile(move.position()));
         }
         else if (change.has_commanddone())
         {
             const CommandDoneMsg& command = change.commanddone();
-            mUnits[command.unitid()]->SetTarget(NULL);
+            GetUnit(command.unitid()).SetTarget(NULL);
         }
         else if (change.has_remove())
         {
@@ -234,14 +246,11 @@ void ClientGame::LoadEvents(const ResponseMsg& changes)
 
 void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats)
 {
-    mIngameSheet.SetSelectedVisible(mSelectedUnit != NULL);
     mIngameSheet.UpdateStats(aStats);
-    if (mSelectedUnit)
-    {
-        mViewPortWidget.SetNode(&mSelectedUnit->GetNode());
-    }
+    mIngameSheet.SetSelectedVisible(mSelectedUnit != NULL);
+    mViewPortWidget.SetUnit(mSelectedUnit);
 
-    if (mTurnDone)
+    if(mTurnDone)
     {
         RequestMsg req;
         req.set_type(REQUEST_GET_TIME);

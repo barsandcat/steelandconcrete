@@ -25,7 +25,10 @@ public:
     void Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats);
     void Select();
     void Act();
-protected:
+private:
+    void CreateUnitEntities() const;
+    void LoadEvents(const ResponseMsg& changes);
+    ClientUnit& GetUnit(UnitId aUnitId);
 private:
     ClientGeodesicGrid* mGrid;
     ClientUnits mUnits;
@@ -40,8 +43,6 @@ private:
     GameTime mTime;
     bool mTurnDone;
     Network* mNetwork;
-    void CreateUnitEntities() const;
-    void LoadEvents(const ResponseMsg& changes);
 };
 
 #endif // CLIENTGAME_H
