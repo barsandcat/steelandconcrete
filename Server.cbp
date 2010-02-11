@@ -67,9 +67,9 @@
 		<Unit filename="src/ClientConnection.h" />
 		<Unit filename="src/ConnectionManager.cpp" />
 		<Unit filename="src/ConnectionManager.h" />
+		<Unit filename="src/LinuxServer.cpp" />
 		<Unit filename="src/Network.cpp" />
 		<Unit filename="src/Network.h" />
-		<Unit filename="src/Server.cpp" />
 		<Unit filename="src/ServerEdge.cpp" />
 		<Unit filename="src/ServerEdge.h" />
 		<Unit filename="src/ServerGame.cpp" />
