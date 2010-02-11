@@ -6,7 +6,7 @@
 class INetwork
 {
 public:
-    virtual void WriteMessage(google::protobuf::Message& aMessage) = 0;
+    virtual void WriteMessage(const google::protobuf::Message& aMessage) = 0;
     virtual void ReadMessage(google::protobuf::Message& aMessage) = 0;
     virtual bool IsOk() = 0;
 };

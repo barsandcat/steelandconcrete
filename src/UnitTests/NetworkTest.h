@@ -20,36 +20,38 @@ class MyTestSuite : public CxxTest::TestSuite
 public:
     void setUp()
     {
+        ChangeList::Clear();
         mNetwork = new DummyNetwork();
     }
 
     void tearDown()
     {
         delete mNetwork;
+        ChangeList::Clear();
     }
 
     void TestChangeListOneBlock()
     {
-        ChangeList::Clear();
         const int count = 50;
         for (int i = 0; i < count; ++i)
         {
             ChangeList::AddRemove(i);
         }
-        ChangeList::Write(*mNetwork, 0);
+        ChangeList::SetTime(0);
+        ChangeList::Write(*mNetwork);
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count);
     }
 
     void TestChangeListTwoBlock()
     {
-        ChangeList::Clear();
         const int count = 400;
         for (int i = 0; i < count; ++i)
         {
             ChangeList::AddRemove(i);
         }
-        ChangeList::Write(*mNetwork, 0);
+        ChangeList::SetTime(0);
+        ChangeList::Write(*mNetwork);
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count);
     }
