@@ -8,7 +8,7 @@ public:
     DummyNetwork();
     ~DummyNetwork();
     DummyNetwork(const DummyNetwork& other);
-    virtual void WriteMessage(google::protobuf::Message& aMessage);
+    virtual void WriteMessage(const google::protobuf::Message& aMessage);
     virtual void ReadMessage(google::protobuf::Message& aMessage);
     virtual bool IsOk();
     bool IsLastWrited() const { return mIsLastWrited; }

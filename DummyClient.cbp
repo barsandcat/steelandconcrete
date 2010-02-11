@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/DummyClient_d" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/dummy_d" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="bin" />
 				<Option object_output="obj/DummyClientDebugLinux/" />
 				<Option type="1" />
@@ -21,7 +21,7 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/DummyClient" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/dummy" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="bin" />
 				<Option object_output="obj/DummyClientReleaseLinux/" />
 				<Option type="1" />

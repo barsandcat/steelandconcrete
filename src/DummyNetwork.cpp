@@ -4,7 +4,7 @@
 #include <google/protobuf/descriptor.h>
 
 
-void DummyNetwork::WriteMessage(google::protobuf::Message& aMessage)
+void DummyNetwork::WriteMessage(const google::protobuf::Message& aMessage)
 {
     const google::protobuf::Reflection* reflection = aMessage.GetReflection();
     const google::protobuf::FieldDescriptor* fieldDescriptor = aMessage.GetDescriptor()->FindFieldByName("last");

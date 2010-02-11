@@ -10,7 +10,7 @@ class Network: public INetwork
 public:
     Network(socket_t* aSocket);
     ~Network();
-    virtual void WriteMessage(google::protobuf::Message& aMessage);
+    virtual void WriteMessage(const google::protobuf::Message& aMessage);
     virtual void ReadMessage(google::protobuf::Message& aMessage);
     virtual bool IsOk() { return mSocket->is_ok(); }
 private:

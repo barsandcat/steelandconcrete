@@ -4,6 +4,7 @@
 #include <ServerLog.h>
 
 std::list< ResponseMsg* > ChangeList::mChangeList;
+GameTime ChangeList::mTime;
 
 ChangeMsg* ChangeList::AddChangeMsg()
 {
@@ -44,25 +45,35 @@ void ChangeList::Clear()
     }
     mChangeList.clear();
 }
-void ChangeList::Write(INetwork& aNetwork, GameTime aTime)
+
+void ChangeList::SetTime(GameTime aTime)
+{
+    for (std::list< ResponseMsg* >::iterator i = mChangeList.begin(); i != mChangeList.end(); ++i)
+    {
+        (*i)->set_time(aTime);
+    }
+    mTime = aTime;
+}
+
+void ChangeList::Write(INetwork& aNetwork)
 {
     if (!mChangeList.empty())
     {
-        while (!mChangeList.empty())
+        std::list< ResponseMsg* >::const_iterator i = mChangeList.end();
+        do
         {
-            ResponseMsg* msg = mChangeList.back();
-            msg->set_time(aTime);
-            aNetwork.WriteMessage(*msg);
-            mChangeList.pop_back();
+            --i;
+            aNetwork.WriteMessage(**i);
         }
+        while (i != mChangeList.begin());
     }
     else
     {
-        ResponseMsg msg;
-        msg.set_type(RESPONSE_CHANGES);
-        msg.set_last(true);
-        msg.set_time(aTime);
-        aNetwork.WriteMessage(msg);
+        ResponseMsg emptyMsg;
+        emptyMsg.set_type(RESPONSE_CHANGES);
+        emptyMsg.set_last(true);
+        emptyMsg.set_time(mTime);
+        aNetwork.WriteMessage(emptyMsg);
     }
 }
 

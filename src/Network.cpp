@@ -34,7 +34,7 @@ void Network::AllocBuffer(int aSize)
     }
 }
 
-void Network::WriteMessage(google::protobuf::Message& aMessage)
+void Network::WriteMessage(const google::protobuf::Message& aMessage)
 {
     int messageSize = aMessage.ByteSize();
     AllocBuffer(messageSize);

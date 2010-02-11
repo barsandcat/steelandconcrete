@@ -57,7 +57,7 @@ void ClientConnection::Execute()
                 case REQUEST_GET_TIME:
                     if (mGame.GetTime() > mLastConfirmedTime)
                     {
-                        ChangeList::Write(*mNetwork, mGame.GetTime());
+                        ChangeList::Write(*mNetwork);
                         GetLog() << "Change list send";
                     }
                     else

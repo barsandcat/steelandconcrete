@@ -131,7 +131,9 @@ void ServerGame::UpdateGame()
             unit->ExecuteCommand();
         }
     }
+    ChangeList::SetTime(mTime + mTimeStep);
     mTime += mTimeStep;
+
 
     GetLog() << "Time: " << mTime;
 }
