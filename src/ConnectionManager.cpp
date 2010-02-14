@@ -78,6 +78,6 @@ bool ConnectionManager::IsAllClientsReady()
             i = mClients.erase(i);
         }
     }
-    GetLog() << "Clients " << (allReady ? "ready" : "not ready");
+    GetLog() << "Clients " << mClients.size() << (allReady ? " ready" : " not ready");
     return allReady;
 }
