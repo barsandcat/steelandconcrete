@@ -30,7 +30,6 @@ void ClientConnection::Execute()
                 switch (req.type())
                 {
                 case REQUEST_DISCONNECT:
-                    GetLog() << "Disconnect";
                     mGame.SignalClientEvent();
                     break;
                 case REQUEST_COMMANDS:
@@ -42,7 +41,6 @@ void ClientConnection::Execute()
                         ResponseMsg rsp;
                         rsp.set_type(RESPONSE_OK);
                         mNetwork->WriteMessage(rsp);
-                        GetLog() << "Confirmed time " << req.ShortDebugString();
 
                         mGame.SignalClientEvent();
                     }
@@ -58,7 +56,6 @@ void ClientConnection::Execute()
                     if (mGame.GetTime() > mLastConfirmedTime)
                     {
                         ChangeList::Write(*mNetwork);
-                        GetLog() << "Change list send";
                     }
                     else
                     {
@@ -75,6 +72,7 @@ void ClientConnection::Execute()
             GetLog() << e.what();
             mGame.SignalClientEvent();
         }
+        task::reschedule();
     }
 
     mLive = false;

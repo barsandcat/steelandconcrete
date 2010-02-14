@@ -63,55 +63,65 @@ int main()
             while(true)
             {
                 sleep(1);
-                RequestMsg req;
-                ResponseMsg rsp;
-                if(!mTurnDone)
+                try
                 {
-                    req.set_type(REQUEST_COMMANDS);
-                    req.set_time(mTime);
-                    req.set_last(true);
-                    net->WriteMessage(req);
-                    GetLog() << "REQUEST_COMMANDS " << mTime;
-                    net->ReadMessage(rsp);
-                    GetLog() << rsp.ShortDebugString();
-                    mTurnDone = true;
-
-                }
-                else
-                {
-                    req.set_type(REQUEST_GET_TIME);
-                    net->WriteMessage(req);
-                    GetLog() << "REQUEST_GET_TIME";
-
-                    net->ReadMessage(rsp);
-                    switch(rsp.type())
+                    RequestMsg req;
+                    ResponseMsg rsp;
+                    if(!mTurnDone)
                     {
-                    case RESPONSE_CHANGES:
-                        while(!rsp.last())
+                        req.set_type(REQUEST_COMMANDS);
+                        req.set_time(mTime);
+                        req.set_last(true);
+                        net->WriteMessage(req);
+                        GetLog() << "REQUEST_COMMANDS " << mTime;
+                        net->ReadMessage(rsp);
+                        GetLog() << rsp.ShortDebugString();
+                        mTurnDone = true;
+
+                    }
+                    else
+                    {
+                        req.set_type(REQUEST_GET_TIME);
+                        net->WriteMessage(req);
+                        GetLog() << "REQUEST_GET_TIME";
+
+                        net->ReadMessage(rsp);
+                        switch(rsp.type())
                         {
-                            rsp.Clear();
-                            net->ReadMessage(rsp);
+                        case RESPONSE_CHANGES:
+                            while(!rsp.last())
+                            {
+                                rsp.Clear();
+                                net->ReadMessage(rsp);
+                            }
+                            mTime = rsp.time();
+                            GetLog() << "New time " << mTime;
+                            mTurnDone = false;
+                            break;
+                        default:
+                            break;
                         }
-                        mTime = rsp.time();
-                        GetLog() << "New time " << mTime;
-                        mTurnDone = false;
-                        break;
-                    default:
-                        break;
                     }
                 }
-
+                catch(std::exception& e)
+                {
+                    GetLog() << "Main loop crash: " << e.what();
+                    return 1;
+                }
             }
         }
         else
         {
             delete net;
+            GetLog() << "Server rejected connection";
+            return 2;
         }
     }
     else
     {
-        GetLog() << "Not connected " << GetErrorText(*sock);
+        GetLog() << "No server! " << GetErrorText(*sock);
         delete sock;
+        return 3;
     }
     return 0;
 }
