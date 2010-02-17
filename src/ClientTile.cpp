@@ -5,8 +5,8 @@
 ClientTile::ClientTile(TileId aId, float scale, bool ground, const Ogre::Vector3& aPosition):
         mNode(*ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode(aPosition)),
         mTileId(aId),
-        mUnit(NULL),
-        mGround(ground)
+        mGround(ground),
+        mUnit(NULL)
 {
     mNeighbourhood.reserve(6);
     mNode.setScale(Ogre::Vector3(scale));

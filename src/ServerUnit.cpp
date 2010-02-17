@@ -5,8 +5,8 @@
 #include <ChangeList.h>
 
 ServerUnit::ServerUnit(ServerTile& aTile, const UnitClass& aClass, UnitId aUnitId):
-    mPosition(&aTile), mUnitId(aUnitId), mTarget(NULL),
-    mClass(aClass),  mAge(0)
+    mUnitId(aUnitId), mClass(aClass), mPosition(&aTile),  mTarget(NULL),
+      mAge(0)
 {
     mPosition->SetUnit(this);
 }
