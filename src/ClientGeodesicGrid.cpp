@@ -61,6 +61,7 @@ void ClientGeodesicGrid::InitTiles()
     }
 }
 
+
 ClientGeodesicGrid::ClientGeodesicGrid(Network& aNetwork, LoadingSheet& aLoadingSheet)
 {
     GeodesicGridSizeMsg gridInfo;
@@ -75,7 +76,7 @@ ClientGeodesicGrid::ClientGeodesicGrid(Network& aNetwork, LoadingSheet& aLoading
     {
         TileListMsg tiles;
         aNetwork.ReadMessage(tiles);
-        for (size_t j = 0; j < tiles.tiles_size(); ++j)
+        for (int j = 0; j < tiles.tiles_size(); ++j)
         {
             TileMsg tile = tiles.tiles(j);
             mTiles[tile.tag()] = new ClientTile(tile.tag(), scale, tile.height() > seaLevel,
@@ -90,7 +91,7 @@ ClientGeodesicGrid::ClientGeodesicGrid(Network& aNetwork, LoadingSheet& aLoading
     {
         EdgeListMsg edges;
         aNetwork.ReadMessage(edges);
-        for (size_t j = 0; j < edges.edges_size(); ++j)
+        for (int j = 0; j < edges.edges_size(); ++j)
         {
             EdgeMsg edge = edges.edges(j);
             mEdges[i] = new ClientEdge(mTiles[edge.tilea()], mTiles[edge.tileb()]);

@@ -258,7 +258,6 @@ void ServerGeodesicGrid::Send(Network& aNetwork) const
     const size_t edgesPerMessage = 100;
     for (size_t i = 0; i < mEdges.size();)
     {
-        int size = 0;
         EdgeListMsg edges;
         for (size_t j = 0; j < edgesPerMessage && i < mEdges.size(); ++j)
         {

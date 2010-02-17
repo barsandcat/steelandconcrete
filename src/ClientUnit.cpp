@@ -7,8 +7,8 @@
 
 ClientUnit::ClientUnit(ClientTile& aTile, UnitMsg& aUnitMsg):
     mTile(&aTile),
-    mEntity(NULL),
     mTarget(NULL),
+    mEntity(NULL),
     mUnitId(aUnitMsg.tag()),
     mVisualCode(aUnitMsg.visual())
 {
