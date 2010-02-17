@@ -26,7 +26,7 @@ ChangeMsg* ChangeList::AddChangeMsg()
         }
         mChangeList.push_front(msg);
     }
-
+	return change;
 }
 
 void ChangeList::AddMove(UnitId aUnit, TileId aPosition)

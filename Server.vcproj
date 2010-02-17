@@ -29,7 +29,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Get revision"
-				CommandLine="&#x0D;&#x0A;SubWCRev $(SolutionDir) svn_revision.template src\svn_revision.h"
+				CommandLine="&#x0D;&#x0A;SubWCRev $(SolutionDir) svn_revision.template src\svn_revision.h&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -242,10 +242,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\src\Server.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\ServerEdge.cpp"
 				>
 			</File>
@@ -267,6 +263,14 @@
 			</File>
 			<File
 				RelativePath=".\src\ServerUnit.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\UnitClass.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\WindowsServer.cpp"
 				>
 			</File>
 		</Filter>
@@ -317,6 +321,10 @@
 			</File>
 			<File
 				RelativePath=".\src\ServerUnit.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\UnitClass.h"
 				>
 			</File>
 		</Filter>

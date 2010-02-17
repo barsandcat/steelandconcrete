@@ -36,6 +36,7 @@
 				Name="CxxTest"
 				testgen="python &quot;..\..\cxxtest\cxxtestgen.py&quot;"
 				runner="0"
+				output=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -129,6 +130,7 @@
 				Name="CxxTest"
 				testgen="python &quot;..\..\cxxtest\cxxtestgen.py&quot;"
 				runner="0"
+				output=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -274,6 +276,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\UnitClass.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\VisualCodes.cpp"
 				>
 			</File>
@@ -317,6 +323,10 @@
 			</File>
 			<File
 				RelativePath="..\ServerUnit.h"
+				>
+			</File>
+			<File
+				RelativePath="..\UnitClass.h"
 				>
 			</File>
 			<File
@@ -674,6 +684,8 @@
 					<Tool
 						Name="CxxTest"
 						runner="1"
+						output="$(InputName).cpp"
+						Part="false"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -682,6 +694,7 @@
 					<Tool
 						Name="CxxTest"
 						runner="1"
+						output="$(InputName).cpp"
 						Part="false"
 					/>
 				</FileConfiguration>
@@ -709,6 +722,22 @@
 			<File
 				RelativePath=".\ServerUnitTest.h"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="CxxTest"
+						output="$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="CxxTest"
+						output="$(InputName).cpp"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\VisualCodesTest.cpp"
@@ -733,6 +762,22 @@
 			<File
 				RelativePath=".\VisualCodesTest.h"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="CxxTest"
+						output="$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="CxxTest"
+						output="$(InputName).cpp"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 	</Files>
