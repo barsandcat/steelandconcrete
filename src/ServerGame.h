@@ -34,7 +34,7 @@ private:
     UnitClass mZebra;
     UnitClass mAvatar;
     event* mClientEvent;
-    mutex* mGameMutex;
+    mutex mGameMutex;
 };
 
 #endif // SERVERAPP_H
