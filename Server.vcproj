@@ -63,6 +63,7 @@
 				PrecompiledHeaderFile="C:\Temp\$(ConfigurationName)$(ProjectName).pch"
 				WarningLevel="3"
 				DebugInformationFormat="4"
+				DisableSpecificWarnings="4800;4244"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -151,6 +152,7 @@
 				PrecompiledHeaderFile="C:\Temp\$(ConfigurationName)$(ProjectName).pch"
 				WarningLevel="3"
 				DebugInformationFormat="3"
+				DisableSpecificWarnings="4800;4244"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
