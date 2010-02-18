@@ -84,6 +84,6 @@ int main(int argc, char **argv)
         std::cerr << "Exception!";
         res = 2;
     }
-    int cdres = chdir("cpd");// this is to save gmon.out
-    return res;
+    // this is to save gmon.out
+    return chdir("cpd");
 }
