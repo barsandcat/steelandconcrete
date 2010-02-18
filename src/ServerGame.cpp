@@ -16,7 +16,6 @@ ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0),
 {
     task::initialize(task::normal_stack);
     mClientEvent = new event();
-    mGameMutex = new mutex();
     // Create map
     mGrid = new ServerGeodesicGrid(aSize, aSeaLevel);
     GetLog() << "Size " << aSize << " Tile count " << mGrid->GetTileCount();
@@ -43,7 +42,6 @@ ServerGame::~ServerGame()
 {
     delete mGrid;
     delete mClientEvent;
-    delete mGameMutex;
 }
 
 ServerGeodesicGrid& ServerGame::GetGrid()
@@ -85,7 +83,7 @@ ServerUnit& ServerGame::CreateUnit(ServerTile& aTile, const UnitClass& aClass)
 
 void ServerGame::Send(Network& aNetwork)
 {
-    critical_section(*mGameMutex);
+    critical_section cs(mGameMutex);
 
     mGrid->Send(aNetwork);
 
@@ -110,7 +108,7 @@ void ServerGame::Send(Network& aNetwork)
 
 void ServerGame::UpdateGame()
 {
-    critical_section(*mGameMutex);
+    critical_section cs(mGameMutex);
 
     GetLog() << "Update Game!";
     ChangeList::Clear();
@@ -141,7 +139,7 @@ void ServerGame::UpdateGame()
 
 void ServerGame::LoadCommands(const RequestMsg& commands)
 {
-    critical_section(*mGameMutex);
+    critical_section cs(mGameMutex);
     for (int i = 0; i < commands.commands_size(); ++i)
     {
         const CommandMsg& command = commands.commands(i);
