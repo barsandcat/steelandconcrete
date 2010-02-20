@@ -10,6 +10,7 @@
 #include <Unit.pb.h>
 #include <Request.pb.h>
 #include <Response.pb.h>
+#include <task.h>
 
 int main()
 {
@@ -62,7 +63,7 @@ int main()
             bool mTurnDone = false;
             while(true)
             {
-                sleep(1);
+				task::sleep(1000);
                 try
                 {
                     RequestMsg req;
