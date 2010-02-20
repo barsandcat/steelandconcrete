@@ -130,6 +130,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XMLConverter", "ogre1.6.5\T
 		{9E219DF2-315D-478E-8A07-8960C377CE1E} = {9E219DF2-315D-478E-8A07-8960C377CE1E}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DummyClient", "DummyClient.vcproj", "{BD9CC52A-3992-4B0E-8D74-C113F861E9CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -244,6 +246,10 @@ Global
 		{B4FB6BCF-FA5A-42C2-9FA5-F1653B95ADE3}.Debug|Win32.Build.0 = Debug|Win32
 		{B4FB6BCF-FA5A-42C2-9FA5-F1653B95ADE3}.Release|Win32.ActiveCfg = Release|Win32
 		{B4FB6BCF-FA5A-42C2-9FA5-F1653B95ADE3}.Release|Win32.Build.0 = Release|Win32
+		{BD9CC52A-3992-4B0E-8D74-C113F861E9CC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BD9CC52A-3992-4B0E-8D74-C113F861E9CC}.Debug|Win32.Build.0 = Debug|Win32
+		{BD9CC52A-3992-4B0E-8D74-C113F861E9CC}.Release|Win32.ActiveCfg = Release|Win32
+		{BD9CC52A-3992-4B0E-8D74-C113F861E9CC}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
