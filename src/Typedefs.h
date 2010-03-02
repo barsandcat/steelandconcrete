@@ -6,6 +6,7 @@
 using google::protobuf::uint32;
 using google::protobuf::uint64;
 using google::protobuf::int32;
+using google::protobuf::int64;
 
 typedef uint32 TileId;
 typedef int32 UnitId;

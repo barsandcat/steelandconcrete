@@ -15,7 +15,7 @@
 		<Project filename="SAL/SAL.cbp" />
 		<Project filename="QuickGUI_9_05/QuickGUI/QuickGUI.cbp" />
 		<Project filename="ogre1.6.5/Tools/XMLConverter/scripts/XMLConverter.cbp" />
-		<Project filename="src/UnitTests/UnitTests.cbp" />
+		<Project filename="src/UnitTests/UnitTests.cbp" active="1" />
 		<Project filename="Server.cbp">
 			<Depends filename="protobuf-2.0.3/vsprojects/libprotobuf.cbp" />
 			<Depends filename="protobuf-2.0.3/vsprojects/libprotoc.cbp" />
@@ -23,7 +23,7 @@
 			<Depends filename="SAL/SAL.cbp" />
 			<Depends filename="src/UnitTests/UnitTests.cbp" />
 		</Project>
-		<Project filename="LinuxS&amp;C.cbp" active="1">
+		<Project filename="LinuxS&amp;C.cbp">
 			<Depends filename="ois/LinuxCB/OIS.cbp" />
 			<Depends filename="ogre1.6.5/OgreMain/scripts/OgreMain_linux.cbp" />
 			<Depends filename="ogre1.6.5/PlugIns/OctreeSceneManager/scripts/Plugin_OctreeSceneManager_linux.cbp" />

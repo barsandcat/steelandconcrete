@@ -89,8 +89,11 @@
 		<Unit filename="NetworkTest.h" />
 		<Unit filename="ServerUnitTest.cpp" />
 		<Unit filename="ServerUnitTest.h" />
+		<Unit filename="UpdateTimerTest.cpp" />
+		<Unit filename="UpdateTimerTest.h" />
 		<Unit filename="VisualCodesTest.cpp" />
 		<Unit filename="VisualCodesTest.h" />
+		<Unit filename="../UpdateTimer.h" />
 		<Unit filename="../VisualCodes.cpp" />
 		<Unit filename="../VisualCodes.h" />
 		<Unit filename="../pch.cpp" />
