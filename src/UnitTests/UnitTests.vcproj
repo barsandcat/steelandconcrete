@@ -285,6 +285,10 @@
 				RelativePath="..\VisualCodes.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\WindowsPlatform.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -723,6 +727,46 @@
 			</File>
 			<File
 				RelativePath=".\ServerUnitTest.h"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="CxxTest"
+						output="$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="CxxTest"
+						output="$(InputName).cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\UpdateTimerTest.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\UpdateTimerTest.h"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
