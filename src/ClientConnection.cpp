@@ -30,7 +30,6 @@ void ClientConnection::Execute()
                 switch (req.type())
                 {
                 case REQUEST_DISCONNECT:
-                    mGame.SignalClientEvent();
                     break;
                 case REQUEST_COMMANDS:
                     if (req.has_time())
@@ -41,8 +40,6 @@ void ClientConnection::Execute()
                         ResponseMsg rsp;
                         rsp.set_type(RESPONSE_OK);
                         mNetwork->WriteMessage(rsp);
-
-                        mGame.SignalClientEvent();
                     }
                     else
                     {
@@ -70,7 +67,6 @@ void ClientConnection::Execute()
         catch (std::runtime_error& e)
         {
             GetLog() << e.what();
-            mGame.SignalClientEvent();
         }
         task::reschedule();
     }

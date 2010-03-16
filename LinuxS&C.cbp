@@ -111,6 +111,7 @@
 		<Unit filename="src/OgreWindowCallback.h" />
 		<Unit filename="src/ServerBrowserSheet.cpp" />
 		<Unit filename="src/ServerBrowserSheet.h" />
+		<Unit filename="src/SyncTimer.h" />
 		<Unit filename="src/Typedefs.h" />
 		<Unit filename="src/ViewPortWidget.cpp" />
 		<Unit filename="src/ViewPortWidget.h" />

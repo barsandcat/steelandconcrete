@@ -3,6 +3,7 @@
 
 #include <cxxtest/TestSuite.h>
 #include <UpdateTimer.h>
+#include <SyncTimer.h>
 
 class UpdateTimerTest: public CxxTest::TestSuite
 {
@@ -15,6 +16,15 @@ public:
         TS_ASSERT_EQUALS(0, timer.GetUpdateTime());
         timer.Wait();
         TS_ASSERT_LESS_THAN_EQUALS(period, timer.GetUpdateTime());
+    }
+
+    void TestSyncTimer()
+    {
+        SyncTimer timer;
+        timer.Reset(100);
+        TS_ASSERT(!timer.IsTime());
+        task::sleep(100);
+        TS_ASSERT(timer.IsTime());
     }
 
 };

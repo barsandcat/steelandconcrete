@@ -7,6 +7,7 @@
 #include <ConnectionManager.h>
 #include <ChangeList.h>
 #include <VisualCodes.h>
+#include <UpdateTimer.h>
 
 ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0),
     mTime(30), mTimeStep(30),
@@ -15,7 +16,6 @@ ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0),
     mAvatar(VC::LIVE | VC::ANIMAL | VC::HUMAN, 999999, 1)
 {
     task::initialize(task::normal_stack);
-    mClientEvent = new event();
     // Create map
     mGrid = new ServerGeodesicGrid(aSize, aSeaLevel);
     GetLog() << "Size " << aSize << " Tile count " << mGrid->GetTileCount();
@@ -41,7 +41,6 @@ ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0),
 ServerGame::~ServerGame()
 {
     delete mGrid;
-    delete mClientEvent;
 }
 
 ServerGeodesicGrid& ServerGame::GetGrid()
@@ -57,10 +56,10 @@ void ServerGame::MainLoop(Ogre::String aAddress, Ogre::String aPort)
     if (gate->is_ok())
     {
         ConnectionManager manager(*gate, *this);
+        UpdateTimer timer(2000);
         while (true)
         {
-            mClientEvent->wait();
-            mClientEvent->reset();
+            timer.Wait();
             if (manager.IsAllClientsReady())
             {
                 UpdateGame();

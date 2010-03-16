@@ -71,8 +71,10 @@
 		<Unit filename="../DummySocket.cpp" />
 		<Unit filename="../DummySocket.h" />
 		<Unit filename="../INetwork.h" />
+		<Unit filename="../LinuxPlatform.cpp" />
 		<Unit filename="../Network.cpp" />
 		<Unit filename="../Network.h" />
+		<Unit filename="../Platform.h" />
 		<Unit filename="../ServerEdge.cpp" />
 		<Unit filename="../ServerEdge.h" />
 		<Unit filename="../ServerGeodesicGrid.cpp" />
@@ -83,6 +85,7 @@
 		<Unit filename="../ServerTile.h" />
 		<Unit filename="../ServerUnit.cpp" />
 		<Unit filename="../ServerUnit.h" />
+		<Unit filename="../SyncTimer.h" />
 		<Unit filename="../UnitClass.cpp" />
 		<Unit filename="../UnitClass.h" />
 		<Unit filename="NetworkTest.cpp" />
