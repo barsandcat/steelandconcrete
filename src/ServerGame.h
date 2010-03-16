@@ -20,7 +20,6 @@ public:
     ServerUnit& CreateUnit(ServerTile& aTile, const UnitClass& aClass);
     void Send(Network& aNetwork);
     GameTime GetTime() const { return mTime; }
-    void SignalClientEvent() { mClientEvent->signal(); }
     void LoadCommands(const RequestMsg& commands);
 protected:
 private:
@@ -33,7 +32,6 @@ private:
     UnitClass mGrass;
     UnitClass mZebra;
     UnitClass mAvatar;
-    event* mClientEvent;
     mutex mGameMutex;
 };
 

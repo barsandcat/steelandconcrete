@@ -1,8 +1,9 @@
 #include <pch.h>
 
-#include <UpdateTimer.h>
+#include <Platform.h>
+#include <sys/time.h>
 
-int64 UpdateTimer::GetMiliseconds()
+int64 GetMiliseconds()
 {
     timeval epoch;
     gettimeofday(&epoch, NULL);

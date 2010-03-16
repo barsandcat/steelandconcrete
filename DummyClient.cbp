@@ -51,6 +51,7 @@
 			<Add directory="src/proto" />
 		</Compiler>
 		<Linker>
+			<Add library="pthread" />
 			<Add directory="lib" />
 		</Linker>
 		<Unit filename="src/DummyClient.cpp" />

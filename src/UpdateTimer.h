@@ -3,7 +3,7 @@
 
 #include <Typedefs.h>
 #include <task.h>
-#include <sys/time.h>
+#include <Platform.h>
 
 class UpdateTimer
 {
@@ -30,9 +30,6 @@ public:
     {
         return mPassed;
     }
-
-private:
-    int64 GetMiliseconds();
 private:
     const int64 mPeriod;
     int64 mStart;
