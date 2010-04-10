@@ -12,7 +12,6 @@ class ConnectionManager
 {
 public:
     ConnectionManager(socket_t& aGate, ServerGame& aGame);
-    bool IsAllClientsReady();
     ~ConnectionManager();
     void Execute();
 protected:

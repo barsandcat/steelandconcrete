@@ -60,10 +60,7 @@ void ServerGame::MainLoop(Ogre::String aAddress, Ogre::String aPort)
         while (true)
         {
             timer.Wait();
-            if (manager.IsAllClientsReady())
-            {
-                UpdateGame();
-            }
+            UpdateGame();
         }
     }
     else

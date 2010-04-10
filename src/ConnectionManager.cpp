@@ -61,23 +61,3 @@ ConnectionManager::~ConnectionManager()
     delete &mGate;
 }
 
-bool ConnectionManager::IsAllClientsReady()
-{
-    bool allReady = !mClients.empty();
-    std::list< ClientConnection* >::iterator i = mClients.begin();
-    while(i != mClients.end())
-    {
-        if ((*i)->IsLive())
-        {
-            allReady = allReady && ((*i)->GetLastConfirmedTime() == mGame.GetTime());
-            ++i;
-        }
-        else
-        {
-            delete *i;
-            i = mClients.erase(i);
-        }
-    }
-    GetLog() << "Clients " << mClients.size() << (allReady ? " ready" : " not ready");
-    return allReady;
-}
