@@ -10,6 +10,7 @@
 #include <Typedefs.h>
 #include <ViewPortWidget.h>
 #include <Network.h>
+#include <SyncTimer.h>
 
 class ClientApp;
 
@@ -41,7 +42,7 @@ private:
     InGameSheet mIngameSheet;
     ViewPortWidget mViewPortWidget;
     GameTime mTime;
-    bool mTurnDone;
+    SyncTimer mSyncTimer;
     Network* mNetwork;
 };
 

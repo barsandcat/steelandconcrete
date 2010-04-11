@@ -19,7 +19,7 @@ ClientGame::ClientGame(Network* aNetwork):
         "RttTexture"
     ),
     mTime(0),
-    mTurnDone(false),
+    mSyncTimer(2000),
     mNetwork(aNetwork)
 {
     mIngameSheet.SetSelectedName(mViewPortWidget.GetName());
@@ -160,43 +160,8 @@ void ClientGame::OnExit(const QuickGUI::EventArgs& args)
 
 void ClientGame::OnTurn(const QuickGUI::EventArgs& args)
 {
-    if (!mTurnDone)
-    {
-        RequestMsg req;
-        req.set_type(REQUEST_COMMANDS);
-        req.set_time(mTime);
-        req.set_last(true);
-
-        std::map< UnitId, ClientUnit* >::iterator i = mUnits.begin();
-        for (; i != mUnits.end(); ++i)
-        {
-            ClientUnit* unit = i->second;
-            if (unit->GetTarget())
-            {
-                CommandMsg* command = req.add_commands();
-                CommandMoveMsg* move = command->mutable_commandmove();
-                move->set_unitid(unit->GetUnitId());
-                move->set_position(unit->GetTarget()->GetTileId());
-            }
-        }
-
-        GetLog() << req.ShortDebugString();
-        mNetwork->WriteMessage(req);
-
-        ResponseMsg rsp;
-        mNetwork->ReadMessage(rsp);
-        if (rsp.type() == RESPONSE_OK)
-        {
-            mTurnDone = true;
-            GetLog() << "Turn done";
-        }
-        else
-        {
-            GetLog() << rsp.ShortDebugString();
-        }
-
-    }
 }
+
 ClientUnit& ClientGame::GetUnit(UnitId aUnitId)
 {
     ClientUnits::iterator i = mUnits.find(aUnitId);
@@ -250,13 +215,45 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
     mIngameSheet.SetSelectedVisible(mSelectedUnit != NULL);
     mViewPortWidget.SetUnit(mSelectedUnit);
 
-    if(mTurnDone)
+    if (mSyncTimer.IsTime())
     {
         RequestMsg req;
-        req.set_type(REQUEST_GET_TIME);
+        req.set_type(REQUEST_COMMANDS);
+        req.set_time(mTime);
+        req.set_last(true);
+
+        std::map< UnitId, ClientUnit* >::iterator i = mUnits.begin();
+        for (; i != mUnits.end(); ++i)
+        {
+            ClientUnit* unit = i->second;
+            if (unit->GetTarget())
+            {
+                CommandMsg* command = req.add_commands();
+                CommandMoveMsg* move = command->mutable_commandmove();
+                move->set_unitid(unit->GetUnitId());
+                move->set_position(unit->GetTarget()->GetTileId());
+            }
+        }
+
+        GetLog() << req.ShortDebugString();
         mNetwork->WriteMessage(req);
 
         ResponseMsg rsp;
+        mNetwork->ReadMessage(rsp);
+        if (rsp.type() == RESPONSE_OK)
+        {
+            GetLog() << "Turn done";
+        }
+        else
+        {
+            GetLog() << rsp.ShortDebugString();
+        }
+
+        req.Clear();
+        req.set_type(REQUEST_GET_TIME);
+        mNetwork->WriteMessage(req);
+
+        rsp.Clear();
         mNetwork->ReadMessage(rsp);
         switch (rsp.type())
         {
@@ -270,7 +267,6 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
             LoadEvents(rsp);
             mTime = rsp.time();
             mIngameSheet.SetTime(mTime);
-            mTurnDone = false;
             break;
         case RESPONSE_PLEASE_WAIT:
             break;
@@ -278,6 +274,7 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
             GetLog() << rsp.ShortDebugString();
             break;
         }
+        mSyncTimer.Reset(2000);
     }
 }
 

@@ -20,8 +20,7 @@ public:
 
     void TestSyncTimer()
     {
-        SyncTimer timer;
-        timer.Reset(100);
+        SyncTimer timer(100);
         TS_ASSERT(!timer.IsTime());
         task::sleep(100);
         TS_ASSERT(timer.IsTime());

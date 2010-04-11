@@ -7,7 +7,7 @@
 class SyncTimer
 {
 public:
-    SyncTimer() {}
+    SyncTimer(int64 aPeriod) { Reset(aPeriod); }
     void Reset(int64 aPeriod)
     {
         mEnd = aPeriod + GetMiliseconds();
