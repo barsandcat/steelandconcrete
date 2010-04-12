@@ -19,7 +19,7 @@ ClientGame::ClientGame(Network* aNetwork):
         "RttTexture"
     ),
     mTime(0),
-    mSyncTimer(2000),
+    mSyncTimer(1000),
     mNetwork(aNetwork)
 {
     mIngameSheet.SetSelectedName(mViewPortWidget.GetName());
@@ -42,8 +42,8 @@ ClientGame::ClientGame(Network* aNetwork):
     }
     mLoadingSheet.SetProgress(60);
     GetLog() << "Recived all units";
-    mAvatar = mUnits[unitCount.avatar()];
-    ClientApp::GetCamera().Goto(mAvatar->GetPosition().GetPosition());
+    //mAvatar = mUnits[unitCount.avatar()];
+    //ClientApp::GetCamera().Goto(mAvatar->GetPosition().GetPosition());
 
 
     // Planet
@@ -218,7 +218,7 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
     if (mSyncTimer.IsTime())
     {
         RequestMsg req;
-        req.set_type(REQUEST_COMMANDS);
+        req.set_type(REQUEST_GET_TIME);
         req.set_time(mTime);
         req.set_last(true);
 
@@ -235,25 +235,10 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
             }
         }
 
-        GetLog() << req.ShortDebugString();
+
         mNetwork->WriteMessage(req);
 
         ResponseMsg rsp;
-        mNetwork->ReadMessage(rsp);
-        if (rsp.type() == RESPONSE_OK)
-        {
-            GetLog() << "Turn done";
-        }
-        else
-        {
-            GetLog() << rsp.ShortDebugString();
-        }
-
-        req.Clear();
-        req.set_type(REQUEST_GET_TIME);
-        mNetwork->WriteMessage(req);
-
-        rsp.Clear();
         mNetwork->ReadMessage(rsp);
         switch (rsp.type())
         {
@@ -274,7 +259,7 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
             GetLog() << rsp.ShortDebugString();
             break;
         }
-        mSyncTimer.Reset(2000);
+        mSyncTimer.Reset(1000);
     }
 }
 

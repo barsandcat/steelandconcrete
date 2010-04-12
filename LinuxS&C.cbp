@@ -101,6 +101,7 @@
 		<Unit filename="src/InGameSheet.cpp" />
 		<Unit filename="src/InGameSheet.h" />
 		<Unit filename="src/Linux.cpp" />
+		<Unit filename="src/LinuxPlatform.cpp" />
 		<Unit filename="src/LoadingSheet.cpp" />
 		<Unit filename="src/LoadingSheet.h" />
 		<Unit filename="src/MainMenuSheet.cpp" />
