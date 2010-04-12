@@ -84,9 +84,7 @@ void ServerGame::Send(Network& aNetwork)
     mGrid->Send(aNetwork);
 
     UnitCountMsg count;
-    ServerUnit& avatar = CreateUnit(mGrid->GetTile(rand() % mGrid->GetTileCount()), mAvatar);
-    avatar.SetMaster(avatar.GetUnitId());
-    count.set_avatar(avatar.GetUnitId());
+    count.set_avatar(0);
     count.set_count(mUnits.size());
     count.set_time(mTime);
     aNetwork.WriteMessage(count);

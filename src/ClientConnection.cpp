@@ -31,15 +31,22 @@ void ClientConnection::Execute()
                 {
                 case REQUEST_DISCONNECT:
                     break;
-                case REQUEST_COMMANDS:
+                case REQUEST_GET_TIME:
                     if (req.has_time())
                     {
                         mGame.LoadCommands(req);
                         mLastConfirmedTime = req.time();
 
-                        ResponseMsg rsp;
-                        rsp.set_type(RESPONSE_OK);
-                        mNetwork->WriteMessage(rsp);
+                        if (mGame.GetTime() > mLastConfirmedTime)
+                        {
+                            ChangeList::Write(*mNetwork);
+                        }
+                        else
+                        {
+                            ResponseMsg rsp;
+                            rsp.set_type(RESPONSE_PLEASE_WAIT);
+                            mNetwork->WriteMessage(rsp);
+                        }
                     }
                     else
                     {
@@ -48,18 +55,7 @@ void ClientConnection::Execute()
                         rsp.set_reason("No time!");
                         mNetwork->WriteMessage(rsp);
                     }
-                    break;
-                case REQUEST_GET_TIME:
-                    if (mGame.GetTime() > mLastConfirmedTime)
-                    {
-                        ChangeList::Write(*mNetwork);
-                    }
-                    else
-                    {
-                        ResponseMsg rsp;
-                        rsp.set_type(RESPONSE_PLEASE_WAIT);
-                        mNetwork->WriteMessage(rsp);
-                    }
+
                     break;
                 }
             }
@@ -75,8 +71,8 @@ void ClientConnection::Execute()
 }
 
 ClientConnection::ClientConnection(ServerGame& aGame, Network* aNetwork):
-        mGame(aGame), mNetwork(aNetwork), mLive(true),
-        mLastConfirmedTime(0)
+    mGame(aGame), mNetwork(aNetwork), mLive(true),
+    mLastConfirmedTime(0)
 {
     mLastConfirmedTime = mGame.GetTime() - 1;
     task::create(ClientConnectionThreadFunction, this);
