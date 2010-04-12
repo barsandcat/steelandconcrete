@@ -59,6 +59,7 @@ void ServerGame::MainLoop(Ogre::String aAddress, Ogre::String aPort)
         UpdateTimer timer(2000);
         while (true)
         {
+            GetLog() << "Whait...";
             timer.Wait();
             UpdateGame();
         }
@@ -106,23 +107,30 @@ void ServerGame::UpdateGame()
 
     GetLog() << "Update Game!";
     ChangeList::Clear();
-    ServerUnits::iterator i = mUnits.begin();
-    for (; i != mUnits.end(); ++i)
+    std::vector<UnitId> mDeleteList;
+    mDeleteList.resize(mUnits.size() * 0.1f);
+    for (ServerUnits::iterator i = mUnits.begin(); i != mUnits.end(); ++i)
     {
         ServerUnit* unit = i->second;
         assert(unit);
         if (unit->UpdateAgeAndIsTimeToDie(mTimeStep))
         {
-            ServerUnits::iterator del = i;
-            ++i;
-            delete unit;
-            mUnits.erase(del);
+            mDeleteList.push_back(i->first);
         }
         else
         {
             unit->ExecuteCommand();
         }
     }
+
+    // Remove deleted units
+    for (size_t i = 0; i < mDeleteList.size(); ++i)
+    {
+        ServerUnit* unit = mUnits[mDeleteList[i]];
+        mUnits.erase(mDeleteList[i]);
+        delete unit;
+    }
+
     ChangeList::SetTime(mTime + mTimeStep);
     mTime += mTimeStep;
 
