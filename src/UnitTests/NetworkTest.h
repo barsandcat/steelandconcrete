@@ -38,7 +38,7 @@ public:
             ChangeList::AddRemove(i);
         }
         ChangeList::SetTime(0);
-        ChangeList::Write(*mNetwork);
+        ChangeList::Write(*mNetwork, 0);
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count);
     }
@@ -51,7 +51,7 @@ public:
             ChangeList::AddRemove(i);
         }
         ChangeList::SetTime(0);
-        ChangeList::Write(*mNetwork);
+        ChangeList::Write(*mNetwork, 0);
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count);
     }

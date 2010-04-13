@@ -10,13 +10,13 @@ public:
     static void AddMove(UnitId aUnit, TileId aPosition);
     static void AddCommandDone(UnitId aUnit);
     static void Clear();
-    static void Write(INetwork& aNetwork);
+    static void Write(INetwork& aNetwork, GameTime aClientTime);
     static void SetTime(GameTime aTime);
     static void AddRemove(UnitId aUnit);
 private:
     static std::list< ResponseMsg* > mChangeList;
     static GameTime mTime;
-    static ChangeMsg* AddChangeMsg();
+    static ChangeMsg& AddChangeMsg();
 };
 
 #endif // CHANGELIST_H

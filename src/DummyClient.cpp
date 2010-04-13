@@ -89,8 +89,9 @@ int main()
                         net->ReadMessage(rsp);
                         switch(rsp.type())
                         {
-                        case RESPONSE_CHANGES:
-                            while(!rsp.last())
+                        case RESPONSE_PART:
+                        case RESPONSE_OK:
+                            while(rsp.type() != RESPONSE_OK)
                             {
                                 rsp.Clear();
                                 net->ReadMessage(rsp);

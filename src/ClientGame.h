@@ -28,6 +28,7 @@ public:
     void Act();
 private:
     void CreateUnitEntities() const;
+    void ReadResponseMessage();
     void LoadEvents(const ResponseMsg& changes);
     ClientUnit& GetUnit(UnitId aUnitId);
 private:

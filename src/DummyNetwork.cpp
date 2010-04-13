@@ -2,15 +2,16 @@
 #include <DummyNetwork.h>
 
 #include <google/protobuf/descriptor.h>
+#include <Response.pb.h>
 
 
 void DummyNetwork::WriteMessage(const google::protobuf::Message& aMessage)
 {
     const google::protobuf::Reflection* reflection = aMessage.GetReflection();
-    const google::protobuf::FieldDescriptor* fieldDescriptor = aMessage.GetDescriptor()->FindFieldByName("last");
+    const google::protobuf::FieldDescriptor* fieldDescriptor = aMessage.GetDescriptor()->FindFieldByName("type");
     if (fieldDescriptor)
     {
-        mIsLastWrited = reflection->GetBool(aMessage, fieldDescriptor);
+        mIsLastWrited = reflection->GetEnum(aMessage, fieldDescriptor)->number() == RESPONSE_OK;
     }
 
     fieldDescriptor = aMessage.GetDescriptor()->FindFieldByName("changes");

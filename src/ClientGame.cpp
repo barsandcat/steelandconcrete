@@ -237,29 +237,33 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
 
 
         mNetwork->WriteMessage(req);
+        ReadResponseMessage();
 
-        ResponseMsg rsp;
-        mNetwork->ReadMessage(rsp);
-        switch (rsp.type())
-        {
-        case RESPONSE_CHANGES:
-            while (!rsp.last())
-            {
-                LoadEvents(rsp);
-                rsp.Clear();
-                mNetwork->ReadMessage(rsp);
-            }
-            LoadEvents(rsp);
-            mTime = rsp.time();
-            mIngameSheet.SetTime(mTime);
-            break;
-        case RESPONSE_PLEASE_WAIT:
-            break;
-        default:
-            GetLog() << rsp.ShortDebugString();
-            break;
-        }
         mSyncTimer.Reset(1000);
     }
+}
+
+void ClientGame::ReadResponseMessage()
+{
+    ResponseMsg rsp;
+    mNetwork->ReadMessage(rsp);
+
+    switch (rsp.type())
+    {
+    case RESPONSE_OK:
+        LoadEvents(rsp);
+        mTime = rsp.time();
+        mIngameSheet.SetTime(mTime);
+        break;
+    case RESPONSE_PART:
+        LoadEvents(rsp);
+        ReadResponseMessage();
+        break;
+    case RESPONSE_NOK:
+    default:
+        GetLog() << rsp.ShortDebugString();
+        break;
+    }
+
 }
 
