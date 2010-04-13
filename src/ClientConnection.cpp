@@ -36,17 +36,7 @@ void ClientConnection::Execute()
                     {
                         mGame.LoadCommands(req);
                         mLastConfirmedTime = req.time();
-
-                        if (mGame.GetTime() > mLastConfirmedTime)
-                        {
-                            ChangeList::Write(*mNetwork);
-                        }
-                        else
-                        {
-                            ResponseMsg rsp;
-                            rsp.set_type(RESPONSE_PLEASE_WAIT);
-                            mNetwork->WriteMessage(rsp);
-                        }
+                        ChangeList::Write(*mNetwork, mLastConfirmedTime);
                     }
                     else
                     {
@@ -55,7 +45,6 @@ void ClientConnection::Execute()
                         rsp.set_reason("No time!");
                         mNetwork->WriteMessage(rsp);
                     }
-
                     break;
                 }
             }

@@ -4,14 +4,12 @@ enum ResponseType
 {
     RESPONSE_OK = 1;
     RESPONSE_NOK = 2;
-    RESPONSE_PLEASE_WAIT = 3;
-    RESPONSE_CHANGES = 4;
+    RESPONSE_PART = 3;
 }
 
 message ResponseMsg
 {
     required ResponseType type = 1;
-    optional bool last = 2 [default = true];
     optional string reason = 3;
     optional uint64 time = 4;
     repeated ChangeMsg changes = 5;
