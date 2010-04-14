@@ -251,7 +251,6 @@ void ClientGame::ReadResponseMessage()
     switch (rsp.type())
     {
     case RESPONSE_OK:
-        LoadEvents(rsp);
         mTime = rsp.time();
         mIngameSheet.SetTime(mTime);
         break;

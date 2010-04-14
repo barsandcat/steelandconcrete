@@ -16,13 +16,8 @@ ChangeMsg& ChangeList::AddChangeMsg()
     else
     {
         ResponseMsg* msg = new ResponseMsg();
-        msg->set_type(RESPONSE_OK);
+        msg->set_type(RESPONSE_PART);
         change = msg->add_changes();
-
-        if (!mChangeList.empty())
-        {
-            mChangeList.front()->set_type(RESPONSE_PART);
-        }
         mChangeList.push_front(msg);
     }
     assert(change);
@@ -48,10 +43,6 @@ void ChangeList::Clear()
 
 void ChangeList::SetTime(GameTime aTime)
 {
-    for (std::list< ResponseMsg* >::iterator i = mChangeList.begin(); i != mChangeList.end(); ++i)
-    {
-        (*i)->set_time(aTime);
-    }
     mTime = aTime;
 }
 
@@ -67,13 +58,11 @@ void ChangeList::Write(INetwork& aNetwork, GameTime aClientTime)
         }
         while (i != mChangeList.begin());
     }
-    else
-    {
-        ResponseMsg emptyMsg;
-        emptyMsg.set_type(RESPONSE_OK);
-        emptyMsg.set_time(mTime);
-        aNetwork.WriteMessage(emptyMsg);
-    }
+
+    ResponseMsg emptyMsg;
+    emptyMsg.set_type(RESPONSE_OK);
+    emptyMsg.set_time(mTime);
+    aNetwork.WriteMessage(emptyMsg);
 }
 
 void ChangeList::AddCommandDone(UnitId aUnit)
