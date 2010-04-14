@@ -7,14 +7,18 @@
 class ChangeList
 {
 public:
+    typedef std::vector< ResponseMsg* > ResponseList;
+    typedef std::pair<GameTime, ResponseList> UpdateBlock;
+
     static void AddMove(UnitId aUnit, TileId aPosition);
     static void AddCommandDone(UnitId aUnit);
-    static void Clear();
     static void Write(INetwork& aNetwork, GameTime aClientTime);
     static void SetTime(GameTime aTime);
     static void AddRemove(UnitId aUnit);
+    static void Clear();
 private:
-    static std::list< ResponseMsg* > mChangeList;
+    typedef std::deque< UpdateBlock > UpdateBlockList;
+    static UpdateBlockList mChangeList;
     static GameTime mTime;
     static ChangeMsg& AddChangeMsg();
 };
