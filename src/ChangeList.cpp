@@ -3,25 +3,31 @@
 
 #include <ServerLog.h>
 
-std::list< ResponseMsg* > ChangeList::mChangeList;
+ChangeList::UpdateBlockList ChangeList::mChangeList;
 GameTime ChangeList::mTime;
 
 ChangeMsg& ChangeList::AddChangeMsg()
 {
-    ChangeMsg* change = NULL;
-    if (!mChangeList.empty() && (mChangeList.front()->changes_size() < 250))
+    if (mChangeList.empty())
     {
-        change = mChangeList.front()->add_changes();
+        mChangeList.push_back(std::make_pair(0, ResponseList()));
+    }
+    ResponseList& changeList = mChangeList.back().second;
+
+    ChangeMsg* change = NULL;
+    if (!changeList.empty() && (changeList.back()->changes_size() < 250))
+    {
+        change = changeList.back()->add_changes();
     }
     else
     {
         ResponseMsg* msg = new ResponseMsg();
         msg->set_type(RESPONSE_PART);
         change = msg->add_changes();
-        mChangeList.push_front(msg);
+        changeList.push_back(msg);
     }
     assert(change);
-	return *change;
+    return *change;
 }
 
 void ChangeList::AddMove(UnitId aUnit, TileId aPosition)
@@ -34,29 +40,57 @@ void ChangeList::AddMove(UnitId aUnit, TileId aPosition)
 
 void ChangeList::Clear()
 {
-    for (std::list< ResponseMsg* >::iterator i = mChangeList.begin(); i != mChangeList.end(); ++i)
+    for (UpdateBlockList::iterator i = mChangeList.begin(); i != mChangeList.end(); ++i)
     {
-        delete *i;
+        ResponseList responseList = i->second;
+        for (ResponseList::iterator j = responseList.begin(); j != responseList.end(); ++j)
+        {
+            delete *j;
+        }
     }
     mChangeList.clear();
 }
 
 void ChangeList::SetTime(GameTime aTime)
 {
+    mChangeList.push_back(std::make_pair(aTime, ResponseList()));
+
+    if (mChangeList.size() > 200)
+    {
+        ResponseList& changeList = mChangeList.front().second;
+        for (ResponseList::iterator i = changeList.begin(); i != changeList.end(); ++i)
+        {
+            delete *i;
+        }
+        mChangeList.pop_front();
+    }
+
     mTime = aTime;
+}
+
+bool ChangeBlockCmp(ChangeList::UpdateBlock i, ChangeList::UpdateBlock j)
+{
+    return i.first < j.first;
 }
 
 void ChangeList::Write(INetwork& aNetwork, GameTime aClientTime)
 {
-    if (!mChangeList.empty())
+    UpdateBlockList::iterator i =
+        std::lower_bound(mChangeList.begin(), mChangeList.end(),
+                         std::make_pair(aClientTime, ResponseList()), ChangeBlockCmp);
+    while (i != mChangeList.end())
     {
-        std::list< ResponseMsg* >::const_iterator i = mChangeList.end();
-        do
+        ResponseList& changeList = i->second;
+        if (!changeList.empty())
         {
-            --i;
-            aNetwork.WriteMessage(**i);
+            ResponseList::const_iterator j = changeList.begin();
+            while (j != changeList.end())
+            {
+                aNetwork.WriteMessage(**j);
+                ++j;
+            }
         }
-        while (i != mChangeList.begin());
+        ++i;
     }
 
     ResponseMsg emptyMsg;
