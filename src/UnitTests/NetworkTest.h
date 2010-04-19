@@ -120,6 +120,36 @@ public:
         TS_ASSERT_EQUALS(mNetwork->GetTimeWrited(), GameTime(1));
     }
 
+    void TestChangeListTwoTimesTwoBlocks()
+    {
+        const int count = 400;
+
+
+        ChangeList::SetTime(0);
+        for (int i = 0; i < count; ++i)
+        {
+            ChangeList::AddRemove(i);
+        }
+
+        ChangeList::SetTime(1);
+        for (int i = 0; i < count; ++i)
+        {
+            ChangeList::AddRemove(i);
+        }
+
+        ChangeList::SetTime(2);
+        for (int i = 0; i < count; ++i)
+        {
+            ChangeList::AddRemove(i);
+        }
+
+        ChangeList::Write(*mNetwork, 0);
+
+        TS_ASSERT(mNetwork->IsLastWrited());
+        TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count * 2);
+        TS_ASSERT_EQUALS(mNetwork->GetWrites(), 5);
+        TS_ASSERT_EQUALS(mNetwork->GetTimeWrited(), GameTime(2));
+    }
 
 
     void TestGeodesicGridSave()
