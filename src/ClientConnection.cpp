@@ -35,8 +35,7 @@ void ClientConnection::Execute()
                     if (req.has_time())
                     {
                         mGame.LoadCommands(req);
-                        mLastConfirmedTime = req.time();
-                        ChangeList::Write(*mNetwork, mLastConfirmedTime);
+                        ChangeList::Write(*mNetwork, req.time());
                     }
                     else
                     {
@@ -60,10 +59,8 @@ void ClientConnection::Execute()
 }
 
 ClientConnection::ClientConnection(ServerGame& aGame, Network* aNetwork):
-    mGame(aGame), mNetwork(aNetwork), mLive(true),
-    mLastConfirmedTime(0)
+    mGame(aGame), mNetwork(aNetwork), mLive(true)
 {
-    mLastConfirmedTime = mGame.GetTime() - 1;
     task::create(ClientConnectionThreadFunction, this);
 }
 

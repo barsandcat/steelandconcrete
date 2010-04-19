@@ -15,7 +15,6 @@ class ClientConnection
 public:
     ClientConnection(ServerGame& aGame, Network* aNetwork);
     bool IsLive() const { return mLive; }
-    GameTime GetLastConfirmedTime() const { return mLastConfirmedTime; }
     ~ClientConnection();
     void Execute();
 protected:
@@ -23,7 +22,6 @@ private:
     ServerGame& mGame;
     Network* mNetwork;
     bool mLive;
-    GameTime mLastConfirmedTime;
 };
 
 #endif // CLIENTCONNECTION_H
