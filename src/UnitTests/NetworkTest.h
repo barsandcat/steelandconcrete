@@ -41,6 +41,7 @@ public:
         ChangeList::Write(*mNetwork, 0);
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count);
+        TS_ASSERT_EQUALS(mNetwork->GetWrites(), 2);
     }
 
     void TestChangeListTwoBlock()
@@ -54,6 +55,20 @@ public:
         ChangeList::Write(*mNetwork, 0);
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count);
+        TS_ASSERT_EQUALS(mNetwork->GetWrites(), 3);
+    }
+
+    void TestChangeListTwoTimes()
+    {
+        ChangeList::SetTime(0);
+        ChangeList::AddRemove(1);
+        ChangeList::SetTime(1);
+        ChangeList::AddRemove(2);
+        ChangeList::Write(*mNetwork, 0);
+
+        TS_ASSERT(mNetwork->IsLastWrited());
+        TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 2);
+        TS_ASSERT_EQUALS(mNetwork->GetWrites(), 3);
     }
 
 

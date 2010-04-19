@@ -7,6 +7,7 @@
 
 void DummyNetwork::WriteMessage(const google::protobuf::Message& aMessage)
 {
+    ++mWrites;
     const google::protobuf::Reflection* reflection = aMessage.GetReflection();
     const google::protobuf::FieldDescriptor* fieldDescriptor = aMessage.GetDescriptor()->FindFieldByName("type");
     if (fieldDescriptor)
@@ -31,7 +32,7 @@ bool DummyNetwork::IsOk()
     return true;
 }
 
-DummyNetwork::DummyNetwork(): mIsLastWrited(false), mChangesWrited(0)
+DummyNetwork::DummyNetwork(): mIsLastWrited(false), mChangesWrited(0), mWrites(0)
 {
     //ctor
 }
