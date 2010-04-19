@@ -13,6 +13,14 @@ void DummyNetwork::WriteMessage(const google::protobuf::Message& aMessage)
     if (fieldDescriptor)
     {
         mIsLastWrited = reflection->GetEnum(aMessage, fieldDescriptor)->number() == RESPONSE_OK;
+        if (mIsLastWrited)
+        {
+            fieldDescriptor = aMessage.GetDescriptor()->FindFieldByName("time");
+            if (fieldDescriptor)
+            {
+                mTimeWrited = reflection->GetUInt64(aMessage, fieldDescriptor);
+            }
+        }
     }
 
     fieldDescriptor = aMessage.GetDescriptor()->FindFieldByName("changes");
