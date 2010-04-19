@@ -10,7 +10,7 @@
 #include <UpdateTimer.h>
 
 ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0),
-    mTime(30), mTimeStep(30),
+    mTime(1), mTimeStep(1),
     mGrass(VC::LIVE | VC::PLANT, 100, 0),
     mZebra(VC::LIVE | VC::ANIMAL | VC::HERBIVORES, 500, 1),
     mAvatar(VC::LIVE | VC::ANIMAL | VC::HUMAN, 999999, 1)
@@ -106,9 +106,11 @@ void ServerGame::UpdateGame()
     critical_section cs(mGameMutex);
 
     GetLog() << "Update Game!";
-    ChangeList::Clear();
+    ChangeList::SetTime(mTime);
+
     std::vector<UnitId> mDeleteList;
     mDeleteList.resize(mUnits.size() * 0.1f);
+
     for (ServerUnits::iterator i = mUnits.begin(); i != mUnits.end(); ++i)
     {
         ServerUnit* unit = i->second;
@@ -131,9 +133,7 @@ void ServerGame::UpdateGame()
         delete unit;
     }
 
-    ChangeList::SetTime(mTime + mTimeStep);
     mTime += mTimeStep;
-
 
     GetLog() << "Time: " << mTime;
 }
