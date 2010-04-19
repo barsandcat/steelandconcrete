@@ -32,12 +32,12 @@ public:
 
     void TestChangeListOneBlock()
     {
+        ChangeList::SetTime(0);
         const int count = 50;
         for (int i = 0; i < count; ++i)
         {
             ChangeList::AddRemove(i);
         }
-        ChangeList::SetTime(0);
         ChangeList::Write(*mNetwork, 0);
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count);
@@ -45,12 +45,12 @@ public:
 
     void TestChangeListTwoBlock()
     {
+        ChangeList::SetTime(0);
         const int count = 400;
         for (int i = 0; i < count; ++i)
         {
             ChangeList::AddRemove(i);
         }
-        ChangeList::SetTime(0);
         ChangeList::Write(*mNetwork, 0);
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count);

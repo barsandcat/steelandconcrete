@@ -8,10 +8,7 @@ GameTime ChangeList::mTime;
 
 ChangeMsg& ChangeList::AddChangeMsg()
 {
-    if (mChangeList.empty())
-    {
-        mChangeList.push_back(std::make_pair(0, ResponseList()));
-    }
+    assert(!mChangeList.empty() && "SetTime должен быть вызван с начала!");
     ResponseList& changeList = mChangeList.back().second;
 
     ChangeMsg* change = NULL;
