@@ -13,10 +13,12 @@ public:
     virtual bool IsOk();
     bool IsLastWrited() const { return mIsLastWrited; }
     int GetChangesWrited() const { return mChangesWrited; }
+    int GetWrites() const { return mWrites; }
 protected:
 private:
    bool mIsLastWrited;
    int mChangesWrited;
+   int mWrites;
 };
 
 #endif // DUMMYNETWORK_H
