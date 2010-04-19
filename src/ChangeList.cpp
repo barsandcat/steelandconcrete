@@ -73,7 +73,7 @@ bool ChangeBlockCmp(ChangeList::UpdateBlock i, ChangeList::UpdateBlock j)
 void ChangeList::Write(INetwork& aNetwork, GameTime aClientTime)
 {
     UpdateBlockList::iterator i =
-        std::lower_bound(mChangeList.begin(), mChangeList.end(),
+        std::upper_bound(mChangeList.begin(), mChangeList.end(),
                          std::make_pair(aClientTime, ResponseList()), ChangeBlockCmp);
     while (i != mChangeList.end())
     {

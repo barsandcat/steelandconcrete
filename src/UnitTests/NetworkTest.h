@@ -32,7 +32,8 @@ public:
 
     void TestChangeListOneBlock()
     {
-        ChangeList::SetTime(0);
+        const GameTime time = 99;
+        ChangeList::SetTime(time);
         const int count = 50;
         for (int i = 0; i < count; ++i)
         {
@@ -42,11 +43,13 @@ public:
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count);
         TS_ASSERT_EQUALS(mNetwork->GetWrites(), 2);
+        TS_ASSERT_EQUALS(mNetwork->GetTimeWrited(), time);
     }
 
     void TestChangeListTwoBlock()
     {
-        ChangeList::SetTime(0);
+        const GameTime time = 20000;
+        ChangeList::SetTime(time);
         const int count = 400;
         for (int i = 0; i < count; ++i)
         {
@@ -56,20 +59,67 @@ public:
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count);
         TS_ASSERT_EQUALS(mNetwork->GetWrites(), 3);
+        TS_ASSERT_EQUALS(mNetwork->GetTimeWrited(), time);
     }
 
     void TestChangeListTwoTimes()
     {
         ChangeList::SetTime(0);
-        ChangeList::AddRemove(1);
+        ChangeList::AddRemove(0);
         ChangeList::SetTime(1);
+        ChangeList::AddRemove(1);
+        ChangeList::SetTime(2);
         ChangeList::AddRemove(2);
         ChangeList::Write(*mNetwork, 0);
 
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 2);
         TS_ASSERT_EQUALS(mNetwork->GetWrites(), 3);
+        TS_ASSERT_EQUALS(mNetwork->GetTimeWrited(), GameTime(2));
     }
+
+    void TestChangeListUsualCase()
+    {
+        ChangeList::SetTime(0);
+        ChangeList::AddRemove(0);
+        ChangeList::SetTime(1);
+        ChangeList::AddRemove(1);
+        ChangeList::Write(*mNetwork, 0);
+
+        TS_ASSERT(mNetwork->IsLastWrited());
+        TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 1);
+        TS_ASSERT_EQUALS(mNetwork->GetWrites(), 2);
+        TS_ASSERT_EQUALS(mNetwork->GetTimeWrited(), GameTime(1));
+    }
+
+    void TestChangeListClientWrong()
+    {
+        ChangeList::SetTime(0);
+        ChangeList::AddRemove(0);
+        ChangeList::SetTime(1);
+        ChangeList::AddRemove(1);
+        ChangeList::Write(*mNetwork, 2);
+
+        TS_ASSERT(mNetwork->IsLastWrited());
+        TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 0);
+        TS_ASSERT_EQUALS(mNetwork->GetWrites(), 1);
+        TS_ASSERT_EQUALS(mNetwork->GetTimeWrited(), GameTime(1));
+    }
+
+    void TestChangeListClientSameTime()
+    {
+        ChangeList::SetTime(0);
+        ChangeList::AddRemove(0);
+        ChangeList::SetTime(1);
+        ChangeList::AddRemove(1);
+        ChangeList::Write(*mNetwork, 1);
+
+        TS_ASSERT(mNetwork->IsLastWrited());
+        TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 0);
+        TS_ASSERT_EQUALS(mNetwork->GetWrites(), 1);
+        TS_ASSERT_EQUALS(mNetwork->GetTimeWrited(), GameTime(1));
+    }
+
 
 
     void TestGeodesicGridSave()

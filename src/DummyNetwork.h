@@ -14,11 +14,13 @@ public:
     bool IsLastWrited() const { return mIsLastWrited; }
     int GetChangesWrited() const { return mChangesWrited; }
     int GetWrites() const { return mWrites; }
+    GameTime GetTimeWrited() const { return mTimeWrited; }
 protected:
 private:
    bool mIsLastWrited;
    int mChangesWrited;
    int mWrites;
+   GameTime mTimeWrited;
 };
 
 #endif // DUMMYNETWORK_H
