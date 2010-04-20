@@ -4,24 +4,21 @@
 #include <ServerLog.h>
 
 ChangeList::UpdateBlockList ChangeList::mChangeList;
-GameTime ChangeList::mTime;
+ChangeList::ResponseList ChangeList::mCurrentChanges;
 
 ChangeMsg& ChangeList::AddChangeMsg()
 {
-    assert(!mChangeList.empty() && "SetTime должен быть вызван с начала!");
-    ResponseList& changeList = mChangeList.back().second;
-
     ChangeMsg* change = NULL;
-    if (!changeList.empty() && (changeList.back()->changes_size() < 250))
+    if (!mCurrentChanges.empty() && (mCurrentChanges.back()->changes_size() < 250))
     {
-        change = changeList.back()->add_changes();
+        change = mCurrentChanges.back()->add_changes();
     }
     else
     {
         ResponseMsg* msg = new ResponseMsg();
         msg->set_type(RESPONSE_PART);
         change = msg->add_changes();
-        changeList.push_back(msg);
+        mCurrentChanges.push_back(msg);
     }
     assert(change);
     return *change;
@@ -48,9 +45,10 @@ void ChangeList::Clear()
     mChangeList.clear();
 }
 
-void ChangeList::SetTime(GameTime aTime)
+void ChangeList::Commit(GameTime aTime)
 {
-    mChangeList.push_back(std::make_pair(aTime, ResponseList()));
+    mChangeList.push_back(std::make_pair(aTime, mCurrentChanges));
+    mCurrentChanges.resize(0);
 
     if (mChangeList.size() > 200)
     {
@@ -61,8 +59,6 @@ void ChangeList::SetTime(GameTime aTime)
         }
         mChangeList.pop_front();
     }
-
-    mTime = aTime;
 }
 
 bool ChangeBlockCmp(ChangeList::UpdateBlock i, ChangeList::UpdateBlock j)
@@ -75,9 +71,17 @@ void ChangeList::Write(INetwork& aNetwork, GameTime aClientTime)
     UpdateBlockList::iterator i =
         std::upper_bound(mChangeList.begin(), mChangeList.end(),
                          std::make_pair(aClientTime, ResponseList()), ChangeBlockCmp);
+
+    GameTime time = 0;
+    if (!mChangeList.empty())
+    {
+        time = mChangeList.back().first;
+    }
+
     while (i != mChangeList.end())
     {
         ResponseList& changeList = i->second;
+        time = i->first;
         if (!changeList.empty())
         {
             ResponseList::const_iterator j = changeList.begin();
@@ -92,7 +96,7 @@ void ChangeList::Write(INetwork& aNetwork, GameTime aClientTime)
 
     ResponseMsg emptyMsg;
     emptyMsg.set_type(RESPONSE_OK);
-    emptyMsg.set_time(mTime);
+    emptyMsg.set_time(time);
     aNetwork.WriteMessage(emptyMsg);
 }
 
