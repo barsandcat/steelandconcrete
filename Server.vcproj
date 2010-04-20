@@ -276,6 +276,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\WindowsPlatform.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\WindowsServer.cpp"
 				>
 			</File>

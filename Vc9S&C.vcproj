@@ -332,6 +332,10 @@
 				RelativePath=".\src\Windows.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\src\WindowsPlatform.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
