@@ -106,7 +106,6 @@ void ServerGame::UpdateGame()
     critical_section cs(mGameMutex);
 
     GetLog() << "Update Game!";
-    ChangeList::SetTime(mTime);
 
     std::vector<UnitId> mDeleteList;
     mDeleteList.resize(mUnits.size() * 0.1f);
@@ -134,6 +133,7 @@ void ServerGame::UpdateGame()
     }
 
     mTime += mTimeStep;
+    ChangeList::Commit(mTime);
 
     GetLog() << "Time: " << mTime;
 }
