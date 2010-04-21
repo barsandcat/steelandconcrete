@@ -4,5 +4,9 @@
 
 int64 GetMiliseconds()
 {
-	return 0;
+	LARGE_INTEGER stop;
+	LARGE_INTEGER proc_freq;
+	QueryPerformanceCounter(&stop);
+	QueryPerformanceFrequency(&proc_freq);
+	return double(stop.QuadPart) / double(proc_freq.QuadPart) * 1000;
 }
