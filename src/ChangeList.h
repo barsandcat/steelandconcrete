@@ -3,6 +3,7 @@
 #include <Typedefs.h>
 #include <Response.pb.h>
 #include <INetwork.h>
+#include <ReadWriteLock.h>
 
 class ChangeList
 {
@@ -18,9 +19,10 @@ public:
     static void Clear();
 private:
     typedef std::deque< UpdateBlock > UpdateBlockList;
+		static ChangeMsg& AddChangeMsg();
     static UpdateBlockList mChangeList;
     static ResponseList mCurrentChanges;
-    static ChangeMsg& AddChangeMsg();
+		static ReadWriteLock mChangeListRWL;
 };
 
 #endif // CHANGELIST_H

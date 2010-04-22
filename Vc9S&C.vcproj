@@ -317,6 +317,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\src\ReadWriteLock.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\ServerBrowserSheet.cpp"
 				>
 			</File>
@@ -395,6 +399,10 @@
 			</File>
 			<File
 				RelativePath=".\src\pch.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\ReadWriteLock.h"
 				>
 			</File>
 			<File

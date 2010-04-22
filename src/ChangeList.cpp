@@ -5,6 +5,7 @@
 
 ChangeList::UpdateBlockList ChangeList::mChangeList;
 ChangeList::ResponseList ChangeList::mCurrentChanges;
+ReadWriteLock ChangeList::mChangeListRWL;
 
 ChangeMsg& ChangeList::AddChangeMsg()
 {
@@ -47,6 +48,7 @@ void ChangeList::Clear()
 
 void ChangeList::Commit(GameTime aTime)
 {
+    mChangeListRWL.StartWrite();
     mChangeList.push_back(std::make_pair(aTime, mCurrentChanges));
     mCurrentChanges.resize(0);
 
@@ -59,6 +61,7 @@ void ChangeList::Commit(GameTime aTime)
         }
         mChangeList.pop_front();
     }
+    mChangeListRWL.StopWrite();
 }
 
 bool ChangeBlockCmp(ChangeList::UpdateBlock i, ChangeList::UpdateBlock j)
@@ -68,6 +71,8 @@ bool ChangeBlockCmp(ChangeList::UpdateBlock i, ChangeList::UpdateBlock j)
 
 void ChangeList::Write(INetwork& aNetwork, GameTime aClientTime)
 {
+    mChangeListRWL.StartRead();
+
     UpdateBlockList::iterator i =
         std::upper_bound(mChangeList.begin(), mChangeList.end(),
                          std::make_pair(aClientTime, ResponseList()), ChangeBlockCmp);
@@ -94,10 +99,13 @@ void ChangeList::Write(INetwork& aNetwork, GameTime aClientTime)
         ++i;
     }
 
+    mChangeListRWL.StopRead();
+
     ResponseMsg emptyMsg;
     emptyMsg.set_type(RESPONSE_OK);
     emptyMsg.set_time(time);
     aNetwork.WriteMessage(emptyMsg);
+		
 }
 
 void ChangeList::AddCommandDone(UnitId aUnit)

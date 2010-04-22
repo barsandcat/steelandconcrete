@@ -258,6 +258,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\ReadWriteLock.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\ServerEdge.cpp"
 				>
 			</File>
@@ -313,6 +317,10 @@
 			</File>
 			<File
 				RelativePath="..\pch.h"
+				>
+			</File>
+			<File
+				RelativePath="..\ReadWriteLock.h"
 				>
 			</File>
 			<File
