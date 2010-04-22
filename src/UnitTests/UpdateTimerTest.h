@@ -13,11 +13,15 @@ public:
         int64 period = 100;
         UpdateTimer timer(period);
         timer.Wait();
-        TS_ASSERT_EQUALS(0, timer.GetUpdateTime());
+        TS_ASSERT_EQUALS(0, timer.GetPassedTime());
+
+        task::sleep(50);
         timer.Wait();
-        TS_ASSERT_LESS_THAN_EQUALS(period, timer.GetUpdateTime());
+        TS_ASSERT_DELTA(timer.GetPassedTime(), 50 , 10);
+
+        task::sleep(100);
         timer.Wait();
-        TS_ASSERT_LESS_THAN_EQUALS(period, timer.GetUpdateTime());
+        TS_ASSERT_DELTA(timer.GetPassedTime(), 100, 10);
     }
 
     void TestSyncTimer()

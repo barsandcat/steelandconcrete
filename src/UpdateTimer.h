@@ -4,6 +4,7 @@
 #include <Typedefs.h>
 #include <task.h>
 #include <Platform.h>
+#include <ServerLog.h>
 
 class UpdateTimer
 {
@@ -18,15 +19,16 @@ public:
     {
         int64 current = GetMiliseconds();
         mPassed = current - mStart;
-        mStart = current;
         int64 left = mPeriod - mPassed;
+
         if (left > 0)
         {
             task::sleep(left);
         }
+        mStart = GetMiliseconds();
     }
 
-    int64 GetUpdateTime()
+    int64 GetPassedTime()
     {
         return mPassed;
     }
