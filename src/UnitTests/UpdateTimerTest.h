@@ -16,6 +16,8 @@ public:
         TS_ASSERT_EQUALS(0, timer.GetUpdateTime());
         timer.Wait();
         TS_ASSERT_LESS_THAN_EQUALS(period, timer.GetUpdateTime());
+        timer.Wait();
+        TS_ASSERT_LESS_THAN_EQUALS(period, timer.GetUpdateTime());
     }
 
     void TestSyncTimer()
