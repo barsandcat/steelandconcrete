@@ -75,6 +75,8 @@
 		<Unit filename="../Network.cpp" />
 		<Unit filename="../Network.h" />
 		<Unit filename="../Platform.h" />
+		<Unit filename="../ReadWriteLock.cpp" />
+		<Unit filename="../ReadWriteLock.h" />
 		<Unit filename="../ServerEdge.cpp" />
 		<Unit filename="../ServerEdge.h" />
 		<Unit filename="../ServerGeodesicGrid.cpp" />
