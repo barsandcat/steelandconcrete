@@ -60,49 +60,34 @@ int main()
                 net->ReadMessage(unit);
             }
 
-            bool mTurnDone = false;
             while(true)
             {
-				task::sleep(1000);
+                task::sleep(1000);
                 try
                 {
                     RequestMsg req;
                     ResponseMsg rsp;
-                    if(!mTurnDone)
-                    {
-                        req.set_type(REQUEST_COMMANDS);
-                        req.set_time(mTime);
-                        req.set_last(true);
-                        net->WriteMessage(req);
-                        GetLog() << "REQUEST_COMMANDS " << mTime;
-                        net->ReadMessage(rsp);
-                        GetLog() << rsp.ShortDebugString();
-                        mTurnDone = true;
+                    req.set_type(REQUEST_GET_TIME);
+                    req.set_time(mTime);
+                    req.set_last(true);
+                    net->WriteMessage(req);
+                    GetLog() << "REQUEST_GET_TIME";
 
-                    }
-                    else
+                    net->ReadMessage(rsp);
+                    switch(rsp.type())
                     {
-                        req.set_type(REQUEST_GET_TIME);
-                        net->WriteMessage(req);
-                        GetLog() << "REQUEST_GET_TIME";
-
-                        net->ReadMessage(rsp);
-                        switch(rsp.type())
+                    case RESPONSE_PART:
+                    case RESPONSE_OK:
+                        while(rsp.type() != RESPONSE_OK)
                         {
-                        case RESPONSE_PART:
-                        case RESPONSE_OK:
-                            while(rsp.type() != RESPONSE_OK)
-                            {
-                                rsp.Clear();
-                                net->ReadMessage(rsp);
-                            }
-                            mTime = rsp.time();
-                            GetLog() << "New time " << mTime;
-                            mTurnDone = false;
-                            break;
-                        default:
-                            break;
+                            rsp.Clear();
+                            net->ReadMessage(rsp);
                         }
+                        mTime = rsp.time();
+                        GetLog() << "New time " << mTime;
+                        break;
+                    default:
+                        break;
                     }
                 }
                 catch(std::exception& e)

@@ -1,6 +1,14 @@
 #include <pch.h>
 #include <ReadWriteLock.h>
 
+ReadWriteLock::ReadWriteLock(): mReadCount(0)
+{
+}
+
+ReadWriteLock::~ReadWriteLock()
+{
+}
+
 void ReadWriteLock::StartRead()
 {
     mReadEntryLock.enter();

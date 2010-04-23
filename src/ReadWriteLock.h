@@ -9,8 +9,8 @@
 class ReadWriteLock
 {
 public:
-    ReadWriteLock(): mReadCount(0) {}
-    ~ReadWriteLock() {}
+    ReadWriteLock();
+    ~ReadWriteLock();
     void StartRead();
     void StopRead();
     void StartWrite();
@@ -21,10 +21,10 @@ private:
     ReadWriteLock& operator=(const ReadWriteLock& other) { return *this; }
 
     int mReadCount; // enshures that only one reader manipulates mWriteLock
-    mutex mReadCountLock; // protects counter
-    mutex mReadEntryLock; // prvents readers retaking mReadLock, if writer is trying to do so
-    mutex mWriteLock;
-    mutex mReadLock;
+    simple_mutex mReadCountLock; // protects counter
+    simple_mutex mReadEntryLock; // prvents readers retaking mReadLock, if writer is trying to do so
+    simple_mutex mWriteLock;
+    simple_mutex mReadLock;
 };
 
 #endif // READWRITELOCK_H
