@@ -52,7 +52,6 @@ void ClientConnection::Execute()
         {
             GetLog() << e.what();
         }
-        task::reschedule();
     }
 
     mLive = false;

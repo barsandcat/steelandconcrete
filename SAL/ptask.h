@@ -5,7 +5,7 @@
 //                          Created:      2-Mar-97    K.A. Knizhnik  * / [] \ *
 //                          Last update: 26-Sep-97    K.A. Knizhnik  * GARRET *
 //-------------------------------------------------------------------*--------*
-// Tasking implemented using Posix pthreads 
+// Tasking implemented using Posix pthreads
 //-------------------------------------------------------------------*--------*
 
 #ifndef __PTASK_H__
@@ -22,74 +22,83 @@
 #undef PTHREAD_MUTEX_RECURSIVE_NP
 #endif
 
-class mutex_internals { 
+class mutex_internals {
     friend class eventex_internals;
     friend class semaphorex_internals;
 
-  protected: 
-    pthread_mutex_t cs;  
+  protected:
+    pthread_mutex_t cs;
 #ifdef PTHREAD_MUTEX_RECURSIVE_NP
     void enter() { pthread_mutex_lock(&cs); }
     void leave() { pthread_mutex_unlock(&cs); }
 #else
     int       count;
     pthread_t owner;
-    void enter() 
-    { 
+    void enter()
+    {
 	pthread_t self = pthread_self();
-	if (owner != self) { 
-	    pthread_mutex_lock(&cs); 
+	if (owner != self) {
+	    pthread_mutex_lock(&cs);
 	    owner = self;
 	}
 	count += 1;
     }
-    void leave() 
+    void leave()
     {
 	assert(pthread_self() == owner);
 	if (--count == 0) {
 	    owner = 0;
 	    pthread_mutex_unlock(&cs);
-	} 
+	}
     }
 #endif
 
-    mutex_internals();  
-    ~mutex_internals();  
+    mutex_internals();
+    ~mutex_internals();
 };
 
-class semaphore_internals { 
-  protected: 
+class simple_mutex_internals {
+  protected:
     pthread_mutex_t cs;
-    pthread_cond_t  cond; 
-    int             count; 
+    void enter() { pthread_mutex_lock(&cs); }
+    void leave() { pthread_mutex_unlock(&cs); }
+    simple_mutex_internals();
+    ~simple_mutex_internals();
+};
+
+class semaphore_internals {
+  protected:
+    pthread_mutex_t cs;
+    pthread_cond_t  cond;
+    int             count;
 
     void wait();
     void signal();
     boolean wait_with_timeout(timeout_t msec);
 
-    semaphore_internals(int init_count);  
-    ~semaphore_internals();  
-}; 
+    semaphore_internals(int init_count);
+    ~semaphore_internals();
+};
 
-class semaphorex_internals { 
-  protected: 
+class semaphorex_internals {
+  protected:
     mutex_internals& guard;
-    pthread_cond_t   cond; 
-    int              count; 
+    pthread_cond_t   cond;
+    int              count;
 
     void wait();
     void signal();
     boolean wait_with_timeout(timeout_t msec);
 
-    semaphorex_internals(mutex_internals& cs, int init_count);  
-    ~semaphorex_internals();  
-}; 
+    semaphorex_internals(mutex_internals& cs, int init_count);
+    ~semaphorex_internals();
+};
 
-class event_internals { 
-  protected: 
+class event_internals {
+  protected:
     pthread_mutex_t cs;
-    pthread_cond_t  cond; 
-    int             signaled; 
+    pthread_cond_t  cond;
+    int             signaled;
     long            n_signals;
 
     void wait();
@@ -97,15 +106,15 @@ class event_internals {
     void signal();
     void reset() { signaled = False; }
 
-    event_internals(boolean signaled);  
-    ~event_internals();  
-}; 
+    event_internals(boolean signaled);
+    ~event_internals();
+};
 
-class eventex_internals { 
-  protected: 
+class eventex_internals {
+  protected:
     mutex_internals& guard;
-    pthread_cond_t   cond; 
-    int              signaled; 
+    pthread_cond_t   cond;
+    int              signaled;
     long             n_signals;
 
     void wait();
@@ -113,24 +122,24 @@ class eventex_internals {
     void signal();
     void reset() { signaled = False; }
 
-    eventex_internals(mutex_internals& cs, boolean signaled);  
-    ~eventex_internals();  
-}; 
+    eventex_internals(mutex_internals& cs, boolean signaled);
+    ~eventex_internals();
+};
 
 #define task_proc // qualifier for thread procedure
 
-class task_internals { 
-  protected: 
+class task_internals {
+  protected:
     static pthread_key_t thread_key;
 
     pthread_t      thread;
-    pthread_attr_t thread_attr; 
+    pthread_attr_t thread_attr;
 
-    void*          arg; 
-    void           (*f)(void* arg); 
+    void*          arg;
+    void           (*f)(void* arg);
 
     static void* create_thread(void* arg);
-    static void  delete_thread(void* arg); 
-}; 
-    
+    static void  delete_thread(void* arg);
+};
+
 #endif
