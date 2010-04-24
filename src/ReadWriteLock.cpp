@@ -1,7 +1,7 @@
 #include <pch.h>
 #include <ReadWriteLock.h>
 
-ReadWriteLock::ReadWriteLock(): mReadCount(0)
+ReadWriteLock::ReadWriteLock(): mReadCount(0), mWriteEvent(true)
 {
 }
 
@@ -17,7 +17,7 @@ void ReadWriteLock::StartRead()
     mReadCount++;
     if (mReadCount == 1)
     {
-        mWriteLock.enter();
+        mWriteEvent.reset();
     }
     mReadCountLock.leave();
     mReadLock.leave();
@@ -30,7 +30,7 @@ void ReadWriteLock::StopRead()
     mReadCount--;
     if (mReadCount == 0)
     {
-        mWriteLock.leave();
+        mWriteEvent.signal();
     }
     mReadCountLock.leave();
 }
@@ -38,11 +38,10 @@ void ReadWriteLock::StopRead()
 void ReadWriteLock::StartWrite()
 {
     mReadLock.enter();
-    mWriteLock.enter();
+    mWriteEvent.wait();
 }
 
 void ReadWriteLock::StopWrite()
 {
-    mWriteLock.leave();
     mReadLock.leave();
 }
