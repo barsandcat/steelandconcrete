@@ -3,7 +3,8 @@ import os
 import subprocess
 import shutil
 
-shutil.rmtree("log");
+if os.path.exists("log"):
+	shutil.rmtree("log");
 os.mkdir("log");
 
 for i in range(1000):

@@ -21,10 +21,10 @@ private:
     ReadWriteLock& operator=(const ReadWriteLock& other) { return *this; }
 
     int mReadCount; // enshures that only one reader manipulates mWriteLock
-    simple_mutex mReadCountLock; // protects counter
-    simple_mutex mReadEntryLock; // prvents readers retaking mReadLock, if writer is trying to do so
-    simple_mutex mWriteLock;
-    simple_mutex mReadLock;
+    mutex mReadCountLock; // protects counter
+    mutex mReadEntryLock; // prvents readers retaking mReadLock, if writer is trying to do so
+    event mWriteEvent;
+    mutex mReadLock;
 };
 
 #endif // READWRITELOCK_H
