@@ -37,12 +37,6 @@ class mutex : private mutex_internals {
     void leave() { mutex_internals::leave(); }
 };
 
-class simple_mutex : private simple_mutex_internals {
-  public:
-    void enter() { simple_mutex_internals::enter(); }
-    void leave() { simple_mutex_internals::leave(); }
-};
-
 //
 // Critical section. When object of this class is used as local
 // variable, mutex is locked by constructor at the beginning of the block

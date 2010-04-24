@@ -57,15 +57,6 @@ class mutex_internals {
     ~mutex_internals();
 };
 
-class simple_mutex_internals {
-  protected:
-    pthread_mutex_t cs;
-    void enter() { pthread_mutex_lock(&cs); }
-    void leave() { pthread_mutex_unlock(&cs); }
-    simple_mutex_internals();
-    ~simple_mutex_internals();
-};
-
 class semaphore_internals {
   protected:
     pthread_mutex_t cs;
