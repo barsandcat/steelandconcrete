@@ -9,11 +9,8 @@ glob:svn_revision.h
 glob:test.gg
 glob:gmon.out
 glob:*OgreStableHeaders_h_gch
-glob:trunk/bin/OgreXMLConverter
-glob:trunk/bin/OgreXMLConverter_d
-glob:trunk/bin/UnitTests
-glob:trunk/bin/dummy_d
-glob:trunk/bin/protoc
-glob:trunk/bin/steelandconcrete_d
-glob:trunk/bin/steelandconcrete_d_server
-glob:trunk/bin/steelandconcrete_server
+glob:bin/*_d
+glob:bin/UnitTests
+glob:bin/protoc
+glob:bin/steelandconcrete_d_server
+glob:src/scm_revision.h
