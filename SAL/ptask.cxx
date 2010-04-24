@@ -344,16 +344,6 @@ mutex_internals::~mutex_internals()
     pthread_mutex_destroy(&cs);
 }
 
-simple_mutex_internals::simple_mutex_internals()
-{
-    SYSCHECK(pthread_mutex_init(&cs, NULL));
-}
-
-simple_mutex_internals::~simple_mutex_internals()
-{
-    pthread_mutex_destroy(&cs);
-}
-
 //
 // Task
 //
