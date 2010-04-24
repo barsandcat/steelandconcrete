@@ -10,7 +10,6 @@
 #include <Handshake.pb.h>
 #include <Network.h>
 #include <ClientLog.h>
-#include <svn_revision.h>
 #include <ProtocolVersion.h>
 
 
