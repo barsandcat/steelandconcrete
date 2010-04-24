@@ -14,3 +14,9 @@ glob:bin/UnitTests
 glob:bin/protoc
 glob:bin/steelandconcrete_d_server
 glob:src/scm_revision.h
+glob:*.user
+glob:*.ncb
+glob:*.suo
+glob:bin/*.exe
+glob:bin/*.ilk
+glob:bin/*.pdb
