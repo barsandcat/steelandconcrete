@@ -28,3 +28,5 @@ glob:bin/steelandconcrete
 glob:bin/steelandconcrete_server
 glob:bin/dummy
 glob:bin/log
+glob:*.bsc
+glob:*.log
