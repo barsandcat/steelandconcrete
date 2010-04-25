@@ -80,6 +80,7 @@ int main()
                     case RESPONSE_OK:
                         while(rsp.type() != RESPONSE_OK)
                         {
+							GetLog() << "Changes " << rsp.changes_size();
                             rsp.Clear();
                             net->ReadMessage(rsp);
                         }
