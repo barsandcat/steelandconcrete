@@ -29,7 +29,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Get revision"
-				CommandLine="&#x0D;&#x0A;SubWCRev $(SolutionDir) svn_revision.template src\svn_revision.h&#x0D;&#x0A;"
+				CommandLine="python.exe get_revision.py"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -118,7 +118,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Get revision"
-				CommandLine="SubWCRev $(SolutionDir) svn_revision.template src\svn_revision.h&#x0D;&#x0A;"
+				CommandLine="python.exe get_revision.py"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
