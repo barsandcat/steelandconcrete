@@ -59,7 +59,7 @@
 			<Add directory="lib" />
 		</Linker>
 		<ExtraCommands>
-			<Add before="./get_revision.sh" />
+			<Add before="python get_revision.py" />
 			<Add before="make -C src/proto -f Makefile.proto" />
 			<Add after="bin/UnitTests" />
 			<Mode after="always" />
