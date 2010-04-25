@@ -13,16 +13,16 @@ public:
 
     static void AddMove(UnitId aUnit, TileId aPosition);
     static void AddCommandDone(UnitId aUnit);
-    static void Write(INetwork& aNetwork, GameTime aClientTime);
+    static void Write(INetwork& aNetwork, GameTime aClientTime, int32 aUpdateLength);
     static void Commit(GameTime aTime);
     static void AddRemove(UnitId aUnit);
     static void Clear();
 private:
     typedef std::deque< UpdateBlock > UpdateBlockList;
-		static ChangeMsg& AddChangeMsg();
+	static ChangeMsg& AddChangeMsg();
     static UpdateBlockList mChangeList;
     static ResponseList mCurrentChanges;
-		static ReadWriteLock mChangeListRWL;
+    static ReadWriteLock mChangeListRWL;
 };
 
 #endif // CHANGELIST_H

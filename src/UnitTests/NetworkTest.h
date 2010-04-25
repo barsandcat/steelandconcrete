@@ -39,7 +39,7 @@ public:
             ChangeList::AddRemove(i);
         }
         ChangeList::Commit(time);
-        ChangeList::Write(*mNetwork, 0);
+        ChangeList::Write(*mNetwork, 0, 1000);
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count);
         TS_ASSERT_EQUALS(mNetwork->GetWrites(), 2);
@@ -55,7 +55,7 @@ public:
             ChangeList::AddRemove(i);
         }
         ChangeList::Commit(time);
-        ChangeList::Write(*mNetwork, 0);
+        ChangeList::Write(*mNetwork, 0, 1000);
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count);
         TS_ASSERT_EQUALS(mNetwork->GetWrites(), 3);
@@ -70,7 +70,7 @@ public:
         ChangeList::Commit(1);
         ChangeList::AddRemove(2);
         ChangeList::Commit(2);
-        ChangeList::Write(*mNetwork, 0);
+        ChangeList::Write(*mNetwork, 0, 1000);
 
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 2);
@@ -84,7 +84,7 @@ public:
         ChangeList::Commit(0);
         ChangeList::AddRemove(1);
         ChangeList::Commit(1);
-        ChangeList::Write(*mNetwork, 0);
+        ChangeList::Write(*mNetwork, 0, 1000);
 
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 1);
@@ -98,7 +98,7 @@ public:
         ChangeList::Commit(0);
         ChangeList::AddRemove(1);
         ChangeList::Commit(1);
-        ChangeList::Write(*mNetwork, 2);
+        ChangeList::Write(*mNetwork, 2, 1000);
 
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 0);
@@ -112,7 +112,7 @@ public:
         ChangeList::Commit(0);
         ChangeList::AddRemove(1);
         ChangeList::Commit(1);
-        ChangeList::Write(*mNetwork, 1);
+        ChangeList::Write(*mNetwork, 1, 1000);
 
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 0);
@@ -143,7 +143,7 @@ public:
         }
         ChangeList::Commit(2);
 
-        ChangeList::Write(*mNetwork, 0);
+        ChangeList::Write(*mNetwork, 0, 1000);
 
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count * 2);
