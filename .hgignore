@@ -22,3 +22,7 @@ glob:bin/*.ilk
 glob:bin/*.pdb
 glob:bin/*.exp
 glob:bin/*.lib
+glob:*.save
+glob:bin/OgreXMLConverter
+glob:bin/steelandconcrete
+glob:bin/steelandconcrete_server
