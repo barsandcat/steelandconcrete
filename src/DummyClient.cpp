@@ -60,9 +60,10 @@ int main()
                 net->ReadMessage(unit);
             }
 
+			int32 updateLength = 1000;
             while(true)
             {
-                task::sleep(1000);
+                task::sleep(updateLength);
                 try
                 {
                     RequestMsg req;
@@ -85,7 +86,8 @@ int main()
                             net->ReadMessage(rsp);
                         }
                         mTime = rsp.time();
-                        GetLog() << "New time " << mTime;
+						updateLength = rsp.update_length();
+                        GetLog() << "New time " << mTime << " next update in " << updateLength;
                         break;
                     default:
                         break;

@@ -59,10 +59,17 @@ void ServerGame::MainLoop(Ogre::String aAddress, Ogre::String aPort)
         UpdateTimer timer(2000);
         while (true)
         {
+			int64 start = GetMiliseconds();
             GetLog() << "Whait...";
             timer.Wait();
             UpdateGame();
-        }
+
+            int64 stop = GetMiliseconds();
+            int64 delta = stop - start;
+			int32 average = (mUpdateLength + delta) >> 1;
+            mUpdateLength = average;
+            GetLog() << "Update length " << mUpdateLength;
+		}
     }
     else
     {
@@ -102,8 +109,8 @@ void ServerGame::Send(Network& aNetwork)
 }
 
 void ServerGame::UpdateGame()
-{
-    critical_section cs(mGameMutex);
+{	
+    critical_section cs(mGameMutex);	
 
     GetLog() << "Update Game!";
 

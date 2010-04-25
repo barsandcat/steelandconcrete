@@ -69,7 +69,7 @@ bool ChangeBlockCmp(ChangeList::UpdateBlock i, ChangeList::UpdateBlock j)
     return i.first < j.first;
 }
 
-void ChangeList::Write(INetwork& aNetwork, GameTime aClientTime)
+void ChangeList::Write(INetwork& aNetwork, GameTime aClientTime, int32 aUpdateLength)
 {
     mChangeListRWL.StartRead();
 
@@ -104,6 +104,7 @@ void ChangeList::Write(INetwork& aNetwork, GameTime aClientTime)
     ResponseMsg emptyMsg;
     emptyMsg.set_type(RESPONSE_OK);
     emptyMsg.set_time(time);
+	emptyMsg.set_update_length(aUpdateLength);
     aNetwork.WriteMessage(emptyMsg);
 		
 }

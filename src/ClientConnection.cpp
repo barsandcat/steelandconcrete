@@ -35,7 +35,7 @@ void ClientConnection::Execute()
                     if (req.has_time())
                     {
                         mGame.LoadCommands(req);
-                        ChangeList::Write(*mNetwork, req.time());
+						ChangeList::Write(*mNetwork, req.time(), mGame.GetUpdateLength());
                     }
                     else
                     {

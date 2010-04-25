@@ -21,6 +21,7 @@ public:
     void Send(Network& aNetwork);
     GameTime GetTime() const { return mTime; }
     void LoadCommands(const RequestMsg& commands);
+	int32 GetUpdateLength() const { return mUpdateLength; }
 protected:
 private:
     void UpdateGame();
@@ -33,6 +34,7 @@ private:
     UnitClass mZebra;
     UnitClass mAvatar;
     mutex mGameMutex;
+	int32 mUpdateLength;
 };
 
 #endif // SERVERAPP_H

@@ -11,8 +11,9 @@ message ResponseMsg
 {
     required ResponseType type = 1;
     optional string reason = 3;
-    optional uint64 time = 4;
+    optional uint64 time = 4;    
     repeated ChangeMsg changes = 5;
+    optional int32 update_length = 6;
 }
 
 
