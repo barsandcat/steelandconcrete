@@ -26,3 +26,5 @@ glob:*.save
 glob:bin/OgreXMLConverter
 glob:bin/steelandconcrete
 glob:bin/steelandconcrete_server
+glob:bin/dummy
+glob:bin/log
