@@ -9,10 +9,11 @@
 
 void task_proc ManagerThreadFunction(void *param)
 {
-    static_cast< ConnectionManager* >(param)->Execute();
+    ConnectionManager* cm = static_cast< ConnectionManager* >(param);
+		(*cm)();
 }
 
-void ConnectionManager::Execute()
+void ConnectionManager::operator()()
 {
     mQuit = !mGate.is_ok();
     GetLog() << "Gate " << (mQuit ? "not opened" : "opened");
