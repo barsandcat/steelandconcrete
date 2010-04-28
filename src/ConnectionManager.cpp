@@ -11,6 +11,7 @@ void task_proc ManagerThreadFunction(void *param)
 {
     ConnectionManager* cm = static_cast< ConnectionManager* >(param);
 		(*cm)();
+		
 }
 
 void ConnectionManager::operator()()
@@ -49,7 +50,7 @@ void ConnectionManager::operator()()
 ConnectionManager::ConnectionManager(socket_t& aGate, ServerGame& aGame):
     mQuit(false), mGate(aGate), mGame(aGame)
 {
-    task::create(ManagerThreadFunction, this);
+    //task::create(ManagerThreadFunction, this);
 }
 
 void ConnectionManager::NewConnection(Network* aNetwork)
