@@ -8,9 +8,10 @@
 #include <ChangeList.h>
 #include <VisualCodes.h>
 #include <UpdateTimer.h>
+#include <boost/thread.hpp>
 
 ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0),
-    mTime(1), mTimeStep(1),
+    mTime(1), mTimeStep(1), mUpdateLength(0),
     mGrass(VC::LIVE | VC::PLANT, 100, 0),
     mZebra(VC::LIVE | VC::ANIMAL | VC::HERBIVORES, 500, 1),
     mAvatar(VC::LIVE | VC::ANIMAL | VC::HUMAN, 999999, 1)
@@ -55,7 +56,9 @@ void ServerGame::MainLoop(Ogre::String aAddress, Ogre::String aPort)
     socket_t* gate = socket_t::create_global(connection.c_str());
     if (gate->is_ok())
     {
-        ConnectionManager manager(*gate, *this);
+			  ConnectionManager manager(*gate, *this);
+				boost::thread thrd(boost::ref(manager));
+        
         UpdateTimer timer(2000);
         while (true)
         {
