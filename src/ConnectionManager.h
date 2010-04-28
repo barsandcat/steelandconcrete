@@ -5,6 +5,7 @@
 #include <list>
 #include <sockio.h>
 #include <task.h>
+#include <boost/thread.hpp>
 
 class ServerGame;
 
@@ -13,7 +14,7 @@ class ConnectionManager
 public:
     ConnectionManager(socket_t& aGate, ServerGame& aGame);
     ~ConnectionManager();
-    void Execute();
+    void operator()();
 protected:
 private:
     void NewConnection(Network* aNetwork);
