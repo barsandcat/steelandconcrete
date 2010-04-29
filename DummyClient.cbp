@@ -52,6 +52,7 @@
 		</Compiler>
 		<Linker>
 			<Add library="pthread" />
+			<Add library="boost_thread" />
 			<Add directory="lib" />
 		</Linker>
 		<Unit filename="src/DummyClient.cpp" />

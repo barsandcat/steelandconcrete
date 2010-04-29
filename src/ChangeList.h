@@ -3,7 +3,7 @@
 #include <Typedefs.h>
 #include <Response.pb.h>
 #include <INetwork.h>
-#include <ReadWriteLock.h>
+#include <boost/thread.hpp>
 
 class ChangeList
 {
@@ -22,7 +22,7 @@ private:
 	static ChangeMsg& AddChangeMsg();
     static UpdateBlockList mChangeList;
     static ResponseList mCurrentChanges;
-    static ReadWriteLock mChangeListRWL;
+    static boost::shared_mutex mChangeListRWL;
 };
 
 #endif // CHANGELIST_H

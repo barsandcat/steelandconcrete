@@ -2,9 +2,9 @@
 #define UPDATETIMER_H_INCLUDED
 
 #include <Typedefs.h>
-#include <task.h>
 #include <Platform.h>
 #include <ServerLog.h>
+#include <boost/thread.hpp>
 
 class UpdateTimer
 {
@@ -23,7 +23,7 @@ public:
 
         if (left > 0)
         {
-            task::sleep(left);
+            boost::this_thread::sleep(boost::posix_time::milliseconds(left));
         }
         mStart = GetMiliseconds();
     }

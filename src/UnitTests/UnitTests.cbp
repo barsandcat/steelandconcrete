@@ -58,6 +58,7 @@
 		<Linker>
 			<Add library="freeimage" />
 			<Add library="pthread" />
+			<Add library="boost_thread" />
 			<Add directory="../../lib" />
 		</Linker>
 		<ExtraCommands>
@@ -75,8 +76,6 @@
 		<Unit filename="../Network.cpp" />
 		<Unit filename="../Network.h" />
 		<Unit filename="../Platform.h" />
-		<Unit filename="../ReadWriteLock.cpp" />
-		<Unit filename="../ReadWriteLock.h" />
 		<Unit filename="../ServerEdge.cpp" />
 		<Unit filename="../ServerEdge.h" />
 		<Unit filename="../ServerGeodesicGrid.cpp" />

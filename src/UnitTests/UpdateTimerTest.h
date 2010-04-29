@@ -15,11 +15,11 @@ public:
         timer.Wait();
         TS_ASSERT_EQUALS(0, timer.GetPassedTime());
 
-        task::sleep(50);
+        boost::this_thread::sleep(boost::posix_time::milliseconds(50));
         timer.Wait();
         TS_ASSERT_DIFFERS(timer.GetPassedTime(), 0);
 
-        task::sleep(100);
+        boost::this_thread::sleep(boost::posix_time::milliseconds(100));
         timer.Wait();
         TS_ASSERT_DIFFERS(timer.GetPassedTime(), 0);
     }
@@ -28,7 +28,7 @@ public:
     {
         SyncTimer timer(100);
         TS_ASSERT(!timer.IsTime());
-        task::sleep(100);
+        boost::this_thread::sleep(boost::posix_time::milliseconds(100));
         TS_ASSERT(timer.IsTime());
     }
 

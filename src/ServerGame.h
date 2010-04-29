@@ -6,8 +6,8 @@
 #include <ClientConnection.h>
 #include <ServerUnit.h>
 #include <sockio.h>
-#include <task.h>
 #include <Request.pb.h>
+#include <boost/thread.hpp>
 
 class ServerGame
 {
@@ -33,7 +33,7 @@ private:
     UnitClass mGrass;
     UnitClass mZebra;
     UnitClass mAvatar;
-    mutex mGameMutex;
+    boost::mutex mGameMutex;
 	int32 mUpdateLength;
 };
 

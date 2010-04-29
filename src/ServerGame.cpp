@@ -16,7 +16,6 @@ ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0),
     mZebra(VC::LIVE | VC::ANIMAL | VC::HERBIVORES, 500, 1),
     mAvatar(VC::LIVE | VC::ANIMAL | VC::HUMAN, 999999, 1)
 {
-    task::initialize(task::normal_stack);
     // Create map
     mGrid = new ServerGeodesicGrid(aSize, aSeaLevel);
     GetLog() << "Size " << aSize << " Tile count " << mGrid->GetTileCount();
@@ -56,23 +55,22 @@ void ServerGame::MainLoop(Ogre::String aAddress, Ogre::String aPort)
     socket_t* gate = socket_t::create_global(connection.c_str());
     if (gate->is_ok())
     {
-			  ConnectionManager manager(*gate, *this);
-				boost::thread thrd(boost::ref(manager));
-        
+        boost::thread thrd(ConnectionManager(*gate, *this));
+
         UpdateTimer timer(2000);
         while (true)
         {
-			int64 start = GetMiliseconds();
+            int64 start = GetMiliseconds();
             GetLog() << "Whait...";
             timer.Wait();
             UpdateGame();
 
             int64 stop = GetMiliseconds();
             int64 delta = stop - start;
-			int32 average = (mUpdateLength + delta) >> 1;
+            int32 average = (mUpdateLength + delta) >> 1;
             mUpdateLength = average;
             GetLog() << "Update length " << mUpdateLength;
-		}
+        }
     }
     else
     {
@@ -90,7 +88,7 @@ ServerUnit& ServerGame::CreateUnit(ServerTile& aTile, const UnitClass& aClass)
 
 void ServerGame::Send(Network& aNetwork)
 {
-    critical_section cs(mGameMutex);
+    boost::lock_guard<boost::mutex> cs(mGameMutex);
 
     mGrid->Send(aNetwork);
 
@@ -112,8 +110,8 @@ void ServerGame::Send(Network& aNetwork)
 }
 
 void ServerGame::UpdateGame()
-{	
-    critical_section cs(mGameMutex);	
+{
+    boost::lock_guard<boost::mutex> cs(mGameMutex);
 
     GetLog() << "Update Game!";
 
@@ -151,7 +149,7 @@ void ServerGame::UpdateGame()
 
 void ServerGame::LoadCommands(const RequestMsg& commands)
 {
-    critical_section cs(mGameMutex);
+    boost::lock_guard<boost::mutex> cs(mGameMutex);
     for (int i = 0; i < commands.commands_size(); ++i)
     {
         const CommandMsg& command = commands.commands(i);

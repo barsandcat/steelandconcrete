@@ -4,7 +4,6 @@
 #include <ClientConnection.h>
 #include <list>
 #include <sockio.h>
-#include <task.h>
 #include <boost/thread.hpp>
 
 class ServerGame;
@@ -13,15 +12,12 @@ class ConnectionManager
 {
 public:
     ConnectionManager(socket_t& aGate, ServerGame& aGame);
-    ~ConnectionManager();
     void operator()();
 protected:
 private:
-    void NewConnection(Network* aNetwork);
     bool mQuit;
     socket_t& mGate;
     ServerGame& mGame;
-    std::list< ClientConnection* > mClients;
 };
 
 #endif // CONNECTIONMANAGER_H

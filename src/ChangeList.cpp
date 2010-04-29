@@ -5,7 +5,7 @@
 
 ChangeList::UpdateBlockList ChangeList::mChangeList;
 ChangeList::ResponseList ChangeList::mCurrentChanges;
-ReadWriteLock ChangeList::mChangeListRWL;
+boost::shared_mutex ChangeList::mChangeListRWL;
 
 ChangeMsg& ChangeList::AddChangeMsg()
 {
@@ -48,7 +48,7 @@ void ChangeList::Clear()
 
 void ChangeList::Commit(GameTime aTime)
 {
-    mChangeListRWL.StartWrite();
+    mChangeListRWL.lock();
     mChangeList.push_back(std::make_pair(aTime, mCurrentChanges));
     mCurrentChanges.resize(0);
 
@@ -61,7 +61,7 @@ void ChangeList::Commit(GameTime aTime)
         }
         mChangeList.pop_front();
     }
-    mChangeListRWL.StopWrite();
+    mChangeListRWL.unlock();
 }
 
 bool ChangeBlockCmp(ChangeList::UpdateBlock i, ChangeList::UpdateBlock j)
@@ -71,7 +71,7 @@ bool ChangeBlockCmp(ChangeList::UpdateBlock i, ChangeList::UpdateBlock j)
 
 void ChangeList::Write(INetwork& aNetwork, GameTime aClientTime, int32 aUpdateLength)
 {
-    mChangeListRWL.StartRead();
+    mChangeListRWL.lock_shared();
 
     UpdateBlockList::iterator i =
         std::upper_bound(mChangeList.begin(), mChangeList.end(),
@@ -99,7 +99,7 @@ void ChangeList::Write(INetwork& aNetwork, GameTime aClientTime, int32 aUpdateLe
         ++i;
     }
 
-    mChangeListRWL.StopRead();
+    mChangeListRWL.unlock_shared();
 
     ResponseMsg emptyMsg;
     emptyMsg.set_type(RESPONSE_OK);

@@ -56,6 +56,7 @@
 		</Compiler>
 		<Linker>
 			<Add library="pthread" />
+			<Add library="boost_thread" />
 			<Add directory="lib" />
 		</Linker>
 		<ExtraCommands>
@@ -75,8 +76,6 @@
 		<Unit filename="src/Network.cpp" />
 		<Unit filename="src/Network.h" />
 		<Unit filename="src/Platform.h" />
-		<Unit filename="src/ReadWriteLock.cpp" />
-		<Unit filename="src/ReadWriteLock.h" />
 		<Unit filename="src/Server.cpp" />
 		<Unit filename="src/Server.h" />
 		<Unit filename="src/ServerEdge.cpp" />
