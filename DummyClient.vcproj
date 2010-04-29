@@ -49,6 +49,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Zm200"
 				Optimization="0"
 				AdditionalIncludeDirectories="QuickGUI_9_05\QuickGUI\include;SAL;&quot;protobuf-2.0.3\src&quot;;ois\includes;src;betagui2;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre1.6.5\OgreMain\include;ogre1.6.5\RenderSystems\GL\src\GLSL\include;ogre1.6.5\RenderSystems\GL\include;ogre1.6.5\PlugIns\OctreeSceneManager\include;ogreal\ogreal\include;src\proto"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
@@ -131,6 +132,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Zm200"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="QuickGUI_9_05\QuickGUI\include;SAL;&quot;protobuf-2.0.3\src&quot;;ois\includes;src;betagui2;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre1.6.5\OgreMain\include;ogre1.6.5\RenderSystems\GL\src\GLSL\include;ogre1.6.5\RenderSystems\GL\include;ogre1.6.5\PlugIns\OctreeSceneManager\include;ogreal\ogreal\include;src\proto"

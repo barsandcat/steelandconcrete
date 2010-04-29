@@ -52,8 +52,9 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;tclap-1.1.0\include&quot;;&quot;protobuf-2.0.3\src&quot;;SAL;ogre1.6.5\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogreal\ogreal\include;QuickGUI_9_05\QuickGUI\include;ois\includes"
+				AdditionalIncludeDirectories="&quot;C:\Program Files (x86)\boost\boost_1_42&quot;;&quot;tclap-1.1.0\include&quot;;&quot;protobuf-2.0.3\src&quot;;SAL;ogre1.6.5\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogreal\ogreal\include;QuickGUI_9_05\QuickGUI\include;ois\includes"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;OGRE_STATIC_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -79,7 +80,7 @@
 				AdditionalDependencies="OgreMain_d.lib libprotobuf_d.lib SAL_d.lib wsock32.lib"
 				OutputFile="$(OutDir)\steelandconcrete_d_server.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="lib"
+				AdditionalLibraryDirectories="&quot;C:\Program Files (x86)\boost\boost_1_42\lib&quot;;lib"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -141,6 +142,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Zm200"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="&quot;tclap-1.1.0\include&quot;;&quot;protobuf-2.0.3\src&quot;;SAL;ogre1.6.5\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogreal\ogreal\include;QuickGUI_9_05\QuickGUI\include;ois\includes"
@@ -244,10 +246,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\src\ReadWriteLock.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\Server.cpp"
 				>
 			</File>
@@ -311,10 +309,6 @@
 			</File>
 			<File
 				RelativePath=".\src\pch.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\ReadWriteLock.h"
 				>
 			</File>
 			<File

@@ -60,6 +60,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Zm200"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\ogreal\vorbis\include;..\..\ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;..\..\ogreal\ogreal\include;..\..\SAL;&quot;..\..\protobuf-2.0.3\src&quot;;..\proto;..\..\ogre1.6.5\OgreMain\include;..\..\QuickGUI_9_05\QuickGUI\include;..\..\ois\includes;../../src;../../cxxtest"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;OGRE_STATIC_LIB"
@@ -155,6 +156,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Zm200"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="..\..\ogreal\vorbis\include;..\..\ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;..\..\ogreal\ogreal\include;..\..\SAL;&quot;..\..\protobuf-2.0.3\src&quot;;..\proto;..\..\ogre1.6.5\OgreMain\include;..\..\QuickGUI_9_05\QuickGUI\include;..\..\ois\includes;../../src;../../cxxtest"
@@ -258,10 +260,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\ReadWriteLock.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\ServerEdge.cpp"
 				>
 			</File>
@@ -317,10 +315,6 @@
 			</File>
 			<File
 				RelativePath="..\pch.h"
-				>
-			</File>
-			<File
-				RelativePath="..\ReadWriteLock.h"
 				>
 			</File>
 			<File
