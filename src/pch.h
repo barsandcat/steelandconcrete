@@ -14,7 +14,7 @@
 #include <OgreAL.h>
 #include <QuickGUI.h>
 #include <Typedefs.h>
-#include <task.h>
+#include <boost/thread.hpp>
 #include <sockio.h>
 #include <stdexcept>
 

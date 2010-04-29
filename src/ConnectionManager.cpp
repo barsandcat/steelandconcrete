@@ -7,13 +7,6 @@
 #include <Network.h>
 #include <ProtocolVersion.h>
 
-void task_proc ManagerThreadFunction(void *param)
-{
-    ConnectionManager* cm = static_cast< ConnectionManager* >(param);
-		(*cm)();
-		
-}
-
 void ConnectionManager::operator()()
 {
     mQuit = !mGate.is_ok();
@@ -34,7 +27,7 @@ void ConnectionManager::operator()()
             {
                 res.set_result(CONNECTION_ALLOWED);
                 net->WriteMessage(res);
-                NewConnection(net);
+                boost::thread thrd(ClientConnection(mGame, net));
             }
             else
             {
@@ -45,21 +38,11 @@ void ConnectionManager::operator()()
         }
         mQuit = !mGate.is_ok();
     }
+    delete &mGate;
 }
 
 ConnectionManager::ConnectionManager(socket_t& aGate, ServerGame& aGame):
     mQuit(false), mGate(aGate), mGame(aGame)
 {
-    //task::create(ManagerThreadFunction, this);
-}
-
-void ConnectionManager::NewConnection(Network* aNetwork)
-{
-    mClients.push_back(new ClientConnection(mGame, aNetwork));
-}
-
-ConnectionManager::~ConnectionManager()
-{
-    delete &mGate;
 }
 

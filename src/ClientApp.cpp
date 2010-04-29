@@ -4,7 +4,6 @@
 #include <OgreOctreePlugin.h>
 #include <OgreGLPlugin.h>
 #include <sockio.h>
-#include <task.h>
 #include <Header.pb.h>
 #include <Vector.pb.h>
 #include <Handshake.pb.h>
@@ -61,8 +60,6 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     // Только для инициализации!
     // Ни каких вызовов других функий этого класа, что бы небыло необходимости
     // проверять поля на то что они инициализированы.
-    task::initialize(task::normal_stack);
-
     {
         mRoot = new Ogre::Root("", "", "Ogre.log");
         GetLog() << "Init OGRE";

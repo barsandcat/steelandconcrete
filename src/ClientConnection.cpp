@@ -9,13 +9,9 @@
 #include <Network.h>
 #include <Response.pb.h>
 #include <ChangeList.h>
+#include <boost/thread.hpp>
 
-void task_proc ClientConnectionThreadFunction(void *param)
-{
-    static_cast< ClientConnection* >(param)->Execute();
-}
-
-void ClientConnection::Execute()
+void ClientConnection::operator()()
 {
     mGame.Send(*mNetwork);
 
@@ -54,17 +50,11 @@ void ClientConnection::Execute()
         }
     }
 
-    mLive = false;
+    delete mNetwork;
+    GetLog() << "Socket deletd";
 }
 
 ClientConnection::ClientConnection(ServerGame& aGame, Network* aNetwork):
-    mGame(aGame), mNetwork(aNetwork), mLive(true)
+    mGame(aGame), mNetwork(aNetwork)
 {
-    task::create(ClientConnectionThreadFunction, this);
-}
-
-ClientConnection::~ClientConnection()
-{
-    delete mNetwork;
-    GetLog() << "Socket deletd";
 }

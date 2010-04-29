@@ -10,7 +10,6 @@
 #include <Unit.pb.h>
 #include <Request.pb.h>
 #include <Response.pb.h>
-#include <task.h>
 
 int main()
 {
@@ -63,7 +62,7 @@ int main()
 			int32 updateLength = 1000;
             while(true)
             {
-                task::sleep(updateLength);
+                boost::this_thread::sleep(boost::posix_time::milliseconds(updateLength));
                 try
                 {
                     RequestMsg req;
