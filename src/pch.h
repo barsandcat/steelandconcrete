@@ -15,7 +15,6 @@
 #include <QuickGUI.h>
 #include <Typedefs.h>
 #include <boost/thread.hpp>
-#include <sockio.h>
 #include <stdexcept>
 
 #ifdef MVC

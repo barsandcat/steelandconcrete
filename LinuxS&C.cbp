@@ -76,6 +76,7 @@
 			<Add library="freeimage" />
 			<Add library="GL" />
 			<Add library="GLU" />
+			<Add library="boost_system" />
 			<Add directory="lib" />
 		</Linker>
 		<ExtraCommands>

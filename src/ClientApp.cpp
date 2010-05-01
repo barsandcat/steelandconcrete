@@ -3,7 +3,6 @@
 
 #include <OgreOctreePlugin.h>
 #include <OgreGLPlugin.h>
-#include <sockio.h>
 #include <Header.pb.h>
 #include <Vector.pb.h>
 #include <Handshake.pb.h>
@@ -227,9 +226,16 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
     GetLog() << "On connect";
     if (!mGame)
     {
-        Ogre::String connection = mServerBrowserSheet->GetConnection();
-        socket_t* sock = socket_t::connect(connection.c_str(), socket_t::sock_global_domain, 3, 1);
-        if (sock->is_ok())
+        boost::asio::io_service io_service;
+        tcp::resolver resolver(io_service);
+        tcp::resolver::query query(tcp::v4(), mServerBrowserSheet->GetAddress(), mServerBrowserSheet->GetPort());
+        tcp::resolver::iterator iterator = resolver.resolve(query);
+
+        SocketSharedPtr sock(new tcp::socket(io_service));
+        boost::system::error_code ec;
+        sock->connect(*iterator, ec);
+
+        if (!ec)
         {
             Network* net = new Network(sock);
             GetLog() << "Connected";
@@ -247,11 +253,6 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
             {
                 delete net;
             }
-        }
-        else
-        {
-            GetLog() << "Not connected " << GetErrorText(*sock);
-            delete sock;
         }
     }
 }

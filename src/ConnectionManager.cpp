@@ -3,46 +3,16 @@
 
 #include <ServerLog.h>
 #include <ServerGame.h>
-#include <Handshake.pb.h>
-#include <Network.h>
-#include <ProtocolVersion.h>
+#include <ClientConnection.h>
 
-void ConnectionManager::operator()()
+void ConnectionManager(ServerGame& aGame, Ogre::String aAddress, int32 aPort)
 {
-    mQuit = !mGate.is_ok();
-    GetLog() << "Gate " << (mQuit ? "not opened" : "opened");
-    while (!mQuit)
+    boost::asio::io_service mIOService;
+    tcp::acceptor gate(mIOService, tcp::endpoint(tcp::v4(), aPort));
+    while (true)
     {
-        socket_t* clientSocket = mGate.accept();
-        if (clientSocket->is_ok())
-        {
-            Network* net = new Network(clientSocket);
-            ConnectionRequestMsg req;
-            net->ReadMessage(req);
-            GetLog() << "Client request " << req.ShortDebugString();
-
-            ConnectionResponseMsg res;
-            res.set_protocolversion(ProtocolVersion);
-            if (req.protocolversion() == ProtocolVersion)
-            {
-                res.set_result(CONNECTION_ALLOWED);
-                net->WriteMessage(res);
-                boost::thread thrd(ClientConnection(mGame, net));
-            }
-            else
-            {
-                res.set_result(CONNECTION_WRONG_VERSION);
-                net->WriteMessage(res);
-                delete net;
-            }
-        }
-        mQuit = !mGate.is_ok();
+        SocketSharedPtr clientSocket(new tcp::socket(mIOService));
+        gate.accept(*clientSocket);
+        boost::thread thrd(boost::bind(ClientConnection, boost::ref(aGame), clientSocket));
     }
-    delete &mGate;
 }
-
-ConnectionManager::ConnectionManager(socket_t& aGate, ServerGame& aGame):
-    mQuit(false), mGate(aGate), mGame(aGame)
-{
-}
-

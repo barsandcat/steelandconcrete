@@ -90,7 +90,3 @@ ServerBrowserSheet::~ServerBrowserSheet()
 {
 }
 
-Ogre::String ServerBrowserSheet::GetConnection()
-{
-    return mAddress->getText() + ":" + mPort->getText();
-}

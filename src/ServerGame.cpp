@@ -48,33 +48,25 @@ ServerGeodesicGrid& ServerGame::GetGrid()
     return *mGrid;
 }
 
-void ServerGame::MainLoop(Ogre::String aAddress, Ogre::String aPort)
+void ServerGame::MainLoop(Ogre::String aAddress, int32 aPort)
 {
-    Ogre::String connection = aAddress + ":" + aPort;
-    GetLog() << "Connecting to " << connection;
-    socket_t* gate = socket_t::create_global(connection.c_str());
-    if (gate->is_ok())
-    {
-        boost::thread thrd(ConnectionManager(*gate, *this));
+    GetLog() << "Connecting to " << aAddress << ":" << aPort;
 
-        UpdateTimer timer(2000);
-        while (true)
-        {
-            int64 start = GetMiliseconds();
-            GetLog() << "Whait...";
-            timer.Wait();
-            UpdateGame();
+    boost::thread connectionManager(ConnectionManager, boost::ref(*this), aAddress, aPort);
 
-            int64 stop = GetMiliseconds();
-            int64 delta = stop - start;
-            int32 average = (mUpdateLength + delta) >> 1;
-            mUpdateLength = average;
-            GetLog() << "Update length " << mUpdateLength;
-        }
-    }
-    else
+    UpdateTimer timer(2000);
+    while (true)
     {
-        GetLog() << "Gate " << GetErrorText(*gate);
+        int64 start = GetMiliseconds();
+        GetLog() << "Whait...";
+        timer.Wait();
+        UpdateGame();
+
+        int64 stop = GetMiliseconds();
+        int64 delta = stop - start;
+        int32 average = (mUpdateLength + delta) >> 1;
+        mUpdateLength = average;
+        GetLog() << "Update length " << mUpdateLength;
     }
     GetLog() << "Game over";
 }

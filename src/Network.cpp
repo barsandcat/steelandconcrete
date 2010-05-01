@@ -5,15 +5,8 @@
 
 const int HEADER_BUFFER_SIZE = 8;
 
-std::string GetErrorText(socket_t& aSocket)
-{
-    char buffer[512];
-    aSocket.get_error_text(buffer, 512);
-    return buffer;
-}
 
-
-Network::Network(socket_t* aSocket): mSocket(aSocket), mMessageBuffer(NULL), mBufferSize(0)
+Network::Network(SocketSharedPtr aSocket): mSocket(aSocket), mMessageBuffer(NULL), mBufferSize(0)
 {
     assert(aSocket);
 }
@@ -22,7 +15,6 @@ Network::~Network()
 {
     delete mMessageBuffer;
     mSocket->close();
-    delete mSocket;
 }
 
 void Network::AllocBuffer(int aSize)
@@ -46,13 +38,13 @@ void Network::WriteMessage(const google::protobuf::Message& aMessage)
     char headerBuffer[HEADER_BUFFER_SIZE];
     header.SerializeToArray(headerBuffer, headerSize);
 
-    if (!mSocket->write(headerBuffer, headerSize))
+    if (!mSocket->send(boost::asio::buffer(headerBuffer, headerSize)))
     {
-        throw std::runtime_error(GetErrorText(*mSocket) + " Неудалось записать в сокет загловок!");
+        throw std::runtime_error("Неудалось записать в сокет загловок!");
     }
-    if (!mSocket->write(mMessageBuffer, messageSize))
+    if (!mSocket->send(boost::asio::buffer(mMessageBuffer, messageSize)))
     {
-        throw std::runtime_error(GetErrorText(*mSocket) + " Неудалось записать в сокет сообщение!");
+        throw std::runtime_error("Неудалось записать в сокет сообщение!");
     }
 }
 
@@ -62,17 +54,17 @@ void Network::ReadMessage(google::protobuf::Message& aMessage)
     header.set_size(0);
     int headerSize = header.ByteSize();
     char headerBuffer[HEADER_BUFFER_SIZE];
-    if (!mSocket->read(headerBuffer, headerSize))
-        throw std::runtime_error(GetErrorText(*mSocket) + " Не удалось прочитать из сокета заголовок!");
+    if (!mSocket->receive(boost::asio::buffer(headerBuffer, headerSize)))
+        throw std::runtime_error("Не удалось прочитать из сокета заголовок!");
     if (!header.ParseFromArray(headerBuffer, headerSize))
         throw std::runtime_error("Не удалось разобрать заголовок!");
 
     int messageSize = header.size();
     AllocBuffer(messageSize);
 
-    if (!mSocket->read(mMessageBuffer, messageSize))
+    if (!mSocket->receive(boost::asio::buffer(mMessageBuffer, messageSize)))
     {
-        throw std::runtime_error(GetErrorText(*mSocket) + " Не удалось прочитать из сокета сообщение!");
+        throw std::runtime_error("Не удалось прочитать из сокета сообщение!");
     }
     if (!aMessage.ParseFromArray(mMessageBuffer, messageSize))
     {
