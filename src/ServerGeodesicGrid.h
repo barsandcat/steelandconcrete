@@ -3,7 +3,6 @@
 
 #include <ServerTile.h>
 #include <ServerEdge.h>
-#include <sockio.h>
 #include <Network.h>
 
 class ServerGeodesicGrid

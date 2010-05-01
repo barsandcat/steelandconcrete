@@ -8,7 +8,8 @@ public:
     ServerBrowserSheet();
     ~ServerBrowserSheet();
     void Activate(QuickGUI::GUIManager& aGUIManager) { aGUIManager.setActiveSheet(mSheet); }
-    Ogre::String GetConnection();
+    Ogre::String GetPort() { return mPort->getText(); }
+    Ogre::String GetAddress() { return mAddress->getText(); }
 protected:
 private:
     QuickGUI::Sheet* mSheet;

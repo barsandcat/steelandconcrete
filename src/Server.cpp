@@ -16,7 +16,7 @@ void RunServer(int argc, char **argv)
 	TCLAP::ValueArg<Ogre::String> address("a", "address", "Server address", false, "localhost", "string");
 	cmd.add(address);
 
-	TCLAP::ValueArg<Ogre::String> port("p", "port", "Port", false, "4512", "string");
+	TCLAP::ValueArg<int32> port("p", "port", "Port", false, 4512, "int");
 	cmd.add(port);
 
 	TCLAP::ValueArg<int32> size("s", "size",

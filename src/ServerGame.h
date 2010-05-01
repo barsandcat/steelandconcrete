@@ -3,19 +3,17 @@
 
 #include <Typedefs.h>
 #include <ServerGeodesicGrid.h>
-#include <ClientConnection.h>
 #include <ServerUnit.h>
-#include <sockio.h>
 #include <Request.pb.h>
 #include <boost/thread.hpp>
 
-class ServerGame
+class ServerGame: public boost::noncopyable
 {
 public:
     typedef std::map< UnitId, ServerUnit* > ServerUnits;
     ServerGame(int aSize, int32 aSeaLevel);
     ~ServerGame();
-    void MainLoop(Ogre::String aAddress, Ogre::String aPort);
+    void MainLoop(Ogre::String aAddress, int32 aPort);
     ServerGeodesicGrid& GetGrid();
     ServerUnit& CreateUnit(ServerTile& aTile, const UnitClass& aClass);
     void Send(Network& aNetwork);

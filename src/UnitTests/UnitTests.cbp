@@ -59,6 +59,7 @@
 			<Add library="freeimage" />
 			<Add library="pthread" />
 			<Add library="boost_thread" />
+			<Add library="boost_system" />
 			<Add directory="../../lib" />
 		</Linker>
 		<ExtraCommands>

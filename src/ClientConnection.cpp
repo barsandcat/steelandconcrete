@@ -10,17 +10,40 @@
 #include <Response.pb.h>
 #include <ChangeList.h>
 #include <boost/thread.hpp>
+#include <Handshake.pb.h>
+#include <ProtocolVersion.h>
 
-void ClientConnection::operator()()
+
+void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
 {
-    mGame.Send(*mNetwork);
+    Network mNetwork(aSocket);
 
-    while (mNetwork->IsOk())
+    ConnectionRequestMsg req;
+    mNetwork.ReadMessage(req);
+    GetLog() << "Client request " << req.ShortDebugString();
+
+    ConnectionResponseMsg res;
+    res.set_protocolversion(ProtocolVersion);
+    if (req.protocolversion() == ProtocolVersion)
+    {
+        res.set_result(CONNECTION_ALLOWED);
+        mNetwork.WriteMessage(res);
+    }
+    else
+    {
+        res.set_result(CONNECTION_WRONG_VERSION);
+        mNetwork.WriteMessage(res);
+        return;
+    }
+
+    aGame.Send(mNetwork);
+
+    while (true)
     {
         try
         {
             RequestMsg req;
-            mNetwork->ReadMessage(req);
+            mNetwork.ReadMessage(req);
             if (req.has_type())
             {
                 switch (req.type())
@@ -30,15 +53,15 @@ void ClientConnection::operator()()
                 case REQUEST_GET_TIME:
                     if (req.has_time())
                     {
-                        mGame.LoadCommands(req);
-						ChangeList::Write(*mNetwork, req.time(), mGame.GetUpdateLength());
+                        aGame.LoadCommands(req);
+                        ChangeList::Write(mNetwork, req.time(), aGame.GetUpdateLength());
                     }
                     else
                     {
                         ResponseMsg rsp;
                         rsp.set_type(RESPONSE_NOK);
                         rsp.set_reason("No time!");
-                        mNetwork->WriteMessage(rsp);
+                        mNetwork.WriteMessage(rsp);
                     }
                     break;
                 }
@@ -49,12 +72,4 @@ void ClientConnection::operator()()
             GetLog() << e.what();
         }
     }
-
-    delete mNetwork;
-    GetLog() << "Socket deletd";
-}
-
-ClientConnection::ClientConnection(ServerGame& aGame, Network* aNetwork):
-    mGame(aGame), mNetwork(aNetwork)
-{
 }
