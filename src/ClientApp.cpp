@@ -51,10 +51,10 @@ BirdCamera* ClientApp::mBirdCamera = NULL;
 bool ClientApp::mQuit = false;
 
 ClientApp::ClientApp(const Ogre::String aConfigFile):
-        mMouse(NULL),
-        mKeyboard(NULL),
-        mJoy(NULL),
-        mGame(NULL)
+    mMouse(NULL),
+    mKeyboard(NULL),
+    mJoy(NULL),
+    mGame(NULL)
 {
     // Только для инициализации!
     // Ни каких вызовов других функий этого класа, что бы небыло необходимости
@@ -187,12 +187,13 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         mServerBrowserSheet = new ServerBrowserSheet();
         mMainMenu->Activate(*mGUIManager);
         mGUIManager->notifyViewportDimensionsChanged();
+        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnBrowse", &ClientApp::OnBrowse, this);
+        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnConnect", &ClientApp::OnConnect, this);
+        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnCreate", &ClientApp::OnCreate, this);
+        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnMainMenu", &ClientApp::OnMainMenu, this);
+        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnClick", &ClientApp::OnClick, this);
+
     }
-    QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnBrowse", &ClientApp::OnBrowse, this);
-    QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnConnect", &ClientApp::OnConnect, this);
-    QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnCreate", &ClientApp::OnCreate, this);
-    QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnMainMenu", &ClientApp::OnMainMenu, this);
-    QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnClick", &ClientApp::OnClick, this);
 }
 
 void ClientApp::OnClick(const QuickGUI::EventArgs& args)

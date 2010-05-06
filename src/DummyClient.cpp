@@ -13,9 +13,16 @@
 
 int main()
 {
-    std::string connection = "localhost:4512";
-    socket_t* sock = socket_t::connect(connection.c_str(), socket_t::sock_global_domain, 3, 1);
-    if(sock->is_ok())
+    boost::asio::io_service io_service;
+    tcp::resolver resolver(io_service);
+    tcp::resolver::query query(tcp::v4(), "localhost", 4512);
+    tcp::resolver::iterator iterator = resolver.resolve(query);
+
+    SocketSharedPtr sock(new tcp::socket(io_service));
+    boost::system::error_code ec;
+    sock->connect(*iterator, ec);
+
+    if (!ec)
     {
         Network* net = new Network(sock);
         GetLog() << "Connected";
@@ -59,7 +66,7 @@ int main()
                 net->ReadMessage(unit);
             }
 
-			int32 updateLength = 1000;
+            int32 updateLength = 1000;
             while(true)
             {
                 boost::this_thread::sleep(boost::posix_time::milliseconds(updateLength));
@@ -80,12 +87,12 @@ int main()
                     case RESPONSE_OK:
                         while(rsp.type() != RESPONSE_OK)
                         {
-							GetLog() << "Changes " << rsp.changes_size();
+                            GetLog() << "Changes " << rsp.changes_size();
                             rsp.Clear();
                             net->ReadMessage(rsp);
                         }
                         mTime = rsp.time();
-						updateLength = rsp.update_length();
+                        updateLength = rsp.update_length();
                         GetLog() << "New time " << mTime << " next update in " << updateLength;
                         break;
                     default:
@@ -108,8 +115,7 @@ int main()
     }
     else
     {
-        GetLog() << "No server! " << GetErrorText(*sock);
-        delete sock;
+        GetLog() << "No server!";
         return 3;
     }
     return 0;
