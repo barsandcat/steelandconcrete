@@ -10,7 +10,6 @@
 #include <Unit.pb.h>
 #include <Request.pb.h>
 #include <Response.pb.h>
-#include <boost/exception/diagnostic_information.hpp>
 
 int main()
 {

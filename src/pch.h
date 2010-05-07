@@ -15,6 +15,7 @@
 #include <QuickGUI.h>
 #include <Typedefs.h>
 #include <boost/thread.hpp>
+#include <boost/exception/diagnostic_information.hpp>
 #include <stdexcept>
 
 #ifdef MVC

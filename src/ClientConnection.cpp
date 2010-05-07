@@ -16,31 +16,32 @@
 
 void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
 {
-    Network mNetwork(aSocket);
-
-    ConnectionRequestMsg req;
-    mNetwork.ReadMessage(req);
-    GetLog() << "Client request " << req.ShortDebugString();
-
-    ConnectionResponseMsg res;
-    res.set_protocolversion(ProtocolVersion);
-    if (req.protocolversion() == ProtocolVersion)
+    try
     {
-        res.set_result(CONNECTION_ALLOWED);
-        mNetwork.WriteMessage(res);
-    }
-    else
-    {
-        res.set_result(CONNECTION_WRONG_VERSION);
-        mNetwork.WriteMessage(res);
-        return;
-    }
+        Network mNetwork(aSocket);
 
-    aGame.Send(mNetwork);
+        ConnectionRequestMsg req;
+        mNetwork.ReadMessage(req);
+        GetLog() << "Client request " << req.ShortDebugString();
 
-    while (true)
-    {
-        try
+        ConnectionResponseMsg res;
+        res.set_protocolversion(ProtocolVersion);
+        if (req.protocolversion() == ProtocolVersion)
+        {
+            res.set_result(CONNECTION_ALLOWED);
+            mNetwork.WriteMessage(res);
+        }
+        else
+        {
+            res.set_result(CONNECTION_WRONG_VERSION);
+            mNetwork.WriteMessage(res);
+            return;
+        }
+
+        aGame.Send(mNetwork);
+
+
+        while (true)
         {
             RequestMsg req;
             mNetwork.ReadMessage(req);
@@ -67,9 +68,9 @@ void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
                 }
             }
         }
-        catch (std::runtime_error& e)
-        {
-            GetLog() << e.what();
-        }
+    }
+    catch (...)
+    {
+        GetLog() << boost::current_exception_diagnostic_information();
     }
 }
