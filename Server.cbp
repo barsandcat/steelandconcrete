@@ -19,7 +19,6 @@
 					<Add option="-pg" />
 					<Add library="protobuf_d" />
 					<Add library="OgreMain_d" />
-					<Add library="SAL_d" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -35,7 +34,6 @@
 					<Add option="-s" />
 					<Add library="protobuf" />
 					<Add library="OgreMain" />
-					<Add library="SAL" />
 				</Linker>
 			</Target>
 		</Build>

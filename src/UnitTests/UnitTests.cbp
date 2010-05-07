@@ -19,7 +19,6 @@
 					<Add option="-pg" />
 					<Add library="OgreMain_d" />
 					<Add library="protobuf_d" />
-					<Add library="SAL_d" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -35,7 +34,6 @@
 					<Add option="-s" />
 					<Add library="OgreMain" />
 					<Add library="protobuf" />
-					<Add library="SAL" />
 				</Linker>
 			</Target>
 		</Build>
@@ -70,8 +68,6 @@
 		<Unit filename="../ChangeList.h" />
 		<Unit filename="../DummyNetwork.cpp" />
 		<Unit filename="../DummyNetwork.h" />
-		<Unit filename="../DummySocket.cpp" />
-		<Unit filename="../DummySocket.h" />
 		<Unit filename="../INetwork.h" />
 		<Unit filename="../LinuxPlatform.cpp" />
 		<Unit filename="../Network.cpp" />

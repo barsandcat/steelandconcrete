@@ -5,7 +5,6 @@
 #include <ClientGeodesicGrid.h>
 #include <LoadingSheet.h>
 #include <InGameSheet.h>
-#include <sockio.h>
 #include <Response.pb.h>
 #include <Typedefs.h>
 #include <ViewPortWidget.h>

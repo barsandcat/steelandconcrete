@@ -7,11 +7,8 @@
 #include <proto/Tile.pb.h>
 #include <proto/Vector.pb.h>
 
-#include <unisock.h>
-
 #include <iostream>
 #include <cstdlib>
-#include <DummySocket.h>
 #include <ChangeList.h>
 #include <DummyNetwork.h>
 

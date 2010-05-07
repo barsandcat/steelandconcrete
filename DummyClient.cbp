@@ -17,7 +17,6 @@
 				</Compiler>
 				<Linker>
 					<Add library="protobuf_d" />
-					<Add library="SAL_d" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -32,7 +31,6 @@
 				<Linker>
 					<Add option="-s" />
 					<Add library="protobuf" />
-					<Add library="SAL" />
 				</Linker>
 			</Target>
 		</Build>
