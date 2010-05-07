@@ -10,20 +10,21 @@
 #include <Unit.pb.h>
 #include <Request.pb.h>
 #include <Response.pb.h>
+#include <boost/exception/diagnostic_information.hpp>
 
 int main()
 {
-    boost::asio::io_service io_service;
-    tcp::resolver resolver(io_service);
-    tcp::resolver::query query(tcp::v4(), "localhost", 4512);
-    tcp::resolver::iterator iterator = resolver.resolve(query);
 
-    SocketSharedPtr sock(new tcp::socket(io_service));
-    boost::system::error_code ec;
-    sock->connect(*iterator, ec);
-
-    if (!ec)
+    try
     {
+        boost::asio::io_service io_service;
+        tcp::resolver resolver(io_service);
+        tcp::resolver::query query(tcp::v4(), "localhost", "4512");
+        tcp::resolver::iterator iterator = resolver.resolve(query);
+
+        SocketSharedPtr sock(new tcp::socket(io_service));
+        sock->connect(*iterator);
+
         Network* net = new Network(sock);
         GetLog() << "Connected";
         ConnectionRequestMsg req;
@@ -112,12 +113,13 @@ int main()
             GetLog() << "Server rejected connection";
             return 2;
         }
+        return 0;
     }
-    else
+    catch(...)
     {
-        GetLog() << "No server!";
-        return 3;
+        GetLog() << boost::current_exception_diagnostic_information();
+        return 1;
     }
-    return 0;
+
 }
 
