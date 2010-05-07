@@ -77,7 +77,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib libprotobuf_d.lib SAL_d.lib wsock32.lib"
+				AdditionalDependencies="OgreMain_d.lib libprotobuf_d.lib wsock32.lib"
 				OutputFile="$(OutDir)\steelandconcrete_d_server.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;C:\Program Files (x86)\boost\boost_1_42\lib&quot;;lib"
@@ -167,7 +167,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib libprotobuf.lib SAL.lib wsock32.lib"
+				AdditionalDependencies="OgreMain.lib libprotobuf.lib wsock32.lib"
 				OutputFile="$(OutDir)\steelandconcrete_server.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="lib"
