@@ -85,7 +85,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib libprotobuf_d.lib SAL_d.lib wsock32.lib"
+				AdditionalDependencies="OgreMain_d.lib libprotobuf_d.lib wsock32.lib"
 				OutputFile="$(OutDir)\$(ProjectName)_d.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\lib"
@@ -181,7 +181,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib libprotobuf.lib SAL.lib wsock32.lib"
+				AdditionalDependencies="OgreMain.lib libprotobuf.lib wsock32.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\lib"
 				GenerateDebugInformation="true"
@@ -229,10 +229,6 @@
 			</File>
 			<File
 				RelativePath="..\DummyNetwork.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\DummySocket.cpp"
 				>
 			</File>
 			<File
@@ -303,10 +299,6 @@
 			</File>
 			<File
 				RelativePath="..\DummyNetwork.h"
-				>
-			</File>
-			<File
-				RelativePath="..\DummySocket.h"
 				>
 			</File>
 			<File
