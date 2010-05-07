@@ -4,7 +4,6 @@
 #include <ClientTile.h>
 #include <ClientEdge.h>
 #include <LoadingSheet.h>
-#include <sockio.h>
 #include <Typedefs.h>
 #include <Network.h>
 
