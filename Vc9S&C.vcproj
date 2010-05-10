@@ -53,8 +53,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="QuickGUI_9_05\QuickGUI\include;SAL;&quot;protobuf-2.0.3\src&quot;;ois\includes;src;betagui2;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre1.6.5\OgreMain\include;ogre1.6.5\RenderSystems\GL\src\GLSL\include;ogre1.6.5\RenderSystems\GL\include;ogre1.6.5\PlugIns\OctreeSceneManager\include;ogreal\ogreal\include;src\proto"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MVC;OGRE_STATIC_LIB;OGREAL_EXPORT"
+				AdditionalIncludeDirectories="boost\boost_1_43_0;QuickGUI_9_05\QuickGUI\include;&quot;protobuf-2.0.3\src&quot;;ois\includes;src;betagui2;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre1.6.5\OgreMain\include;ogre1.6.5\RenderSystems\GL\src\GLSL\include;ogre1.6.5\RenderSystems\GL\include;ogre1.6.5\PlugIns\OctreeSceneManager\include;ogreal\ogreal\include;src\proto"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MVC;OGRE_STATIC_LIB;OGREAL_EXPORT;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -79,7 +79,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="FreeImage_d.lib LibJPEG_d.lib LibMNG_d.lib LibOpenJPEG_d.lib LibPNG_d.lib LibTIFF_d.lib OpenEXR_d.lib ZLib_d.lib freetype238MT_D.lib OgreMain_d.lib Plugin_OctreeSceneManagerStatic_d.lib RenderSystem_GLStatic_d.lib ogg_static_d.lib vorbis_static_d.lib vorbisfile_static_d.lib OgreAL_d.lib OpenAL32.lib OIS_static_d.lib zziplib_d.lib libprotobuf_d.lib wsock32.lib QuickGUI_d.lib"
+				AdditionalDependencies="libboost_system-mt-s$(ConfigurationName).lib libboost_thread-mt-s$(ConfigurationName).lib FreeImage_d.lib LibJPEG_d.lib LibMNG_d.lib LibOpenJPEG_d.lib LibPNG_d.lib LibTIFF_d.lib OpenEXR_d.lib ZLib_d.lib freetype238MT_D.lib OgreMain_d.lib Plugin_OctreeSceneManagerStatic_d.lib RenderSystem_GLStatic_d.lib ogg_static_d.lib vorbis_static_d.lib vorbisfile_static_d.lib OgreAL_d.lib OpenAL32.lib OIS_static_d.lib zziplib_d.lib libprotobuf_d.lib wsock32.lib QuickGUI_d.lib"
 				ShowProgress="2"
 				OutputFile="$(OutDir)/steelandconcrete_d.exe"
 				LinkIncremental="2"
@@ -156,8 +156,8 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="QuickGUI_9_05\QuickGUI\include;SAL;&quot;protobuf-2.0.3\src&quot;;ois\includes;src;betagui2;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre1.6.5\OgreMain\include;ogre1.6.5\RenderSystems\GL\src\GLSL\include;ogre1.6.5\RenderSystems\GL\include;ogre1.6.5\PlugIns\OctreeSceneManager\include;ogreal\ogreal\include;src\proto"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;MVC;OGRE_STATIC_LIB;OGREAL_EXPORT"
+				AdditionalIncludeDirectories="boost\boost_1_43_0;QuickGUI_9_05\QuickGUI\include;&quot;protobuf-2.0.3\src&quot;;ois\includes;src;betagui2;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre1.6.5\OgreMain\include;ogre1.6.5\RenderSystems\GL\src\GLSL\include;ogre1.6.5\RenderSystems\GL\include;ogre1.6.5\PlugIns\OctreeSceneManager\include;ogreal\ogreal\include;src\proto"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;MVC;OGRE_STATIC_LIB;OGREAL_EXPORT;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1"
 				StringPooling="true"
 				MinimalRebuild="true"
 				RuntimeLibrary="0"
@@ -183,7 +183,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="FreeImage.lib LibJPEG.lib LibMNG.lib LibOpenJPEG.lib LibPNG.lib LibTIFF.lib OpenEXR.lib ZLib.lib freetype238MT.lib OgreMain.lib Plugin_OctreeSceneManagerStatic.lib RenderSystem_GLStatic.lib ogg_static.lib vorbis_static.lib vorbisfile_static.lib OgreAL.lib OpenAL32.lib OIS_static.lib zziplib.lib libprotobuf.lib wsock32.lib QuickGUI.lib"
+				AdditionalDependencies="libboost_system-mt-s$(ConfigurationName).lib libboost_thread-mt-s$(ConfigurationName).lib FreeImage.lib LibJPEG.lib LibMNG.lib LibOpenJPEG.lib LibPNG.lib LibTIFF.lib OpenEXR.lib ZLib.lib freetype238MT.lib OgreMain.lib Plugin_OctreeSceneManagerStatic.lib RenderSystem_GLStatic.lib ogg_static.lib vorbis_static.lib vorbisfile_static.lib OgreAL.lib OpenAL32.lib OIS_static.lib zziplib.lib libprotobuf.lib wsock32.lib QuickGUI.lib"
 				OutputFile="$(OutDir)/steelandconcrete.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;C:\Program Files\OpenAL 1.1 SDK\libs\Win32&quot;;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32&quot;;lib"

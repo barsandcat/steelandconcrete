@@ -51,8 +51,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="QuickGUI_9_05\QuickGUI\include;SAL;&quot;protobuf-2.0.3\src&quot;;ois\includes;src;betagui2;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre1.6.5\OgreMain\include;ogre1.6.5\RenderSystems\GL\src\GLSL\include;ogre1.6.5\RenderSystems\GL\include;ogre1.6.5\PlugIns\OctreeSceneManager\include;ogreal\ogreal\include;src\proto"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="boost\boost_1_43_0;QuickGUI_9_05\QuickGUI\include;&quot;protobuf-2.0.3\src&quot;;ois\includes;src;betagui2;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre1.6.5\OgreMain\include;ogre1.6.5\RenderSystems\GL\src\GLSL\include;ogre1.6.5\RenderSystems\GL\include;ogre1.6.5\PlugIns\OctreeSceneManager\include;ogreal\ogreal\include;src\proto"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -71,7 +71,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ZLib_d.lib OgreMain_d.lib zziplib_d.lib libprotobuf_d.lib wsock32.lib"
+				AdditionalDependencies="ZLib_d.lib OgreMain_d.lib zziplib_d.lib libprotobuf_d.lib wsock32.lib libboost_system-mt-s$(ConfigurationName).lib libboost_thread-mt-s$(ConfigurationName).lib"
 				OutputFile="$(OutDir)\dummy_d.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="lib"
@@ -135,8 +135,8 @@
 				AdditionalOptions="/Zm200"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="QuickGUI_9_05\QuickGUI\include;SAL;&quot;protobuf-2.0.3\src&quot;;ois\includes;src;betagui2;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre1.6.5\OgreMain\include;ogre1.6.5\RenderSystems\GL\src\GLSL\include;ogre1.6.5\RenderSystems\GL\include;ogre1.6.5\PlugIns\OctreeSceneManager\include;ogreal\ogreal\include;src\proto"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="boost\boost_1_43_0;QuickGUI_9_05\QuickGUI\include;&quot;protobuf-2.0.3\src&quot;;ois\includes;src;betagui2;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre1.6.5\OgreMain\include;ogre1.6.5\RenderSystems\GL\src\GLSL\include;ogre1.6.5\RenderSystems\GL\include;ogre1.6.5\PlugIns\OctreeSceneManager\include;ogreal\ogreal\include;src\proto"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -154,7 +154,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ZLib.lib OgreMain.lib zziplib.lib libprotobuf.lib wsock32.lib"
+				AdditionalDependencies="ZLib.lib OgreMain.lib zziplib.lib libprotobuf.lib wsock32.lib libboost_system-mt-s$(ConfigurationName).lib libboost_thread-mt-s$(ConfigurationName).lib"
 				OutputFile="$(OutDir)\dummy.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="lib"

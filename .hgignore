@@ -30,3 +30,4 @@ glob:bin/dummy
 glob:bin/log
 glob:*.bsc
 glob:*.log
+glob:*.*~
