@@ -54,8 +54,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;C:\Program Files (x86)\boost\boost_1_42&quot;;&quot;tclap-1.1.0\include&quot;;&quot;protobuf-2.0.3\src&quot;;SAL;ogre1.6.5\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogreal\ogreal\include;QuickGUI_9_05\QuickGUI\include;ois\includes"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;OGRE_STATIC_LIB"
+				AdditionalIncludeDirectories="boost\boost_1_43_0;&quot;tclap-1.1.0\include&quot;;&quot;protobuf-2.0.3\src&quot;;ogre1.6.5\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogreal\ogreal\include;QuickGUI_9_05\QuickGUI\include;ois\includes"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;OGRE_STATIC_LIB;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -77,7 +77,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib libprotobuf_d.lib wsock32.lib"
+				AdditionalDependencies="libboost_system-mt-s$(ConfigurationName).lib libboost_thread-mt-s$(ConfigurationName).lib OgreMain_d.lib libprotobuf_d.lib wsock32.lib"
 				OutputFile="$(OutDir)\steelandconcrete_d_server.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;C:\Program Files (x86)\boost\boost_1_42\lib&quot;;lib"
@@ -145,8 +145,8 @@
 				AdditionalOptions="/Zm200"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;tclap-1.1.0\include&quot;;&quot;protobuf-2.0.3\src&quot;;SAL;ogre1.6.5\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogreal\ogreal\include;QuickGUI_9_05\QuickGUI\include;ois\includes"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;OGRE_STATIC_LIB"
+				AdditionalIncludeDirectories="boost\boost_1_43_0;&quot;tclap-1.1.0\include&quot;;&quot;protobuf-2.0.3\src&quot;;ogre1.6.5\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogreal\ogreal\include;QuickGUI_9_05\QuickGUI\include;ois\includes"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;OGRE_STATIC_LIB;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
@@ -167,7 +167,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib libprotobuf.lib wsock32.lib"
+				AdditionalDependencies="libboost_system-mt-s$(ConfigurationName).lib libboost_thread-mt-s$(ConfigurationName).lib OgreMain.lib libprotobuf.lib wsock32.lib"
 				OutputFile="$(OutDir)\steelandconcrete_server.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="lib"
