@@ -55,6 +55,7 @@
 			<Add option="-Wreturn-type" />
 			<Add option="-Wsign-compare" />
 			<Add option="-Wunused-variable" />
+			<Add option="-DBOOST_ALL_NO_LIB=1" />
 			<Add directory="src" />
 			<Add directory="betagui2" />
 			<Add directory="ogre1.6.5/OgreMain/include" />
