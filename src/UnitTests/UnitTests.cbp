@@ -52,12 +52,13 @@
 			<Add directory="../proto" />
 			<Add directory="../../SAL" />
 			<Add directory="../../QuickGUI_9_05/QuickGUI/include" />
+			<Add directory="../../boost/boost_1_43_0" />
 		</Compiler>
 		<Linker>
 			<Add library="freeimage" />
 			<Add library="pthread" />
-			<Add library="boost_thread" />
-			<Add library="boost_system" />
+			<Add library="boost_system$(TARGET_NAME)" />
+			<Add library="boost_thread$(TARGET_NAME)" />
 			<Add directory="../../lib" />
 		</Linker>
 		<ExtraCommands>
