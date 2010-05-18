@@ -25,10 +25,21 @@ public:
         {
             boost::this_thread::sleep(boost::posix_time::milliseconds(left));
         }
+        mStartRWL.lock();
         mStart = GetMiliseconds();
+        mStartRWL.unlock();
     }
 
-    int64 GetPassedTime()
+    int64 GetLeft()
+    {
+        int64 current = GetMiliseconds();
+        mStartRWL.lock_shared();
+        int64 passed = current - mStart;
+        mStartRWL.unlock_shared();
+        return mPeriod - passed;
+    }
+
+    int64 GetPassedTime() const
     {
         return mPassed;
     }
@@ -36,6 +47,7 @@ private:
     const int64 mPeriod;
     int64 mStart;
     int64 mPassed;
+    boost::shared_mutex mStartRWL;
 };
 
 

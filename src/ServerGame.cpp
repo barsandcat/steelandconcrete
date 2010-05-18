@@ -11,10 +11,11 @@
 #include <boost/thread.hpp>
 
 ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0),
-    mTime(1), mTimeStep(1), mUpdateLength(0),
+    mTime(1), mTimeStep(1),
     mGrass(VC::LIVE | VC::PLANT, 100, 0),
     mZebra(VC::LIVE | VC::ANIMAL | VC::HERBIVORES, 500, 1),
-    mAvatar(VC::LIVE | VC::ANIMAL | VC::HUMAN, 999999, 1)
+    mAvatar(VC::LIVE | VC::ANIMAL | VC::HUMAN, 999999, 1),
+    mTimer(2000)
 {
     // Create map
     mGrid = new ServerGeodesicGrid(aSize, aSeaLevel);
@@ -54,19 +55,11 @@ void ServerGame::MainLoop(Ogre::String aAddress, int32 aPort)
 
     boost::thread connectionManager(ConnectionManager, boost::ref(*this), aAddress, aPort);
 
-    UpdateTimer timer(2000);
     while (true)
     {
-        int64 start = GetMiliseconds();
         GetLog() << "Whait...";
-        timer.Wait();
+        mTimer.Wait();
         UpdateGame();
-
-        int64 stop = GetMiliseconds();
-        int64 delta = stop - start;
-        int32 average = (mUpdateLength + delta) >> 1;
-        mUpdateLength = average;
-        GetLog() << "Update length " << mUpdateLength;
     }
     GetLog() << "Game over";
 }
