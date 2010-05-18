@@ -6,6 +6,7 @@
 #include <ServerUnit.h>
 #include <Request.pb.h>
 #include <boost/thread.hpp>
+#include <UpdateTimer.h>
 
 class ServerGame: public boost::noncopyable
 {
@@ -19,7 +20,7 @@ public:
     void Send(Network& aNetwork);
     GameTime GetTime() const { return mTime; }
     void LoadCommands(const RequestMsg& commands);
-	int32 GetUpdateLength() const { return mUpdateLength; }
+	int32 GetUpdateLength() { return mTimer.GetLeft(); }
 protected:
 private:
     void UpdateGame();
@@ -32,7 +33,7 @@ private:
     UnitClass mZebra;
     UnitClass mAvatar;
     boost::mutex mGameMutex;
-	int32 mUpdateLength;
+	UpdateTimer mTimer;
 };
 
 #endif // SERVERAPP_H

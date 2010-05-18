@@ -73,20 +73,22 @@ void ChangeList::Write(INetwork& aNetwork, GameTime aClientTime, int32 aUpdateLe
 {
     mChangeListRWL.lock_shared();
 
+    GameTime maxTime = 0;
+    GameTime minTime = 0;
+    if (!mChangeList.empty())
+    {
+        maxTime = mChangeList.back().first;
+        minTime = mChangeList.front().first;
+    }
+
     UpdateBlockList::iterator i =
         std::upper_bound(mChangeList.begin(), mChangeList.end(),
                          std::make_pair(aClientTime, ResponseList()), ChangeBlockCmp);
 
-    GameTime time = 0;
-    if (!mChangeList.empty())
-    {
-        time = mChangeList.back().first;
-    }
-
     while (i != mChangeList.end())
     {
         ResponseList& changeList = i->second;
-        time = i->first;
+        maxTime = i->first;
         if (!changeList.empty())
         {
             ResponseList::const_iterator j = changeList.begin();
@@ -103,10 +105,10 @@ void ChangeList::Write(INetwork& aNetwork, GameTime aClientTime, int32 aUpdateLe
 
     ResponseMsg emptyMsg;
     emptyMsg.set_type(RESPONSE_OK);
-    emptyMsg.set_time(time);
+    emptyMsg.set_time(maxTime);
 	emptyMsg.set_update_length(aUpdateLength);
     aNetwork.WriteMessage(emptyMsg);
-		
+
 }
 
 void ChangeList::AddCommandDone(UnitId aUnit)
