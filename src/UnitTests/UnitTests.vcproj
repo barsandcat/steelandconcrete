@@ -228,6 +228,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\ClientConnection.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\ConnectionManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\DummyNetwork.cpp"
 				>
 			</File>
@@ -257,6 +265,10 @@
 			</File>
 			<File
 				RelativePath="..\ServerEdge.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\ServerGame.cpp"
 				>
 			</File>
 			<File
