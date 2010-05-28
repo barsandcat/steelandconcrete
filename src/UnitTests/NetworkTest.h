@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <ChangeList.h>
 #include <DummyNetwork.h>
+#include <Exceptions.h>
 
 class MyTestSuite : public CxxTest::TestSuite
 {
@@ -101,6 +102,22 @@ public:
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 0);
         TS_ASSERT_EQUALS(mNetwork->GetWrites(), 1);
         TS_ASSERT_EQUALS(mNetwork->GetTimeWrited(), GameTime(1));
+    }
+
+    void TestChangeListClientLate()
+    {
+        ChangeList::AddRemove(10);
+        ChangeList::Commit(10);
+        ChangeList::AddRemove(11);
+        ChangeList::Commit(11);
+        ChangeList::AddRemove(12);
+        ChangeList::Commit(12);
+
+        TS_ASSERT_THROWS(ChangeList::Write(*mNetwork, 2, 1000), ClientBehind);
+
+        TS_ASSERT(mNetwork->IsLastWrited());
+        TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 0);
+        TS_ASSERT_EQUALS(mNetwork->GetWrites(), 0);
     }
 
     void TestChangeListClientSameTime()
