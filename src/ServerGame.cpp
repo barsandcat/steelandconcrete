@@ -10,8 +10,21 @@
 #include <UpdateTimer.h>
 #include <boost/thread.hpp>
 
+GameTime ServerGame::mTime = 1;
+GameTime ServerGame::mTimeStep = 1;
+
+GameTime ServerGame::GetTime()
+{
+    return mTime;
+}
+
+GameTime ServerGame::GetTimeStep()
+{
+    return mTimeStep;
+}
+
+
 ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0),
-    mTime(1), mTimeStep(1),
     mGrass(VC::LIVE | VC::PLANT, 100, 0),
     mZebra(VC::LIVE | VC::ANIMAL | VC::HERBIVORES, 500, 1),
     mAvatar(VC::LIVE | VC::ANIMAL | VC::HUMAN, 999999, 1),

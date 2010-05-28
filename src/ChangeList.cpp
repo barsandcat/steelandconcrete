@@ -2,6 +2,8 @@
 #include <ChangeList.h>
 
 #include <ServerLog.h>
+#include <Exceptions.h>
+#include <ServerGame.h>
 
 ChangeList::UpdateBlockList ChangeList::mChangeList;
 ChangeList::ResponseList ChangeList::mCurrentChanges;
@@ -71,42 +73,48 @@ bool ChangeBlockCmp(ChangeList::UpdateBlock i, ChangeList::UpdateBlock j)
 
 void ChangeList::Write(INetwork& aNetwork, GameTime aClientTime, int32 aUpdateLength)
 {
-    mChangeListRWL.lock_shared();
-
     GameTime maxTime = 0;
     GameTime minTime = 0;
-    if (!mChangeList.empty())
-    {
-        maxTime = mChangeList.back().first;
-        minTime = mChangeList.front().first;
-    }
 
-    UpdateBlockList::iterator i =
-        std::upper_bound(mChangeList.begin(), mChangeList.end(),
-                         std::make_pair(aClientTime, ResponseList()), ChangeBlockCmp);
-
-    while (i != mChangeList.end())
     {
-        ResponseList& changeList = i->second;
-        maxTime = i->first;
-        if (!changeList.empty())
+        boost::shared_lock<boost::shared_mutex> cs(mChangeListRWL);
+
+        if (!mChangeList.empty())
         {
-            ResponseList::const_iterator j = changeList.begin();
-            while (j != changeList.end())
-            {
-                aNetwork.WriteMessage(**j);
-                ++j;
-            }
+            maxTime = mChangeList.back().first;
+            minTime = mChangeList.front().first;
         }
-        ++i;
-    }
 
-    mChangeListRWL.unlock_shared();
+        if (minTime > aClientTime + ServerGame::GetTimeStep())
+        {
+            boost::throw_exception(ClientBehind());
+        }
+
+        UpdateBlockList::iterator i =
+            std::upper_bound(mChangeList.begin(), mChangeList.end(),
+                             std::make_pair(aClientTime, ResponseList()), ChangeBlockCmp);
+
+        while (i != mChangeList.end())
+        {
+            ResponseList& changeList = i->second;
+            maxTime = i->first;
+            if (!changeList.empty())
+            {
+                ResponseList::const_iterator j = changeList.begin();
+                while (j != changeList.end())
+                {
+                    aNetwork.WriteMessage(**j);
+                    ++j;
+                }
+            }
+            ++i;
+        }
+    }
 
     ResponseMsg emptyMsg;
     emptyMsg.set_type(RESPONSE_OK);
     emptyMsg.set_time(maxTime);
-	emptyMsg.set_update_length(aUpdateLength);
+    emptyMsg.set_update_length(aUpdateLength);
     aNetwork.WriteMessage(emptyMsg);
 
 }

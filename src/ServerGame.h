@@ -18,7 +18,8 @@ public:
     ServerGeodesicGrid& GetGrid();
     ServerUnit& CreateUnit(ServerTile& aTile, const UnitClass& aClass);
     void Send(Network& aNetwork);
-    GameTime GetTime() const { return mTime; }
+    static GameTime GetTime();
+    static GameTime GetTimeStep();
     void LoadCommands(const RequestMsg& commands);
 	int32 GetUpdateLength() { return mTimer.GetLeft(); }
 protected:
@@ -26,8 +27,8 @@ private:
     void UpdateGame();
     ServerGeodesicGrid* mGrid;
     int mUnitCount;
-    GameTime mTime;
-    GameTime mTimeStep;
+    static GameTime mTime;
+    static GameTime mTimeStep;
     ServerUnits mUnits;
     UnitClass mGrass;
     UnitClass mZebra;

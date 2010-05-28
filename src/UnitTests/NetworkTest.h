@@ -37,7 +37,7 @@ public:
             ChangeList::AddRemove(i);
         }
         ChangeList::Commit(time);
-        ChangeList::Write(*mNetwork, 0, 1000);
+        ChangeList::Write(*mNetwork, time - 1, 1000);
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count);
         TS_ASSERT_EQUALS(mNetwork->GetWrites(), 2);
@@ -53,7 +53,7 @@ public:
             ChangeList::AddRemove(i);
         }
         ChangeList::Commit(time);
-        ChangeList::Write(*mNetwork, 0, 1000);
+        ChangeList::Write(*mNetwork, time - 1, 1000);
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count);
         TS_ASSERT_EQUALS(mNetwork->GetWrites(), 3);
@@ -115,7 +115,7 @@ public:
 
         TS_ASSERT_THROWS(ChangeList::Write(*mNetwork, 2, 1000), ClientBehind);
 
-        TS_ASSERT(mNetwork->IsLastWrited());
+        TS_ASSERT(!mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 0);
         TS_ASSERT_EQUALS(mNetwork->GetWrites(), 0);
     }
