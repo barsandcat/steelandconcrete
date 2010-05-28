@@ -70,6 +70,7 @@
 		<Unit filename="../ChangeList.h" />
 		<Unit filename="../DummyNetwork.cpp" />
 		<Unit filename="../DummyNetwork.h" />
+		<Unit filename="../Exceptions.h" />
 		<Unit filename="../INetwork.h" />
 		<Unit filename="../LinuxPlatform.cpp" />
 		<Unit filename="../Network.cpp" />
