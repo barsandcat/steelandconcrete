@@ -36,7 +36,8 @@ public:
         mStartRWL.lock_shared();
         int64 passed = current - mStart;
         mStartRWL.unlock_shared();
-        return mPeriod - passed;
+        int64 left = mPeriod - passed;
+        return left < 0 ? 0 : left;
     }
 
     int64 GetPassedTime() const
