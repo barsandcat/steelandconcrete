@@ -86,7 +86,7 @@ ServerUnit& ServerGame::CreateUnit(ServerTile& aTile, const UnitClass& aClass)
 
 void ServerGame::Send(Network& aNetwork)
 {
-    boost::lock_guard<boost::mutex> cs(mGameMutex);
+    boost::shared_lock<boost::shared_mutex> cs(mGameMutex);
 
     mGrid->Send(aNetwork);
 
@@ -109,7 +109,7 @@ void ServerGame::Send(Network& aNetwork)
 
 void ServerGame::UpdateGame()
 {
-    boost::lock_guard<boost::mutex> cs(mGameMutex);
+    boost::lock_guard<boost::shared_mutex> cs(mGameMutex);
 
     GetLog() << "Update Game!";
 
@@ -147,7 +147,7 @@ void ServerGame::UpdateGame()
 
 void ServerGame::LoadCommands(const RequestMsg& commands)
 {
-    boost::lock_guard<boost::mutex> cs(mGameMutex);
+    boost::lock_guard<boost::shared_mutex> cs(mGameMutex);
     for (int i = 0; i < commands.commands_size(); ++i)
     {
         const CommandMsg& command = commands.commands(i);

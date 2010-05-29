@@ -33,7 +33,7 @@ private:
     UnitClass mGrass;
     UnitClass mZebra;
     UnitClass mAvatar;
-    boost::mutex mGameMutex;
+    boost::shared_mutex mGameMutex;
 	UpdateTimer mTimer;
 };
 
