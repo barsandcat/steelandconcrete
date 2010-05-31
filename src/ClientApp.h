@@ -73,6 +73,7 @@ private:
     ClientGame* mGame;
     MainMenuSheet* mMainMenu;
     ServerBrowserSheet* mServerBrowserSheet;
+    boost::asio::io_service mIOService;
     void Frame(unsigned long aFrameTime);
 };
 
