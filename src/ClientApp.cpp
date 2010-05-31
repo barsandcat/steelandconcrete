@@ -227,12 +227,11 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
     GetLog() << "On connect";
     if (!mGame)
     {
-        boost::asio::io_service io_service;
-        tcp::resolver resolver(io_service);
+        tcp::resolver resolver(mIOService);
         tcp::resolver::query query(tcp::v4(), mServerBrowserSheet->GetAddress(), mServerBrowserSheet->GetPort());
         tcp::resolver::iterator iterator = resolver.resolve(query);
 
-        SocketSharedPtr sock(new tcp::socket(io_service));
+        SocketSharedPtr sock(new tcp::socket(mIOService));
         boost::system::error_code ec;
         sock->connect(*iterator, ec);
 

@@ -14,6 +14,7 @@ Network::Network(SocketSharedPtr aSocket): mSocket(aSocket), mMessageBuffer(NULL
 Network::~Network()
 {
     delete mMessageBuffer;
+    mSocket->shutdown(boost::asio::ip::tcp::socket::shutdown_both);
     mSocket->close();
 }
 
