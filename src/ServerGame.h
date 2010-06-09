@@ -18,6 +18,8 @@ public:
     ServerGeodesicGrid& GetGrid();
     ServerUnit& CreateUnit(ServerTile& aTile, const UnitClass& aClass);
     void Send(Network& aNetwork);
+    UnitId AssignAvatar();
+    void FreeAvatar(UnitId aAvatar);
     static GameTime GetTime();
     static GameTime GetTimeStep();
     void LoadCommands(const RequestMsg& commands);

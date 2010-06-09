@@ -84,6 +84,16 @@ ServerUnit& ServerGame::CreateUnit(ServerTile& aTile, const UnitClass& aClass)
     return *unit;
 }
 
+UnitId ServerGame::AssignAvatar()
+{
+    return 0;
+}
+
+void ServerGame::FreeAvatar(UnitId aAvatar)
+{
+
+}
+
 void ServerGame::Send(Network& aNetwork)
 {
     boost::shared_lock<boost::shared_mutex> cs(mGameMutex);
@@ -91,7 +101,6 @@ void ServerGame::Send(Network& aNetwork)
     mGrid->Send(aNetwork);
 
     UnitCountMsg count;
-    count.set_avatar(0);
     count.set_count(mUnits.size());
     count.set_time(mTime);
     aNetwork.WriteMessage(count);
