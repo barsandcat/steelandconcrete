@@ -66,6 +66,7 @@
 			<Add after="bin/UnitTests" />
 			<Mode after="always" />
 		</ExtraCommands>
+		<Unit filename="src/Avatar.h" />
 		<Unit filename="src/ChangeList.cpp" />
 		<Unit filename="src/ChangeList.h" />
 		<Unit filename="src/ClientConnection.cpp" />
