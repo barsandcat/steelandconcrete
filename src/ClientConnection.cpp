@@ -12,39 +12,41 @@
 #include <boost/thread.hpp>
 #include <Handshake.pb.h>
 #include <ProtocolVersion.h>
+#include <Avatar.h>
 
 
 void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
 {
+    Network network(aSocket);
     try
     {
-        Network mNetwork(aSocket);
-
         ConnectionRequestMsg req;
-        mNetwork.ReadMessage(req);
+        network.ReadMessage(req);
         GetLog() << "Client request " << req.ShortDebugString();
 
         ConnectionResponseMsg res;
         res.set_protocolversion(ProtocolVersion);
-        if (req.protocolversion() == ProtocolVersion)
-        {
-            res.set_result(CONNECTION_ALLOWED);
-            mNetwork.WriteMessage(res);
-        }
-        else
+
+        if (req.protocolversion() != ProtocolVersion)
         {
             res.set_result(CONNECTION_WRONG_VERSION);
-            mNetwork.WriteMessage(res);
+            network.WriteMessage(res);
             return;
         }
 
-        aGame.Send(mNetwork);
+        Avatar avatar(aGame);
+
+        res.set_result(CONNECTION_ALLOWED);
+        res.set_avatar(avatar.GetId());
+        network.WriteMessage(res);
+
+        aGame.Send(network);
 
 
         while (true)
         {
             RequestMsg req;
-            mNetwork.ReadMessage(req);
+            network.ReadMessage(req);
             if (req.has_type())
             {
                 switch (req.type())
@@ -55,14 +57,14 @@ void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
                     if (req.has_time())
                     {
                         aGame.LoadCommands(req);
-                        ChangeList::Write(mNetwork, req.time(), aGame.GetUpdateLength());
+                        ChangeList::Write(network, req.time(), aGame.GetUpdateLength());
                     }
                     else
                     {
                         ResponseMsg rsp;
                         rsp.set_type(RESPONSE_NOK);
                         rsp.set_reason("No time!");
-                        mNetwork.WriteMessage(rsp);
+                        network.WriteMessage(rsp);
                     }
                     break;
                 }
