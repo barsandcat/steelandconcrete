@@ -17,7 +17,6 @@ public:
     void Move(ServerTile& aNewPosition);
     void SetCommand(ServerTile& aTile) { mTarget = &aTile; }
     void ExecuteCommand();
-    void SetMaster(UnitId aMaster) { mMaster = aMaster; }
     void FillUnitMsg(UnitMsg& aUnitMsg) const;
     bool UpdateAgeAndIsTimeToDie(GameTime aPeriod);
 protected:
@@ -26,7 +25,6 @@ private:
     const UnitClass& mClass;
     ServerTile* mPosition;
     ServerTile* mTarget;
-    UnitId mMaster;
     uint32 mAge;
 };
 
