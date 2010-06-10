@@ -12,7 +12,6 @@ using google::protobuf::int64;
 using boost::asio::ip::tcp;
 
 typedef boost::shared_ptr< tcp::socket > SocketSharedPtr;
-typedef boost::shared_ptr< tcp::acceptor > AcceptorScopedPtr;
 typedef uint32 TileId;
 typedef int32 UnitId;
 typedef uint64 GameTime;
