@@ -38,6 +38,19 @@ public:
         TS_ASSERT_EQUALS(UnitList::GetSize(), 1);
     }
 
+    void TestUnic()
+    {
+        UnitList::Clear();
+        ServerTile tile(Ogre::Vector3::UNIT_X, 0);
+        UnitClass unitClass(0, 0 ,0);
+
+        UnitId unitId = UnitList::NewUnit(tile, unitClass).GetUnitId();
+        UnitList::DeleteUnit(unitId);
+        ServerUnit& unit = UnitList::NewUnit(tile, unitClass);
+        TS_ASSERT_DIFFERS(unitId, unit.GetUnitId());
+        TS_ASSERT(!UnitList::GetUnit(unitId));
+    }
+
 };
 
 #endif // UNITLISTTEST_H_INCLUDED
