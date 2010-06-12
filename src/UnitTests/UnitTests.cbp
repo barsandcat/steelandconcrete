@@ -92,10 +92,14 @@
 		<Unit filename="../SyncTimer.h" />
 		<Unit filename="../UnitClass.cpp" />
 		<Unit filename="../UnitClass.h" />
+		<Unit filename="../UnitList.cpp" />
+		<Unit filename="../UnitList.h" />
 		<Unit filename="NetworkTest.cpp" />
 		<Unit filename="NetworkTest.h" />
 		<Unit filename="ServerUnitTest.cpp" />
 		<Unit filename="ServerUnitTest.h" />
+		<Unit filename="UnitListTest.cpp" />
+		<Unit filename="UnitListTest.h" />
 		<Unit filename="UpdateTimerTest.cpp" />
 		<Unit filename="UpdateTimerTest.h" />
 		<Unit filename="VisualCodesTest.cpp" />
