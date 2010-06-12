@@ -15,10 +15,12 @@ public:
     static void DeleteUnit(UnitId aUnitId);
     static ServerUnit* GetUnit(UnitId aUnitId);
     static int32 GetSize() { return mUnits.size(); }
-    static void Clear() { mUnits.clear(); }
+    static void Clear() { mUnits.clear(); mFreeIndex.clear(); }
 private:
     typedef boost::ptr_vector< boost::nullable< ServerUnit> > UnitVector;
+    typedef std::vector<size_t> FreeIndex;
     static UnitVector mUnits;
+    static FreeIndex mFreeIndex;
 };
 
 #endif // UNITLIST_H
