@@ -1,5 +1,5 @@
 TESTGEN=../../cxxtest/cxxtestgen.py
-all : NetworkTest.cpp VisualCodesTest.cpp ServerUnitTest.cpp UpdateTimerTest.cpp
+all : NetworkTest.cpp VisualCodesTest.cpp ServerUnitTest.cpp UpdateTimerTest.cpp UnitListTest.cpp
 NetworkTest.cpp: NetworkTest.h
 	$(TESTGEN) --runner=ParenPrinter -o NetworkTest.cpp NetworkTest.h
 
@@ -11,3 +11,6 @@ ServerUnitTest.cpp: ServerUnitTest.h
 
 UpdateTimerTest.cpp: UpdateTimerTest.h
 	$(TESTGEN) --part -o UpdateTimerTest.cpp UpdateTimerTest.h
+
+UnitListTest.cpp: UnitListTest.h
+	$(TESTGEN) --part -o UnitListTest.cpp UnitListTest.h

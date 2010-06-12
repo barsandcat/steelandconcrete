@@ -5,7 +5,7 @@
 
 class ServerUnit;
 
-class ServerTile
+class ServerTile: public boost::noncopyable
 {
 public:
     explicit ServerTile(const Ogre::Vector3& aPosition, int32 aHeight);
@@ -24,7 +24,6 @@ public:
     void SetTileId(TileId aTileId) { mTileId = aTileId; }
     int32 GetHeight() const { return mHeight; }
 
-protected:
 private:
     std::vector< ServerTile* > mNeighbourhood;
     const Ogre::Vector3 mPosition;
