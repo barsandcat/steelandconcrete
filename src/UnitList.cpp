@@ -4,16 +4,17 @@
 #include <ServerUnit.h>
 
 UnitList::UnitVector UnitList::mUnits;
-UnitList::FreeIndex UnitList::mFreeIndex;
+UnitList::FreeIdList UnitList::mFreeIdList;
 
 ServerUnit& UnitList::NewUnit(ServerTile& aTile, const UnitClass& aClass)
 {
-    if (!mFreeIndex.empty())
+    if (!mFreeIdList.empty())
     {
-        UnitId id = mFreeIndex.back();
-        mFreeIndex.pop_back();
-        ServerUnit* unit = new ServerUnit(aTile, aClass, id);
-        mUnits.replace(id, unit);
+        UnitId freeId = mFreeIdList.front();
+        mFreeIdList.pop_front();
+        ServerUnit* unit = new ServerUnit(aTile, aClass, freeId + (1 << INDEX_SIZE));
+        assert(!mUnits[freeId & INDEX_MASK]);
+        mUnits[freeId & INDEX_MASK] = unit;
         return *unit;
     }
     else
@@ -28,18 +29,28 @@ ServerUnit& UnitList::NewUnit(ServerTile& aTile, const UnitClass& aClass)
 
 void UnitList::DeleteUnit(UnitId aUnitId)
 {
-    if (!mUnits.is_null(aUnitId))
+    int32 index = aUnitId & INDEX_MASK;
+    ServerUnit* unit = mUnits[index];
+    if (unit)
     {
-        mUnits.replace(aUnitId, 0);
-        mFreeIndex.push_back(aUnitId);
+        delete unit;
+        mUnits[index] = 0;
+        mFreeIdList.push_back(aUnitId);
     }
 }
 
 ServerUnit* UnitList::GetUnit(UnitId aUnitId)
 {
-    if (!mUnits.is_null(aUnitId))
+    ServerUnit* unit = mUnits[aUnitId & INDEX_MASK];
+    return unit && unit->GetUnitId() == aUnitId ? unit : 0;
+}
+
+void UnitList::Clear()
+{
+    for (size_t i = 0; i < mUnits.size(); ++i)
     {
-        return &mUnits[aUnitId];
+        delete mUnits[i];
     }
-    return NULL;
+    mUnits.clear();
+    mFreeIdList.clear();
 }
