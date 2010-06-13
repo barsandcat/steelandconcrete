@@ -6,9 +6,11 @@
 
 UnitList::UnitVector UnitList::mUnits;
 UnitList::FreeIdList UnitList::mFreeIdList;
+int32 UnitList::mCount = 0;
 
 ServerUnit& UnitList::NewUnit(ServerTile& aTile, const UnitClass& aClass)
 {
+    ++mCount;
     if (!mFreeIdList.empty())
     {
         UnitId freeId = mFreeIdList.front();
@@ -34,6 +36,7 @@ void UnitList::DeleteUnit(UnitId aUnitId)
     ServerUnit* unit = mUnits[index];
     if (unit)
     {
+        --mCount;
         delete unit;
         mUnits[index] = 0;
         mFreeIdList.push_back(aUnitId);
@@ -54,6 +57,7 @@ void UnitList::Clear()
     }
     mUnits.clear();
     mFreeIdList.clear();
+    mCount = 0;
 }
 
 UnitListIterator UnitList::GetIterator()
