@@ -31,3 +31,5 @@ glob:bin/log
 glob:*.bsc
 glob:*.log
 glob:*.*~
+glob:bin/ValgrindOut.xml
+glob:bin/cpd/gprof.txt

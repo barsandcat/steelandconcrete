@@ -94,6 +94,8 @@
 		<Unit filename="../UnitClass.h" />
 		<Unit filename="../UnitList.cpp" />
 		<Unit filename="../UnitList.h" />
+		<Unit filename="../UnitListIterator.cpp" />
+		<Unit filename="../UnitListIterator.h" />
 		<Unit filename="NetworkTest.cpp" />
 		<Unit filename="NetworkTest.h" />
 		<Unit filename="ServerUnitTest.cpp" />
