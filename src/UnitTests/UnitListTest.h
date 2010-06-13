@@ -54,6 +54,14 @@ public:
         TS_ASSERT(!UnitList::GetUnit(unitId));
     }
 
+    void TestNonZero()
+    {
+        UnitList::Clear();
+        ServerTile tile(Ogre::Vector3::UNIT_X, 0);
+        UnitClass unitClass(0, 0 ,0);
+        TS_ASSERT_DIFFERS(0, UnitList::NewUnit(tile, unitClass).GetUnitId());
+    }
+
     void TestIteratorBase()
     {
         UnitList::Clear();
