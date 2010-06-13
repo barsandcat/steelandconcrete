@@ -75,6 +75,8 @@
 		<Unit filename="../Exceptions.h" />
 		<Unit filename="../INetwork.h" />
 		<Unit filename="../LinuxPlatform.cpp" />
+		<Unit filename="../Mind.cpp" />
+		<Unit filename="../Mind.h" />
 		<Unit filename="../Network.cpp" />
 		<Unit filename="../Network.h" />
 		<Unit filename="../Platform.h" />
@@ -96,6 +98,8 @@
 		<Unit filename="../UnitList.h" />
 		<Unit filename="../UnitListIterator.cpp" />
 		<Unit filename="../UnitListIterator.h" />
+		<Unit filename="MindTest.cpp" />
+		<Unit filename="MindTest.h" />
 		<Unit filename="NetworkTest.cpp" />
 		<Unit filename="NetworkTest.h" />
 		<Unit filename="ServerUnitTest.cpp" />
