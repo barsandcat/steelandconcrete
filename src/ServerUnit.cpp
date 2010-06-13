@@ -8,7 +8,7 @@ ServerUnit::ServerUnit(ServerTile& aTile, const UnitClass& aClass, UnitId aUnitI
     mUnitId(aUnitId), mClass(aClass), mPosition(&aTile),  mTarget(NULL),
       mAge(0)
 {
-    mPosition->SetUnit(this);
+    mPosition->SetUnit(mUnitId);
 }
 
 ServerUnit::~ServerUnit()
@@ -19,9 +19,9 @@ ServerUnit::~ServerUnit()
 
 void ServerUnit::Move(ServerTile& aNewPosition)
 {
-    mPosition->SetUnit(NULL);
+    mPosition->SetUnit(0);
     mPosition = &aNewPosition;
-    mPosition->SetUnit(this);
+    mPosition->SetUnit(mUnitId);
     ChangeList::AddMove(mUnitId, mPosition->GetTileId());
 }
 
