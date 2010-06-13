@@ -11,12 +11,10 @@
 class ServerGame: public boost::noncopyable
 {
 public:
-    typedef std::map< UnitId, ServerUnit* > ServerUnits;
     ServerGame(int aSize, int32 aSeaLevel);
     ~ServerGame();
     void MainLoop(Ogre::String aAddress, int32 aPort);
     ServerGeodesicGrid& GetGrid();
-    ServerUnit& CreateUnit(ServerTile& aTile, const UnitClass& aClass);
     void Send(Network& aNetwork);
     UnitId AssignAvatar();
     void FreeAvatar(UnitId aAvatar);
@@ -28,10 +26,8 @@ protected:
 private:
     void UpdateGame();
     ServerGeodesicGrid* mGrid;
-    int mUnitCount;
     static GameTime mTime;
     static GameTime mTimeStep;
-    ServerUnits mUnits;
     UnitClass mGrass;
     UnitClass mZebra;
     UnitClass mAvatar;

@@ -95,6 +95,10 @@
 		<Unit filename="src/Typedefs.h" />
 		<Unit filename="src/UnitClass.cpp" />
 		<Unit filename="src/UnitClass.h" />
+		<Unit filename="src/UnitList.cpp" />
+		<Unit filename="src/UnitList.h" />
+		<Unit filename="src/UnitListIterator.cpp" />
+		<Unit filename="src/UnitListIterator.h" />
 		<Unit filename="src/UpdateTimer.h" />
 		<Unit filename="src/pch.cpp" />
 		<Unit filename="src/pch.h">
