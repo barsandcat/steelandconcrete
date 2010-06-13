@@ -22,7 +22,7 @@ ServerUnit& UnitList::NewUnit(ServerTile& aTile, const UnitClass& aClass)
     }
     else
     {
-        UnitId id = mUnits.size();
+        UnitId id = mUnits.size() + (1 << INDEX_SIZE);
         ServerUnit* unit = new ServerUnit(aTile, aClass, id);
         mUnits.push_back(unit);
         return *unit;
