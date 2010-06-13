@@ -292,6 +292,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\UnitList.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\UnitListIterator.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\VisualCodes.cpp"
 				>
 			</File>
@@ -339,6 +347,14 @@
 			</File>
 			<File
 				RelativePath="..\UnitClass.h"
+				>
+			</File>
+			<File
+				RelativePath="..\UnitList.h"
+				>
+			</File>
+			<File
+				RelativePath="..\UnitListIterator.h"
 				>
 			</File>
 			<File
@@ -733,6 +749,46 @@
 			</File>
 			<File
 				RelativePath=".\ServerUnitTest.h"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="CxxTest"
+						output="$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="CxxTest"
+						output="$(InputName).cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\UnitListTest.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\UnitListTest.h"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
