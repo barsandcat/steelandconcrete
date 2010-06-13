@@ -23,7 +23,9 @@ public:
         UnitId unitId = unit.GetUnitId();
         ServerUnit* unit2 = UnitList::GetUnit(unitId);
         TS_ASSERT_EQUALS(&unit, unit2);
+        TS_ASSERT_EQUALS(UnitList::GetCount(), 1);
         UnitList::DeleteUnit(unitId);
+        TS_ASSERT_EQUALS(UnitList::GetCount(), 0);
         TS_ASSERT(!UnitList::GetUnit(unitId));
     }
 
@@ -61,6 +63,7 @@ public:
         UnitList::NewUnit(tile, unitClass);
         UnitList::NewUnit(tile, unitClass);
         UnitList::NewUnit(tile, unitClass);
+        TS_ASSERT_EQUALS(UnitList::GetCount(), 3);
         int count = 0;
         for (UnitListIterator i = UnitList::GetIterator(); !i.IsDone(); i.Next())
         {
@@ -80,6 +83,7 @@ public:
         UnitId id = UnitList::NewUnit(tile, unitClass).GetUnitId();
         UnitList::NewUnit(tile, unitClass);
         UnitList::DeleteUnit(id);
+        TS_ASSERT_EQUALS(UnitList::GetCount(), 2);
         int count = 0;
         for (UnitListIterator i = UnitList::GetIterator(); !i.IsDone(); i.Next())
         {
@@ -92,6 +96,7 @@ public:
     void TestIteratorEmpty()
     {
         UnitList::Clear();
+        TS_ASSERT_EQUALS(UnitList::GetCount(), 0);
 
         int count = 0;
         for (UnitListIterator i = UnitList::GetIterator(); !i.IsDone(); i.Next())
@@ -111,8 +116,10 @@ public:
         UnitId id1 = UnitList::NewUnit(tile, unitClass).GetUnitId();
         UnitList::NewUnit(tile, unitClass);
         UnitId id2 = UnitList::NewUnit(tile, unitClass).GetUnitId();
+        TS_ASSERT_EQUALS(UnitList::GetCount(), 3);
         UnitList::DeleteUnit(id1);
         UnitList::DeleteUnit(id2);
+        TS_ASSERT_EQUALS(UnitList::GetCount(), 1);
         int count = 0;
         for (UnitListIterator i = UnitList::GetIterator(); !i.IsDone(); i.Next())
         {
