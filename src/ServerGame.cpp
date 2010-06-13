@@ -9,6 +9,8 @@
 #include <VisualCodes.h>
 #include <UpdateTimer.h>
 #include <boost/thread.hpp>
+#include <UnitList.h>
+#include <UnitListIterator.h>
 
 GameTime ServerGame::mTime = 1;
 GameTime ServerGame::mTimeStep = 1;
@@ -24,7 +26,7 @@ GameTime ServerGame::GetTimeStep()
 }
 
 
-ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0),
+ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL),
     mGrass(VC::LIVE | VC::PLANT, 100, 0),
     mZebra(VC::LIVE | VC::ANIMAL | VC::HERBIVORES, 500, 1),
     mAvatar(VC::LIVE | VC::ANIMAL | VC::HUMAN, 999999, 1),
@@ -41,10 +43,10 @@ ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0),
             switch (rand() % 10)
             {
             case 1:
-                CreateUnit(mGrid->GetTile(i), mZebra);
+                UnitList::NewUnit(mGrid->GetTile(i), mZebra);
                 break;
             case 6:
-                CreateUnit(mGrid->GetTile(i), mGrass);
+                UnitList::NewUnit(mGrid->GetTile(i), mGrass);
                 break;
             }
         }
@@ -54,6 +56,7 @@ ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL), mUnitCount(0),
 
 ServerGame::~ServerGame()
 {
+    UnitList::Clear();
     delete mGrid;
 }
 
@@ -77,13 +80,6 @@ void ServerGame::MainLoop(Ogre::String aAddress, int32 aPort)
     GetLog() << "Game over";
 }
 
-ServerUnit& ServerGame::CreateUnit(ServerTile& aTile, const UnitClass& aClass)
-{
-    ServerUnit* unit = new ServerUnit(aTile, aClass, ++mUnitCount);
-    mUnits.insert(std::make_pair(unit->GetUnitId(), unit));
-    return *unit;
-}
-
 UnitId ServerGame::AssignAvatar()
 {
     return 0;
@@ -101,16 +97,15 @@ void ServerGame::Send(Network& aNetwork)
     mGrid->Send(aNetwork);
 
     UnitCountMsg count;
-    count.set_count(mUnits.size());
+    count.set_count(UnitList::GetCount());
     count.set_time(mTime);
     aNetwork.WriteMessage(count);
-    ServerUnits::const_iterator i = mUnits.begin();
     GetLog() << "Unit count send; " << count.ShortDebugString() ;
 
-    for (; i != mUnits.end(); ++i)
+    for (UnitListIterator i = UnitList::GetIterator(); !i.IsDone(); i.Next())
     {
         UnitMsg unit;
-        i->second->FillUnitMsg(unit);
+        i.GetUnit()->FillUnitMsg(unit);
         aNetwork.WriteMessage(unit);
     }
     GetLog() << "All units send";
@@ -122,29 +117,17 @@ void ServerGame::UpdateGame()
 
     GetLog() << "Update Game!";
 
-    std::vector<UnitId> mDeleteList;
-    mDeleteList.resize(mUnits.size() * 0.1f);
-
-    for (ServerUnits::iterator i = mUnits.begin(); i != mUnits.end(); ++i)
+    for (UnitListIterator i = UnitList::GetIterator(); !i.IsDone(); i.Next())
     {
-        ServerUnit* unit = i->second;
-        assert(unit);
+        ServerUnit* unit = i.GetUnit();
         if (unit->UpdateAgeAndIsTimeToDie(mTimeStep))
         {
-            mDeleteList.push_back(i->first);
+            UnitList::DeleteUnit(unit->GetUnitId());
         }
         else
         {
             unit->ExecuteCommand();
         }
-    }
-
-    // Remove deleted units
-    for (size_t i = 0; i < mDeleteList.size(); ++i)
-    {
-        ServerUnit* unit = mUnits[mDeleteList[i]];
-        mUnits.erase(mDeleteList[i]);
-        delete unit;
     }
 
     mTime += mTimeStep;
@@ -163,10 +146,9 @@ void ServerGame::LoadCommands(const RequestMsg& commands)
         if (command.has_commandmove())
         {
             const CommandMoveMsg& move = command.commandmove();
-            ServerUnits::iterator i = mUnits.find(move.unitid());
-            if (mUnits.end() != i)
+            if (ServerUnit* unit = UnitList::GetUnit(move.unitid()))
             {
-                i->second->SetCommand(mGrid->GetTile(move.position()));
+                unit->SetCommand(mGrid->GetTile(move.position()));
             }
             else
             {
