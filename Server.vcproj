@@ -278,6 +278,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\UnitList.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\UnitListIterator.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\WindowsPlatform.cpp"
 				>
 			</File>
@@ -341,6 +349,14 @@
 			</File>
 			<File
 				RelativePath=".\src\UnitClass.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\UnitList.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\UnitListIterator.h"
 				>
 			</File>
 		</Filter>
