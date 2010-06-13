@@ -3,8 +3,6 @@
 #include <Typedefs.h>
 #include <OgreVector3.h>
 
-class ServerUnit;
-
 class ServerTile: public boost::noncopyable
 {
 public:
@@ -17,8 +15,8 @@ public:
     const Ogre::Vector3& GetPosition() const { return mPosition; }
     size_t GetNeighbourCount() const { return mNeighbourhood.size(); }
     ServerTile& GetNeighbour(size_t aIndex) const { return *mNeighbourhood[aIndex]; }
-    ServerUnit* GetUnit() const { return mUnit; }
-    void SetUnit(ServerUnit* aUnit) { mUnit = aUnit; }
+    UnitId GetUnit() const { return mUnit; }
+    void SetUnit(UnitId aUnit) { mUnit = aUnit; }
 
     TileId GetTileId() const { return mTileId; }
     void SetTileId(TileId aTileId) { mTileId = aTileId; }
@@ -29,7 +27,7 @@ private:
     const Ogre::Vector3 mPosition;
     const int32 mHeight;
     TileId mTileId;
-    ServerUnit* mUnit;
+    UnitId mUnit;
 };
 
 #endif // SERVERTILE_H
