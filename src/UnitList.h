@@ -6,6 +6,7 @@
 class ServerUnit;
 class ServerTile;
 class UnitClass;
+class UnitListIterator;
 
 class UnitList
 {
@@ -15,6 +16,7 @@ public:
     static ServerUnit* GetUnit(UnitId aUnitId);
     static int32 GetSize() { return mUnits.size(); }
     static void Clear();
+    static UnitListIterator GetIterator();
 private:
     typedef std::vector< ServerUnit* > UnitVector;
     typedef std::list< UnitId > FreeIdList;

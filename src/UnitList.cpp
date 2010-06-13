@@ -2,6 +2,7 @@
 #include <UnitList.h>
 
 #include <ServerUnit.h>
+#include <UnitListIterator.h>
 
 UnitList::UnitVector UnitList::mUnits;
 UnitList::FreeIdList UnitList::mFreeIdList;
@@ -53,4 +54,9 @@ void UnitList::Clear()
     }
     mUnits.clear();
     mFreeIdList.clear();
+}
+
+UnitListIterator UnitList::GetIterator()
+{
+    return UnitListIterator(mUnits);
 }
