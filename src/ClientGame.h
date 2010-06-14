@@ -17,24 +17,21 @@ class ClientGame
 {
 public:
     typedef std::map< UnitId, ClientUnit* > ClientUnits;
-    ClientGame(Network* aNetwork);
+    ClientGame(Network* aNetwork, UnitId aAvatar);
     virtual ~ClientGame(); // Для QuicGUI
     void OnExit(const QuickGUI::EventArgs& args);
-    void OnTurn(const QuickGUI::EventArgs& args);
     void UpdateTileUnderCursor(Ogre::Ray& aRay);
     void Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats);
-    void Select();
     void Act();
 private:
     void CreateUnitEntities() const;
-    void ReadResponseMessage();
+    int32 ReadResponseMessage();
     void LoadEvents(const ResponseMsg& changes);
     ClientUnit& GetUnit(UnitId aUnitId);
 private:
     ClientGeodesicGrid* mGrid;
     ClientUnits mUnits;
     ClientTile* mTileUnderCursor;
-    ClientUnit* mSelectedUnit;
     ClientUnit* mAvatar;
     Ogre::SceneNode* mSelectionMarker;
     Ogre::SceneNode* mTargetMarker;

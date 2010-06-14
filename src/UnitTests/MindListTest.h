@@ -3,6 +3,7 @@
 
 #include <cxxtest/TestSuite.h>
 #include <MindList.h>
+#include <Exceptions.h>
 
 class MindListTest: public CxxTest::TestSuite
 {
@@ -17,12 +18,12 @@ public:
         MindList::Clear();
     }
 
-    void TestBase()
+    void TestAvatar()
     {
-
+        TS_ASSERT_THROWS(MindList::GetAvatar(), NoAvatar);
         MindList::NewMind(1);
         TS_ASSERT_EQUALS(MindList::GetSize(), size_t(1));
-        MindList::DeleteMind(1);
+        MindList::GetAvatar();
         TS_ASSERT_EQUALS(MindList::GetSize(), size_t(0));
     }
 

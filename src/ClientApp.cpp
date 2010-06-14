@@ -247,7 +247,7 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
             net->ReadMessage(res);
             if (res.result() == CONNECTION_ALLOWED)
             {
-                mGame = new ClientGame(net);
+                mGame = new ClientGame(net, res.avatar());
             }
             else
             {
@@ -471,7 +471,6 @@ bool ClientApp::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
         switch (id)
         {
         case OIS::MB_Left:
-            mGame->Select();
             break;
         case OIS::MB_Right:
             mGame->Act();
