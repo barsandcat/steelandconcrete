@@ -39,6 +39,7 @@ void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
         res.set_result(CONNECTION_ALLOWED);
         res.set_avatar(avatar.GetId());
         network.WriteMessage(res);
+        GetLog() << "Client response " << res.ShortDebugString();
 
         aGame.Send(network);
 

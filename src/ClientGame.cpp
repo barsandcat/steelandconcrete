@@ -9,10 +9,10 @@
 #include <ChangeList.pb.h>
 #include <ClientApp.h>
 
-ClientGame::ClientGame(Network* aNetwork):
+ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
     mGrid(NULL),
     mTileUnderCursor(NULL),
-    mSelectedUnit(NULL),
+    mAvatar(NULL),
     mViewPortWidget(
         mIngameSheet.GetSelectedWidth(),
         mIngameSheet.GetSelectedHeight(),
@@ -35,16 +35,19 @@ ClientGame::ClientGame(Network* aNetwork):
     {
         UnitMsg unit;
         mNetwork->ReadMessage(unit);
-        mUnits.insert(std::make_pair(
-                          unit.tag(),
-                          new ClientUnit(mGrid->GetTile(unit.tile()), unit)
-                      ));
+        ClientUnit* clientUnit = new ClientUnit(mGrid->GetTile(unit.tile()), unit);
+        mUnits.insert(std::make_pair(unit.tag(), clientUnit));
+
+        if (unit.tag() == aAvatarId)
+        {
+            mAvatar = clientUnit;
+        }
     }
+    assert(mAvatar);
     mLoadingSheet.SetProgress(60);
     GetLog() << "Recived all units";
-    //mAvatar = mUnits[unitCount.avatar()];
-    //ClientApp::GetCamera().Goto(mAvatar->GetPosition().GetPosition());
 
+    ClientApp::GetCamera().Goto(mAvatar->GetPosition().GetPosition());
 
     // Planet
     Ogre::StaticGeometry* staticPlanet = mGrid->ConstructStaticGeometry();
@@ -74,7 +77,6 @@ ClientGame::ClientGame(Network* aNetwork):
     mTargetMarker->setVisible(false);
 
     QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnExit", &ClientGame::OnExit, this);
-    QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnTurn", &ClientGame::OnTurn, this);
 
     mIngameSheet.SetTime(mTime);
     mIngameSheet.Activate();
@@ -116,50 +118,19 @@ void ClientGame::UpdateTileUnderCursor(Ogre::Ray& aRay)
     mSelectionMarker->setVisible(res.first);
 }
 
-void ClientGame::Select()
-{
-    assert(mTileUnderCursor && "Тайл под курсором должен быть!");
-    mSelectedUnit = mTileUnderCursor->GetUnit();
-    if (mSelectedUnit)
-    {
-        ClientTile* tile = mSelectedUnit->GetTarget();
-        if (tile)
-        {
-            mTargetMarker->getParent()->removeChild(mTargetMarker);
-            tile->GetNode().addChild(mTargetMarker);
-            mTargetMarker->setVisible(true);
-        }
-        else
-        {
-            mTargetMarker->setVisible(false);
-        }
-    }
-    else
-    {
-        mTargetMarker->setVisible(false);
-    }
-}
-
 void ClientGame::Act()
 {
     assert(mTileUnderCursor && "Тайл под курсором должен быть!");
-    if (mSelectedUnit)
-    {
-        mSelectedUnit->SetTarget(mTileUnderCursor);
-        mTargetMarker->getParent()->removeChild(mTargetMarker);
-        mTileUnderCursor->GetNode().addChild(mTargetMarker);
-        mTargetMarker->setVisible(true);
-    }
+    mAvatar->SetTarget(mTileUnderCursor);
+    mTargetMarker->getParent()->removeChild(mTargetMarker);
+    mTileUnderCursor->GetNode().addChild(mTargetMarker);
+    mTargetMarker->setVisible(true);
 }
 
 void ClientGame::OnExit(const QuickGUI::EventArgs& args)
 {
     ClientApp::Quit();
     GetLog() << "OnExit";
-}
-
-void ClientGame::OnTurn(const QuickGUI::EventArgs& args)
-{
 }
 
 ClientUnit& ClientGame::GetUnit(UnitId aUnitId)
@@ -171,7 +142,7 @@ ClientUnit& ClientGame::GetUnit(UnitId aUnitId)
     }
     else
     {
-        throw std::out_of_range("No such unit " + Ogre::StringConverter::toString(aUnitId));
+        boost::throw_exception(std::out_of_range("No such unit " + Ogre::StringConverter::toString(aUnitId)));
     }
 }
 
@@ -198,12 +169,7 @@ void ClientGame::LoadEvents(const ResponseMsg& changes)
             {
                 throw std::out_of_range("Server requested removal of non existing unit " + command.ShortDebugString());
             }
-            ClientUnit* unit = i->second;
-            if (mSelectedUnit == unit)
-            {
-                mSelectedUnit = NULL;
-            }
-            delete unit;
+            delete i->second;
             mUnits.erase(i);
         }
     }
@@ -212,8 +178,6 @@ void ClientGame::LoadEvents(const ResponseMsg& changes)
 void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats)
 {
     mIngameSheet.UpdateStats(aStats);
-    mIngameSheet.SetSelectedVisible(mSelectedUnit != NULL);
-    mViewPortWidget.SetUnit(mSelectedUnit);
 
     if (mSyncTimer.IsTime())
     {
@@ -222,47 +186,43 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
         req.set_time(mTime);
         req.set_last(true);
 
-        std::map< UnitId, ClientUnit* >::iterator i = mUnits.begin();
-        for (; i != mUnits.end(); ++i)
+        if (mAvatar->GetTarget())
         {
-            ClientUnit* unit = i->second;
-            if (unit->GetTarget())
-            {
-                CommandMsg* command = req.add_commands();
-                CommandMoveMsg* move = command->mutable_commandmove();
-                move->set_unitid(unit->GetUnitId());
-                move->set_position(unit->GetTarget()->GetTileId());
-            }
+            CommandMsg* command = req.add_commands();
+            CommandMoveMsg* move = command->mutable_commandmove();
+            move->set_unitid(mAvatar->GetUnitId());
+            move->set_position(mAvatar->GetTarget()->GetTileId());
         }
 
-
         mNetwork->WriteMessage(req);
-        ReadResponseMessage();
 
-        mSyncTimer.Reset(1000);
+        mSyncTimer.Reset(ReadResponseMessage());
     }
 }
 
-void ClientGame::ReadResponseMessage()
+int32 ClientGame::ReadResponseMessage()
 {
     ResponseMsg rsp;
     mNetwork->ReadMessage(rsp);
+
+    int32 nextUpdate = 1000;
 
     switch (rsp.type())
     {
     case RESPONSE_OK:
         mTime = rsp.time();
         mIngameSheet.SetTime(mTime);
+        nextUpdate = rsp.update_length();
         break;
     case RESPONSE_PART:
         LoadEvents(rsp);
-        ReadResponseMessage();
+        nextUpdate = ReadResponseMessage();
         break;
     case RESPONSE_NOK:
     default:
         GetLog() << rsp.ShortDebugString();
         break;
     }
-
+    return nextUpdate;
 }
 

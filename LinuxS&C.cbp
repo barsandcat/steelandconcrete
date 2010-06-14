@@ -158,7 +158,6 @@
 		<Unit filename="src/proto/Vector.pb.cc" />
 		<Unit filename="src/proto/Vector.pb.h" />
 		<Unit filename="src/proto/Vector.proto" />
-		<Unit filename="src/svn_revision.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

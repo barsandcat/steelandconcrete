@@ -81,16 +81,6 @@ void ServerGame::MainLoop(Ogre::String aAddress, int32 aPort)
     GetLog() << "Game over";
 }
 
-UnitId ServerGame::AssignAvatar()
-{
-    return 0;
-}
-
-void ServerGame::FreeAvatar(UnitId aAvatar)
-{
-
-}
-
 void ServerGame::Send(Network& aNetwork)
 {
     boost::shared_lock<boost::shared_mutex> cs(mGameMutex);

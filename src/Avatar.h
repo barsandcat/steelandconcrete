@@ -1,28 +1,16 @@
 #ifndef AVATAR_H
 #define AVATAR_H
 
-#include <ServerGame.h>
+#include <MindList.h>
 
 class Avatar
 {
 public:
-    Avatar(ServerGame& aGame): mId(aGame.AssignAvatar()), mGame(aGame)
-    {
-    }
-
-    ~Avatar()
-    {
-        mGame.FreeAvatar(mId);
-    }
-
-    UnitId GetId() const
-    {
-        return mId;
-    }
-protected:
+    Avatar(ServerGame& aGame): mId(MindList::GetAvatar()) { }
+    ~Avatar() { MindList::NewMind(mId); }
+    UnitId GetId() const { return mId; }
 private:
     const UnitId mId;
-    ServerGame& mGame;
 };
 
 #endif // AVATAR_H

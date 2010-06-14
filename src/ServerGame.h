@@ -16,8 +16,6 @@ public:
     void MainLoop(Ogre::String aAddress, int32 aPort);
     ServerGeodesicGrid& GetGrid();
     void Send(Network& aNetwork);
-    UnitId AssignAvatar();
-    void FreeAvatar(UnitId aAvatar);
     static GameTime GetTime();
     static GameTime GetTimeStep();
     void LoadCommands(const RequestMsg& commands);
