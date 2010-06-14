@@ -14,13 +14,13 @@ public:
     ServerTile& GetPosition() const { return *mPosition; }
     UnitId GetUnitId() const { return mUnitId; }
     virtual ~ServerUnit();
-    void Move(ServerTile& aNewPosition);
     void SetCommand(ServerTile& aTile) { mTarget = &aTile; }
     void ExecuteCommand();
     void FillUnitMsg(UnitMsg& aUnitMsg) const;
     bool UpdateAgeAndIsTimeToDie(GameTime aPeriod);
 protected:
 private:
+    void Move(ServerTile& aNewPosition);
     const UnitId mUnitId;
     const UnitClass& mClass;
     ServerTile* mPosition;
