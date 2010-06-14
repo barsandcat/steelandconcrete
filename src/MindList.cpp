@@ -9,7 +9,7 @@ MindList::MindListMap MindList::mMinds;
 
 void MindList::NewMind(UnitId aUnitId)
 {
-    mMinds.insert(aUnitId, new Mind());
+    mMinds.insert(aUnitId, new Mind(aUnitId));
 }
 
 void MindList::UpdateMinds(GameTime aPeriod)
@@ -19,7 +19,11 @@ void MindList::UpdateMinds(GameTime aPeriod)
     for (MindListMap::iterator i = mMinds.begin(); i != mMinds.end(); ++i)
     {
         ServerUnit* unit = UnitList::GetUnit(i->first);
-        if (!unit)
+        if (unit)
+        {
+            i->second->Update(aPeriod);
+        }
+        else
         {
             deleteList.push_back(i->first);
         }
