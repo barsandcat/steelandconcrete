@@ -75,6 +75,10 @@
 		<Unit filename="src/ConnectionManager.h" />
 		<Unit filename="src/LinuxPlatform.cpp" />
 		<Unit filename="src/LinuxServer.cpp" />
+		<Unit filename="src/Mind.cpp" />
+		<Unit filename="src/Mind.h" />
+		<Unit filename="src/MindList.cpp" />
+		<Unit filename="src/MindList.h" />
 		<Unit filename="src/Network.cpp" />
 		<Unit filename="src/Network.h" />
 		<Unit filename="src/Platform.h" />
