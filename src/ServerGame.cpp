@@ -11,6 +11,7 @@
 #include <boost/thread.hpp>
 #include <UnitList.h>
 #include <UnitListIterator.h>
+#include <MindList.h>
 
 GameTime ServerGame::mTime = 1;
 GameTime ServerGame::mTimeStep = 1;
@@ -116,6 +117,8 @@ void ServerGame::UpdateGame()
     boost::lock_guard<boost::shared_mutex> cs(mGameMutex);
 
     GetLog() << "Update Game!";
+
+    MindList::UpdateMinds(mTimeStep);
 
     for (UnitListIterator i = UnitList::GetIterator(); !i.IsDone(); i.Next())
     {

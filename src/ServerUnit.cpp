@@ -3,12 +3,18 @@
 
 #include <ServerTile.h>
 #include <ChangeList.h>
+#include <MindList.h>
+#include <UnitList.h>
 
 ServerUnit::ServerUnit(ServerTile& aTile, const UnitClass& aClass, UnitId aUnitId):
     mUnitId(aUnitId), mClass(aClass), mPosition(&aTile),  mTarget(NULL),
       mAge(0)
 {
-    mPosition->SetUnit(mUnitId);
+    mPosition->SetUnitId(mUnitId);
+    if (aClass.GetMaxSpeed() > 0)
+    {
+        MindList::NewMind(aUnitId);
+    }
 }
 
 ServerUnit::~ServerUnit()
@@ -19,9 +25,9 @@ ServerUnit::~ServerUnit()
 
 void ServerUnit::Move(ServerTile& aNewPosition)
 {
-    mPosition->SetUnit(0);
+    mPosition->SetUnitId(0);
     mPosition = &aNewPosition;
-    mPosition->SetUnit(mUnitId);
+    mPosition->SetUnitId(mUnitId);
     ChangeList::AddMove(mUnitId, mPosition->GetTileId());
 }
 
@@ -29,19 +35,11 @@ void ServerUnit::ExecuteCommand()
 {
     if(mClass.GetMaxSpeed() > 0)
     {
-        if(mTarget && !mTarget->GetUnit())
+        if(mTarget && !UnitList::GetUnit(mTarget->GetUnitId()))
         {
             Move(*mTarget);
             mTarget = NULL;
             ChangeList::AddCommandDone(mUnitId);
-        }
-        else
-        {
-            ServerTile& randomTile = mPosition->GetNeighbour(rand() % mPosition->GetNeighbourCount());
-            if(!randomTile.GetUnit())
-            {
-                Move(randomTile);
-            }
         }
     }
 }

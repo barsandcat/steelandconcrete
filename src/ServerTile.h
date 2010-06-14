@@ -15,8 +15,8 @@ public:
     const Ogre::Vector3& GetPosition() const { return mPosition; }
     size_t GetNeighbourCount() const { return mNeighbourhood.size(); }
     ServerTile& GetNeighbour(size_t aIndex) const { return *mNeighbourhood[aIndex]; }
-    UnitId GetUnit() const { return mUnit; }
-    void SetUnit(UnitId aUnit) { mUnit = aUnit; }
+    UnitId GetUnitId() const { return mUnit; }
+    void SetUnitId(UnitId aUnit) { mUnit = aUnit; }
 
     TileId GetTileId() const { return mTileId; }
     void SetTileId(TileId aTileId) { mTileId = aTileId; }
