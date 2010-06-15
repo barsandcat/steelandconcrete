@@ -31,18 +31,6 @@ InGameSheet::InGameSheet()
 
     QuickGUI::Panel* panel = mSheet->createPanel(pd);
 
-    pd->widget_dimensions.position = QuickGUI::Point(650, 50);
-    pd->containerwidget_supportScrollBars = false;
-    pd->widget_dimensions.size = QuickGUI::Size(150, 150);
-    mSelectedPanel = mSheet->createPanel(pd);
-
-    QuickGUI::ImageDesc* id = descMgr.getDefaultImageDesc();
-    id->widget_dimensions.size = mSelectedPanel->getClientDimensions().size;
-    id->widget_dimensions.position = QuickGUI::Point(0, 0);
-    id->image_updateEveryFrame = true;
-    mSelectedImage = mSelectedPanel->createImage(id);
-
-
     QuickGUI::ButtonDesc* bd = descMgr.getDefaultButtonDesc();
     bd->widget_dragable = false;
     bd->widget_dimensions.size = QuickGUI::Size(60, 60);
@@ -91,7 +79,3 @@ void InGameSheet::Activate()
     Ogre::Root::getSingleton().renderOneFrame();
 }
 
-void InGameSheet::SetSelectedVisible(bool aVisible)
-{
-    mSelectedPanel->setVisible(aVisible);
-}
