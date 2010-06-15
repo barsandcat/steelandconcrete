@@ -13,16 +13,10 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
     mGrid(NULL),
     mTileUnderCursor(NULL),
     mAvatar(NULL),
-    mViewPortWidget(
-        mIngameSheet.GetSelectedWidth(),
-        mIngameSheet.GetSelectedHeight(),
-        "RttTexture"
-    ),
     mTime(0),
     mSyncTimer(1000),
     mNetwork(aNetwork)
 {
-    mIngameSheet.SetSelectedName(mViewPortWidget.GetName());
     mLoadingSheet.Activate();
     mGrid = new ClientGeodesicGrid(*mNetwork, mLoadingSheet);
 

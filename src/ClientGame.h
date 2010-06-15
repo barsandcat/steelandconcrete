@@ -7,7 +7,6 @@
 #include <InGameSheet.h>
 #include <Response.pb.h>
 #include <Typedefs.h>
-#include <ViewPortWidget.h>
 #include <Network.h>
 #include <SyncTimer.h>
 
@@ -37,7 +36,6 @@ private:
     Ogre::SceneNode* mTargetMarker;
     LoadingSheet mLoadingSheet;
     InGameSheet mIngameSheet;
-    ViewPortWidget mViewPortWidget;
     GameTime mTime;
     SyncTimer mSyncTimer;
     Network* mNetwork;
