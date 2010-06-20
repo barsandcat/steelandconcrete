@@ -1,0 +1,55 @@
+dalek.12
+{
+	type	truetype
+	source	dalek.ttf
+	size	12
+	resolution	72
+}
+
+dalek.18
+{
+	type	truetype
+	source	dalek.ttf
+	size	18
+	resolution	72
+}
+
+dalek.24
+{
+	type	truetype
+	source	dalek.ttf
+	size	24
+	resolution	72
+}
+
+dalek.36
+{
+	type	truetype
+	source	dalek.ttf
+	size	36
+	resolution	72
+}
+
+dalek.48
+{
+	type	truetype
+	source	dalek.ttf
+	size	48
+	resolution	72
+}
+
+dalek.60
+{
+	type	truetype
+	source	dalek.ttf
+	size	60
+	resolution	72
+}
+
+dalek.72
+{
+	type	truetype
+	source	dalek.ttf
+	size	72
+	resolution	72
+}

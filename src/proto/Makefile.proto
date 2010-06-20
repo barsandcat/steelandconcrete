@@ -1,0 +1,36 @@
+PROTOC=../../bin/protoc
+
+all : Tile.pb.h GeodesicGrid.pb.h Vector.pb.h Edge.pb.h Header.pb.h Unit.pb.h Request.pb.h Response.pb.h ChangeList.pb.h CommandList.pb.h Handshake.pb.h
+
+Tile.pb.h : Tile.proto
+	$(PROTOC) --cpp_out=. Tile.proto
+
+GeodesicGrid.pb.h : GeodesicGrid.proto
+	$(PROTOC) --cpp_out=. GeodesicGrid.proto
+
+Vector.pb.h : Vector.proto
+	$(PROTOC) --cpp_out=. Vector.proto
+
+Edge.pb.h : Edge.proto
+	$(PROTOC) --cpp_out=. Edge.proto
+
+Header.pb.h : Header.proto
+	$(PROTOC) --cpp_out=. Header.proto
+
+Unit.pb.h : Unit.proto
+	$(PROTOC) --cpp_out=. Unit.proto
+
+Request.pb.h : Request.proto
+	$(PROTOC) --cpp_out=. Request.proto
+
+Response.pb.h : Response.proto
+	$(PROTOC) --cpp_out=. Response.proto
+
+ChangeList.pb.h : ChangeList.proto
+	$(PROTOC) --cpp_out=. ChangeList.proto
+
+CommandList.pb.h : CommandList.proto
+	$(PROTOC) --cpp_out=. CommandList.proto
+
+Handshake.pb.h : Handshake.proto
+	$(PROTOC) --cpp_out=. Handshake.proto

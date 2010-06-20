@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Client" />
+		<Option platforms="Unix;" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option platforms="Unix;" />
+				<Option output="bin/steelandconcrete_d" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin" />
+				<Option object_output="obj/ClientDebugLinux" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-pg" />
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-pg" />
+					<Add library="OIS_d" />
+					<Add library="RenderSystem_GL_d" />
+					<Add library="OgreMain_d" />
+					<Add library="OgreAL_d" />
+					<Add library="Plugin_OctreeSceneManager_d" />
+					<Add library="protobuf_d" />
+					<Add library="QuickGUI_d" />
+					<Add library="boost_filesystemDebug" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option platforms="Unix;" />
+				<Option output="bin/steelandconcrete" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin" />
+				<Option object_output="obj/ClientReleaseLinux" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O3" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="OIS" />
+					<Add library="RenderSystem_GL" />
+					<Add library="OgreMain" />
+					<Add library="OgreAL" />
+					<Add library="Plugin_OctreeSceneManager" />
+					<Add library="protobuf" />
+					<Add library="QuickGUI" />
+					<Add library="boost_filesystemRelease" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Winvalid-pch" />
+			<Add option="-Wreturn-type" />
+			<Add option="-Wsign-compare" />
+			<Add option="-Wunused-variable" />
+			<Add option="-DBOOST_ALL_NO_LIB=1" />
+			<Add directory="src" />
+			<Add directory="betagui2" />
+			<Add directory="ogre1.6.5/OgreMain/include" />
+			<Add directory="ogreal/ogreal/include" />
+			<Add directory="ois/includes" />
+			<Add directory="ogre1.6.5/PlugIns/OctreeSceneManager/include" />
+			<Add directory="ogre1.6.5/RenderSystems/GL/include" />
+			<Add directory="ogre1.6.5/RenderSystems/GL/src/GLX" />
+			<Add directory="ogre1.6.5/RenderSystems/GL/src/GLSL/include" />
+			<Add directory="protobuf-2.0.3/src" />
+			<Add directory="src/proto" />
+			<Add directory="SAL" />
+			<Add directory="QuickGUI_9_05/QuickGUI/include" />
+			<Add directory="boost/boost_1_43_0" />
+		</Compiler>
+		<Linker>
+			<Add library="pthread" />
+			<Add library="freeimage" />
+			<Add library="GL" />
+			<Add library="GLU" />
+			<Add library="boost_system$(TARGET_NAME)" />
+			<Add directory="lib" />
+		</Linker>
+		<ExtraCommands>
+			<Add before="python get_revision.py" />
+			<Add before="make -C src/proto -f Makefile.proto" />
+		</ExtraCommands>
+		<Unit filename="src/BirdCamera.cpp" />
+		<Unit filename="src/BirdCamera.h" />
+		<Unit filename="src/ClientApp.cpp" />
+		<Unit filename="src/ClientApp.h" />
+		<Unit filename="src/ClientEdge.cpp" />
+		<Unit filename="src/ClientEdge.h" />
+		<Unit filename="src/ClientGame.cpp" />
+		<Unit filename="src/ClientGame.h" />
+		<Unit filename="src/ClientGeodesicGrid.cpp" />
+		<Unit filename="src/ClientGeodesicGrid.h" />
+		<Unit filename="src/ClientLog.cpp" />
+		<Unit filename="src/ClientLog.h" />
+		<Unit filename="src/ClientTile.cpp" />
+		<Unit filename="src/ClientTile.h" />
+		<Unit filename="src/ClientUnit.cpp" />
+		<Unit filename="src/ClientUnit.h" />
+		<Unit filename="src/InGameSheet.cpp" />
+		<Unit filename="src/InGameSheet.h" />
+		<Unit filename="src/Linux.cpp" />
+		<Unit filename="src/LinuxPlatform.cpp" />
+		<Unit filename="src/LoadingSheet.cpp" />
+		<Unit filename="src/LoadingSheet.h" />
+		<Unit filename="src/MainMenuSheet.cpp" />
+		<Unit filename="src/MainMenuSheet.h" />
+		<Unit filename="src/Network.cpp" />
+		<Unit filename="src/Network.h" />
+		<Unit filename="src/OgreWindowCallback.cpp" />
+		<Unit filename="src/OgreWindowCallback.h" />
+		<Unit filename="src/ServerBrowserSheet.cpp" />
+		<Unit filename="src/ServerBrowserSheet.h" />
+		<Unit filename="src/SyncTimer.h" />
+		<Unit filename="src/Typedefs.h" />
+		<Unit filename="src/ViewPortWidget.cpp" />
+		<Unit filename="src/ViewPortWidget.h" />
+		<Unit filename="src/VisualCodes.cpp" />
+		<Unit filename="src/VisualCodes.h" />
+		<Unit filename="src/pch.cpp" />
+		<Unit filename="src/pch.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/proto/ChangeList.pb.cc" />
+		<Unit filename="src/proto/ChangeList.pb.h" />
+		<Unit filename="src/proto/ChangeList.proto" />
+		<Unit filename="src/proto/CommandList.pb.cc" />
+		<Unit filename="src/proto/CommandList.pb.h" />
+		<Unit filename="src/proto/CommandList.proto" />
+		<Unit filename="src/proto/Edge.pb.cc" />
+		<Unit filename="src/proto/Edge.pb.h" />
+		<Unit filename="src/proto/Edge.proto" />
+		<Unit filename="src/proto/GeodesicGrid.pb.cc" />
+		<Unit filename="src/proto/GeodesicGrid.pb.h" />
+		<Unit filename="src/proto/GeodesicGrid.proto" />
+		<Unit filename="src/proto/Handshake.pb.cc" />
+		<Unit filename="src/proto/Handshake.pb.h" />
+		<Unit filename="src/proto/Handshake.proto" />
+		<Unit filename="src/proto/Header.pb.cc" />
+		<Unit filename="src/proto/Header.pb.h" />
+		<Unit filename="src/proto/Header.proto" />
+		<Unit filename="src/proto/ProtocolVersion.h" />
+		<Unit filename="src/proto/Request.pb.cc" />
+		<Unit filename="src/proto/Request.pb.h" />
+		<Unit filename="src/proto/Request.proto" />
+		<Unit filename="src/proto/Response.pb.cc" />
+		<Unit filename="src/proto/Response.pb.h" />
+		<Unit filename="src/proto/Response.proto" />
+		<Unit filename="src/proto/Tile.pb.cc" />
+		<Unit filename="src/proto/Tile.pb.h" />
+		<Unit filename="src/proto/Tile.proto" />
+		<Unit filename="src/proto/Unit.pb.cc" />
+		<Unit filename="src/proto/Unit.pb.h" />
+		<Unit filename="src/proto/Unit.proto" />
+		<Unit filename="src/proto/Vector.pb.cc" />
+		<Unit filename="src/proto/Vector.pb.h" />
+		<Unit filename="src/proto/Vector.proto" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder>
+				<lib name="zziplib" />
+				<lib name="freetype2" />
+				<lib name="openal" />
+				<lib name="ogg" />
+				<lib name="vorbis" />
+				<lib name="vorbisfile" />
+				<lib name="xaw7" />
+				<lib name="xrandr" />
+			</lib_finder>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

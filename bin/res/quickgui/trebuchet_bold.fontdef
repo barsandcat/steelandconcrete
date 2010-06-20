@@ -1,0 +1,24 @@
+trebuchet_bold.8.5
+{
+   type       truetype
+   source     trebuchet_bold.ttf
+   size       8.5
+   resolution 72
+} 
+
+
+trebuchet_bold.10
+{
+   type       truetype
+   source     trebuchet_bold.ttf
+   size       10
+   resolution 72
+} 
+
+trebuchet_bold.12
+{
+   type       truetype
+   source     trebuchet_bold.ttf
+   size       12
+   resolution 72
+} 

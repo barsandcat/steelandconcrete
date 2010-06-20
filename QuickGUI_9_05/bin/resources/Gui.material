@@ -1,0 +1,81 @@
+
+// Pixel shader used for rendering Gui elements, HLSL
+fragment_program GuiPixelShaderHLSL hlsl
+{
+	source GuiPixel.hlsl
+	target ps_2_0
+	entry_point main
+}
+
+// Vertex shader used for rendering Gui elements, HLSL
+vertex_program GuiVertexShaderHLSL hlsl
+{
+	source GuiVertex.hlsl
+	target vs_2_0
+	entry_point main
+}
+
+// Pixel shader used for rendering Gui elements, GLSL
+fragment_program GuiPixelShaderGLSL glsl
+{
+	source GuiPixel.glsl
+
+	default_params
+	{
+		param_named image int 0
+	}
+}
+
+// Vertex shader used for rendering Gui elements, GLSL
+vertex_program GuiVertexShaderGLSL glsl
+{
+	source GuiVertex.glsl
+}
+
+// Unified vertex program
+vertex_program GuiVertexShader unified
+{
+	delegate GuiVertexShaderHLSL
+	delegate GuiVertexShaderGLSL
+}
+
+// Unified fragment program
+fragment_program GuiPixelShader unified
+{
+	delegate GuiPixelShaderHLSL
+	delegate GuiPixelShaderGLSL
+}
+
+// Material for Gui rendering
+material GuiMaterial
+{
+	technique
+	{
+		pass
+		{
+			cull_hardware none
+			cull_software none
+
+			depth_check off
+			depth_write off
+
+			lighting off
+
+			vertex_program_ref GuiVertexShader
+			{
+				// ...
+			}
+
+			fragment_program_ref GuiPixelShader
+			{
+				// ...
+			}
+
+			texture_unit Image
+			{
+				tex_address_mode clamp
+				filtering linear linear none
+			}
+		}
+	}
+}
