@@ -72,22 +72,23 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         mRoot->installPlugin(mOctreePlugin);
 
         // Register resources
-        QuickGUI::registerScriptReader();
-        Ogre::ConfigFile cf;
-        cf.load(aConfigFile);
-        Ogre::ConfigFile::SettingsIterator i = cf.getSettingsIterator("Resources");
-        while (i.hasMoreElements())
-        {
-            Ogre::String name = i.peekNextKey();
-            Ogre::String value = i.peekNextValue();
-            Ogre::ResourceGroupManager::getSingleton().addResourceLocation(value, name);
-            i.moveNext();
-        }
-
+        Ogre::ResourceGroupManager& rgm = Ogre::ResourceGroupManager::getSingleton();
+        rgm.addResourceLocation("res/OgreCore", "FileSystem");
+        rgm.addResourceLocation("res/audio", "FileSystem");
+        rgm.addResourceLocation("res/textures", "FileSystem");
+        rgm.addResourceLocation("res/scripts", "FileSystem");
+        rgm.addResourceLocation("res/models/TargetMarker", "FileSystem");
+        rgm.addResourceLocation("res/models/grass", "FileSystem");
+        rgm.addResourceLocation("res/models/zebra", "FileSystem");
+        rgm.addResourceLocation("res/quickgui", "FileSystem");
 
         Ogre::RenderSystem * renderSystem = mRoot->getRenderSystemByName("OpenGL Rendering Subsystem");
         mRoot->setRenderSystem(renderSystem);
 
+        // Настройки графики
+        QuickGUI::registerScriptReader();
+        Ogre::ConfigFile cf;
+        cf.load(aConfigFile);
         Ogre::ConfigFile::SettingsIterator j = cf.getSettingsIterator("OpenGL Rendering Subsystem");
         while (j.hasMoreElements())
         {

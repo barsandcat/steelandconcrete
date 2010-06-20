@@ -27,14 +27,6 @@ void CheckConfigFile(const Ogre::String aHomeDir)
         of << "Full Screen=No" << std::endl;
         of << "RTT Preferred Mode=FBO" << std::endl;
         of << "Video Mode=1024 x 768" << std::endl;
-        of << "[Resources]" << std::endl;
-        of << "FileSystem=res/OgreCore" << std::endl;
-        of << "FileSystem=res/audio" << std::endl;
-        of << "FileSystem=res/textures" << std::endl;
-        of << "FileSystem=res/scripts" << std::endl;
-        of << "FileSystem=res/models" << std::endl;
-        of << "FileSystem=res/bgui" << std::endl;
-        of << "FileSystem=res/quickgui" << std::endl;
         of.close();
     }
 }
