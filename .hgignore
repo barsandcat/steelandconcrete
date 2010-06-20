@@ -33,3 +33,4 @@ glob:*.log
 glob:*.*~
 glob:bin/ValgrindOut.xml
 glob:bin/cpd/gprof.txt
+glob:*.pyc
