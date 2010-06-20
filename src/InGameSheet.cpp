@@ -11,6 +11,7 @@ InGameSheet::InGameSheet()
     sd->widget_dimensions.size = QuickGUI::Size(800, 600);
     mSheet = QuickGUI::SheetManager::getSingleton().createSheet(sd);
 
+    // Game time
     QuickGUI::LabelDesc* ld = descMgr.getDefaultLabelDesc();
     ld->widget_dimensions.position = QuickGUI::Point(10, 10);
     ld->widget_dimensions.size = QuickGUI::Size(200, 25);
@@ -18,6 +19,7 @@ InGameSheet::InGameSheet()
     ld->widget_relativeOpacity = 0.5f;
     mTime = mSheet->createLabel(ld);
 
+    // Exit panel
     QuickGUI::PanelDesc* pd = descMgr.getDefaultPanelDesc();
     pd->widget_dimensions.position = QuickGUI::Point(0, 500);
     pd->widget_dimensions.size = QuickGUI::Size(800, 100);
