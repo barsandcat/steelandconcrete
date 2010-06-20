@@ -26,6 +26,7 @@
 					<Add library="Plugin_OctreeSceneManager_d" />
 					<Add library="protobuf_d" />
 					<Add library="QuickGUI_d" />
+					<Add library="boost_filesystemDebug" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -47,6 +48,7 @@
 					<Add library="Plugin_OctreeSceneManager" />
 					<Add library="protobuf" />
 					<Add library="QuickGUI" />
+					<Add library="boost_filesystemRelease" />
 				</Linker>
 			</Target>
 		</Build>

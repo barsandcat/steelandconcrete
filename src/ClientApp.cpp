@@ -10,6 +10,10 @@
 #include <ClientLog.h>
 #include <ProtocolVersion.h>
 
+#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/path.hpp>
+
+
 
 QuickGUI::GUIManager& ClientApp::GetGuiMgr()
 {
@@ -77,10 +81,17 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         rgm.addResourceLocation("res/audio", "FileSystem");
         rgm.addResourceLocation("res/textures", "FileSystem");
         rgm.addResourceLocation("res/scripts", "FileSystem");
-        rgm.addResourceLocation("res/models/TargetMarker", "FileSystem");
-        rgm.addResourceLocation("res/models/grass", "FileSystem");
-        rgm.addResourceLocation("res/models/zebra", "FileSystem");
         rgm.addResourceLocation("res/quickgui", "FileSystem");
+
+        boost::filesystem::directory_iterator end;
+        boost::filesystem::path path("res/models");
+        for (boost::filesystem::directory_iterator i(path); i != end; ++i)
+        {
+            if (boost::filesystem::is_directory(i->status()))
+            {
+                rgm.addResourceLocation(i->path().string(), "FileSystem");
+            }
+        }
 
         Ogre::RenderSystem * renderSystem = mRoot->getRenderSystemByName("OpenGL Rendering Subsystem");
         mRoot->setRenderSystem(renderSystem);
