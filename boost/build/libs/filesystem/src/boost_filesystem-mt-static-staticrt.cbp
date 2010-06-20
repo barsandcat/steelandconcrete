@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="boost_filesystem" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../../../../lib/libboost_filesystemDebug" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../../../obj/boost_filesystemDebugLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-pg" />
+					<Add option="-g" />
+					<Add option="-DDEBUG" />
+					<Add directory="Z:/boost/boost-1.41.0.cmake0" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="Z:/boost/boost-1.41.0.cmake0" />
+				</ResourceCompiler>
+				<Linker>
+					<Add option="-pg" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../../../../lib/libboost_filesystemRelease" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../../../obj/boost_filesystemDebugRelease" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
+					<Add directory="Z:/boost/boost-1.41.0.cmake0" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="Z:/boost/boost-1.41.0.cmake0" />
+				</ResourceCompiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-DBOOST_FILESYSTEM_STATIC_LINK=1" />
+			<Add option="-DBOOST_ALL_NO_LIB=1" />
+			<Add directory="../../../../boost_1_43_0" />
+		</Compiler>
+		<Unit filename="../../../../boost_1_43_0/libs/filesystem/src/operations.cpp" />
+		<Unit filename="../../../../boost_1_43_0/libs/filesystem/src/path.cpp" />
+		<Unit filename="../../../../boost_1_43_0/libs/filesystem/src/portability.cpp" />
+		<Unit filename="../../../../boost_1_43_0/libs/filesystem/src/utf8_codecvt_facet.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
