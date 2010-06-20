@@ -77,7 +77,6 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
 
         // Register resources
         Ogre::ResourceGroupManager& rgm = Ogre::ResourceGroupManager::getSingleton();
-        rgm.addResourceLocation("res/OgreCore", "FileSystem");
         rgm.addResourceLocation("res/audio", "FileSystem");
         rgm.addResourceLocation("res/textures", "FileSystem");
         rgm.addResourceLocation("res/scripts", "FileSystem");
