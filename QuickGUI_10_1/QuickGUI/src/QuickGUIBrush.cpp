@@ -1,8 +1,42 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUIBrush.h"
 #include "QuickGUISkinElement.h"
 #include "QuickGUIVertex.h"
 
 #include <OgreMaterialManager.h>
+#include <OgreGpuProgramManager.h> 
+#include <OgreMath.h>
+#include "OgreTexture.h"
+#include "OgreTextureManager.h"
+#include "OgreTextureUnitState.h"
 
 template<> QuickGUI::Brush* Ogre::Singleton<QuickGUI::Brush>::ms_Singleton = 0;
 
@@ -15,7 +49,8 @@ namespace QuickGUI
 		mQueuedItems(false),
 		mBufferPtr(NULL),
 		mFilterMode(BRUSHFILTER_LINEAR),
-		mBrushBlendMode(BRUSHBLEND_ALPHA)
+		mBrushBlendMode(BRUSHBLEND_ALPHA),
+		mTexture(NULL)
 	{
 		mRenderSystem = Ogre::Root::getSingleton().getRenderSystem();
 
@@ -38,29 +73,30 @@ namespace QuickGUI
 		mDefaultTexture = Ogre::TextureManager::getSingleton().createManual(
 			"QuickGUI.Brush.DefaultTexture",
 			Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-			Ogre::TEX_TYPE_2D, 64, 64, 1, 0, Ogre::PF_R8G8B8A8, Ogre::TU_DEFAULT );
+			Ogre::TEX_TYPE_2D, 64, 64, 1, 0, Ogre::PF_R8G8B8A8, Ogre::TU_DEFAULT ).getPointer();
 
 		// Clear default texture
 		void* buffer = mDefaultTexture->getBuffer()->lock(Ogre::HardwareBuffer::HBL_DISCARD);
 		memset(buffer, 0, mDefaultTexture->getBuffer()->getSizeInBytes());
 		mDefaultTexture->getBuffer()->unlock();
 
-		mColourValue = Ogre::ColourValue::White;
+		mColourValue = ColourValue::White;
 /*
-		mGUIMaterial = Ogre::MaterialManager::getSingleton().create("QuickGUI.EmptyPass",Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		mGUIMaterial = Ogre::MaterialManager::getSingleton().load("GuiMaterial", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		mGUIPass = mGUIMaterial->getTechnique(0)->getPass(0);
-		mGUIPass->setAmbient(Ogre::ColourValue::White);
-		mGUIPass->setDiffuse(Ogre::ColourValue::White);
-		mGUIPass->setSelfIllumination(Ogre::ColourValue::White);
-		mGUIPass->createTextureUnitState();
-		mGUIPass->setLightingEnabled(false);
-		mGUIPass->setDepthWriteEnabled(false);
-		mGUIPass->setDepthCheckEnabled(false);
 		mGUIPass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
 */
-		mGUIMaterial = Ogre::MaterialManager::getSingleton( ).load("GuiMaterial", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		mGUIMaterial = Ogre::MaterialManager::getSingleton().create("QuickGUI.Material", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		mGUIPass = mGUIMaterial->getTechnique(0)->getPass(0);
+		mGUIPass->setCullingMode(Ogre::CULL_NONE);
+		mGUIPass->setDepthCheckEnabled(false);
+		mGUIPass->setDepthWriteEnabled(false);
+		mGUIPass->setLightingEnabled(false);
 		mGUIPass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
+
+		Ogre::TextureUnitState* tus = mGUIPass->createTextureUnitState();
+		tus->setTextureAddressingMode(Ogre::TextureUnitState::TAM_CLAMP);
+		tus->setTextureFiltering(Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
 	}
 
 	Brush::~Brush()
@@ -79,7 +115,7 @@ namespace QuickGUI
 		return ( *ms_Singleton );
 	}
 
-	void Brush::_buildLineVertices(const Point& p1, const Point& p2, Ogre::Vector3* verts)
+	void Brush::_buildLineVertices(const Point& p1, const Point& p2, Vector3* verts)
 	{
 		Point firstPoint(p1);
 		Point secondPoint(p2);
@@ -103,52 +139,98 @@ namespace QuickGUI
 
 		float left = (firstPoint.x * 2) - 1;
 		float top = -((firstPoint.y * 2) - 1);
-		verts[0] = Ogre::Vector3( left, top, 0.0f );
+		verts[0] = Vector3( left, top, 0.0f );
 
 		left = (secondPoint.x * 2) - 1;
 		top = -((secondPoint.y * 2) - 1);
-		verts[1] = Ogre::Vector3( left, top, 0.0f );
+		verts[1] = Vector3( left, top, 0.0f );
 	}
 
-	void Brush::_buildQuadVertices(const Rect& dimensions, const UVRect& uvCoords, Ogre::Vector3* verts, Ogre::Vector2* uv)
+	void Brush::_buildQuadVertices(const Rect& dimensions, const UVRect& uvCoords, Vector3* verts, Vector2* uv, int rotationInDegrees, Point origin)
 	{
-		Rect r = dimensions;
+		/** Rendering using a traditional left/top/right/bottom structure **
 
-		// Certain Render Targets in OpenGL require the coordinates to be flipped.
-		if(mRenderTarget->getTarget()->requiresTextureFlipping())
-		{
-			r.position.y = mTargetHeight - dimensions.position.y;
-			r.size.height = (mTargetHeight - (dimensions.position.y + dimensions.size.height)) - r.position.y;
-		}
+			UVRect r(dimensions.position.x,dimensions.position.y,dimensions.position.x + dimensions.size.width,dimensions.position.y + dimensions.size.height);
 
-		r.position.x += mHorizontalTexelOffset;
-		r.position.y += mVerticalTexelOffset;
+			// Certain Render Targets in OpenGL require the coordinates to be flipped.
+			if(mRenderTarget->getTarget()->requiresTextureFlipping())
+			{
+				r.top = mTargetHeight - r.top;
+				r.bottom = (mTargetHeight - r.bottom);
+			}
 
-		r.position.x /= mTargetWidth;
-		r.position.y /= mTargetHeight;
-		r.size.width /= mTargetWidth;
-		r.size.height /= mTargetHeight;
+			r.left += mHorizontalTexelOffset;
+			r.top += mVerticalTexelOffset;
 
-		float left = (r.position.x * 2) - 1;
-		float right = left + (r.size.width * 2);
-		float top = -((r.position.y * 2) - 1);
-		float bottom = top - (r.size.height * 2);
+			r.left /= mTargetWidth;
+			r.top /= mTargetHeight;
+			r.right /= mTargetWidth;
+			r.bottom /= mTargetHeight;
+
+			float left = (r.left * 2) - 1;
+			float right = (r.right * 2) - 1;
+			float top = 1 - (r.top * 2);
+			float bottom = 1 - (r.bottom * 2);
+		*/
+
+		/** Rendering using Our Rect class **/
+
+			Rect r = dimensions;
+
+			// Certain Render Targets in OpenGL require the coordinates to be flipped.
+			if(mRenderTarget->getTarget()->requiresTextureFlipping())
+			{
+				r.position.y = mTargetHeight - dimensions.position.y;
+				r.size.height = (mTargetHeight - (dimensions.position.y + dimensions.size.height)) - r.position.y;
+
+				origin.y = mTargetHeight - origin.y;
+			}
+
+			r.position.x += mHorizontalTexelOffset;
+			r.position.y += mVerticalTexelOffset;
+			origin.x += mHorizontalTexelOffset;
+			origin.y += mVerticalTexelOffset;
+
+			r.position.x /= mTargetWidth;
+			r.position.y /= mTargetHeight;
+			r.size.width /= mTargetWidth;
+			r.size.height /= mTargetHeight;
+			origin.x /= mTargetWidth;
+			origin.y /= mTargetHeight;
+
+			float left = (r.position.x * 2) - 1;
+			float right = left + (r.size.width * 2);
+			float top = -((r.position.y * 2) - 1);
+			float bottom = top - (r.size.height * 2);
+			float originLeft = (origin.x * 2) - 1;
+			float originTop = -((origin.y * 2) - 1);
+		//*/
 
 		// Populate Vertex information
-		verts[0] = Ogre::Vector3( left, bottom, 0.0f );
-		verts[1] = Ogre::Vector3( right, bottom, 0.0f );
-		verts[2] = Ogre::Vector3( left, top, 0.0f );
-		verts[3] = Ogre::Vector3( right, bottom, 0.0f );
-		verts[4] = Ogre::Vector3( right, top, 0.0f );
-		verts[5] = Ogre::Vector3( left, top, 0.0f );
+		verts[0] = Vector3( left, bottom, 0.0f );
+		verts[1] = Vector3( right, bottom, 0.0f );
+		verts[2] = Vector3( left, top, 0.0f );
+		verts[3] = Vector3( right, bottom, 0.0f );
+		verts[4] = Vector3( right, top, 0.0f );
+		verts[5] = Vector3( left, top, 0.0f );
+
+		if(rotationInDegrees != 0)
+		{
+			Point convertedOrigin(originLeft,originTop);
+
+			for(int i = 0; i < 6; ++i)
+			{
+				_rotatePoint(verts[i],rotationInDegrees,convertedOrigin);
+			}
+		}
 
 		// Pupulate UV information
-		uv[0] = Ogre::Vector2( uvCoords.left, uvCoords.bottom );
-		uv[1] = Ogre::Vector2( uvCoords.right, uvCoords.bottom );
-		uv[2] = Ogre::Vector2( uvCoords.left, uvCoords.top );
-		uv[3] = Ogre::Vector2( uvCoords.right, uvCoords.bottom );
-		uv[4] = Ogre::Vector2( uvCoords.right, uvCoords.top );
-		uv[5] = Ogre::Vector2( uvCoords.left, uvCoords.top );
+		uv[0] = Vector2( uvCoords.left, uvCoords.bottom );
+		uv[1] = Vector2( uvCoords.right, uvCoords.bottom );
+		uv[2] = Vector2( uvCoords.left, uvCoords.top );
+		uv[3] = Vector2( uvCoords.right, uvCoords.bottom );
+		uv[4] = Vector2( uvCoords.right, uvCoords.top );
+		uv[5] = Vector2( uvCoords.left, uvCoords.top );
 	}
 
 	void Brush::_createVertexBuffer()
@@ -192,9 +274,9 @@ namespace QuickGUI
 		/* Our structure representing the Vertices used in the buffer (24 bytes):
 			struct Vertex
 			{
-				Ogre::Vector3 pos;
-				Ogre::ColoureValue color;
-				Ogre::Vector2 uv;
+				Vector3 pos;
+				ColoureValue color;
+				Vector2 uv;
 			};
 		*/
 	}
@@ -204,6 +286,14 @@ namespace QuickGUI
 		OGRE_DELETE mRenderOperation.vertexData;
 		mRenderOperation.vertexData = NULL;
 		mVertexBuffer.setNull();
+	}
+
+	void Brush::_rotatePoint(Vector3& v3, int rotationInDegrees, const Point& origin)
+	{
+		Vector3 originalPoint(v3.x,v3.y,v3.z);
+
+		v3.x = (Ogre::Math::Cos(Ogre::Radian(Ogre::Degree(rotationInDegrees))) * (originalPoint.x - origin.x)) - (Ogre::Math::Sin(Ogre::Radian(Ogre::Degree(rotationInDegrees))) * (originalPoint.y - origin.y)) + origin.x;
+		v3.y = (Ogre::Math::Sin(Ogre::Radian(Ogre::Degree(rotationInDegrees))) * (originalPoint.x - origin.x)) + (Ogre::Math::Cos(Ogre::Radian(Ogre::Degree(rotationInDegrees))) * (originalPoint.y - origin.y)) + origin.y;
 	}
 
 	void Brush::beginLineQueue()
@@ -242,7 +332,7 @@ namespace QuickGUI
 
 	void Brush::clear()
 	{
-		mRenderSystem->clearFrameBuffer(Ogre::FBT_COLOUR, mColourValue);
+		mRenderSystem->clearFrameBuffer(Ogre::FBT_COLOUR, Ogre::ColourValue(0,0,0,0));
 	}
 
 	void Brush::drawLine(const Point& p1, const Point& p2)
@@ -250,14 +340,14 @@ namespace QuickGUI
 		drawLine(p1,p2,mColourValue);
 	}
 
-	void Brush::drawLine(const Point& p1, const Point& p2, const Ogre::ColourValue& cv)
+	void Brush::drawLine(const Point& p1, const Point& p2, const ColourValue& cv)
 	{
 		if(mQueuedItems)
 			throw Exception(Exception::ERR_RENDERINGAPI_ERROR,"Canot draw Line, LineQueue or RectQueue has been started!","Brush::drawLine");
 
 		// Build Vertex Data
 
-		Ogre::Vector3 verts[2];
+		Vector3 verts[2];
 		_buildLineVertices(p1,p2,verts);
 
 		// Lock buffer
@@ -270,7 +360,7 @@ namespace QuickGUI
 		{
 			data[x].pos = verts[x];
 			data[x].color = cv;
-			data[x].uv = Ogre::Vector2::ZERO;
+			data[x].uv = Vector2::ZERO;
 		}
 
 		// Unlock buffer
@@ -292,7 +382,7 @@ namespace QuickGUI
 	{
 	}
 
-	void Brush::drawRectangle(Rect r, UVRect ur)
+	void Brush::drawRectangle(Rect r, UVRect ur, int rotationInDegrees, Point origin)
 	{
 		if(mQueuedItems)
 			throw Exception(Exception::ERR_RENDERINGAPI_ERROR,"Canot draw Rectangle, LineQueue or RectQueue has been started!","Brush::drawRectangle");
@@ -303,9 +393,9 @@ namespace QuickGUI
 
 		// Build Vertex Data
 
-		Ogre::Vector3 verts[6];
-		Ogre::Vector2 uv[6];
-		_buildQuadVertices(r,ur,verts,uv);
+		Vector3 verts[6];
+		Vector2 uv[6];
+		_buildQuadVertices(r,ur,verts,uv,rotationInDegrees,origin);
 
 		// Lock buffer
 
@@ -331,13 +421,15 @@ namespace QuickGUI
 		mRenderSystem->_render(mRenderOperation);
 	}
 
-	void Brush::drawSkinElement(Rect r, SkinElement* e)
+	void Brush::drawSkinElement(Rect r, SkinElement* e, int rotationInDegrees, Point origin)
 	{
 		// SkinElements can be empty, and in this case we draw nothing.
 		if((e == NULL) || (e->getTextureName() == ""))
 			return;
 
-		Ogre::String previousTextureName = mTexture->getName();
+		Ogre::String previousTextureName = "";
+		if(mTexture != NULL)
+			previousTextureName = mTexture->getName();
 
 		setTexture(e->getTextureName());
 
@@ -345,107 +437,115 @@ namespace QuickGUI
 		// Draw border parts
 		if(e->getTileBorders())
 		{
+			// Top Left border
 			temp = r;
 			temp.size.width = e->getBorderThickness(BORDER_LEFT);
 			temp.size.height = e->getBorderThickness(BORDER_TOP);
-			drawTiledRectangle(temp,e->getBorderUVCoords(BORDER_TOP_LEFT));
+			drawTiledRectangle(temp,e->getBorderUVCoords(BORDER_TOP_LEFT),rotationInDegrees,origin);
 
+			// Top border
 			temp = r;
 			temp.size.width -= (e->getBorderThickness(BORDER_LEFT) + e->getBorderThickness(BORDER_RIGHT));
 			temp.size.height = e->getBorderThickness(BORDER_TOP);
 			temp.position.x += e->getBorderThickness(BORDER_LEFT);
-			drawTiledRectangle(temp,e->getBorderUVCoords(BORDER_TOP));
+			drawTiledRectangle(temp,e->getBorderUVCoords(BORDER_TOP),rotationInDegrees,origin);
 
+			// Top Right border
 			temp = r;
 			temp.size.width = e->getBorderThickness(BORDER_RIGHT);
 			temp.size.height = e->getBorderThickness(BORDER_TOP);
 			temp.position.x += r.size.width - e->getBorderThickness(BORDER_RIGHT);
-			drawTiledRectangle(temp,e->getBorderUVCoords(BORDER_TOP_RIGHT));
+			drawTiledRectangle(temp,e->getBorderUVCoords(BORDER_TOP_RIGHT),rotationInDegrees,origin);
 
+			// Right border
 			temp = r;
 			temp.size.width = e->getBorderThickness(BORDER_RIGHT);
 			temp.size.height -= (e->getBorderThickness(BORDER_TOP) + e->getBorderThickness(BORDER_BOTTOM));
 			temp.position.x += r.size.width - e->getBorderThickness(BORDER_RIGHT);
 			temp.position.y += e->getBorderThickness(BORDER_TOP);
-			drawTiledRectangle(temp,e->getBorderUVCoords(BORDER_RIGHT));
+			drawTiledRectangle(temp,e->getBorderUVCoords(BORDER_RIGHT),rotationInDegrees,origin);
 
+			// Bottom Right border
 			temp = r;
 			temp.size.width = e->getBorderThickness(BORDER_RIGHT);
 			temp.size.height = e->getBorderThickness(BORDER_BOTTOM);
 			temp.position.x += r.size.width - e->getBorderThickness(BORDER_RIGHT);
 			temp.position.y += r.size.height - e->getBorderThickness(BORDER_BOTTOM);
-			drawTiledRectangle(temp,e->getBorderUVCoords(BORDER_BOTTOM_RIGHT));
+			drawTiledRectangle(temp,e->getBorderUVCoords(BORDER_BOTTOM_RIGHT),rotationInDegrees,origin);
 
+			// Bottom border
 			temp = r;
 			temp.size.width -= (e->getBorderThickness(BORDER_LEFT) + e->getBorderThickness(BORDER_RIGHT));
 			temp.size.height = e->getBorderThickness(BORDER_BOTTOM);
 			temp.position.x += e->getBorderThickness(BORDER_LEFT);
 			temp.position.y += r.size.height - e->getBorderThickness(BORDER_BOTTOM);
-			drawTiledRectangle(temp,e->getBorderUVCoords(BORDER_BOTTOM));
+			drawTiledRectangle(temp,e->getBorderUVCoords(BORDER_BOTTOM),rotationInDegrees,origin);
 
+			// Bottom Left border
 			temp = r;
 			temp.size.width = e->getBorderThickness(BORDER_LEFT);
 			temp.size.height = e->getBorderThickness(BORDER_BOTTOM);
 			temp.position.y += r.size.height - e->getBorderThickness(BORDER_BOTTOM);
-			drawTiledRectangle(temp,e->getBorderUVCoords(BORDER_BOTTOM_LEFT));
+			drawTiledRectangle(temp,e->getBorderUVCoords(BORDER_BOTTOM_LEFT),rotationInDegrees,origin);
 
+			// Left border
 			temp = r;
 			temp.size.width = e->getBorderThickness(BORDER_LEFT);
 			temp.size.height -= (e->getBorderThickness(BORDER_TOP) + e->getBorderThickness(BORDER_BOTTOM));
 			temp.position.y += e->getBorderThickness(BORDER_TOP);
-			drawTiledRectangle(temp,e->getBorderUVCoords(BORDER_LEFT));
+			drawTiledRectangle(temp,e->getBorderUVCoords(BORDER_LEFT),rotationInDegrees,origin);
 		}
 		else
 		{
 			temp = r;
 			temp.size.width = e->getBorderThickness(BORDER_LEFT);
 			temp.size.height = e->getBorderThickness(BORDER_TOP);
-			drawRectangle(temp,e->getBorderUVCoords(BORDER_TOP_LEFT));
+			drawRectangle(temp,e->getBorderUVCoords(BORDER_TOP_LEFT),rotationInDegrees,origin);
 
 			temp = r;
 			temp.size.width -= (e->getBorderThickness(BORDER_LEFT) + e->getBorderThickness(BORDER_RIGHT));
 			temp.size.height = e->getBorderThickness(BORDER_TOP);
 			temp.position.x += e->getBorderThickness(BORDER_LEFT);
-			drawRectangle(temp,e->getBorderUVCoords(BORDER_TOP));
+			drawRectangle(temp,e->getBorderUVCoords(BORDER_TOP),rotationInDegrees,origin);
 
 			temp = r;
 			temp.size.width = e->getBorderThickness(BORDER_RIGHT);
 			temp.size.height = e->getBorderThickness(BORDER_TOP);
 			temp.position.x += r.size.width - e->getBorderThickness(BORDER_RIGHT);
-			drawRectangle(temp,e->getBorderUVCoords(BORDER_TOP_RIGHT));
+			drawRectangle(temp,e->getBorderUVCoords(BORDER_TOP_RIGHT),rotationInDegrees,origin);
 
 			temp = r;
 			temp.size.width = e->getBorderThickness(BORDER_RIGHT);
 			temp.size.height -= (e->getBorderThickness(BORDER_TOP) + e->getBorderThickness(BORDER_BOTTOM));
 			temp.position.x += r.size.width - e->getBorderThickness(BORDER_RIGHT);
 			temp.position.y += e->getBorderThickness(BORDER_TOP);
-			drawRectangle(temp,e->getBorderUVCoords(BORDER_RIGHT));
+			drawRectangle(temp,e->getBorderUVCoords(BORDER_RIGHT),rotationInDegrees,origin);
 
 			temp = r;
 			temp.size.width = e->getBorderThickness(BORDER_RIGHT);
 			temp.size.height = e->getBorderThickness(BORDER_BOTTOM);
 			temp.position.x += r.size.width - e->getBorderThickness(BORDER_RIGHT);
 			temp.position.y += r.size.height - e->getBorderThickness(BORDER_BOTTOM);
-			drawRectangle(temp,e->getBorderUVCoords(BORDER_BOTTOM_RIGHT));
+			drawRectangle(temp,e->getBorderUVCoords(BORDER_BOTTOM_RIGHT),rotationInDegrees,origin);
 
 			temp = r;
 			temp.size.width -= (e->getBorderThickness(BORDER_LEFT) + e->getBorderThickness(BORDER_RIGHT));
 			temp.size.height = e->getBorderThickness(BORDER_BOTTOM);
 			temp.position.x += e->getBorderThickness(BORDER_LEFT);
 			temp.position.y += r.size.height - e->getBorderThickness(BORDER_BOTTOM);
-			drawRectangle(temp,e->getBorderUVCoords(BORDER_BOTTOM));
+			drawRectangle(temp,e->getBorderUVCoords(BORDER_BOTTOM),rotationInDegrees,origin);
 
 			temp = r;
 			temp.size.width = e->getBorderThickness(BORDER_LEFT);
 			temp.size.height = e->getBorderThickness(BORDER_BOTTOM);
 			temp.position.y += r.size.height - e->getBorderThickness(BORDER_BOTTOM);
-			drawRectangle(temp,e->getBorderUVCoords(BORDER_BOTTOM_LEFT));
+			drawRectangle(temp,e->getBorderUVCoords(BORDER_BOTTOM_LEFT),rotationInDegrees,origin);
 
 			temp = r;
 			temp.size.width = e->getBorderThickness(BORDER_LEFT);
 			temp.size.height -= (e->getBorderThickness(BORDER_TOP) + e->getBorderThickness(BORDER_BOTTOM));
 			temp.position.y += e->getBorderThickness(BORDER_TOP);
-			drawRectangle(temp,e->getBorderUVCoords(BORDER_LEFT));
+			drawRectangle(temp,e->getBorderUVCoords(BORDER_LEFT),rotationInDegrees,origin);
 		}
 
 		// Draw Background Texture
@@ -455,7 +555,7 @@ namespace QuickGUI
 			temp.translate(Point(e->getBorderThickness(BORDER_LEFT),e->getBorderThickness(BORDER_TOP)));
 			temp.size.width -= (e->getBorderThickness(BORDER_LEFT) + e->getBorderThickness(BORDER_RIGHT));
 			temp.size.height -= (e->getBorderThickness(BORDER_TOP) + e->getBorderThickness(BORDER_BOTTOM));
-			drawTiledRectangle(temp,e->getBackgroundUVCoords());
+			drawTiledRectangle(temp,e->getBackgroundUVCoords(),rotationInDegrees,origin);
 		}
 		else
 		{
@@ -463,13 +563,14 @@ namespace QuickGUI
 			temp.translate(Point(e->getBorderThickness(BORDER_LEFT),e->getBorderThickness(BORDER_TOP)));
 			temp.size.width -= (e->getBorderThickness(BORDER_LEFT) + e->getBorderThickness(BORDER_RIGHT));
 			temp.size.height -= (e->getBorderThickness(BORDER_TOP) + e->getBorderThickness(BORDER_BOTTOM));
-			drawRectangle(temp,e->getBackgroundUVCoords());
+			drawRectangle(temp,e->getBackgroundUVCoords(),rotationInDegrees,origin);
 		}
 
-		setTexture(previousTextureName);
+		if(previousTextureName != "")
+			setTexture(previousTextureName);
 	}
 
-	void Brush::drawTiledRectangle(Rect r, UVRect ur)
+	void Brush::drawTiledRectangle(Rect r, UVRect ur, int rotationInDegrees, Point origin)
 	{
 		// If width or height is less than a pixel in dimension, don't draw anything
 		if(r.size.width < 1.0 || r.size.height < 1.0)
@@ -514,7 +615,7 @@ namespace QuickGUI
 				tempRect.size.height = pixelHeight;
 
 			tempRect.size.round();
-			drawRectangle(tempRect,tempUVRect);
+			drawRectangle(tempRect,tempUVRect,rotationInDegrees,origin);
 
 			x += pixelWidth;
 			if( x >= right )
@@ -570,7 +671,7 @@ namespace QuickGUI
 		return mClipRegion;
 	}
 
-	Ogre::ColourValue Brush::getColour()
+	ColourValue Brush::getColour()
 	{
 		return mColourValue;
 	}
@@ -590,7 +691,7 @@ namespace QuickGUI
 		return mRenderTarget;
 	}
 
-	Ogre::TexturePtr Brush::getTexture()
+	Ogre::Texture* Brush::getTexture()
 	{
 		return mTexture;
 	}
@@ -633,7 +734,7 @@ namespace QuickGUI
 		// Set default settings
 
 		setTexture("");
-		setColor(Ogre::ColourValue::White);
+		setColor(ColourValue::White);
 		setBlendMode(BRUSHBLEND_ALPHA);
 		setFilterMode(BRUSHFILTER_NEAREST);
 	}
@@ -643,7 +744,7 @@ namespace QuickGUI
 		queueLine(p1,p2,mColourValue);
 	}
 
-	void Brush::queueLine(Point p1, Point p2, const Ogre::ColourValue& cv)
+	void Brush::queueLine(Point p1, Point p2, const ColourValue& cv)
 	{
 		if(!mQueuedItems)
 			throw Exception(Exception::ERR_RENDERINGAPI_ERROR,"beginLineQueue has not been called, cannot Queue Lines!","Brush::queueLine");
@@ -652,22 +753,22 @@ namespace QuickGUI
 			throw Exception(Exception::ERR_RENDERINGAPI_ERROR,"Cannot Queue Rects when RectQueue has started!","Brush::queueLine");
 
 		// If the vertex buffer is full, draw it (empty buffer).
-		if((mRenderOperation.vertexData->vertexCount + 2) > VERTEX_COUNT)
+		if((mRenderOperation.vertexData->vertexCount + static_cast<size_t>(2)) > static_cast<size_t>(VERTEX_COUNT))
 		{
 			endLineQueue();
 			beginLineQueue();
 		}
 
-		Ogre::Vector3 verts[2];
+		Vector3 verts[2];
 		_buildLineVertices(p1,p2,verts);
 
 		// Write vertices to vertex buffer
 
-		for ( size_t x = 0; x < 2; x++ )
+		for ( int x = 0; x < 2; x++ )
 		{
 			mBufferPtr[x].pos = verts[x];
 			mBufferPtr[x].color = mColourValue;
-			mBufferPtr[x].uv = Ogre::Vector2::ZERO;
+			mBufferPtr[x].uv = Vector2::ZERO;
 		}
 
 		mBufferPtr += 2;
@@ -675,7 +776,7 @@ namespace QuickGUI
 		mRenderOperation.vertexData->vertexCount += 2;
 	}
 
-	void Brush::queueRect(Rect r, UVRect ur)
+	void Brush::queueRect(Rect r, UVRect ur, int rotationInDegrees, Point origin)
 	{
 		if(!mQueuedItems)
 			throw Exception(Exception::ERR_RENDERINGAPI_ERROR,"beginRectQueue has not been called, cannot Queue Rects!","Brush::queueRect");
@@ -684,15 +785,15 @@ namespace QuickGUI
 			throw Exception(Exception::ERR_RENDERINGAPI_ERROR,"Cannot Queue Rects when LineQueue has started!","Brush::queueRect");
 
 		// If the vertex buffer is full, draw it (empty buffer).
-		if((mRenderOperation.vertexData->vertexCount + 6) > VERTEX_COUNT)
+		if((mRenderOperation.vertexData->vertexCount + static_cast<size_t>(6)) > static_cast<size_t>(VERTEX_COUNT))
 		{
 			endRectQueue();
 			beginRectQueue();
 		}
 
-		Ogre::Vector3 verts[6];
-		Ogre::Vector2 uv[6];
-		_buildQuadVertices(r,ur,verts,uv);
+		Vector3 verts[6];
+		Vector2 uv[6];
+		_buildQuadVertices(r,ur,verts,uv,rotationInDegrees,origin);
 
 		// Write vertices to vertex buffer
 
@@ -740,14 +841,14 @@ namespace QuickGUI
 		}
 	}
 
-	void Brush::setColor(const Ogre::ColourValue& cv)
+	void Brush::setColor(const ColourValue& cv)
 	{
 		mColourValue = cv;
 	}
 
 	void Brush::setClipRegion(const Rect& r)
 	{
-		mRenderSystem->setScissorTest(true, r.position.x, r.position.y, (r.position.x + r.size.width), (r.position.y + r.size.height));
+		mRenderSystem->setScissorTest(true, static_cast<size_t>(r.position.x), static_cast<size_t>(r.position.y), static_cast<size_t>(r.position.x + r.size.width), static_cast<size_t>(r.position.y + r.size.height));
 		mClipRegion = r;
 	}
 
@@ -779,7 +880,7 @@ namespace QuickGUI
 		mColourValue.a = opacity;
 	}
 
-	void Brush::setRenderTarget(Ogre::TexturePtr p)
+	void Brush::setRenderTarget(Ogre::Texture* p)
 	{
 		if(p->getUsage() != Ogre::TU_RENDERTARGET)
 			throw Exception(Exception::ERR_INVALID_RENDER_TARGET,"Texture is not a valid Render Target. Make sure the Texture is created with TU_RENDERTARGET.", "Brush::setRenderTarget");
@@ -820,23 +921,23 @@ namespace QuickGUI
 			if(!tm->resourceExists(textureName))
 				Ogre::TextureManager::getSingleton().load(textureName,Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
-			mTexture = tm->getByName(textureName);
+			mTexture = static_cast<Ogre::TexturePtr>(tm->getByName(textureName)).getPointer();
 		}
 
-		mRenderSystem->_setTexture(0, true, mTexture);
+		mRenderSystem->_setTexture(0, true, mTexture->getName());
 	}
 
-	void Brush::setTexture(Ogre::TexturePtr p)
+	void Brush::setTexture(Ogre::Texture* p)
 	{
 		if(mQueuedItems)
 			throw Exception(Exception::ERR_RENDERINGAPI_ERROR,"Cannot Change Texture with Items Queued for Drawing! Call endRectQueue to draw all queued items before hand.","Brush::setTexture");
 
-		if(p.isNull())
+		if(p == NULL)
 			mTexture = mDefaultTexture;
 		else
 			mTexture = p;
 
-		mRenderSystem->_setTexture(0, true, mTexture);
+		mRenderSystem->_setTexture(0, true, mTexture->getName());
 	}
 
 	void Brush::updateSceneManager(Ogre::SceneManager* sceneManager)

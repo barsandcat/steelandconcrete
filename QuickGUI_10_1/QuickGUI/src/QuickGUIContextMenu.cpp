@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUIContextMenu.h"
 #include "QuickGUISheet.h"
 #include "QuickGUIManager.h"
@@ -5,6 +34,8 @@
 #include "QuickGUIFactoryManager.h"
 #include "QuickGUISkinDefinition.h"
 #include "QuickGUIMenuItem.h"
+#include "QuickGUIMenuImageItem.h"
+#include "QuickGUIMenuTextItem.h"
 #include "QuickGUIMenu.h"
 #include "QuickGUITitleBar.h"
 #include "QuickGUIDescManager.h"
@@ -18,9 +49,9 @@ namespace QuickGUI
 	{
 		SkinDefinition* d = OGRE_NEW_T(SkinDefinition,Ogre::MEMCATEGORY_GENERAL)("ContextMenu");
 		d->defineSkinElement(BACKGROUND);
-		d->defineComponent(TITLEBAR);
-		d->defineComponent(HSCROLLBAR);
-		d->defineComponent(VSCROLLBAR);
+		d->defineSkinReference(TITLEBAR,"TitleBar");
+		d->defineSkinReference(HSCROLLBAR,"HScrollBar");
+		d->defineSkinReference(VSCROLLBAR,"VScrollBar");
 		d->definitionComplete();
 
 		SkinDefinitionManager::getSingleton().registerSkinDefinition("ContextMenu",d);
@@ -52,9 +83,17 @@ namespace QuickGUI
 	{
 		WindowDesc::serialize(b);
 
-		b->IO("ItemHeight",&contextmenu_itemHeight);
-		b->IO("MaxMenuHeight",&contextmenu_maxMenuHeight);
-		b->IO("SubMenuOverlap",&contextmenu_subMenuOverlap);
+		// Retrieve default values to supply to the serial reader/writer.
+		// The reader uses the default value if the given property does not exist.
+		// The writer does not write out the given property if it has the same value as the default value.
+		ContextMenuDesc* defaultValues = DescManager::getSingleton().createDesc<ContextMenuDesc>(getClass(),"temp");
+		defaultValues->resetToDefault();
+
+		b->IO("ItemHeight",		&contextmenu_itemHeight,		defaultValues->contextmenu_itemHeight);
+		b->IO("MaxMenuHeight",	&contextmenu_maxMenuHeight,		defaultValues->contextmenu_maxMenuHeight);
+		b->IO("SubMenuOverlap", &contextmenu_subMenuOverlap,	defaultValues->contextmenu_subMenuOverlap);
+
+		DescManager::getSingleton().destroyDesc(defaultValues);
 	}
 
 	ContextMenu::ContextMenu(const Ogre::String& name) :
@@ -101,6 +140,19 @@ namespace QuickGUI
 		mDesc->contextmenu_itemHeight = cmd->contextmenu_itemHeight;
 		mDesc->contextmenu_maxMenuHeight = cmd->contextmenu_maxMenuHeight;
 		mDesc->contextmenu_subMenuOverlap = cmd->contextmenu_subMenuOverlap;
+	}
+
+	void ContextMenu::_updateItemPositions()
+	{
+		float y = 0;
+		for(std::list<MenuItem*>::iterator it = mItems.begin(); it != mItems.end(); ++it)
+		{
+			(*it)->setPosition(Point(0,y));
+			(*it)->setHeight(mDesc->contextmenu_itemHeight);
+
+			if((*it)->getVisible())
+				y += mDesc->contextmenu_itemHeight;
+		}
 	}
 
 	Ogre::String ContextMenu::getClass()
@@ -200,6 +252,31 @@ namespace QuickGUI
 		}
 	}
 
+	MenuImageItem* ContextMenu::createImageItem(int index)
+	{
+		MenuImageItemDesc* d = DescManager::getSingletonPtr()->getDefaultMenuImageItemDesc();
+		d->resetToDefault();
+		
+		MenuImageItem* i = dynamic_cast<MenuImageItem*>(createMenuItem(d,index));
+
+		d->resetToDefault();
+
+		return i;
+	}
+
+	MenuImageItem* ContextMenu::createImageItem(const Ogre::String& skin, int index)
+	{
+		MenuImageItemDesc* d = DescManager::getSingletonPtr()->getDefaultMenuImageItemDesc();
+		d->resetToDefault();
+		d->widget_skinTypeName = skin;
+		
+		MenuImageItem* i = dynamic_cast<MenuImageItem*>(createMenuItem(d,index));
+
+		d->resetToDefault();
+
+		return i;
+	}
+
 	MenuItem* ContextMenu::createMenuItem(MenuItemDesc* d, int index)
 	{
 		if(d->widget_name == "")
@@ -292,7 +369,7 @@ namespace QuickGUI
 
 		bool updateItems = false;
 		float yPos = 0;
-		int count = 0;
+		unsigned int count = 0;
 		for(std::list<MenuItem*>::iterator it = mItems.begin(); it != mItems.end(); ++it)
 		{
 			if(updateItems)
@@ -395,7 +472,7 @@ namespace QuickGUI
 
 	void ContextMenu::onClientSizeChanged(const EventArgs& args)
 	{
-		for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 		{
 			(*it)->setWidth(mClientDimensions.size.width);
 		}
@@ -462,15 +539,9 @@ namespace QuickGUI
 	{
 		mDesc->contextmenu_itemHeight = height;
 
-		int y = 0;
-		for(std::list<MenuItem*>::iterator it = mItems.begin(); it != mItems.end(); ++it)
-		{
-			(*it)->setPosition(Point(0,y));
-			(*it)->setHeight(mDesc->contextmenu_itemHeight);
-			y += mDesc->contextmenu_itemHeight;
-		}
+		_updateItemPositions();
 
-		setHeight(y);
+		setHeight(mItems.back()->getPosition().y + mItems.back()->getHeight());
 	}
 
 	void ContextMenu::show(const Point& position)

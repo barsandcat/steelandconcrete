@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #ifndef QUICKGUISHEET_H
 #define QUICKGUISHEET_H
 
@@ -53,18 +82,25 @@ namespace QuickGUI
 		*/
 		virtual void serialize(SerialBase* b);
 
+	public:
+
+		bool sheet_mouseCursorEnabled;
+		unsigned int sheet_mouseCursorQueryFilter;
+		std::string sheet_mouseCursorSkinTypeName;
+		bool sheet_mouseCursorVisible;
+
 	protected:
-		HorizontalAnchor horizontalAnchor;
-		VerticalAnchor verticalAnchor;
-		bool dragable;
-		Size maxSize;
-		Size minSize;
-		bool visible;
+		HorizontalAnchor widget_horizontalAnchor;
+		VerticalAnchor widget_verticalAnchor;
+		bool widget_dragable;
+		Size widget_maxSize;
+		Size widget_minSize;
+		bool widget_visible;
 
 		// From WindowDesc, but not for use in Sheets
-		bool titleBar;
-		bool titleBarCloseButton;
-		Ogre::String titleBarType;
+		bool window_titleBar;
+		bool window_titleBarCloseButton;
+		Ogre::String window_titleBarSkinType;
 	};
 
 	class _QuickGUIExport Sheet :
@@ -106,9 +142,35 @@ namespace QuickGUI
 	public:
 
 		/**
+		* Notifies the Widget of its GUIManager. (for component/container widgets this function is recursive)
+		*/
+		virtual void _setGUIManager(GUIManager* gm);
+		/**
 		* Notifies the Widget of its Sheet. (for component/container widgets this function is recursvie)
 		*/
 		virtual void _setSheet(Sheet* sheet);
+
+		/** Adds an event handler to this widget
+			@param
+				EVENT Defined widget events, for example: WINDOW_EVENT_FOCUS_LOST, WINDOW_EVENT_FOCUS_GAINED, etc.
+            @param
+                function member function assigned to handle the event.  Given in the form of myClass::myFunction.
+				Function must return bool, and take QuickGUI::EventArgs as its parameters.
+            @param
+                obj particular class instance that defines the handler for this event.  Here is an example:
+				addWidgetEventHandler(QuickGUI::WINDOW_EVENT_FOCUS_LOST,myClass::myFunction,this);
+			@note
+				Multiple user defined event handlers can be defined for an event.  All added event handlers will be called
+				whenever the event is fired.
+			@note
+				You may see Visual Studio give an error warning such as "error C2660: 'QuickGUI::Widget::addWidgetEventHandler' : function does not take 3 arguments".
+				This is an incorrect error message.  Make sure your function pointer points to a function which returns void, and takes parameter "const EventArgs&".
+        */
+		template<typename T> void addSheetEventHandler(SheetEvent EVENT, void (T::*function)(const EventArgs&), T* obj)
+		{
+			addSheetEventHandler(EVENT, OGRE_NEW_T(EventHandlerPointer<T>,Ogre::MEMCATEGORY_GENERAL)(function,obj));
+		}
+		void addSheetEventHandler(SheetEvent EVENT, EventHandlerSlot* function);
 
 		/**
 		* Internal function to add a window. (also used by SerialReader class)
@@ -186,7 +248,12 @@ namespace QuickGUI
 		* Returns the window at point p.  If ignoreDisabled is set to true,
 		* disabled windows will be ignored during the search.
 		*/
-		Window* findWindowAtPoint(const Point& p, bool ignoreDisabled = true);
+		Window* findWindowAtPoint(const Point& p, unsigned int queryFilter = -1, bool ignoreDisabled = true);
+		/**
+		* Event Handler that executes the appropriate User defined Event Handlers for a given event.
+		* Returns true if the event was handled, false otherwise.
+		*/
+		bool fireSheetEvent(SheetEvent e, EventArgs& args);
 		/**
 		* Brings the window to the front and fires WIDGET_EVENT_FOCUS_LOST and
 		* WIDGET_EVENT_FOCUS_GAINED for previous and currently focused windows.
@@ -204,6 +271,26 @@ namespace QuickGUI
 		*/
 		Widget* getKeyboardListener();
 		ModalWindow* getModalWindow(const Ogre::String& name);
+		/**
+		* Returns true if the Mouse Cursor is enabled, false otherwise.
+		*/
+		bool getMouseCursorEnabled();
+		/**
+		* Returns the query filter of the Mouse Cursor. The query filter is used in combination with widget queryFlags to
+		* determine widget detection.  If the filter and flags are ANDed together and result in a non-zero value,
+		* the widget is detected.
+		*/
+		unsigned int getMouseQueryFilter();
+		/**
+		* Retrieves the "type" of the MouseCursor.  For example you
+		* can create several types of Button widgets: "close", "add", "fire.skill.1", etc.
+		* NOTE: The type property determines what is drawn to the screen.
+		*/
+		std::string getMouseCursorSkinTypeName();
+		/**
+		* Returns true if the Mouse Cursor is visible, false otherwise.
+		*/
+		bool getMouseCursorVisible();
 		Window* getWindow(const Ogre::String& name);
 		Window* getWindowInFocus();
 
@@ -237,6 +324,14 @@ namespace QuickGUI
 		virtual bool isSizeManaged();
 
 		/**
+		* Flags the parent window as dirty causing its texture to be updated (redrawn).
+		*/
+		virtual void redraw();
+		/**
+		* Removes all Event Handlers registered by the given object.
+		*/
+		virtual void removeEventHandlers(void* obj);
+		/**
 		* Remove a Modal Window from this sheet.
 		*/
 		void removeModalWindow(ModalWindow* w);
@@ -267,6 +362,31 @@ namespace QuickGUI
 		* Notifies the Sheet of the Widget that should receive keyboard events.
 		*/
 		void setKeyboardListener(Widget* w);
+		/**
+		* Sets whether the cursor is able to inject mouse events into the GUIManager.
+		*/
+		void setMouseCursorEnabled(bool enabled);
+		/**
+		* Sets the query filter of the Mouse Cursor. The query filter is used in combination with widget queryFlags to
+		* determine widget detection.  If the filter and flags are ANDed together and result in a non-zero value,
+		* the widget is detected.
+		*/
+		void setMouseQueryFilter(unsigned int filter);
+		/**
+		* Sets the "type" of the MouseCursor.  For example you
+		* can create several types of Button widgets: "close", "add", "fire.skill.1", etc.
+		* NOTE: The type property determines what is drawn to the screen.
+		*/
+		void setMouseCursorSkinTypeName(const std::string& skinTypeName);
+		/**
+		* Sets whether the cursor will be drawn on the screen.
+		*/
+		void setMouseCursorVisible(bool visible);
+
+		/**
+		* Recalculate Client dimensions, relative to Widget's actual dimensions.
+		*/
+		virtual void updateClientDimensions();
 
 	public:
 		// Here we have to call out any protected Widget set accesors we want to expose
@@ -282,6 +402,7 @@ namespace QuickGUI
 		using Widget::setMinSize;
 		using Widget::setPosition;
 		using Widget::setPositionRelativeToParentClientDimensions;
+		using Widget::setQueryFlags;
 		using Widget::setResizeFromAllSides;
 		using Widget::setResizeFromBottom;
 		using Widget::setResizeFromLeft;
@@ -329,6 +450,9 @@ namespace QuickGUI
 
 		// List allowing widgets to be queued for deletion.
 		std::list<Widget*> mFreeList;
+
+		// Event handlers! One List per event per widget
+		std::vector<EventHandlerSlot*> mSheetEventHandlers[SHEET_EVENT_COUNT];
 
 		/**
 		* Offsets the widget.

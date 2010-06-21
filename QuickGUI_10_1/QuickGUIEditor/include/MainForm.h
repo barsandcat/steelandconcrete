@@ -47,7 +47,6 @@ namespace QuickGUIEditor
 
 	protected:
 		Sheet* mSheet;
-		MouseCursor* mMouseCursor;
 
 		bool mLMBDown;
 
@@ -91,6 +90,9 @@ namespace QuickGUIEditor
 
 		MenuTextItem* mCreateMenuItem;
 		EventHandlerSlot* mCreateMenuHandler;
+
+		MenuTextItem* mCreateMenuImageItemItem;
+		EventHandlerSlot* mCreateMenuImageItemHandler;
 
 		MenuTextItem* mCreateMenuTextItemItem;
 		EventHandlerSlot* mCreateMenuTextItemHandler;
@@ -211,6 +213,7 @@ namespace QuickGUIEditor
 		void onCreateListImageItem(const EventArgs& args);
 		void onCreateListTextItem(const EventArgs& args);
 		void onCreateMenu(const EventArgs& args);
+		void onCreateMenuImageItem(const QuickGUI::EventArgs& args);
 		void onCreateMenuTextItem(const EventArgs& args);
 		void onCreatePanel(const EventArgs& args);
 		void onCreateProgressBar(const EventArgs& args);

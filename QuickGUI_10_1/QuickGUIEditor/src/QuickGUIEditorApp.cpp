@@ -4,84 +4,102 @@
 #include "OgreRoot.h"
 
 #include "MainForm.h"
-#include <OgreGLPlugin.h>
 
 namespace QuickGUIEditor
 {
-QuickGUIEditorApp::QuickGUIEditorApp() :
-        mQuit(false)
-{
-    mOgreRoot = new Ogre::Root("", "");
+	QuickGUIEditorApp::QuickGUIEditorApp() :
+		mQuit(false)
+	{
+		mOgreRoot = new Ogre::Root("", "");
 
-    // Gl renedr system
-    mOgreRoot->installPlugin(new Ogre::GLPlugin());
-
-    mRenderSystem = mOgreRoot->getRenderSystemByName("OpenGL Rendering Subsystem");
-    mOgreRoot->setRenderSystem(mRenderSystem);
-
-    // OpenGL Parameters
-
-    //mRenderSystem->setConfigOption( "Colour Depth", "32" );
-    mRenderSystem->setConfigOption("Display Frequency", "N/A");
-    mRenderSystem->setConfigOption("FSAA", "0");
-    mRenderSystem->setConfigOption("Full Screen", "No");
-    mRenderSystem->setConfigOption("RTT Preferred Mode", "FBO");
-    mRenderSystem->setConfigOption("VSync", "No");
-    mRenderSystem->setConfigOption("Video Mode", "1024 x 768");
-
-    mRenderSystem->validateConfigOptions();
-
-    QuickGUI::registerScriptReader();
 #if OGRE_PLATFORM == PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-    Ogre::ResourceGroupManager::getSingleton().addResourceLocation("resources", "FileSystem");
-    Ogre::ResourceGroupManager::getSingleton().addResourceLocation("user\\sheets", "FileSystem");
-    Ogre::ResourceGroupManager::getSingleton().addResourceLocation("user\\skins", "FileSystem");
-    Ogre::ResourceGroupManager::getSingleton().addResourceLocation("resources\\qgui.textures", "FileSystem");
+		bool useOpenGL = 0;
+    #if defined _DEBUG
+        mOgreRoot->loadPlugin("RenderSystem_GL_d.dll");
+        mOgreRoot->loadPlugin("RenderSystem_Direct3D9_d.dll");
+    #else
+        mOgreRoot->loadPlugin("RenderSystem_GL.dll");
+        mOgreRoot->loadPlugin("RenderSystem_Direct3D9.dll");
+    #endif
 #else
-    Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../resources", "FileSystem");
-    Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../user/sheets", "FileSystem");
-    Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../user/skins", "FileSystem");
-    Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../resources/qgui.textures", "FileSystem");
+        bool useOpenGL = 1;
+        mOgreRoot->loadPlugin("/usr/local/lib/OGRE/RenderSystem_GL.so");
 #endif
 
-    Ogre::RenderWindow* w = mOgreRoot->initialise(true);
+		if(useOpenGL)
+		{
+			mOgreRoot->setRenderSystem(mOgreRoot->getAvailableRenderers().front());
+			mRenderSystem = mOgreRoot->getRenderSystem();
 
-    mMainForm = new MainForm(this, mOgreRoot->getAutoCreatedWindow());
+			// OpenGL Parameters
 
-    _start();
-}
+			mRenderSystem->setConfigOption( "Full Screen", "No" );
+			mRenderSystem->setConfigOption( "Video Mode", "1024 x 768" );
+		}
+		else
+		{
+			mOgreRoot->setRenderSystem(mOgreRoot->getAvailableRenderers()[1]);
+			mRenderSystem = mOgreRoot->getRenderSystem();
 
-QuickGUIEditorApp::~QuickGUIEditorApp()
-{
-    delete mMainForm;
+			// DirectX Parameters
 
-    delete mOgreRoot;
-}
+			mRenderSystem->setConfigOption( "Full Screen", "No" );
+			mRenderSystem->setConfigOption( "Video Mode", "1024 x 768 @ 32-bit colour" );
+		}
 
-void QuickGUIEditorApp::_start()
-{
-    Ogre::Timer timer;
+		mRenderSystem->validateConfigOptions();
 
-    std::vector<Window*>::iterator it;
+		QuickGUI::registerScriptReader();
+#if OGRE_PLATFORM == PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation("user/sheets", "FileSystem");
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation("user/skins", "FileSystem");
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation("qgui.core.zip", "Zip");
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(".", "FileSystem");
+#else
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../user/sheets", "FileSystem");
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../user/skins", "FileSystem");
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation("../qgui.core.zip", "Zip");
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(".", "FileSystem");
+#endif
 
-    while (!mQuit)
-    {
-        Ogre::WindowEventUtilities::messagePump();
+		Ogre::RenderWindow* w = mOgreRoot->initialise(true);
 
-        mOgreRoot->renderOneFrame();
+		mMainForm = new MainForm(this,mOgreRoot->getAutoCreatedWindow());
 
-        mMainForm->update(timer.getMicroseconds() / 1000.0);
-        timer.reset();
-    }
-}
+		_start();
+	}
 
-void QuickGUIEditorApp::exit()
-{
-    mQuit = true;
-}
+	QuickGUIEditorApp::~QuickGUIEditorApp()
+	{
+		delete mMainForm;
 
-bool QuickGUIEditorApp::shuttingDown()
-{
-    return mQuit;
-}
+		delete mOgreRoot;
+	}
+
+	void QuickGUIEditorApp::_start()
+	{
+		Ogre::Timer timer;
+
+		std::vector<Window*>::iterator it;
+
+		while(!mQuit)
+		{
+			Ogre::WindowEventUtilities::messagePump();
+
+			mOgreRoot->renderOneFrame();
+
+			mMainForm->update(timer.getMicroseconds() / 1000.0);
+			timer.reset();
+		}
+	}
+
+	void QuickGUIEditorApp::exit()
+	{
+		mQuit = true;
+	}
+
+	bool QuickGUIEditorApp::shuttingDown()
+	{
+		return mQuit;
+	}
 }

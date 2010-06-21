@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="QuickGUI"
 	ProjectGUID="{AEF9FF05-DF46-4982-94C4-F8C99A3938A1}"
 	RootNamespace="QuickGUI"
@@ -18,9 +18,9 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\lib"
-			IntermediateDirectory="..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
-			ConfigurationType="4"
+			OutputDirectory="..\bin"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="2"
 			CharacterSet="1"
 			>
 			<Tool
@@ -40,14 +40,15 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/MP"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\ogre1.6.5\OgreMain\include;.\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;OGRE_STATIC_LIB"
-				MinimalRebuild="true"
+				AdditionalIncludeDirectories="..\..\Dependencies\include\ogre;..\..\Dependencies\include;.\include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;QUICKGUI_EXPORTS"
+				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
-				WarningLevel="0"
+				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 			/>
@@ -61,11 +62,22 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\QuickGUI_d.lib"
+				Name="VCLinkerTool"
+				AdditionalDependencies="OgreMain_d.lib"
+				OutputFile="$(OutDir)\$(ProjectName)_d.dll"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="..\..\Dependencies\lib"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -77,15 +89,18 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine=""
+				CommandLine="copy $(OutDir)\$(TargetFileName) ..\..\RotM\$(ConfigurationName)&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) ..\..\RotM\Ares\$(ConfigurationName)&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) ..\..\GaiaEditor\$(ConfigurationName)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\..\lib"
-			IntermediateDirectory="..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
-			ConfigurationType="4"
+			OutputDirectory="..\bin"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
@@ -106,11 +121,12 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\ogre1.6.5\OgreMain\include;.\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;OGRE_STATIC_LIB"
-				RuntimeLibrary="0"
+				AdditionalOptions="/MP"
+				AdditionalIncludeDirectories="..\..\Dependencies\include\ogre;..\..\Dependencies\include;.\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;QUICKGUI_EXPORTS"
+				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
-				WarningLevel="0"
+				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 			/>
@@ -124,11 +140,23 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\QuickGUI.lib"
+				Name="VCLinkerTool"
+				AdditionalDependencies="OgreMain.lib"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\..\Dependencies\lib"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -140,7 +168,11 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="copy $(OutDir)\$(TargetFileName) ..\..\RotM\WorkingDirectory"
 			/>
 		</Configuration>
 	</Configurations>
@@ -155,6 +187,10 @@
 			<Filter
 				Name="DataTypes"
 				>
+				<File
+					RelativePath=".\src\QuickGUIOgreEquivalents.cpp"
+					>
+				</File>
 				<File
 					RelativePath=".\src\QuickGUIPoint.cpp"
 					>
@@ -248,7 +284,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\QuickGUIContextMenu.cpp"
+					RelativePath=".\src\QuickGUIDropDragSlot.cpp"
 					>
 				</File>
 				<File
@@ -268,27 +304,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\QuickGUIListImageItem.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\QuickGUIListPanelItem.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\QuickGUIListTextItem.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\QuickGUIMenu.cpp"
 					>
 				</File>
 				<File
 					RelativePath=".\src\QuickGUIMenuPanel.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\QuickGUIMenuTextItem.cpp"
 					>
 				</File>
 				<File
@@ -308,22 +328,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\QuickGUIPropertyGridBoolProperty.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\QuickGUIPropertyGridComboBoxProperty.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\QuickGUIPropertyGridSection.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\QuickGUIPropertyGridTextProperty.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\QuickGUIRadioButton.cpp"
 					>
 				</File>
@@ -332,15 +336,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\QuickGUITab.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\QuickGUITabControl.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\QuickGUITabPage.cpp"
 					>
 				</File>
 				<File
@@ -352,27 +348,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\QuickGUITitleBar.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\QuickGUIToolBar.cpp"
 					>
 				</File>
 				<File
 					RelativePath=".\src\QuickGUITreeView.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\QuickGUITreeViewCheckBoxNode.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\QuickGUITreeViewNode.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\QuickGUITreeViewRadioButtonNode.cpp"
 					>
 				</File>
 				<File
@@ -420,6 +400,78 @@
 					>
 					<File
 						RelativePath=".\src\QuickGUIForwardDeclaredDesc.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Constrained"
+					>
+					<File
+						RelativePath=".\src\QuickGUIContextMenu.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\QuickGUIDropDropSlotItem.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\QuickGUIListImageItem.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\QuickGUIListPanelItem.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\QuickGUIListTextItem.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\QuickGUIMenuImageItem.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\QuickGUIMenuTextItem.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\QuickGUIPropertyGridBoolProperty.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\QuickGUIPropertyGridComboBoxProperty.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\QuickGUIPropertyGridSection.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\QuickGUIPropertyGridTextProperty.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\QuickGUITab.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\QuickGUITabPage.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\QuickGUITitleBar.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\QuickGUITreeViewCheckBoxNode.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\QuickGUITreeViewNode.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\QuickGUITreeViewRadioButtonNode.cpp"
 						>
 					</File>
 				</Filter>
@@ -520,15 +572,15 @@
 				Name="Skinning"
 				>
 				<File
-					RelativePath=".\src\QuickGUIComponentType.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\QuickGUISkinDefinition.cpp"
 					>
 				</File>
 				<File
 					RelativePath=".\src\QuickGUISkinElement.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\QuickGUISkinReference.cpp"
 					>
 				</File>
 				<File
@@ -575,6 +627,10 @@
 				</File>
 				<File
 					RelativePath=".\include\QuickGUIEventTypes.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\QuickGUIOgreEquivalents.h"
 					>
 				</File>
 				<File
@@ -694,7 +750,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\QuickGUIContextMenu.h"
+					RelativePath=".\include\QuickGUIDropDragSlot.h"
 					>
 				</File>
 				<File
@@ -714,27 +770,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\QuickGUIListImageItem.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\QuickGUIListPanelItem.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\QuickGUIListTextItem.h"
-					>
-				</File>
-				<File
 					RelativePath=".\include\QuickGUIMenu.h"
 					>
 				</File>
 				<File
 					RelativePath=".\include\QuickGUIMenuPanel.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\QuickGUIMenuTextItem.h"
 					>
 				</File>
 				<File
@@ -754,22 +794,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\QuickGUIPropertyGridBoolProperty.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\QuickGUIPropertyGridComboBoxProperty.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\QuickGUIPropertyGridSection.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\QuickGUIPropertyGridTextProperty.h"
-					>
-				</File>
-				<File
 					RelativePath=".\include\QuickGUIRadioButton.h"
 					>
 				</File>
@@ -778,15 +802,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\QuickGUITab.h"
-					>
-				</File>
-				<File
 					RelativePath=".\include\QuickGUITabControl.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\QuickGUITabPage.h"
 					>
 				</File>
 				<File
@@ -807,18 +823,6 @@
 				</File>
 				<File
 					RelativePath=".\include\QuickGUITreeView.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\QuickGUITreeViewCheckBoxNode.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\QuickGUITreeViewNode.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\QuickGUITreeViewRadioButtonNode.h"
 					>
 				</File>
 				<File
@@ -866,6 +870,74 @@
 					>
 					<File
 						RelativePath=".\include\QuickGUIForwardDeclaredDesc.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Constrained"
+					>
+					<File
+						RelativePath=".\include\QuickGUIContextMenu.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\QuickGUIDragDropSlotItem.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\QuickGUIListImageItem.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\QuickGUIListPanelItem.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\QuickGUIListTextItem.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\QuickGUIMenuImageItem.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\QuickGUIMenuTextItem.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\QuickGUIPropertyGridBoolProperty.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\QuickGUIPropertyGridComboBoxProperty.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\QuickGUIPropertyGridSection.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\QuickGUIPropertyGridTextProperty.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\QuickGUITab.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\QuickGUITabPage.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\QuickGUITreeViewCheckBoxNode.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\QuickGUITreeViewNode.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\QuickGUITreeViewRadioButtonNode.h"
 						>
 					</File>
 				</Filter>
@@ -1030,15 +1102,15 @@
 				Name="Skinning"
 				>
 				<File
-					RelativePath=".\include\QuickGUIComponentType.h"
-					>
-				</File>
-				<File
 					RelativePath=".\include\QuickGUISkinDefinition.h"
 					>
 				</File>
 				<File
 					RelativePath=".\include\QuickGUISkinElement.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\QuickGUISkinReference.h"
 					>
 				</File>
 				<File

@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUIDescManager.h"
 // Default provided Widgets
 #include "QuickGUIButton.h"
@@ -14,6 +43,7 @@
 #include "QuickGUIListPanelItem.h"
 #include "QuickGUIListImageItem.h"
 #include "QuickGUIMenu.h"
+#include "QuickGUIMenuImageItem.h"
 #include "QuickGUIMenuTextItem.h"
 #include "QuickGUIMenuPanel.h"
 #include "QuickGUIModalWindow.h"
@@ -60,6 +90,7 @@ namespace QuickGUI
 		mDefaultListPanelItemDesc = f->createInstance<ListPanelItemDesc>("ListPanelItemDesc");
 		mDefaultListTextItemDesc = f->createInstance<ListTextItemDesc>("ListTextItemDesc");
 		mDefaultMenuDesc = f->createInstance<MenuDesc>("MenuDesc");
+		mDefaultMenuImageItemDesc = f->createInstance<MenuImageItemDesc>("MenuImageItemDesc");
 		mDefaultMenuTextItemDesc = f->createInstance<MenuTextItemDesc>("MenuTextItemDesc");
 		mDefaultMenuPanelDesc = f->createInstance<MenuPanelDesc>("MenuPanelDesc");
 		mDefaultModalWindowDesc = f->createInstance<ModalWindowDesc>("ModalWindowDesc");
@@ -104,6 +135,7 @@ namespace QuickGUI
 		f->destroyInstance(mDefaultListImageItemDesc);
 		f->destroyInstance(mDefaultListTextItemDesc);
 		f->destroyInstance(mDefaultMenuDesc);
+		f->destroyInstance(mDefaultMenuImageItemDesc);
 		f->destroyInstance(mDefaultMenuTextItemDesc);
 		f->destroyInstance(mDefaultMenuPanelDesc);
 		f->destroyInstance(mDefaultModalWindowDesc);
@@ -145,6 +177,15 @@ namespace QuickGUI
 	void DescManager::destroyDesc(Desc* d)
 	{
 		FactoryManager::getSingleton().getDescFactory()->destroyInstance(d);
+
+		for(std::map<Ogre::String,Desc*>::iterator it = mUserCreatedDescs.begin(); it != mUserCreatedDescs.end(); ++it)
+		{
+			if((*it).second == d)
+			{
+				mUserCreatedDescs.erase(it);
+				return;
+			}
+		}
 	}
 
 	ButtonDesc* DescManager::getDefaultButtonDesc()
@@ -215,6 +256,11 @@ namespace QuickGUI
 	MenuDesc* DescManager::getDefaultMenuDesc()
 	{
 		return mDefaultMenuDesc;
+	}
+
+	MenuImageItemDesc* DescManager::getDefaultMenuImageItemDesc()
+	{
+		return mDefaultMenuImageItemDesc;
 	}
 
 	MenuTextItemDesc* DescManager::getDefaultMenuTextItemDesc()

@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUIVScrollBar.h"
 #include "QuickGUISkinDefinitionManager.h"
 #include "QuickGUIManager.h"
@@ -21,11 +50,11 @@ namespace QuickGUI
 	{
 		SkinDefinition* d = OGRE_NEW_T(SkinDefinition,Ogre::MEMCATEGORY_GENERAL)("VScrollBar");
 		d->defineSkinElement(BAR);
-		d->defineComponent(UP1);
-		d->defineComponent(UP2);
-		d->defineComponent(DOWN1);
-		d->defineComponent(DOWN2);
-		d->defineComponent(SLIDER);
+		d->defineSkinReference(UP1,"Button");
+		d->defineSkinReference(UP2,"Button");
+		d->defineSkinReference(DOWN1,"Button");
+		d->defineSkinReference(DOWN2,"Button");
+		d->defineSkinReference(SLIDER,"Button");
 		d->definitionComplete();
 
 		SkinDefinitionManager::getSingleton().registerSkinDefinition("VScrollBar",d);
@@ -57,25 +86,33 @@ namespace QuickGUI
 	{
 		ComponentWidgetDesc::serialize(b);
 
-		b->IO("ButtonScrollPercent",&vscrollbar_buttonScrollPercent);
-		b->IO("BarScrollPercent",&vscrollbar_barScrollPercent);
-		b->IO("ScrollBarButtonLayout",&vscrollbar_scrollBarButtonLayout);
-		b->IO("SliderHeight",&vscrollbar_sliderHeight);
-		b->IO("SliderPercentage",&vscrollbar_sliderPercentage);
+		// Retrieve default values to supply to the serial reader/writer.
+		// The reader uses the default value if the given property does not exist.
+		// The writer does not write out the given property if it has the same value as the default value.
+		VScrollBarDesc* defaultValues = DescManager::getSingleton().createDesc<VScrollBarDesc>(getClass(),"temp");
+		defaultValues->resetToDefault();
+
+		b->IO("ButtonScrollPercent",	&vscrollbar_buttonScrollPercent,	defaultValues->vscrollbar_buttonScrollPercent);
+		b->IO("BarScrollPercent",		&vscrollbar_barScrollPercent,		defaultValues->vscrollbar_barScrollPercent);
+		b->IO("ScrollBarButtonLayout",	&vscrollbar_scrollBarButtonLayout,	defaultValues->vscrollbar_scrollBarButtonLayout);
+		b->IO("SliderHeight",			&vscrollbar_sliderHeight,			defaultValues->vscrollbar_sliderHeight);
+		b->IO("SliderPercentage",		&vscrollbar_sliderPercentage,		defaultValues->vscrollbar_sliderPercentage);
+
+		DescManager::getSingleton().destroyDesc(defaultValues);
 
 		if(b->begin("UserDefinedHandlers","ScrollBarEvents"))
 		{
 			if(b->isSerialReader())
 			{
 				for(int index = 0; index < SCROLLBAR_EVENT_COUNT; ++index)
-					b->IO(StringConverter::toString(static_cast<ScrollBarEvent>(index)),&(vscrollbar_userHandlers[index]));
+					b->IO(StringConverter::toString(static_cast<ScrollBarEvent>(index)),&(vscrollbar_userHandlers[index]),"");
 			}
 			else
 			{
 				for(int index = 0; index < SCROLLBAR_EVENT_COUNT; ++index)
 				{
 					if(vscrollbar_userHandlers[index] != "")
-						b->IO(StringConverter::toString(static_cast<ScrollBarEvent>(index)),&(vscrollbar_userHandlers[index]));
+						b->IO(StringConverter::toString(static_cast<ScrollBarEvent>(index)),&(vscrollbar_userHandlers[index]),"");
 				}
 			}
 			b->end();
@@ -452,6 +489,33 @@ namespace QuickGUI
 
 		WidgetEventArgs wea(this);
 		fireScrollBarEvent(SCROLLBAR_EVENT_ON_SCROLLED,wea);
+		fireScrollBarEvent(SCROLLBAR_EVENT_SLIDER_DRAGGED,wea);
+	}
+
+	void VScrollBar::removeEventHandlers(void* obj)
+	{
+		ComponentWidget::removeEventHandlers(obj);
+
+		for(int index = 0; index < SCROLLBAR_EVENT_COUNT; ++index)
+		{
+			std::vector<EventHandlerSlot*> updatedList;
+			std::vector<EventHandlerSlot*> listToCleanup;
+
+			for(std::vector<EventHandlerSlot*>::iterator it = mScrollBarEventHandlers[index].begin(); it != mScrollBarEventHandlers[index].end(); ++it)
+			{
+				if((*it)->getClass() == obj)
+					listToCleanup.push_back((*it));
+				else
+					updatedList.push_back((*it));
+			}
+
+			mScrollBarEventHandlers[index].clear();
+			for(std::vector<EventHandlerSlot*>::iterator it = updatedList.begin(); it != updatedList.end(); ++it)
+				mScrollBarEventHandlers[index].push_back((*it));
+
+			for(std::vector<EventHandlerSlot*>::iterator it = listToCleanup.begin(); it != listToCleanup.end(); ++it)
+				OGRE_DELETE_T((*it),EventHandlerSlot,Ogre::MEMCATEGORY_GENERAL);
+		}
 	}
 
 	void VScrollBar::scrollDown()
@@ -525,7 +589,7 @@ namespace QuickGUI
 		mWidgetDesc->widget_skinTypeName = type;
 
 		for(std::map<Ogre::String,Widget*>::iterator it = mComponents.begin(); it != mComponents.end(); ++it)
-			(*it).second->setSkinType(mSkinType->getComponentType((*it).first)->typeName);
+			(*it).second->setSkinType(mSkinType->getSkinReference((*it).first)->typeName);
 
 		// Update client dimensions
 		{

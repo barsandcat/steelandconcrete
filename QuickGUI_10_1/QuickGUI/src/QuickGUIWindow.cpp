@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUIWindow.h"
 #include "QuickGUIManager.h"
 #include "QuickGUISkinDefinitionManager.h"
@@ -12,6 +41,10 @@
 
 #include "OgreImage.h"
 #include "OgreLogManager.h"
+#include "OgreHardwarePixelBuffer.h"
+#include "OgreRenderTexture.h"
+#include "OgreTextureManager.h"
+#include "OgreFont.h"
 
 namespace QuickGUI
 {
@@ -22,9 +55,9 @@ namespace QuickGUI
 	{
 		SkinDefinition* d = OGRE_NEW_T(SkinDefinition,Ogre::MEMCATEGORY_GENERAL)("Window");
 		d->defineSkinElement(BACKGROUND);
-		d->defineComponent(TITLEBAR);
-		d->defineComponent(HSCROLLBAR);
-		d->defineComponent(VSCROLLBAR);
+		d->defineSkinReference(TITLEBAR,"TitleBar");
+		d->defineSkinReference(HSCROLLBAR,"HScrollBar");
+		d->defineSkinReference(VSCROLLBAR,"VScrollBar");
 		d->definitionComplete();
 
 		SkinDefinitionManager::getSingleton().registerSkinDefinition("Window",d);
@@ -62,12 +95,20 @@ namespace QuickGUI
 	{
 		PanelDesc::serialize(b);
 
-		b->IO("TitleBar",&window_titleBar);
-		b->IO("TitleBarDragable",&window_titleBarDragable);
-		b->IO("TitleBarCloseButton",&window_titleBarCloseButton);
-		b->IO("TitleBarCloseButtonPadding",&window_titleBarCloseButtonPadding);
-		b->IO("TitleBarSkinType",&window_titleBarSkinType);
-		b->IO("TitlebarVerticalTextAlignment",&window_titlebarVerticalTextAlignment);
+		// Retrieve default values to supply to the serial reader/writer.
+		// The reader uses the default value if the given property does not exist.
+		// The writer does not write out the given property if it has the same value as the default value.
+		WindowDesc* defaultValues = DescManager::getSingleton().createDesc<WindowDesc>(getClass(),"temp");
+		defaultValues->resetToDefault();
+
+		b->IO("TitleBar",						&window_titleBar,						defaultValues->window_titleBar);
+		b->IO("TitleBarDragable",				&window_titleBarDragable,				defaultValues->window_titleBarDragable);
+		b->IO("TitleBarCloseButton",			&window_titleBarCloseButton,			defaultValues->window_titleBarCloseButton);
+		b->IO("TitleBarCloseButtonPadding",		&window_titleBarCloseButtonPadding,		defaultValues->window_titleBarCloseButtonPadding);
+		b->IO("TitleBarSkinType",				&window_titleBarSkinType,				defaultValues->window_titleBarSkinType);
+		b->IO("TitlebarVerticalTextAlignment",	&window_titlebarVerticalTextAlignment,	defaultValues->window_titlebarVerticalTextAlignment);
+
+		DescManager::getSingleton().destroyDesc(defaultValues);
 
 		textDesc.serialize(b);
 	}
@@ -75,7 +116,8 @@ namespace QuickGUI
 	Window::Window(const Ogre::String& name) :
 		Panel(name),
 		mTitleBar(0),
-		mDirty(true)
+		mDirty(true),
+		mTexture(NULL)
 	{
 		mWindow = this;
 	}
@@ -90,10 +132,10 @@ namespace QuickGUI
             mWindowEventHandlers[index].clear();
 		}
 
-		if(!mTexture.isNull())
+		if(mTexture != NULL)
 		{
 			Ogre::String texName = mTexture->getName();
-			mTexture.setNull();
+			mTexture = NULL;
 			Ogre::TextureManager::getSingleton().remove(texName);
 		}
 	}
@@ -130,7 +172,7 @@ namespace QuickGUI
 			tbd->titlebar_closeButton = mDesc->window_titleBarCloseButton;
 			tbd->titlebar_closeButtonPadding = mDesc->window_titleBarCloseButtonPadding;
 			tbd->widget_skinTypeName = mDesc->window_titleBarSkinType;
-			tbd->titlebar_verticalTextAlignment = mDesc->window_titlebarVerticalTextAlignment;
+			tbd->textDesc.verticalTextAlignment = mDesc->window_titlebarVerticalTextAlignment;
 			tbd->textDesc = mDesc->textDesc;
 
 			mTitleBar = dynamic_cast<TitleBar*>(_createWidget(tbd));
@@ -156,9 +198,9 @@ namespace QuickGUI
 
 		Ogre::String texName = getName() + ".RenderTarget";
 
-		// Its possible to have multiple GUIManagers with multiple Windows of the same name.
+		// Its possible to have multiple Sheets with multiple Windows of the same name.
 		// Lets make sure our texture name is unique
-		if(Ogre::TextureManager::getSingleton().resourceExists(texName))
+		while(Ogre::TextureManager::getSingleton().resourceExists(texName))
 			texName += "_";
 
 		mTexture = Ogre::TextureManager::getSingleton().createManual(
@@ -167,7 +209,7 @@ namespace QuickGUI
 			Ogre::TEX_TYPE_2D,
 			(int)mWidgetDesc->widget_dimensions.size.width,
 			(int)mWidgetDesc->widget_dimensions.size.height,
-			0, Ogre::PF_R8G8B8A8, Ogre::TU_RENDERTARGET);
+			0, Ogre::PF_R8G8B8A8, Ogre::TU_RENDERTARGET).getPointer();
 
 		// Add a single viewport
 
@@ -239,8 +281,8 @@ namespace QuickGUI
 		if(st->getSkinElement(mSkinElement->getName())->getTextureName() == "")
 		{
 			// Get currently set color used for drawing
-			Ogre::ColourValue cv = brush->getColour();
-			brush->setColor(Ogre::ColourValue::ZERO);
+			ColourValue cv = brush->getColour();
+			brush->setColor(ColourValue::ZERO);
 			brush->clear();
 			// Restore color to previous setting
 			brush->setColor(cv);
@@ -260,8 +302,12 @@ namespace QuickGUI
 
 		if(mDirty)
 		{
+			//updateTexture();
+
 			// resizeRenderTarget
 			resizeRenderTarget();
+
+			Brush* brush = Brush::getSingletonPtr();
 
 			// setRenderTarget
 			brush->setRenderTarget(mTexture);
@@ -269,7 +315,7 @@ namespace QuickGUI
 			// clearRenderTarget
 			brush->clear();
 
-			// update the texture!
+			// Draw to the render target.
 			ContainerWidget::draw();
 
 			mDirty = false;
@@ -280,7 +326,7 @@ namespace QuickGUI
 				mDesc->textDesc = mTitleBar->mDesc->textDesc;
 		}
 
-		brush->setRenderTarget(NULL);
+		brush->setRenderTarget(static_cast<Ogre::Viewport*>(NULL));
 		brush->setTexture(mTexture);
 		brush->setColor(mWidgetDesc->widget_baseColor);
 		brush->setOpacity(getAbsoluteOpacity());
@@ -288,6 +334,11 @@ namespace QuickGUI
 
 		WidgetEventArgs args(this);
 		fireWindowEvent(WINDOW_EVENT_DRAWN,args);
+	}
+
+	std::string Window::getTextureName()
+	{
+		return mTexture->getName();
 	}
 
 	bool Window::getTitleBarDragable()
@@ -323,6 +374,32 @@ namespace QuickGUI
 	void Window::redraw()
 	{
 		mDirty = true;
+	}
+
+	void Window::removeEventHandlers(void* obj)
+	{
+		ContainerWidget::removeEventHandlers(obj);
+
+		for(int index = 0; index < WINDOW_EVENT_COUNT; ++index)
+		{
+			std::vector<EventHandlerSlot*> updatedList;
+			std::vector<EventHandlerSlot*> listToCleanup;
+
+			for(std::vector<EventHandlerSlot*>::iterator it = mWindowEventHandlers[index].begin(); it != mWindowEventHandlers[index].end(); ++it)
+			{
+				if((*it)->getClass() == obj)
+					listToCleanup.push_back((*it));
+				else
+					updatedList.push_back((*it));
+			}
+
+			mWindowEventHandlers[index].clear();
+			for(std::vector<EventHandlerSlot*>::iterator it = updatedList.begin(); it != updatedList.end(); ++it)
+				mWindowEventHandlers[index].push_back((*it));
+
+			for(std::vector<EventHandlerSlot*>::iterator it = listToCleanup.begin(); it != listToCleanup.end(); ++it)
+				OGRE_DELETE_T((*it),EventHandlerSlot,Ogre::MEMCATEGORY_GENERAL);
+		}
 	}
 
 	void Window::removeWindowEventHandler(WindowEvent EVENT, void* obj)
@@ -404,7 +481,7 @@ namespace QuickGUI
 		// Destroy existing texture
 
 		manager.remove(texName);
-		mTexture.setNull();
+		mTexture = NULL;
 
 		// Create new texture with the same name
 
@@ -414,7 +491,7 @@ namespace QuickGUI
 			Ogre::TEX_TYPE_2D,
 			(int)mWidgetDesc->widget_dimensions.size.width,
 			(int)mWidgetDesc->widget_dimensions.size.height,
-			1, 0, Ogre::PF_R8G8B8A8, Ogre::TU_RENDERTARGET);
+			1, 0, Ogre::PF_R8G8B8A8, Ogre::TU_RENDERTARGET).getPointer();
 
 		mTexture->load();
 
@@ -430,7 +507,7 @@ namespace QuickGUI
 	void Window::saveTextureToFile(const Ogre::String& filename)
 	{
 		// Declare buffer
-		const size_t buffSize = mWidgetDesc->widget_dimensions.size.width * mWidgetDesc->widget_dimensions.size.height * 4;
+		const size_t buffSize = static_cast<size_t>(mWidgetDesc->widget_dimensions.size.width) * static_cast<size_t>(mWidgetDesc->widget_dimensions.size.height) * static_cast<size_t>(4);
 		unsigned char *data = OGRE_ALLOC_T(unsigned char,buffSize,Ogre::MEMCATEGORY_GENERAL);
 
 		// Clear buffer
@@ -438,7 +515,7 @@ namespace QuickGUI
 
 		// Setup Image with correct settings
 		Ogre::Image i;
-		i.loadDynamicImage(data, mWidgetDesc->widget_dimensions.size.width, mWidgetDesc->widget_dimensions.size.height, 1, Ogre::PF_R8G8B8A8, true);
+		i.loadDynamicImage(data, static_cast<size_t>(mWidgetDesc->widget_dimensions.size.width), static_cast<size_t>(mWidgetDesc->widget_dimensions.size.height), static_cast<size_t>(1), Ogre::PF_R8G8B8A8, true);
 
 		// Copy Texture buffer contents to image buffer
 		Ogre::HardwarePixelBufferSharedPtr buf = mTexture->getBuffer();
@@ -472,10 +549,10 @@ namespace QuickGUI
 			mWidgetDesc->widget_name = name;
 
 		// Rename Texture to match new name
-		if(!mTexture.isNull())
+		if(mTexture != NULL)
 		{
 			Ogre::String texName = mTexture->getName();
-			mTexture.setNull();
+			mTexture = NULL;
 			Ogre::TextureManager::getSingleton().remove(texName);
 
 			createRenderTarget();
@@ -483,16 +560,6 @@ namespace QuickGUI
 
 		// Return the new name of the Widget
 		return mWidgetDesc->widget_name;
-	}
-
-	void Window::setSkinType(const Ogre::String type)
-	{
-		mWidgetDesc->widget_skinTypeName = type;
-
-		_setSkinType(type);
-
-		if((mTitleBar != NULL) && (mSkinElement != NULL))
-			mTitleBar->setPosition(Point(mSkinElement->getBorderThickness(BORDER_LEFT),mSkinElement->getBorderThickness(BORDER_TOP)));
 	}
 
 	void Window::setTitleBarDragable(bool dragable)
@@ -513,7 +580,18 @@ namespace QuickGUI
 		}
 	}
 
-	void Window::setTitleBarText(Ogre::UTFString s, Ogre::FontPtr fp, const Ogre::ColourValue& cv)
+	void Window::setTitleBarText(Ogre::UTFString s, const ColourValue& cv)
+	{
+		if(mTitleBar != NULL)
+		{
+			mTitleBar->setText(s,cv);
+			updateClientDimensions();
+
+			redraw();
+		}
+	}
+
+	void Window::setTitleBarText(Ogre::UTFString s, Ogre::Font* fp, const ColourValue& cv)
 	{
 		if(mTitleBar != NULL)
 		{
@@ -524,7 +602,7 @@ namespace QuickGUI
 		}
 	}
 
-	void Window::setTitleBarText(Ogre::UTFString s, const Ogre::String& fontName, const Ogre::ColourValue& cv)
+	void Window::setTitleBarText(Ogre::UTFString s, const Ogre::String& fontName, const ColourValue& cv)
 	{
 		setTitleBarText(s,Text::getFont(fontName),cv);
 	}
@@ -540,15 +618,7 @@ namespace QuickGUI
 		}
 	}
 
-	void Window::setTitleBarTextAllottedWidth(float allottedWidth)
-	{
-		if(mTitleBar != NULL)
-		{
-			mTitleBar->setTextAllottedWidth(allottedWidth);
-		}
-	}
-
-	void Window::setTitleBarTextColor(const Ogre::ColourValue& cv)
+	void Window::setTitleBarTextColor(const ColourValue& cv)
 	{
 		if(mTitleBar != NULL)
 		{
@@ -557,7 +627,7 @@ namespace QuickGUI
 		}
 	}
 
-	void Window::setTitleBarTextColor(const Ogre::ColourValue& cv, unsigned int index)
+	void Window::setTitleBarTextColor(const ColourValue& cv, unsigned int index)
 	{
 		if(mTitleBar != NULL)
 		{
@@ -566,7 +636,7 @@ namespace QuickGUI
 		}
 	}
 
-	void Window::setTitleBarTextColor(const Ogre::ColourValue& cv, unsigned int startIndex, unsigned int endIndex)
+	void Window::setTitleBarTextColor(const ColourValue& cv, unsigned int startIndex, unsigned int endIndex)
 	{
 		if(mTitleBar != NULL)
 		{
@@ -575,7 +645,7 @@ namespace QuickGUI
 		}
 	}
 
-	void Window::setTitleBarTextColor(const Ogre::ColourValue& cv, Ogre::UTFString::code_point c, bool allOccurrences)
+	void Window::setTitleBarTextColor(const ColourValue& cv, Ogre::UTFString::code_point c, bool allOccurrences)
 	{
 		if(mTitleBar != NULL)
 		{
@@ -584,7 +654,7 @@ namespace QuickGUI
 		}
 	}
 
-	void Window::setTitleBarTextColor(const Ogre::ColourValue& cv, Ogre::UTFString s, bool allOccurrences)
+	void Window::setTitleBarTextColor(const ColourValue& cv, Ogre::UTFString s, bool allOccurrences)
 	{
 		if(mTitleBar != NULL)
 		{
@@ -670,27 +740,23 @@ namespace QuickGUI
 				mClientDimensions.size.height -= mTitleBar->getHeight();
 			}
 
-			// First we want to adjust the client dimensions, depending on whether the scrollbars are visible.
-
-			// If HorizontalScrollBar is visible, update its dimensions and update client dimensions
-			if(mHScrollBar && mHScrollBar->getVisible())
-				mClientDimensions.size.height -= mHScrollBar->getHeight();
-
-			// If VerticalScrollBar is visible, update its dimensions and update client dimensions
-			if(mVScrollBar && mVScrollBar->getVisible())
-				mClientDimensions.size.width -= mVScrollBar->getWidth();
-
 			// Now that client dimensions are fully updated, we can adjust ScrollBars position and size
 
 			if(mHScrollBar)
 			{
-				mHScrollBar->setWidth(mClientDimensions.size.width);
+				if(mVScrollBar != NULL && mVScrollBar->getVisible())
+					mHScrollBar->setWidth(mClientDimensions.size.width - mVScrollBar->getWidth());
+				else
+					mHScrollBar->setWidth(mClientDimensions.size.width);
 				mHScrollBar->setPosition(Point(mSkinElement->getBorderThickness(BORDER_LEFT),mWidgetDesc->widget_dimensions.size.height - mSkinElement->getBorderThickness(BORDER_BOTTOM) - mDesc->containerwidget_scrollBarThickness));
 			}
 
 			if(mVScrollBar)
 			{
-				mVScrollBar->setHeight(mClientDimensions.size.height);
+				if(mHScrollBar != NULL && mHScrollBar->getVisible())
+					mVScrollBar->setHeight(mClientDimensions.size.height - mHScrollBar->getHeight());
+				else
+					mVScrollBar->setHeight(mClientDimensions.size.height);
 
 				float y = mSkinElement->getBorderThickness(BORDER_TOP);
 
@@ -720,7 +786,7 @@ namespace QuickGUI
 		}
 
 		// Handle Anchoring for children
-		for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 		{
 			applyAnchor((*it),difference);
 		}
@@ -751,11 +817,35 @@ namespace QuickGUI
 		}
 
 		// Update children screen dimensions, must be done after client and screen rect have been calculated
-		for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 		{
 			(*it)->updateTexturePosition();
 		}
 
 		redraw();
+	}
+
+	void Window::updateTexture()
+	{
+		// resizeRenderTarget
+		resizeRenderTarget();
+
+		Brush* brush = Brush::getSingletonPtr();
+
+		// setRenderTarget
+		brush->setRenderTarget(mTexture);
+
+		// clearRenderTarget
+		brush->clear();
+
+		// Draw to the render target.
+		// Make sure to set the window visible flag to true, or the texture won't be updated at all.
+		bool visible = mWidgetDesc->widget_visible;
+		mWidgetDesc->widget_visible = true;
+		ContainerWidget::draw();
+		// Restore visibility
+		mWidgetDesc->widget_visible = visible;
+
+		mDirty = false;
 	}
 }

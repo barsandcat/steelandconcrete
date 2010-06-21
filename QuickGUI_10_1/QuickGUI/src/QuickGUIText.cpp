@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUIText.h"
 #include "QuickGUIRoot.h"
 #include "QuickGUISerialReader.h"
@@ -9,6 +38,8 @@
 
 #include "OgreMaterial.h"
 #include "OgreTechnique.h"
+#include "OgreFontManager.h"
+#include "OgreTextureManager.h"
 
 namespace QuickGUI
 {
@@ -19,14 +50,21 @@ namespace QuickGUI
 	{
 	}
 
-	TextSegment::TextSegment(const Ogre::String FontName, const Ogre::ColourValue& Color, const Ogre::UTFString& Text) :
+	TextSegment::TextSegment(const Ogre::String FontName, const ColourValue& Color, const Ogre::UTFString& Text) :
 		fontName(FontName),
 		color(Color.r,Color.g,Color.b,Color.a),
 		text(Text) 
 	{
 	}
 
-	TextSegment::TextSegment(const Ogre::ColourValue& Color, const Ogre::UTFString& Text) :
+	TextSegment::TextSegment(const Ogre::String FontName, const Ogre::UTFString& Text) :
+		fontName(FontName),
+		color(Root::getSingleton().getDefaultColor()),
+		text(Text)
+	{
+	}
+
+	TextSegment::TextSegment(const ColourValue& Color, const Ogre::UTFString& Text) :
 		fontName(Root::getSingleton().getDefaultFontName()),
 		color(Color.r,Color.g,Color.b,Color.a),
 		text(Text)
@@ -84,19 +122,23 @@ namespace QuickGUI
 
 	void TextDesc::resetToDefault()
 	{
-		allottedWidth = 0;
+		allottedSize = Size::ZERO;
 		brushFilterMode = BRUSHFILTER_LINEAR;
 		horizontalTextAlignment = TEXT_ALIGNMENT_HORIZONTAL_LEFT;
+		offset = Point::ZERO;
 		verticalLineSpacing = 2;
+		verticalTextAlignment = TEXT_ALIGNMENT_VERTICAL_CENTER;
 		segments.clear();
 	}
 
 	void TextDesc::serialize(SerialBase* b)
 	{
-		b->IO("AllottedWidth",&allottedWidth);
-		b->IO("TextBrushFilterMode",&brushFilterMode);
-		b->IO("HorizontalTextAlignment",&horizontalTextAlignment);
-		b->IO("VerticalLineSpacing",&verticalLineSpacing);
+		b->IO("Text.AllottedSize",&allottedSize,Size::ZERO);
+		b->IO("Text.HorizontalAlignment",&horizontalTextAlignment,TEXT_ALIGNMENT_HORIZONTAL_LEFT);
+		b->IO("Text.Offset",&offset,Point::ZERO);
+		b->IO("Text.BrushFilterMode",&brushFilterMode,BRUSHFILTER_LINEAR);
+		b->IO("Text.VerticalLineSpacing",&verticalLineSpacing,2);
+		b->IO("Text.VerticalAlignment",&verticalTextAlignment,TEXT_ALIGNMENT_VERTICAL_CENTER);
 
 		b->begin("Text","segments");
 		// Read in Text Segments or Write out Text Segments
@@ -249,19 +291,19 @@ namespace QuickGUI
 		}
 	}
 
-	Ogre::FontPtr Text::getFirstAvailableFont()
+	Ogre::Font* Text::getFirstAvailableFont()
 	{
 		Ogre::ResourceManager::ResourceMapIterator rmi = Ogre::FontManager::getSingleton().getResourceIterator();
-		return static_cast<Ogre::FontPtr>(rmi.getNext());
+		return static_cast<Ogre::FontPtr>(rmi.getNext()).getPointer();
 	}
 
-	Ogre::FontPtr Text::getFont(const Ogre::String& fontName)
+	Ogre::Font* Text::getFont(const Ogre::String& fontName)
 	{
 		Ogre::FontPtr fp = static_cast<Ogre::FontPtr>(Ogre::FontManager::getSingleton().getByName(fontName));
 		// Make sure the font is loaded
 		fp->load();
 
-		return fp;
+		return fp.getPointer();
 	}
 
 	float Text::getFontHeight(const Ogre::String& fontName)
@@ -269,9 +311,9 @@ namespace QuickGUI
 		return getFontHeight(getFont(fontName));
 	}
 
-	float Text::getFontHeight(Ogre::FontPtr fp)
+	float Text::getFontHeight(Ogre::Font* fp)
 	{
-		Ogre::TexturePtr tp = getFontTexture(fp);
+		Ogre::Texture* tp = getFontTexture(fp);
 
 		Ogre::Font::UVRect uvRect = fp->getGlyphTexCoords('0');
 		float height = ((uvRect.bottom - uvRect.top) * tp->getHeight());
@@ -279,12 +321,12 @@ namespace QuickGUI
 		return height;
 	}
 
-	Ogre::TexturePtr Text::getFontTexture(const Ogre::String& fontName)
+	Ogre::Texture* Text::getFontTexture(const Ogre::String& fontName)
 	{
 		return getFontTexture(getFont(fontName));
 	}
 
-	Ogre::TexturePtr Text::getFontTexture(Ogre::FontPtr fp)
+	Ogre::Texture* Text::getFontTexture(Ogre::Font* fp)
 	{
 		// Make sure the font is loaded
 		fp->load();
@@ -293,7 +335,7 @@ namespace QuickGUI
 			static_cast<Ogre::TexturePtr>
 			(
 				Ogre::TextureManager::getSingleton().getByName(fp->getMaterial()->getTechnique(0)->getPass(0)->getTextureUnitState(0)->getTextureName())
-			);
+			).getPointer();
 	}
 
 	Ogre::String Text::getFontTextureName(const Ogre::String& fontName)
@@ -301,7 +343,7 @@ namespace QuickGUI
 		return getFontTextureName(getFont(fontName));
 	}
 
-	Ogre::String Text::getFontTextureName(Ogre::FontPtr fp)
+	Ogre::String Text::getFontTextureName(Ogre::Font* fp)
 	{
 		// Make sure the font is loaded
 		fp->load();
@@ -314,9 +356,9 @@ namespace QuickGUI
 		return getGlyphHeight(getFont(fontName),cp);
 	}
 
-	float Text::getGlyphHeight(Ogre::FontPtr fp, Ogre::UTFString::code_point cp)
+	float Text::getGlyphHeight(Ogre::Font* fp, Ogre::UTFString::code_point cp)
 	{
-		Ogre::TexturePtr tp = getFontTexture(fp);
+		Ogre::Texture* tp = getFontTexture(fp);
 
 		Ogre::Font::UVRect uvRect = fp->getGlyphTexCoords(cp);
 
@@ -328,7 +370,7 @@ namespace QuickGUI
 		return getGlyphUVCoords(getFont(fontName),cp);
 	}
 
-	UVRect Text::getGlyphUVCoords(Ogre::FontPtr fp, Ogre::UTFString::code_point cp)
+	UVRect Text::getGlyphUVCoords(Ogre::Font* fp, Ogre::UTFString::code_point cp)
 	{
 		// Make sure the font is loaded
 		fp->load();
@@ -349,9 +391,9 @@ namespace QuickGUI
 		return getGlyphSize(getFont(fontName),cp);
 	}
 
-	Size Text::getGlyphSize(Ogre::FontPtr fp, Ogre::UTFString::code_point cp)
+	Size Text::getGlyphSize(Ogre::Font* fp, Ogre::UTFString::code_point cp)
 	{
-		Ogre::TexturePtr tp = getFontTexture(fp);
+		Ogre::Texture* tp = getFontTexture(fp);
 
 		Ogre::Font::UVRect uvRect = fp->getGlyphTexCoords(cp);
 		float width = ((uvRect.right - uvRect.left) * tp->getWidth());
@@ -365,9 +407,9 @@ namespace QuickGUI
 		return getGlyphWidth(getFont(fontName),cp);
 	}
 
-	float Text::getGlyphWidth(Ogre::FontPtr fp, Ogre::UTFString::code_point cp)
+	float Text::getGlyphWidth(Ogre::Font* fp, Ogre::UTFString::code_point cp)
 	{
-		Ogre::TexturePtr tp = getFontTexture(fp);
+		Ogre::Texture* tp = getFontTexture(fp);
 
 		Ogre::Font::UVRect uvRect = fp->getGlyphTexCoords(cp);
 		float width = ((uvRect.right - uvRect.left) * tp->getWidth());
@@ -380,11 +422,11 @@ namespace QuickGUI
 		return getTextWidth(getFont(fontName),s);
 	}
 
-	float Text::getTextWidth(Ogre::FontPtr fp, Ogre::UTFString s)
+	float Text::getTextWidth(Ogre::Font* fp, Ogre::UTFString s)
 	{
 		float width = 0;
 		float charWidth = 0;
-		Ogre::TexturePtr tp = getFontTexture(fp);
+		Ogre::Texture* tp = getFontTexture(fp);
 
 		for(Ogre::UTFString::iterator it = s.begin(); it != s.end(); ++it)
 		{
@@ -413,9 +455,9 @@ namespace QuickGUI
 		saveFontTextureToFile(getFont(fontName),fileName);
 	}
 
-	void Text::saveFontTextureToFile(Ogre::FontPtr fp, const Ogre::String& fileName)
+	void Text::saveFontTextureToFile(Ogre::Font* fp, const Ogre::String& fileName)
 	{
-		Ogre::TexturePtr tp = getFontTexture(fp);
+		Ogre::Texture* tp = getFontTexture(fp);
 		
 		// Declare buffer
 		const size_t buffSize = (tp->getWidth() * tp->getHeight() * 4);
@@ -462,7 +504,7 @@ namespace QuickGUI
 		mTextLines.push_back(currentTextLine);
 
 		// If allotted width is 0 or negative, put all text onto one line
-		if(mTextDesc->allottedWidth <= 0.001)
+		if(mTextDesc->allottedSize.width <= 0.001)
 		{
 			while(cItr != mCharacters.end())
 			{
@@ -490,7 +532,7 @@ namespace QuickGUI
 					}
 					else
 					{
-						float availableSpace = mTextDesc->allottedWidth - currentTextLine->getWidth();
+						float availableSpace = mTextDesc->allottedSize.width - currentTextLine->getWidth();
 
 						// If the character doesn't fit on this TextLine, create a new TextLine and repeat the process
 						if( (*cItr)->dimensions.size.width > availableSpace )
@@ -508,7 +550,7 @@ namespace QuickGUI
 				else
 				{
 					float wordLength = 0;
-					float availableSpace = mTextDesc->allottedWidth - currentTextLine->getWidth();
+					float availableSpace = mTextDesc->allottedSize.width - currentTextLine->getWidth();
 					std::list<Character*>::iterator endOfWord = cItr;
 
 					// If we get one word that is longer than the allotted width, split it up into pieces that fit onto each line.
@@ -581,7 +623,23 @@ namespace QuickGUI
 
 		Point p = position;
 
-		Brush::getSingleton().beginRectQueue();
+		// Determine the starting y point based on vertical alignment settings.
+		// If allotted height is 0 or negative, no vertical alignment occurs.
+		switch(mTextDesc->verticalTextAlignment)
+		{
+		case TEXT_ALIGNMENT_VERTICAL_TOP:
+			break;
+		case TEXT_ALIGNMENT_VERTICAL_BOTTOM:
+			if(mTextDesc->allottedSize.height > 0.001)
+				p.y += mTextDesc->allottedSize.height - getTextHeight();
+			break;
+		case TEXT_ALIGNMENT_VERTICAL_CENTER:
+			if(mTextDesc->allottedSize.height > 0.001)
+				p.y += ((mTextDesc->allottedSize.height - getTextHeight()) / 2.0);
+			break;
+		}
+
+		brush->beginRectQueue();
 
 		for(std::vector<TextLine*>::iterator it = mTextLines.begin(); it != mTextLines.end(); ++it)
 		{
@@ -590,25 +648,26 @@ namespace QuickGUI
 			case TEXT_ALIGNMENT_HORIZONTAL_LEFT:
 				break;
 			case TEXT_ALIGNMENT_HORIZONTAL_RIGHT:
-				if(mTextDesc->allottedWidth > 0.001)
-					p.x += mTextDesc->allottedWidth - (*it)->getWidth();
+				if(mTextDesc->allottedSize.width > 0.001)
+					p.x += mTextDesc->allottedSize.width - (*it)->getWidth();
 				break;
 			case TEXT_ALIGNMENT_HORIZONTAL_CENTER:
-				if(mTextDesc->allottedWidth > 0.001)
-					p.x += ((mTextDesc->allottedWidth - (*it)->getWidth()) / 2.0);
+				if(mTextDesc->allottedSize.width > 0.001)
+					p.x += ((mTextDesc->allottedSize.width - (*it)->getWidth()) / 2.0);
 				break;
 			}
 
 			p.x = Ogre::Math::Ceil(p.x);
 			p.y = Ogre::Math::Ceil(p.y);
 
-			(*it)->draw(p);
+			// Apply offset
+			(*it)->draw(p + mTextDesc->offset);
 
-			p.y += (*it)->getHeight();
+			p.y += (*it)->getHeight() + mTextDesc->verticalLineSpacing;
 		}
 
 		// Draw any remaining queued rects
-		Brush::getSingleton().endRectQueue();
+		brush->endRectQueue();
 
 		brush->setFilterMode(previousFilterMode);
 	}
@@ -622,7 +681,7 @@ namespace QuickGUI
 		mText.insert(index,1,c->codePoint);
 
 		// Inserts into mCharacters
-		int counter = 0;
+		unsigned int counter = 0;
 		for(std::list<Character*>::iterator it = mCharacters.begin(); it != mCharacters.end(); ++it)
 		{
 			if(counter == index)
@@ -642,7 +701,7 @@ namespace QuickGUI
 		addCharacter(c,getLength());
 	}
 
-	void Text::addText(Ogre::UTFString s, Ogre::FontPtr fp, const Ogre::ColourValue& cv)
+	void Text::addText(Ogre::UTFString s, Ogre::Font* fp, const ColourValue& cv)
 	{
 		// Remove Null Character from List
 		Character* nullChar = mCharacters.back();
@@ -679,7 +738,7 @@ namespace QuickGUI
 			{
 				// append character to mText
 				mText.push_back((*it2));
-				mCharacters.push_back(OGRE_NEW_T(Character, Ogre::MEMCATEGORY_GENERAL)((*it2),static_cast<Ogre::FontPtr>(Ogre::FontManager::getSingleton().getByName(s.fontName)),s.color));
+				mCharacters.push_back(OGRE_NEW_T(Character, Ogre::MEMCATEGORY_GENERAL)((*it2),static_cast<Ogre::FontPtr>(Ogre::FontManager::getSingleton().getByName(s.fontName)).getPointer(),s.color));
 			}
 		}
 
@@ -690,7 +749,7 @@ namespace QuickGUI
 		mTextLinesDirty = true;
 	}
 
-	void Text::addTextLine(Ogre::UTFString s, Ogre::FontPtr fp, const Ogre::ColourValue& cv)
+	void Text::addTextLine(Ogre::UTFString s, Ogre::Font* fp, const ColourValue& cv)
 	{
 		if(empty())
 		{
@@ -723,7 +782,7 @@ namespace QuickGUI
 		mCharacters.pop_back();
 
 		mText.push_back('\n');
-		mCharacters.push_back(OGRE_NEW_T(Character, Ogre::MEMCATEGORY_GENERAL)(UNICODE_CR,getFont(Root::getSingleton().getDefaultFontName()),Ogre::ColourValue::White));
+		mCharacters.push_back(OGRE_NEW_T(Character, Ogre::MEMCATEGORY_GENERAL)(UNICODE_CR,getFont(Root::getSingleton().getDefaultFontName()),ColourValue::White));
 
 		// Add Null Character to List
 		mCharacters.push_back(nullChar);
@@ -747,7 +806,7 @@ namespace QuickGUI
 		mCharacters.clear();
 
 		// Add Null Character to End
-		mCharacters.push_back(OGRE_NEW_T(Character, Ogre::MEMCATEGORY_GENERAL)(Text::UNICODE_NEL,Text::getFont(Root::getSingleton().getDefaultFontName()),Ogre::ColourValue::ZERO));
+		mCharacters.push_back(OGRE_NEW_T(Character, Ogre::MEMCATEGORY_GENERAL)(Text::UNICODE_NEL,Text::getFont(Root::getSingleton().getDefaultFontName()),ColourValue::ZERO));
 
 		// Clear UTFString representing plain text
 		mText.clear();
@@ -766,9 +825,30 @@ namespace QuickGUI
 		return mText.empty();
 	}
 
+	float Text::getAllottedHeight()
+	{
+		return mTextDesc->allottedSize.height;
+	}
+
+	Size Text::getAllottedSize()
+	{
+		return mTextDesc->allottedSize;
+	}
+
 	float Text::getAllottedWidth()
 	{
-		return mTextDesc->allottedWidth;
+		return mTextDesc->allottedSize.width;
+	}
+
+	float Text::getAverageTextLineHeight()
+	{
+		float textHeight = getTextHeight();
+
+		int numTextLines = static_cast<int>(mTextLines.size());
+		if(numTextLines == 0)
+			return 0.0;
+
+		return (textHeight / static_cast<float>(numTextLines));
 	}
 
 	BrushFilterMode Text::getBrushFilterMode()
@@ -780,7 +860,7 @@ namespace QuickGUI
 	{
 		_checkTextLines();
 
-		if(index >= static_cast<int>(mCharacters.size()))
+		if(index >= static_cast<unsigned int>(mCharacters.size()))
 			throw Exception(Exception::ERR_TEXT,"Index out of bounds!","Text::getCharacter");
 
 		unsigned int count = 0;
@@ -797,7 +877,7 @@ namespace QuickGUI
 
 	Point Text::getCharacterPosition(unsigned int index)
 	{
-		if(index >= static_cast<int>(mCharacters.size()))
+		if(index >= static_cast<unsigned int>(mCharacters.size()))
 			throw Exception(Exception::ERR_TEXT,"Index out of bounds!","Text::getCharacterYPosition");
 
 		_checkTextLines();
@@ -822,7 +902,7 @@ namespace QuickGUI
 
 	float Text::getCharacterYPosition(unsigned int index)
 	{
-		if(index >= static_cast<int>(mCharacters.size()))
+		if(index >= static_cast<unsigned int>(mCharacters.size()))
 			throw Exception(Exception::ERR_TEXT,"Index out of bounds!","Text::getCharacterYPosition");
 
 		_checkTextLines();
@@ -834,6 +914,8 @@ namespace QuickGUI
 		{
 			// Increment height
 			height += mTextLines[counter]->getHeight();
+			// Increment height by vertical line spacing
+			height += mTextDesc->verticalLineSpacing;
 			// Increment index count
 			indexCount += mTextLines[counter]->getLength();
 			// Increment counter to iterate through text lines
@@ -849,7 +931,7 @@ namespace QuickGUI
 
 		int index = 0;
 		int counter = 0;
-		int height = mTextLines[counter]->getHeight();
+		float height = mTextLines[counter]->getHeight();
 		while((counter < (static_cast<int>(mTextLines.size()) - 1)) && (height < p.y))
 		{
 			// Increment index by number of characters in current line of text
@@ -924,8 +1006,8 @@ namespace QuickGUI
 		if(mMaskText)
 			return 0;
 
-		if(index >= static_cast<int>(mText.length()))
-			index = static_cast<int>(mText.length());
+		if(index >= static_cast<unsigned int>(mText.length()))
+			index = static_cast<unsigned int>(mText.length());
 
 		unsigned int count = 0;
 		for(std::list<Character*>::iterator it = mCharacters.begin(); it != mCharacters.end(); ++it)
@@ -992,6 +1074,11 @@ namespace QuickGUI
 		return static_cast<int>(mText.length());
 	}
 
+	Point Text::getOffset()
+	{
+		return mTextDesc->offset;
+	}
+
 	Point Text::getPositionAtCharacterIndex(unsigned int index)
 	{
 		// gaurd against empty text
@@ -1046,8 +1133,8 @@ namespace QuickGUI
 
 		height = height - mTextDesc->verticalLineSpacing;
 
-		if(mTextDesc->allottedWidth > 0.001)
-			maxWidth = mTextDesc->allottedWidth;
+		if(mTextDesc->allottedSize.width > 0.001)
+			maxWidth = mTextDesc->allottedSize.width;
 
 		return Size(maxWidth,height);
 	}
@@ -1069,9 +1156,9 @@ namespace QuickGUI
 		float height = 0;
 
 		for(std::vector<TextLine*>::iterator it = mTextLines.begin(); it != mTextLines.end(); ++it)
-			height += (*it)->getHeight();
+			height += (*it)->getHeight() + mTextDesc->verticalLineSpacing;
 
-		return height;
+		return (height - mTextDesc->verticalLineSpacing);
 	}
 
 	TextLine* Text::getTextLineFromIndex(unsigned int index)
@@ -1146,7 +1233,7 @@ namespace QuickGUI
 		std::vector<TextSegment> segments;
 
 		Ogre::String currentFont;
-		Ogre::ColourValue currentColor;
+		ColourValue currentColor;
 		Ogre::UTFString text;
 
 		// initialize segment properties
@@ -1191,6 +1278,11 @@ namespace QuickGUI
 		return mTextDesc->verticalLineSpacing;
 	}
 
+	VerticalTextAlignment Text::getVerticalTextAlignment()
+	{
+		return mTextDesc->verticalTextAlignment;
+	}
+
 	void Text::highlight()
 	{
 		for(std::list<Character*>::iterator it = mCharacters.begin(); it != mCharacters.end(); ++it)
@@ -1201,12 +1293,12 @@ namespace QuickGUI
 
 	void Text::highlight(unsigned int index)
 	{
-		if(mText.empty() || (index < 0) || (static_cast<int>(index) >= getLength()))
+		if(mText.empty() || (static_cast<int>(index) >= getLength()))
 			throw Exception(Exception::ERR_TEXT,
 					"Index out of bounds! index=" + Ogre::StringConverter::toString(index) + " Text Length=" + Ogre::StringConverter::toString(getLength()),
 					"Text::highlight");
 
-		int count = 0;
+		unsigned int count = 0;
 		for(std::list<Character*>::iterator it = mCharacters.begin(); it != mCharacters.end(); ++it)
 		{
 			if(count == index)
@@ -1222,7 +1314,7 @@ namespace QuickGUI
 		if(mText.empty())
 			throw Exception(Exception::ERR_TEXT,"Indexes are out of bounds, text is empty!","Text::highlight");
 
-		if((startIndex < 0) || (endIndex < 0) || (static_cast<int>(startIndex) >= getLength()) || (static_cast<int>(endIndex) >= getLength()) || (startIndex > endIndex))
+		if((static_cast<int>(startIndex) >= getLength()) || (static_cast<int>(endIndex) >= getLength()) || (startIndex > endIndex))
 			throw Exception(Exception::ERR_TEXT,
 					"Invalid Indices! Start=" + Ogre::StringConverter::toString(startIndex) + " End=" + Ogre::StringConverter::toString(startIndex) + " Text Length=" + Ogre::StringConverter::toString(getLength()),
 					"Text::highlight");
@@ -1250,7 +1342,7 @@ namespace QuickGUI
 		}
 		else
 		{
-			int count = 0;
+			Ogre::UTFString::size_type count = 0;
 			std::list<Character*>::iterator it = mCharacters.begin();
 			while((index != Ogre::UTFString::npos) && (it != mCharacters.end()))
 			{
@@ -1314,7 +1406,7 @@ namespace QuickGUI
 		mText.erase(index,1);
 
 		// Remove from mTextCharacters
-		int counter = 0;
+		unsigned int counter = 0;
 		for(std::list<Character*>::iterator it = mCharacters.begin(); it != mCharacters.end(); ++it)
 		{
 			if(counter == index)
@@ -1330,12 +1422,31 @@ namespace QuickGUI
 		mTextLinesDirty = true;
 	}
 
+	void Text::setAllottedHeight(float pixelHeight)
+	{
+		if(pixelHeight < 0.001)
+			mTextDesc->allottedSize.height  = 0;
+		else
+			mTextDesc->allottedSize.height = pixelHeight;
+
+		mTextLinesDirty = true;
+	}
+
+	void Text::setAllottedSize(Size s)
+	{
+		s.roundDown();
+
+		mTextDesc->allottedSize = s;
+
+		mTextLinesDirty = true;
+	}
+
 	void Text::setAllottedWidth(float pixelWidth)
 	{
 		if(pixelWidth < 0.001)
-			mTextDesc->allottedWidth  = 0;
+			mTextDesc->allottedSize.width  = 0;
 		else
-			mTextDesc->allottedWidth = pixelWidth;
+			mTextDesc->allottedSize.width = pixelWidth;
 
 		mTextLinesDirty = true;
 	}
@@ -1345,7 +1456,7 @@ namespace QuickGUI
 		mTextDesc->brushFilterMode = m;
 	}
 
-	void Text::setColor(const Ogre::ColourValue& cv)
+	void Text::setColor(const ColourValue& cv)
 	{
 		for(std::list<Character*>::iterator it = mCharacters.begin(); it != mCharacters.end(); ++it)
 			(*it)->colorValue = cv;
@@ -1353,14 +1464,14 @@ namespace QuickGUI
 		mTextLinesDirty = true;
 	}
 
-	void Text::setColor(const Ogre::ColourValue& cv, unsigned int index)
+	void Text::setColor(const ColourValue& cv, unsigned int index)
 	{
-		if(mText.empty() || (index < 0) || (static_cast<int>(index) >= getLength()))
+		if(mText.empty() || (static_cast<int>(index) >= getLength()))
 			throw Exception(Exception::ERR_TEXT,
 					"Index out of bounds! index=" + Ogre::StringConverter::toString(index) + " Text Length=" + Ogre::StringConverter::toString(getLength()),
 					"Text::setColor");
 
-		int count = 0;
+		unsigned int count = 0;
 		for(std::list<Character*>::iterator it = mCharacters.begin(); it != mCharacters.end(); ++it)
 		{
 			if(count == index)
@@ -1375,12 +1486,12 @@ namespace QuickGUI
 		mTextLinesDirty = true;
 	}
 
-	void Text::setColor(const Ogre::ColourValue& cv, unsigned int startIndex, unsigned int endIndex)
+	void Text::setColor(const ColourValue& cv, unsigned int startIndex, unsigned int endIndex)
 	{
 		if(mText.empty())
 			throw Exception(Exception::ERR_TEXT,"Indexes are out of bounds, text is empty!","Text::setColor");
 
-		if((startIndex < 0) || (endIndex < 0) || (static_cast<int>(startIndex) >= getLength()) || (static_cast<int>(endIndex) >= getLength()) || (startIndex > endIndex))
+		if((static_cast<int>(startIndex) >= getLength()) || (static_cast<int>(endIndex) >= getLength()) || (startIndex > endIndex))
 			throw Exception(Exception::ERR_TEXT,
 					"Invalid Indices! Start=" + Ogre::StringConverter::toString(startIndex) + " End=" + Ogre::StringConverter::toString(startIndex) + " Text Length=" + Ogre::StringConverter::toString(getLength()),
 					"Text::setColor");
@@ -1400,7 +1511,7 @@ namespace QuickGUI
 		mTextLinesDirty = true;
 	}
 
-	void Text::setColor(const Ogre::ColourValue& cv, Ogre::UTFString::code_point c, bool allOccurrences)
+	void Text::setColor(const ColourValue& cv, Ogre::UTFString::code_point c, bool allOccurrences)
 	{
 		Ogre::UTFString::size_type index = mText.find(c);
 		if(!allOccurrences)
@@ -1410,7 +1521,7 @@ namespace QuickGUI
 		}
 		else
 		{
-			int count = 0;
+			unsigned int count = 0;
 			std::list<Character*>::iterator it = mCharacters.begin();
 			while((index != Ogre::UTFString::npos) && (it != mCharacters.end()))
 			{
@@ -1428,7 +1539,7 @@ namespace QuickGUI
 		mTextLinesDirty = true;
 	}
 
-	void Text::setColor(const Ogre::ColourValue& cv, Ogre::UTFString s, bool allOccurrences)
+	void Text::setColor(const ColourValue& cv, Ogre::UTFString s, bool allOccurrences)
 	{
 		Ogre::UTFString::size_type index = mText.find(s);
 		if(!allOccurrences)
@@ -1471,7 +1582,7 @@ namespace QuickGUI
 
 	void Text::setFont(const Ogre::String& fontName)
 	{
-		Ogre::FontPtr fp = static_cast<Ogre::FontPtr>(Ogre::FontManager::getSingleton().getByName(fontName));
+		Ogre::Font* fp = static_cast<Ogre::FontPtr>(Ogre::FontManager::getSingleton().getByName(fontName)).getPointer();
 
 		for(std::list<Character*>::iterator it = mCharacters.begin(); it != mCharacters.end(); ++it)
 			(*it)->setFont(fp);
@@ -1481,14 +1592,14 @@ namespace QuickGUI
 
 	void Text::setFont(const Ogre::String& fontName, unsigned int index)
 	{
-		if(mText.empty() || (index < 0) || (static_cast<int>(index) >= getLength()))
+		if(mText.empty() || (static_cast<int>(index) >= getLength()))
 			throw Exception(Exception::ERR_TEXT,
 					"Index out of bounds! index=" + Ogre::StringConverter::toString(index) + " Text Length=" + Ogre::StringConverter::toString(getLength()),
 					"Text::setFont");
 
-		Ogre::FontPtr fp = static_cast<Ogre::FontPtr>(Ogre::FontManager::getSingleton().getByName(fontName));
+		Ogre::Font* fp = static_cast<Ogre::FontPtr>(Ogre::FontManager::getSingleton().getByName(fontName)).getPointer();
 
-		int count = 0;
+		unsigned int count = 0;
 		for(std::list<Character*>::iterator it = mCharacters.begin(); it != mCharacters.end(); ++it)
 		{
 			if(count == index)
@@ -1508,12 +1619,12 @@ namespace QuickGUI
 		if(mText.empty())
 			throw Exception(Exception::ERR_TEXT,"Indexes are out of bounds, text is empty!","Text::setFont");
 
-		if((startIndex < 0) || (endIndex < 0) || (static_cast<int>(startIndex) >= getLength()) || (static_cast<int>(endIndex) >= getLength()) || (startIndex > endIndex))
+		if((static_cast<int>(startIndex) >= getLength()) || (static_cast<int>(endIndex) >= getLength()) || (startIndex > endIndex))
 			throw Exception(Exception::ERR_TEXT,
 					"Invalid Indices! Start=" + Ogre::StringConverter::toString(startIndex) + " End=" + Ogre::StringConverter::toString(startIndex) + " Text Length=" + Ogre::StringConverter::toString(getLength()),
 					"Text::setFont");
 
-		Ogre::FontPtr fp = static_cast<Ogre::FontPtr>(Ogre::FontManager::getSingleton().getByName(fontName));
+		Ogre::Font* fp = static_cast<Ogre::FontPtr>(Ogre::FontManager::getSingleton().getByName(fontName)).getPointer();
 
 		unsigned int count = 0;
 		for(std::list<Character*>::iterator it = mCharacters.begin(); it != mCharacters.end(); ++it)
@@ -1540,9 +1651,9 @@ namespace QuickGUI
 		}
 		else
 		{
-			Ogre::FontPtr fp = static_cast<Ogre::FontPtr>(Ogre::FontManager::getSingleton().getByName(fontName));
+			Ogre::Font* fp = static_cast<Ogre::FontPtr>(Ogre::FontManager::getSingleton().getByName(fontName)).getPointer();
 
-			int count = 0;
+			unsigned int count = 0;
 			std::list<Character*>::iterator it = mCharacters.begin();
 			while((index != Ogre::UTFString::npos) && (it != mCharacters.end()))
 			{
@@ -1570,7 +1681,7 @@ namespace QuickGUI
 		}
 		else
 		{
-			Ogre::FontPtr fp = static_cast<Ogre::FontPtr>(Ogre::FontManager::getSingleton().getByName(fontName));
+			Ogre::Font* fp = static_cast<Ogre::FontPtr>(Ogre::FontManager::getSingleton().getByName(fontName)).getPointer();
 
 			int count = 0;
 			int wordLength = static_cast<int>(s.length());
@@ -1611,7 +1722,16 @@ namespace QuickGUI
 		_checkTextLines();
 	}
 
-	void Text::setText(Ogre::UTFString s, Ogre::FontPtr fp, const Ogre::ColourValue& cv)
+	void Text::setOffset(Point offset)
+	{
+		offset.round();
+
+		mTextDesc->offset = offset;
+
+		mTextLinesDirty = true;
+	}
+
+	void Text::setText(Ogre::UTFString s, Ogre::Font* fp, const ColourValue& cv)
 	{
 		// set mText to s
 		mText = s;
@@ -1658,12 +1778,12 @@ namespace QuickGUI
 
 			for(Ogre::UTFString::iterator it2 = s.text.begin(); it2 != s.text.end(); ++it2)
 			{
-				mCharacters.push_back(OGRE_NEW_T(Character, Ogre::MEMCATEGORY_GENERAL)((*it2),fp,s.color));
+				mCharacters.push_back(OGRE_NEW_T(Character, Ogre::MEMCATEGORY_GENERAL)((*it2),fp.getPointer(),s.color));
 			}
 		}
 
 		// Add Null Character to List
-		mCharacters.push_back(OGRE_NEW_T(Character, Ogre::MEMCATEGORY_GENERAL)(Text::UNICODE_NEL,Text::getFont(Root::getSingleton().getDefaultFontName()),Ogre::ColourValue::ZERO));
+		mCharacters.push_back(OGRE_NEW_T(Character, Ogre::MEMCATEGORY_GENERAL)(Text::UNICODE_NEL,Text::getFont(Root::getSingleton().getDefaultFontName()),ColourValue::ZERO));
 
 		// Toggle rebuilding of TextLines
 		mTextLinesDirty = true;
@@ -1677,6 +1797,13 @@ namespace QuickGUI
 	void Text::setVerticalLineSpacing(float distance)
 	{
 		mTextDesc->verticalLineSpacing = distance;
+
+		mTextLinesDirty = true;
+	}
+
+	void Text::setVerticalTextAlignment(VerticalTextAlignment a)
+	{
+		mTextDesc->verticalTextAlignment = a;
 
 		mTextLinesDirty = true;
 	}

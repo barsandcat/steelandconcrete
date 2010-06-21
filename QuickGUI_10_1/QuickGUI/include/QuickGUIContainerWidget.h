@@ -1,7 +1,38 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #ifndef QUICKGUICONTAINERWIDGET_H
 #define QUICKGUICONTAINERWIDGET_H
 
 #include "QuickGUIComponentWidget.h"
+
+#include <list>
 
 namespace QuickGUI
 {
@@ -37,9 +68,9 @@ namespace QuickGUI
 		/// Amount of Scroll occuring when the up/down buttons are pressed.
 		float	containerwidget_vertButtonScrollPercent;
 		/// The horizontal scroll applied to all children
-		float	containerwidget_xScrollOffset;
+		unsigned int	containerwidget_xScrollOffset;
 		/// The vertical scroll applied to all children
-		float	containerwidget_yScrollOffset;
+		unsigned int	containerwidget_yScrollOffset;
 
 		/**
 		* Restore properties to default values
@@ -93,12 +124,12 @@ namespace QuickGUI
 		* NULL is returned if the point is outside dimensions.
 		* If ignoreDisabled is true, disabled widgets are not considered in the search.
 		*/
-		virtual Widget* findWidgetAtPoint(const Point& p, bool ignoreDisabled = true);
+		virtual Widget* findWidgetAtPoint(const Point& p, unsigned int queryFilter = -1, bool ignoreDisabled = true);
 
 		/**
 		* Returns a list of all child widgets.
 		*/
-		std::vector<Widget*> getChildren();
+		std::list<Widget*> getChildren();
 		/**
 		* Returns true if clipping region will be set to client area prior to children drawing, false otherwise.
 		*/
@@ -112,6 +143,19 @@ namespace QuickGUI
 		* Returns true if this widget is able to have child widgets.
 		*/
 		virtual bool isContainerWidget();
+
+		/**
+		* Child Widgets are normally drawn in the order they are created in, but sometimes you might want to enforce
+		* a particular drawing order in order to achieve a certain effect.
+		*/
+		void moveChildToEndOfDrawQueue(Widget* child);
+		void moveChildToFrontOfDrawQueue(Widget* child);
+
+		/**
+		* Removes all Event Handlers registered by the given object.
+		* Recursively calls removeEventHandlers on Components.
+		*/
+		virtual void removeEventHandlers(void* obj);
 
 		/**
 		* Adjusts ScrollBars so that Widget is in view.
@@ -185,14 +229,14 @@ namespace QuickGUI
 		ContainerWidget(const Ogre::String& name);
 		virtual ~ContainerWidget();
 
-		std::vector<Widget*> mChildren;
+		std::list<Widget*> mChildren;
 
 		ContainerWidgetDesc* mDesc;
 
 		HScrollBar* mHScrollBar;
 		VScrollBar* mVScrollBar;
 		/// Hides the ScrollBars if the VirtualArea is the same size as the ClientArea.
-		void _determineScrollBarVisibility();
+		virtual void _determineScrollBarVisibility();
 		
 		bool mUpdatingClientDimensions;
 		// Used to implement scrolling functionality
@@ -207,6 +251,7 @@ namespace QuickGUI
 
 		virtual void onChildDimensionsChanged(const EventArgs& args);
 
+		float mAmountToScrollOnWheel;
 		void onMouseWheel(const EventArgs& args);
 
 		/**

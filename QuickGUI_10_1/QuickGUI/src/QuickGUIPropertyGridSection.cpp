@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUIPropertyGridSection.h"
 #include "QuickGUISkinDefinitionManager.h"
 #include "QuickGUISkinDefinition.h"
@@ -41,7 +70,8 @@ namespace QuickGUI
 	PropertyGridSection::PropertyGridSection(const Ogre::String& name) :
 		PropertyGridItem(name),
 		mStateButton(NULL),
-		mExpanded(false)
+		mExpanded(false),
+		mLabelWidth(50)
 	{
 	}
 
@@ -103,19 +133,22 @@ namespace QuickGUI
 		if(mDesc->propertyGrid != NULL)
 		{
 			// Update dimensions
-			i->setHeight(mDesc->propertyGrid->getItemHeight());
+			float itemHeight = mDesc->propertyGrid->getItemHeight();
+			i->setHeight(itemHeight);
 
-			// Property Grid has an expand button, icon, and text. Button and Icon have same height/width, which is the height of the item.
+			// Property Grid Section has an expand button, icon, and text. Button and Icon have same height/width, which is the height of the item.
 			if(i->getClass() == "PropertyGridSection")
-				i->setWidth((mDesc->propertyGrid->getItemHeight() * 2) + mDesc->propertyGrid->mLabelWidth);
+				i->setWidth((mDesc->propertyGrid->getItemHeight() * 2) + i->getTextWidth() + i->mLabelBuffer);
 			else
-				i->setWidth(mDesc->propertyGrid->getItemHeight() + mDesc->propertyGrid->mLabelWidth + mDesc->propertyGrid->getPropertyFieldWidth());
-
-			if(i->mFieldWidget != NULL)
 			{
-				Point p = i->mFieldWidget->getPosition();
-				i->mFieldWidget->setPosition(Point(mDesc->propertyGrid->getItemHeight() + mDesc->propertyGrid->mLabelWidth,p.y));
-				i->mFieldWidget->setSize(Size(mDesc->propertyGrid->getPropertyFieldWidth(),mDesc->propertyGrid->getItemHeight()));
+				float fieldWidth = mDesc->propertyGrid->getPropertyFieldWidth();
+				i->setWidth(mLabelWidth + fieldWidth);
+
+				if(i->mFieldWidget != NULL)
+				{
+					i->mFieldWidget->setPosition(Point(mLabelWidth,0));
+					i->mFieldWidget->setSize(Size(fieldWidth,itemHeight));
+				}
 			}
 		}
 
@@ -142,10 +175,15 @@ namespace QuickGUI
 			}
 		}
 
+		// See if LabelWidth should be updated
+		if((mDesc->propertyGrid != NULL) && (i->getClass() != "PropertyGridSection"))
+			updateLabelWidth(mDesc->propertyGrid->getItemHeight() + i->getTextWidth() + i->mLabelBuffer);
+		// See if ItemHeight should be updated
 		if(mDesc->propertyGrid != NULL)
 		{
-			// See if LabelWidth should be updated
-			mDesc->propertyGrid->updateLabelWidth(i->getTextWidth() + mLabelBuffer);
+			float textHeight = i->getTextHeight();
+			if(textHeight > mDesc->propertyGrid->getItemHeight())
+				mDesc->propertyGrid->setItemHeight(textHeight);
 		}
 
 		updateItems();
@@ -411,21 +449,23 @@ namespace QuickGUI
 	{
 		if(mDesc->propertyGrid != NULL)
 		{
-			setHeight(mDesc->propertyGrid->getItemHeight());
+			float itemHeight = mDesc->propertyGrid->getItemHeight();
+			setHeight(itemHeight);
+			setWidth((itemHeight * 2) + getTextWidth() + mLabelBuffer);
 
 			for(std::list<PropertyGridItem*>::iterator it = mItems.begin(); it != mItems.end(); ++it)
 				(*it)->notifyHeightUpdated();
+
+			updateItems();
 		}
 	}
 
 	void PropertyGridSection::notifyWidthUpdated()
 	{
-		if(mDesc->propertyGrid != NULL)
+		for(std::list<PropertyGridItem*>::iterator it = mItems.begin(); it != mItems.end(); ++it)
 		{
-			// Property Grid has an expand button, icon, and text. Button and Icon have same height/width, which is the height of the item.
-			setWidth((mDesc->propertyGrid->getItemHeight() * 2) + mDesc->propertyGrid->mLabelWidth);
-
-			for(std::list<PropertyGridItem*>::iterator it = mItems.begin(); it != mItems.end(); ++it)
+			// Skip Sections
+			if((*it)->getClass() != "PropertyGridSection")
 				(*it)->notifyWidthUpdated();
 		}
 	}
@@ -445,7 +485,7 @@ namespace QuickGUI
 		if(mDesc->propertygriditem_selected)
 			brush->drawSkinElement(Rect(backgroundPosition,mWidgetDesc->widget_dimensions.size),mSkinType->getSkinElement(SELECTED));
 
-		Ogre::ColourValue prevColor = brush->getColour();
+		ColourValue prevColor = brush->getColour();
 		Rect prevClipRegion = brush->getClipRegion();
 
 		// Draw Icon
@@ -559,7 +599,7 @@ namespace QuickGUI
 	{
 		const MouseEventArgs& mea = dynamic_cast<const MouseEventArgs&>(args);
 
-		if(mea.button == MB_Left)
+		if((mea.button == MB_Left) && !(mea.autoRepeat))
 			toggle();
 	}
 
@@ -602,5 +642,16 @@ namespace QuickGUI
 	{
 		for(std::list<PropertyGridItem*>::iterator it = mItems.begin(); it != mItems.end(); ++it)
 			(*it)->updateFieldSkin();
+	}
+
+	void PropertyGridSection::updateLabelWidth(float width)
+	{
+		if(width > mLabelWidth)
+		{
+			mLabelWidth = width;
+
+			for(std::list<PropertyGridItem*>::iterator it = mItems.begin(); it != mItems.end(); ++it)
+				(*it)->notifyWidthUpdated();
+		}
 	}
 }

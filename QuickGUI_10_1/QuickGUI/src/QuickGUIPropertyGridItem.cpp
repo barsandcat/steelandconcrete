@@ -1,7 +1,37 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUIPropertyGridItem.h"
 #include "QuickGUIPropertyGrid.h"
 #include "QuickGUIButton.h"
 #include "QuickGUIPropertyGridSection.h"
+#include "QuickGUIDescManager.h"
 
 namespace QuickGUI
 {
@@ -33,8 +63,16 @@ namespace QuickGUI
 
 	void PropertyGridItemDesc::serialize(SerialBase* b)
 	{
-		b->IO("Index",&propertygriditem_index);
-		b->IO("Selected",&propertygriditem_selected);
+		// Retrieve default values to supply to the serial reader/writer.
+		// The reader uses the default value if the given property does not exist.
+		// The writer does not write out the given property if it has the same value as the default value.
+		PropertyGridItemDesc* defaultValues = DescManager::getSingleton().createDesc<PropertyGridItemDesc>(getClass(),"temp");
+		defaultValues->resetToDefault();
+
+		b->IO("Index",		&propertygriditem_index,	defaultValues->propertygriditem_index);
+		b->IO("Selected",	&propertygriditem_selected, defaultValues->propertygriditem_selected);
+
+		DescManager::getSingleton().destroyDesc(defaultValues);
 
 		TextUserDesc::serialize(b);
 	}
@@ -92,23 +130,23 @@ namespace QuickGUI
 			mDesc->propertygriditem_selected = false;
 	}
 
-	Widget* PropertyGridItem::findWidgetAtPoint(const Point& p, bool ignoreDisabled)
+	Widget* PropertyGridItem::findWidgetAtPoint(const Point& p, unsigned int queryFilter, bool ignoreDisabled)
 	{
 		for(std::map<Ogre::String,Widget*>::iterator it = mComponents.begin(); it != mComponents.end(); ++it)
 		{
-			Widget* w = (*it).second->findWidgetAtPoint(p,ignoreDisabled);
+			Widget* w = (*it).second->findWidgetAtPoint(p,queryFilter,ignoreDisabled);
 			if(w != NULL)
 				return w;
 		}
 
-		for(std::vector<Widget*>::reverse_iterator it = mChildren.rbegin(); it != mChildren.rend(); ++it)
+		for(std::list<Widget*>::reverse_iterator it = mChildren.rbegin(); it != mChildren.rend(); ++it)
 		{
-			Widget* w = (*it)->findWidgetAtPoint(p,ignoreDisabled);
+			Widget* w = (*it)->findWidgetAtPoint(p,queryFilter,ignoreDisabled);
 			if(w != NULL)
 				return w;
 		}
 
-		return Widget::findWidgetAtPoint(p,ignoreDisabled);
+		return Widget::findWidgetAtPoint(p,queryFilter,ignoreDisabled);
 	}
 
 	float PropertyGridItem::getBranchHeight()
@@ -243,6 +281,7 @@ namespace QuickGUI
 		{
 			float itemHeight = mDesc->propertyGrid->getItemHeight();
 			setHeight(itemHeight);
+			setWidth(itemHeight + dynamic_cast<PropertyGridSection*>(mParentWidget)->mLabelWidth + mLabelBuffer + mDesc->propertyGrid->getPropertyFieldWidth());
 
 			if(mFieldWidget != NULL)
 				mFieldWidget->setHeight(itemHeight);
@@ -254,14 +293,15 @@ namespace QuickGUI
 		if(mDesc->propertyGrid != NULL)
 		{
 			// Get the width of the label area of the Item: Icon + PropertyGridLabelWidth.
-			float labeWidth = mDesc->propertyGrid->getItemHeight() + mDesc->propertyGrid->mLabelWidth;
-			setWidth(labeWidth + mDesc->propertyGrid->getPropertyFieldWidth());
+			float labelWidth = dynamic_cast<PropertyGridSection*>(getParentWidget())->mLabelWidth;
+			float fieldWidth = mDesc->propertyGrid->getPropertyFieldWidth();
+			setWidth(labelWidth + fieldWidth);
 
 			if(mFieldWidget != NULL)
 			{
 				Point p = mFieldWidget->getPosition();
-				mFieldWidget->setPosition(Point(labeWidth,p.y));
-				mFieldWidget->setWidth(mDesc->propertyGrid->getPropertyFieldWidth());
+				mFieldWidget->setPosition(Point(labelWidth,p.y));
+				mFieldWidget->setWidth(fieldWidth);
 			}
 		}
 	}
@@ -280,7 +320,7 @@ namespace QuickGUI
 		if(mDesc->propertygriditem_selected)
 			brush->drawSkinElement(Rect(backgroundPosition,mWidgetDesc->widget_dimensions.size),mSkinType->getSkinElement(SELECTED));
 
-		Ogre::ColourValue prevColor = brush->getColour();
+		ColourValue prevColor = brush->getColour();
 		Rect prevClipRegion = brush->getClipRegion();
 
 		// Draw Icon
@@ -386,7 +426,9 @@ namespace QuickGUI
 	void PropertyGridItem::onTextChanged()
 	{
 		if(mDesc->propertyGrid != NULL)
-			mDesc->propertyGrid->updateLabelWidth(getTextWidth());
+		{
+			dynamic_cast<PropertyGridSection*>(getParentWidget())->updateLabelWidth(mDesc->propertyGrid->getItemHeight() + getTextWidth() + mLabelBuffer);
+		}
 	}
 
 	void PropertyGridItem::select()

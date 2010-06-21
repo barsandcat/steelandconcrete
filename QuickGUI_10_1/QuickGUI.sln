@@ -13,6 +13,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QuickGUIEditor", "QuickGUIE
 		{AEF9FF05-DF46-4982-94C4-F8C99A3938A1} = {AEF9FF05-DF46-4982-94C4-F8C99A3938A1}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AnimationViewer", "AnimationViewer\AnimationViewer.vcproj", "{79CAF320-2FB4-46A8-AD58-5D670EA1B731}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AEF9FF05-DF46-4982-94C4-F8C99A3938A1} = {AEF9FF05-DF46-4982-94C4-F8C99A3938A1}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -31,6 +36,10 @@ Global
 		{2918F57D-BAF1-4286-9AB9-844310D1166D}.Debug|Win32.Build.0 = Debug|Win32
 		{2918F57D-BAF1-4286-9AB9-844310D1166D}.Release|Win32.ActiveCfg = Release|Win32
 		{2918F57D-BAF1-4286-9AB9-844310D1166D}.Release|Win32.Build.0 = Release|Win32
+		{79CAF320-2FB4-46A8-AD58-5D670EA1B731}.Debug|Win32.ActiveCfg = Debug|Win32
+		{79CAF320-2FB4-46A8-AD58-5D670EA1B731}.Debug|Win32.Build.0 = Debug|Win32
+		{79CAF320-2FB4-46A8-AD58-5D670EA1B731}.Release|Win32.ActiveCfg = Release|Win32
+		{79CAF320-2FB4-46A8-AD58-5D670EA1B731}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

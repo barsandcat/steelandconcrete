@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUITabControl.h"
 #include "QuickGUISkinDefinitionManager.h"
 #include "QuickGUITabPage.h"
@@ -224,7 +253,7 @@ namespace QuickGUI
 
 		bool updatePages = false;
 		float yPos = 0;
-		int count = 0;
+		unsigned int count = 0;
 		for(std::list<TabPage*>::iterator it = mTabs.begin(); it != mTabs.end(); ++it)
 		{
 			if(updatePages)
@@ -283,7 +312,7 @@ namespace QuickGUI
 		brush->setClipRegion(clientClipRegion);
 
 		// draw children - draw all of the unselected TabPages first, followed by the selected TabPage
-		for(std::vector<Widget*>::reverse_iterator it = mChildren.rbegin(); it != mChildren.rend(); ++it)
+		for(std::list<Widget*>::reverse_iterator it = mChildren.rbegin(); it != mChildren.rend(); ++it)
 		{
 			TabPage* tp = dynamic_cast<TabPage*>(*it);
 
@@ -298,16 +327,16 @@ namespace QuickGUI
 		brush->setClipRegion(prevClipRegion);
 	}
 
-	Widget* TabControl::findWidgetAtPoint(const Point& p, bool ignoreDisabled)
+	Widget* TabControl::findWidgetAtPoint(const Point& p, unsigned int queryFilter, bool ignoreDisabled)
 	{
-		Widget* w = Widget::findWidgetAtPoint(p,ignoreDisabled);
+		Widget* w = Widget::findWidgetAtPoint(p,queryFilter,ignoreDisabled);
 
 		if(w == NULL)
 			return NULL;
 
 		for(std::map<Ogre::String,Widget*>::iterator it = mComponents.begin(); it != mComponents.end(); ++it)
 		{
-			Widget* w = (*it).second->findWidgetAtPoint(p,ignoreDisabled);
+			Widget* w = (*it).second->findWidgetAtPoint(p,queryFilter,ignoreDisabled);
 			if(w != NULL)
 				return w;
 		}
@@ -321,14 +350,14 @@ namespace QuickGUI
 			// Check selected tab first.
 			if(mSelectedTab != NULL)
 			{
-				w = mSelectedTab->findWidgetAtPoint(p,ignoreDisabled);
+				w = mSelectedTab->findWidgetAtPoint(p,queryFilter,ignoreDisabled);
 				if(w != NULL)
 					return w;
 			}
 
-			for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+			for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 			{
-				Widget* w = (*it)->findWidgetAtPoint(p,ignoreDisabled);
+				Widget* w = (*it)->findWidgetAtPoint(p,queryFilter,ignoreDisabled);
 				if(w != NULL)
 					return w;
 			}
@@ -407,6 +436,32 @@ namespace QuickGUI
 		brush->drawSkinElement(Rect(mTexturePosition,mWidgetDesc->widget_dimensions.size),mSkinElement);
 	}
 
+	void TabControl::removeEventHandlers(void* obj)
+	{
+		ContainerWidget::removeEventHandlers(obj);
+
+		for(int index = 0; index < TABCONTROL_EVENT_COUNT; ++index)
+		{
+			std::vector<EventHandlerSlot*> updatedList;
+			std::vector<EventHandlerSlot*> listToCleanup;
+
+			for(std::vector<EventHandlerSlot*>::iterator it = mTabControlEventHandlers[index].begin(); it != mTabControlEventHandlers[index].end(); ++it)
+			{
+				if((*it)->getClass() == obj)
+					listToCleanup.push_back((*it));
+				else
+					updatedList.push_back((*it));
+			}
+
+			mTabControlEventHandlers[index].clear();
+			for(std::vector<EventHandlerSlot*>::iterator it = updatedList.begin(); it != updatedList.end(); ++it)
+				mTabControlEventHandlers[index].push_back((*it));
+
+			for(std::vector<EventHandlerSlot*>::iterator it = listToCleanup.begin(); it != listToCleanup.end(); ++it)
+				OGRE_DELETE_T((*it),EventHandlerSlot,Ogre::MEMCATEGORY_GENERAL);
+		}
+	}
+
 	void TabControl::reorderTabPage(TabPage* p, int index)
 	{
 		std::list<TabPage*>::iterator it = std::find(mTabs.begin(),mTabs.end(),p);
@@ -464,6 +519,29 @@ namespace QuickGUI
 		fireTabControlEvent(TABCONTROL_EVENT_SELECTION_CHANGED,args);
 	}
 
+	void TabControl::selectTabPage(int index)
+	{
+		if((index < 0) || (index >= static_cast<int>(mTabs.size())))
+			return;
+
+		int count = 0;
+		for(std::list<TabPage*>::iterator it = mTabs.begin(); it != mTabs.end(); ++it)
+		{
+			if(count == index)
+			{
+				mSelectedTab = (*it);
+				mSelectedTab->select();
+			}
+			else
+				(*it)->deselect();
+
+			++count;
+		}
+
+		WidgetEventArgs args(this);
+		fireTabControlEvent(TABCONTROL_EVENT_SELECTION_CHANGED,args);
+	}
+
 	void TabControl::setTabHeight(float height)
 	{
 		mDesc->tabcontrol_tabHeight = height;
@@ -484,6 +562,14 @@ namespace QuickGUI
 	void TabControl::setTabReordering(bool reordering)
 	{
 		mDesc->tabcontrol_tabReordering = reordering;
+	}
+
+	void TabControl::setTransparencyPicking(bool transparencyPicking)
+	{
+		ContainerWidget::setTransparencyPicking(transparencyPicking);
+
+		for(std::list<TabPage*>::iterator it = mTabs.begin(); it != mTabs.end(); ++it)
+			(*it)->setTransparencyPicking(transparencyPicking);
 	}
 
 	void TabControl::updateTabPositions()

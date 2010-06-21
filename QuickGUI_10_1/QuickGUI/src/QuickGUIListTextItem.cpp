@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUIListTextItem.h"
 #include "QuickGUISkinDefinitionManager.h"
 #include "QuickGUISkinDefinition.h"
@@ -25,8 +54,6 @@ namespace QuickGUI
 	void ListTextItemDesc::resetToDefault()
 	{
 		ListItemDesc::resetToDefault();
-
-		listtextitem_verticalTextAlignment = TEXT_ALIGNMENT_VERTICAL_CENTER;
 		
 		TextUserDesc::resetToDefault();
 	}
@@ -34,8 +61,6 @@ namespace QuickGUI
 	void ListTextItemDesc::serialize(SerialBase* b)
 	{
 		ListItemDesc::serialize(b);
-
-		b->IO("VerticalTextAlignment",&listtextitem_verticalTextAlignment);
 
 		TextUserDesc::serialize(b);
 	}
@@ -63,7 +88,6 @@ namespace QuickGUI
 		// Make a copy of the Text Desc.  The Text object will
 		// modify it directly, which is used for serialization.
 		mDesc->textDesc = ltid->textDesc;
-		mDesc->listtextitem_verticalTextAlignment = ltid->listtextitem_verticalTextAlignment;
 		TextUser::_initialize(this,mDesc);
 	}
 
@@ -80,26 +104,8 @@ namespace QuickGUI
 
 		brush->drawSkinElement(Rect(mTexturePosition,mWidgetDesc->widget_dimensions.size),mSkinElement);
 
-		Ogre::ColourValue prevColor = brush->getColour();
+		ColourValue prevColor = brush->getColour();
 		Rect prevClipRegion = brush->getClipRegion();
-
-		// Center Text Vertically
-
-		float textHeight = mText->getTextHeight();
-		float yPos = 0;
-
-		switch(mDesc->listtextitem_verticalTextAlignment)
-		{
-		case TEXT_ALIGNMENT_VERTICAL_BOTTOM:
-			yPos = mDesc->widget_dimensions.size.height - mSkinElement->getBorderThickness(BORDER_BOTTOM) - textHeight;
-			break;
-		case TEXT_ALIGNMENT_VERTICAL_CENTER:
-			yPos = (mDesc->widget_dimensions.size.height / 2.0) - (textHeight / 2.0);
-			break;
-		case TEXT_ALIGNMENT_VERTICAL_TOP:
-			yPos = mSkinElement->getBorderThickness(BORDER_TOP);
-			break;
-		}
 
 		// Clip to client dimensions
 		Rect clipRegion(mClientDimensions);
@@ -109,12 +115,21 @@ namespace QuickGUI
 
 		// Adjust Rect to Text drawing region
 		clipRegion = mClientDimensions;
-		clipRegion.position.y = yPos;
 		clipRegion.translate(mTexturePosition);		
 
 		mText->draw(clipRegion.position);
 
 		brush->setClipRegion(prevClipRegion);
 		brush->setColor(prevColor);
+	}
+
+	void ListTextItem::updateClientDimensions()
+	{
+		ListItem::updateClientDimensions();
+
+		if(mText != NULL)
+			mText->setAllottedHeight(mClientDimensions.size.height);
+
+		redraw();
 	}
 }

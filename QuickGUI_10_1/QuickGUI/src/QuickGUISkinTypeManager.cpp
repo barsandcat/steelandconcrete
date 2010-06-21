@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUISkinTypeManager.h"
 #include "QuickGUISkinDefinitionManager.h"
 #include "QuickGUISkinDefinition.h"
@@ -75,36 +104,47 @@ namespace QuickGUI
 
 	void SkinTypeManager::loadTypes()
 	{
+		if(!ScriptReader::getSingletonPtr()->mSkinTypesNeedUpdate)
+			return;
+
 		Ogre::Log* defaultLog = Ogre::LogManager::getSingletonPtr()->getDefaultLog();
 		if(defaultLog != NULL)
 			defaultLog->logMessage("[QGUI] Loading SkinClass and SkinType definitions...");
 
-		SerialReader* sr = SerialReader::getSingletonPtr();
-		std::list<ScriptDefinition*> defList = ScriptReader::getSingleton().getDefinitions("SkinClass");
+		// Clear all Skin Types.  The Skin Type library will be rebuilt.
+		for(std::map<Ogre::String, std::map<Ogre::String,SkinType*> >::iterator it1 = mSkinTypes.begin(); it1 != mSkinTypes.end(); ++it1)
+		{
+			for(std::map<Ogre::String,SkinType*>::iterator it2 = (*it1).second.begin(); it2 != (*it1).second.end(); ++it2)
+				OGRE_DELETE_T((*it2).second,SkinType,Ogre::MEMCATEGORY_GENERAL);
 
+			(*it1).second.clear();
+		}
+		mSkinTypes.clear();
+		// Finished Clearing the SkinType library
+
+		SerialReader* sr = SerialReader::getSingletonPtr();
+		std::list<ScriptDefinition*> defList = ScriptReader::getSingleton().getDefinitions();
+
+		// Iterate through all found skin definitions, and create SkinTypes for them
 		for(std::list<ScriptDefinition*>::iterator it = defList.begin(); it != defList.end(); ++it)
 		{
-			Ogre::String className = (*it)->getID();
+			Ogre::String className = (*it)->getType();
+			Ogre::String skinTypeName = (*it)->getID();
+
+			sr->begin(className,skinTypeName);
 
 			if(defaultLog != NULL)
-				defaultLog->logMessage("[QGUI] SkinClass definition for class \"" + className + "\" Found.  Looking for SkinTypes...");
+				defaultLog->logMessage("[QGUI] Skin definition for class \"" + className + "\" with ID \"" + skinTypeName + "\" found.");
 
-			sr->begin("SkinClass",className);
-			
-			std::list<ScriptDefinition*> types = (*it)->getDefinitions();
-			for(std::list<ScriptDefinition*>::iterator typeItr = types.begin(); typeItr != types.end(); ++typeItr)
-			{
-				SkinType* newType = OGRE_NEW_T(SkinType,Ogre::MEMCATEGORY_GENERAL)(className,(*typeItr)->getID());
-				newType->serialize(SerialReader::getSingletonPtr());
-
-				if(defaultLog != NULL)
-					defaultLog->logMessage("[QGUI] Adding SkinType definition \"" + newType->getName() + "\"...");
-
-				addSkinType(className,(*typeItr)->getID(),newType);
-			}
+			SkinType* newType = OGRE_NEW_T(SkinType,Ogre::MEMCATEGORY_GENERAL)(className,skinTypeName);
+			newType->serialize(SerialReader::getSingletonPtr());
 
 			sr->end();
+
+			addSkinType(className,skinTypeName,newType);
 		}
+
+		ScriptReader::getSingletonPtr()->mSkinTypesNeedUpdate = false;
 	}
 
 	void SkinTypeManager::saveTypesToFile(const Ogre::String& fileName)

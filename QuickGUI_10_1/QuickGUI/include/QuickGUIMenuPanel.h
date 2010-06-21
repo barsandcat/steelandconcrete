@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #ifndef QUICKGUIMENUPANEL_H
 #define QUICKGUIMENUPANEL_H
 
@@ -64,6 +93,17 @@ namespace QuickGUI
 		void addWidget(Widget* w);
 
 		/**
+		* Destroys a Widget from this MenuPanel.
+		* NOTE: The widget is pushed onto a free list and deleted on next update (draw)
+		*/
+		void destroyWidget(Widget* w);
+		/**
+		* Destroys all Widgets from MenuPanel.
+		* NOTE: The widgets are pushed onto a free list and deleted on next update (draw)
+		*/
+		void destroyWidgets();
+
+		/**
 		* Returns the opacity of this widget as it is drawn on screen.
 		* NOTE: Includes parent opacity if widget_inheritOpacity is true.
 		*/
@@ -73,9 +113,18 @@ namespace QuickGUI
 		*/
 		virtual Ogre::String getClass();
 		/**
+		* Returns the width of the Left and Right borders (added together).
+		*/
+		float getLeftRightBorderWidth();
+		/**
 		* Returns the owner of the MenuPanel.
 		*/
 		Widget* getOwner();
+
+		/**
+		* Returns true if this widget is a child of the widget given.
+		*/
+		virtual bool isChildOf(Widget* w);
 
 		/**
 		* Removes a Widget from this MenuPanel.
@@ -95,6 +144,10 @@ namespace QuickGUI
 		* Recalculate Client widget_dimensions, relative to Widget's actual widget_dimensions.
 		*/
 		virtual void updateClientDimensions();
+		/**
+		* Recalculate Virtual dimensions, the minimum size required to encapsulate the client area and all Child widgets.
+		*/
+		virtual void updateVirtualDimensions();
 
 	protected:
 		MenuPanel(const Ogre::String& name);

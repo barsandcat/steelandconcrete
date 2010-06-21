@@ -13,11 +13,10 @@ namespace QuickGUIEditor
 		Root::getSingleton().setDefaultFontName("micross.12");
 
 		SheetDesc* sd = DescManager::getSingleton().getDefaultSheetDesc();
-		sd->widget_dimensions.size = Size(800,600);
+		sd->widget_dimensions.size = Size(1024,768);
 
 		mSheet = SheetManager::getSingleton().createSheet(sd);
 		mGUIManager->setActiveSheet(mSheet);
-		mMouseCursor = mGUIManager->getMouseCursor();
 
 		FactoryManager::getSingleton().getWidgetFactory()->setNamePrefix("QuickGUIEditor.");
 		_createContextMenu();
@@ -115,6 +114,11 @@ namespace QuickGUIEditor
 		mCreateMenuHandler = OGRE_NEW_T(EventHandlerPointer<MainForm>,Ogre::MEMCATEGORY_GENERAL)(&MainForm::onCreateMenu,this);
 		mCreateMenuItem->addWidgetEventHandler(WIDGET_EVENT_MOUSE_BUTTON_DOWN,mCreateMenuHandler);
 
+		mCreateMenuImageItemItem = createMenu->createTextItem("MenuImageItem");
+		mCreateMenuImageItemItem->addWidgetEventHandler(WIDGET_EVENT_ENABLED_CHANGED,&MainForm::onMenuItemEnableChanged,this);
+		mCreateMenuImageItemHandler = OGRE_NEW_T(EventHandlerPointer<MainForm>,Ogre::MEMCATEGORY_GENERAL)(&MainForm::onCreateMenuImageItem,this);
+		mCreateMenuImageItemItem->addWidgetEventHandler(WIDGET_EVENT_MOUSE_BUTTON_DOWN,mCreateMenuImageItemHandler);
+
 		mCreateMenuTextItemItem = createMenu->createTextItem("MenuTextItem");
 		mCreateMenuTextItemItem->addWidgetEventHandler(WIDGET_EVENT_ENABLED_CHANGED,&MainForm::onMenuItemEnableChanged,this);
 		mCreateMenuTextItemHandler = OGRE_NEW_T(EventHandlerPointer<MainForm>,Ogre::MEMCATEGORY_GENERAL)(&MainForm::onCreateMenuTextItem,this);
@@ -180,28 +184,29 @@ namespace QuickGUIEditor
 
 	void MainForm::hideCreateMenuItems()
 	{
-		mCreateButtonItem->setEnabled(false);
-		mCreateComboBoxItem->setEnabled(false);
-		mCreateConsoleItem->setEnabled(false);
-		mCreateContextMenuItem->setEnabled(false);
-		mCreateHScrollBarItem->setEnabled(false);
-		mCreateImageItem->setEnabled(false);
-		mCreateLabelItem->setEnabled(false);
-		mCreateListItem->setEnabled(false);
-		mCreateListImageItemItem->setEnabled(false);
-		mCreateListTextItemItem->setEnabled(false);
-		mCreateMenuItem->setEnabled(false);
-		mCreateMenuTextItemItem->setEnabled(false);
-		mCreatePanelItem->setEnabled(false);
-		mCreateProgressBarItem->setEnabled(false);
-		mCreateRadioButtonItem->setEnabled(false);
-		mCreateTabControlItem->setEnabled(false);
-		mCreateTextAreaItem->setEnabled(false);
-		mCreateTextBoxItem->setEnabled(false);
-		mCreateToolBarItem->setEnabled(false);
-		mCreateTreeViewItem->setEnabled(false);
-		mCreateVScrollBarItem->setEnabled(false);
-		mCreateWindowItem->setEnabled(false);
+		mCreateButtonItem->setVisible(false);
+		mCreateComboBoxItem->setVisible(false);
+		mCreateConsoleItem->setVisible(false);
+		mCreateContextMenuItem->setVisible(false);
+		mCreateHScrollBarItem->setVisible(false);
+		mCreateImageItem->setVisible(false);
+		mCreateLabelItem->setVisible(false);
+		mCreateListItem->setVisible(false);
+		mCreateListImageItemItem->setVisible(false);
+		mCreateListTextItemItem->setVisible(false);
+		mCreateMenuItem->setVisible(false);
+		mCreateMenuImageItemItem->setVisible(false);
+		mCreateMenuTextItemItem->setVisible(false);
+		mCreatePanelItem->setVisible(false);
+		mCreateProgressBarItem->setVisible(false);
+		mCreateRadioButtonItem->setVisible(false);
+		mCreateTabControlItem->setVisible(false);
+		mCreateTextAreaItem->setVisible(false);
+		mCreateTextBoxItem->setVisible(false);
+		mCreateToolBarItem->setVisible(false);
+		mCreateTreeViewItem->setVisible(false);
+		mCreateVScrollBarItem->setVisible(false);
+		mCreateWindowItem->setVisible(false);
 	}
 
 	void MainForm::showCreateMenuItems(Widget* w)
@@ -210,44 +215,45 @@ namespace QuickGUIEditor
 
 		if(isA<List>(w) || isA<ComboBox>(w))
 		{
-			mCreateListImageItemItem->setEnabled(true);
-			mCreateListTextItemItem->setEnabled(true);
+			mCreateListImageItemItem->setVisible(true);
+			mCreateListTextItemItem->setVisible(true);
 		}
 
 		if(isA<Panel>(w))
 		{
-			mCreateButtonItem->setEnabled(true);
-			mCreateComboBoxItem->setEnabled(true);
-			mCreateConsoleItem->setEnabled(true);
-			mCreateHScrollBarItem->setEnabled(true);
-			mCreateImageItem->setEnabled(true);
-			mCreateLabelItem->setEnabled(true);
-			mCreateListItem->setEnabled(true);
-			mCreatePanelItem->setEnabled(true);
-			mCreateProgressBarItem->setEnabled(true);
-			mCreateRadioButtonItem->setEnabled(true);
-			mCreateTabControlItem->setEnabled(true);
-			mCreateTextAreaItem->setEnabled(true);
-			mCreateTextBoxItem->setEnabled(true);
-			mCreateToolBarItem->setEnabled(true);
-			mCreateTreeViewItem->setEnabled(true);
-			mCreateVScrollBarItem->setEnabled(true);
+			mCreateButtonItem->setVisible(true);
+			mCreateComboBoxItem->setVisible(true);
+			mCreateConsoleItem->setVisible(true);
+			mCreateHScrollBarItem->setVisible(true);
+			mCreateImageItem->setVisible(true);
+			mCreateLabelItem->setVisible(true);
+			mCreateListItem->setVisible(true);
+			mCreatePanelItem->setVisible(true);
+			mCreateProgressBarItem->setVisible(true);
+			mCreateRadioButtonItem->setVisible(true);
+			mCreateTabControlItem->setVisible(true);
+			mCreateTextAreaItem->setVisible(true);
+			mCreateTextBoxItem->setVisible(true);
+			mCreateToolBarItem->setVisible(true);
+			mCreateTreeViewItem->setVisible(true);
+			mCreateVScrollBarItem->setVisible(true);
 		}
 
 		if(isA<Sheet>(w))
 		{
-			mCreateWindowItem->setEnabled(true);
+			mCreateWindowItem->setVisible(true);
 		}
 
 		if(isA<ToolBar>(w))
 		{
-			mCreateMenuItem->setEnabled(true);
+			mCreateMenuItem->setVisible(true);
 		}
 
 		if(isA<Menu>(w))
 		{
-			mCreateMenuItem->setEnabled(true);
-			mCreateMenuTextItemItem->setEnabled(true);
+			mCreateMenuItem->setVisible(true);
+			mCreateMenuImageItemItem->setVisible(true);
+			mCreateMenuTextItemItem->setVisible(true);
 		}
 	}
 
@@ -281,8 +287,11 @@ namespace QuickGUIEditor
 
 	void MainForm::_createPropertyGrid(TabPage* p)
 	{
+		Root::getSingleton().setDefaultFontName("micross.14");
+
 		PropertyGrid* propertyGrid = p->createPropertyGrid(Rect(Point::ZERO,p->getPageClientArea()));
 		propertyGrid->setSkinType("QuickGUIEditor");
+		propertyGrid->setTransparencyPicking(false);
 		propertyGrid->setHorizontalAnchor(ANCHOR_HORIZONTAL_LEFT_RIGHT);
 		propertyGrid->setVerticalAnchor(ANCHOR_VERTICAL_TOP_BOTTOM);
 
@@ -377,6 +386,8 @@ namespace QuickGUIEditor
 		s = propertyGrid->createSection("Button");
 
 		s = propertyGrid->createSection("CheckBox");
+
+		Root::getSingleton().setDefaultFontName("micross.12");
 	}
 
 	void MainForm::_createPropertyWindow()
@@ -385,21 +396,26 @@ namespace QuickGUIEditor
 		wd->resetToDefault();
 		wd->textDesc.horizontalTextAlignment = TEXT_ALIGNMENT_HORIZONTAL_CENTER;
 		wd->widget_visible = false;
-		//wd->widget_dimensions = Rect(600,0,200,450);
-		wd->widget_dimensions = Rect(200,0,400,450);
+		wd->widget_dimensions = Rect(0,0,325,450);
 		wd->widget_minSize = Size(200,450);
 		wd->widget_relativeOpacity = 0.8;
 		mPropertyWindow = mSheet->createWindow(wd);
+		mPropertyWindow->center();
 
 		Rect r = mPropertyWindow->getClientDimensions();
 
 		float tabControlHeight = 250;
 
 		TabControl* tc = mPropertyWindow->createTabControl(Rect(0,0,r.size.width,tabControlHeight));
+		tc->setSkinType("editor");
+		tc->setTransparencyPicking(false);
 		tc->setHorizontalAnchor(ANCHOR_HORIZONTAL_LEFT_RIGHT);
 		tc->setVerticalAnchor(ANCHOR_VERTICAL_TOP_BOTTOM);
 		TabPage* propertyPage = tc->createTabPage("Properties");
+		propertyPage->setSkinType("editor");
 		TabPage* eventPage = tc->createTabPage("Events");
+		eventPage->setSkinType("editor");
+		tc->selectTabPage(0);
 
 		_createPropertyGrid(propertyPage);
 		
@@ -467,9 +483,6 @@ namespace QuickGUIEditor
 
 		Rect r = mLoadWindow->getClientDimensions();
 
-		// Set allotted width so Horizontal text centering occurs
-		mLoadWindow->setTitleBarTextAllottedWidth(r.size.width);
-
 		// Create the Save/Cancel buttons
 		float buttonWidth = r.size.width / 3.0;
 		float buttonHeight = 30;
@@ -493,7 +506,7 @@ namespace QuickGUIEditor
 		mLoadWindowFileName->addWidgetEventHandler(WIDGET_EVENT_KEY_DOWN,&MainForm::onKeyDownInTextBox,this);
 
 		mLoadWindowErrorMessage = mLoadWindow->createLabel(Rect(0,mLoadWindowFileName->getPosition().y + mLoadWindowFileName->getHeight(),r.size.width,50));
-		mLoadWindowErrorMessage->setTextColor(Ogre::ColourValue::Red);
+		mLoadWindowErrorMessage->setTextColor(ColourValue::Red);
 		mLoadWindowErrorMessage->setVisible(false);
 	}
 
@@ -544,9 +557,6 @@ namespace QuickGUIEditor
 		mSaveWindow = mSheet->createModalWindow(mwd);
 
 		Rect r = mSaveWindow->getClientDimensions();
-
-		// Set allotted width so Horizontal text centering occurs
-		mSaveWindow->setTitleBarTextAllottedWidth(r.size.width);
 
 		// Create the Save/Cancel buttons
 		float buttonWidth = r.size.width / 3.0;
@@ -638,19 +648,19 @@ namespace QuickGUIEditor
 		if(widget == NULL)
 			return false;
 
-		if(widget->isChildOf(mContextMenu))
+		if((widget == mContextMenu) || widget->isChildOf(mContextMenu))
 			return true;
 
-		if(widget->isChildOf(mPropertyWindow))
+		if((widget == mPropertyWindow) || widget->isChildOf(mPropertyWindow))
 			return true;
 
-		if(widget->isChildOf(mOverwriteWindow))
+		if((widget == mOverwriteWindow) || widget->isChildOf(mOverwriteWindow))
 			return true;
 
-		if(widget->isChildOf(mSaveWindow))
+		if((widget == mSaveWindow) || widget->isChildOf(mSaveWindow))
 			return true;
 
-		if(widget->isChildOf(mLoadWindow))
+		if((widget == mLoadWindow) || widget->isChildOf(mLoadWindow))
 			return true;
 
 		return false;
@@ -785,7 +795,7 @@ namespace QuickGUIEditor
 		{
 			Point position = mContextMenu->getPosition();
 			if(!mContextMenu->getVisible())
-				position = mMouseCursor->getPosition();
+				position = mGUIManager->getMouseCursorPosition();
 				
 			overloadWidgetAttributes(p->createButton(position - getScreenPosition(mSelectedWidget)));
 		}
@@ -804,7 +814,7 @@ namespace QuickGUIEditor
 		{
 			Point position = mContextMenu->getPosition();
 			if(!mContextMenu->getVisible())
-				position = mMouseCursor->getPosition();
+				position = mGUIManager->getMouseCursorPosition();
 				
 			overloadWidgetAttributes(p->createComboBox(position - getScreenPosition(mSelectedWidget)));
 		}
@@ -823,7 +833,7 @@ namespace QuickGUIEditor
 		{
 			Point position = mContextMenu->getPosition();
 			if(!mContextMenu->getVisible())
-				position = mMouseCursor->getPosition();
+				position = mGUIManager->getMouseCursorPosition();
 				
 			overloadWidgetAttributes(p->createConsole(position - getScreenPosition(mSelectedWidget)));
 		}
@@ -842,7 +852,7 @@ namespace QuickGUIEditor
 		{
 			Point position = mContextMenu->getPosition();
 			if(!mContextMenu->getVisible())
-				position = mMouseCursor->getPosition();
+				position = mGUIManager->getMouseCursorPosition();
 			
 			overloadWidgetAttributes(s->createContextMenu(position - getScreenPosition(mSelectedWidget)));
 		}
@@ -861,7 +871,7 @@ namespace QuickGUIEditor
 		{
 			Point position = mContextMenu->getPosition();
 			if(!mContextMenu->getVisible())
-				position = mMouseCursor->getPosition();
+				position = mGUIManager->getMouseCursorPosition();
 			
 			overloadWidgetAttributes(p->createHScrollBar(position - getScreenPosition(mSelectedWidget)));
 		}
@@ -880,7 +890,7 @@ namespace QuickGUIEditor
 		{
 			Point position = mContextMenu->getPosition();
 			if(!mContextMenu->getVisible())
-				position = mMouseCursor->getPosition();
+				position = mGUIManager->getMouseCursorPosition();
 			
 			overloadWidgetAttributes(p->createImage(position - getScreenPosition(mSelectedWidget)));
 		}
@@ -899,7 +909,7 @@ namespace QuickGUIEditor
 		{
 			Point position = mContextMenu->getPosition();
 			if(!mContextMenu->getVisible())
-				position = mMouseCursor->getPosition();
+				position = mGUIManager->getMouseCursorPosition();
 			
 			overloadWidgetAttributes(p->createLabel(position - getScreenPosition(mSelectedWidget)));
 		}
@@ -918,7 +928,7 @@ namespace QuickGUIEditor
 		{
 			Point position = mContextMenu->getPosition();
 			if(!mContextMenu->getVisible())
-				position = mMouseCursor->getPosition();
+				position = mGUIManager->getMouseCursorPosition();
 			
 			overloadWidgetAttributes(p->createList(position - getScreenPosition(mSelectedWidget)));
 		}
@@ -995,6 +1005,24 @@ namespace QuickGUIEditor
 		mContextMenu->setVisible(false);
 	}
 
+	void MainForm::onCreateMenuImageItem(const QuickGUI::EventArgs& args)
+	{
+		Ogre::String className = mSelectedWidget->getClass();
+		if(className == "Menu")
+		{
+			overloadWidgetAttributes(dynamic_cast<Menu*>(mSelectedWidget)->createImageItem());
+		}
+		else if(className == "ContextMenu")
+		{
+			overloadWidgetAttributes(dynamic_cast<ContextMenu*>(mSelectedWidget)->createImageItem());
+		}
+
+		mLastExecutedHandler = mCreateMenuTextItemHandler;
+
+		// Make sure ContextMenu is hidden
+		mContextMenu->setVisible(false);
+	}
+
 	void MainForm::onCreateMenuTextItem(const QuickGUI::EventArgs& args)
 	{
 		Ogre::String className = mSelectedWidget->getClass();
@@ -1021,7 +1049,7 @@ namespace QuickGUIEditor
 		{
 			Point position = mContextMenu->getPosition();
 			if(!mContextMenu->getVisible())
-				position = mMouseCursor->getPosition();
+				position = mGUIManager->getMouseCursorPosition();
 			
 			overloadWidgetAttributes(p->createPanel(position - getScreenPosition(mSelectedWidget)));
 		}
@@ -1040,7 +1068,7 @@ namespace QuickGUIEditor
 		{
 			Point position = mContextMenu->getPosition();
 			if(!mContextMenu->getVisible())
-				position = mMouseCursor->getPosition();
+				position = mGUIManager->getMouseCursorPosition();
 			
 			overloadWidgetAttributes(p->createProgressBar(position - getScreenPosition(mSelectedWidget)));
 		}
@@ -1059,7 +1087,7 @@ namespace QuickGUIEditor
 		{
 			Point position = mContextMenu->getPosition();
 			if(!mContextMenu->getVisible())
-				position = mMouseCursor->getPosition();
+				position = mGUIManager->getMouseCursorPosition();
 			
 			overloadWidgetAttributes(p->createRadioButton(position - getScreenPosition(mSelectedWidget)));
 		}
@@ -1078,7 +1106,7 @@ namespace QuickGUIEditor
 		{
 			Point position = mContextMenu->getPosition();
 			if(!mContextMenu->getVisible())
-				position = mMouseCursor->getPosition();
+				position = mGUIManager->getMouseCursorPosition();
 			
 			overloadWidgetAttributes(p->createTabControl(position - getScreenPosition(mSelectedWidget)));
 		}
@@ -1097,7 +1125,7 @@ namespace QuickGUIEditor
 		{
 			Point position = mContextMenu->getPosition();
 			if(!mContextMenu->getVisible())
-				position = mMouseCursor->getPosition();
+				position = mGUIManager->getMouseCursorPosition();
 			
 			overloadWidgetAttributes(p->createTextBox(position - getScreenPosition(mSelectedWidget)));
 		}
@@ -1116,7 +1144,7 @@ namespace QuickGUIEditor
 		{
 			Point position = mContextMenu->getPosition();
 			if(!mContextMenu->getVisible())
-				position = mMouseCursor->getPosition();
+				position = mGUIManager->getMouseCursorPosition();
 			
 			overloadWidgetAttributes(p->createTextArea(position - getScreenPosition(mSelectedWidget)));
 		}
@@ -1135,7 +1163,7 @@ namespace QuickGUIEditor
 		{
 			Point position = mContextMenu->getPosition();
 			if(!mContextMenu->getVisible())
-				position = mMouseCursor->getPosition();
+				position = mGUIManager->getMouseCursorPosition();
 			
 			overloadWidgetAttributes(p->createToolBar(position - getScreenPosition(mSelectedWidget)));
 		}
@@ -1154,7 +1182,7 @@ namespace QuickGUIEditor
 		{
 			Point position = mContextMenu->getPosition();
 			if(!mContextMenu->getVisible())
-				position = mMouseCursor->getPosition();
+				position = mGUIManager->getMouseCursorPosition();
 			
 			overloadWidgetAttributes(p->createTreeView(position - getScreenPosition(mSelectedWidget)));
 		}
@@ -1173,7 +1201,7 @@ namespace QuickGUIEditor
 		{
 			Point position = mContextMenu->getPosition();
 			if(!mContextMenu->getVisible())
-				position = mMouseCursor->getPosition();
+				position = mGUIManager->getMouseCursorPosition();
 			
 			overloadWidgetAttributes(p->createVScrollBar(position - getScreenPosition(mSelectedWidget)));
 		}
@@ -1192,7 +1220,7 @@ namespace QuickGUIEditor
 		{
 			Point position = mContextMenu->getPosition();
 			if(!mContextMenu->getVisible())
-				position = mMouseCursor->getPosition();
+				position = mGUIManager->getMouseCursorPosition();
 			
 			overloadWidgetAttributes(s->createWindow(position - getScreenPosition(mSelectedWidget)));
 		}
@@ -1252,9 +1280,9 @@ namespace QuickGUIEditor
 		if(wea->widget != NULL)
 		{
 			if(!wea->widget->getEnabled())
-				dynamic_cast<MenuTextItem*>(wea->widget)->setTextColor(Ogre::ColourValue(0.5,0.5,0.5));
+				dynamic_cast<MenuTextItem*>(wea->widget)->setTextColor(ColourValue(0.5,0.5,0.5));
 			else
-				dynamic_cast<MenuTextItem*>(wea->widget)->setTextColor(Ogre::ColourValue::White);
+				dynamic_cast<MenuTextItem*>(wea->widget)->setTextColor(ColourValue::White);
 		}
 	}
 

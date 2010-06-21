@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUIContainerWidget.h"
 #include "QuickGUIBrush.h"
 #include "QuickGUISerialWriter.h"
@@ -42,15 +71,23 @@ namespace QuickGUI
 	{
 		ComponentWidgetDesc::serialize(b);
 
-		b->IO("ClipChildrenToDimensions",&containerwidget_clipChildrenToDimensions);
-		b->IO("HorzBarScrollPercent",&containerwidget_horzBarScrollPercent);
-		b->IO("HorzButtonScrollPercent",&containerwidget_horzButtonScrollPercent);
-		b->IO("SupportScrolling",&containerwidget_supportScrollBars);
-		b->IO("ScrollBarThickness",&containerwidget_scrollBarThickness);
-		b->IO("VertBarScrollPercent",&containerwidget_vertBarScrollPercent);
-		b->IO("VertButtonScrollPercent",&containerwidget_vertButtonScrollPercent);
-		b->IO("XScrollOffset",&containerwidget_xScrollOffset);
-		b->IO("YScrollOffset",&containerwidget_yScrollOffset);
+		// Retrieve default values to supply to the serial reader/writer.
+		// The reader uses the default value if the given property does not exist.
+		// The writer does not write out the given property if it has the same value as the default value.
+		ContainerWidgetDesc* defaultValues = DescManager::getSingleton().createDesc<ContainerWidgetDesc>(getClass(),"temp");
+		defaultValues->resetToDefault();
+
+		b->IO("ClipChildrenToDimensions",	&containerwidget_clipChildrenToDimensions,	defaultValues->containerwidget_clipChildrenToDimensions);
+		b->IO("HorzBarScrollPercent",		&containerwidget_horzBarScrollPercent,		defaultValues->containerwidget_horzBarScrollPercent);
+		b->IO("HorzButtonScrollPercent",	&containerwidget_horzButtonScrollPercent,	defaultValues->containerwidget_horzButtonScrollPercent);
+		b->IO("SupportScrolling",			&containerwidget_supportScrollBars,			defaultValues->containerwidget_supportScrollBars);
+		b->IO("ScrollBarThickness",			&containerwidget_scrollBarThickness,		defaultValues->containerwidget_scrollBarThickness);
+		b->IO("VertBarScrollPercent",		&containerwidget_vertBarScrollPercent,		defaultValues->containerwidget_vertBarScrollPercent);
+		b->IO("VertButtonScrollPercent",	&containerwidget_vertButtonScrollPercent,	defaultValues->containerwidget_vertButtonScrollPercent);
+		b->IO("XScrollOffset",				&containerwidget_xScrollOffset,				defaultValues->containerwidget_xScrollOffset);
+		b->IO("YScrollOffset",				&containerwidget_yScrollOffset,				defaultValues->containerwidget_yScrollOffset);
+
+		DescManager::getSingleton().destroyDesc(defaultValues);
 	}
 
 	ContainerWidget::ContainerWidget(const Ogre::String& name) :
@@ -65,7 +102,7 @@ namespace QuickGUI
 	ContainerWidget::~ContainerWidget()
 	{
 		WidgetFactory* f = FactoryManager::getSingleton().getWidgetFactory();
-		for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 			f->destroyInstance((*it));
 	}
 
@@ -77,14 +114,13 @@ namespace QuickGUI
 		if(!mDesc->containerwidget_supportScrollBars)
 			return;
 
-		bool clientDimensionsNeedToBeUpdated = false;
-
-		if(static_cast<int>(mVirtualSize.width) == static_cast<int>(mClientDimensions.size.width))
+		if(abs(static_cast<int>(mVirtualSize.width) - static_cast<int>(mClientDimensions.size.width)) <= 1)
 		{
 			if(mHScrollBar->getVisible())
 			{
 				mHScrollBar->setVisible(false);
-				clientDimensionsNeedToBeUpdated = true;
+				if(mVScrollBar->getVisible())
+					mVScrollBar->setHeight(mClientDimensions.size.height);
 			}
 		}
 		else
@@ -92,16 +128,21 @@ namespace QuickGUI
 			if(!mHScrollBar->getVisible())
 			{
 				mHScrollBar->setVisible(true);
-				clientDimensionsNeedToBeUpdated = true;
+				if(mVScrollBar->getVisible())
+				{
+					mVScrollBar->setHeight(mClientDimensions.size.height - mHScrollBar->getHeight());
+					mHScrollBar->setWidth(mClientDimensions.size.width - mVScrollBar->getWidth());
+				}
 			}
 		}
 
-		if(static_cast<int>(mVirtualSize.height) == static_cast<int>(mClientDimensions.size.height))
+		if(abs(static_cast<int>(mVirtualSize.height) - static_cast<int>(mClientDimensions.size.height)) <= 1)
 		{
 			if(mVScrollBar->getVisible())
 			{
 				mVScrollBar->setVisible(false);
-				clientDimensionsNeedToBeUpdated = true;
+				if(mHScrollBar->getVisible())
+					mHScrollBar->setWidth(mClientDimensions.size.width);
 			}
 		}
 		else
@@ -109,12 +150,13 @@ namespace QuickGUI
 			if(!mVScrollBar->getVisible())
 			{
 				mVScrollBar->setVisible(true);
-				clientDimensionsNeedToBeUpdated = true;
+				if(mHScrollBar->getVisible())
+				{
+					mHScrollBar->setWidth(mClientDimensions.size.width - mVScrollBar->getWidth());
+					mVScrollBar->setHeight(mClientDimensions.size.height - mHScrollBar->getHeight());
+				}
 			}
 		}
-
-		if(clientDimensionsNeedToBeUpdated)
-			updateClientDimensions();
 	}
 
 	void ContainerWidget::_initialize(WidgetDesc* d)
@@ -168,7 +210,7 @@ namespace QuickGUI
 	{
 		ComponentWidget::_setGUIManager(gm);
 
-		for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 			(*it)->_setGUIManager(gm);
 	}
 
@@ -176,7 +218,7 @@ namespace QuickGUI
 	{
 		ComponentWidget::_setSheet(sheet);
 
-		for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 			(*it)->_setSheet(sheet);
 	}
 
@@ -199,9 +241,9 @@ namespace QuickGUI
 		// Offset horizontal view according to percentage:
 		//   At 0.0, horizontal view is not offset at all.
 		//   At 1.0, horizontal view is offset to maximum.
-		mDesc->containerwidget_xScrollOffset = (percentage * maxViewDisplacement);
+		mDesc->containerwidget_xScrollOffset = static_cast<unsigned int>(percentage * maxViewDisplacement);
 
-		for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 		{
 			(*it)->setScrollX(mDesc->containerwidget_xScrollOffset);
 		}
@@ -226,9 +268,9 @@ namespace QuickGUI
 		// Offset vertical view according to percentage:
 		//   At 0.0, vertical view is not offset at all.
 		//   At 1.0, vertical view is offset to maximum.
-		mDesc->containerwidget_yScrollOffset = (percentage * maxViewDisplacement);
+		mDesc->containerwidget_yScrollOffset = static_cast<unsigned int>(percentage * maxViewDisplacement);
 
-		for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 		{
 			(*it)->setScrollY(mDesc->containerwidget_yScrollOffset);
 		}
@@ -275,7 +317,7 @@ namespace QuickGUI
 
 	void ContainerWidget::destroyChildren()
 	{
-		for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 		{
 			(*it)->_setSheet(NULL);
 			(*it)->_setGUIManager(NULL);
@@ -284,12 +326,15 @@ namespace QuickGUI
 			if(mDesc->containerwidget_supportScrollBars)
 			{
 				// Register Event Handler for when child is resized, moved, or visibility changed
-				(*it)->removeEventHandler(WIDGET_EVENT_VISIBLE_CHANGED,this);
-				(*it)->removeEventHandler(WIDGET_EVENT_SIZE_CHANGED,this);
-				(*it)->removeEventHandler(WIDGET_EVENT_POSITION_CHANGED,this);
+				(*it)->removeWidgetEventHandler(WIDGET_EVENT_VISIBLE_CHANGED,this);
+				(*it)->removeWidgetEventHandler(WIDGET_EVENT_SIZE_CHANGED,this);
+				(*it)->removeWidgetEventHandler(WIDGET_EVENT_POSITION_CHANGED,this);
 			}
 
-
+			if(mDesc->sheet != NULL)
+				mDesc->sheet->mFreeList.push_back((*it));
+			else
+				Root::getSingleton().mGUIManagers.begin()->second->mFreeList.push_back((*it));
 		}
 		mChildren.clear();
 
@@ -339,7 +384,7 @@ namespace QuickGUI
 			brush->setClipRegion(prevClipRegion);
 
 		// draw children
-		for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 			(*it)->draw();
 
 		// Set clipping region to widget bounds
@@ -356,7 +401,7 @@ namespace QuickGUI
 	Widget* ContainerWidget::findFirstWidgetOfClass(const Ogre::String& className)
 	{
 		Widget* w = NULL;
-		for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 		{
 			w = (*it)->findFirstWidgetOfClass(className);
 			if(w != NULL)
@@ -369,7 +414,7 @@ namespace QuickGUI
 	Widget* ContainerWidget::findWidget(const Ogre::String& name)
 	{
 		Widget* w;
-		for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 		{
 			w = (*it)->findWidget(name);
 			if(w != NULL)
@@ -379,10 +424,13 @@ namespace QuickGUI
 		return ComponentWidget::findWidget(name);
 	}
 
-	Widget* ContainerWidget::findWidgetAtPoint(const Point& p, bool ignoreDisabled)
+	Widget* ContainerWidget::findWidgetAtPoint(const Point& p, unsigned int queryFilter, bool ignoreDisabled)
 	{
 		// If we are not widget_visible, return NULL
 		if(!mWidgetDesc->widget_visible)
+			return NULL;
+
+		if((mWidgetDesc->widget_queryFlags & queryFilter) == 0)
 			return NULL;
 
 		// If we ignore disabled and this widget is !widget_enabled, return NULL
@@ -401,13 +449,26 @@ namespace QuickGUI
 		if(!Rect(mTexturePosition,mWidgetDesc->widget_dimensions.size).isPointWithinBounds(p))
 			return NULL;
 
-		// Get the client bounds as displayed on the texture
-		Rect clientBounds(mTexturePosition,mClientDimensions.size);
-		clientBounds.translate(mClientDimensions.position);
-
-		if(clientBounds.isPointWithinBounds(p))
+		// Determine if we're clipping our search region to the client dimensions or not
+		if(mDesc->containerwidget_clipChildrenToDimensions)
 		{
-			for(std::vector<Widget*>::reverse_iterator it = mChildren.rbegin(); it != mChildren.rend(); ++it)
+			// Get the client bounds as displayed on the texture
+			Rect clientBounds(mTexturePosition,mClientDimensions.size);
+			clientBounds.translate(mClientDimensions.position);
+
+			if(clientBounds.isPointWithinBounds(p))
+			{
+				for(std::list<Widget*>::reverse_iterator it = mChildren.rbegin(); it != mChildren.rend(); ++it)
+				{
+					Widget* w = (*it)->findWidgetAtPoint(p,ignoreDisabled);
+					if(w != NULL)
+						return w;
+				}
+			}
+		}
+		else
+		{
+			for(std::list<Widget*>::reverse_iterator it = mChildren.rbegin(); it != mChildren.rend(); ++it)
 			{
 				Widget* w = (*it)->findWidgetAtPoint(p,ignoreDisabled);
 				if(w != NULL)
@@ -439,9 +500,9 @@ namespace QuickGUI
 		return this;
 	}
 
-	std::vector<Widget*> ContainerWidget::getChildren()
+	std::list<Widget*> ContainerWidget::getChildren()
 	{
-		std::vector<Widget*> list(mChildren);
+		std::list<Widget*> list(mChildren);
 
 		return list;
 	}
@@ -454,6 +515,32 @@ namespace QuickGUI
 	bool ContainerWidget::isContainerWidget()
 	{
 		return true;
+	}
+
+	void ContainerWidget::moveChildToEndOfDrawQueue(Widget* child)
+	{
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		{
+			if((*it) == child)
+			{
+				mChildren.erase(it);
+				mChildren.push_back(child);
+				break;
+			}
+		}
+	}
+
+	void ContainerWidget::moveChildToFrontOfDrawQueue(Widget* child)
+	{
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		{
+			if((*it) == child)
+			{
+				mChildren.erase(it);
+				mChildren.push_front(child);
+				break;
+			}
+		}
 	}
 
 	void ContainerWidget::onChildVisibilityChanged(const EventArgs& args)
@@ -485,9 +572,9 @@ namespace QuickGUI
 		const MouseEventArgs& mea = dynamic_cast<const MouseEventArgs&>(args);
 
 		if(mea.wheelChange > 0)
-			mVScrollBar->scrollUp();
+			mVScrollBar->setPercentage(mVScrollBar->getPercentage() - mAmountToScrollOnWheel);
 		else
-			mVScrollBar->scrollDown();
+			mVScrollBar->setPercentage(mVScrollBar->getPercentage() + mAmountToScrollOnWheel);
 	}
 
 	void ContainerWidget::onVerticalScroll(const EventArgs& args)
@@ -497,7 +584,7 @@ namespace QuickGUI
 
 	void ContainerWidget::removeChild(Widget* w)
 	{
-		std::vector<Widget*>::iterator it = std::find(mChildren.begin(),mChildren.end(),w);
+		std::list<Widget*>::iterator it = std::find(mChildren.begin(),mChildren.end(),w);
 		if(it == mChildren.end())
 			throw Exception(Exception::ERR_INVALID_CHILD,"Widget \"" + w->getName() + "\" is not a child of widget \"" + getName() + "\"","ContainerWidget::removeChild");
 
@@ -510,9 +597,9 @@ namespace QuickGUI
 		if(mDesc->containerwidget_supportScrollBars)
 		{
 			// Register Event Handler for when child is resized, moved, or visibility changed
-			w->removeEventHandler(WIDGET_EVENT_VISIBLE_CHANGED,this);
-			w->removeEventHandler(WIDGET_EVENT_SIZE_CHANGED,this);
-			w->removeEventHandler(WIDGET_EVENT_POSITION_CHANGED,this);
+			w->removeWidgetEventHandler(WIDGET_EVENT_VISIBLE_CHANGED,this);
+			w->removeWidgetEventHandler(WIDGET_EVENT_SIZE_CHANGED,this);
+			w->removeWidgetEventHandler(WIDGET_EVENT_POSITION_CHANGED,this);
 
 			updateVirtualDimensions();
 		}
@@ -520,7 +607,7 @@ namespace QuickGUI
 
 	void ContainerWidget::removeChildren()
 	{
-		for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 		{
 			(*it)->_setSheet(NULL);
 			(*it)->_setGUIManager(NULL);
@@ -529,15 +616,10 @@ namespace QuickGUI
 			if(mDesc->containerwidget_supportScrollBars)
 			{
 				// Register Event Handler for when child is resized, moved, or visibility changed
-				(*it)->removeEventHandler(WIDGET_EVENT_VISIBLE_CHANGED,this);
-				(*it)->removeEventHandler(WIDGET_EVENT_SIZE_CHANGED,this);
-				(*it)->removeEventHandler(WIDGET_EVENT_POSITION_CHANGED,this);
+				(*it)->removeWidgetEventHandler(WIDGET_EVENT_VISIBLE_CHANGED,this);
+				(*it)->removeWidgetEventHandler(WIDGET_EVENT_SIZE_CHANGED,this);
+				(*it)->removeWidgetEventHandler(WIDGET_EVENT_POSITION_CHANGED,this);
 			}
-
-			if(mDesc->sheet != NULL)
-				mDesc->sheet->mFreeList.push_back((*it));
-			else
-				Root::getSingleton().mGUIManagers.begin()->second->mFreeList.push_back((*it));
 		}
 		mChildren.clear();
 
@@ -545,9 +627,20 @@ namespace QuickGUI
 			updateVirtualDimensions();
 	}
 
+	void ContainerWidget::removeEventHandlers(void* obj)
+	{
+		Widget::removeEventHandlers(obj);
+
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+			(*it)->removeEventHandlers(obj);
+
+		for(std::map<Ogre::String,Widget*>::iterator it = mComponents.begin(); it != mComponents.end(); ++it)
+			(*it).second->removeEventHandlers(obj);
+	}
+
 	void ContainerWidget::scrollChildIntoView(Widget* child)
 	{
-		std::vector<Widget*>::iterator it = std::find(mChildren.begin(),mChildren.end(),child);
+		std::list<Widget*>::iterator it = std::find(mChildren.begin(),mChildren.end(),child);
 		if(it == mChildren.end())
 			throw Exception(Exception::ERR_INVALID_CHILD,"Widget \"" + child->getName() + "\" is not a child of widget \"" + getName() + "\"","ContainerWidget::scrollChildIntoView");
 
@@ -635,7 +728,7 @@ namespace QuickGUI
 			// If we are writing, we need to serialize children
 			else
 			{
-				for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+				for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 				{
 					(*it)->serialize(b);
 				}
@@ -681,8 +774,8 @@ namespace QuickGUI
 
 		for(std::map<Ogre::String,Widget*>::iterator it = mComponents.begin(); it != mComponents.end(); ++it)
 		{
-			if(mSkinType->hasComponentType((*it).first))
-				(*it).second->setSkinType(mSkinType->getComponentType((*it).first)->typeName);
+			if(mSkinType->hasSkinReference((*it).first))
+				(*it).second->setSkinType(mSkinType->getSkinReference((*it).first)->typeName);
 		}
 	}
 
@@ -716,7 +809,7 @@ namespace QuickGUI
 		ComponentWidget::setParent(parent);
 
 		// Update children's window reference via setParent
-		for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 		{
 			(*it)->setParent(this);
 		}
@@ -739,27 +832,23 @@ namespace QuickGUI
 			mClientDimensions.size.width = mWidgetDesc->widget_dimensions.size.width - (mSkinElement->getBorderThickness(BORDER_LEFT) + mSkinElement->getBorderThickness(BORDER_RIGHT));
 			mClientDimensions.size.height = mWidgetDesc->widget_dimensions.size.height - (mSkinElement->getBorderThickness(BORDER_TOP) + mSkinElement->getBorderThickness(BORDER_BOTTOM));
 
-			// First we want to adjust the client dimensions, depending on whether the scrollbars are visible.
-
-			// If HorizontalScrollBar is visible, update its dimensions and update client dimensions
-			if(mHScrollBar && mHScrollBar->getVisible())
-				mClientDimensions.size.height -= mHScrollBar->getHeight();
-
-			// If VerticalScrollBar is visible, update its dimensions and update client dimensions
-			if(mVScrollBar && mVScrollBar->getVisible())
-				mClientDimensions.size.width -= mVScrollBar->getWidth();
-
-			// Now that client dimensions are fully updated, we can adjust ScrollBars position and size
+			// Adjust ScrollBars position and size
 
 			if(mHScrollBar)
 			{
-				mHScrollBar->setWidth(mClientDimensions.size.width);
+				if(mVScrollBar != NULL && mVScrollBar->getVisible())
+					mHScrollBar->setWidth(mClientDimensions.size.width - mVScrollBar->getWidth());
+				else
+					mHScrollBar->setWidth(mClientDimensions.size.width);
 				mHScrollBar->setPosition(Point(mSkinElement->getBorderThickness(BORDER_LEFT),mWidgetDesc->widget_dimensions.size.height - mSkinElement->getBorderThickness(BORDER_BOTTOM) - mDesc->containerwidget_scrollBarThickness));
 			}
 
 			if(mVScrollBar)
 			{
-				mVScrollBar->setHeight(mClientDimensions.size.height);
+				if(mHScrollBar != NULL && mHScrollBar->getVisible())
+					mVScrollBar->setHeight(mClientDimensions.size.height - mHScrollBar->getHeight());
+				else
+					mVScrollBar->setHeight(mClientDimensions.size.height);
 				mVScrollBar->setPosition(Point(mWidgetDesc->widget_dimensions.size.width - mSkinElement->getBorderThickness(BORDER_RIGHT) - mVScrollBar->getWidth(),mSkinElement->getBorderThickness(BORDER_TOP)));
 			}
 		}
@@ -780,7 +869,7 @@ namespace QuickGUI
 		}
 
 		// Handle Anchoring for children
-		for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 		{
 			applyAnchor((*it),difference);
 		}
@@ -810,7 +899,7 @@ namespace QuickGUI
 		}
 
 		// Update children screen dimensions, must be done after client and screen rect have been calculated
-		for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 		{
 			(*it)->updateTexturePosition();
 		}
@@ -828,7 +917,7 @@ namespace QuickGUI
 
 		Point tempPoint;
 		Size tempSize;
-		for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 		{
 			if((*it)->getVisible())
 			{
@@ -841,6 +930,8 @@ namespace QuickGUI
 					mVirtualSize.height = (tempPoint.y + tempSize.height);
 			}
 		}
+
+		mAmountToScrollOnWheel = (mClientDimensions.size.height / (mVirtualSize.height - mClientDimensions.size.height));
 
 		// Set Slider width/height
 		mHScrollBar->setSliderWidth((mClientDimensions.size.width / mVirtualSize.width) * mHScrollBar->getSliderBounds().size.width);

@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUIManager.h"
 #include "QuickGUISerialReader.h"
 #include "QuickGUIRoot.h"
@@ -25,6 +54,11 @@ namespace QuickGUI
 		clickTime = 90;
 		doubleClickTime = 400;
 		tripleClickTime = 400;
+		supportAutoRepeat = true;
+		timeToAutoRepeat = 0.6;
+		autoRepeatInterval = 0.17;
+		injectNumPadKeyCodesAsUnicodeChars = true;
+		processNumPadKeyCodes = true;
 
 		// by default, we support codepoints 9, and 32-166.
 		supportedCodePoints.insert(9);
@@ -33,9 +67,12 @@ namespace QuickGUI
 	}
 
 	GUIManager::GUIManager(GUIManagerDesc& d) :
+		mAutoRepeatEnableTimer(NULL),
+		mAutoRepeatInjectionTimer(NULL),
 		mDraggingWidget(false),
 		mActiveSheet(0),
 		mButtonMask(0),
+		mKeyDownEvent(false),
 		mWidgetUnderMouseCursor(0),
 		mLastClickedWidget(0),
 		mDownOnBorder(false),
@@ -46,6 +83,11 @@ namespace QuickGUI
 		mViewportHeight(0)
 	{
 		mGUIManagerDesc.name = d.name;
+		mGUIManagerDesc.clickTime = d.clickTime;
+		mGUIManagerDesc.doubleClickTime = d.doubleClickTime;
+		mGUIManagerDesc.tripleClickTime = d.tripleClickTime;
+		mGUIManagerDesc.determineClickEvents = d.determineClickEvents;
+		mGUIManagerDesc.scrollLastClicked = d.scrollLastClicked;
 
 		mBrush = Brush::getSingletonPtr();
 
@@ -72,7 +114,15 @@ namespace QuickGUI
 		else
 			setViewport(d.viewport);
 
+		// Make sure the brush has usable default values
+		mBrush->updateSceneManager(mGUIManagerDesc.sceneManager);
+		mBrush->updateViewport(mGUIManagerDesc.viewport);
+		mBrush->setRenderTarget(mGUIManagerDesc.viewport);
+		mBrush->prepareToDraw();
+
 		setSupportedCodePoints(d.supportedCodePoints);
+		setInjectNumPadKeyCodesAsUnicodeChars(d.injectNumPadKeyCodesAsUnicodeChars);
+		setProcessNumPadKeyCodes(d.processNumPadKeyCodes);
 
 		d.mouseCursorDesc.guiManager = this;
 		mMouseCursor = OGRE_NEW_T(MouseCursor,Ogre::MEMCATEGORY_GENERAL)(d.mouseCursorDesc);
@@ -87,6 +137,10 @@ namespace QuickGUI
 		mHoverTimer->setCallback(&GUIManager::hoverTimerCallback,this);
 
 		setRenderQueueID(d.queueID);
+
+		enableAutoInjection(d.supportAutoRepeat);
+		setAutoRepeatInterval(d.autoRepeatInterval);
+		setTimeToAutoRepeat(d.timeToAutoRepeat);
 	}
 
 	GUIManager::~GUIManager()
@@ -110,6 +164,28 @@ namespace QuickGUI
 		for(int i = 0; i < NUM_MOUSE_BUTTONS; ++i)
 		{
 			mMouseButtonDown[i] = NULL;
+		}
+	}
+
+	void GUIManager::autoRepeatEnableCallback()
+	{
+		if(mAutoRepeatInjectionTimer != NULL)
+		{
+			mAutoRepeatInjectionTimer->reset();
+			mAutoRepeatInjectionTimer->start();
+		}
+	}
+
+	void GUIManager::autoRepeatInjectionCallback()
+	{
+		if(mKeyDownEvent)
+		{
+			injectChar(mLastKeyInjection.codepoint);
+			injectKeyDown(mLastKeyInjection.scancode);
+		}
+		else
+		{
+			injectMouseButtonDown(mLastMouseButtonInjection.button);
 		}
 	}
 
@@ -187,14 +263,8 @@ namespace QuickGUI
 
 	void GUIManager::draw()
 	{
-		SheetManager::getSingleton().cleanup();
-
 		// Clear out freelist
-		while(!mFreeList.empty())
-		{
-			FactoryManager::getSingleton().getWidgetFactory()->destroyInstance(mFreeList.front());
-			mFreeList.pop_front();
-		}
+		SheetManager::getSingleton().cleanup();
 
 		mBrush->updateSceneManager(mGUIManagerDesc.sceneManager);
 		mBrush->updateViewport(mGUIManagerDesc.viewport);
@@ -213,9 +283,53 @@ namespace QuickGUI
 		mBrush->restore();
 	}
 
+	void GUIManager::enableAutoInjection(bool enable)
+	{
+		mGUIManagerDesc.supportAutoRepeat = enable;
+
+		if(!enable)
+		{
+			TimerManager::getSingleton().destroyTimer(mAutoRepeatEnableTimer);
+			mAutoRepeatEnableTimer = NULL;
+
+			TimerManager::getSingleton().destroyTimer(mAutoRepeatInjectionTimer);
+			mAutoRepeatInjectionTimer = NULL;
+		}
+		else
+		{
+			if(mAutoRepeatEnableTimer == NULL)
+			{
+				TimerDesc td;
+				td.repeat = false;
+				td.timePeriod = 0.6;
+				mAutoRepeatEnableTimer = TimerManager::getSingleton().createTimer(td);
+				mAutoRepeatEnableTimer->setCallback(&GUIManager::autoRepeatEnableCallback,this);
+			}
+
+			if(mAutoRepeatInjectionTimer == NULL)
+			{
+				TimerDesc td;
+				td.repeat = true;
+				td.timePeriod = 0.17;
+				mAutoRepeatInjectionTimer = TimerManager::getSingleton().createTimer(td);
+				mAutoRepeatInjectionTimer->setCallback(&GUIManager::autoRepeatInjectionCallback,this);
+			}
+		}
+	}
+
 	Sheet* GUIManager::getActiveSheet()
 	{
 		return mActiveSheet;
+	}
+
+	bool GUIManager::getInjectNumPadKeyCodesAsUnicodeChars()
+	{
+		return mGUIManagerDesc.injectNumPadKeyCodesAsUnicodeChars;
+	}
+
+	bool GUIManager::getProcessNumPadKeyCodes()
+	{
+		return mGUIManagerDesc.processNumPadKeyCodes;
 	}
 
 	Widget* GUIManager::getLastClickedWidget()
@@ -228,9 +342,19 @@ namespace QuickGUI
 		return mMouseCursor;
 	}
 
+	Point GUIManager::getMouseCursorPosition()
+	{
+		return mMouseCursor->getPosition();
+	}
+
 	Ogre::String GUIManager::getName()
 	{
 		return mGUIManagerDesc.name;
+	}
+
+	bool GUIManager::getNumLock()
+	{
+		return ((mKeyModifiers & NUMLOCK) != 0);
 	}
 
 	bool GUIManager::getScrollLastClicked()
@@ -248,11 +372,24 @@ namespace QuickGUI
 		return mGUIManagerDesc.viewport;
 	}
 
+	Size GUIManager::getViewportSize()
+	{
+		if(mGUIManagerDesc.viewport == NULL)
+			return Size::ZERO;
+		else
+			return Size(mGUIManagerDesc.viewport->getActualWidth(),mGUIManagerDesc.viewport->getActualHeight());
+	}
+
 	bool GUIManager::injectChar(Ogre::UTFString::unicode_char c)
 	{
 		// do nothing if no active sheet is in use
 		if(mActiveSheet == NULL)
 			return false;
+
+		// We store the codepoint regardless of whether its supported, for the auto repeat functionality to work properly.
+		// Otherwise the last known codepoint will be the last *supported* codepoint, in which case holding the Left arrow key
+		// could result in a stream of 'a's to be entered in the TextBox, as an example.
+		mLastKeyInjection.codepoint = c;
 
 		if(!isSupportedCodePoint(c))
 			return false;
@@ -262,47 +399,91 @@ namespace QuickGUI
 		if((w == NULL) || !(w->getEnabled()))
 			return false;
 
-		KeyEventArgs args(w);
-		args.keyModifiers = mKeyModifiers;
-		args.keyMask = mButtonMask;
-		args.codepoint = c;
+		// Update the structure holding our info about the last key injected, and use it to fire the event.
+		mKeyDownEvent = true;
+		mLastKeyInjection.widget = w;
+		mLastKeyInjection.keyModifiers = mKeyModifiers;
+		mLastKeyInjection.keyMask = mButtonMask;
+		if((mAutoRepeatInjectionTimer != NULL) && (mAutoRepeatInjectionTimer->isUpdating()))
+			mLastKeyInjection.autoRepeat = true;
+		else
+			mLastKeyInjection.autoRepeat = false;
 
-		w->fireWidgetEvent(WIDGET_EVENT_CHARACTER_KEY,args);
+		w->fireWidgetEvent(WIDGET_EVENT_CHARACTER_KEY,mLastKeyInjection);
+
+		// Enable Auto Repeat, which will begin after some time
+		if((mAutoRepeatEnableTimer != NULL) && (mAutoRepeatInjectionTimer != NULL) && (!mAutoRepeatInjectionTimer->isUpdating()))
+		{
+			mAutoRepeatEnableTimer->reset();
+			mAutoRepeatEnableTimer->start();
+		}
 
 		return true;
 	}
 
 	bool GUIManager::injectKeyDown(const KeyCode& kc)
 	{
+		KeyCode c = kc;
+		if(mGUIManagerDesc.processNumPadKeyCodes)
+			c = processNumPadKeyCode(kc);
+
 		// do nothing if no active sheet is in use
 		if(mActiveSheet == NULL)
 			return false;
 
 		// Turn on modifier
-		if( (kc == KC_LCONTROL) || (kc == KC_RCONTROL) )
+		if( (c == KC_LCONTROL) || (c == KC_RCONTROL) )
 			mKeyModifiers |= CTRL;
-		else if( (kc == KC_LSHIFT) || (kc == KC_RSHIFT) )
+		else if( (c == KC_LSHIFT) || (c == KC_RSHIFT) )
 			mKeyModifiers |= SHIFT;
-		else if( (kc == KC_LMENU) || (kc == KC_RMENU) )
+		else if( (c == KC_LMENU) || (c == KC_RMENU) )
 			mKeyModifiers |= ALT;
+		else if( (c == KC_NUMLOCK) )
+		{
+			// Toggle NumLock
+			setNumLock(!getNumLock());
+		}
+
+		// OIS does not interpret NumPad keys correctly.  Translate NumPad KeyCodes
+		// to unicode characters and inject them, if GUIManager has been configured to do so.
+		if(mGUIManagerDesc.injectNumPadKeyCodesAsUnicodeChars)
+			translateNumPadKeyCodesToUnicodeChars(c);
 
 		Widget* w = mActiveSheet->getKeyboardListener();
 
 		if((w == NULL) || !(w->getEnabled()))
 			return false;
 
-		KeyEventArgs args(w);
-		args.scancode = kc;
-		args.keyMask = mButtonMask;
-		args.keyModifiers = mKeyModifiers;
+		// Update the structure holding our info about the last key injected, and use it to fire the event.
+		mKeyDownEvent = true;
+		mLastKeyInjection.widget = w;
+		mLastKeyInjection.scancode = c;
+		mLastKeyInjection.keyMask = mButtonMask;
+		mLastKeyInjection.keyModifiers = mKeyModifiers;
+		if((mAutoRepeatInjectionTimer != NULL) && (mAutoRepeatInjectionTimer->isUpdating()))
+			mLastKeyInjection.autoRepeat = true;
+		else
+			mLastKeyInjection.autoRepeat = false;
 
-		w->fireWidgetEvent(WIDGET_EVENT_KEY_DOWN,args);
+		w->fireWidgetEvent(WIDGET_EVENT_KEY_DOWN,mLastKeyInjection);
+
+		// Enable Auto Repeat, which will begin after some time
+		if((mAutoRepeatEnableTimer != NULL) && (mAutoRepeatInjectionTimer != NULL) && (!mAutoRepeatInjectionTimer->isUpdating()))
+		{
+			mAutoRepeatEnableTimer->reset();
+			mAutoRepeatEnableTimer->start();
+		}
 
 		return true;
 	}
 
 	bool GUIManager::injectKeyUp(const KeyCode& kc)
 	{
+		if(mAutoRepeatEnableTimer != NULL)
+			mAutoRepeatEnableTimer->stop();
+		if(mAutoRepeatInjectionTimer != NULL)
+			mAutoRepeatInjectionTimer->stop();
+
 		// do nothing if no active sheet is in use
 		if(mActiveSheet == NULL)
 			return false;
@@ -377,16 +558,22 @@ namespace QuickGUI
 		if((mLastClickedWidget != NULL) && (mLastClickedWidget->getConsumeKeyboardEvents()))
 			mActiveSheet->setKeyboardListener(mLastClickedWidget);
 
-		// Create MouseEventArgs, for use with any fired events
-		MouseEventArgs args(mWidgetUnderMouseCursor);
-		args.position = mMouseCursor->getPosition();
-		args.button = button;
-		args.buttonMask = mButtonMask;
-		args.keyModifiers = mKeyModifiers;
+		// Update the structure holding our info about the last mouse button down injected, and use it to fire the event.
+		mKeyDownEvent = false;
+		mLastMouseButtonInjection.widget = mWidgetUnderMouseCursor;
+		mLastMouseButtonInjection.position = mMouseCursor->getPosition();
+		mLastMouseButtonInjection.button = button;
+		mLastMouseButtonInjection.buttonMask = mButtonMask;
+		mLastMouseButtonInjection.keyModifiers = mKeyModifiers;
+		mLastMouseButtonInjection.eventType = MOUSE_EVENT_BUTTON_DOWN;
+		if((mAutoRepeatInjectionTimer != NULL) && (mAutoRepeatInjectionTimer->isUpdating()))
+			mLastMouseButtonInjection.autoRepeat = true;
+		else
+			mLastMouseButtonInjection.autoRepeat = false;
 
 		// Get the Window under the mouse cursor.  If it is not the Sheet, but a child Window,
 		// make sure it has focus. (bring to front)
-		Window* win = mActiveSheet->findWindowAtPoint(args.position);
+		Window* win = mActiveSheet->findWindowAtPoint(mLastMouseButtonInjection.position);
 		if(win != mActiveSheet->getWindowInFocus())
 			// FOCUS_GAINED and FOCUS_LOST events will be fired if appropriate.
 			mActiveSheet->focusWindow(win);
@@ -403,7 +590,14 @@ namespace QuickGUI
 			}
 
 			// Fire EVENT_MOUSE_BUTTON_DOWN event to the widget in focus
-			mWidgetUnderMouseCursor->fireWidgetEvent(WIDGET_EVENT_MOUSE_BUTTON_DOWN,args);
+			mWidgetUnderMouseCursor->fireWidgetEvent(WIDGET_EVENT_MOUSE_BUTTON_DOWN,mLastMouseButtonInjection);
+
+			// Enable Auto Repeat, which will begin after some time
+			if((mAutoRepeatEnableTimer != NULL) && (mAutoRepeatInjectionTimer != NULL) && (!mAutoRepeatInjectionTimer->isUpdating()))
+			{
+				mAutoRepeatEnableTimer->reset();
+				mAutoRepeatEnableTimer->start();
+			}
 
 			// Record mouse down on border only if the widget supports resizing for that border, and LMB is down
 			mDownOnBorder = false;
@@ -452,6 +646,11 @@ namespace QuickGUI
 
 	bool GUIManager::injectMouseButtonUp(const MouseButtonID& button)
 	{
+		if(mAutoRepeatEnableTimer != NULL)
+			mAutoRepeatEnableTimer->stop();
+		if(mAutoRepeatInjectionTimer != NULL)
+			mAutoRepeatInjectionTimer->stop();
+
 		// do nothing if no active sheet is in use
 		if(mActiveSheet == NULL)
 			return false;
@@ -476,6 +675,7 @@ namespace QuickGUI
 		args.button = button;
 		args.buttonMask = mButtonMask;
 		args.keyModifiers = mKeyModifiers;
+		args.eventType = MOUSE_EVENT_BUTTON_UP;
 
 		if(args.widget != NULL)
 		{
@@ -555,6 +755,7 @@ namespace QuickGUI
 		args.position = mMouseCursor->getPosition();
 		args.buttonMask = mButtonMask;
 		args.keyModifiers = mKeyModifiers;
+		args.eventType = MOUSE_EVENT_BUTTON_CLICK;
 
 		if(args.widget != NULL)
 			args.widget->fireWidgetEvent(WIDGET_EVENT_MOUSE_CLICK,args);
@@ -591,6 +792,7 @@ namespace QuickGUI
 		args.position = mMouseCursor->getPosition();
 		args.buttonMask = mButtonMask;
 		args.keyModifiers = mKeyModifiers;
+		args.eventType = MOUSE_EVENT_BUTTON_DOUBLE_CLICK;
 
 		if(args.widget != NULL)
 			args.widget->fireWidgetEvent(WIDGET_EVENT_MOUSE_CLICK_DOUBLE,args);
@@ -624,6 +826,7 @@ namespace QuickGUI
 		args.position = mMouseCursor->getPosition();
 		args.buttonMask = mButtonMask;
 		args.keyModifiers = mKeyModifiers;
+		args.eventType = MOUSE_EVENT_BUTTON_TRIPLE_CLICK;
 
 		if(args.widget != NULL)
 			args.widget->fireWidgetEvent(WIDGET_EVENT_MOUSE_CLICK_TRIPLE,args);
@@ -645,8 +848,8 @@ namespace QuickGUI
 		mHoverTimer->start();
 
 		// Get the widget the cursor is over.
-		Window* win = mActiveSheet->findWindowAtPoint(mMouseCursor->getPosition());
-		Widget* w = win->findWidgetAtPoint(mMouseCursor->getPosition() - win->getPosition());
+		Window* win = mActiveSheet->findWindowAtPoint(mMouseCursor->getPosition(),mMouseCursor->getQueryFilter());
+		Widget* w = win->findWidgetAtPoint(mMouseCursor->getPosition() - win->getPosition(),mMouseCursor->getQueryFilter());
 
 		// See if we should be dragging or resizing a widget.
 		if((mWidgetUnderMouseCursor != NULL) && (mWidgetUnderMouseCursor->getGrabbed()))
@@ -679,6 +882,7 @@ namespace QuickGUI
 		args.moveDelta.y = yPixelOffset;
 		args.buttonMask = mButtonMask;
 		args.keyModifiers = mKeyModifiers;
+		args.eventType = MOUSE_EVENT_MOVE;
 
 		// Create a boolean to track whether or not this injection caused any significant changes.
 		bool changesMade = false;
@@ -738,7 +942,7 @@ namespace QuickGUI
 		mMouseCursor->setPosition(xPixelPosition,yPixelPosition);
 
 		// Determine the offset and inject a mouse movement input.
-		return injectMouseMove(xPixelPosition - oldPos.x,yPixelPosition - oldPos.y);
+		return injectMouseMove(static_cast<int>(xPixelPosition - oldPos.x),static_cast<int>(yPixelPosition - oldPos.y));
 	}
 
 	bool GUIManager::injectMouseWheelChange(float delta)
@@ -756,6 +960,7 @@ namespace QuickGUI
 		args.wheelChange = delta;
 		args.buttonMask = mButtonMask;
 		args.keyModifiers = mKeyModifiers;
+		args.eventType = MOUSE_EVENT_SCROLL;
 
 		if(mGUIManagerDesc.scrollLastClicked)
 		{
@@ -765,6 +970,7 @@ namespace QuickGUI
 				if(w != NULL)
 				{
 					w->fireWidgetEvent(WIDGET_EVENT_MOUSE_WHEEL,args);
+					injectMouseMove(0,0);
 					return true;
 				}
 			}
@@ -777,6 +983,7 @@ namespace QuickGUI
 				if(w != NULL)
 				{
 					w->fireWidgetEvent(WIDGET_EVENT_MOUSE_WHEEL,args);
+					injectMouseMove(0,0);
 					return (mWidgetUnderMouseCursor != NULL);
 				}
 			}
@@ -786,8 +993,7 @@ namespace QuickGUI
 	}
 
 	bool GUIManager::isSupportedCodePoint(Ogre::UTFString::unicode_char c)
-	{
-		return (mGUIManagerDesc.supportedCodePoints.find(c) != mGUIManagerDesc.supportedCodePoints.end());
+	{		return (mGUIManagerDesc.supportedCodePoints.find(c) != mGUIManagerDesc.supportedCodePoints.end());
 	}
 
 	void GUIManager::hoverTimerCallback()
@@ -814,6 +1020,30 @@ namespace QuickGUI
 
 		if(mActiveSheet != NULL)
 			mActiveSheet->notifyViewport(&mViewportWidth,&mViewportHeight);
+	}
+
+	KeyCode GUIManager::processNumPadKeyCode(const KeyCode& kc)
+	{
+		// If NumLock key is not down
+		if(!(mKeyModifiers & NUMLOCK))
+		{
+			switch(kc)
+			{
+			case KC_NUMPAD0:	return KC_INSERT;
+			case KC_NUMPAD1:	return KC_END;
+			case KC_NUMPAD2:	return KC_DOWN;
+			case KC_NUMPAD3:	return KC_PGDOWN;
+			case KC_NUMPAD4:	return KC_LEFT;
+			case KC_NUMPAD6:	return KC_RIGHT;
+			case KC_NUMPAD7:	return KC_HOME;
+			case KC_NUMPAD8:	return KC_UP;
+			case KC_NUMPAD9:	return KC_PGUP;
+			case KC_DECIMAL:	return KC_DELETE;
+			default: return kc;
+			}
+		}
+
+		return kc;
 	}
 
 	void GUIManager::renderQueueStarted(Ogre::uint8 id, const std::string& invocation, bool& skipThisQueue)
@@ -855,11 +1085,37 @@ namespace QuickGUI
 
 			mActiveSheet->_setGUIManager(this);
 
+			mMouseCursor->setEnabled(mActiveSheet->getMouseCursorEnabled());
+			mMouseCursor->setQueryFilter(mActiveSheet->getMouseQueryFilter());
+			mMouseCursor->setSkinType(mActiveSheet->getMouseCursorSkinTypeName());
+			mMouseCursor->setVisible(mActiveSheet->getMouseCursorVisible());
+
 			// In the case where a sheet was unloaded, and later reloaded, make sure the Sheet is drawn correctly.
 			// For example, prevent the scenario where a particular button was in the "Over" state when unloaded, but on
 			// loading, should not be in the "Over" state because the cursor is not over the button.
 			injectMouseMove(0,0);
 		}
+	}
+
+	void GUIManager::setAutoRepeatInterval(float timeInSeconds)
+	{
+		mGUIManagerDesc.autoRepeatInterval = timeInSeconds;
+
+		if(mAutoRepeatInjectionTimer != NULL)
+		{
+			mAutoRepeatInjectionTimer->reset();
+			mAutoRepeatInjectionTimer->setTimePeriod(timeInSeconds);
+		}
+	}
+
+	void GUIManager::setInjectNumPadKeyCodesAsUnicodeChars(bool inject)
+	{
+		mGUIManagerDesc.injectNumPadKeyCodesAsUnicodeChars = inject;
+	}
+
+	void GUIManager::setProcessNumPadKeyCodes(bool process)
+	{
+		mGUIManagerDesc.processNumPadKeyCodes = process;
 	}
 
 	void GUIManager::setRenderQueueID(Ogre::uint8 id)
@@ -891,6 +1147,25 @@ namespace QuickGUI
 		mGUIManagerDesc.supportedCodePoints = list;
 	}
 
+	void GUIManager::setTimeToAutoRepeat(float timeInSeconds)
+	{
+		mGUIManagerDesc.timeToAutoRepeat = timeInSeconds;
+
+		if(mAutoRepeatEnableTimer != NULL)
+		{
+			mAutoRepeatEnableTimer->reset();
+			mAutoRepeatEnableTimer->setTimePeriod(timeInSeconds);
+		}
+	}
+
+	void GUIManager::setNumLock(bool on)
+	{
+		if(on)
+			mKeyModifiers |= NUMLOCK;
+		else
+			mKeyModifiers &= ~NUMLOCK;
+	}
+
 	void GUIManager::setViewport(Ogre::Viewport* vp)
 	{
 		mGUIManagerDesc.viewport = vp;
@@ -904,6 +1179,34 @@ namespace QuickGUI
 		{
 			mViewportWidth = vp->getActualWidth();
 			mViewportHeight = vp->getActualHeight();
+		}
+	}
+
+	void GUIManager::translateNumPadKeyCodesToUnicodeChars(const KeyCode& kc)
+	{
+		// If NumLock key is down
+		if(mKeyModifiers | NUMLOCK)
+		{
+			Ogre::UTFString::unicode_char c = 0;
+			switch(kc)
+			{
+			case KC_NUMPAD0:	c = 48;	break;
+			case KC_NUMPAD1:	c = 49;	break;
+			case KC_NUMPAD2:	c = 50;	break;
+			case KC_NUMPAD3:	c = 51;	break;
+			case KC_NUMPAD4:	c = 52;	break;
+			case KC_NUMPAD5:	c = 53;	break;
+			case KC_NUMPAD6:	c = 54;	break;
+			case KC_NUMPAD7:	c = 55;	break;
+			case KC_NUMPAD8:	c = 56;	break;
+			case KC_NUMPAD9:	c = 57;	break;
+			case KC_DECIMAL:	c = 46;	break;
+			case KC_DIVIDE:		c = 47; break;
+			default: break;
+			}
+
+			if(c != 0)
+				injectChar(c);
 		}
 	}
 }

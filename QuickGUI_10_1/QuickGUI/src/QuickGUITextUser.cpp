@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUITextUser.h"
 #include "QuickGUIWidget.h"
 #include "QuickGUIRoot.h"
@@ -18,8 +47,8 @@ namespace QuickGUI
 
 	void TextUserDesc::serialize(SerialBase* b)
 	{
-		b->IO("DefaultColor",&text_defaultColor);
-		b->IO("DefaultFont",&text_defaultFontName);
+		b->IO("DefaultColor",&text_defaultColor,ColourValue::White);
+		b->IO("DefaultFontName",&text_defaultFontName,Root::getSingleton().getDefaultFontName());
 
 		textDesc.serialize(b);
 	}
@@ -46,14 +75,14 @@ namespace QuickGUI
 		mText = OGRE_NEW_T(Text,Ogre::MEMCATEGORY_GENERAL)(mDesc->textDesc);
 	}
 
-	void TextUser::addText(Ogre::UTFString s, Ogre::FontPtr fp, const Ogre::ColourValue& cv)
+	void TextUser::addText(Ogre::UTFString s, Ogre::Font* fp, const ColourValue& cv)
 	{
 		mText->addText(s,fp,cv);
 
 		Redraw();
 	}
 
-	void TextUser::addText(Ogre::UTFString s, const Ogre::String& fontName, const Ogre::ColourValue& cv)
+	void TextUser::addText(Ogre::UTFString s, const Ogre::String& fontName, const ColourValue& cv)
 	{
 		addText(s,Text::getFont(fontName),cv);
 	}
@@ -77,7 +106,7 @@ namespace QuickGUI
 		Redraw();
 	}
 
-	Ogre::ColourValue TextUser::getDefaultColor()
+	ColourValue TextUser::getDefaultColor()
 	{
 		return mDesc->text_defaultColor;
 	}
@@ -95,6 +124,16 @@ namespace QuickGUI
 	Ogre::UTFString TextUser::getText()
 	{
 		return mText->getText();
+	}
+
+	float TextUser::getTextAllottedHeight()
+	{
+		return mText->getAllottedHeight();
+	}
+
+	Size TextUser::getTextAllottedSize()
+	{
+		return mText->getAllottedSize();
 	}
 
 	float TextUser::getTextAllottedWidth()
@@ -127,6 +166,11 @@ namespace QuickGUI
 		return mText->getVerticalLineSpacing();
 	}
 
+	VerticalTextAlignment TextUser::getVerticalTextAlignment()
+	{
+		return mText->getVerticalTextAlignment();
+	}
+
 	void TextUser::onTextChanged()
 	{
 		// Do nothing by default, this function is meant to be overridden.
@@ -138,7 +182,7 @@ namespace QuickGUI
 			mOwner->redraw();
 	}
 
-	void TextUser::setDefaultColor(const Ogre::ColourValue& cv)
+	void TextUser::setDefaultColor(const ColourValue& cv)
 	{
 		mDesc->text_defaultColor = cv;
 	}
@@ -204,7 +248,7 @@ namespace QuickGUI
 		Redraw();
 	}
 
-	void TextUser::setText(Ogre::UTFString s, Ogre::FontPtr fp, const Ogre::ColourValue& cv)
+	void TextUser::setText(Ogre::UTFString s, Ogre::Font* fp, const ColourValue& cv)
 	{
 		mText->setText(s,fp,cv);
 
@@ -213,9 +257,14 @@ namespace QuickGUI
 		Redraw();
 	}
 
-	void TextUser::setText(Ogre::UTFString s, const Ogre::String& fontName, const Ogre::ColourValue& cv)
+	void TextUser::setText(Ogre::UTFString s, const Ogre::String& fontName, const ColourValue& cv)
 	{
 		setText(s,Text::getFont(fontName),cv);
+	}
+
+	void TextUser::setText(Ogre::UTFString s, const ColourValue& cv)
+	{
+		setText(s,mDesc->text_defaultFontName,cv);
 	}
 
 	void TextUser::setText(Ogre::UTFString s)
@@ -232,9 +281,29 @@ namespace QuickGUI
 		Redraw();
 	}
 
+	void TextUser::setTextAllottedHeight(float allottedHeight)
+	{
+		mText->setAllottedHeight(allottedHeight);
+
+		onTextChanged();
+
+		Redraw();
+	}
+
+	void TextUser::setTextAllottedSize(Size allottedSize)
+	{
+		mText->setAllottedSize(allottedSize);
+
+		onTextChanged();
+
+		Redraw();
+	}
+
 	void TextUser::setTextAllottedWidth(float allottedWidth)
 	{
 		mText->setAllottedWidth(allottedWidth);
+
+		onTextChanged();
 
 		Redraw();
 	}
@@ -244,7 +313,7 @@ namespace QuickGUI
 		mText->setBrushFilterMode(m);
 	}
 
-	void TextUser::setTextColor(const Ogre::ColourValue& cv)
+	void TextUser::setTextColor(const ColourValue& cv)
 	{
 		mDesc->text_defaultColor = cv;
 
@@ -255,7 +324,7 @@ namespace QuickGUI
 		Redraw();
 	}
 
-	void TextUser::setTextColor(const Ogre::ColourValue& cv, unsigned int index)
+	void TextUser::setTextColor(const ColourValue& cv, unsigned int index)
 	{
 		mText->setColor(cv,index);
 
@@ -264,7 +333,7 @@ namespace QuickGUI
 		Redraw();
 	}
 
-	void TextUser::setTextColor(const Ogre::ColourValue& cv, unsigned int startIndex, unsigned int endIndex)
+	void TextUser::setTextColor(const ColourValue& cv, unsigned int startIndex, unsigned int endIndex)
 	{
 		mText->setColor(cv,startIndex,endIndex);
 
@@ -273,7 +342,7 @@ namespace QuickGUI
 		Redraw();
 	}
 
-	void TextUser::setTextColor(const Ogre::ColourValue& cv, Ogre::UTFString::code_point c, bool allOccurrences)
+	void TextUser::setTextColor(const ColourValue& cv, Ogre::UTFString::code_point c, bool allOccurrences)
 	{
 		mText->setColor(cv,c,allOccurrences);
 
@@ -282,7 +351,7 @@ namespace QuickGUI
 		Redraw();
 	}
 
-	void TextUser::setTextColor(const Ogre::ColourValue& cv, Ogre::UTFString s, bool allOccurrences)
+	void TextUser::setTextColor(const ColourValue& cv, Ogre::UTFString s, bool allOccurrences)
 	{
 		mText->setColor(cv,s,allOccurrences);
 
@@ -297,6 +366,15 @@ namespace QuickGUI
 			return;
 
 		mText->setVerticalLineSpacing(distance);
+
+		onTextChanged();
+
+		Redraw();
+	}
+
+	void TextUser::setVerticalTextAlignment(VerticalTextAlignment a)
+	{
+		mText->setVerticalTextAlignment(a);
 
 		onTextChanged();
 

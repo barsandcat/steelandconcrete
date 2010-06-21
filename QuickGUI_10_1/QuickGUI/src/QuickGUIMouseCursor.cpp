@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUIMouseCursor.h"
 #include "QuickGUIManager.h"
 #include "QuickGUISkinDefinitionManager.h"
@@ -6,6 +35,7 @@
 #include "QuickGUISkinTypeManager.h"
 #include "QuickGUIBrush.h"
 #include "QuickGUIEventHandlerManager.h"
+#include "QuickGUISheet.h"
 
 #include "OgreImage.h"
 
@@ -18,13 +48,11 @@ namespace QuickGUI
 		clipOnEdges = false;
 		enabled = true;
 		opacity = 1.0;
+		queryFilter = -1;
 		skin = "qgui";
 		visible = true;
 		guiManager = NULL;
 		brushFilterMode = BRUSHFILTER_NONE;
-
-		for(int index = 0; index < MOUSE_CURSOR_EVENT_COUNT; ++index)
-			userHandlers[index] = "";
 	}
 
 	void MouseCursor::registerSkinDefinition()
@@ -58,12 +86,6 @@ namespace QuickGUI
 
 	MouseCursor::~MouseCursor()
 	{
-		// Clean up all user defined event handlers.
-		for(int index = 0; index < MOUSE_CURSOR_EVENT_COUNT; ++index)
-		{
-			for(std::vector<EventHandlerSlot*>::iterator it = mEventHandlers[index].begin(); it != mEventHandlers[index].end(); ++it)
-				OGRE_DELETE_T((*it),EventHandlerSlot,Ogre::MEMCATEGORY_GENERAL);
-		}
 	}
 
 	void MouseCursor::_setSkinType(const Ogre::String type)
@@ -77,21 +99,6 @@ namespace QuickGUI
 		i.load(mSkinTypeManager->getSkinType("MouseCursor",mSkinType)->getSkinElement(TEXTURE)->getTextureName(),Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		// update cursor size to match texture used
 		setSize(i.getWidth(),i.getHeight());
-	}
-
-	void MouseCursor::addUserDefinedMouseCursorEventHandler(MouseCursorEvent EVENT, const Ogre::String& handlerName)
-	{
-		mMouseCursorDesc.userHandlers[EVENT] = handlerName;
-	}
-
-	void MouseCursor::addCursorEventHandler(MouseCursorEvent EVENT, EventHandlerSlot* function)
-	{
-		mEventHandlers[EVENT].push_back(function);
-	}
-
-	void MouseCursor::clearUserDefinedMouseCursorEventHandler(MouseCursorEvent EVENT)
-	{
-		mMouseCursorDesc.userHandlers[EVENT] = "";
 	}
 
 	void MouseCursor::draw()
@@ -113,8 +120,8 @@ namespace QuickGUI
 		}
 
 		Brush* b = Brush::getSingletonPtr();
-		b->setColor(Ogre::ColourValue(1,1,1,mMouseCursorDesc.opacity));
-		b->setRenderTarget(NULL);
+		b->setColor(ColourValue(1,1,1,mMouseCursorDesc.opacity));
+		b->setRenderTarget(static_cast<Ogre::Viewport*>(NULL));
 		b->setFilterMode(mMouseCursorDesc.brushFilterMode);
 		b->drawSkinElement(mDimensions,mSkinTypeManager->getSkinType("MouseCursor",mSkinType)->getSkinElement(TEXTURE));
 	}
@@ -142,6 +149,11 @@ namespace QuickGUI
 	Point MouseCursor::getPosition()
 	{
 		return Point(mDimensions.position.x + (mDimensions.size.width/2.0),mDimensions.position.y + (mDimensions.size.height/2.0));
+	}
+
+	unsigned int MouseCursor::getQueryFilter()
+	{
+		return mMouseCursorDesc.queryFilter;
 	}
 
 	Ogre::String MouseCursor::getSkinTypeName()
@@ -172,14 +184,14 @@ namespace QuickGUI
 		mMouseCursorDesc.enabled = enable;
 
 		// Fire enabled changed event.
-		MouseEventArgs args(NULL);
-		args.position = getPosition();
+		Sheet* sheet = mMouseCursorDesc.guiManager->getActiveSheet();
+		if(sheet != NULL)
+		{
+			MouseEventArgs args(sheet);
+			args.position = getPosition();
 
-		for(std::vector<EventHandlerSlot*>::iterator it = mEventHandlers[MOUSE_CUSSOR_EVENT_ENABLED_CHANGED].begin(); it != mEventHandlers[MOUSE_CUSSOR_EVENT_ENABLED_CHANGED].end(); ++it)
-			(*it)->execute(args);
-
-		if(mMouseCursorDesc.userHandlers[MOUSE_CUSSOR_EVENT_ENABLED_CHANGED] != "")
-			EventHandlerManager::getSingletonPtr()->executEventHandler(mMouseCursorDesc.userHandlers[MOUSE_CUSSOR_EVENT_ENABLED_CHANGED],args);
+			sheet->fireSheetEvent(SHEET_EVENT_MOUSE_CURSOR_ENABLED_CHANGED,args);
+		}
 	}
 
 	void MouseCursor::setOpacity(float opacity)
@@ -265,32 +277,46 @@ namespace QuickGUI
 		// Fire events
 		if(fireBorderEnterEvent)
 		{
-			MouseEventArgs args(NULL);
-			args.position = getPosition();
+			Sheet* sheet = mMouseCursorDesc.guiManager->getActiveSheet();
+			if(sheet != NULL)
+			{
+				MouseEventArgs args(sheet);
+				args.position = getPosition();
 
-			for(std::vector<EventHandlerSlot*>::iterator it = mEventHandlers[MOUSE_CURSOR_EVENT_BORDER_ENTER].begin(); it != mEventHandlers[MOUSE_CURSOR_EVENT_BORDER_ENTER].end(); ++it)
-				(*it)->execute(args);
-
-			if(mMouseCursorDesc.userHandlers[MOUSE_CURSOR_EVENT_BORDER_ENTER] != "")
-				EventHandlerManager::getSingletonPtr()->executEventHandler(mMouseCursorDesc.userHandlers[MOUSE_CURSOR_EVENT_BORDER_ENTER],args);
+				sheet->fireSheetEvent(SHEET_EVENT_MOUSE_CURSOR_ENTER_SHEET_BORDER,args);
+			}
 		}
 
 		if(fireBorderLeaveEvent)
 		{
-			MouseEventArgs args(NULL);
-			args.position = getPosition();
+			Sheet* sheet = mMouseCursorDesc.guiManager->getActiveSheet();
+			if(sheet != NULL)
+			{
+				MouseEventArgs args(sheet);
+				args.position = getPosition();
 
-			for(std::vector<EventHandlerSlot*>::iterator it = mEventHandlers[MOUSE_CURSOR_EVENT_BORDER_LEAVE].begin(); it != mEventHandlers[MOUSE_CURSOR_EVENT_BORDER_LEAVE].end(); ++it)
-				(*it)->execute(args);
-
-			if(mMouseCursorDesc.userHandlers[MOUSE_CURSOR_EVENT_BORDER_LEAVE] != "")
-				EventHandlerManager::getSingletonPtr()->executEventHandler(mMouseCursorDesc.userHandlers[MOUSE_CURSOR_EVENT_BORDER_LEAVE],args);
+				sheet->fireSheetEvent(SHEET_EVENT_MOUSE_CURSOR_LEAVE_SHEET_BORDER,args);
+			}
 		}
 	}
 
 	void MouseCursor::setPosition(const Point& p)
 	{
 		setPosition(p.x,p.y);
+	}
+
+	void MouseCursor::setQueryFilter(unsigned int filter)
+	{
+		mMouseCursorDesc.queryFilter = filter;
+
+		Sheet* sheet = mMouseCursorDesc.guiManager->getActiveSheet();
+		if(sheet != NULL)
+		{
+			MouseEventArgs args(sheet);
+			args.position = getPosition();
+		
+			sheet->fireSheetEvent(SHEET_EVENT_MOUSE_CURSOR_QUERY_FILTER_CHANGED,args);
+		}
 	}
 
 	void MouseCursor::setSize(float pixelWidth, float pixelHeight)
@@ -313,6 +339,14 @@ namespace QuickGUI
 		i.load(mSkinTypeManager->getSkinType("MouseCursor",mSkinType)->getSkinElement(TEXTURE)->getTextureName(),Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		// update cursor size to match texture used
 		setSize(i.getWidth(),i.getHeight());
+
+		Sheet* sheet = mMouseCursorDesc.guiManager->getActiveSheet();
+		if(sheet != NULL)
+		{
+			MouseEventArgs args(sheet);
+			args.position = getPosition();
+			sheet->fireSheetEvent(SHEET_EVENT_MOUSE_CURSOR_SKIN_CHANGED,args);
+		}
 	}
 
 	void MouseCursor::setVisible(bool visible)

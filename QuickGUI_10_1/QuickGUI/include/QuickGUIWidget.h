@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #ifndef QUICKGUIWIDGET_H
 #define QUICKGUIWIDGET_H
 
@@ -41,7 +70,7 @@ namespace QuickGUI
 		virtual ~WidgetDesc() {}
 	public:
 
-		Ogre::ColourValue	widget_baseColor;
+		ColourValue			widget_baseColor;
 		BrushFilterMode		widget_brushFilterMode;
 		bool				widget_consumeKeyboardEvents;
 		Ogre::String		widget_contextMenuName;
@@ -55,9 +84,11 @@ namespace QuickGUI
 		Size				widget_maxSize;
 		Size				widget_minSize;
 		bool				widget_moveBaseWidgetOnDrag;
+		bool				widget_moveWindowOnDrag;
 		Ogre::String		widget_name;
 		float				widget_relativeOpacity;
 		bool				widget_positionRelativeToParentClientDimensions;
+		unsigned int		widget_queryFlags;
 		bool				widget_resizeFromBottom;
 		bool				widget_resizeFromLeft;
 		bool				widget_resizeFromRight;
@@ -195,8 +226,9 @@ namespace QuickGUI
 		* Checks if point p is within this widget's widget_dimensions.
 		* NULL is returned if the point is outside widget_dimensions.
 		* If ignoreDisabled is true, disabled widgets are not considered in the search.
+		* NOTE: Only widgets with query flags that result in a non-zero value when ANDed with the query filter are detectable.
 		*/
-		virtual Widget* findWidgetAtPoint(const Point& p, bool ignoreDisabled = true);
+		virtual Widget* findWidgetAtPoint(const Point& p, unsigned int queryFilter = -1, bool ignoreDisabled = true);
 		/**
 		* Event Handler that executes the appropriate User defined Event Handlers for a given event.
 		* Returns true if the event was handled, false otherwise.
@@ -217,7 +249,7 @@ namespace QuickGUI
 		* Returns the color used to draw SkinElements of this widget.
 		* NOTE: The alpha channel is not used, it is affected only by the opacity attribute.
 		*/
-		Ogre::ColourValue getBaseColor();
+		ColourValue getBaseColor();
 		/**
 		* Returns true if this widget is being dragged, false otherwise.
 		*/
@@ -308,6 +340,11 @@ namespace QuickGUI
 		*/
 		bool getMoveBaseWidgetOnDrag();
 		/**
+		* Returns true if this widget drags the window it belongs to when dragged.
+		* NOTE: This will not drag the Sheet widget.
+		*/
+		bool getMoveWindowOnDrag();
+		/**
 		* Returns the widget_name of the Widget.
 		*/
 		Ogre::String getName();
@@ -326,6 +363,11 @@ namespace QuickGUI
 		* borders)
 		*/
 		bool getPositionRelativeToParentClientDimensions();
+		/**
+		* Gets the Query Flags of the widget.  The Mouse Cursor uses a query filter that is ANDed with a 
+		* widget's query flags.  If the result of the AND is non-zero, the widget is detectable.
+		*/
+		unsigned int getQueryFlags();
 		/**
 		* Returns the relative opacity of the widget.
 		*/
@@ -400,6 +442,10 @@ namespace QuickGUI
 		*/
 		bool getVisible();
 		/**
+		* Iterates through parents and returns true if all parent's are flagged as visible, false otherwise.
+		*/
+		bool getVisibleOnScreen();
+		/**
 		* Retrieves the "type" of this widget.  For example you
 		* can create several types of Button widgets: "close", "add", "fire.skill.1", etc.
 		* NOTE: The type property determines what is drawn to the screen.
@@ -424,7 +470,7 @@ namespace QuickGUI
 		/**
 		* Returns true if this widget is a child of the widget given.
 		*/
-		bool isChildOf(Widget* w);
+		virtual bool isChildOf(Widget* w);
 		/**
 		* Returns true if this widget is made up of more than 1 widget.
 		*/
@@ -469,9 +515,13 @@ namespace QuickGUI
 		*/
 		virtual void redraw();
 		/**
-		* Removes the Event Handler registered by the obj.
+		* Removes the Event Handler registered by the object.
 		*/
-		void removeEventHandler(WidgetEvent EVENT, void* obj);
+		void removeWidgetEventHandler(WidgetEvent EVENT, void* obj);
+		/**
+		* Removes all Widget Event Handlers registered by the given object.
+		*/
+		virtual void removeEventHandlers(void* obj);
 		
 		/**
 		* Builds the Widget from a ScriptDefinition or Writes the widget to a ScriptDefinition.
@@ -481,16 +531,18 @@ namespace QuickGUI
 		* Sets the color used to draw SkinElements of this widget.
 		* NOTE: The alpha channel is not used, it is affected only by the opacity attribute.
 		*/
-		void setBaseColor(Ogre::ColourValue cv);
+		void setBaseColor(ColourValue cv);
 		/**
 		* Sets the filtering used when drawing the skin of this widget.
 		*/
 		void setBrushFilterMode(BrushFilterMode m);
 		/**
-		* Sets the context menu displayed when the right mouse button goes up over this widget.
-		* NOTE: Empty string is valid, and removes any context menu associated with this widget.
+		* Sets whether the widget will notify the GUIManager it has consumed a MouseEvent or not.
+		* NOTE: Widgets will always consume MouseEvents if possible, this API only defines if the
+		*  GUIManager will know it was consumed or not.  For example this allows clicking GUI elements
+		*  while having the GUIManager think the event was not handled, so input can be passed to the application.
 		*/
-		void setContextMenuName(const Ogre::String& contextMenuName);
+		void setConsumeMouseEvents(bool consume);
 		/**
 		* Sets the widget_name of the SkinType applied when the widget is disabled.
 		* NOTE: Use "" to prevent the widget's apperance from changing when disabled.
@@ -577,6 +629,10 @@ namespace QuickGUI
 		*/
 		void setConsumeKeyboardEvents(bool consume);
 		/**
+		* Sets the ContextMenu for this Widget.
+		*/
+		void setContextMenuName(const Ogre::String& contextMenuName);
+		/**
 		* Sets the size and position (position relative to parent) of this Widget, respectively.
 		*/
 		virtual void setDimensions(const Rect& r);
@@ -611,6 +667,12 @@ namespace QuickGUI
 		*/
 		virtual void setMoveBaseWidgetOnDrag(bool moveBaseWidget);
 		/**
+		* Sets whether this widget drags the window it belongs to when dragged.
+		* NOTE: This will not drag the Sheet widget.
+		* NOTE: Moving the Base Widget takes precedence over moving the Window. (getMoveBaseWidgetOnDrag checked before getMoveWindowOnDrag)
+		*/
+		void setMoveWindowOnDrag(bool moveWindow);
+		/**
 		* Sets the x and y position of this widget, relative to this widget's parent.
 		*/
 		virtual void setPosition(const Point& position);
@@ -619,6 +681,12 @@ namespace QuickGUI
 		* Widget's origin is at Parent's origin.
 		*/
 		void setPositionRelativeToParentClientDimensions(bool relativeToClientOrigin);
+		/**
+		* Sets the Query Flags of the widget.  The Mouse Cursor uses a query filter that is ANDed with a 
+		* widget's query flags.  If the result of the AND is non-zero, the widget is detectable.
+		* NOTE: Setting the query flags to 0 make the widget undetectable to the mouse cursor.
+		*/
+		void setQueryFlags(unsigned int flags);
 		/**
 		* Convenience methods allowing all sides to enable/disable resizing using the mouse cursor.
 		*/
