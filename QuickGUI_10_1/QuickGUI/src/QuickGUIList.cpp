@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUIList.h"
 #include "QuickGUIManager.h"
 #include "QuickGUISkinDefinitionManager.h"
@@ -24,9 +53,9 @@ namespace QuickGUI
 	{
 		SkinDefinition* d = OGRE_NEW_T(SkinDefinition,Ogre::MEMCATEGORY_GENERAL)("List");
 		d->defineSkinElement(BACKGROUND);
-		d->defineComponent(HSCROLLBAR);
-		d->defineComponent(VSCROLLBAR);
-		d->defineComponent(LISTITEM);
+		d->defineSkinReference(HSCROLLBAR,"HScrollBar");
+		d->defineSkinReference(VSCROLLBAR,"VScrollBar");
+		d->defineSkinReference(LISTITEM,"ListTextItem");
 		d->definitionComplete();
 
 		SkinDefinitionManager::getSingleton().registerSkinDefinition("List",d);
@@ -55,22 +84,30 @@ namespace QuickGUI
 	{
 		ContainerWidgetDesc::serialize(b);
 
-		b->IO("ListItemHeight",&list_itemHeight);
-		b->IO("MultiSelect",&list_supportMultiSelect);
+		// Retrieve default values to supply to the serial reader/writer.
+		// The reader uses the default value if the given property does not exist.
+		// The writer does not write out the given property if it has the same value as the default value.
+		ListDesc* defaultValues = DescManager::getSingleton().createDesc<ListDesc>(getClass(),"temp");
+		defaultValues->resetToDefault();
+
+		b->IO("ListItemHeight", &list_itemHeight,			defaultValues->list_itemHeight);
+		b->IO("MultiSelect",	&list_supportMultiSelect,	defaultValues->list_supportMultiSelect);
+
+		DescManager::getSingleton().destroyDesc(defaultValues);
 
 		if(b->begin("UserDefinedHandlers","ListEvents"))
 		{
 			if(b->isSerialReader())
 			{
 				for(int index = 0; index < LIST_EVENT_COUNT; ++index)
-					b->IO(StringConverter::toString(static_cast<CheckBoxEvent>(index)),&(list_userHandlers[index]));
+					b->IO(StringConverter::toString(static_cast<CheckBoxEvent>(index)),&(list_userHandlers[index]),"");
 			}
 			else
 			{
 				for(int index = 0; index < LIST_EVENT_COUNT; ++index)
 				{
 					if(list_userHandlers[index] != "")
-						b->IO(StringConverter::toString(static_cast<CheckBoxEvent>(index)),&(list_userHandlers[index]));
+						b->IO(StringConverter::toString(static_cast<CheckBoxEvent>(index)),&(list_userHandlers[index]),"");
 				}
 			}
 			b->end();
@@ -140,7 +177,7 @@ namespace QuickGUI
 
 		i->setWidth(mClientDimensions.size.width);
 		i->setHeight(mDesc->list_itemHeight);
-		i->setSkinType(mSkinType->getComponentType(LISTITEM)->typeName);
+		i->setSkinType(mSkinType->getSkinReference(LISTITEM)->typeName);
 
 		int itemIndex = i->getIndex();
 
@@ -214,6 +251,7 @@ namespace QuickGUI
 	{
 		mSelectedItems.clear();
 
+		// destroyChildren will move all Items into the free list
 		destroyChildren();
 
 		mItems.clear();
@@ -344,18 +382,20 @@ namespace QuickGUI
 		WidgetFactory* f = FactoryManager::getSingleton().getWidgetFactory();
 
 		bool itemRemovedFromList = false;
-		int count = 0;
+		unsigned int count = 0;
 		for(std::list<ListItem*>::iterator it = mItems.begin(); it != mItems.end(); ++it)
 		{
 			if(count == index)
 			{
-				removeChild((*it));
+				destroyChild((*it));
 
-				if(mDesc->sheet != NULL)
-					mDesc->sheet->mFreeList.push_back((*it));
-				else
-					Root::getSingleton().mGUIManagers.begin()->second->mFreeList.push_back((*it));
-				mItems.erase(it);
+				// If the item is in out list of selected items, remove it from the list.
+				std::list<ListItem*>::iterator it2 = std::find(mSelectedItems.begin(),mSelectedItems.end(),(*it));
+				if(it2 != mSelectedItems.end())
+					mSelectedItems.erase(it2);
+
+				// Remove from our list of Items.
+				mItems.erase(it);				
 
 				itemRemovedFromList = true;
 
@@ -463,6 +503,32 @@ namespace QuickGUI
 		brush->drawSkinElement(Rect(mTexturePosition,mWidgetDesc->widget_dimensions.size),mSkinElement);
 	}
 
+	void List::removeEventHandlers(void* obj)
+	{
+		ContainerWidget::removeEventHandlers(obj);
+
+		for(int index = 0; index < LIST_EVENT_COUNT; ++index)
+		{
+			std::vector<EventHandlerSlot*> updatedList;
+			std::vector<EventHandlerSlot*> listToCleanup;
+
+			for(std::vector<EventHandlerSlot*>::iterator it = mListEventHandlers[index].begin(); it != mListEventHandlers[index].end(); ++it)
+			{
+				if((*it)->getClass() == obj)
+					listToCleanup.push_back((*it));
+				else
+					updatedList.push_back((*it));
+			}
+
+			mListEventHandlers[index].clear();
+			for(std::vector<EventHandlerSlot*>::iterator it = updatedList.begin(); it != updatedList.end(); ++it)
+				mListEventHandlers[index].push_back((*it));
+
+			for(std::vector<EventHandlerSlot*>::iterator it = listToCleanup.begin(); it != listToCleanup.end(); ++it)
+				OGRE_DELETE_T((*it),EventHandlerSlot,Ogre::MEMCATEGORY_GENERAL);
+		}
+	}
+
 	void List::selectItem(const MouseEventArgs& mea)
 	{
 		ListItem* li = dynamic_cast<ListItem*>(mea.widget);
@@ -470,16 +536,11 @@ namespace QuickGUI
 		// Single Selection
 		if(!mDesc->list_supportMultiSelect)
 		{
-			bool selected = li->getSelected();
-
 			_clearSelection();
 
-			li->setSelected(!selected);
+			li->setSelected(true);
 
-			if(li->getSelected())
-				mSelectedItems.push_back(li);
-			else
-				li->mSkinElement = li->mSkinType->getSkinElement(ListItem::OVER);
+			mSelectedItems.push_back(li);
 		}
 		// Multi Selection
 		else
@@ -670,7 +731,7 @@ namespace QuickGUI
 		ContainerWidget::setSkinType(type);
 
 		for(std::list<ListItem*>::iterator it = mItems.begin(); it != mItems.end(); ++it)
-			(*it)->setSkinType(mSkinType->getComponentType(LISTITEM)->typeName);
+			(*it)->setSkinType(mSkinType->getSkinReference(LISTITEM)->typeName);
 	}
 
 	void List::updateClientDimensions()
@@ -681,5 +742,15 @@ namespace QuickGUI
 		{
 			(*it)->setWidth(mClientDimensions.size.width);
 		}
+	}
+
+	void List::updateVirtualDimensions()
+	{
+		ContainerWidget::updateVirtualDimensions();
+
+		if(mVirtualSize.height < 0.01)
+			return;
+
+		mAmountToScrollOnWheel = (mDesc->list_itemHeight / (mVirtualSize.height - mClientDimensions.size.height));
 	}
 }

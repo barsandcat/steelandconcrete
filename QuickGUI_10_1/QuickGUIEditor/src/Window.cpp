@@ -29,6 +29,9 @@ namespace QuickGUIEditor
 
 		QuickGUI::GUIManagerDesc d;
 		mGUIManager = QuickGUI::Root::getSingletonPtr()->createGUIManager(d);
+
+		// Lets assume NumLock is on by default for this app
+		mGUIManager->setNumLock(true);
 	}
 
 	Window::~Window()

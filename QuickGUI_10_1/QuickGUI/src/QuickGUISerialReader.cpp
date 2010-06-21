@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUISerialReader.h"
 #include "QuickGUIScriptReader.h"
 #include "QuickGUIManager.h"
@@ -26,6 +55,28 @@ namespace QuickGUI
 		return ( *ms_Singleton ); 
 	}
 
+	Ogre::String SerialReader::_helperFunction(const Ogre::String& propertyName, const Ogre::String& defaultValue)
+	{
+		if(mCurrentDefinition == NULL)
+			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
+
+		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
+
+		if(prop == NULL)
+			return defaultValue;
+		else
+		{
+			Ogre::String retVal = "";
+			Ogre::StringVector sv = prop->getValues();
+			for(int i = 0; i < static_cast<int>(sv.size()); ++i)
+				retVal += sv[i] + " ";
+
+			Ogre::StringUtil::trim(retVal);
+
+			return retVal;
+		}
+	}
+
 	bool SerialReader::begin(const Ogre::String& definitionType, const Ogre::String& definitionID)
 	{
 		ScriptDefinition* d = NULL;
@@ -48,483 +99,114 @@ namespace QuickGUI
 		mCurrentDefinition = mCurrentDefinition->mParentDefinition;
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, unsigned short* member)
+	void SerialReader::IO(const Ogre::String& propertyName, unsigned short* member, unsigned short defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-			(*member) = 0;
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-
-			if(sv.empty())
-				(*member) = 0;
-			else
-				(*member) = Ogre::StringConverter::parseUnsignedInt(sv[0]);
-		}
+		(*member) = Ogre::StringConverter::parseUnsignedInt(_helperFunction(propertyName,Ogre::StringConverter::toString(defaultValue)));
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, BrushFilterMode* member)
+	void SerialReader::IO(const Ogre::String& propertyName, BrushFilterMode* member, BrushFilterMode defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-			(*member) = BRUSHFILTER_LINEAR;
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-
-			if(sv.empty())
-				(*member) = BRUSHFILTER_LINEAR;
-			else
-				(*member) = StringConverter::parseBrushFilterMode(sv[0]);
-		}
+		(*member) = StringConverter::parseBrushFilterMode(_helperFunction(propertyName,StringConverter::toString(defaultValue)));
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, ConsoleLayout* member)
+	void SerialReader::IO(const Ogre::String& propertyName, ConsoleLayout* member, ConsoleLayout defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-			(*member) = CONSOLE_LAYOUT_TEXT_INPUT_BOTTOM;
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-
-			if(sv.empty())
-				(*member) = CONSOLE_LAYOUT_TEXT_INPUT_BOTTOM;
-			else
-				(*member) = StringConverter::parseConsoleLayout(sv[0]);
-		}
+		(*member) = StringConverter::parseConsoleLayout(_helperFunction(propertyName,StringConverter::toString(defaultValue)));
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, int* member)
+	void SerialReader::IO(const Ogre::String& propertyName, int* member, int defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-			(*member) = 0;
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-
-			if(sv.empty())
-				(*member) = 0;
-			else
-				(*member) = Ogre::StringConverter::parseInt(sv[0]);
-		}
+		(*member) = Ogre::StringConverter::parseInt(_helperFunction(propertyName,Ogre::StringConverter::toString(defaultValue)));
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, unsigned int* member)
+	void SerialReader::IO(const Ogre::String& propertyName, unsigned int* member, unsigned int defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-			(*member) = 0;
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-
-			if(sv.empty())
-				(*member) = 0;
-			else
-				(*member) = Ogre::StringConverter::parseUnsignedInt(sv[0]);
-		}
+		(*member) = Ogre::StringConverter::parseUnsignedInt(_helperFunction(propertyName,Ogre::StringConverter::toString(defaultValue)));
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, Ogre::ColourValue* member)
+	void SerialReader::IO(const Ogre::String& propertyName, ColourValue* member, ColourValue defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-		{
-			member->r = 1.0;
-			member->g = 1.0;
-			member->b = 1.0;
-			member->a = 1.0;
-		}
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-
-			if(sv.empty())
-			{
-				member->r = 1.0;
-				member->g = 1.0;
-				member->b = 1.0;
-				member->a = 1.0;
-			}
-			else
-			{
-				member->r = Ogre::StringConverter::parseReal(sv[0]);
-				member->g = Ogre::StringConverter::parseReal(sv[1]);
-				member->b = Ogre::StringConverter::parseReal(sv[2]);
-				member->a = Ogre::StringConverter::parseReal(sv[3]);
-			}
-		}
+		(*member) = StringConverter::parseColourValue(_helperFunction(propertyName,StringConverter::toString(defaultValue)));
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, VScrollBarButtonLayout* member)
+	void SerialReader::IO(const Ogre::String& propertyName, VScrollBarButtonLayout* member, VScrollBarButtonLayout defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-		
-		if(prop == NULL)
-			(*member) = VSCROLL_BAR_BUTTON_LAYOUT_OPPOSITE;
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-
-			if(sv.empty())
-				(*member) =  VSCROLL_BAR_BUTTON_LAYOUT_OPPOSITE;
-			else
-				(*member) = StringConverter::parseVScrollBarButtonLayout(sv[0]);
-		}
+		(*member) = StringConverter::parseVScrollBarButtonLayout(_helperFunction(propertyName,StringConverter::toString(defaultValue)));
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, HScrollBarButtonLayout* member)
+	void SerialReader::IO(const Ogre::String& propertyName, HScrollBarButtonLayout* member, HScrollBarButtonLayout defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-			(*member) = HSCROLL_BAR_BUTTON_LAYOUT_OPPOSITE;
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-
-			if(sv.empty())
-				(*member) =  HSCROLL_BAR_BUTTON_LAYOUT_OPPOSITE;
-			else
-				(*member) = StringConverter::parseHScrollBarButtonLayout(sv[0]);
-		}
+		(*member) = StringConverter::parseHScrollBarButtonLayout(_helperFunction(propertyName,StringConverter::toString(defaultValue)));
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, ToolBarItemLayout* member)
+	void SerialReader::IO(const Ogre::String& propertyName, ToolBarItemLayout* member, ToolBarItemLayout defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-			(*member) = TOOLBAR_ITEM_LAYOUT_POSITIVE_TO_NEGATIVE;
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-
-			if(sv.empty())
-				(*member) = TOOLBAR_ITEM_LAYOUT_POSITIVE_TO_NEGATIVE;
-			else
-				(*member) = StringConverter::parseToolBarItemLayout(sv[0]);
-		}
+		(*member) = StringConverter::parseToolBarItemLayout(_helperFunction(propertyName,StringConverter::toString(defaultValue)));
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, Ogre::String* member)
+	void SerialReader::IO(const Ogre::String& propertyName, Ogre::String* member, Ogre::String defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-			(*member) = "";
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-
-			if(sv.empty())
-				(*member) = "";
-			else
-			{
-				Ogre::String s = sv[0];
-				int count = 1;
-				while(count < static_cast<int>(sv.size()))
-				{
-					s += " " + sv[count];
-					++count;
-				}
-				
-				(*member) = s;
-			}
-		}
+		(*member) = _helperFunction(propertyName,defaultValue);
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, bool* member)
+	void SerialReader::IO(const Ogre::String& propertyName, bool* member, bool defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-			(*member) = false;
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-
-			if(sv.empty())
-				(*member) = false;
-			else
-				(*member) = Ogre::StringConverter::parseBool(sv[0]);
-		}
+		(*member) = Ogre::StringConverter::parseBool(_helperFunction(propertyName,Ogre::StringConverter::toString(defaultValue)));
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, float* member)
+	void SerialReader::IO(const Ogre::String& propertyName, float* member, float defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-			(*member) = 0.0;
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-
-			if(sv.empty())
-				(*member) = 0.0;
-			else
-				(*member) = Ogre::StringConverter::parseReal(sv[0]);
-		}
+		(*member) = Ogre::StringConverter::parseReal(_helperFunction(propertyName,Ogre::StringConverter::toString(defaultValue)));
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, Point* member)
+	void SerialReader::IO(const Ogre::String& propertyName, Point* member, Point defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-			(*member) = Point::ZERO;
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-			
-			if(sv.empty())
-				(*member) = Point::ZERO;
-			else
-			{
-				*member = Point(
-					Ogre::StringConverter::parseReal(sv[0]),
-					Ogre::StringConverter::parseReal(sv[1]));
-			}
-		}
+		(*member) = StringConverter::parsePoint(_helperFunction(propertyName,StringConverter::toString(defaultValue)));
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, ProgressBarFillDirection* member)
+	void SerialReader::IO(const Ogre::String& propertyName, ProgressBarFillDirection* member, ProgressBarFillDirection defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-			(*member) = PROGRESSBAR_FILLS_NEGATIVE_TO_POSITIVE;
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-			
-			if(sv.empty())
-				(*member) = PROGRESSBAR_FILLS_NEGATIVE_TO_POSITIVE;
-			else
-				*member = StringConverter::parseProgressBarFillDirection(sv[0]);
-		}
+		(*member) = StringConverter::parseProgressBarFillDirection(_helperFunction(propertyName,StringConverter::toString(defaultValue)));
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, ProgressBarLayout* member)
+	void SerialReader::IO(const Ogre::String& propertyName, ProgressBarLayout* member, ProgressBarLayout defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-			(*member) = PROGRESSBAR_LAYOUT_HORIZONTAL;
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-			
-			if(sv.empty())
-				(*member) = PROGRESSBAR_LAYOUT_HORIZONTAL;
-			else
-				*member = StringConverter::parseProgressBarLayout(sv[0]);
-		}
+		(*member) = StringConverter::parseProgressBarLayout(_helperFunction(propertyName,StringConverter::toString(defaultValue)));
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, ProgressBarClippingEdge* member)
+	void SerialReader::IO(const Ogre::String& propertyName, ProgressBarClippingEdge* member, ProgressBarClippingEdge defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-			(*member) = PROGRESSBAR_CLIP_LEFT_BOTTOM;
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-			
-			if(sv.empty())
-				(*member) = PROGRESSBAR_CLIP_LEFT_BOTTOM;
-			else
-				*member = StringConverter::parseProgressBarClippingEdge(sv[0]);
-		}
+		(*member) = StringConverter::parseProgressBarClippingEdge(_helperFunction(propertyName,StringConverter::toString(defaultValue)));
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, Rect* member)
+	void SerialReader::IO(const Ogre::String& propertyName, Rect* member, Rect defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-			(*member) = Rect(0,0,0,0);
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-			
-			if(sv.empty())
-				(*member) = Rect(0,0,0,0);
-			else
-			{
-				(*member) = Rect(
-					Ogre::StringConverter::parseReal(sv[0]),
-					Ogre::StringConverter::parseReal(sv[1]),
-					Ogre::StringConverter::parseReal(sv[2]),
-					Ogre::StringConverter::parseReal(sv[3]));
-			}
-		}
+		(*member) = StringConverter::parseRect(_helperFunction(propertyName,StringConverter::toString(defaultValue)));
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, Size* member)
+	void SerialReader::IO(const Ogre::String& propertyName, Size* member, Size defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-			(*member) = Size::ZERO;
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-
-			if(sv.empty())
-				(*member) = Size::ZERO;
-			else
-			{
-				(*member) = Size(
-					Ogre::StringConverter::parseReal(sv[0]),
-					Ogre::StringConverter::parseReal(sv[1]));
-			}
-		}
+		(*member) = StringConverter::parseSize(_helperFunction(propertyName,StringConverter::toString(defaultValue)));
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, HorizontalTextAlignment* member)
+	void SerialReader::IO(const Ogre::String& propertyName, HorizontalTextAlignment* member, HorizontalTextAlignment defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-			(*member) = TEXT_ALIGNMENT_HORIZONTAL_CENTER;
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-
-			if(sv.empty())
-				(*member) = TEXT_ALIGNMENT_HORIZONTAL_CENTER;
-			else
-				(*member) = StringConverter::parseHorizontalTextAlignment(sv[0]);
-		}
+		(*member) = StringConverter::parseHorizontalTextAlignment(_helperFunction(propertyName,StringConverter::toString(defaultValue)));
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, HorizontalAnchor* member)
+	void SerialReader::IO(const Ogre::String& propertyName, HorizontalAnchor* member, HorizontalAnchor defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-			(*member) = ANCHOR_HORIZONTAL_LEFT;
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-
-			if(sv.empty())
-				(*member) = ANCHOR_HORIZONTAL_LEFT;
-			else
-				(*member) = StringConverter::parseHorizontalAnchor(sv[0]);
-		}
+		(*member) = StringConverter::parseHorizontalAnchor(_helperFunction(propertyName,StringConverter::toString(defaultValue)));
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, VerticalAnchor* member)
+	void SerialReader::IO(const Ogre::String& propertyName, VerticalAnchor* member, VerticalAnchor defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-			(*member) = ANCHOR_VERTICAL_TOP;
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-
-			if(sv.empty())
-				(*member) = ANCHOR_VERTICAL_TOP;
-			else
-				(*member) = StringConverter::parseVerticalAnchor(sv[0]);
-		}
+		(*member) = StringConverter::parseVerticalAnchor(_helperFunction(propertyName,StringConverter::toString(defaultValue)));
 	}
 
-	void SerialReader::IO(const Ogre::String& propertyName, VerticalTextAlignment* member)
+	void SerialReader::IO(const Ogre::String& propertyName, VerticalTextAlignment* member, VerticalTextAlignment defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialReader has not been correctly setup to retrieve properties. (Missing call to SerialReader::begin?)","SerialReader::IO");
-
-		DefinitionProperty* prop = mCurrentDefinition->getProperty(propertyName);
-
-		if(prop == NULL)
-			(*member) = TEXT_ALIGNMENT_VERTICAL_CENTER;
-		else
-		{
-			Ogre::StringVector sv = prop->getValues();
-
-			if(sv.empty())
-				(*member) = TEXT_ALIGNMENT_VERTICAL_CENTER;
-			else
-				(*member) = StringConverter::parseVerticalTextAlignment(sv[0]);
-		}
+		(*member) = StringConverter::parseVerticalTextAlignment(_helperFunction(propertyName,StringConverter::toString(defaultValue)));
 	}
 
 	bool SerialReader::isSerialWriter()

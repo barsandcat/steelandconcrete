@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUIRoot.h"
 // Managers
 #include "QuickGUIFactoryManager.h"
@@ -23,6 +52,7 @@
 #include "QuickGUIListImageItem.h"
 #include "QuickGUIListPanelItem.h"
 #include "QuickGUIMenu.h"
+#include "QuickGUIMenuImageItem.h"
 #include "QuickGUIMenuTextItem.h"
 #include "QuickGUIMenuPanel.h"
 #include "QuickGUIModalWindow.h"
@@ -49,6 +79,7 @@
 
 #include "OgreStringConverter.h"
 #include "OgreViewport.h"
+#include "OgreFontManager.h"
 
 template<> QuickGUI::Root* Ogre::Singleton<QuickGUI::Root>::ms_Singleton = 0;
 
@@ -61,11 +92,11 @@ namespace QuickGUI
 		// Get the default font
 		Ogre::ResourceManager::ResourceMapIterator it = Ogre::FontManager::getSingleton().getResourceIterator();
 		if(it.hasMoreElements())
-			mDefaultFont = static_cast<Ogre::FontPtr>(it.getNext());
+			mDefaultFont = static_cast<Ogre::FontPtr>(it.getNext()).getPointer();
 		else
 			throw Exception(Exception::ERR_INVALID_STATE,"No fonts have been found! At least one font must exist for QuickGUI use!","Root::Root");
 
-		mDefaultColor = Ogre::ColourValue::White;
+		mDefaultColor = ColourValue::White;
 
 		// Initialize all Singleton Manager classes
 		OGRE_NEW Brush();
@@ -91,6 +122,7 @@ namespace QuickGUI
 		widgetFactory->registerClass<ListPanelItem>("ListPanelItem");
 		widgetFactory->registerClass<ListTextItem>("ListTextItem");
 		widgetFactory->registerClass<Menu>("Menu");
+		widgetFactory->registerClass<MenuImageItem>("MenuImageItem");
 		widgetFactory->registerClass<MenuTextItem>("MenuTextItem");
 		widgetFactory->registerClass<MenuPanel>("MenuPanel");
 		widgetFactory->registerClass<ModalWindow>("ModalWindow");
@@ -132,6 +164,7 @@ namespace QuickGUI
 		descFactory->registerClass<ListPanelItemDesc>("ListPanelItemDesc");
 		descFactory->registerClass<ListTextItemDesc>("ListTextItemDesc");
 		descFactory->registerClass<MenuDesc>("MenuDesc");
+		descFactory->registerClass<MenuImageItemDesc>("MenuImageItemDesc");
 		descFactory->registerClass<MenuTextItemDesc>("MenuTextItemDesc");
 		descFactory->registerClass<MenuPanelDesc>("MenuPanelDesc");
 		descFactory->registerClass<ModalWindowDesc>("ModalWindowDesc");
@@ -174,6 +207,7 @@ namespace QuickGUI
 		ListPanelItem::registerSkinDefinition();
 		ListTextItem::registerSkinDefinition();
 		Menu::registerSkinDefinition();
+		MenuImageItem::registerSkinDefinition();
 		MenuTextItem::registerSkinDefinition();
 		MenuPanel::registerSkinDefinition();
 		ModalWindow::registerSkinDefinition();
@@ -291,14 +325,14 @@ namespace QuickGUI
 		return mGUIManagers[name];
 	}
 
-	Ogre::ColourValue Root::getDefaultColor()
+	ColourValue Root::getDefaultColor()
 	{
 		return mDefaultColor;
 	}
 
 	Ogre::String Root::getDefaultFontName()
 	{
-		if(mDefaultFont.isNull())
+		if(mDefaultFont == NULL)
 			return "";
 		else
 			return mDefaultFont->getName();
@@ -333,7 +367,7 @@ namespace QuickGUI
 		}
 	}
 
-	void Root::setDefaultColor(const Ogre::ColourValue& cv)
+	void Root::setDefaultColor(const ColourValue& cv)
 	{
 		mDefaultColor = cv;
 	}

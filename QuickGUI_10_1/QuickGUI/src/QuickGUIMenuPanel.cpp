@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUIMenuPanel.h"
 #include "QuickGUIListItem.h"
 #include "QuickGUISkinDefinitionManager.h"
@@ -17,8 +46,8 @@ namespace QuickGUI
 	{
 		SkinDefinition* d = OGRE_NEW_T(SkinDefinition,Ogre::MEMCATEGORY_GENERAL)("MenuPanel");
 		d->defineSkinElement(BACKGROUND);
-		d->defineComponent(HSCROLLBAR);
-		d->defineComponent(VSCROLLBAR);
+		d->defineSkinReference(HSCROLLBAR,"HScrollBar");
+		d->defineSkinReference(VSCROLLBAR,"VScrollBar");
 		d->definitionComplete();
 
 		SkinDefinitionManager::getSingleton().registerSkinDefinition("MenuPanel",d);
@@ -66,11 +95,14 @@ namespace QuickGUI
 	{
 		// Update MenuPanel height - for now, just expand to fit all items
 		float totalItemHeight = 0;
-		for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 		{
-			float y = (*it)->getPosition().y + (*it)->getHeight();
-			if(y > totalItemHeight)
-				totalItemHeight = y;
+			if((*it)->getVisible())
+			{
+				float y = (*it)->getPosition().y + (*it)->getHeight();
+				if(y > totalItemHeight)
+					totalItemHeight = y;
+			}
 		}
 
 		// Adjust Height
@@ -115,6 +147,20 @@ namespace QuickGUI
 		_adjustHeight();
 	}
 
+	void MenuPanel::destroyWidget(Widget* w)
+	{
+		Window::destroyChild(w);
+
+		_adjustHeight();
+	}
+
+	void MenuPanel::destroyWidgets()
+	{
+		Window::destroyChildren();
+
+		_adjustHeight();
+	}
+
 	float MenuPanel::getAbsoluteOpacity()
 	{
 		if(!mWidgetDesc->widget_inheritOpacity || (mDesc->menupanel_owner == NULL))
@@ -128,9 +174,33 @@ namespace QuickGUI
 		return "MenuPanel";
 	}
 
+	float MenuPanel::getLeftRightBorderWidth()
+	{
+		if(mSkinElement != NULL)
+			return (mSkinElement->getBorderThickness(BORDER_LEFT) + mSkinElement->getBorderThickness(BORDER_RIGHT));
+		else
+			return 0;
+	}
+
 	Widget* MenuPanel::getOwner()
 	{
 		return mDesc->menupanel_owner;
+	}
+
+	bool MenuPanel::isChildOf(Widget* w)
+	{
+		if(w == NULL)
+			return false;
+
+		Widget* parent = getOwner();
+
+		if(parent == NULL)
+			return false;
+
+		if(parent == w)
+			return true;
+
+		return (parent->isChildOf(w));
 	}
 
 	void MenuPanel::onDraw()
@@ -154,7 +224,8 @@ namespace QuickGUI
 				{
 					if(mDesc->guiManager->getLastClickedWidget() == NULL)
 						tb->closeMenus();
-					else if(!mDesc->guiManager->getLastClickedWidget()->isComponentOf(tb))
+					else if(!mDesc->guiManager->getLastClickedWidget()->isComponentOf(tb) && 
+							!mDesc->guiManager->getLastClickedWidget()->isChildOf(tb))
 						tb->closeMenus();
 				}
 				else
@@ -188,14 +259,14 @@ namespace QuickGUI
 
 	void MenuPanel::removeWidget(Widget* w)
 	{			
-		removeChild(w);
+		Window::removeChild(w);
 
 		_adjustHeight();
 	}
 
 	void MenuPanel::removeWidgets()
 	{
-		removeChildren();
+		Window::removeChildren();
 
 		_adjustHeight();
 	}
@@ -211,9 +282,22 @@ namespace QuickGUI
 	{
 		Window::updateClientDimensions();
 
-		for(std::vector<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
+		for(std::list<Widget*>::iterator it = mChildren.begin(); it != mChildren.end(); ++it)
 		{
 			(*it)->setWidth(mClientDimensions.size.width);
 		}
+	}
+
+	void MenuPanel::updateVirtualDimensions()
+	{
+		Window::updateVirtualDimensions();
+
+		if(mVirtualSize.height < 0.01)
+			return;
+
+		if(!mChildren.empty())
+			mAmountToScrollOnWheel = (mChildren.front()->getHeight() / (mVirtualSize.height - mClientDimensions.size.height));
+		else
+			mAmountToScrollOnWheel = (mClientDimensions.size.height / (mVirtualSize.height - mClientDimensions.size.height));
 	}
 }

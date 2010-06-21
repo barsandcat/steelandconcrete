@@ -1,11 +1,43 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #ifndef QUICKGUIWINDOW_H
 #define QUICKGUIWINDOW_H
 
 #include "QuickGUIPanel.h"
 
-#include "OgreHardwarePixelBuffer.h"
-#include "OgreRenderTexture.h"
-#include "OgreTextureManager.h"
+namespace Ogre
+{
+	// forward declarations
+	class Font;
+	class Texture;
+}
 
 namespace QuickGUI
 {
@@ -128,6 +160,10 @@ namespace QuickGUI
 		*/
 		virtual Ogre::String getClass();
 		/**
+		* Returns the name of the texture representing this window.
+		*/
+		std::string getTextureName();
+		/**
 		* Returns true if the TitleBar is dragable, false otherwise.
 		*/
 		bool getTitleBarDragable();
@@ -150,6 +186,10 @@ namespace QuickGUI
 		* Flags the window as dirty causing its texture to be updated (redrawn).
 		*/
 		virtual void redraw();
+		/**
+		* Removes all Event Handlers registered by the given object.
+		*/
+		virtual void removeEventHandlers(void* obj);
 		/**
 		* Removes the Event Handler registered by the obj.
 		*/
@@ -174,12 +214,6 @@ namespace QuickGUI
 		*/
 		virtual Ogre::String setName(const Ogre::String& name);
 		/**
-		* Sets the "type" of this widget.  For example you
-		* can create several types of Button widgets: "close", "add", "fire.skill.1", etc.
-		* NOTE: The type property determines what is drawn to the screen.
-		*/
-		virtual void setSkinType(const Ogre::String type);
-		/**
 		* Sets whether the titlebar can be dragged, in effect dragging the window.
 		*/
 		void setTitleBarDragable(bool dragable);
@@ -190,42 +224,41 @@ namespace QuickGUI
 		/**
 		* Sets the text for this object.
 		*/
-		void setTitleBarText(Ogre::UTFString s, Ogre::FontPtr fp, const Ogre::ColourValue& cv);
+		void setTitleBarText(Ogre::UTFString s, const ColourValue& cv);
 		/**
 		* Sets the text for this object.
 		*/
-		void setTitleBarText(Ogre::UTFString s, const Ogre::String& fontName, const Ogre::ColourValue& cv);
+		void setTitleBarText(Ogre::UTFString s, Ogre::Font* fp, const ColourValue& cv);
+		/**
+		* Sets the text for this object.
+		*/
+		void setTitleBarText(Ogre::UTFString s, const Ogre::String& fontName, const ColourValue& cv);
 		/**
 		* Sets the Text using Text Segments.
 		*/
 		void setTitleBarText(std::vector<TextSegment> segments);
 		/**
-		* Sets the max width of the Text inside the TitleBar.  If this value is non-zero,
-		* text exceeding the allotted width will be wrapped and displayed underneath the previous line of text.
-		*/
-		void setTitleBarTextAllottedWidth(float allottedWidth);
-		/**
 		* Sets all characters of the text to the specified color.
 		*/
-		void setTitleBarTextColor(const Ogre::ColourValue& cv);
+		void setTitleBarTextColor(const ColourValue& cv);
 		/**
 		* Sets the character at the index given to the specified color.
 		*/
-		void setTitleBarTextColor(const Ogre::ColourValue& cv, unsigned int index);
+		void setTitleBarTextColor(const ColourValue& cv, unsigned int index);
 		/**
 		* Sets all characters within the defined range to the specified color.
 		*/
-		void setTitleBarTextColor(const Ogre::ColourValue& cv, unsigned int startIndex, unsigned int endIndex);
+		void setTitleBarTextColor(const ColourValue& cv, unsigned int startIndex, unsigned int endIndex);
 		/**
 		* Searches text for c.  If allOccurrences is true, all characters of text matching c
 		* will be colored, otherwise only the first occurrence is colored.
 		*/
-		void setTitleBarTextColor(const Ogre::ColourValue& cv, Ogre::UTFString::code_point c, bool allOccurrences);
+		void setTitleBarTextColor(const ColourValue& cv, Ogre::UTFString::code_point c, bool allOccurrences);
 		/**
 		* Searches text for s.  If allOccurrences is true, all sub strings of text matching s
 		* will be colored, otherwise only the first occurrence is colored.
 		*/
-		void setTitleBarTextColor(const Ogre::ColourValue& cv, Ogre::UTFString s, bool allOccurrences);
+		void setTitleBarTextColor(const ColourValue& cv, Ogre::UTFString s, bool allOccurrences);
 		/**
 		* Sets all characters of the text to the specified font.
 		*/
@@ -261,6 +294,11 @@ namespace QuickGUI
 		* Recalculate Screen and client dimensions and force a redrawing of the widget.
 		*/
 		virtual void updateTexturePosition();
+		/**
+		* Redraws the Window texture immediately, as opposed to redraw, which sets a flag causing the window to be redrawn
+		* before next use.
+		*/
+		void updateTexture();
 
 	public:
 		// Here we have to call out any protected Widget set accesors we want to expose
@@ -275,6 +313,7 @@ namespace QuickGUI
 		using Widget::setMinSize;
 		using Widget::setPosition;
 		using Widget::setPositionRelativeToParentClientDimensions;
+		using Widget::setQueryFlags;
 		using Widget::setResizeFromAllSides;
 		using Widget::setResizeFromBottom;
 		using Widget::setResizeFromLeft;
@@ -298,7 +337,7 @@ namespace QuickGUI
 		// Toggled true if the window's texture needs to be updated (redrawn).
 		bool mDirty;
 
-		Ogre::TexturePtr mTexture;
+		Ogre::Texture* mTexture;
 
 		// Event handlers! One List per event per widget
 		std::vector<EventHandlerSlot*> mWindowEventHandlers[WINDOW_EVENT_COUNT];

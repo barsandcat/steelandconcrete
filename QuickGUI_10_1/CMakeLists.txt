@@ -1,16 +1,25 @@
-# Basic Variables
+# Basic variables and setup
 cmake_minimum_required(VERSION 2.4)
 project(QuickGUI)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMakeModules/")
 set(LIBRARY_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/bin" CACHE STRING "")
-option(DEBUG FALSE)
+option(DEBUG OFF)
 if (DEBUG)
 	set(EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/bin/Debug" CACHE STRING "")
-else()
+else ()
 	set(EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/bin/Release" CACHE STRING "")
-endif()
+endif ()
+if (WIN32)
+elseif (UNIX)
+	if (APPLE)
+		set(CMAKE_INSTALL_PREFIX /Library/Frameworks)
+	else ()
+		set(CMAKE_INSTALL_PREFIX /usr/local)
+	endif ()
+endif ()
+include(CMakeModules/Macros.cmake)
 
-# Packages
+# Complain about missing packages
 find_package(Dependencies)
 include_directories(${DEP_INCLUDE_PATH})
 if (NOT OGRE_FOUND)
@@ -20,19 +29,16 @@ if (NOT OIS_FOUND)
 	message(FATAL_ERROR "OIS not found!")
 endif()
 
+# Build Options
+if (DEBUG)
+	set(DEBUG_FLAGS "-g")
+else ()
+	set(DEBUG_FLAGS "-w -s -Os -O3 -fexpensive-optimizations")
+endif ()
+if (WIN32)
+	set(MISC_FLAGS "-DOGRE_UNICODE_SUPPORT=1")
+endif ()
+
 # Build Targets
 add_subdirectory(QuickGUI)
 add_subdirectory(QuickGUIEditor)
-
-# Build Options
-if (CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64")
-	set_target_properties(QuickGUI PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()
-
-if (DEBUG)
-	set(DEBUG_PROPERTIES "-g")
-else()
-	set(DEBUG_PROPERTIES "-w -s -Os -O3 -fexpensive-optimizations")
-endif()
-set_target_properties(QuickGUI PROPERTIES COMPILE_FLAGS ${DEBUG_PROPERTIES})
-set_target_properties(QuickGUIEditor PROPERTIES COMPILE_FLAGS ${DEBUG_PROPERTIES})

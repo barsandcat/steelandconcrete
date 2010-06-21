@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUISerialWriter.h"
 #include "QuickGUIScriptWriter.h"
 
@@ -19,6 +48,24 @@ namespace QuickGUI
 	{ 
 		assert( ms_Singleton );  
 		return ( *ms_Singleton ); 
+	}
+
+	void SerialWriter::_helperFunction(const Ogre::String& propertyName, const Ogre::String& value, const Ogre::String& defaultValue)
+	{
+		// If the value given is the same as the default value, no need to write it out
+		if(value == defaultValue)
+			return;
+
+		if(mCurrentDefinition == NULL)
+			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
+
+		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
+		newProp->mValues.push_back(value);
+		
+		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
+			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
+		else
+			mCurrentDefinition->mProperties[propertyName] = newProp;
 	}
 
 	bool SerialWriter::begin(const Ogre::String& definitionType, const Ogre::String& definitionID)
@@ -48,320 +95,114 @@ namespace QuickGUI
 		mCurrentDefinition = mCurrentDefinition->mParentDefinition;
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, unsigned short* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, unsigned short* member, unsigned short defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(Ogre::StringConverter::toString(*member));
-		
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,Ogre::StringConverter::toString(*member),Ogre::StringConverter::toString(defaultValue));
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, BrushFilterMode* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, BrushFilterMode* member, BrushFilterMode defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(StringConverter::toString(*member));
-
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,StringConverter::toString(*member),StringConverter::toString(defaultValue));
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, ConsoleLayout* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, ConsoleLayout* member, ConsoleLayout defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(StringConverter::toString(*member));
-
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,StringConverter::toString(*member),StringConverter::toString(defaultValue));
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, int* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, int* member, int defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(Ogre::StringConverter::toString(*member));
-
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,Ogre::StringConverter::toString(*member),Ogre::StringConverter::toString(defaultValue));
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, unsigned int* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, unsigned int* member, unsigned int defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(Ogre::StringConverter::toString(*member));
-		
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,Ogre::StringConverter::toString(*member),Ogre::StringConverter::toString(defaultValue));
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, Ogre::ColourValue* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, ColourValue* member, ColourValue defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(Ogre::StringConverter::toString(member->a));
-		newProp->mValues.push_back(Ogre::StringConverter::toString(member->b));
-		newProp->mValues.push_back(Ogre::StringConverter::toString(member->g));
-		newProp->mValues.push_back(Ogre::StringConverter::toString(member->r));
-		
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,StringConverter::toString(*member),StringConverter::toString(defaultValue));
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, VScrollBarButtonLayout* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, VScrollBarButtonLayout* member, VScrollBarButtonLayout defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GEOMETRY)(propertyName);
-		newProp->mValues.push_back(StringConverter::toString(*member));
-		
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,StringConverter::toString(*member),StringConverter::toString(defaultValue));
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, HScrollBarButtonLayout* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, HScrollBarButtonLayout* member, HScrollBarButtonLayout defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(StringConverter::toString(*member));
-		
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,StringConverter::toString(*member),StringConverter::toString(defaultValue));
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, ToolBarItemLayout* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, ToolBarItemLayout* member, ToolBarItemLayout defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(StringConverter::toString(*member));
-		
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,StringConverter::toString(*member),StringConverter::toString(defaultValue));
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, Ogre::String* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, Ogre::String* member, Ogre::String defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(*member);
-		
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,*member,defaultValue);
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, bool* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, bool* member, bool defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(Ogre::StringConverter::toString(*member));
-		
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,Ogre::StringConverter::toString(*member),Ogre::StringConverter::toString(defaultValue));
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, float* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, float* member, float defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(Ogre::StringConverter::toString(*member));
-		
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,Ogre::StringConverter::toString(*member),Ogre::StringConverter::toString(defaultValue));
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, Point* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, Point* member, Point defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(Ogre::StringConverter::toString(member->x));
-		newProp->mValues.push_back(Ogre::StringConverter::toString(member->y));
-		
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,StringConverter::toString(*member),StringConverter::toString(defaultValue));
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, ProgressBarFillDirection* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, ProgressBarFillDirection* member, ProgressBarFillDirection defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(StringConverter::toString(*member));
-		
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,StringConverter::toString(*member),StringConverter::toString(defaultValue));
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, ProgressBarLayout* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, ProgressBarLayout* member, ProgressBarLayout defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(StringConverter::toString(*member));
-		
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,StringConverter::toString(*member),StringConverter::toString(defaultValue));
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, ProgressBarClippingEdge* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, ProgressBarClippingEdge* member, ProgressBarClippingEdge defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(StringConverter::toString(*member));
-		
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,StringConverter::toString(*member),StringConverter::toString(defaultValue));
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, Rect* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, Rect* member, Rect defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(Ogre::StringConverter::toString(member->position.x));
-		newProp->mValues.push_back(Ogre::StringConverter::toString(member->position.y));
-		newProp->mValues.push_back(Ogre::StringConverter::toString(member->size.width));
-		newProp->mValues.push_back(Ogre::StringConverter::toString(member->size.height));
-		
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,StringConverter::toString(*member),StringConverter::toString(defaultValue));
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, Size* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, Size* member, Size defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(Ogre::StringConverter::toString(member->width));
-		newProp->mValues.push_back(Ogre::StringConverter::toString(member->height));
-		
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,StringConverter::toString(*member),StringConverter::toString(defaultValue));
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, HorizontalTextAlignment* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, HorizontalTextAlignment* member, HorizontalTextAlignment defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(StringConverter::toString(*member));
-		
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,StringConverter::toString(*member),StringConverter::toString(defaultValue));
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, HorizontalAnchor* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, HorizontalAnchor* member, HorizontalAnchor defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(StringConverter::toString(*member));
-		
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,StringConverter::toString(*member),StringConverter::toString(defaultValue));
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, VerticalAnchor* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, VerticalAnchor* member, VerticalAnchor defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(StringConverter::toString(*member));
-		
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,StringConverter::toString(*member),StringConverter::toString(defaultValue));
 	}
 
-	void SerialWriter::IO(const Ogre::String& propertyName, VerticalTextAlignment* member)
+	void SerialWriter::IO(const Ogre::String& propertyName, VerticalTextAlignment* member, VerticalTextAlignment defaultValue)
 	{
-		if(mCurrentDefinition == NULL)
-			throw Exception(Exception::ERR_SERIALIZATION,"SerialWriter not setup to write!  Did you miss a call to SerialWriter::begin()?","SerialWriter::IO");
-
-		DefinitionProperty* newProp = OGRE_NEW_T(DefinitionProperty,Ogre::MEMCATEGORY_GENERAL)(propertyName);
-		newProp->mValues.push_back(StringConverter::toString(*member));
-		
-		if(mCurrentDefinition->mProperties.find(propertyName) != mCurrentDefinition->mProperties.end())
-			throw Exception(Exception::ERR_SERIALIZATION,"ScriptDefinition already contains the property \"" + propertyName + "\"!","SerialWriter::IO");
-		else
-			mCurrentDefinition->mProperties[propertyName] = newProp;
+		_helperFunction(propertyName,StringConverter::toString(*member),StringConverter::toString(defaultValue));
 	}
 
 	bool SerialWriter::isSerialWriter()

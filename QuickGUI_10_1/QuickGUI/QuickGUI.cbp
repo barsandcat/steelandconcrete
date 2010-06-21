@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="QuickGUI" />
+		<Option title="QuickGUI_10_1" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -37,8 +37,6 @@
 				<Compiler>
 					<Add option="-Os" />
 					<Add option="-O3" />
-					<Add directory="./include" />
-					<Add directory="../../ogre/OgreMain/include" />
 				</Compiler>
 				<ResourceCompiler>
 					<Add directory="./include" />
@@ -66,7 +64,6 @@
 		<Unit filename="include/QuickGUICheckBox.h" />
 		<Unit filename="include/QuickGUIColorPicker.h" />
 		<Unit filename="include/QuickGUIComboBox.h" />
-		<Unit filename="include/QuickGUIComponentType.h" />
 		<Unit filename="include/QuickGUIComponentWidget.h" />
 		<Unit filename="include/QuickGUIConsole.h" />
 		<Unit filename="include/QuickGUIConsoleEnums.h" />
@@ -77,6 +74,8 @@
 		<Unit filename="include/QuickGUIDesc.h" />
 		<Unit filename="include/QuickGUIDescFactory.h" />
 		<Unit filename="include/QuickGUIDescManager.h" />
+		<Unit filename="include/QuickGUIDragDropSlotItem.h" />
+		<Unit filename="include/QuickGUIDropDragSlot.h" />
 		<Unit filename="include/QuickGUIEventArgs.h" />
 		<Unit filename="include/QuickGUIEventHandlerManager.h" />
 		<Unit filename="include/QuickGUIEventHandlerPointer.h" />
@@ -92,15 +91,18 @@
 		<Unit filename="include/QuickGUIList.h" />
 		<Unit filename="include/QuickGUIListImageItem.h" />
 		<Unit filename="include/QuickGUIListItem.h" />
+		<Unit filename="include/QuickGUIListPanelItem.h" />
 		<Unit filename="include/QuickGUIListTextItem.h" />
 		<Unit filename="include/QuickGUIManager.h" />
 		<Unit filename="include/QuickGUIMenu.h" />
+		<Unit filename="include/QuickGUIMenuImageItem.h" />
 		<Unit filename="include/QuickGUIMenuItem.h" />
 		<Unit filename="include/QuickGUIMenuPanel.h" />
 		<Unit filename="include/QuickGUIMenuTextItem.h" />
 		<Unit filename="include/QuickGUIModalWindow.h" />
 		<Unit filename="include/QuickGUIMouseButtonID.h" />
 		<Unit filename="include/QuickGUIMouseCursor.h" />
+		<Unit filename="include/QuickGUIOgreEquivalents.h" />
 		<Unit filename="include/QuickGUIPanel.h" />
 		<Unit filename="include/QuickGUIPoint.h" />
 		<Unit filename="include/QuickGUIProgressBar.h" />
@@ -129,6 +131,7 @@
 		<Unit filename="include/QuickGUISkinDefinition.h" />
 		<Unit filename="include/QuickGUISkinDefinitionManager.h" />
 		<Unit filename="include/QuickGUISkinElement.h" />
+		<Unit filename="include/QuickGUISkinReference.h" />
 		<Unit filename="include/QuickGUISkinType.h" />
 		<Unit filename="include/QuickGUISkinTypeManager.h" />
 		<Unit filename="include/QuickGUIStringConverter.h" />
@@ -165,13 +168,14 @@
 		<Unit filename="src/QuickGUICheckBox.cpp" />
 		<Unit filename="src/QuickGUIColorPicker.cpp" />
 		<Unit filename="src/QuickGUIComboBox.cpp" />
-		<Unit filename="src/QuickGUIComponentType.cpp" />
 		<Unit filename="src/QuickGUIComponentWidget.cpp" />
 		<Unit filename="src/QuickGUIConsole.cpp" />
 		<Unit filename="src/QuickGUIContainerWidget.cpp" />
 		<Unit filename="src/QuickGUIContextMenu.cpp" />
 		<Unit filename="src/QuickGUIDefinitionProperty.cpp" />
 		<Unit filename="src/QuickGUIDescManager.cpp" />
+		<Unit filename="src/QuickGUIDropDragSlot.cpp" />
+		<Unit filename="src/QuickGUIDropDropSlotItem.cpp" />
 		<Unit filename="src/QuickGUIEventHandlerManager.cpp" />
 		<Unit filename="src/QuickGUIException.cpp" />
 		<Unit filename="src/QuickGUIFactoryManager.cpp" />
@@ -186,11 +190,13 @@
 		<Unit filename="src/QuickGUIListTextItem.cpp" />
 		<Unit filename="src/QuickGUIManager.cpp" />
 		<Unit filename="src/QuickGUIMenu.cpp" />
+		<Unit filename="src/QuickGUIMenuImageItem.cpp" />
 		<Unit filename="src/QuickGUIMenuItem.cpp" />
 		<Unit filename="src/QuickGUIMenuPanel.cpp" />
 		<Unit filename="src/QuickGUIMenuTextItem.cpp" />
 		<Unit filename="src/QuickGUIModalWindow.cpp" />
 		<Unit filename="src/QuickGUIMouseCursor.cpp" />
+		<Unit filename="src/QuickGUIOgreEquivalents.cpp" />
 		<Unit filename="src/QuickGUIPanel.cpp" />
 		<Unit filename="src/QuickGUIPoint.cpp" />
 		<Unit filename="src/QuickGUIProgressBar.cpp" />
@@ -204,7 +210,6 @@
 		<Unit filename="src/QuickGUIRect.cpp" />
 		<Unit filename="src/QuickGUIRoot.cpp" />
 		<Unit filename="src/QuickGUIScriptDefinition.cpp" />
-		<Unit filename="src/QuickGUIScriptNode.cpp" />
 		<Unit filename="src/QuickGUIScriptReader.cpp" />
 		<Unit filename="src/QuickGUIScriptWriter.cpp" />
 		<Unit filename="src/QuickGUISerialBase.cpp" />
@@ -216,6 +221,7 @@
 		<Unit filename="src/QuickGUISkinDefinition.cpp" />
 		<Unit filename="src/QuickGUISkinDefinitionManager.cpp" />
 		<Unit filename="src/QuickGUISkinElement.cpp" />
+		<Unit filename="src/QuickGUISkinReference.cpp" />
 		<Unit filename="src/QuickGUISkinType.cpp" />
 		<Unit filename="src/QuickGUISkinTypeManager.cpp" />
 		<Unit filename="src/QuickGUIStringConverter.cpp" />

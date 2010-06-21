@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUIComboBox.h"
 #include "QuickGUISkinDefinitionManager.h"
 #include "QuickGUIMenuPanel.h"
@@ -15,6 +44,8 @@
 #include "QuickGUIRoot.h"
 #include "QuickGUIManager.h"
 
+#include "OgreFont.h"
+
 namespace QuickGUI
 {
 	const Ogre::String ComboBox::COMBOBOXITEM = "comboboxitem";
@@ -30,9 +61,9 @@ namespace QuickGUI
 		d->defineSkinElement(DEFAULT);
 		d->defineSkinElement(DOWN);
 		d->defineSkinElement(OVER);
-		d->defineComponent(DROPDOWNBUTTON);
-		d->defineComponent(DROPDOWNMENUPANEL);
-		d->defineComponent(COMBOBOXITEM);
+		d->defineSkinReference(DROPDOWNBUTTON,"Button");
+		d->defineSkinReference(DROPDOWNMENUPANEL,"MenuPanel");
+		d->defineSkinReference(COMBOBOXITEM,"ListTextItem");
 		d->definitionComplete();
 
 		SkinDefinitionManager::getSingleton().registerSkinDefinition("ComboBox",d);
@@ -55,7 +86,6 @@ namespace QuickGUI
 		combobox_itemHeight = 25;
 		combobox_dropDownWidth = 125;
 		combobox_dropDownMaxHeight = 0;
-		combobox_verticalTextAlignment = TEXT_ALIGNMENT_VERTICAL_CENTER;
 
 		for(int index = 0; index < COMBOBOX_EVENT_COUNT; ++index)
 			combobox_userHandlers[index] = "";
@@ -69,11 +99,18 @@ namespace QuickGUI
 	{
 		ContainerWidgetDesc::serialize(b);
 
-		b->IO("ItemHeight",&combobox_itemHeight);
-		b->IO("DropDownButton",&combobox_dropDownButton);
-		b->IO("DropDownWidth",&combobox_dropDownWidth);
-		b->IO("DropDownMaxHeight",&combobox_dropDownMaxHeight);
-		b->IO("VerticalTextAlignment",&combobox_verticalTextAlignment);
+		// Retrieve default values to supply to the serial reader/writer.
+		// The reader uses the default value if the given property does not exist.
+		// The writer does not write out the given property if it has the same value as the default value.
+		ComboBoxDesc* defaultValues = DescManager::getSingleton().createDesc<ComboBoxDesc>(getClass(),"temp");
+		defaultValues->resetToDefault();
+
+		b->IO("ItemHeight",			&combobox_itemHeight,			defaultValues->combobox_itemHeight);
+		b->IO("DropDownButton",		&combobox_dropDownButton,		defaultValues->combobox_dropDownButton);
+		b->IO("DropDownWidth",		&combobox_dropDownWidth,		defaultValues->combobox_dropDownWidth);
+		b->IO("DropDownMaxHeight",	&combobox_dropDownMaxHeight,	defaultValues->combobox_dropDownMaxHeight);
+
+		DescManager::getSingleton().destroyDesc(defaultValues);
 
 		TextUserDesc::serialize(b);
 
@@ -82,14 +119,14 @@ namespace QuickGUI
 			if(b->isSerialReader())
 			{
 				for(int index = 0; index < COMBOBOX_EVENT_COUNT; ++index)
-					b->IO(StringConverter::toString(static_cast<ComboBoxEvent>(index)),&(combobox_userHandlers[index]));
+					b->IO(StringConverter::toString(static_cast<ComboBoxEvent>(index)),&(combobox_userHandlers[index]),"");
 			}
 			else
 			{
 				for(int index = 0; index < COMBOBOX_EVENT_COUNT; ++index)
 				{
 					if(combobox_userHandlers[index] != "")
-						b->IO(StringConverter::toString(static_cast<ComboBoxEvent>(index)),&(combobox_userHandlers[index]));
+						b->IO(StringConverter::toString(static_cast<ComboBoxEvent>(index)),&(combobox_userHandlers[index]),"");
 				}
 			}
 			b->end();
@@ -166,11 +203,9 @@ namespace QuickGUI
 		// Make a copy of the Text Desc.  The Text object will
 		// modify it directly, which is used for serialization.
 		mDesc->textDesc = cbd->textDesc;
-		mDesc->combobox_verticalTextAlignment = cbd->combobox_verticalTextAlignment;
-		TextUser::_initialize(this,mDesc);
 
 		mCurrentFontName = Text::getFirstAvailableFont()->getName();
-		mCurrentColourValue = Ogre::ColourValue::White;
+		mCurrentColourValue = ColourValue::White;
 
 		if(mDesc->combobox_dropDownButton)
 		{
@@ -191,6 +226,8 @@ namespace QuickGUI
 		}
 
 		setSkinType(mDesc->widget_skinTypeName);
+
+		TextUser::_initialize(this,mDesc);
 	}
 
 	void ComboBox::_setGUIManager(GUIManager* gm)
@@ -236,7 +273,7 @@ namespace QuickGUI
 
 		i->setWidth(mMenuPanel->getClientDimensions().size.width);
 		i->setHeight(mDesc->combobox_itemHeight);
-		i->setSkinType(mSkinType->getComponentType(COMBOBOXITEM)->typeName);
+		i->setSkinType(mSkinType->getSkinReference(COMBOBOXITEM)->typeName);
 
 		// We cannot add the widget as a child, the texture position and drawing will be incorrect.
 		int itemIndex = i->getIndex();
@@ -294,20 +331,10 @@ namespace QuickGUI
 
 	void ComboBox::clearItems()
 	{
-		mMenuPanel->removeWidgets();
+		// Remember that destroyWidgets() will push all ListItems onto the Sheet's freelist
+		mMenuPanel->destroyWidgets();
 		mMenuPanel->setVisible(false);
 
-		if(mDesc->sheet != NULL)
-		{
-			for(std::list<ListItem*>::iterator it = mItems.begin(); it != mItems.end(); ++it)
-				mDesc->sheet->mFreeList.push_back((*it));
-		}
-		else
-		{
-			GUIManager* gm = Root::getSingleton().mGUIManagers.begin()->second;
-			for(std::list<ListItem*>::iterator it = mItems.begin(); it != mItems.end(); ++it)
-				gm->mFreeList.push_back((*it));
-		}
 		mItems.clear();
 
 		mSelectedItem = NULL;
@@ -399,7 +426,7 @@ namespace QuickGUI
 		WidgetFactory* f = FactoryManager::getSingleton().getWidgetFactory();
 
 		bool itemRemovedFromList = false;
-		int count = 0;
+		unsigned int count = 0;
 		for(std::list<ListItem*>::iterator it = mItems.begin(); it != mItems.end(); ++it)
 		{
 			if(count == index)
@@ -551,29 +578,11 @@ namespace QuickGUI
 
 		brush->drawSkinElement(Rect(mTexturePosition,mWidgetDesc->widget_dimensions.size),mSkinElement);
 
-		Ogre::ColourValue prevColor = brush->getColour();
+		ColourValue prevColor = brush->getColour();
 		Rect prevClipRegion = brush->getClipRegion();
 
 		if(!mText->empty())
 		{
-			// Center Text Vertically
-
-			float textHeight = mText->getTextHeight();
-			float yPos = 0;
-
-			switch(mDesc->combobox_verticalTextAlignment)
-			{
-			case TEXT_ALIGNMENT_VERTICAL_BOTTOM:
-				yPos = mDesc->widget_dimensions.size.height - mSkinElement->getBorderThickness(BORDER_BOTTOM) - textHeight;
-				break;
-			case TEXT_ALIGNMENT_VERTICAL_CENTER:
-				yPos = (mDesc->widget_dimensions.size.height / 2.0) - (textHeight / 2.0);
-				break;
-			case TEXT_ALIGNMENT_VERTICAL_TOP:
-				yPos = mSkinElement->getBorderThickness(BORDER_TOP);
-				break;
-			}
-
 			// Clip to client dimensions
 			Rect clipRegion(mClientDimensions);
 			clipRegion.translate(mTexturePosition);
@@ -582,7 +591,6 @@ namespace QuickGUI
 
 			// Adjust Rect to Text drawing region
 			clipRegion = mClientDimensions;
-			clipRegion.position.y = yPos;
 			clipRegion.translate(mTexturePosition);		
 
 			mText->draw(clipRegion.position);
@@ -609,7 +617,7 @@ namespace QuickGUI
 	{
 		const MouseEventArgs& mea = dynamic_cast<const MouseEventArgs&>(args);
 
-		if(mea.button == MB_Left)
+		if((mea.button == MB_Left) && !(mea.autoRepeat))
 		{
 			if(!mMenuPanel->getVisible())
 			{
@@ -649,7 +657,7 @@ namespace QuickGUI
 	{
 		const MouseEventArgs& mea = dynamic_cast<const MouseEventArgs&>(args);
 
-		if(mea.button == MB_Left)
+		if((mea.button == MB_Left) && !(mea.autoRepeat))
 		{
 			if(!mMenuPanel->getVisible())
 			{
@@ -663,6 +671,32 @@ namespace QuickGUI
 			}
 
 			redraw();
+		}
+	}
+
+	void ComboBox::removeEventHandlers(void* obj)
+	{
+		ContainerWidget::removeEventHandlers(obj);
+
+		for(int index = 0; index < COMBOBOX_EVENT_COUNT; ++index)
+		{
+			std::vector<EventHandlerSlot*> updatedList;
+			std::vector<EventHandlerSlot*> listToCleanup;
+
+			for(std::vector<EventHandlerSlot*>::iterator it = mComboBoxEventHandlers[index].begin(); it != mComboBoxEventHandlers[index].end(); ++it)
+			{
+				if((*it)->getClass() == obj)
+					listToCleanup.push_back((*it));
+				else
+					updatedList.push_back((*it));
+			}
+
+			mComboBoxEventHandlers[index].clear();
+			for(std::vector<EventHandlerSlot*>::iterator it = updatedList.begin(); it != updatedList.end(); ++it)
+				mComboBoxEventHandlers[index].push_back((*it));
+
+			for(std::vector<EventHandlerSlot*>::iterator it = listToCleanup.begin(); it != listToCleanup.end(); ++it)
+				OGRE_DELETE_T((*it),EventHandlerSlot,Ogre::MEMCATEGORY_GENERAL);
 		}
 	}
 
@@ -778,7 +812,7 @@ namespace QuickGUI
 	{
 		mDesc->combobox_itemHeight = height;
 
-		int y = 0;
+		float y = 0;
 		for(std::list<ListItem*>::iterator it = mItems.begin(); it != mItems.end(); ++it)
 		{
 			(*it)->setPosition(Point(0,y));
@@ -803,13 +837,13 @@ namespace QuickGUI
 		Widget::setSkinType(type);
 
 		for(std::map<Ogre::String,Widget*>::iterator it = mComponents.begin(); it != mComponents.end(); ++it)
-			(*it).second->setSkinType(mSkinType->getComponentType((*it).first)->typeName);
+			(*it).second->setSkinType(mSkinType->getSkinReference((*it).first)->typeName);
 
 		if(mMenuPanel != NULL)
-			mMenuPanel->setSkinType(mSkinType->getComponentType(DROPDOWNMENUPANEL)->typeName);
+			mMenuPanel->setSkinType(mSkinType->getSkinReference(DROPDOWNMENUPANEL)->typeName);
 
 		for(std::list<ListItem*>::iterator it = mItems.begin(); it != mItems.end(); ++it)
-			(*it)->setSkinType(mSkinType->getComponentType(COMBOBOXITEM)->typeName);
+			(*it)->setSkinType(mSkinType->getSkinReference(COMBOBOXITEM)->typeName);
 	}
 
 	void ComboBox::showDropDownList()
@@ -864,5 +898,12 @@ namespace QuickGUI
 		mSkinElement = NULL;
 		if(mSkinType != NULL)
 			mSkinElement = mSkinType->getSkinElement(DEFAULT);
+	}
+
+	void ComboBox::updateTexturePosition()
+	{
+		ContainerWidget::updateTexturePosition();
+
+		hideDropDownList();
 	}
 }

@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #ifndef QUICKGUITEXTAREA_H
 #define QUICKGUITEXTAREA_H
 
@@ -5,6 +34,12 @@
 #include "QuickGUITextCursor.h"
 #include "QuickGUITimerManager.h"
 #include "QuickGUIContainerWidget.h"
+
+namespace Ogre
+{
+	// forward declarations
+	class Font;
+}
 
 namespace QuickGUI
 {
@@ -20,14 +55,10 @@ namespace QuickGUI
 
 		/// Amount of time until a cursor changes from visible to not visible, or vice versa.
 		float textarea_cursorBlinkTime;
-		Ogre::ColourValue textarea_defaultColor;
+		ColourValue textarea_defaultColor;
 		Ogre::String textarea_defaultFontName;
 		/// Pixel Padding added to left/right side of client area, to allow drawing of text cursor
 		float textarea_horizontalPadding;
-		/// Amount of time a key must be held down before it starts repeating.
-		float textarea_keyDownTime;
-		/// Amount of time a key must be held down to repeat its input.
-		float textarea_keyRepeatTime;
 		unsigned int textarea_maxCharacters;
 		/// Sets the text to read only
 		bool textarea_readOnly;
@@ -82,11 +113,11 @@ namespace QuickGUI
 		/**
 		* Adds text to this object.
 		*/
-		void addText(Ogre::UTFString s, Ogre::FontPtr fp, const Ogre::ColourValue& cv);
+		void addText(Ogre::UTFString s, Ogre::Font* fp, const ColourValue& cv);
 		/**
 		* Adds text to this object.
 		*/
-		void addText(Ogre::UTFString s, const Ogre::String& fontName, const Ogre::ColourValue& cv);
+		void addText(Ogre::UTFString s, const Ogre::String& fontName, const ColourValue& cv);
 		/**
 		* Adds text to this object.
 		*/
@@ -98,11 +129,11 @@ namespace QuickGUI
 		/**
 		* Adds text to this object.
 		*/
-		void addTextLine(Ogre::UTFString s, Ogre::FontPtr fp, const Ogre::ColourValue& cv);
+		void addTextLine(Ogre::UTFString s, Ogre::Font* fp, const ColourValue& cv);
 		/**
 		* Adds text to this object.
 		*/
-		void addTextLine(Ogre::UTFString s, const Ogre::String& fontName, const Ogre::ColourValue& cv);
+		void addTextLine(Ogre::UTFString s, const Ogre::String& fontName, const ColourValue& cv);
 		/**
 		* Adds text to this object.
 		*/
@@ -128,7 +159,7 @@ namespace QuickGUI
 		/**
 		* Gets the color used when adding characters to the TextBox.
 		*/
-		Ogre::ColourValue getDefaultColor();
+		ColourValue getDefaultColor();
 		/**
 		* Gets the font used when adding character to the TextBox.
 		*/
@@ -228,7 +259,7 @@ namespace QuickGUI
 		/**
 		* Sets the color used when adding characters to the TextBox.
 		*/
-		void setDefaultColor(const Ogre::ColourValue& cv);
+		void setDefaultColor(const ColourValue& cv);
 		/**
 		* Sets the font used when adding character to the TextBox.
 		*/
@@ -275,11 +306,11 @@ namespace QuickGUI
 		/**
 		* Sets the text for this object.
 		*/
-		void setText(Ogre::UTFString s, Ogre::FontPtr fp, const Ogre::ColourValue& cv);
+		void setText(Ogre::UTFString s, Ogre::Font* fp, const ColourValue& cv);
 		/**
 		* Sets the text for this object.
 		*/
-		void setText(Ogre::UTFString s, const Ogre::String& fontName, const Ogre::ColourValue& cv);
+		void setText(Ogre::UTFString s, const Ogre::String& fontName, const ColourValue& cv);
 		/**
 		* Sets the text for this object.
 		*/
@@ -295,25 +326,25 @@ namespace QuickGUI
 		/**
 		* Sets all characters of the text to the specified color.
 		*/
-		virtual void setTextColor(const Ogre::ColourValue& cv);
+		virtual void setTextColor(const ColourValue& cv);
 		/**
 		* Sets the character at the index given to the specified color.
 		*/
-		void setTextColor(const Ogre::ColourValue& cv, unsigned int index);
+		void setTextColor(const ColourValue& cv, unsigned int index);
 		/**
 		* Sets all characters within the defined range to the specified color.
 		*/
-		void setTextColor(const Ogre::ColourValue& cv, unsigned int startIndex, unsigned int endIndex);
+		void setTextColor(const ColourValue& cv, unsigned int startIndex, unsigned int endIndex);
 		/**
 		* Searches text for c.  If allOccurrences is true, all characters of text matching c
 		* will be colored, otherwise only the first occurrence is colored.
 		*/
-		void setTextColor(const Ogre::ColourValue& cv, Ogre::UTFString::code_point c, bool allOccurrences);
+		void setTextColor(const ColourValue& cv, Ogre::UTFString::code_point c, bool allOccurrences);
 		/**
 		* Searches text for s.  If allOccurrences is true, all sub strings of text matching s
 		* will be colored, otherwise only the first occurrence is colored.
 		*/
-		void setTextColor(const Ogre::ColourValue& cv, Ogre::UTFString s, bool allOccurrences);
+		void setTextColor(const ColourValue& cv, Ogre::UTFString s, bool allOccurrences);
 		/**
 		* Sets the TextCursor's skin type.
 		*/
@@ -355,6 +386,7 @@ namespace QuickGUI
 		using Widget::setMinSize;
 		using Widget::setPosition;
 		using Widget::setPositionRelativeToParentClientDimensions;
+		using Widget::setQueryFlags;
 		using Widget::setResizeFromAllSides;
 		using Widget::setResizeFromBottom;
 		using Widget::setResizeFromLeft;
@@ -383,25 +415,8 @@ namespace QuickGUI
 		/// Position of Text, used for scrolling support
 		Point mTextPosition;
 
-		/// Record is last key down was a function button or character input.
-		bool mFunctionKeyDownLast;
-		/// Store the last key that went down
-		KeyEventArgs mLastKnownInput;
-		/// Timer that repeats keys
-		Timer* mKeyRepeatTimer;
-		/**
-		* Callback that repetitively inputs the last held down key.
-		*/
-		void keyRepeatTimerCallback();
-		/// Timer that starts repeat timer
-		Timer* mKeyDownTimer;
-		/**
-		* Callback that starts the key repeat timer.
-		*/
-		void keyDownTimerCallback();
-
 		/// Storing reference to font for quick use.
-		Ogre::FontPtr mCurrentFont;
+		Ogre::Font* mCurrentFont;
 
 		/// Timer that toggles cursor on and off.
 		Timer* mBlinkTimer;
@@ -423,7 +438,6 @@ namespace QuickGUI
 
 		void onCharEntered(const EventArgs& args);
 		void onKeyDown(const EventArgs& args);
-		void onKeyUp(const EventArgs& args);
 		void onKeyboardInputGain(const EventArgs& args);
 		void onKeyboardInputLose(const EventArgs& args);
 		void onMouseButtonDown(const EventArgs& args);

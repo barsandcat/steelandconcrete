@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUIWidget.h"
 #include "QuickGUIWindow.h"
 #include "QuickGUIRoot.h"
@@ -20,7 +49,7 @@ namespace QuickGUI
 
 	void WidgetDesc::resetToDefault()
 	{
-		widget_baseColor = Ogre::ColourValue::White;
+		widget_baseColor = ColourValue::White;
 		widget_brushFilterMode = BRUSHFILTER_LINEAR;
 		widget_consumeKeyboardEvents = false;
 		widget_contextMenuName = "";
@@ -35,8 +64,10 @@ namespace QuickGUI
 		widget_maxSize = Size::ZERO;
 		widget_minSize = Size(5,5);
 		widget_moveBaseWidgetOnDrag = false;
+		widget_moveWindowOnDrag = false;
 		widget_name = getWidgetClass();
 		widget_positionRelativeToParentClientDimensions = true;
+		widget_queryFlags = -1;
 		widget_relativeOpacity = 1.0;
 		widget_resizeFromBottom = false;
 		widget_resizeFromLeft = false;
@@ -56,45 +87,54 @@ namespace QuickGUI
 
 	void WidgetDesc::serialize(SerialBase* b)
 	{
-		b->IO("BaseColor",&widget_baseColor);
-		b->IO("BrushFilterMode",&widget_brushFilterMode);
-		b->IO("ConsumeKeyboardEvents",&widget_consumeKeyboardEvents);
-		b->IO("ContextMenuName",&widget_contextMenuName);
-		b->IO("Enabled",&widget_enabled);
-		b->IO("Dimensions",&widget_dimensions);
-		b->IO("DisabledSkinType",&widget_disabledSkinType);
-		b->IO("Dragable",&widget_dragable);
-		b->IO("HorizontalAnchor",&widget_horizontalAnchor);
-		b->IO("HoverTime",&widget_hoverTime);
-		b->IO("InheritOpacity",&widget_inheritOpacity);
-		b->IO("MaxSize",&widget_maxSize);
-		b->IO("MinSize",&widget_minSize);
-		b->IO("MoveBaseWidgetOnDrag",&widget_moveBaseWidgetOnDrag);
-		b->IO("PositionRelativeToParentClientDimensions",&widget_positionRelativeToParentClientDimensions);
-		b->IO("RelativeOpacity",&widget_relativeOpacity);
-		b->IO("ResizeFromBottom",&widget_resizeFromBottom);
-		b->IO("ResizeFromLeft",&widget_resizeFromLeft);
-		b->IO("ResizeFromRight",&widget_resizeFromRight);
-		b->IO("ResizeFromTop",&widget_resizeFromTop);
-		b->IO("Scrollable",&widget_scrollable);
-		b->IO("TransparencyPicking",&widget_transparencyPicking);
-		b->IO("VerticalAnchor",&widget_verticalAnchor);
-		b->IO("Visible",&widget_visible);
-		b->IO("SkinType",&widget_skinTypeName);
+		// Retrieve default values to supply to the serial reader/writer.
+		// The reader uses the default value if the given property does not exist.
+		// The writer does not write out the given property if it has the same value as the default value.
+		WidgetDesc* defaultValues = DescManager::getSingleton().createDesc<WidgetDesc>(getClass(),"temp");
+		defaultValues->resetToDefault();
+
+		b->IO("BaseColor",									&widget_baseColor,								defaultValues->widget_baseColor);
+		b->IO("BrushFilterMode",							&widget_brushFilterMode,						defaultValues->widget_brushFilterMode);
+		b->IO("ConsumeKeyboardEvents",						&widget_consumeKeyboardEvents,					defaultValues->widget_consumeKeyboardEvents);
+		b->IO("ContextMenuName",							&widget_contextMenuName,						defaultValues->widget_contextMenuName);
+		b->IO("Enabled",									&widget_enabled,								defaultValues->widget_enabled);
+		b->IO("Dimensions",									&widget_dimensions,								defaultValues->widget_dimensions);
+		b->IO("DisabledSkinType",							&widget_disabledSkinType,						defaultValues->widget_disabledSkinType);
+		b->IO("Dragable",									&widget_dragable,								defaultValues->widget_dragable);
+		b->IO("HorizontalAnchor",							&widget_horizontalAnchor,						defaultValues->widget_horizontalAnchor);
+		b->IO("HoverTime",									&widget_hoverTime,								defaultValues->widget_hoverTime);
+		b->IO("InheritOpacity",								&widget_inheritOpacity,							defaultValues->widget_inheritOpacity);
+		b->IO("MaxSize",									&widget_maxSize,								defaultValues->widget_maxSize);
+		b->IO("MinSize",									&widget_minSize,								defaultValues->widget_minSize);
+		b->IO("MoveBaseWidgetOnDrag",						&widget_moveBaseWidgetOnDrag,					defaultValues->widget_moveBaseWidgetOnDrag);
+		b->IO("PositionRelativeToParentClientDimensions",	&widget_positionRelativeToParentClientDimensions,defaultValues->widget_positionRelativeToParentClientDimensions);
+		b->IO("QueryFlags",									&widget_queryFlags,								defaultValues->widget_queryFlags);
+		b->IO("RelativeOpacity",							&widget_relativeOpacity,						defaultValues->widget_relativeOpacity);
+		b->IO("ResizeFromBottom",							&widget_resizeFromBottom,						defaultValues->widget_resizeFromBottom);
+		b->IO("ResizeFromLeft",								&widget_resizeFromLeft,							defaultValues->widget_resizeFromLeft);
+		b->IO("ResizeFromRight",							&widget_resizeFromRight,						defaultValues->widget_resizeFromRight);
+		b->IO("ResizeFromTop",								&widget_resizeFromTop,							defaultValues->widget_resizeFromTop);
+		b->IO("Scrollable",									&widget_scrollable,								defaultValues->widget_scrollable);
+		b->IO("TransparencyPicking",						&widget_transparencyPicking,					defaultValues->widget_transparencyPicking);
+		b->IO("VerticalAnchor",								&widget_verticalAnchor,							defaultValues->widget_verticalAnchor);
+		b->IO("Visible",									&widget_visible,								defaultValues->widget_visible);
+		b->IO("SkinType",									&widget_skinTypeName,							defaultValues->widget_skinTypeName);
+
+		DescManager::getSingleton().destroyDesc(defaultValues);
 
 		if(b->begin("UserDefinedHandlers","WidgetEvents"))
 		{
 			if(b->isSerialReader())
 			{
 				for(int index = 0; index < WIDGET_EVENT_COUNT; ++index)
-					b->IO(StringConverter::toString(static_cast<WidgetEvent>(index)),&(widget_userHandlers[index]));
+					b->IO(StringConverter::toString(static_cast<WidgetEvent>(index)),&(widget_userHandlers[index]),"");
 			}
 			else
 			{
 				for(int index = 0; index < WIDGET_EVENT_COUNT; ++index)
 				{
 					if(widget_userHandlers[index] != "")
-						b->IO(StringConverter::toString(static_cast<WidgetEvent>(index)),&(widget_userHandlers[index]));
+						b->IO(StringConverter::toString(static_cast<WidgetEvent>(index)),&(widget_userHandlers[index]),"");
 				}
 			}
 			b->end();
@@ -179,7 +219,9 @@ namespace QuickGUI
 		setMaxSize(d->widget_maxSize);
 		setMinSize(d->widget_minSize);
 		setMoveBaseWidgetOnDrag(d->widget_moveBaseWidgetOnDrag);
+		setMoveWindowOnDrag(d->widget_moveWindowOnDrag);
 		setPositionRelativeToParentClientDimensions(d->widget_positionRelativeToParentClientDimensions);
+		setQueryFlags(d->widget_queryFlags);
 		setRelativeOpacity(d->widget_relativeOpacity);
 		setResizeFromBottom(d->widget_resizeFromBottom);
 		setResizeFromLeft(d->widget_resizeFromLeft);
@@ -277,6 +319,15 @@ namespace QuickGUI
 				baseWidget->fireWidgetEvent(WIDGET_EVENT_DRAGGED,wargs);
 			}
 		}
+		else if(mWidgetDesc->widget_moveWindowOnDrag && (mWindow != NULL) && (mWindow->getClass() != "Sheet"))
+		{
+			Point p = mWindow->getPosition();
+			p.translate(Point(xOffset,yOffset));
+			mWindow->setPosition(p);
+
+			WidgetEventArgs wargs(this);
+			mWindow->fireWidgetEvent(WIDGET_EVENT_DRAGGED,wargs);
+		}
 		else
 		{
 			Point p = getPosition();
@@ -325,10 +376,13 @@ namespace QuickGUI
 		return NULL;
 	}
 
-	Widget* Widget::findWidgetAtPoint(const Point& p, bool ignoreDisabled)
+	Widget* Widget::findWidgetAtPoint(const Point& p, unsigned int queryFilter, bool ignoreDisabled)
 	{
 		// If we are not widget_visible, return NULL
 		if(!mWidgetDesc->widget_visible)
+			return NULL;
+
+		if((mWidgetDesc->widget_queryFlags & queryFilter) == 0)
 			return NULL;
 
 		// If we ignore disabled and this widget is !widget_enabled, return NULL
@@ -399,7 +453,7 @@ namespace QuickGUI
 		return w;
 	}
 
-	Ogre::ColourValue Widget::getBaseColor()
+	ColourValue Widget::getBaseColor()
 	{
 		return mWidgetDesc->widget_baseColor;
 	}
@@ -526,6 +580,11 @@ namespace QuickGUI
 		return mWidgetDesc->widget_moveBaseWidgetOnDrag;
 	}
 
+	bool Widget::getMoveWindowOnDrag()
+	{
+		return mWidgetDesc->widget_moveWindowOnDrag;
+	}
+
 	Ogre::String Widget::getName()
 	{
 		return mWidgetDesc->widget_name;
@@ -544,6 +603,11 @@ namespace QuickGUI
 	bool Widget::getPositionRelativeToParentClientDimensions()
 	{
 		return mWidgetDesc->widget_positionRelativeToParentClientDimensions;
+	}
+
+	unsigned int Widget::getQueryFlags()
+	{
+		return mWidgetDesc->widget_queryFlags;
 	}
 
 	float Widget::getRelativeOpacity()
@@ -647,6 +711,20 @@ namespace QuickGUI
 		return mWidgetDesc->widget_visible;
 	}
 
+	bool Widget::getVisibleOnScreen()
+	{
+		Widget* w = this;
+		while(w != NULL)
+		{
+			if(!w->getVisible())
+				return false;
+
+			w = w->getParentWidget();
+		}
+
+		return true;
+	}
+
 	Ogre::String Widget::getSkinTypeName()
 	{
 		return mWidgetDesc->widget_skinTypeName;
@@ -675,21 +753,22 @@ namespace QuickGUI
 
 	bool Widget::isChildOf(Widget* w)
 	{
-		Widget* widget = this;
-		while(widget != NULL)
-		{
-			if(widget == w)
-				return true;
+		// this widget cannot be a parent of a NULL pointer
+		if(w == NULL)
+			return false;
 
-			Widget* parent = widget->getParentWidget();
+		Widget* parent = getParentWidget();
 
-			if((parent != NULL) && parent->getClass() == "MenuPanel")
-				widget = dynamic_cast<MenuPanel*>(parent)->getOwner();
-			else
-				widget = parent;
-		}
+		// If I have no parent, I cannot be a parent of the Widget given
+		if(parent == NULL)
+			return false;
 
-		return false;
+		// If my parent is the widget given, return true
+		if(parent == w)
+			return true;
+
+		// Recursively call isChildOf on my parent
+		return (parent->isChildOf(w));
 	}
 
 	bool Widget::isComponentWidget()
@@ -773,7 +852,7 @@ namespace QuickGUI
 			mWindow->redraw();
 	}
 
-	void Widget::removeEventHandler(WidgetEvent EVENT, void* obj)
+	void Widget::removeWidgetEventHandler(WidgetEvent EVENT, void* obj)
 	{
 		for(std::vector<EventHandlerSlot*>::iterator it = mWidgetEventHandlers[EVENT].begin(); it != mWidgetEventHandlers[EVENT].end(); ++it)
 		{
@@ -784,6 +863,30 @@ namespace QuickGUI
 				OGRE_DELETE_T(ehs,EventHandlerSlot,Ogre::MEMCATEGORY_GENERAL);
 				return;
 			}
+		}
+	}
+
+	void Widget::removeEventHandlers(void* obj)
+	{
+		for(int index = 0; index < WIDGET_EVENT_COUNT; ++index)
+		{
+			std::vector<EventHandlerSlot*> updatedList;
+			std::vector<EventHandlerSlot*> listToCleanup;
+
+			for(std::vector<EventHandlerSlot*>::iterator it = mWidgetEventHandlers[index].begin(); it != mWidgetEventHandlers[index].end(); ++it)
+			{
+				if((*it)->getClass() == obj)
+					listToCleanup.push_back((*it));
+				else
+					updatedList.push_back((*it));
+			}
+
+			mWidgetEventHandlers[index].clear();
+			for(std::vector<EventHandlerSlot*>::iterator it = updatedList.begin(); it != updatedList.end(); ++it)
+				mWidgetEventHandlers[index].push_back((*it));
+
+			for(std::vector<EventHandlerSlot*>::iterator it = listToCleanup.begin(); it != listToCleanup.end(); ++it)
+				OGRE_DELETE_T((*it),EventHandlerSlot,Ogre::MEMCATEGORY_GENERAL);
 		}
 	}
 
@@ -860,7 +963,7 @@ namespace QuickGUI
 		b->end();
 	}
 
-	void Widget::setBaseColor(Ogre::ColourValue cv)
+	void Widget::setBaseColor(ColourValue cv)
 	{
 		mWidgetDesc->widget_baseColor = cv;
 
@@ -913,8 +1016,11 @@ namespace QuickGUI
 
 		mWidgetDesc->widget_enabled = enabled;
 
-		if(mWidgetDesc->widget_disabledSkinType != "")
-			_setSkinType(mWidgetDesc->widget_disabledSkinType);
+		if(!mWidgetDesc->widget_enabled)
+		{
+			if(mWidgetDesc->widget_disabledSkinType != "")
+				_setSkinType(mWidgetDesc->widget_disabledSkinType);
+		}
 		else
 			_setSkinType(mWidgetDesc->widget_skinTypeName);
 
@@ -955,6 +1061,12 @@ namespace QuickGUI
 	void Widget::setHorizontalAnchor(HorizontalAnchor a)
 	{
 		mWidgetDesc->widget_horizontalAnchor = a;
+
+		if((a == ANCHOR_HORIZONTAL_CENTER) || (a == ANCHOR_HORIZONTAL_CENTER_DYNAMIC))
+		{
+			if(mParentWidget != NULL)
+				mParentWidget->updateClientDimensions();
+		}
 	}
 
 	void Widget::setHoverTime(float seconds)
@@ -1014,6 +1126,10 @@ namespace QuickGUI
 			mWindow = mParentWidget->mWindow;
 			mWidgetDesc->guiManager = mParentWidget->getGUIManager();
 			mWidgetDesc->sheet = mParentWidget->getSheet();
+
+			// Check if widget should be centered in Parent's client area.
+			setHorizontalAnchor(mWidgetDesc->widget_horizontalAnchor);
+			setVerticalAnchor(mWidgetDesc->widget_verticalAnchor);
 		}
 
 		// Update screen rectangle
@@ -1027,6 +1143,11 @@ namespace QuickGUI
 
 		if(mWidgetDesc->widget_moveBaseWidgetOnDrag && isComponentOfAWidget())
 			setDragable(true);
+	}
+
+	void Widget::setMoveWindowOnDrag(bool moveWindow)
+	{
+		mWidgetDesc->widget_moveWindowOnDrag = moveWindow;
 	}
 
 	void Widget::setPosition(const Point& position)
@@ -1047,6 +1168,11 @@ namespace QuickGUI
 		mWidgetDesc->widget_positionRelativeToParentClientDimensions = relativeToClientOrigin;
 
 		updateTexturePosition();
+	}
+
+	void Widget::setQueryFlags(unsigned int flags)
+	{
+		mWidgetDesc->widget_queryFlags = flags;
 	}
 
 	void Widget::setRelativeOpacity(float opacity)
@@ -1104,7 +1230,7 @@ namespace QuickGUI
 
 	void Widget::setScrollX(unsigned int scrollX)
 	{
-		if(scrollX == static_cast<int>(mScrollOffset.x))
+		if(scrollX == static_cast<unsigned int>(mScrollOffset.x))
 			return;
 
 		mScrollOffset.x = scrollX;
@@ -1119,7 +1245,7 @@ namespace QuickGUI
 
 	void Widget::setScrollY(unsigned int scrollY)
 	{
-		if(scrollY == static_cast<int>(mScrollOffset.y))
+		if(scrollY == static_cast<unsigned int>(mScrollOffset.y))
 			return;
 
 		mScrollOffset.y = scrollY;
@@ -1192,6 +1318,12 @@ namespace QuickGUI
 	void Widget::setVerticalAnchor(VerticalAnchor a)
 	{
 		mWidgetDesc->widget_verticalAnchor = a;
+
+		if((a == ANCHOR_VERTICAL_CENTER) || (a == ANCHOR_VERTICAL_CENTER_DYNAMIC))
+		{
+			if(mParentWidget != NULL)
+				mParentWidget->updateClientDimensions();
+		}
 	}
 
 	void Widget::setVisible(bool visible)
@@ -1200,6 +1332,14 @@ namespace QuickGUI
 			return;
 
 		mWidgetDesc->widget_visible = visible;
+
+		// Check if the KeyboardListener widget has become invisible, if so it is removed as the keyboard listener
+		if(mWidgetDesc->sheet != NULL)
+		{
+			Widget* keyboardListener = mWidgetDesc->sheet->getKeyboardListener();
+			if((keyboardListener != NULL) && !keyboardListener->getVisibleOnScreen())
+				mWidgetDesc->sheet->setKeyboardListener(NULL);
+		}
 
 		WidgetEventArgs args(this);
 		fireWidgetEvent(WIDGET_EVENT_VISIBLE_CHANGED,args);

@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUITextBox.h"
 #include "QuickGUIWindow.h"
 #include "QuickGUIManager.h"
@@ -7,6 +36,9 @@
 #include "QuickGUISheet.h"
 #include "QuickGUICharacter.h"
 #include "QuickGUIWindow.h"
+#include "QuickGUIDescManager.h"
+
+#include "OgreFont.h"
 
 namespace QuickGUI
 {
@@ -38,17 +70,12 @@ namespace QuickGUI
 		textbox_cursorBlinkTime = 0.5;
 		textbox_defaultColor = Root::getSingleton().getDefaultColor();
 		textbox_defaultFontName = Root::getSingleton().getDefaultFontName();
-		textbox_horizontalTextAlignment = TEXT_ALIGNMENT_HORIZONTAL_LEFT;
 		textbox_horizontalPadding = 2;
-		textbox_keyDownTime = 0.6;
-		textbox_keyRepeatTime = 0.04;
 		textbox_maxCharacters = 255;
 		// 42 happens to be the code point for * on regular english true type fonts
 		textbox_maskSymbol = 42;
 		textbox_maskText = false;
 		textbox_textCursorDefaultSkinTypeName = "default";
-		textbox_verticalTextAlignment = TEXT_ALIGNMENT_VERTICAL_CENTER;
-
 		textDesc.resetToDefault();
 	}
 
@@ -56,19 +83,23 @@ namespace QuickGUI
 	{
 		WidgetDesc::serialize(b);
 
-		b->IO("CursorBlinkTime",&textbox_cursorBlinkTime);
-		b->IO("DefaultColor",&textbox_defaultColor);
-		b->IO("DefaultFontName",&textbox_defaultFontName);
-		b->IO("TBHorizontalTextAlignment",&textbox_horizontalTextAlignment);
-		b->IO("TBHorizontalPadding",&textbox_horizontalPadding);
-		b->IO("KeyDownTime",&textbox_keyDownTime);
-		b->IO("KeyRepeatTime",&textbox_keyRepeatTime);
-		b->IO("MaskSymbol",static_cast<unsigned short*>(&textbox_maskSymbol));
-		b->IO("MaskText",&textbox_maskText);
-		b->IO("MaxCharacters",&textbox_maxCharacters);
-		b->IO("TextCursorDefaultSkinTypeName",&textbox_textCursorDefaultSkinTypeName);
-		b->IO("TextPosition",&textbox_textPosition);
-		b->IO("VerticalTextAlignment",&textbox_verticalTextAlignment);
+		// Retrieve default values to supply to the serial reader/writer.
+		// The reader uses the default value if the given property does not exist.
+		// The writer does not write out the given property if it has the same value as the default value.
+		TextBoxDesc* defaultValues = DescManager::getSingleton().createDesc<TextBoxDesc>(getClass(),"temp");
+		defaultValues->resetToDefault();
+
+		b->IO("CursorBlinkTime",				&textbox_cursorBlinkTime,								defaultValues->textbox_cursorBlinkTime);
+		b->IO("DefaultColor",					&textbox_defaultColor,									defaultValues->textbox_defaultColor);
+		b->IO("DefaultFontName",				&textbox_defaultFontName,								defaultValues->textbox_defaultFontName);
+		b->IO("TBHorizontalPadding",			&textbox_horizontalPadding,								defaultValues->textbox_horizontalPadding);
+		b->IO("MaskSymbol",						static_cast<unsigned short*>(&textbox_maskSymbol),		defaultValues->textbox_maskSymbol);
+		b->IO("MaskText",						&textbox_maskText,										defaultValues->textbox_maskText);
+		b->IO("MaxCharacters",					&textbox_maxCharacters,									defaultValues->textbox_maxCharacters);
+		b->IO("TextCursorDefaultSkinTypeName",	&textbox_textCursorDefaultSkinTypeName,					defaultValues->textbox_textCursorDefaultSkinTypeName);
+		b->IO("TextPosition",					&textbox_textPosition,									defaultValues->textbox_textPosition);
+
+		DescManager::getSingleton().destroyDesc(defaultValues);
 
 		textDesc.serialize(b);
 	}
@@ -84,7 +115,6 @@ namespace QuickGUI
 	{
 		addWidgetEventHandler(WIDGET_EVENT_CHARACTER_KEY,&TextBox::onCharEntered,this);
 		addWidgetEventHandler(WIDGET_EVENT_KEY_DOWN,&TextBox::onKeyDown,this);
-		addWidgetEventHandler(WIDGET_EVENT_KEY_UP,&TextBox::onKeyUp,this);
 		addWidgetEventHandler(WIDGET_EVENT_KEYBOARD_INPUT_GAIN,&TextBox::onKeyboardInputGain,this);
 		addWidgetEventHandler(WIDGET_EVENT_KEYBOARD_INPUT_LOSE,&TextBox::onKeyboardInputLose,this);
 		addWidgetEventHandler(WIDGET_EVENT_MOUSE_BUTTON_DOWN,&TextBox::onMouseButtonDown,this);
@@ -100,8 +130,6 @@ namespace QuickGUI
 			mWindow->removeWindowEventHandler(WINDOW_EVENT_DRAWN,this);
 
 		TimerManager::getSingleton().destroyTimer(mBlinkTimer);
-		TimerManager::getSingleton().destroyTimer(mKeyRepeatTimer);
-		TimerManager::getSingleton().destroyTimer(mKeyDownTimer);
 
 		OGRE_DELETE_T(mTextCursor,TextCursor,Ogre::MEMCATEGORY_GENERAL);
 
@@ -121,15 +149,6 @@ namespace QuickGUI
 		mBlinkTimer = TimerManager::getSingleton().createTimer(timerDesc);
 		mBlinkTimer->setCallback(&TextBox::blinkTimerCallback,this);
 
-		timerDesc.timePeriod = td->textbox_keyRepeatTime;
-		mKeyRepeatTimer = TimerManager::getSingleton().createTimer(timerDesc);
-		mKeyRepeatTimer->setCallback(&TextBox::keyRepeatTimerCallback,this);
-
-		timerDesc.repeat = false;
-		timerDesc.timePeriod = td->textbox_keyDownTime;
-		mKeyDownTimer = TimerManager::getSingleton().createTimer(timerDesc);
-		mKeyDownTimer->setCallback(&TextBox::keyDownTimerCallback,this);
-
 		Widget::_initialize(d);
 
 		mDesc = dynamic_cast<TextBoxDesc*>(mWidgetDesc);
@@ -137,8 +156,6 @@ namespace QuickGUI
 		mTextCursor->setSkinType(td->textbox_textCursorDefaultSkinTypeName);
 
 		mDesc->widget_consumeKeyboardEvents = true;
-
-		mFunctionKeyDownLast = false;
 
 		// Make a copy of the Text Desc.  The Text object will
 		// modify it directly, which is used for serialization.
@@ -148,19 +165,22 @@ namespace QuickGUI
 		setDefaultColor(td->textbox_defaultColor);
 		mDesc->textbox_maxCharacters = td->textbox_maxCharacters;
 
-		// Set a really high width, we want everything on 1 line.
-		mDesc->textDesc.allottedWidth = mDesc->textbox_maxCharacters * Text::getGlyphWidth(mDesc->textbox_defaultFontName,'0');
+		// Disable text wrapping, we want everything on 1 line.
+		mDesc->textDesc.allottedSize.width = 0;
+		mDesc->textDesc.allottedSize.height = mDesc->widget_dimensions.size.height;
 			
 		mText = OGRE_NEW_T(Text,Ogre::MEMCATEGORY_GENERAL)(mDesc->textDesc);
 
 		mDesc->textbox_cursorBlinkTime = td->textbox_cursorBlinkTime;
-		mDesc->textbox_keyDownTime = td->textbox_keyDownTime;
-		mDesc->textbox_keyRepeatTime = td->textbox_keyRepeatTime;
 		mDesc->textbox_horizontalPadding = td->textbox_horizontalPadding;
 
 		setMaskText(td->textbox_maskText,td->textbox_maskSymbol);
 		setMaxCharacters(td->textbox_maxCharacters);
 		setSkinType(d->widget_skinTypeName);
+		setHorizontalTextAlignment(mDesc->textDesc.horizontalTextAlignment);
+		setVerticalTextAlignment(mDesc->textDesc.verticalTextAlignment);
+		// Make sure the text cursor is not visible, as setting the alignment will reposition the text cursor and make it visible.
+		mTextCursor->setVisible(false);
 	}
 
 	Ogre::String TextBox::getClass()
@@ -181,14 +201,14 @@ namespace QuickGUI
 		setCursorIndex(mCursorIndex+1);
 	}
 
-	void TextBox::addText(Ogre::UTFString s, Ogre::FontPtr fp, const Ogre::ColourValue& cv)
+	void TextBox::addText(Ogre::UTFString s, Ogre::Font* fp, const ColourValue& cv)
 	{
 		mText->addText(s,fp,cv);
 
 		redraw();
 	}
 
-	void TextBox::addText(Ogre::UTFString s, const Ogre::String& fontName, const Ogre::ColourValue& cv)
+	void TextBox::addText(Ogre::UTFString s, const Ogre::String& fontName, const ColourValue& cv)
 	{
 		addText(s,Text::getFont(fontName),cv);
 	}
@@ -227,7 +247,7 @@ namespace QuickGUI
 		redraw();
 	}
 
-	Ogre::ColourValue TextBox::getDefaultColor()
+	ColourValue TextBox::getDefaultColor()
 	{
 		return mDesc->textbox_defaultColor;
 	}
@@ -244,7 +264,7 @@ namespace QuickGUI
 
 	HorizontalTextAlignment TextBox::getHorizontalTextAlignment()
 	{
-		return mDesc->textbox_horizontalTextAlignment;
+		return mDesc->textDesc.horizontalTextAlignment;
 	}
 
 	Ogre::UTFString::code_point TextBox::getMaskSymbol()
@@ -292,27 +312,16 @@ namespace QuickGUI
 		return mDesc->textbox_textCursorDefaultSkinTypeName;
 	}
 
-	void TextBox::keyDownTimerCallback()
+	VerticalTextAlignment TextBox::getVerticalTextAlignment()
 	{
-		mKeyRepeatTimer->start();
-	}
-
-	void TextBox::keyRepeatTimerCallback()
-	{
-		if(mFunctionKeyDownLast)
-			onKeyDown(mLastKnownInput);
-		else
-			onCharEntered(mLastKnownInput);
+		return mDesc->textDesc.verticalTextAlignment;
 	}
 
 	void TextBox::onCharEntered(const EventArgs& args)
 	{
 		const KeyEventArgs kea = dynamic_cast<const KeyEventArgs&>(args);
-		mLastKnownInput.codepoint = kea.codepoint;
-		mLastKnownInput.keyMask = kea.keyMask;
-		mLastKnownInput.keyModifiers = kea.keyModifiers;
 
-		addCharacter(mLastKnownInput.codepoint);
+		addCharacter(kea.codepoint);
 	}
 
 	void TextBox::onDraw()
@@ -325,7 +334,7 @@ namespace QuickGUI
 
 		brush->drawSkinElement(Rect(mTexturePosition,mWidgetDesc->widget_dimensions.size),mSkinElement);
 
-		Ogre::ColourValue prevColor = brush->getColour();
+		ColourValue prevColor = brush->getColour();
 		Rect prevClipRegion = brush->getClipRegion();
 
 		Rect unpaddedClientArea = mClientDimensions;
@@ -338,26 +347,8 @@ namespace QuickGUI
 		mTextBoxClipRegion = prevClipRegion.getIntersection(clipRegion);
 		brush->setClipRegion(mTextBoxClipRegion);
 
-		// Center Text Vertically
-
-		float textHeight = mText->getTextHeight();
-		float yPos = 0;
-
-		switch(mDesc->textbox_verticalTextAlignment)
-		{
-		case TEXT_ALIGNMENT_VERTICAL_BOTTOM:
-			yPos = mDesc->widget_dimensions.size.height - mSkinElement->getBorderThickness(BORDER_BOTTOM) - textHeight;
-			break;
-		case TEXT_ALIGNMENT_VERTICAL_CENTER:
-			yPos = (mDesc->widget_dimensions.size.height / 2.0) - (textHeight / 2.0);
-			break;
-		case TEXT_ALIGNMENT_VERTICAL_TOP:
-			yPos = mSkinElement->getBorderThickness(BORDER_TOP);
-			break;
-		}
-
 		Point textbox_textPosition = mTexturePosition;
-		textbox_textPosition.translate(Point(mClientDimensions.position.x,yPos));
+		textbox_textPosition += mClientDimensions.position;
 		textbox_textPosition.translate(mDesc->textbox_textPosition);
 		mText->draw(textbox_textPosition);
 
@@ -375,12 +366,6 @@ namespace QuickGUI
 	void TextBox::onKeyDown(const EventArgs& args)
 	{
 		const KeyEventArgs kea = dynamic_cast<const KeyEventArgs&>(args);
-		mLastKnownInput.keyMask = kea.keyMask;
-		mLastKnownInput.keyModifiers = kea.keyModifiers;
-		mLastKnownInput.scancode = kea.scancode;
-
-		mFunctionKeyDownLast = true;
-		mKeyDownTimer->start();
 
 		switch(kea.scancode)
 		{
@@ -409,15 +394,8 @@ namespace QuickGUI
 			setCursorIndex(0);
 			break;
 		default:
-			mFunctionKeyDownLast = false;
 			break;
 		}
-	}
-
-	void TextBox::onKeyUp(const EventArgs& args)
-	{
-		mKeyDownTimer->stop();
-		mKeyRepeatTimer->stop();
 	}
 
 	void TextBox::onKeyboardInputGain(const EventArgs& args)
@@ -439,8 +417,11 @@ namespace QuickGUI
 		{
 			// Convert position to coordinates relative to TextBox position
 			Point relativePosition;
-			relativePosition.x = mea.position.x - mTexturePosition.x;
-			relativePosition.y = mea.position.y - mTexturePosition.y;
+			relativePosition.x = mea.position.x - (mTexturePosition.x + mWindow->getPosition().x);
+			relativePosition.y = mea.position.y - (mTexturePosition.y + mWindow->getPosition().y);
+
+			// Convert relative TextBox position to coordinates relative to client area
+			relativePosition -= mClientDimensions.position;
 
 			// Convert relative TextBox position to coordinates relative to Text position
 			Point relativeTextPosition;
@@ -467,6 +448,14 @@ namespace QuickGUI
 		{
 			mBlinkTimer->stop();
 			mTextCursor->setVisible(false);
+		}
+		else
+		{
+			if((mWidgetDesc->sheet != NULL) && (mWidgetDesc->sheet->getKeyboardListener() == this))
+			{
+				mBlinkTimer->start();
+				mTextCursor->setVisible(true);
+			}
 		}
 	}
 
@@ -506,7 +495,7 @@ namespace QuickGUI
 		// If text fits within TextBox, align text
 		if(mText->getTextWidth() < mClientDimensions.size.width)
 		{
-			switch(mDesc->textbox_horizontalTextAlignment)
+			switch(mDesc->textDesc.horizontalTextAlignment)
 			{
 			case TEXT_ALIGNMENT_HORIZONTAL_CENTER:
 				mDesc->textbox_textPosition.x = (mClientDimensions.size.width - mText->getTextWidth()) / 2.0;
@@ -549,7 +538,7 @@ namespace QuickGUI
 		redraw();
 	}
 
-	void TextBox::setDefaultColor(const Ogre::ColourValue& cv)
+	void TextBox::setDefaultColor(const ColourValue& cv)
 	{
 		mDesc->textbox_defaultColor = cv;
 	}
@@ -622,7 +611,7 @@ namespace QuickGUI
 
 	void TextBox::setHorizontalTextAlignment(HorizontalTextAlignment a)
 	{
-		mDesc->textbox_horizontalTextAlignment = a;
+		mDesc->textDesc.horizontalTextAlignment = a;
 
 		setCursorIndex(mCursorIndex);
 	}
@@ -662,6 +651,10 @@ namespace QuickGUI
 			mWidgetDesc->guiManager = mParentWidget->getGUIManager();
 			mWidgetDesc->sheet = mParentWidget->getSheet();
 
+			// Check if widget should be centered in Parent's client area.
+			setHorizontalAnchor(mWidgetDesc->widget_horizontalAnchor);
+			setVerticalAnchor(mWidgetDesc->widget_verticalAnchor);
+
 			// Add event handler to new window
 			if(mWindow != NULL)
 				mWindow->addWindowEventHandler(WINDOW_EVENT_DRAWN,&TextBox::onWindowDrawn,this);
@@ -677,7 +670,7 @@ namespace QuickGUI
 		setText(s,Text::getFont(mDesc->textbox_defaultFontName),mDesc->textbox_defaultColor);
 	}
 
-	void TextBox::setText(Ogre::UTFString s, Ogre::FontPtr fp, const Ogre::ColourValue& cv)
+	void TextBox::setText(Ogre::UTFString s, Ogre::Font* fp, const ColourValue& cv)
 	{
 		mText->setText(s,fp,cv);
 
@@ -699,44 +692,37 @@ namespace QuickGUI
 		mText->setBrushFilterMode(m);
 	}
 
-	void TextBox::setTextColor(const Ogre::ColourValue& cv)
+	void TextBox::setTextColor(const ColourValue& cv)
 	{
 		mText->setColor(cv);
 
 		redraw();
 	}
 
-	void TextBox::setTextColor(const Ogre::ColourValue& cv, unsigned int index)
+	void TextBox::setTextColor(const ColourValue& cv, unsigned int index)
 	{
 		mText->setColor(cv,index);
 
 		redraw();
 	}
 
-	void TextBox::setTextColor(const Ogre::ColourValue& cv, unsigned int startIndex, unsigned int endIndex)
+	void TextBox::setTextColor(const ColourValue& cv, unsigned int startIndex, unsigned int endIndex)
 	{
 		mText->setColor(cv,startIndex,endIndex);
 
 		redraw();
 	}
 
-	void TextBox::setTextColor(const Ogre::ColourValue& cv, Ogre::UTFString::code_point c, bool allOccurrences)
+	void TextBox::setTextColor(const ColourValue& cv, Ogre::UTFString::code_point c, bool allOccurrences)
 	{
 		mText->setColor(cv,c,allOccurrences);
 
 		redraw();
 	}
 
-	void TextBox::setTextColor(const Ogre::ColourValue& cv, Ogre::UTFString s, bool allOccurrences)
+	void TextBox::setTextColor(const ColourValue& cv, Ogre::UTFString s, bool allOccurrences)
 	{
 		mText->setColor(cv,s,allOccurrences);
-
-		redraw();
-	}
-
-	void TextBox::setVerticalTextAlignment(VerticalTextAlignment a)
-	{
-		mDesc->textbox_verticalTextAlignment = a;
 
 		redraw();
 	}
@@ -746,6 +732,12 @@ namespace QuickGUI
 		mDesc->textbox_textCursorDefaultSkinTypeName = type;
 
 		mTextCursor->setSkinType(type);
+	}
+
+	void TextBox::setVerticalTextAlignment(VerticalTextAlignment a)
+	{
+		if(mText != NULL)
+			mText->setVerticalTextAlignment(a);
 	}
 
 	void TextBox::updateClientDimensions()
@@ -761,6 +753,9 @@ namespace QuickGUI
 
 		if(mTextCursor != NULL)
 			mTextCursor->setHeight(mClientDimensions.size.height);
+
+		if(mText != NULL)
+			mText->setAllottedHeight(mClientDimensions.size.height);
 	}
 
 	void TextBox::updateTexturePosition()

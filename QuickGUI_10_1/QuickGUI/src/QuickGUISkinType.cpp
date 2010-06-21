@@ -1,3 +1,32 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of QuickGUI
+For the latest info, see http://www.ogre3d.org/addonforums/viewforum.php?f=13
+
+Copyright (c) 2009 Stormsong Entertainment
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+(http://opensource.org/licenses/mit-license.php)
+-----------------------------------------------------------------------------
+*/
+
 #include "QuickGUISkinType.h"
 #include "QuickGUIScriptDefinition.h"
 
@@ -14,24 +43,30 @@ namespace QuickGUI
 		for(std::map<Ogre::String,SkinElement*>::iterator it = mSkinElements.begin(); it != mSkinElements.end(); ++it)
 			OGRE_DELETE_T((*it).second,SkinElement,Ogre::MEMCATEGORY_GENERAL);
 
-		for(std::map<Ogre::String,ComponentType*>::iterator it = mComponentTypes.begin(); it != mComponentTypes.end(); ++it)
-			OGRE_DELETE_T((*it).second,ComponentType,Ogre::MEMCATEGORY_GENERAL);
+		for(std::map<Ogre::String,SkinReference*>::iterator it = mSkinReferences.begin(); it != mSkinReferences.end(); ++it)
+			OGRE_DELETE_T((*it).second,SkinReference,Ogre::MEMCATEGORY_GENERAL);
 	}
 
-	void SkinType::addComponentType(const Ogre::String& componentAlias, ComponentType* t)
+	void SkinType::addSkinReference(SkinReference* t)
 	{
-		if(hasComponentType(componentAlias))
-			throw Exception(Exception::ERR_SKINNING,"ComponentType for alias \"" + componentAlias + "\" already exists!","SkinType::addComponentType");
+		if(t == NULL)
+			return;
 
-		mComponentTypes[componentAlias] = t;
+		if(hasSkinReference(t->skinAlias,t->className))
+			throw Exception(Exception::ERR_SKINNING,"SkinReference for alias \"" + t->skinAlias + "\" already exists!","SkinType::addSkinReference");
+
+		mSkinReferences[t->skinAlias] = t;
 	}
 
-	void SkinType::addSkinElement(const Ogre::String& elementName, SkinElement* e)
+	void SkinType::addSkinElement(SkinElement* e)
 	{
-		if(hasSkinElement(elementName))
-			throw Exception(Exception::ERR_SKINNING,"SkinElement \"" + elementName + "\" already exists!","SkinType::addSkinElement");
+		if(e == NULL)
+			return;
 
-		mSkinElements[elementName] = e;
+		if(hasSkinElement(e->getName()))
+			throw Exception(Exception::ERR_SKINNING,"SkinElement \"" + e->getName() + "\" already exists!","SkinType::addSkinElement");
+
+		mSkinElements[e->getName()] = e;
 	}
 
 	Ogre::String SkinType::getClassName()
@@ -39,12 +74,12 @@ namespace QuickGUI
 		return mClassName;
 	}
 
-	ComponentType* SkinType::getComponentType(const Ogre::String& componentAlias)
+	SkinReference* SkinType::getSkinReference(const Ogre::String& skinRefID)
 	{
-		if(!hasComponentType(componentAlias))
-			throw Exception(Exception::ERR_SKINNING,"ComponentType with alias \"" + componentAlias + "\" does not exist!","SkinType::getComponentType");
+		if(!hasSkinReference(skinRefID))
+			throw Exception(Exception::ERR_SKINNING,"SkinReference with alias \"" + skinRefID + "\" does not exist!","SkinType::getSkinReference");
 
-		return mComponentTypes[componentAlias];
+		return mSkinReferences[skinRefID];
 	}
 
 	Ogre::String SkinType::getName()
@@ -60,9 +95,21 @@ namespace QuickGUI
 		return mSkinElements[elementName];
 	}
 
-	bool SkinType::hasComponentType(const Ogre::String& componentAlias)
+	bool SkinType::hasSkinReference(const Ogre::String& skinRefID, const Ogre::String& className)
 	{
-		return (mComponentTypes.find(componentAlias) != mComponentTypes.end());
+		std::map<Ogre::String,SkinReference*>::iterator it = mSkinReferences.find(skinRefID);
+		if(it == mSkinReferences.end())
+			return false;
+
+		if((*it).second->className != className)
+			return false;
+
+		return true;
+	}
+
+	bool SkinType::hasSkinReference(const Ogre::String& skinRefID)
+	{
+		return (mSkinReferences.find(skinRefID) != mSkinReferences.end());
 	}
 
 	bool SkinType::hasSkinElement(const Ogre::String& elementName)
@@ -72,16 +119,17 @@ namespace QuickGUI
 
 	void SkinType::serialize(SerialBase* b)
 	{
-		b->begin("SkinType",mName);
-
 		if(b->isSerialReader())
 		{
-			std::list<ScriptDefinition*> defList = b->getCurrentDefinition()->getDefinitions("ComponentType");
+			mName = b->getCurrentDefinition()->getID();
+			mClassName = b->getCurrentDefinition()->getType();
+			
+			std::list<ScriptDefinition*> defList = b->getCurrentDefinition()->getDefinitions("SkinReference");
 			for(std::list<ScriptDefinition*>::iterator it = defList.begin(); it != defList.end(); ++it)
 			{
-				ComponentType* newComponentType = OGRE_NEW_T(ComponentType,Ogre::MEMCATEGORY_GENERAL)((*it)->getID());
-				newComponentType->serialize(b);
-				addComponentType((*it)->getID(),newComponentType);
+				SkinReference* newSkinReference = OGRE_NEW_T(SkinReference,Ogre::MEMCATEGORY_GENERAL)((*it)->getID());
+				newSkinReference->serialize(b);
+				addSkinReference(newSkinReference);
 			}
 
 			defList = b->getCurrentDefinition()->getDefinitions("SkinElement");
@@ -89,18 +137,20 @@ namespace QuickGUI
 			{
 				SkinElement* newSkinElement = OGRE_NEW_T(SkinElement,Ogre::MEMCATEGORY_GENERAL)((*it)->getID());
 				newSkinElement->serialize(b);
-				addSkinElement((*it)->getID(),newSkinElement);
+				addSkinElement(newSkinElement);
 			}			
 		}
 		else
 		{
-			for(std::map<Ogre::String,ComponentType*>::iterator it = mComponentTypes.begin(); it != mComponentTypes.end(); ++it)
+			b->begin(mClassName,mName);
+
+			for(std::map<Ogre::String,SkinReference*>::iterator it = mSkinReferences.begin(); it != mSkinReferences.end(); ++it)
 				(*it).second->serialize(b);
 
 			for(std::map<Ogre::String,SkinElement*>::iterator it = mSkinElements.begin(); it != mSkinElements.end(); ++it)
 				(*it).second->serialize(b);
-		}
 
-		b->end();
+			b->end();
+		}
 	}
 }
