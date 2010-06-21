@@ -70,7 +70,7 @@
 			<Add directory="protobuf-2.0.3/src" />
 			<Add directory="src/proto" />
 			<Add directory="SAL" />
-			<Add directory="QuickGUI_9_05/QuickGUI/include" />
+			<Add directory="QuickGUI_10_1/QuickGUI/include" />
 			<Add directory="boost/boost_1_43_0" />
 		</Compiler>
 		<Linker>
@@ -116,6 +116,8 @@
 		<Unit filename="src/ServerBrowserSheet.cpp" />
 		<Unit filename="src/ServerBrowserSheet.h" />
 		<Unit filename="src/SyncTimer.h" />
+		<Unit filename="src/SystemMenuSheet.cpp" />
+		<Unit filename="src/SystemMenuSheet.h" />
 		<Unit filename="src/Typedefs.h" />
 		<Unit filename="src/ViewPortWidget.cpp" />
 		<Unit filename="src/ViewPortWidget.h" />
