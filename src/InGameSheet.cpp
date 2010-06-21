@@ -38,7 +38,7 @@ InGameSheet::InGameSheet()
     bd->widget_dimensions.size = QuickGUI::Size(60, 60);
     bd->widget_dimensions.position = QuickGUI::Point(710, 10);
     bd->textDesc.segments.clear();
-    bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", Ogre::ColourValue::White, "Exit"));
+    bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", QuickGUI::ColourValue::White, "Exit"));
     bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_DOWN] = "OnClick";
     bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_UP] = "OnExit";
     bd->widget_horizontalAnchor = QuickGUI::ANCHOR_HORIZONTAL_RIGHT;
@@ -57,7 +57,7 @@ InGameSheet::InGameSheet()
 
 void InGameSheet::SetTime(GameTime aTime)
 {
-    mTime->setText(Ogre::StringConverter::toString((size_t)aTime), "unifont.16", Ogre::ColourValue::White);
+    mTime->setText(Ogre::StringConverter::toString((size_t)aTime), "unifont.16", QuickGUI::ColourValue::White);
 }
 
 void InGameSheet::UpdateStats(const Ogre::RenderTarget::FrameStats& aStats)
@@ -66,8 +66,8 @@ void InGameSheet::UpdateStats(const Ogre::RenderTarget::FrameStats& aStats)
         " / " + Ogre::StringConverter::toString(aStats.lastFPS);
     Ogre::String counts = "Tris: " + Ogre::StringConverter::toString(aStats.triangleCount) +
         " Batches: " + Ogre::StringConverter::toString(aStats.batchCount);
-    mFPS->setText(fps, "unifont.10", Ogre::ColourValue::White);
-    mCount->setText(counts, "unifont.10", Ogre::ColourValue::White);
+    mFPS->setText(fps, "unifont.10", QuickGUI::ColourValue::White);
+    mCount->setText(counts, "unifont.10", QuickGUI::ColourValue::White);
 }
 
 InGameSheet::~InGameSheet()

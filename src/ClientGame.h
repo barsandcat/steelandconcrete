@@ -9,6 +9,7 @@
 #include <Typedefs.h>
 #include <Network.h>
 #include <SyncTimer.h>
+#include <SystemMenuSheet.h>
 
 class ClientApp;
 
@@ -36,6 +37,7 @@ private:
     Ogre::SceneNode* mTargetMarker;
     LoadingSheet mLoadingSheet;
     InGameSheet mIngameSheet;
+    SystemMenuSheet mSystemMenuSheet;
     GameTime mTime;
     SyncTimer mSyncTimer;
     Network* mNetwork;

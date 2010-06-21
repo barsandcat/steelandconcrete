@@ -52,7 +52,7 @@
 			<Add directory="../../betagui2" />
 			<Add directory="../proto" />
 			<Add directory="../../SAL" />
-			<Add directory="../../QuickGUI_9_05/QuickGUI/include" />
+			<Add directory="../../QuickGUI_10_1/QuickGUI/include" />
 			<Add directory="../../boost/boost_1_43_0" />
 		</Compiler>
 		<Linker>
