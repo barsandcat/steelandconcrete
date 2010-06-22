@@ -476,8 +476,8 @@ bool ClientApp::mouseMoved(const OIS::MouseEvent &arg)
 
 bool ClientApp::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
-    mGUIManager->injectMouseButtonDown(static_cast<QuickGUI::MouseButtonID>(id));
-    if (mGame)
+    bool res = mGUIManager->injectMouseButtonDown(static_cast<QuickGUI::MouseButtonID>(id));
+    if (!res && mGame)
     {
         switch (id)
         {
