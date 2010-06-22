@@ -129,7 +129,15 @@ void ClientGame::OnExit(const QuickGUI::EventArgs& args)
 
 void ClientGame::OnEscape()
 {
-    mSystemMenuSheet.Activate();
+    if (mSystemMenuSheet.IsActive())
+    {
+        mIngameSheet.Activate();
+    }
+    else
+    {
+        mSystemMenuSheet.Activate();
+    }
+
 }
 
 ClientUnit& ClientGame::GetUnit(UnitId aUnitId)

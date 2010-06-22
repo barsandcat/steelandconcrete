@@ -10,6 +10,7 @@ public:
     SystemMenuSheet();
     ~SystemMenuSheet() {}
     void Activate();
+    bool IsActive();
 private:
     QuickGUI::Sheet* mSheet;
 };
