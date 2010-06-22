@@ -421,6 +421,11 @@ bool ClientApp::keyPressed(const OIS::KeyEvent &arg)
     case OIS::KC_ADD:
         mBirdCamera->ZoomIn();
         break;
+    case OIS::KC_ESCAPE:
+        if (mGame)
+        {
+            mGame->OnEscape();
+        }
     default:
         ;
 
@@ -484,7 +489,7 @@ bool ClientApp::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
         case OIS::MB_Left:
             break;
         case OIS::MB_Right:
-            mGame->Act();
+            mGame->OnAct();
             break;
         default:
             ;

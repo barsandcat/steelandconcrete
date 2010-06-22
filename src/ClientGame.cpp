@@ -112,7 +112,7 @@ void ClientGame::UpdateTileUnderCursor(Ogre::Ray& aRay)
     mSelectionMarker->setVisible(res.first);
 }
 
-void ClientGame::Act()
+void ClientGame::OnAct()
 {
     assert(mTileUnderCursor && "Тайл под курсором должен быть!");
     mAvatar->SetTarget(mTileUnderCursor);
@@ -125,6 +125,11 @@ void ClientGame::OnExit(const QuickGUI::EventArgs& args)
 {
     ClientApp::Quit();
     GetLog() << "OnExit";
+}
+
+void ClientGame::OnEscape()
+{
+    mSystemMenuSheet.Activate();
 }
 
 ClientUnit& ClientGame::GetUnit(UnitId aUnitId)

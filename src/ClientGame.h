@@ -19,10 +19,11 @@ public:
     typedef std::map< UnitId, ClientUnit* > ClientUnits;
     ClientGame(Network* aNetwork, UnitId aAvatar);
     virtual ~ClientGame(); // Для QuicGUI
-    void OnExit(const QuickGUI::EventArgs& args);
     void UpdateTileUnderCursor(Ogre::Ray& aRay);
     void Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats);
-    void Act();
+    void OnExit(const QuickGUI::EventArgs& args);
+    void OnEscape();
+    void OnAct();
 private:
     void CreateUnitEntities() const;
     int32 ReadResponseMessage();
