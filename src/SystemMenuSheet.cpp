@@ -14,7 +14,7 @@ SystemMenuSheet::SystemMenuSheet()
     // Exit panel
     QuickGUI::PanelDesc* pd = descMgr.getDefaultPanelDesc();
     pd->widget_dimensions.position = QuickGUI::Point(300, 200);
-    pd->widget_dimensions.size = QuickGUI::Size(200, 40);
+    pd->widget_dimensions.size = QuickGUI::Size(200, 60);
     pd->widget_resizeFromBottom = false;
     pd->widget_resizeFromLeft = true;
     pd->widget_resizeFromRight = true;
@@ -25,15 +25,16 @@ SystemMenuSheet::SystemMenuSheet()
 
     QuickGUI::Panel* panel = mSheet->createPanel(pd);
 
+    const int width = panel->getClientDimensions().size.width;
+
     QuickGUI::ButtonDesc* bd = descMgr.getDefaultButtonDesc();
     bd->widget_dragable = false;
-    bd->widget_dimensions.size = QuickGUI::Size(60, 20);
-    bd->widget_dimensions.position = QuickGUI::Point(70, 10);
+    bd->widget_dimensions.size = QuickGUI::Size(width * 0.6f, 20);
+    bd->widget_dimensions.position = QuickGUI::Point(width * 0.2f, 10);
     bd->textDesc.segments.clear();
     bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", QuickGUI::ColourValue::White, "Exit"));
     bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_DOWN] = "OnClick";
     bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_UP] = "OnExit";
-    bd->widget_horizontalAnchor = QuickGUI::ANCHOR_HORIZONTAL_CENTER;
     panel->createButton(bd);
 
 }
