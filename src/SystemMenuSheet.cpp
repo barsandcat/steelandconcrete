@@ -46,3 +46,7 @@ void SystemMenuSheet::Activate()
     Ogre::Root::getSingleton().renderOneFrame();
 }
 
+bool SystemMenuSheet::IsActive()
+{
+    return ClientApp::GetGuiMgr().getActiveSheet() == mSheet;
+}
