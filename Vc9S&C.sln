@@ -95,8 +95,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Server", "Server.vcproj", "
 		{437D55FC-33F4-4FF2-91ED-9C616AFEAD4C} = {437D55FC-33F4-4FF2-91ED-9C616AFEAD4C}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QuickGUI", "QuickGUI_9_05\QuickGUI\QuickGUI.vcproj", "{AEF9FF05-DF46-4982-94C4-F8C99A3938A1}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OgreMain", "ogre1.6.5\OgreMain\scripts\OgreMain_vc9.vcproj", "{35AFBABB-DF05-43DE-91A7-BB828A874015}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E3536C28-A7F1-4B53-8E52-7D2232F9E098} = {E3536C28-A7F1-4B53-8E52-7D2232F9E098}
@@ -140,6 +138,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boost_thread-mt-static-staticrt", "boost\build\libs\thread\src\boost_thread-mt-static-staticrt.vcproj", "{437D55FC-33F4-4FF2-91ED-9C616AFEAD4C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boost_system-mt-static-staticrt", "boost\build\libs\system\src\boost_system-mt-static-staticrt.vcproj", "{36953A70-9FD3-4455-ADBE-C0B1837C3360}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QuickGUI", "QuickGUI_10_1\QuickGUI\QuickGUI.vcproj", "{AEF9FF05-DF46-4982-94C4-F8C99A3938A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -231,10 +231,6 @@ Global
 		{AC38182A-4ED0-4AAF-9822-104356A5B738}.Debug|Win32.Build.0 = Debug|Win32
 		{AC38182A-4ED0-4AAF-9822-104356A5B738}.Release|Win32.ActiveCfg = Release|Win32
 		{AC38182A-4ED0-4AAF-9822-104356A5B738}.Release|Win32.Build.0 = Release|Win32
-		{AEF9FF05-DF46-4982-94C4-F8C99A3938A1}.Debug|Win32.ActiveCfg = Debug|Win32
-		{AEF9FF05-DF46-4982-94C4-F8C99A3938A1}.Debug|Win32.Build.0 = Debug|Win32
-		{AEF9FF05-DF46-4982-94C4-F8C99A3938A1}.Release|Win32.ActiveCfg = Release|Win32
-		{AEF9FF05-DF46-4982-94C4-F8C99A3938A1}.Release|Win32.Build.0 = Release|Win32
 		{35AFBABB-DF05-43DE-91A7-BB828A874015}.Debug|Win32.ActiveCfg = Debug|Win32
 		{35AFBABB-DF05-43DE-91A7-BB828A874015}.Debug|Win32.Build.0 = Debug|Win32
 		{35AFBABB-DF05-43DE-91A7-BB828A874015}.Release|Win32.ActiveCfg = Release|Win32
@@ -263,6 +259,10 @@ Global
 		{36953A70-9FD3-4455-ADBE-C0B1837C3360}.Debug|Win32.Build.0 = Debug|Win32
 		{36953A70-9FD3-4455-ADBE-C0B1837C3360}.Release|Win32.ActiveCfg = Release|Win32
 		{36953A70-9FD3-4455-ADBE-C0B1837C3360}.Release|Win32.Build.0 = Release|Win32
+		{AEF9FF05-DF46-4982-94C4-F8C99A3938A1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AEF9FF05-DF46-4982-94C4-F8C99A3938A1}.Debug|Win32.Build.0 = Debug|Win32
+		{AEF9FF05-DF46-4982-94C4-F8C99A3938A1}.Release|Win32.ActiveCfg = Release|Win32
+		{AEF9FF05-DF46-4982-94C4-F8C99A3938A1}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

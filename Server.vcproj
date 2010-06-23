@@ -54,8 +54,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="boost\boost_1_43_0;&quot;tclap-1.1.0\include&quot;;&quot;protobuf-2.0.3\src&quot;;ogre1.6.5\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogreal\ogreal\include;QuickGUI_9_05\QuickGUI\include;ois\includes"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;OGRE_STATIC_LIB;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1"
+				AdditionalIncludeDirectories="boost\boost_1_43_0;&quot;tclap-1.1.0\include&quot;;&quot;protobuf-2.0.3\src&quot;;ogre1.6.5\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogreal\ogreal\include;QuickGUI_10_1\QuickGUI\include;ois\includes"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;OGRE_STATIC_LIB;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;_QuickGUIExport="
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -145,8 +145,8 @@
 				AdditionalOptions="/Zm200"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="boost\boost_1_43_0;&quot;tclap-1.1.0\include&quot;;&quot;protobuf-2.0.3\src&quot;;ogre1.6.5\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogreal\ogreal\include;QuickGUI_9_05\QuickGUI\include;ois\includes"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;OGRE_STATIC_LIB;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1"
+				AdditionalIncludeDirectories="boost\boost_1_43_0;&quot;tclap-1.1.0\include&quot;;&quot;protobuf-2.0.3\src&quot;;ogre1.6.5\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogreal\ogreal\include;QuickGUI_10_1\QuickGUI\include;ois\includes"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;OGRE_STATIC_LIB;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;_QuickGUIExport="
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
@@ -219,6 +219,14 @@
 			</File>
 			<File
 				RelativePath=".\src\ConnectionManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\Mind.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\MindList.cpp"
 				>
 			</File>
 			<File
@@ -309,6 +317,14 @@
 			</File>
 			<File
 				RelativePath=".\src\ConnectionManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\Mind.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\MindList.h"
 				>
 			</File>
 			<File
