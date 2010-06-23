@@ -35,3 +35,4 @@ glob:bin/ValgrindOut.xml
 glob:bin/cpd/gprof.txt
 glob:*.pyc
 glob:*.orig
+glob:*.bak
