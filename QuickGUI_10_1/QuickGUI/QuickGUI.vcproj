@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="QuickGUI"
 	ProjectGUID="{AEF9FF05-DF46-4982-94C4-F8C99A3938A1}"
 	RootNamespace="QuickGUI"
@@ -18,9 +18,9 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\bin"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="2"
+			OutputDirectory="..\..\lib"
+			IntermediateDirectory="..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
+			ConfigurationType="4"
 			CharacterSet="1"
 			>
 			<Tool
@@ -40,15 +40,14 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Dependencies\include\ogre;..\..\Dependencies\include;.\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;QUICKGUI_EXPORTS"
-				MinimalRebuild="false"
+				AdditionalIncludeDirectories="..\..\ogre1.6.5\OgreMain\include;.\include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;OGRE_STATIC_LIB;_QuickGUIExport="
+				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="0"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 			/>
@@ -62,22 +61,11 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib"
-				OutputFile="$(OutDir)\$(ProjectName)_d.dll"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\Dependencies\lib"
-				GenerateDebugInformation="true"
-				SubSystem="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
-				TargetMachine="1"
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\QuickGUI_d.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -89,18 +77,15 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) ..\..\RotM\$(ConfigurationName)&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) ..\..\RotM\Ares\$(ConfigurationName)&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) ..\..\GaiaEditor\$(ConfigurationName)&#x0D;&#x0A;"
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\bin"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="2"
+			OutputDirectory="..\..\lib"
+			IntermediateDirectory="..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
+			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
@@ -121,12 +106,11 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				AdditionalIncludeDirectories="..\..\Dependencies\include\ogre;..\..\Dependencies\include;.\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;QUICKGUI_EXPORTS"
-				RuntimeLibrary="2"
+				AdditionalIncludeDirectories="..\..\ogre1.6.5\OgreMain\include;.\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;OGRE_STATIC_LIB;_QuickGUIExport="
+				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="0"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 			/>
@@ -140,23 +124,11 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib"
-				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\..\Dependencies\lib"
-				GenerateDebugInformation="true"
-				SubSystem="2"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
-				TargetMachine="1"
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\QuickGUI.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -168,11 +140,7 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) ..\..\RotM\WorkingDirectory"
 			/>
 		</Configuration>
 	</Configurations>
