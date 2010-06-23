@@ -44,9 +44,17 @@ void UnitList::DeleteUnit(UnitId aUnitId)
 }
 
 ServerUnit* UnitList::GetUnit(UnitId aUnitId)
-{
-    ServerUnit* unit = mUnits[aUnitId & INDEX_MASK];
-    return unit && unit->GetUnitId() == aUnitId ? unit : 0;
+{	
+	const size_t index = aUnitId & INDEX_MASK;
+	if (index < mUnits.size())
+	{
+		ServerUnit* const unit = mUnits[index];
+		if (unit && unit->GetUnitId() == aUnitId)
+		{
+			return unit;
+		}
+	}    
+    return NULL;
 }
 
 void UnitList::Clear()
