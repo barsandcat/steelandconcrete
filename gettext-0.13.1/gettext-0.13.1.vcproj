@@ -41,12 +41,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				AdditionalIncludeDirectories="&quot;..\libiconv-1.9.1\include&quot;;&quot;gettext-runtime&quot;;&quot;gettext-runtime\intl&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;HAVE_CONFIG_H;IN_LIBINTL;NO_XMALLOC;LOCALEDIR=\&quot;\&quot;;LOCALE_ALIAS_PATH=\&quot;\&quot;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="0"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -104,11 +105,12 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				AdditionalIncludeDirectories="&quot;..\libiconv-1.9.1\include&quot;;&quot;gettext-runtime&quot;;&quot;gettext-runtime\intl&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;HAVE_CONFIG_H;IN_LIBINTL;NO_XMALLOC;LOCALEDIR=\&quot;\&quot;;LOCALE_ALIAS_PATH=\&quot;\&quot;"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="0"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -148,12 +150,120 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
+			<File
+				RelativePath=".\gettext-runtime\intl\bindtextdom.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\dcgettext.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\dcigettext.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\dcngettext.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\dgettext.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\explodename.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\finddomain.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\gettext.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\intl-compat.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\l10nflist.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\loadmsgcat.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\localcharset.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\localealias.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\localename.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\log.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\ngettext.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\osdep.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\plural-exp.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\plural.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\printf.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\relocatable.c"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\textdomain.c"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\gettext-runtime\config.h"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\gettextP.h"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\gmo.h"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\libintl.h"
+				>
+			</File>
+			<File
+				RelativePath=".\gettext-runtime\intl\loadinfo.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
