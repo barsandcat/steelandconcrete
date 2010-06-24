@@ -144,7 +144,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QuickGUI", "QuickGUI_10_1\Q
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boost_filesystem-mt-static-staticrt", "boost\build\libs\filesystem\src\boost_filesystem-mt-static-staticrt.vcproj", "{90369247-7466-4CDD-AEBF-11668F863D85}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libconv-1.9.1", "libconv-1.9.1\libconv-1.9.1.vcproj", "{651692F3-819D-4FE0-A8A8-CC5B67BC468E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libiconv-1.9.1", "libiconv-1.9.1\libiconv-1.9.1.vcproj", "{AEF3F457-35D0-48A1-B873-E741A952A134}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -272,10 +272,10 @@ Global
 		{90369247-7466-4CDD-AEBF-11668F863D85}.Debug|Win32.Build.0 = Debug|Win32
 		{90369247-7466-4CDD-AEBF-11668F863D85}.Release|Win32.ActiveCfg = Release|Win32
 		{90369247-7466-4CDD-AEBF-11668F863D85}.Release|Win32.Build.0 = Release|Win32
-		{651692F3-819D-4FE0-A8A8-CC5B67BC468E}.Debug|Win32.ActiveCfg = Debug|Win32
-		{651692F3-819D-4FE0-A8A8-CC5B67BC468E}.Debug|Win32.Build.0 = Debug|Win32
-		{651692F3-819D-4FE0-A8A8-CC5B67BC468E}.Release|Win32.ActiveCfg = Release|Win32
-		{651692F3-819D-4FE0-A8A8-CC5B67BC468E}.Release|Win32.Build.0 = Release|Win32
+		{AEF3F457-35D0-48A1-B873-E741A952A134}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AEF3F457-35D0-48A1-B873-E741A952A134}.Debug|Win32.Build.0 = Debug|Win32
+		{AEF3F457-35D0-48A1-B873-E741A952A134}.Release|Win32.ActiveCfg = Release|Win32
+		{AEF3F457-35D0-48A1-B873-E741A952A134}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
