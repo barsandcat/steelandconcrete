@@ -146,6 +146,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boost_filesystem-mt-static-
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libiconv-1.9.1", "libiconv-1.9.1\libiconv-1.9.1.vcproj", "{AEF3F457-35D0-48A1-B873-E741A952A134}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gettext-0.13.1", "gettext-0.13.1\gettext-0.13.1.vcproj", "{D881DEBF-B293-4092-9778-2F944D4931D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -276,6 +278,10 @@ Global
 		{AEF3F457-35D0-48A1-B873-E741A952A134}.Debug|Win32.Build.0 = Debug|Win32
 		{AEF3F457-35D0-48A1-B873-E741A952A134}.Release|Win32.ActiveCfg = Release|Win32
 		{AEF3F457-35D0-48A1-B873-E741A952A134}.Release|Win32.Build.0 = Release|Win32
+		{D881DEBF-B293-4092-9778-2F944D4931D4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D881DEBF-B293-4092-9778-2F944D4931D4}.Debug|Win32.Build.0 = Debug|Win32
+		{D881DEBF-B293-4092-9778-2F944D4931D4}.Release|Win32.ActiveCfg = Release|Win32
+		{D881DEBF-B293-4092-9778-2F944D4931D4}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
