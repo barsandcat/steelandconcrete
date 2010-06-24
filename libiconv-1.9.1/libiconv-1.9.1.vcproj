@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="libconv-1.9.1"
-	ProjectGUID="{651692F3-819D-4FE0-A8A8-CC5B67BC468E}"
-	RootNamespace="libconv191"
+	Name="libiconv-1.9.1"
+	ProjectGUID="{AEF3F457-35D0-48A1-B873-E741A952A134}"
+	RootNamespace="libiconv191"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
