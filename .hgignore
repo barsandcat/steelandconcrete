@@ -1,7 +1,6 @@
 glob:*.depend
 glob:*.pb.cc
 glob:*.pb.h
-glob:lib
 glob:obj
 glob:*.layout
 glob:*Test.cpp
@@ -36,3 +35,4 @@ glob:bin/cpd/gprof.txt
 glob:*.pyc
 glob:*.orig
 glob:*.bak
+glob:lib/*.lib
