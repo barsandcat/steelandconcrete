@@ -36,3 +36,4 @@ glob:*.pyc
 glob:*.orig
 glob:*.bak
 glob:lib/*.lib
+glob:lib/lib*.a

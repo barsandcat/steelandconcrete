@@ -84,6 +84,7 @@
 		<ExtraCommands>
 			<Add before="python get_revision.py" />
 			<Add before="make -C src/proto -f Makefile.proto" />
+			<Add after='find src -iname &quot;*.cpp&quot; | xargs xgettext -o po/steelandconcrete.pot -k_' />
 		</ExtraCommands>
 		<Unit filename="src/BirdCamera.cpp" />
 		<Unit filename="src/BirdCamera.h" />
