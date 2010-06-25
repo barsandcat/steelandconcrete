@@ -27,6 +27,10 @@ public:
     void OnConnect(const QuickGUI::EventArgs& args);
     void OnCreate(const QuickGUI::EventArgs& args);
     void OnBrowse(const QuickGUI::EventArgs& args);
+    void OnRussian(const QuickGUI::EventArgs& args);
+    void OnUkranian(const QuickGUI::EventArgs& args);
+    void OnEnglish(const QuickGUI::EventArgs& args);
+    void OnJapanese(const QuickGUI::EventArgs& args);
     void OnMainMenu(const QuickGUI::EventArgs& args);
 
     virtual bool buttonPressed(const OIS::JoyStickEvent &arg, int button)

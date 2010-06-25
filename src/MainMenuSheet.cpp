@@ -46,25 +46,29 @@ MainMenuSheet::MainMenuSheet()
     bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 180);
     bd->textDesc.segments.clear();
     bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", QuickGUI::ColourValue::White, "English"));
+    bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_UP] = "OnEnglish";
     panel->createButton(bd);
 
     bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 220);
     bd->textDesc.segments.clear();
     bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", QuickGUI::ColourValue::White, "Русский"));
+    bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_UP] = "OnRussian";
     panel->createButton(bd);
 
     bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 260);
     bd->textDesc.segments.clear();
     bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", QuickGUI::ColourValue::White, "Українська"));
+    bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_UP] = "OnUkranian";
     panel->createButton(bd);
 
     bd->widget_dimensions.position = QuickGUI::Point(panel->getClientDimensions().size.width * 0.1f, 300);
     bd->textDesc.segments.clear();
     bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", QuickGUI::ColourValue::White, "日本"));
+    bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_UP] = "OnJapanese";
     panel->createButton(bd);
 }
 
 MainMenuSheet::~MainMenuSheet()
 {
-    //dtor
+    QuickGUI::SheetManager::getSingleton().destroySheet(mSheet);
 }
