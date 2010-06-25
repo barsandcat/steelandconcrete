@@ -29,7 +29,7 @@ ServerBrowserSheet::ServerBrowserSheet()
     bd->widget_dragable = false;
     bd->widget_dimensions.size = QuickGUI::Size(width, 25);
     bd->widget_dimensions.position = QuickGUI::Point(ident, 200);
-    bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", QuickGUI::ColourValue::White, "Connect"));
+    bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", QuickGUI::ColourValue::White, _("Connect")));
     bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_DOWN] = "OnClick";
     bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_UP] = "OnConnect";
     panel->createButton(bd);
@@ -39,7 +39,9 @@ ServerBrowserSheet::ServerBrowserSheet()
     bd->widget_dimensions.size = QuickGUI::Size(width, 25);
     bd->widget_dimensions.position = QuickGUI::Point(ident, 240);
     bd->textDesc.segments.clear();
-    bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", QuickGUI::ColourValue::White, "Return"));
+    bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16",
+                                                          QuickGUI::ColourValue::White,
+                                                          _("Return")));
     bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_DOWN] = "OnClick";
     bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_UP] = "OnMainMenu";
     panel->createButton(bd);
@@ -52,7 +54,9 @@ ServerBrowserSheet::ServerBrowserSheet()
     tbd->textbox_defaultFontName = "unifont.16";
     tbd->textbox_defaultColor = QuickGUI::ColourValue::White;
     tbd->textDesc.segments.clear();
-    tbd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", QuickGUI::ColourValue::White, "localhost"));
+    tbd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16",
+                                                           QuickGUI::ColourValue::White,
+                                                           "localhost"));
     mAddress = panel->createTextBox(tbd);
 
     tbd = descMgr.getDefaultTextBoxDesc();
@@ -71,7 +75,9 @@ ServerBrowserSheet::ServerBrowserSheet()
     ld->widget_dimensions.size = QuickGUI::Size(70, 25);
     ld->widget_dimensions.position = QuickGUI::Point(ident, 20);
     ld->textDesc.segments.clear();
-    ld->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", QuickGUI::ColourValue::White, "Address"));
+    ld->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16",
+                                                          QuickGUI::ColourValue::White,
+                                                          _("Address")));
     panel->createLabel(ld);
 
     ld = descMgr.getDefaultLabelDesc();
@@ -79,7 +85,9 @@ ServerBrowserSheet::ServerBrowserSheet()
     ld->widget_dimensions.size = QuickGUI::Size(70, 25);
     ld->widget_dimensions.position = QuickGUI::Point(ident, 60);
     ld->textDesc.segments.clear();
-    ld->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", QuickGUI::ColourValue::White, "Port"));
+    ld->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16",
+                                                          QuickGUI::ColourValue::White,
+                                                          _("Port")));
     panel->createLabel(ld);
 
 }

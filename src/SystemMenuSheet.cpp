@@ -32,7 +32,7 @@ SystemMenuSheet::SystemMenuSheet()
     bd->widget_dimensions.size = QuickGUI::Size(width * 0.6f, 20);
     bd->widget_dimensions.position = QuickGUI::Point(width * 0.2f, 10);
     bd->textDesc.segments.clear();
-    bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", QuickGUI::ColourValue::White, "Exit"));
+    bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", QuickGUI::ColourValue::White, _("Exit")));
     bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_DOWN] = "OnClick";
     bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_UP] = "OnExit";
     panel->createButton(bd);

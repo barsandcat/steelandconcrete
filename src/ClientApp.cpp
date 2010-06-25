@@ -13,6 +13,8 @@
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
 
+#include <libintl.h>
+#include <locale.h>
 
 
 QuickGUI::GUIManager& ClientApp::GetGuiMgr()
@@ -127,6 +129,13 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
 
         // Create the camera
         mBirdCamera = new BirdCamera(mSceneMgr, *mWindow);
+    }
+
+    {
+        GetLog() << "Init localization";
+        setlocale(LC_ALL, "");
+        bindtextdomain("steelandconcrete", "res");
+        textdomain("steelandconcrete");
     }
 
     {
