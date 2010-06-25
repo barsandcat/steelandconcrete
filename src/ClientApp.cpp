@@ -133,9 +133,9 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
 
     {
         GetLog() << "Init localization";
-        setlocale(LC_ALL, "");
-        bindtextdomain("steelandconcrete", "res");
-        textdomain("steelandconcrete");
+        GetLog() << "locale " << setlocale(LC_ALL, "");
+        GetLog() << "bindtextdomain " << bindtextdomain("steelandconcrete", "lang");
+        GetLog() << "textdomain " << textdomain("steelandconcrete");
     }
 
     {
@@ -212,7 +212,10 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnCreate", &ClientApp::OnCreate, this);
         QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnMainMenu", &ClientApp::OnMainMenu, this);
         QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnClick", &ClientApp::OnClick, this);
-
+        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnEnglish", &ClientApp::OnEnglish, this);
+        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnRussian", &ClientApp::OnRussian, this);
+        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnUkranian", &ClientApp::OnUkranian, this);
+        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnJapanese", &ClientApp::OnJapanese, this);
     }
 }
 
@@ -235,6 +238,42 @@ void ClientApp::OnClick(const QuickGUI::EventArgs& args)
 void ClientApp::OnBrowse(const QuickGUI::EventArgs& args)
 {
     mServerBrowserSheet->Activate(*mGUIManager);
+}
+
+void ClientApp::OnRussian(const QuickGUI::EventArgs& args)
+{
+    GetLog() << "Locale " << setlocale(LC_ALL, "ru_RU.UTF-8");
+    mGUIManager->setActiveSheet(NULL);
+    delete mMainMenu;
+    mMainMenu = new MainMenuSheet();
+    mMainMenu->Activate(*mGUIManager);
+}
+
+void ClientApp::OnEnglish(const QuickGUI::EventArgs& args)
+{
+    GetLog() << "Locale " << setlocale(LC_ALL, "en_US.UTF-8");
+    mGUIManager->setActiveSheet(NULL);
+    delete mMainMenu;
+    mMainMenu = new MainMenuSheet();
+    mMainMenu->Activate(*mGUIManager);
+}
+
+void ClientApp::OnUkranian(const QuickGUI::EventArgs& args)
+{
+    GetLog() << "Locale " << setlocale(LC_ALL, "uk_UA.UTF-8");
+    mGUIManager->setActiveSheet(NULL);
+    delete mMainMenu;
+    mMainMenu = new MainMenuSheet();
+    mMainMenu->Activate(*mGUIManager);
+}
+
+void ClientApp::OnJapanese(const QuickGUI::EventArgs& args)
+{
+    GetLog() << "Locale " << setlocale(LC_ALL, "ja_JP.UTF-8");
+    mGUIManager->setActiveSheet(NULL);
+    delete mMainMenu;
+    mMainMenu = new MainMenuSheet();
+    mMainMenu->Activate(*mGUIManager);
 }
 
 void ClientApp::OnMainMenu(const QuickGUI::EventArgs& args)

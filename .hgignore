@@ -37,3 +37,4 @@ glob:*.orig
 glob:*.bak
 glob:lib/*.lib
 glob:lib/lib*.a
+glob:steelandconcrete.mo
