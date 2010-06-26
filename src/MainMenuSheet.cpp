@@ -1,10 +1,20 @@
 #include <pch.h>
 #include <MainMenuSheet.h>
 
-#include <libintl.h>
+#include <ClientApp.h>
 
-MainMenuSheet::MainMenuSheet()
+MainMenuSheet::MainMenuSheet(): mSheet(NULL)
 {
+    BuildSheet();
+}
+
+void MainMenuSheet::BuildSheet()
+{
+    if (mSheet)
+    {
+        QuickGUI::SheetManager::getSingleton().destroySheet(mSheet);
+    }
+
     QuickGUI::DescManager& descMgr = QuickGUI::DescManager::getSingleton();
     QuickGUI::SheetDesc* sd = descMgr.getDefaultSheetDesc();
     sd->widget_dimensions.size = QuickGUI::Size(800, 600);
@@ -66,6 +76,13 @@ MainMenuSheet::MainMenuSheet()
     bd->textDesc.segments.push_back(QuickGUI::TextSegment("unifont.16", QuickGUI::ColourValue::White, "日本"));
     bd->widget_userHandlers[QuickGUI::WIDGET_EVENT_MOUSE_BUTTON_UP] = "OnJapanese";
     panel->createButton(bd);
+
+    Activate();
+}
+
+void MainMenuSheet::Activate()
+{
+    ClientApp::GetGuiMgr().setActiveSheet(mSheet);
 }
 
 MainMenuSheet::~MainMenuSheet()

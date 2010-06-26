@@ -7,7 +7,8 @@ class MainMenuSheet
 public:
     MainMenuSheet();
     ~MainMenuSheet();
-    void Activate(QuickGUI::GUIManager& aGUIManager) { aGUIManager.setActiveSheet(mSheet); }
+    void Activate();
+    void BuildSheet();
 protected:
 private:
     QuickGUI::Sheet* mSheet;
