@@ -32,13 +32,6 @@ void CheckConfigFile(const Ogre::String aHomeDir)
         of << "RTT Preferred Mode=FBO" << std::endl;
         of << "VSync=No" << std::endl;
         of << "Video Mode=1024 x 768" << std::endl;
-        of << "[Resources]" << std::endl;
-        of << "FileSystem=res/OgreCore" << std::endl;
-        of << "FileSystem=res/audio" << std::endl;
-        of << "FileSystem=res/textures" << std::endl;
-        of << "FileSystem=res/scripts" << std::endl;
-        of << "FileSystem=res/models" << std::endl;
-        of << "FileSystem=res/quickgui" << std::endl;
         of.close();
     }
 }
@@ -74,12 +67,12 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT)
     }
     catch (std::exception& e)
     {
-        MessageBox(NULL, e.what(), "An exception has occured!", MB_OK | MB_ICONERROR | MB_TASKMODAL);
+        MessageBox(NULL, e.what(), "Steelandconcrete exception!", MB_OK | MB_ICONERROR | MB_TASKMODAL);
         return 1;
     }
     catch (...)
     {
-        MessageBox(NULL, "Unknown excepiton", "An exception has occured!", MB_OK | MB_ICONERROR | MB_TASKMODAL);
+        MessageBox(NULL, "Unknown excepiton", "Steelandconcrete occured!", MB_OK | MB_ICONERROR | MB_TASKMODAL);
         return 2;
     }
 }

@@ -133,8 +133,12 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
 
     {
         GetLog() << "Init localization";
-        GetLog() << "LANGUAGE " << getenv("LANGUAGE");
-        putenv("LANGUAGE="); // Disabling this allows locale to rule gettext
+        if (const char* env = getenv("LANGUAGE"))
+        {
+            GetLog() << "LANGUAGE " << env;
+            // Disabling this allows locale to rule gettext
+            putenv("LANGUAGE="); 
+        }
         GetLog() << "locale " << setlocale(LC_ALL, "");
         GetLog() << "bindtextdomain " << bindtextdomain("steelandconcrete", "lang");
         GetLog() << "textdomain " << textdomain("steelandconcrete");
