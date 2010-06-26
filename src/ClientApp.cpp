@@ -251,8 +251,8 @@ void TriggerMsgCatalogReload()
     // This optimization normally prevents the calling of the dcgettext
     // function as long as no new catalog is loaded. But if dcgettext is not
     // called the program also cannot find the LANGUAGE variable be changed
-    extern int  _nl_msg_cat_cntr;
-    ++_nl_msg_cat_cntr;
+    textdomain("");
+    textdomain("steelandconcrete");
 }
 
 void ClientApp::OnRussian(const QuickGUI::EventArgs& args)
