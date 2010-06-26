@@ -244,27 +244,42 @@ void ClientApp::OnBrowse(const QuickGUI::EventArgs& args)
     mServerBrowserSheet->Activate(*mGUIManager);
 }
 
+void TriggerMsgCatalogReload()
+{
+    //http://www.gnu.org/software/gettext/manual/gettext.html#gettext-grok
+    // ... The code for gcc-2.7.0 and up provides some optimization.
+    // This optimization normally prevents the calling of the dcgettext
+    // function as long as no new catalog is loaded. But if dcgettext is not
+    // called the program also cannot find the LANGUAGE variable be changed
+    extern int  _nl_msg_cat_cntr;
+    ++_nl_msg_cat_cntr;
+}
+
 void ClientApp::OnRussian(const QuickGUI::EventArgs& args)
 {
     putenv("LANGUAGE=ru");
+    TriggerMsgCatalogReload();
     mMainMenu->BuildSheet();
 }
 
 void ClientApp::OnEnglish(const QuickGUI::EventArgs& args)
 {
     putenv("LANGUAGE=en");
+    TriggerMsgCatalogReload();
     mMainMenu->BuildSheet();
 }
 
 void ClientApp::OnUkranian(const QuickGUI::EventArgs& args)
 {
     putenv("LANGUAGE=uk");
+    TriggerMsgCatalogReload();
     mMainMenu->BuildSheet();
 }
 
 void ClientApp::OnJapanese(const QuickGUI::EventArgs& args)
 {
     putenv("LANGUAGE=ja");
+    TriggerMsgCatalogReload();
     mMainMenu->BuildSheet();
 }
 
