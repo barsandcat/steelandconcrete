@@ -139,8 +139,10 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
             // Disabling this allows locale to rule gettext
             putenv("LANGUAGE="); 
         }
+
         GetLog() << "locale " << setlocale(LC_ALL, "");
         GetLog() << "bindtextdomain " << bindtextdomain("steelandconcrete", "lang");
+        GetLog() << "bind_textdomain_codeset " << bind_textdomain_codeset("steelandconcrete", "UTF-8");
         GetLog() << "textdomain " << textdomain("steelandconcrete");
     }
 
