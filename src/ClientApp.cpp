@@ -136,10 +136,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         if (const char* env = getenv("LANGUAGE"))
         {
             GetLog() << "LANGUAGE " << env;
-            // Disabling this allows locale to rule gettext
-            putenv("LANGUAGE="); 
         }
-
         GetLog() << "locale " << setlocale(LC_ALL, "");
         GetLog() << "bindtextdomain " << bindtextdomain("steelandconcrete", "lang");
         GetLog() << "bind_textdomain_codeset " << bind_textdomain_codeset("steelandconcrete", "UTF-8");
@@ -249,25 +246,25 @@ void ClientApp::OnBrowse(const QuickGUI::EventArgs& args)
 
 void ClientApp::OnRussian(const QuickGUI::EventArgs& args)
 {
-    GetLog() << "Locale " << setlocale(LC_ALL, "ru_RU.UTF-8");
+    putenv("LANGUAGE=ru");
     mMainMenu->BuildSheet();
 }
 
 void ClientApp::OnEnglish(const QuickGUI::EventArgs& args)
 {
-    GetLog() << "Locale " << setlocale(LC_ALL, "en_US.UTF-8");
+    putenv("LANGUAGE=en");
     mMainMenu->BuildSheet();
 }
 
 void ClientApp::OnUkranian(const QuickGUI::EventArgs& args)
 {
-    GetLog() << "Locale " << setlocale(LC_ALL, "uk_UA.UTF-8");
+    putenv("LANGUAGE=uk");
     mMainMenu->BuildSheet();
 }
 
 void ClientApp::OnJapanese(const QuickGUI::EventArgs& args)
 {
-    GetLog() << "Locale " << setlocale(LC_ALL, "ja_JP.UTF-8");
+    putenv("LANGUAGE=ja");
     mMainMenu->BuildSheet();
 }
 
