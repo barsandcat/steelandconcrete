@@ -133,6 +133,8 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
 
     {
         GetLog() << "Init localization";
+        GetLog() << "LANGUAGE " << getenv("LANGUAGE");
+        putenv("LANGUAGE="); // Disabling this allows locale to rule gettext
         GetLog() << "locale " << setlocale(LC_ALL, "");
         GetLog() << "bindtextdomain " << bindtextdomain("steelandconcrete", "lang");
         GetLog() << "textdomain " << textdomain("steelandconcrete");
@@ -205,7 +207,6 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         GetLog() << "Init app UI";
         mMainMenu = new MainMenuSheet();
         mServerBrowserSheet = new ServerBrowserSheet();
-        mMainMenu->Activate(*mGUIManager);
         mGUIManager->notifyViewportDimensionsChanged();
         QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnBrowse", &ClientApp::OnBrowse, this);
         QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnConnect", &ClientApp::OnConnect, this);
@@ -243,42 +244,30 @@ void ClientApp::OnBrowse(const QuickGUI::EventArgs& args)
 void ClientApp::OnRussian(const QuickGUI::EventArgs& args)
 {
     GetLog() << "Locale " << setlocale(LC_ALL, "ru_RU.UTF-8");
-    mGUIManager->setActiveSheet(NULL);
-    delete mMainMenu;
-    mMainMenu = new MainMenuSheet();
-    mMainMenu->Activate(*mGUIManager);
+    mMainMenu->BuildSheet();
 }
 
 void ClientApp::OnEnglish(const QuickGUI::EventArgs& args)
 {
     GetLog() << "Locale " << setlocale(LC_ALL, "en_US.UTF-8");
-    mGUIManager->setActiveSheet(NULL);
-    delete mMainMenu;
-    mMainMenu = new MainMenuSheet();
-    mMainMenu->Activate(*mGUIManager);
+    mMainMenu->BuildSheet();
 }
 
 void ClientApp::OnUkranian(const QuickGUI::EventArgs& args)
 {
     GetLog() << "Locale " << setlocale(LC_ALL, "uk_UA.UTF-8");
-    mGUIManager->setActiveSheet(NULL);
-    delete mMainMenu;
-    mMainMenu = new MainMenuSheet();
-    mMainMenu->Activate(*mGUIManager);
+    mMainMenu->BuildSheet();
 }
 
 void ClientApp::OnJapanese(const QuickGUI::EventArgs& args)
 {
     GetLog() << "Locale " << setlocale(LC_ALL, "ja_JP.UTF-8");
-    mGUIManager->setActiveSheet(NULL);
-    delete mMainMenu;
-    mMainMenu = new MainMenuSheet();
-    mMainMenu->Activate(*mGUIManager);
+    mMainMenu->BuildSheet();
 }
 
 void ClientApp::OnMainMenu(const QuickGUI::EventArgs& args)
 {
-    mMainMenu->Activate(*mGUIManager);
+    mMainMenu->Activate();
 }
 
 void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
