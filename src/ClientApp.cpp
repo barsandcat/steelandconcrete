@@ -15,7 +15,6 @@
 
 #include <libintl.h>
 #include <locale.h>
-#include <Platform.h>
 
 
 QuickGUI::GUIManager& ClientApp::GetGuiMgr()
@@ -250,25 +249,25 @@ void ClientApp::OnBrowse(const QuickGUI::EventArgs& args)
 
 void ClientApp::OnRussian(const QuickGUI::EventArgs& args)
 {
-    GetLog() << "Locale " << setlocale(LC_ALL, RU_LOCALE);
+    GetLog() << "Locale " << setlocale(LC_ALL, "ru_RU.UTF-8");
     mMainMenu->BuildSheet();
 }
 
 void ClientApp::OnEnglish(const QuickGUI::EventArgs& args)
 {
-    GetLog() << "Locale " << setlocale(LC_ALL, EN_LOCALE);
+    GetLog() << "Locale " << setlocale(LC_ALL, "en_US.UTF-8");
     mMainMenu->BuildSheet();
 }
 
 void ClientApp::OnUkranian(const QuickGUI::EventArgs& args)
 {
-    GetLog() << "Locale " << setlocale(LC_ALL, UK_LOCALE);
+    GetLog() << "Locale " << setlocale(LC_ALL, "uk_UA.UTF-8");
     mMainMenu->BuildSheet();
 }
 
 void ClientApp::OnJapanese(const QuickGUI::EventArgs& args)
 {
-    GetLog() << "Locale " << setlocale(LC_ALL, JA_LOCALE);
+    GetLog() << "Locale " << setlocale(LC_ALL, "ja_JP.UTF-8");
     mMainMenu->BuildSheet();
 }
 
