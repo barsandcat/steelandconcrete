@@ -18,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\bin"
+			IntermediateDirectory="..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="1"
 			CharacterSet="1"
 			>
@@ -63,6 +63,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="intl$(ConfigurationName).lib libiconv$(ConfigurationName).lib libgettext$(ConfigurationName).lib"
+				OutputFile="$(OutDir)\msgfmt$(ConfigurationName).exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="../lib"
 				GenerateDebugInformation="true"
@@ -93,8 +94,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\bin"
+			IntermediateDirectory="..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -139,6 +140,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="intl$(ConfigurationName).lib libiconv$(ConfigurationName).lib libgettext$(ConfigurationName).lib"
+				OutputFile="$(OutDir)\msgfmt$(ConfigurationName).exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="../lib"
 				GenerateDebugInformation="true"
