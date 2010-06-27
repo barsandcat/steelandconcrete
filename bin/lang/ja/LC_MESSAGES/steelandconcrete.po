@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: steelandconcrete\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-25 16:06+0300\n"
-"PO-Revision-Date: 2010-06-25 16:06+0300\n"
+"PO-Revision-Date: 2010-06-27 15:30+0300\n"
 "Last-Translator: \n"
 "Language-Team: ddr <barsandcat@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -20,25 +20,25 @@ msgstr ""
 
 #: src/ServerBrowserSheet.cpp:32
 msgid "Connect"
-msgstr "Соединиться"
+msgstr "接続する"
 
 #: src/ServerBrowserSheet.cpp:44
 msgid "Return"
-msgstr "Назад"
+msgstr "戻る"
 
 #: src/ServerBrowserSheet.cpp:80
 msgid "Address"
-msgstr "Адресс"
+msgstr "アドレス"
 
 #: src/ServerBrowserSheet.cpp:90
 msgid "Port"
-msgstr "Порт"
+msgstr "ポート"
 
 #: src/SystemMenuSheet.cpp:35
 msgid "Exit"
-msgstr "Выход"
+msgstr "出口"
 
 #: src/MainMenuSheet.cpp:30
 msgid "Create server"
-msgstr "Запустить сервер"
+msgstr "作成サーバ"
 
