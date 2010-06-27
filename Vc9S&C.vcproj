@@ -73,7 +73,7 @@
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
-				DisableSpecificWarnings="4800;4244"
+				DisableSpecificWarnings="4800;4244;4996"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -148,6 +148,7 @@
 			/>
 			<Tool
 				Name="po"
+				msgfmt="bin\msgfmt$(ConfigurationName).exe"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -180,7 +181,7 @@
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
-				DisableSpecificWarnings="4800;4244"
+				DisableSpecificWarnings="4800;4244;4996"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -759,10 +760,6 @@
 			Filter="po"
 			>
 			<File
-				RelativePath=".\bin\lang\ja\LC_MESSAGES\steelandconcrete.po"
-				>
-			</File>
-			<File
 				RelativePath=".\bin\lang\ru\LC_MESSAGES\steelandconcrete.po"
 				>
 			</File>
@@ -772,6 +769,10 @@
 			</File>
 			<File
 				RelativePath=".\bin\lang\en\LC_MESSAGES\steelandconcrete.po"
+				>
+			</File>
+			<File
+				RelativePath=".\bin\lang\ja\LC_MESSAGES\steelandconcrete.po"
 				>
 			</File>
 		</Filter>
