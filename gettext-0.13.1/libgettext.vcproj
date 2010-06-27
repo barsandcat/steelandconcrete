@@ -18,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib"
+			IntermediateDirectory="..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -45,7 +45,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;HAVE_CONFIG_H;EXEEXT=\&quot;.exe\&quot;;DEPENDS_ON_LIBINTL=1;DEPENDS_ON_LIBICONV=1"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
 				WarningLevel="0"
 				DebugInformationFormat="4"
@@ -61,6 +61,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\libgettext$(ConfigurationName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -80,8 +81,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib"
+			IntermediateDirectory="..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -107,7 +108,7 @@
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="&quot;gettext-tools&quot;;&quot;gettext-tools\lib&quot;;&quot;gettext-runtime\intl&quot;;&quot;gettext-tools\windows&quot;;&quot;..\libiconv-1.9.1\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;HAVE_CONFIG_H;EXEEXT=\&quot;.exe\&quot;;DEPENDS_ON_LIBINTL=1;DEPENDS_ON_LIBICONV=1"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="0"
@@ -124,6 +125,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\libgettext$(ConfigurationName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
