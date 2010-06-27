@@ -38,3 +38,5 @@ glob:*.bak
 glob:lib/*.lib
 glob:lib/lib*.a
 glob:steelandconcrete.mo
+glob:version.nsh
+glob:setup_steelandconcrete_*.*.exe
