@@ -17,6 +17,9 @@
 		<ToolFile
 			RelativePath=".\src\proto\Proto.rules"
 		/>
+		<ToolFile
+			RelativePath=".\bin\lang\po.rules"
+		/>
 	</ToolFiles>
 	<Configurations>
 		<Configuration
@@ -32,13 +35,17 @@
 				CommandLine="python.exe get_revision.py"
 			/>
 			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
 				Name="proto"
 				protocompiler="$(SolutionDir)bin\protoc.exe"
 				protodir="src\proto"
 				outdir="src\proto"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="po"
+				msgfmt="bin\msgfmt$(ConfigurationName).exe"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -131,13 +138,16 @@
 				CommandLine="python.exe get_revision.py"
 			/>
 			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
 				Name="proto"
 				protocompiler="$(SolutionDir)bin\protoc.exe"
 				protodir="src\proto"
 				outdir="src\proto"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="po"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -741,6 +751,27 @@
 			</File>
 			<File
 				RelativePath=".\src\proto\Vector.proto"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="po"
+			Filter="po"
+			>
+			<File
+				RelativePath=".\bin\lang\ja\LC_MESSAGES\steelandconcrete.po"
+				>
+			</File>
+			<File
+				RelativePath=".\bin\lang\ru\LC_MESSAGES\steelandconcrete.po"
+				>
+			</File>
+			<File
+				RelativePath=".\bin\lang\uk\LC_MESSAGES\steelandconcrete.po"
+				>
+			</File>
+			<File
+				RelativePath=".\bin\lang\en\LC_MESSAGES\steelandconcrete.po"
 				>
 			</File>
 		</Filter>
