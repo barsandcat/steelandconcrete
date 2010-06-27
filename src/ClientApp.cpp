@@ -16,6 +16,11 @@
 #include <libintl.h>
 #include <locale.h>
 
+char ClientApp::RU[] = "LANGUAGE=ru";
+char ClientApp::EN[] = "LANGUAGE=en";
+char ClientApp::UK[] = "LANGUAGE=uk";
+char ClientApp::JA[] = "LANGUAGE=ja";
+
 
 QuickGUI::GUIManager& ClientApp::GetGuiMgr()
 {
@@ -257,28 +262,28 @@ void TriggerMsgCatalogReload()
 
 void ClientApp::OnRussian(const QuickGUI::EventArgs& args)
 {
-    putenv("LANGUAGE=ru");
+    putenv(RU);
     TriggerMsgCatalogReload();
     mMainMenu->BuildSheet();
 }
 
 void ClientApp::OnEnglish(const QuickGUI::EventArgs& args)
 {
-    putenv("LANGUAGE=en");
+    putenv(EN);
     TriggerMsgCatalogReload();
     mMainMenu->BuildSheet();
 }
 
 void ClientApp::OnUkranian(const QuickGUI::EventArgs& args)
 {
-    putenv("LANGUAGE=uk");
+    putenv(UK);
     TriggerMsgCatalogReload();
     mMainMenu->BuildSheet();
 }
 
 void ClientApp::OnJapanese(const QuickGUI::EventArgs& args)
 {
-    putenv("LANGUAGE=ja");
+    putenv(JA);
     TriggerMsgCatalogReload();
     mMainMenu->BuildSheet();
 }

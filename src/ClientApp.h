@@ -62,6 +62,10 @@ private:
     static OgreAL::SoundManager* mSoundManager;
     static BirdCamera* mBirdCamera;
     static bool mQuit;
+    static char RU[];
+    static char EN[];
+    static char UK[];
+    static char JA[];
 
     Ogre::Root* mRoot;
     Ogre::Plugin* mOctreePlugin;
