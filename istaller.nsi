@@ -46,9 +46,6 @@ Section "Files (required)"
   File /r "bin\*.skeleton"
   File /r "bin\*.fontdef"
   File /r "bin\*.program"
-  File /r "bin\*.overlay"
-  File /r "bin\*.glsl"
-  File /r "bin\*.hlsl"
   File /r "bin\*.cg"
   File /r "bin\*.skinTypes"  
   
@@ -57,6 +54,8 @@ Section "Files (required)"
   File /r "bin\*.png"
   File /r "bin\*.jpg"  
   File /r "bin\*.ttf"
+
+  File /r "bin\*.mo"
   
   
   ; Write the installation path into the registry
@@ -98,7 +97,8 @@ Section "Uninstall"
   Delete "$SMPROGRAMS\steelandconcrete\*.*"
   Delete "$INSTDIR\*.log"
 
-  RMDir /r "$INSTDIR\res"  
+  RMDir /r "$INSTDIR\res"
+  RMDir /r "$INSTDIR\lang"
   RMDir "$SMPROGRAMS\steelandconcrete"
   RMDir "$INSTDIR"
 
