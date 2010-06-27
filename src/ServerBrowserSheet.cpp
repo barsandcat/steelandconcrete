@@ -1,7 +1,13 @@
 #include <pch.h>
-#include "ServerBrowserSheet.h"
+#include <ServerBrowserSheet.h>
 
-ServerBrowserSheet::ServerBrowserSheet()
+#include <ClientApp.h>
+
+ServerBrowserSheet::ServerBrowserSheet(): mSheet(NULL), mPort(NULL), mAddress(NULL)
+{
+}
+
+void ServerBrowserSheet::BuildSheet()
 {
     QuickGUI::DescManager& descMgr = QuickGUI::DescManager::getSingleton();
     QuickGUI::SheetDesc* sd = descMgr.getDefaultSheetDesc();
@@ -90,6 +96,15 @@ ServerBrowserSheet::ServerBrowserSheet()
                                                           _("Port")));
     panel->createLabel(ld);
 
+}
+
+void ServerBrowserSheet::Activate()
+{
+    if (!mSheet)
+    {
+        BuildSheet();
+    }
+    ClientApp::GetGuiMgr().setActiveSheet(mSheet);
 }
 
 ServerBrowserSheet::~ServerBrowserSheet()

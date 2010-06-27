@@ -7,11 +7,11 @@ class ServerBrowserSheet
 public:
     ServerBrowserSheet();
     ~ServerBrowserSheet();
-    void Activate(QuickGUI::GUIManager& aGUIManager) { aGUIManager.setActiveSheet(mSheet); }
-    Ogre::String GetPort() { return mPort->getText(); }
-    Ogre::String GetAddress() { return mAddress->getText(); }
-protected:
+    void Activate();
+    Ogre::String GetPort() { return mPort ? mPort->getText() : ""; }
+    Ogre::String GetAddress() { return mAddress  ? mAddress->getText() : ""; }
 private:
+    void BuildSheet();
     QuickGUI::Sheet* mSheet;
     QuickGUI::TextBox* mAddress;
     QuickGUI::TextBox* mPort;

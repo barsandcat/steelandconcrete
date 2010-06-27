@@ -246,7 +246,7 @@ void ClientApp::OnClick(const QuickGUI::EventArgs& args)
 
 void ClientApp::OnBrowse(const QuickGUI::EventArgs& args)
 {
-    mServerBrowserSheet->Activate(*mGUIManager);
+    mServerBrowserSheet->Activate();
 }
 
 void TriggerMsgCatalogReload()
