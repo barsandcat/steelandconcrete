@@ -227,6 +227,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnUkranian", &ClientApp::OnUkranian, this);
         QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnJapanese", &ClientApp::OnJapanese, this);
     }
+    Ogre::Profiler::getSingleton().setEnabled(true);
 }
 
 void ClientApp::OnClick(const QuickGUI::EventArgs& args)
@@ -391,13 +392,21 @@ void ClientApp::MainLoop()
 
         if (!mWindow->isClosed())
         {
-            mKeyboard->capture();
-            mMouse->capture();
-            if (mJoy)
-                mJoy->capture();
-
-            Frame(frameTime);
-
+            {
+                Ogre::Profile("Update");
+                mKeyboard->capture();
+                mMouse->capture();
+                if (mJoy)
+                    mJoy->capture();
+                // Camera movement
+                mBirdCamera->UpdatePosition(frameTime);
+                if (mGame)
+                {
+                    Ogre::Ray ray = mBirdCamera->MouseToRay(mMouse->getMouseState());
+                    mGame->UpdateTileUnderCursor(ray);
+                    mGame->Update(frameTime, mWindow->getStatistics());
+                }
+            }
             mRoot->renderOneFrame();
         }
         else
@@ -567,14 +576,3 @@ bool ClientApp::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
     return true;
 }
 
-void ClientApp::Frame(unsigned long aFrameTime)
-{
-    // Camera movement
-    mBirdCamera->UpdatePosition(aFrameTime);
-    if (mGame)
-    {
-        Ogre::Ray ray = mBirdCamera->MouseToRay(mMouse->getMouseState());
-        mGame->UpdateTileUnderCursor(ray);
-        mGame->Update(aFrameTime, mWindow->getStatistics());
-    }
-}
