@@ -1,0 +1,20 @@
+import "ChangeList.proto";
+
+enum ResponseType
+{
+    RESPONSE_OK = 1;
+    RESPONSE_NOK = 2;
+    RESPONSE_PART = 3;
+}
+
+message ResponseMsg
+{
+    required ResponseType type = 1;
+    optional string reason = 3;
+    optional uint64 time = 4;    
+    repeated ChangeMsg changes = 5;
+    optional int32 update_length = 6;
+}
+
+
+
