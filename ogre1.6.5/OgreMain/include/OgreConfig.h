@@ -38,7 +38,7 @@ Torus Knot Software Ltd.
 
 /** If set to 1, profiling code will be included in the application. When you
 	are deploying your application you will probably want to set this to 0 */
-#define OGRE_PROFILING 0
+#define OGRE_PROFILING 1
 
 /** There are three modes for handling asserts in OGRE:
 0 - STANDARD - Standard asserts in debug builds, nothing in release builds
@@ -108,11 +108,11 @@ Torus Knot Software Ltd.
 /** Support for multithreading, there are 3 options
 
 OGRE_THREAD_SUPPORT = 0
-	No support for threading.		
+	No support for threading.
 OGRE_THREAD_SUPPORT = 1
 	Thread support for background loading, by both loading and constructing resources
 	in a background thread. Resource management and SharedPtr handling becomes
-	thread-safe, and resources may be completely loaded in the background. 
+	thread-safe, and resources may be completely loaded in the background.
 	The places where threading is available are clearly
 	marked, you should assume state is NOT thread safe unless otherwise
 	stated in relation to this flag.
