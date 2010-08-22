@@ -129,9 +129,10 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         Ogre::WindowEventUtilities::addWindowEventListener(mWindow, mWindowEventListener);
 
         // Scene manager
-        mSceneMgr = mRoot->createSceneManager(Ogre::ST_EXTERIOR_CLOSE, "EgoView");
+        mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC, "EgoView");
         mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_NONE);
         mSceneMgr->setAmbientLight(Ogre::ColourValue::White);
+        GetLog() << "=== Scene manager: " << mSceneMgr->getTypeName() << "===";
 
         // Create the camera
         mBirdCamera = new BirdCamera(mSceneMgr, *mWindow);
@@ -385,7 +386,7 @@ void ClientApp::MainLoop()
     GetLog() << "*** The Start ***";
     while (!mQuit)
     {
-        OgreProfileBegin("Ogre Main Loop");
+        OgreProfile("Ogre Main Loop");
         unsigned long frameStart = mRoot->getTimer()->getMicroseconds();
 
         Ogre::WindowEventUtilities::messagePump();
@@ -393,7 +394,7 @@ void ClientApp::MainLoop()
         if (!mWindow->isClosed())
         {
             {
-                Ogre::Profile("Update");
+                OgreProfile("Update");
                 mKeyboard->capture();
                 mMouse->capture();
                 if (mJoy)
@@ -416,7 +417,6 @@ void ClientApp::MainLoop()
         }
 
         frameTime = mRoot->getTimer()->getMicroseconds() - frameStart;
-        OgreProfileEnd("Ogre Main Loop");
     }
     GetLog() << "*** The End ***";
 
