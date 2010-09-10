@@ -1,0 +1,11 @@
+message CommandMoveMsg
+{
+    required int32 unitid = 1;
+    required uint32 position = 2;
+}
+
+message CommandMsg
+{
+    optional CommandMoveMsg commandmove = 1;
+}
+
