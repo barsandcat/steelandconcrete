@@ -84,6 +84,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
 
         // Register resources
         Ogre::ResourceGroupManager& rgm = Ogre::ResourceGroupManager::getSingleton();
+        rgm.addResourceLocation("res/OgreCore", "FileSystem");
         rgm.addResourceLocation("res/audio", "FileSystem");
         rgm.addResourceLocation("res/textures", "FileSystem");
         rgm.addResourceLocation("res/scripts", "FileSystem");
@@ -128,9 +129,10 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         Ogre::WindowEventUtilities::addWindowEventListener(mWindow, mWindowEventListener);
 
         // Scene manager
-        mSceneMgr = mRoot->createSceneManager(Ogre::ST_EXTERIOR_CLOSE, "EgoView");
+        mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC, "EgoView");
         mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_NONE);
         mSceneMgr->setAmbientLight(Ogre::ColourValue::White);
+        GetLog() << "=== Scene manager: " << mSceneMgr->getTypeName() << "===";
 
         // Create the camera
         mBirdCamera = new BirdCamera(mSceneMgr, *mWindow);
@@ -226,6 +228,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnUkranian", &ClientApp::OnUkranian, this);
         QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnJapanese", &ClientApp::OnJapanese, this);
     }
+    Ogre::Profiler::getSingleton().setEnabled(true);
 }
 
 void ClientApp::OnClick(const QuickGUI::EventArgs& args)
@@ -383,20 +386,28 @@ void ClientApp::MainLoop()
     GetLog() << "*** The Start ***";
     while (!mQuit)
     {
-        OgreProfileBegin("Ogre Main Loop");
+        OgreProfile("Ogre Main Loop");
         unsigned long frameStart = mRoot->getTimer()->getMicroseconds();
 
         Ogre::WindowEventUtilities::messagePump();
 
         if (!mWindow->isClosed())
         {
-            mKeyboard->capture();
-            mMouse->capture();
-            if (mJoy)
-                mJoy->capture();
-
-            Frame(frameTime);
-
+            {
+                OgreProfile("Update");
+                mKeyboard->capture();
+                mMouse->capture();
+                if (mJoy)
+                    mJoy->capture();
+                // Camera movement
+                mBirdCamera->UpdatePosition(frameTime);
+                if (mGame)
+                {
+                    Ogre::Ray ray = mBirdCamera->MouseToRay(mMouse->getMouseState());
+                    mGame->UpdateTileUnderCursor(ray);
+                    mGame->Update(frameTime, mWindow->getStatistics());
+                }
+            }
             mRoot->renderOneFrame();
         }
         else
@@ -406,7 +417,6 @@ void ClientApp::MainLoop()
         }
 
         frameTime = mRoot->getTimer()->getMicroseconds() - frameStart;
-        OgreProfileEnd("Ogre Main Loop");
     }
     GetLog() << "*** The End ***";
 
@@ -566,14 +576,3 @@ bool ClientApp::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
     return true;
 }
 
-void ClientApp::Frame(unsigned long aFrameTime)
-{
-    // Camera movement
-    mBirdCamera->UpdatePosition(aFrameTime);
-    if (mGame)
-    {
-        Ogre::Ray ray = mBirdCamera->MouseToRay(mMouse->getMouseState());
-        mGame->UpdateTileUnderCursor(ray);
-        mGame->Update(aFrameTime, mWindow->getStatistics());
-    }
-}
