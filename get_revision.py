@@ -6,7 +6,7 @@ import subprocess
 output = "src/scm_revision.h";
 print "Finding revision " + os.getcwd() + "; output: " + output;
 
-revnum = subprocess.Popen(["hg", "log", "-l", "1", "--template", "{node}"], stdout=subprocess.PIPE).communicate()[0];
+revnum = subprocess.Popen(["hg", "log", "-l", "1", "--template", "{rev}"], stdout=subprocess.PIPE).communicate()[0];
 
 if os.path.exists(output):
     file = open(output, "r");
