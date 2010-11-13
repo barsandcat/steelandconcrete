@@ -17,8 +17,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\..\..\..\lib"
-			IntermediateDirectory="..\..\..\..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
+			OutputDirectory="$(SolutionDir)lib"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -54,7 +54,7 @@
 				AdditionalOptions=" /Zm1000"
 				Optimization="0"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="..\..\..\..\boost_1_43_0"
+				AdditionalIncludeDirectories="$(SolutionDir)boost\boost_1_43_0"
 				PreprocessorDefinitions="WIN32,_WINDOWS,BOOST_SYSTEM_STATIC_LINK=1,BOOST_ALL_NO_LIB=1"
 				ExceptionHandling="1"
 				RuntimeLibrary="1"
@@ -98,8 +98,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\..\..\..\..\lib"
-			IntermediateDirectory="..\..\..\..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
+			OutputDirectory="$(SolutionDir)lib"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -135,7 +135,7 @@
 				AdditionalOptions=" /Zm1000"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="..\..\..\..\boost_1_43_0"
+				AdditionalIncludeDirectories="$(SolutionDir)boost\boost_1_43_0"
 				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,BOOST_SYSTEM_STATIC_LINK=1,BOOST_ALL_NO_LIB=1"
 				ExceptionHandling="1"
 				RuntimeLibrary="0"
