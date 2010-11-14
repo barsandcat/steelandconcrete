@@ -7,9 +7,9 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="$(SolutionDir)lib/libboost_signalsDebug" prefix_auto="1" extension_auto="1" />
+				<Option output="../../../../../lib/libboost_signalsDebug" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
-				<Option object_output="$(SolutionDir)obj/boost_signalsDebugLinux" />
+				<Option object_output="../../../../../obj/boost_signalsDebugLinux" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -26,9 +26,9 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="$(SolutionDir)lib/libboost_signalsRelease" prefix_auto="1" extension_auto="1" />
+				<Option output="../../../../../lib/libboost_signalsRelease" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
-				<Option object_output="$(SolutionDir)obj/boost_signalsReleaseLinux" />
+				<Option object_output="../../../../../obj/boost_signalsReleaseLinux" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -40,6 +40,9 @@
 				<ResourceCompiler>
 					<Add directory="$(SolutionDir)boost/boost_1_43_0" />
 				</ResourceCompiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
