@@ -42,22 +42,22 @@ DocManager::~DocManager()
 {
 }
 
-void DocManager::load(wxString& path)
+void DocManager::load(std::string& path)
 {
 	// TODO: Clear tips list
 
 	std::ifstream fp;
-	fp.open(path, std::ios::in | std::ios::binary);
+	fp.open(path.c_str(), std::ios::in | std::ios::binary);
 	if(fp)
 	{
 		DataStreamPtr stream(new FileStreamDataStream(path.c_str(), &fp, false));
 
 		int index = -1;
-		String line;
-		String key;
+		wxString line;
+		wxString key;
 		while(!stream->eof())
 		{
-			line = stream->getLine();
+			line = wxString(stream->getLine().c_str(), wxConvUTF8);
 
 			// Ignore comments
 			if(line.length() > 0 && line.at(0) == '#') continue;
@@ -73,7 +73,7 @@ void DocManager::load(wxString& path)
 			else
 			{
 				if(mDocs.find(key) != mDocs.end())
-					mDocs[key] = mDocs[key] + "\n" + line;
+					mDocs[key] = mDocs[key] + wxT("\n") + line;
 				else
 					mDocs[key] = line;
 			}

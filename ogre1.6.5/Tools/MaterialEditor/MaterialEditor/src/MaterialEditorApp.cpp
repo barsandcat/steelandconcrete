@@ -49,7 +49,7 @@ bool MaterialEditorApp::OnInit()
 	wxInitAllImageHandlers();
 
 	wxBitmap bitmap;
-	if(bitmap.LoadFile("../lexers/splash.png", wxBITMAP_TYPE_PNG))
+	if(bitmap.LoadFile(wxT("../lexers/splash.png"), wxBITMAP_TYPE_PNG))
 	{
 		wxSplashScreen* splash = new wxSplashScreen(bitmap, wxSPLASH_CENTRE_ON_SCREEN | wxSPLASH_TIMEOUT,
 			2000, NULL, -1, wxDefaultPosition, wxDefaultSize, wxSIMPLE_BORDER | wxSTAY_ON_TOP);

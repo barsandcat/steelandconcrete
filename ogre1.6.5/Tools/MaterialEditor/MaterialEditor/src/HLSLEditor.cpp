@@ -47,20 +47,20 @@ void HLSLEditor::initialize()
 	SetLexer(wxSCI_LEX_OMS);
 
 	// Load keywords
-	wxString path = wxT("../lexers/hlsl/keywords");
+	std::string path = "../lexers/hlsl/keywords";
 	loadKeywords(path);
-	
+
 	// Set styles
 	StyleSetForeground(wxSCI_OMS_DEFAULT, wxColour(0, 0, 0));
-	StyleSetFontAttr(wxSCI_OMS_DEFAULT, 10, "Courier New", false, false, false);
+	StyleSetFontAttr(wxSCI_OMS_DEFAULT, 10, wxT("Courier New"), false, false, false);
 	StyleSetForeground(wxSCI_OMS_COMMENT, wxColour(0, 128, 0));
-	StyleSetFontAttr(wxSCI_OMS_COMMENT, 10, "Courier New", false, false, false);
+	StyleSetFontAttr(wxSCI_OMS_COMMENT, 10, wxT("Courier New"), false, false, false);
 	StyleSetForeground(wxSCI_OMS_PRIMARY, wxColour(0, 0, 255));
-	StyleSetFontAttr(wxSCI_OMS_PRIMARY, 10, "Courier New", true, false, false);
+	StyleSetFontAttr(wxSCI_OMS_PRIMARY, 10, wxT("Courier New"), true, false, false);
 	StyleSetForeground(wxSCI_OMS_ATTRIBUTE, wxColour(136, 0, 0));
-	StyleSetFontAttr(wxSCI_OMS_ATTRIBUTE, 10, "Courier New", true, false, false);
+	StyleSetFontAttr(wxSCI_OMS_ATTRIBUTE, 10, wxT("Courier New"), true, false, false);
 	StyleSetForeground(wxSCI_OMS_VALUE, wxColour(160, 0, 160));
-	StyleSetFontAttr(wxSCI_OMS_VALUE, 10, "Courier New", false, false, false);
+	StyleSetFontAttr(wxSCI_OMS_VALUE, 10, wxT("Courier New"), false, false, false);
 	StyleSetForeground(wxSCI_OMS_NUMBER, wxColour(0, 0, 128));
-	StyleSetFontAttr(wxSCI_OMS_NUMBER, 10, "Courier New", false, false, false);
+	StyleSetFontAttr(wxSCI_OMS_NUMBER, 10, wxT("Courier New"), false, false, false);
 }

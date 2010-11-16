@@ -34,7 +34,7 @@ Torus Knot Software Ltd.
 #include "EditorInput.h"
 
 Editor::Editor()
-: mEditorInput(NULL), mName("Editor")
+: mEditorInput(NULL), mName(wxT("Editor"))
 {
 	registerEvents();
 }

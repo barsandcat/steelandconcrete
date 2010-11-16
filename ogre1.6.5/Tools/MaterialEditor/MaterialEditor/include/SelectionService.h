@@ -47,14 +47,14 @@ public:
 	{
 		SelectionChanged
 	};
-	
+
 	SelectionService();
 	virtual ~SelectionService();
-	
+
 	const SelectionList& getSelection() const;
 	void setSelection(boost::any& sel);
 	void setSelection(const SelectionList& sel);
-	
+
 	/** Override standard Singleton retrieval.
 	@remarks
 	Why do we do this? Well, it's because the Singleton
@@ -88,13 +88,13 @@ public:
 	preventing link errors.
 	*/
 	static SelectionService* getSingletonPtr(void);
-	
+
 protected:
 	void registerEvents();
-	
+
 	SelectionList mSelection;
 };
 
 
 
-#endif _SELECTIONSERVICE_H_
+#endif //_SELECTIONSERVICE_H_

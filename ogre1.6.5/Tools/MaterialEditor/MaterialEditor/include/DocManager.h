@@ -42,7 +42,7 @@ public:
 	DocManager();
 	virtual ~DocManager();
 
-	void load(wxString& path);
+	void load(std::string& path);
 
 	void addDoc(wxString& key, wxString& doc);
 	void removeDoc(wxString& key);

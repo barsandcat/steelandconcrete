@@ -70,7 +70,7 @@ public:
 
 protected:
 	wxChar GetLastNonWhitespaceChar(int position = -1);
-	wxString CodeEditor::GetLineIndentString(int line);
+	wxString GetLineIndentString(int line);
 	int FindBlockStart(int position, wxChar blockStart, wxChar blockEnd, bool skipNested = true);
 
 	void HighlightBraces();

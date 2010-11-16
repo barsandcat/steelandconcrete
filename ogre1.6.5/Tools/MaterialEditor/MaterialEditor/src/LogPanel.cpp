@@ -11,7 +11,7 @@ LogPanel::LogPanel(wxWindow* parent, wxWindowID id /* = wxID_ANY */, const wxPoi
 : wxPanel(parent, id, pos, size, style, name)
 {
 	mBoxSizer = new wxBoxSizer(wxVERTICAL);
-	
+
 	mTextControl = new wxTextCtrl(this, -1, wxT(""), wxDefaultPosition, wxSize(200,150), wxNO_BORDER | wxTE_MULTILINE);
 	mTextControl->SetEditable(false);
 	mBoxSizer->Add(mTextControl, 1, wxEXPAND | wxALL, 0);
@@ -37,7 +37,7 @@ void LogPanel::messageLogged(const Ogre::String& message, Ogre::LogMessageLevel 
 {
 	if(lml == Ogre::LML_CRITICAL || lml == Ogre::LML_NORMAL)
 	{
-		mTextControl->AppendText(wxT(message.c_str()));
+		mTextControl->AppendText(wxString(message.c_str(), wxConvUTF8));
 		mTextControl->AppendText(wxT("\n"));
 	}
 }
