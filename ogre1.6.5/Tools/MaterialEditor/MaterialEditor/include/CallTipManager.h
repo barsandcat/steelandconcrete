@@ -43,14 +43,14 @@ public:
 	CallTipManager();
 	virtual ~CallTipManager();
 
-	void load(wxString& path);
+	void load(std::string& path);
 
 	void addTip(wxString& key, wxString& tip);
 	void removeTip(wxString& key);
 
 	void addTrigger(wxChar& trigger);
 	void removeTrigger(wxChar& trigger);
-	bool isTrigger(wxChar& ch);
+	bool isTrigger(char& ch);
 
 	wxString* find(wxString& s);
 

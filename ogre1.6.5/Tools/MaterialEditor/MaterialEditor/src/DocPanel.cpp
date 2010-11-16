@@ -28,7 +28,7 @@ DocPanel::DocPanel(wxWindow* parent, wxWindowID id /* = wxID_ANY */, const wxPoi
 	mTextControl = new wxTextCtrl(this, -1, wxT(""), wxDefaultPosition, wxSize(200,150), wxNO_BORDER | wxTE_MULTILINE);
 	mTextControl->SetEditable(false);
 	mTextControl->SetBackgroundColour(wxColor(255, 255, 225));
-	mTextControl->AppendText("N/A");
+	mTextControl->AppendText(wxT("N/A"));
 	mBoxSizer->Add(mTextControl, 1, wxEXPAND | wxALL, 0);
 
 	SetSizer(mBoxSizer);
@@ -49,7 +49,7 @@ void DocPanel::OnActiveEditorChanged(EventArgs& args)
 	// TODO: Unsubscribe from previous editor
 
 	// FIXME
-	if(typeid(*editor) == typeid(ScintillaEditor) || 
+	if(typeid(*editor) == typeid(ScintillaEditor) ||
 	   typeid(*editor) == typeid(MaterialScriptEditor) ||
 	   typeid(*editor) == typeid(CgEditor) ||
 	   typeid(*editor) == typeid(GLSLEditor) ||
@@ -69,12 +69,12 @@ void DocPanel::OnFocusedWordChanged(EventArgs& args)
 		ScintillaEditorEventArgs seea = dynamic_cast<ScintillaEditorEventArgs&>(args);
 		wxString* doc = mEditor->getDocManager().find(seea.getFocusedWord());
 
-		if(doc != NULL && !doc->IsEmpty() && (*doc) != "")
+		if(doc != NULL && !doc->IsEmpty() && (*doc) !=  wxT(""))
 		{
 			mTextControl->AppendText(*doc);
 			return;
 		}
 	}
 
-	mTextControl->AppendText("N/A");
+	mTextControl->AppendText(wxT("N/A"));
 }

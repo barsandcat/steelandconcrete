@@ -38,8 +38,8 @@ Torus Knot Software Ltd.
 template<> EditorManager* Ogre::Singleton<EditorManager>::ms_Singleton = 0;
 
 EditorManager& EditorManager::getSingleton(void)
-{  
-	assert( ms_Singleton );  return ( *ms_Singleton );  
+{
+	assert( ms_Singleton );  return ( *ms_Singleton );
 }
 
 EditorManager* EditorManager::getSingletonPtr(void)
@@ -80,9 +80,9 @@ void EditorManager::setEditorNotebook(wxAuiNotebook* notebook)
 
 		mEditorNotebook->RemoveEventHandler(this);
 	}
-	
+
 	mEditorNotebook = notebook;
-	
+
 	if(mEditorNotebook != NULL)
 	{
 		Connect(wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGED, wxAuiNotebookEventHandler(EditorManager::OnPageChanged));
@@ -151,7 +151,7 @@ void EditorManager::setActiveEditor(Editor* editor)
 
 	mActiveEditor = editor;
 
-	if(mActiveEditor != NULL) 
+	if(mActiveEditor != NULL)
 	{
 		mActiveEditor->activate();
 
@@ -191,7 +191,7 @@ void EditorManager::OnPageChanged(wxAuiNotebookEvent& event)
 {
 	int index = event.GetSelection();
 
-	if(mActiveEditor != NULL) 
+	if(mActiveEditor != NULL)
 	{
 		if(mEditorIndexMap.find(mActiveEditor) != mEditorIndexMap.end())
 		{
@@ -256,7 +256,7 @@ void EditorManager::OnPageClosed(wxAuiNotebookEvent& event)
 				mEditors.erase(lit);
 				break;
 			}
-		}	
+		}
 	}
 
 	fireEvent(EditorClosed, EditorEventArgs(editor));

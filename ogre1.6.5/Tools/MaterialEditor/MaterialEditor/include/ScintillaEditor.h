@@ -63,9 +63,9 @@ public:
 	virtual bool isCopyable();
 	virtual void copy();
 	virtual bool isPastable();
-	virtual void paste(); 
-	
-	virtual void loadKeywords(wxString& path);
+	virtual void paste();
+
+	virtual void loadKeywords(std::string& path);
 
 	virtual bool loadFile();
 	virtual bool loadFile(const wxString &filename);

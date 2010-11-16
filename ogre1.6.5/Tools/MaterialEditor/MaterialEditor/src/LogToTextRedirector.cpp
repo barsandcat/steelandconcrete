@@ -23,5 +23,9 @@ LogToTextRedirector::~LogToTextRedirector()
 void LogToTextRedirector::messageLogged(const String& message, LogMessageLevel level, bool maskDebug, const String &logName)
 {
 	if(mTextControl && !mTextControl->IsBeingDeleted())
-		*mTextControl << "[" << logName << "] " << message << "\n";
+	{
+	    std::string line = "[" + logName + "] " + message + "\n";;
+	    *mTextControl << wxString(line.c_str(), wxConvUTF8);
+	}
+
 }

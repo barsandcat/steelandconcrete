@@ -16,7 +16,7 @@ using Ogre::String;
 class DocPanel : public wxPanel
 {
 public:
-	DocPanel(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = "LogPanel");
+	DocPanel(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("LogPanel"));
 	~DocPanel();
 
 	void OnActiveEditorChanged(EventArgs& args);
