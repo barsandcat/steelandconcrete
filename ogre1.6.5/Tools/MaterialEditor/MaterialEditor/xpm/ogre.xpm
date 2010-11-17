@@ -1,5 +1,5 @@
 /* XPM */
-static char * ogre_xpm[] = {
+static const char * ogre_xpm[] = {
 "16 16 170 2",
 "  	c None",
 ". 	c #75A53F",
