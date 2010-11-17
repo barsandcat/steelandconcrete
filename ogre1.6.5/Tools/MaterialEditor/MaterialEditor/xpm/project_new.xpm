@@ -1,5 +1,5 @@
 /* XPM */
-static char * project_new_xpm[] = {
+static const char * project_new_xpm[] = {
 "16 16 100 2",
 "  	c None",
 ". 	c #BABABA",
