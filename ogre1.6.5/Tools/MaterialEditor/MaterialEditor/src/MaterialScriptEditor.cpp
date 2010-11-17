@@ -52,32 +52,32 @@ void MaterialScriptEditor::initialize()
 	SetLexer(wxSCI_LEX_OMS);
 
 	// Load keywords
-	wxString path = wxT("../lexers/oms/keywords");
+	std::string path = "../lexers/oms/keywords";
 	loadKeywords(path);
 
 	// Load call tips
-	path = wxT("../lexers/oms/calltips");
+	path = "../lexers/oms/calltips";
 	getCallTipManager().load(path);
 	wxChar trigger(' ');
 	getCallTipManager().addTrigger(trigger);
 
 	// Load docs
-	path = wxT("../lexers/oms/docs");
+	path = "../lexers/oms/docs";
 	getDocManager().load(path);
-	
+
 	// Set styles
 	StyleSetForeground(wxSCI_OMS_DEFAULT, wxColour(0, 0, 0));
-	StyleSetFontAttr(wxSCI_OMS_DEFAULT, 10, "Courier New", false, false, false);
+	StyleSetFontAttr(wxSCI_OMS_DEFAULT, 10, wxT("Courier New"), false, false, false);
 	StyleSetForeground(wxSCI_OMS_COMMENT, wxColour(0, 128, 0));
-	StyleSetFontAttr(wxSCI_OMS_COMMENT, 10, "Courier New", false, false, false);
+	StyleSetFontAttr(wxSCI_OMS_COMMENT, 10, wxT("Courier New"), false, false, false);
 	StyleSetForeground(wxSCI_OMS_PRIMARY, wxColour(0, 0, 255));
-	StyleSetFontAttr(wxSCI_OMS_PRIMARY, 10, "Courier New", true, false, false);
+	StyleSetFontAttr(wxSCI_OMS_PRIMARY, 10, wxT("Courier New"), true, false, false);
 	StyleSetForeground(wxSCI_OMS_ATTRIBUTE, wxColour(136, 0, 0));
-	StyleSetFontAttr(wxSCI_OMS_ATTRIBUTE, 10, "Courier New", true, false, false);
+	StyleSetFontAttr(wxSCI_OMS_ATTRIBUTE, 10, wxT("Courier New"), true, false, false);
 	StyleSetForeground(wxSCI_OMS_VALUE, wxColour(160, 0, 160));
-	StyleSetFontAttr(wxSCI_OMS_VALUE, 10, "Courier New", false, false, false);
+	StyleSetFontAttr(wxSCI_OMS_VALUE, 10, wxT("Courier New"), false, false, false);
 	StyleSetForeground(wxSCI_OMS_NUMBER, wxColour(0, 0, 128));
-	StyleSetFontAttr(wxSCI_OMS_NUMBER, 10, "Courier New", false, false, false);
+	StyleSetFontAttr(wxSCI_OMS_NUMBER, 10, wxT("Courier New"), false, false, false);
 }
 
 void MaterialScriptEditor::OnCharAdded(wxScintillaEvent &event)
@@ -93,7 +93,7 @@ void MaterialScriptEditor::OnCharAdded(wxScintillaEvent &event)
 			wxString line = GetLine(lineNum);
 			int pos = GetCurrentPos() - 1;
 
-			wxString word("");
+			wxString word;
 			wxChar ch;
 			while(pos)
 			{
