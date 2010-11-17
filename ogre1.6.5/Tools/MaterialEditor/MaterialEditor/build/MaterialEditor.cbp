@@ -84,6 +84,7 @@
 			<Add directory="../include" />
 			<Add directory="../../wxscintilla_1.69.2/include" />
 			<Add directory="../../../../OgreMain/include" />
+			<Add directory="../../../../../wxpropgrid/include" />
 		</Compiler>
 		<Linker>
 			<Add option="`wx-config --libs`" />
@@ -196,6 +197,7 @@
 		<Unit filename="../xpm/cut.xpm" />
 		<Unit filename="../xpm/material.xpm" />
 		<Unit filename="../xpm/material_script.xpm" />
+		<Unit filename="../xpm/ogre.xpm" />
 		<Unit filename="../xpm/pass.xpm" />
 		<Unit filename="../xpm/paste.xpm" />
 		<Unit filename="../xpm/program_script.xpm" />
@@ -206,6 +208,7 @@
 		<Unit filename="../xpm/save_as.xpm" />
 		<Unit filename="../xpm/shader.xpm" />
 		<Unit filename="../xpm/technique.xpm" />
+		<Unit filename="../xpm/workspace.xpm" />
 		<Extensions>
 			<code_completion />
 			<envvars />
