@@ -55,9 +55,9 @@ TechniquePropertyGridPage::~TechniquePropertyGridPage()
 
 void TechniquePropertyGridPage::populate()
 {
-	mNameId = Append(wxStringProperty(wxT("Name"), wxPG_LABEL, mController->getTechnique()->getName()));
-	mSchemeNameId = Append(wxStringProperty(wxT("Scheme Name"), wxPG_LABEL, mController->getTechnique()->getSchemeName()));
-	mLodIndexId = Append(wxIntProperty(wxT("LOD Index"), wxPG_LABEL, mController->getTechnique()->getLodIndex()));
+	mNameId = Append(new wxStringProperty(wxT("Name"), wxPG_LABEL, mController->getTechnique()->getName()));
+	mSchemeNameId = Append(new wxStringProperty(wxT("Scheme Name"), wxPG_LABEL, mController->getTechnique()->getSchemeName()));
+	mLodIndexId = Append(new wxIntProperty(wxT("LOD Index"), wxPG_LABEL, mController->getTechnique()->getLodIndex()));
 }
 
 void TechniquePropertyGridPage::propertyChanged(wxPropertyGridEvent& event)

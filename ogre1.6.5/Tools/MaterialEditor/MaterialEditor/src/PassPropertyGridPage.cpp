@@ -72,10 +72,10 @@ void PassPropertyGridPage::createGeneralCategory()
 {
 	const Pass* pass = mController->getPass();
 
-	Append(wxPropertyCategory(wxT("General")));
+	Append(new wxPropertyCategory(wxT("General")));
 
 	// Name
-	mNameId = Append(wxStringProperty(wxT("Name"), wxPG_LABEL, pass->getName()));
+	mNameId = Append(new wxStringProperty(wxT("Name"), wxPG_LABEL, pass->getName()));
 	SetPropertyHelpString(mNameId, wxT("Name of this Pass"));
 }
 
@@ -83,25 +83,25 @@ void PassPropertyGridPage::createReflectanceCategory()
 {
 	const Pass* pass = mController->getPass();
 
-	Append(wxPropertyCategory(wxT("Reflectance")));
+	Append(new wxPropertyCategory(wxT("Reflectance")));
 
 	// Ambient
 	ColourValue ambient = pass->getAmbient();
-	mAmbientId = Append(wxColourProperty(wxT("Ambient"), wxPG_LABEL, wxColour((int)(255 * ambient.r), (int)(255 * ambient.g), (int)(255 * ambient.b))));
+	mAmbientId = Append(new wxColourProperty(wxT("Ambient"), wxPG_LABEL, wxColour((int)(255 * ambient.r), (int)(255 * ambient.g), (int)(255 * ambient.b))));
 	SetPropertyHelpString(mAmbientId, wxT("Ambient colour reflectance"));
 
 	// Diffuse
 	ColourValue diffuse = pass->getDiffuse();
-	mDiffuseId = Append(wxColourProperty(wxT("Diffuse"), wxPG_LABEL, wxColour((int)(255 * diffuse.r), (int)(255 * diffuse.g), (int)(255 * diffuse.b))));
+	mDiffuseId = Append(new wxColourProperty(wxT("Diffuse"), wxPG_LABEL, wxColour((int)(255 * diffuse.r), (int)(255 * diffuse.g), (int)(255 * diffuse.b))));
 	SetPropertyHelpString(mDiffuseId, wxT("Diffuse colour reflectance"));
 
 	// Specular
 	ColourValue specular = pass->getSpecular();
-	mSpecularId = Append(wxColourProperty(wxT("Specular"), wxPG_LABEL, wxColour((int)(255 * specular.r), (int)(255 * specular.g), (int)(255 * specular.b))));
+	mSpecularId = Append(new wxColourProperty(wxT("Specular"), wxPG_LABEL, wxColour((int)(255 * specular.r), (int)(255 * specular.g), (int)(255 * specular.b))));
 	SetPropertyHelpString(mSpecularId, wxT("Specular colour reflectance"));
 
 	// Shininess
-	mShininessId = Append(wxFloatProperty(wxT("Shininess"), wxPG_LABEL, pass->getShininess()));
+	mShininessId = Append(new wxFloatProperty(wxT("Shininess"), wxPG_LABEL, pass->getShininess()));
 	SetPropertyHelpString(mShininessId, wxT("Shininess, affecting the size of specular highlights"));
 }
 
@@ -110,29 +110,29 @@ void PassPropertyGridPage::createPointCategory()
 {
 	const Pass* pass = mController->getPass();
 
-	Append(wxPropertyCategory(wxT("Point"), wxPG_LABEL));
+	Append(new wxPropertyCategory(wxT("Point"), wxPG_LABEL));
 
 	// Point Size
-	wxPGId pointSize = Append(wxParentProperty(wxT("Size"), wxPG_LABEL));
-	mPointSizeId = AppendIn(pointSize, wxFloatProperty(wxT("Size"), wxPG_LABEL, pass->getPointSize()));
+	wxPGId pointSize = Append(new wxParentProperty(wxT("Size"), wxPG_LABEL));
+	mPointSizeId = AppendIn(pointSize, new wxFloatProperty(wxT("Size"), wxPG_LABEL, pass->getPointSize()));
 	SetPropertyHelpString(mPointSizeId, wxT("Point size, affecting the size of points when rendering a point list, or a list of point sprites"));
 
 	// Point Sprites
-	mPointSpritesId = Append(wxBoolProperty(wxT("Point Sprites"), wxPG_LABEL, pass->getPointSpritesEnabled()));
+	mPointSpritesId = Append(new wxBoolProperty(wxT("Point Sprites"), wxPG_LABEL, pass->getPointSpritesEnabled()));
 
 	// Point Attenuation
-	mAttenuationId = Append(wxParentProperty(wxT("Attenuation"),wxPG_LABEL)); 
+	mAttenuationId = Append(new wxParentProperty(wxT("Attenuation"),wxPG_LABEL)); 
 	SetPropertyHelpString(mAttenuationId, wxT("Determines how points are attenuated with distance"));
-	mPointAttenuationId = AppendIn(mAttenuationId, wxBoolProperty(wxT("Enabled"), wxPG_LABEL, pass->isPointAttenuationEnabled()));
-	mPointMinSizeId = AppendIn(mAttenuationId, wxFloatProperty(wxT("Min"), wxPG_LABEL, pass->getPointMinSize()));
+	mPointAttenuationId = AppendIn(mAttenuationId, new wxBoolProperty(wxT("Enabled"), wxPG_LABEL, pass->isPointAttenuationEnabled()));
+	mPointMinSizeId = AppendIn(mAttenuationId, new wxFloatProperty(wxT("Min"), wxPG_LABEL, pass->getPointMinSize()));
 	SetPropertyHelpString(mPointMinSizeId, wxT("Minimum point size, when point attenuation is in use"));
-	mPointMaxSizeId = AppendIn(mAttenuationId, wxFloatProperty(wxT("Max"), wxPG_LABEL, pass->getPointMaxSize()));
+	mPointMaxSizeId = AppendIn(mAttenuationId, new wxFloatProperty(wxT("Max"), wxPG_LABEL, pass->getPointMaxSize()));
 	SetPropertyHelpString(mAttenuationId, wxT("Maximum point size, when point attenuation is in use"));
-	mPointAttenuationConstantId = AppendIn(mAttenuationId, wxFloatProperty(wxT("Constant"), wxPG_LABEL, pass->getPointAttenuationConstant()));
+	mPointAttenuationConstantId = AppendIn(mAttenuationId, new wxFloatProperty(wxT("Constant"), wxPG_LABEL, pass->getPointAttenuationConstant()));
 	SetPropertyHelpString(mPointAttenuationConstantId, wxT("Constant coefficient of the point attenuation"));
-	mPointAttenuationLinearId = AppendIn(mAttenuationId, wxFloatProperty(wxT("Linear"), wxPG_LABEL, pass->getPointAttenuationLinear()));
+	mPointAttenuationLinearId = AppendIn(mAttenuationId, new wxFloatProperty(wxT("Linear"), wxPG_LABEL, pass->getPointAttenuationLinear()));
 	SetPropertyHelpString(mPointAttenuationLinearId, wxT("Linear coefficient of the point attenuation"));
-	mPointAttenuationQuadraticId = AppendIn(mAttenuationId, wxFloatProperty(wxT("Quadratic"), wxPG_LABEL, pass->getPointAttenuationQuadratic()));
+	mPointAttenuationQuadraticId = AppendIn(mAttenuationId, new wxFloatProperty(wxT("Quadratic"), wxPG_LABEL, pass->getPointAttenuationQuadratic()));
 	SetPropertyHelpString(mPointAttenuationQuadraticId, wxT("Quadratic coefficient of the point attenuation"));
 }
 
@@ -141,7 +141,7 @@ void PassPropertyGridPage::createSceneBlendingCategory()
 {
 	const Pass* pass = mController->getPass();
 
-	Append(wxPropertyCategory(wxT("Scene Blending")));
+	Append(new wxPropertyCategory(wxT("Scene Blending")));
 
 	wxPGChoices sbtChoices;
 	sbtChoices.Add(wxT("N/A") -1);
@@ -180,13 +180,13 @@ void PassPropertyGridPage::createSceneBlendingCategory()
 		blendType= SBT_REPLACE;
 	else type = false;
 
-	mSceneBlendTypeId = Append(wxEnumProperty(wxT("Type"), wxPG_LABEL, sbtChoices, (type) ? blendType : 0));
+	mSceneBlendTypeId = Append(new wxEnumProperty(wxT("Type"), wxPG_LABEL, sbtChoices, (type) ? blendType : 0));
 
 	// Source Scene Blend Type
-	mSrcSceneBlendTypeId = Append(wxEnumProperty(wxT("Src Factor"), wxPG_LABEL, sbfChoices, srcFactor));
+	mSrcSceneBlendTypeId = Append(new wxEnumProperty(wxT("Src Factor"), wxPG_LABEL, sbfChoices, srcFactor));
 
 	// Destination Scene Blend Type
-	mDestSceneBlendTypeId = Append(wxEnumProperty(wxT("Dest Factor"), wxPG_LABEL, sbfChoices, destFactor));
+	mDestSceneBlendTypeId = Append(new wxEnumProperty(wxT("Dest Factor"), wxPG_LABEL, sbfChoices, destFactor));
 }
 
 
@@ -194,13 +194,13 @@ void PassPropertyGridPage::createDepthCategory()
 {
 	const Pass* pass = mController->getPass();
 
-	Append(wxPropertyCategory(wxT("Depth")));
+	Append(new wxPropertyCategory(wxT("Depth")));
 
 	// Depth Check
-	mDepthCheckId = Append(wxBoolProperty(wxT("Depth Check"), wxPG_LABEL, pass->getDepthCheckEnabled()));
+	mDepthCheckId = Append(new wxBoolProperty(wxT("Depth Check"), wxPG_LABEL, pass->getDepthCheckEnabled()));
 
 	// Depth Write
-	mDepthWriteId = Append(wxBoolProperty(wxT("Depth Write"), wxPG_LABEL, pass->getDepthWriteEnabled()));	
+	mDepthWriteId = Append(new wxBoolProperty(wxT("Depth Write"), wxPG_LABEL, pass->getDepthWriteEnabled()));	
 
 	//  Depth Function
 	wxPGChoices compareFuncChoices;
@@ -213,22 +213,22 @@ void PassPropertyGridPage::createDepthCategory()
 	compareFuncChoices.Add(wxT(">="), CMPF_GREATER_EQUAL);
 	compareFuncChoices.Add(wxT(">"), CMPF_GREATER);
 
-	mDepthFunctionId = Append(wxEnumProperty(wxT("Depth Function"), wxPG_LABEL, compareFuncChoices, pass->getDepthFunction()));
+	mDepthFunctionId = Append(new wxEnumProperty(wxT("Depth Function"), wxPG_LABEL, compareFuncChoices, pass->getDepthFunction()));
 
-	mDepthBiasId = Append(wxParentProperty(wxT("Depth Bias"), wxPG_LABEL));
+	mDepthBiasId = Append(new wxParentProperty(wxT("Depth Bias"), wxPG_LABEL));
 
 	// Constant Bias
-	mDepthBiasConstantId = AppendIn(mDepthBiasId, wxFloatProperty(wxT("Constant"), wxPG_LABEL, pass->getDepthBiasConstant()));
+	mDepthBiasConstantId = AppendIn(mDepthBiasId, new wxFloatProperty(wxT("Constant"), wxPG_LABEL, pass->getDepthBiasConstant()));
 
 	// Slope Bias
-	mDepthBiasSlopeId = AppendIn(mDepthBiasId, wxFloatProperty(wxT("Slope Scale"), wxPG_LABEL, pass->getDepthBiasSlopeScale()));
+	mDepthBiasSlopeId = AppendIn(mDepthBiasId, new wxFloatProperty(wxT("Slope Scale"), wxPG_LABEL, pass->getDepthBiasSlopeScale()));
 }
 
 void PassPropertyGridPage::createCullingCategory()
 {
 	const Pass* pass = mController->getPass();
 
-	Append(wxPropertyCategory(wxT("Culling")));
+	Append(new wxPropertyCategory(wxT("Culling")));
 
 	// Culling Mode
 	wxPGChoices cullingModeChoices;
@@ -236,7 +236,7 @@ void PassPropertyGridPage::createCullingCategory()
 	cullingModeChoices.Add(wxT("Clockwise"), CULL_CLOCKWISE);
 	cullingModeChoices.Add(wxT("Counterclockwise"), CULL_ANTICLOCKWISE);
 
-	Append(wxEnumProperty(wxT("Culling Mode"), wxPG_LABEL, cullingModeChoices, pass->getDepthFunction()));
+	Append(new wxEnumProperty(wxT("Culling Mode"), wxPG_LABEL, cullingModeChoices, pass->getDepthFunction()));
 
 	// Manual Culling Mode
 	wxPGChoices manualCullingModeChoices;
@@ -244,25 +244,25 @@ void PassPropertyGridPage::createCullingCategory()
 	manualCullingModeChoices.Add(wxT("Back"), MANUAL_CULL_BACK);
 	manualCullingModeChoices.Add(wxT("Front"), MANUAL_CULL_FRONT);
 
-	mManualCullingModeId = Append(wxEnumProperty(wxT("Manual Culling Mode"), wxPG_LABEL, manualCullingModeChoices, pass->getManualCullingMode()));
+	mManualCullingModeId = Append(new wxEnumProperty(wxT("Manual Culling Mode"), wxPG_LABEL, manualCullingModeChoices, pass->getManualCullingMode()));
 }
 
 void PassPropertyGridPage::createIlluminationCategory()
 {
 	const Pass* pass = mController->getPass();
 
-	Append(wxPropertyCategory(wxT("Illumination")));
+	Append(new wxPropertyCategory(wxT("Illumination")));
 
-	mLightingId = Append(wxBoolProperty(wxT("Lighting"), wxPG_LABEL, pass->getLightingEnabled()));	
+	mLightingId = Append(new wxBoolProperty(wxT("Lighting"), wxPG_LABEL, pass->getLightingEnabled()));	
 
 	// Max Simultaneous Lights
-	mMaxLightsId = Append(wxIntProperty(wxT("Max Lights"), wxPG_LABEL, pass->getMaxSimultaneousLights()));
+	mMaxLightsId = Append(new wxIntProperty(wxT("Max Lights"), wxPG_LABEL, pass->getMaxSimultaneousLights()));
 
 	// Start Light
-	mStartLightId = Append(wxIntProperty(wxT("Start Light"), wxPG_LABEL, pass->getStartLight()));
+	mStartLightId = Append(new wxIntProperty(wxT("Start Light"), wxPG_LABEL, pass->getStartLight()));
 
 	// Light Iteration
-	mIterationId = Append(wxBoolProperty(wxT("Iteration"), wxPG_LABEL, pass->getIteratePerLight()));
+	mIterationId = Append(new wxBoolProperty(wxT("Iteration"), wxPG_LABEL, pass->getIteratePerLight()));
 
 	// Shading Mode
 	wxPGChoices shadingModeChoices;
@@ -270,11 +270,11 @@ void PassPropertyGridPage::createIlluminationCategory()
 	shadingModeChoices.Add(wxT("Gouraud"), SO_GOURAUD);
 	shadingModeChoices.Add(wxT("Phong"), SO_PHONG);
 
-	mShadingModeId = Append(wxEnumProperty(wxT("Shading Mode"), wxPG_LABEL, shadingModeChoices, pass->getShadingMode()));
+	mShadingModeId = Append(new wxEnumProperty(wxT("Shading Mode"), wxPG_LABEL, shadingModeChoices, pass->getShadingMode()));
 
 	// Self Illumination
 	ColourValue selfIllum = pass->getSelfIllumination();
-	mSelfIlluminationId = Append(wxColourProperty(wxT("Self Illumination"), wxPG_LABEL, wxColour((int)(255 * selfIllum.r), (int)(255 * selfIllum.g), (int)(255 * selfIllum.b))));
+	mSelfIlluminationId = Append(new wxColourProperty(wxT("Self Illumination"), wxPG_LABEL, wxColour((int)(255 * selfIllum.r), (int)(255 * selfIllum.g), (int)(255 * selfIllum.b))));
 
 }
 
@@ -282,10 +282,10 @@ void PassPropertyGridPage::createFogCategory()
 {
 	const Pass* pass = mController->getPass();
 
-	mOverrideSceneId = Append(wxPropertyCategory(wxT("Fog")));
+	mOverrideSceneId = Append(new wxPropertyCategory(wxT("Fog")));
 
 	// Fog Enabled
-	mFogOverrideId = Append(wxBoolProperty(wxT("Override Scene"), wxPG_LABEL, pass->getFogOverride()));	
+	mFogOverrideId = Append(new wxBoolProperty(wxT("Override Scene"), wxPG_LABEL, pass->getFogOverride()));	
 
 	// Fog Mode
 	wxPGChoices fogModeChoices;
@@ -294,14 +294,14 @@ void PassPropertyGridPage::createFogCategory()
 	fogModeChoices.Add(wxT("EXP2"), FOG_EXP2);
 	fogModeChoices.Add(wxT("Linear"), FOG_LINEAR);
 
-	mFogModeId = Append(wxEnumProperty(wxT("Fog Mode"), wxPG_LABEL, fogModeChoices, pass->getFogMode()));
+	mFogModeId = Append(new wxEnumProperty(wxT("Fog Mode"), wxPG_LABEL, fogModeChoices, pass->getFogMode()));
 }
 
 // Possibly better as a wxParentProperty within Misc?
 void PassPropertyGridPage::createAlphaRejectionCategory()
 {
 	const Pass* pass = mController->getPass();
-	Append(wxPropertyCategory(wxT("Alpha Rejection"), wxPG_LABEL));
+	Append(new wxPropertyCategory(wxT("Alpha Rejection"), wxPG_LABEL));
 		
 	// Alpha Reject Func
 	wxPGChoices compareFuncChoices;
@@ -313,20 +313,20 @@ void PassPropertyGridPage::createAlphaRejectionCategory()
 	compareFuncChoices.Add(wxT("!="), CMPF_NOT_EQUAL);
 	compareFuncChoices.Add(wxT(">="), CMPF_GREATER_EQUAL);
 	compareFuncChoices.Add(wxT(">"), CMPF_GREATER);
-	mAlphaRejectFuncId = Append(wxEnumProperty(wxT("Function"), wxPG_LABEL, compareFuncChoices, pass->getAlphaRejectFunction()));
+	mAlphaRejectFuncId = Append(new wxEnumProperty(wxT("Function"), wxPG_LABEL, compareFuncChoices, pass->getAlphaRejectFunction()));
 	
 	// Alpha Reject Value
-	mAlphaRejectValueId = Append(wxIntProperty(wxT("Value"), wxPG_LABEL, pass->getAlphaRejectValue()));
+	mAlphaRejectValueId = Append(new wxIntProperty(wxT("Value"), wxPG_LABEL, pass->getAlphaRejectValue()));
 }
 
 void PassPropertyGridPage::createMiscCategory()
 {
 	const Pass* pass = mController->getPass();
 
-	Append(wxPropertyCategory(wxT("Misc")));
+	Append(new wxPropertyCategory(wxT("Misc")));
 
 	// Colour Write
-	mColourWriteId = Append(wxBoolProperty(wxT("Colour Write"), wxPG_LABEL, pass->getColourWriteEnabled()));	
+	mColourWriteId = Append(new wxBoolProperty(wxT("Colour Write"), wxPG_LABEL, pass->getColourWriteEnabled()));	
 
 	// Polygon Mode
 	wxPGChoices polygonModeChoices;
@@ -334,7 +334,7 @@ void PassPropertyGridPage::createMiscCategory()
 	polygonModeChoices.Add(wxT("Wireframe"), PM_WIREFRAME);
 	polygonModeChoices.Add(wxT("Solid"), PM_SOLID);
 
-	mPolygonModeId = Append(wxEnumProperty(wxT("Polygon Mode"), wxPG_LABEL, polygonModeChoices, pass->getPolygonMode()));
+	mPolygonModeId = Append(new wxEnumProperty(wxT("Polygon Mode"), wxPG_LABEL, polygonModeChoices, pass->getPolygonMode()));
 
 	// Track Vertex Colour Type
 	wxPGChoices vertexColourTypeChoices;
@@ -344,7 +344,7 @@ void PassPropertyGridPage::createMiscCategory()
 	vertexColourTypeChoices.Add(wxT("Specular"), TVC_SPECULAR);
 	vertexColourTypeChoices.Add(wxT("Emissive"), TVC_EMISSIVE);
 
-	mTrackVertexColourTypeId = Append(wxEnumProperty(wxT("Track Vertex Colour Type"), wxPG_LABEL, vertexColourTypeChoices, pass->getVertexColourTracking()));
+	mTrackVertexColourTypeId = Append(new wxEnumProperty(wxT("Track Vertex Colour Type"), wxPG_LABEL, vertexColourTypeChoices, pass->getVertexColourTracking()));
 }
 
 void PassPropertyGridPage::propertyChanged(wxPropertyGridEvent& event)
