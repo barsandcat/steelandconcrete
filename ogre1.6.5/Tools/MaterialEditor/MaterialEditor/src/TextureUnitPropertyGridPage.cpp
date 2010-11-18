@@ -95,18 +95,18 @@ void TextureUnitPropertyGridPage::populate()
 {
 	const TextureUnitState* tus = mController->getTextureUnit();
 	
-	mTextureNameId = Append(wxStringProperty(wxT("Texture Name"), wxPG_LABEL, tus->getTextureName()));
-	mCurrentFrameId = Append(wxIntProperty(wxT("Current Frame"), wxPG_LABEL, tus->getCurrentFrame()));
+	mTextureNameId = Append(new wxStringProperty(wxT("Texture Name"), wxPG_LABEL, tus->getTextureName()));
+	mCurrentFrameId = Append(new wxIntProperty(wxT("Current Frame"), wxPG_LABEL, tus->getCurrentFrame()));
 	
 	wxPGChoices btChoices;
 	btChoices.Add(wxT("Fragment"), TextureUnitState::BT_FRAGMENT);
 	btChoices.Add(wxT("Vertex"), TextureUnitState::BT_VERTEX);
-	mBindingTypeId = Append(wxEnumProperty(wxT("Binding Type"), wxPG_LABEL, btChoices, TextureUnitState::BT_FRAGMENT));
+	mBindingTypeId = Append(new wxEnumProperty(wxT("Binding Type"), wxPG_LABEL, btChoices, TextureUnitState::BT_FRAGMENT));
 	
 	wxPGChoices ctChoices;
 	ctChoices.Add(wxT("Named"), TextureUnitState::CONTENT_NAMED);
 	ctChoices.Add(wxT("Shadow"), TextureUnitState::CONTENT_SHADOW);
-	mContentTypeId = Append(wxEnumProperty(wxT("Content Type"), wxPG_LABEL, ctChoices, TextureUnitState::CONTENT_NAMED));
+	mContentTypeId = Append(new wxEnumProperty(wxT("Content Type"), wxPG_LABEL, ctChoices, TextureUnitState::CONTENT_NAMED));
 	
 	wxPGChoices pfChoices;
 	pfChoices.Add(wxT("Unknown"), PF_UNKNOWN);
@@ -155,9 +155,9 @@ void TextureUnitPropertyGridPage::populate()
 	pfChoices.Add(wxT("SHORT_GR"), PF_SHORT_GR);   
 	pfChoices.Add(wxT("SHORT_RGB"), PF_SHORT_RGB);   
 	pfChoices.Add(wxT("PF_COUNT"), PF_COUNT); 
-	mPixelFormatId = Append(wxEnumProperty(wxT("Desired Format"), wxPG_LABEL, pfChoices, PF_UNKNOWN));
+	mPixelFormatId = Append(new wxEnumProperty(wxT("Desired Format"), wxPG_LABEL, pfChoices, PF_UNKNOWN));
 	
-	mNumMipMapsId = Append(wxIntProperty(wxT("Mip Maps")));
+	mNumMipMapsId = Append(new wxIntProperty(wxT("Mip Maps")));
 }
 
 void TextureUnitPropertyGridPage::propertyChanged(wxPropertyGridEvent& event) 

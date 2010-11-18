@@ -46,9 +46,9 @@ MaterialPropertyGridPage::~MaterialPropertyGridPage()
 
 void MaterialPropertyGridPage::populate()
 {
-	mPropertyNameId = Append(wxStringProperty(wxT("Name"), wxPG_LABEL, mController->getMaterial()->getName()));
-	mPropertyReceiveShadowsId = Append(wxBoolProperty(wxT("Receive Shadows"), wxPG_LABEL, mController->getMaterial()->getReceiveShadows()));
-	mPropertyTransparencyCastsShadowsId = Append(wxBoolProperty(wxT("Transparency Casts Shadows"), wxPG_LABEL, mController->getMaterial()->getTransparencyCastsShadows()));
+	mPropertyNameId = Append(new wxStringProperty(wxT("Name"), wxPG_LABEL, mController->getMaterial()->getName()));
+	mPropertyReceiveShadowsId = Append(new wxBoolProperty(wxT("Receive Shadows"), wxPG_LABEL, mController->getMaterial()->getReceiveShadows()));
+	mPropertyTransparencyCastsShadowsId = Append(new wxBoolProperty(wxT("Transparency Casts Shadows"), wxPG_LABEL, mController->getMaterial()->getTransparencyCastsShadows()));
 }
 
 void MaterialPropertyGridPage::propertyChange(wxPropertyGridEvent& event)
