@@ -136,9 +136,7 @@ void PassPage::getName(wxString& name) const
 
 Project* PassPage::getProject() const
 {
-	Ogre::String project(mProjectComboBox->GetValue().mb_str());
-
-	return Workspace::getSingletonPtr()->getProject(project);
+	return Workspace::getSingletonPtr()->getProject(mProjectComboBox->GetValue());
 }
 
 MaterialController* PassPage::getMaterial() const
@@ -157,19 +155,29 @@ TechniqueController* PassPage::getTechnique() const
 
 void PassPage::setProject(Project* project)
 {
-	mProjectComboBox->SetValue(project != NULL ? project->getName().c_str() : wxEmptyString);
+    mProjectComboBox->SetValue(project->getName());
 	populateMaterials(project != NULL ? project->getMaterials() : NULL);
 }
 
 void PassPage::setMaterial(MaterialController* mc)
 {
-	mMaterialComboBox->SetValue(mc != NULL ? mc->getMaterial()->getName().c_str() : wxEmptyString);
+    wxString name;
+    if (mc)
+    {
+        name = wxString(mc->getMaterial()->getName().c_str(), wxConvUTF8);
+    }
+	mMaterialComboBox->SetValue(name);
 	populateTechniques(mc != NULL ? mc->getTechniqueControllers() : NULL);
 }
 
 void PassPage::setTechnique(TechniqueController* tc)
 {
-	mTechniqueComboBox->SetValue(tc != NULL ? tc->getTechnique()->getName().c_str() : wxEmptyString);
+    wxString name;
+    if (tc)
+    {
+        name = wxString(tc->getTechnique()->getName().c_str(), wxConvUTF8);
+    }
+	mTechniqueComboBox->SetValue(name);
 }
 
 void PassPage::OnProjectSelected(wxCommandEvent& event)
@@ -217,7 +225,7 @@ void PassPage::populateTechniques(const TechniqueControllerList* techniques)
 	TechniqueControllerList::const_iterator it;
 	for(it = techniques->begin(); it != techniques->end(); ++it)
 	{
-		techniqueNames.Add((*it)->getTechnique()->getName().c_str());
+		techniqueNames.Add(wxString((*it)->getTechnique()->getName().c_str(), wxConvUTF8));
 	}
 
 	mTechniqueComboBox->Clear();

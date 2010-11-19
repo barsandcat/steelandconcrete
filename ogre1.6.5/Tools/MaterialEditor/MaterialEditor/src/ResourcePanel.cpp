@@ -19,19 +19,19 @@ ResourcePanel::ResourcePanel(wxWindow* parent, wxWindowID id /* = wxID_ANY */, c
 	mTreeControl = new wxTreeCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxNO_BORDER);
 	mBoxSizer->Add(mTreeControl, 1, wxEXPAND | wxALL);
 
-	wxTreeItemId rootId = mTreeControl->AddRoot("Resources");
-	
+	wxTreeItemId rootId = mTreeControl->AddRoot(wxT("Resources"));
+
 	StringVector groups = ResourceGroupManager::getSingletonPtr()->getResourceGroups();
 	for(StringVector::iterator it = groups.begin(); it != groups.end(); ++it)
 	{
-		wxTreeItemId groupId = mTreeControl->AppendItem(rootId, *it);
+		wxTreeItemId groupId = mTreeControl->AppendItem(rootId, wxString((*it).c_str(), wxConvUTF8));
 		ResourceGroupManager::ResourceDeclarationList resources = ResourceGroupManager::getSingletonPtr()->getResourceDeclarationList(*it);
 		for(ResourceGroupManager::ResourceDeclarationList::iterator rit = resources.begin(); rit != resources.end(); ++rit)
 		{
-			mTreeControl->AppendItem(groupId, (*rit).resourceName);
+			mTreeControl->AppendItem(groupId, wxString((*rit).resourceName.c_str(), wxConvUTF8));
 		}
 	}
-	
+
 
 	SetSizer(mBoxSizer);
 	Layout();

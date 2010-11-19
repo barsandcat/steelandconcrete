@@ -6,6 +6,7 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
+			<Script file="lib_finder.script" />
 			<Target title="Debug">
 				<Option output="MaterialEditor" prefix_auto="1" extension_auto="1" />
 				<Option object_output="Debug Win32" />
@@ -213,7 +214,10 @@
 			<code_completion />
 			<envvars />
 			<debugger />
-			<lib_finder disable_auto="1" />
+			<lib_finder disable_auto="1">
+				<lib name="gtk+-2.0" />
+				<lib name="x11" />
+			</lib_finder>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

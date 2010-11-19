@@ -34,6 +34,7 @@ Torus Knot Software Ltd.
 #include "OgreSingleton.h"
 
 #include "EventContainer.h"
+#include "wx/string.h"
 
 class EventArgs;
 class Project;
@@ -57,9 +58,9 @@ public:
 
 	void addProject(Project* project);
 	void removeProject(Project* project);
-	void removeProject(const String& name);
+	void removeProject(const wxString& name);
 
-	Project* getProject(const Ogre::String& name);
+	Project* getProject(const wxString& name);
 	const ProjectList* getProjects() const;
 
 
