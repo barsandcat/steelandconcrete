@@ -69,10 +69,6 @@ Torus Knot Software Ltd.
 #define TECHNIQUE_IMAGE 4
 #define PASS_IMAGE 5
 
-namespace
-{
-	class Ogre::MaterialSerializer;
-}
 
 const long ID_TREE_CTRL = wxNewId();
 const long ID_MENU_NEW = wxNewId();

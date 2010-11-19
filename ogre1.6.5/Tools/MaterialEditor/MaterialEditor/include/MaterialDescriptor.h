@@ -46,20 +46,20 @@ public:
 	MaterialDescriptor();
 	MaterialDescriptor(const String& name);
 	virtual ~MaterialDescriptor();
-	
+
 	const String& getName() const;
 	const String& getScript() const;
 	MaterialController* getMaterialController();
 	MaterialPtr& getMaterial();
 	void setMaterial(MaterialPtr& mp);
-		
+
 	void OnRootInitialized(EventArgs& args);
 	void OnRootShutdown(EventArgs& args);
-	
+
 protected:
 	String mName;
 	String mScript;
 	MaterialController* mMaterialController;
 };
 
-#endif _MATERIALDESCRIPTOR_H_
+#endif //_MATERIALDESCRIPTOR_H_
