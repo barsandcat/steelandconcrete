@@ -43,7 +43,7 @@ public:
 	SelectionEventArgs(SelectionList& selection);
 	SelectionEventArgs(boost::any& source, SelectionList& selection);
 	virtual ~SelectionEventArgs();
-	
+
 	const boost::any& getSource() const;
 	const SelectionList& getSelection() const;
 
@@ -52,4 +52,4 @@ protected:
 	SelectionList mSelection;
 };
 
-#endif _SELECTIONEVENTARGS_H_
+#endif //_SELECTIONEVENTARGS_H_
