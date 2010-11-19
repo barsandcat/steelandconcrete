@@ -70,5 +70,5 @@ void TechniqueWizard::OnFinish(wxWizardEvent& event)
 	wxString name;
 	mTechniquePage->getName(name);
 
-	mc->createTechnique(name.c_str());
+	mc->createTechnique(Ogre::String(name.mb_str()));
 }

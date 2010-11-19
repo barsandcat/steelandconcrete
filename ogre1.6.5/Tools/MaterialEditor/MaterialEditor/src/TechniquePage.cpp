@@ -120,9 +120,9 @@ Project* TechniquePage::getProject() const
 
 MaterialController* TechniquePage::getMaterial() const
 {
-	wxString material = mMaterialComboBox->GetValue();
+	Ogre::String material(mMaterialComboBox->GetValue().mb_str());
 
-	return getProject()->getMaterialController(material.c_str());
+	return getProject()->getMaterialController(material);
 }
 
 void TechniquePage::setProject(Project* project)
@@ -133,7 +133,12 @@ void TechniquePage::setProject(Project* project)
 
 void TechniquePage::setMaterial(MaterialController* mc)
 {
-	mMaterialComboBox->SetValue(mc != NULL ? mc->getMaterial()->getName().c_str() : wxEmptyString);
+    wxString name;
+    if (mc)
+    {
+        name = wxString(mc->getMaterial()->getName().c_str(), wxConvUTF8);
+    }
+	mMaterialComboBox->SetValue(name);
 }
 
 void TechniquePage::OnProjectSelected(wxCommandEvent& event)
@@ -149,7 +154,7 @@ void TechniquePage::populateMaterials(const MaterialControllerList* materials)
 	MaterialControllerList::const_iterator it;
 	for(it = materials->begin(); it != materials->end(); ++it)
 	{
-		materialNames.Add((*it)->getMaterial()->getName().c_str());
+		materialNames.Add(wxString((*it)->getMaterial()->getName().c_str(), wxConvUTF8));
 	}
 
 	mMaterialComboBox->Clear();

@@ -38,6 +38,7 @@ Torus Knot Software Ltd.
 
 #include "EventContainer.h"
 
+#include "wx/string.h"
 namespace Ogre
 {
 	class SceneManager;
@@ -65,13 +66,13 @@ public:
 	};
 
 	Project();
-	Project(const String& name);
+	Project(const wxString& name);
 	virtual ~Project();
 
 	void registerEvents();
 
-	const String& getName() const;
-	void setName(const String& name);
+	const wxString& getName() const;
+	void setName(const wxString& name);
 
 	void addMaterial(MaterialPtr materialPtr);
 	void createMaterial(const String& name);
@@ -79,14 +80,14 @@ public:
 	void removeMaterial(MaterialController* controller);
 	void removeMaterial(Material* material);
 	void removeMaterial(const String& name);
-	
+
 	MaterialController* getActiveMaterial() const;
 	void setActiveMaterial(MaterialController* controller);
 	void setActiveMaterial(Material* material);
 	void setActiveMaterial(const String& name);
-	
+
 	MaterialController* getMaterialController(const String& name);
-	
+
 	const MaterialControllerList* getMaterials() const;
 
 	void open();
@@ -96,16 +97,16 @@ public:
 	bool isClosed();
 
 	void generateScene(Ogre::SceneManager* sceneManager);
-	
+
 	void OnRootInitialized(EventArgs& args);
 	void OnRootShutdown(EventArgs& args);
 
 protected:
-	String mName;
+	wxString mName;
 	bool mOpen;
 	MaterialController* mActiveMaterial;
 	MaterialControllerList mMaterialControllers;
-	
+
 	void subscribeTo(RootEventPlugin* plugin);
 };
 

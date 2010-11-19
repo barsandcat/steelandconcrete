@@ -46,7 +46,7 @@ Project::Project() : mActiveMaterial(NULL)
 	registerEvents();
 }
 
-Project::Project(const String& name) : mActiveMaterial(NULL), mName(name)
+Project::Project(const wxString& name) : mActiveMaterial(NULL), mName(name)
 {
 	registerEvents();
 }
@@ -58,7 +58,7 @@ Project::~Project()
 	{
 		delete *it;
 	}
-	
+
 	mMaterialControllers.clear();
 }
 
@@ -70,15 +70,15 @@ void Project::registerEvents()
 	registerEvent(ActiveMaterialChanged);
 }
 
-const String& Project::getName() const
+const wxString& Project::getName() const
 {
 	return mName;
 }
 
-void Project::setName(const String& name)
+void Project::setName(const wxString& name)
 {
 	mName = name;
-	
+
 	fireEvent(NameChanged, ProjectEventArgs(this));
 }
 
@@ -86,7 +86,7 @@ void Project::addMaterial(MaterialPtr materialPtr)
 {
 	MaterialController* controller = new MaterialController(materialPtr);
 	mMaterialControllers.push_back(controller);
-	
+
 	fireEvent(MaterialAdded, ProjectEventArgs(this, controller));
 }
 
@@ -106,13 +106,13 @@ void Project::removeMaterial(MaterialController* controller)
 	MaterialControllerList::iterator it;
 	for(it = mMaterialControllers.begin(); it != mMaterialControllers.end(); ++it)
 	{
-		if(*it == controller) 
+		if(*it == controller)
 		{
 			mMaterialControllers.erase(it);
 			break;
 		}
 	}
-	
+
 	// Consider: Should this be fired BEFORE the actual removal?
 	fireEvent(MaterialRemoved, ProjectEventArgs(this, controller));
 }
@@ -135,11 +135,11 @@ MaterialController* Project::getActiveMaterial() const
 void Project::setActiveMaterial(MaterialController* controller)
 {
 	assert(controller);
-	
+
 	if(controller == mActiveMaterial) return;
 
 	mActiveMaterial = controller;
-	
+
 	fireEvent(ActiveMaterialChanged, ProjectEventArgs(this));
 }
 
