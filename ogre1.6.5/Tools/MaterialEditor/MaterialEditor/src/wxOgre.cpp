@@ -3,6 +3,9 @@
 #ifdef __WXGTK__
 #include <gdk/gdk.h>
 #include <gtk/gtk.h> // just this should suffice as it should include gdk.h itself
+#include <X11/Xlib.h>
+#include <gdk/gdkx.h>
+
 #endif
 
 // Required for the timer
@@ -24,7 +27,7 @@ BEGIN_EVENT_TABLE(wxOgre, wxControl)
 	EVT_MOUSEWHEEL(wxOgre::OnMouseWheel)
 END_EVENT_TABLE()
 
-wxOgre::wxOgre(wxFrame* parent, Ogre::RenderSystem* renderSystem) : 
+wxOgre::wxOgre(wxFrame* parent, Ogre::RenderSystem* renderSystem) :
 		wxControl(parent, -1),
 		mTimer(this, ID_RENDERTIMER),
 		mRoot(0),
@@ -53,7 +56,7 @@ void wxOgre::createOgreRenderWindow(Ogre::RenderSystem* renderSystem)
 	{
 		mRoot = new Ogre::Root();
 	}
-	
+
 	// If we got an Ogre::RenderSystem, we'll use that
 	if(renderSystem)
 	{
@@ -124,9 +127,9 @@ void wxOgre::createOgreRenderWindow(Ogre::RenderSystem* renderSystem)
 	mCameraPitchNode->attachObject(mCamera);
 	mCamera->setNearClipDistance(0.1);
 	// Set the viewport
-	mViewPort = mRenderWindow->addViewport(mCamera); 
+	mViewPort = mRenderWindow->addViewport(mCamera);
 	// Set the background to match the wxWindow background color
-	mViewPort->setBackgroundColour(Ogre::ColourValue(212.0f/255.0f, 208.0f/255.0f, 200.0f/255.0f, 1.0f)); 
+	mViewPort->setBackgroundColour(Ogre::ColourValue(212.0f/255.0f, 208.0f/255.0f, 200.0f/255.0f, 1.0f));
 
 	mLightYawNode = mCameraPitchNode->createChildSceneNode();
 	mLightPitchNode = mLightYawNode->createChildSceneNode();
