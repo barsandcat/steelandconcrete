@@ -444,8 +444,8 @@ void WorkspacePanel::OnEdit(wxCommandEvent& event)
 		MaterialController* mc = getMaterial(selId);
 
 		EditorManager* editorManager = EditorManager::getSingletonPtr();
-		Editor* editor = editorManager->findEditor(wxString(mc->getMaterial()->getName().c_str(), wxConvUTF8));
-		Editor* editorMat = editorManager->findEditor(wxString((mc->getMaterial()->getName() + ".material").c_str(), wxConvUTF8));
+		EditorBase* editor = editorManager->findEditor(wxString(mc->getMaterial()->getName().c_str(), wxConvUTF8));
+		EditorBase* editorMat = editorManager->findEditor(wxString((mc->getMaterial()->getName() + ".material").c_str(), wxConvUTF8));
 		if(editor != NULL)
 		{
 			editorManager->setActiveEditor(editor);

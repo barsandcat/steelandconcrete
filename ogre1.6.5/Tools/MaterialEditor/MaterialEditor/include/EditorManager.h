@@ -41,14 +41,14 @@ Torus Knot Software Ltd.
 class wxAuiNotebook;
 class wxAuiNotebookEvent;
 
-class Editor;
+class EditorBase;
 class EditorInput;
 class EventArgs;
 class Project;
 class Workspace;
 
-typedef std::list<Editor*> EditorList;
-typedef std::map<Editor*, int> EditorIndexMap;
+typedef std::list<EditorBase*> EditorList;
+typedef std::map<EditorBase*, int> EditorIndexMap;
 
 using Ogre::String;
 
@@ -67,15 +67,15 @@ public:
 
 	wxAuiNotebook* getEditorNotebook() const;
 	void setEditorNotebook(wxAuiNotebook* notebook);
-	
-	void openEditor(Editor* editor);
-	//void openEditor(EditorInput* input);
-	void closeEditor(Editor* editor);
-	//void closeEditor(EditorInput* input);
-	Editor* findEditor(const wxString& name);
 
-	Editor* getActiveEditor() const;
-	void setActiveEditor(Editor* editor);
+	void openEditor(EditorBase* editor);
+	//void openEditor(EditorInput* input);
+	void closeEditor(EditorBase* editor);
+	//void closeEditor(EditorInput* input);
+	EditorBase* findEditor(const wxString& name);
+
+	EditorBase* getActiveEditor() const;
+	void setActiveEditor(EditorBase* editor);
 
 	const EditorList& getEditors() const;
 
@@ -123,7 +123,7 @@ protected:
 
 	EditorList mEditors;
 	EditorIndexMap mEditorIndexMap;
-	Editor* mActiveEditor;
+	EditorBase* mActiveEditor;
 	wxAuiNotebook* mEditorNotebook;
 };
 
