@@ -150,7 +150,9 @@
 		<Unit filename="../src/scintilla/src/LexSmalltalk.cxx" />
 		<Unit filename="../src/scintilla/src/LexSpecman.cxx" />
 		<Unit filename="../src/scintilla/src/LexSpice.cxx" />
+		<Unit filename="../src/scintilla/src/LexTADS3.cxx" />
 		<Unit filename="../src/scintilla/src/LexTCL.cxx" />
+		<Unit filename="../src/scintilla/src/LexTeX.cxx" />
 		<Unit filename="../src/scintilla/src/LexVB.cxx" />
 		<Unit filename="../src/scintilla/src/LexVHDL.cxx" />
 		<Unit filename="../src/scintilla/src/LexVerilog.cxx" />
