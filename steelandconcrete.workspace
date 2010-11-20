@@ -75,7 +75,12 @@
 			<Depends filename="boost/build/libs/system/src/boost_system-mt-static-staticrt.cbp" />
 			<Depends filename="boost/build/libs/thread/src/boost_thread-mt-static-staticrt.cbp" />
 		</Project>
-		<Project filename="ogre1.6.5/Tools/MaterialEditor/MaterialEditor/build/MaterialEditor.cbp" active="1" />
+		<Project filename="ogre1.6.5/Tools/MaterialEditor/MaterialEditor/build/MaterialEditor.cbp" active="1">
+			<Depends filename="boost/build/libs/signals/src/boost_signals-mt-static-staticrt.cbp" />
+			<Depends filename="wxpropgrid/build/propgrid_propgrid_vc9.cbp" />
+			<Depends filename="ogre1.6.5/Tools/MaterialEditor/wxscintilla_1.69.2/build/wxscintilla.cbp" />
+		</Project>
 		<Project filename="wxpropgrid/build/propgrid_propgrid_vc9.cbp" />
+		<Project filename="ogre1.6.5/Tools/MaterialEditor/wxscintilla_1.69.2/build/wxscintilla.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>
