@@ -27,9 +27,6 @@
 					<Add library="wxscintilla_d" />
 					<Add library="boost_signalsRelease" />
 				</Linker>
-				<ExtraCommands>
-					<Add after="copy .\Debug Win32\*.exe $(SolutionDir)\bin\Debug Win32" />
-				</ExtraCommands>
 			</Target>
 			<Target title="Release">
 				<Option output="../../../../../bin/MaterialEditor" prefix_auto="1" extension_auto="1" />
@@ -47,9 +44,6 @@
 					<Add library="wxscintilla" />
 					<Add library="boost_signalsRelease" />
 				</Linker>
-				<ExtraCommands>
-					<Add after="copy .\Release Win32\*.exe $(SolutionDir)bin\Release Win32" />
-				</ExtraCommands>
 			</Target>
 		</Build>
 		<Compiler>

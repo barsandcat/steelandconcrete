@@ -16,8 +16,6 @@
 				<Compiler>
 					<Add option="-pg" />
 					<Add option="-g" />
-					<Add option="-D_DEBUG" />
-					<Add option="-D__WXDEBUG__" />
 				</Compiler>
 				<ResourceCompiler>
 					<Add directory="../include" />
@@ -53,6 +51,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-w" />
 			<Add option="`wx-config --cflags`" />
 			<Add option="-D_LIB" />
 			<Add option="-DGTK" />
