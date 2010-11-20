@@ -33,6 +33,7 @@
 				<Option projectResourceIncludeDirsRelation="2" />
 				<Compiler>
 					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
 					<Add directory="../includes" />
 				</Compiler>
 				<Linker>
