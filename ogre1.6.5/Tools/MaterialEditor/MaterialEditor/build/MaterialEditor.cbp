@@ -25,6 +25,7 @@
 					<Add library="OgreMain_d" />
 					<Add library="wxpropgrid_d" />
 					<Add library="wxscintilla_d" />
+					<Add library="boost_signalsRelease" />
 				</Linker>
 				<ExtraCommands>
 					<Add after="copy .\Debug Win32\*.exe $(SolutionDir)\bin\Debug Win32" />
@@ -44,6 +45,7 @@
 					<Add library="OgreMain" />
 					<Add library="wxpropgrid" />
 					<Add library="wxscintilla" />
+					<Add library="boost_signalsRelease" />
 				</Linker>
 				<ExtraCommands>
 					<Add after="copy .\Release Win32\*.exe $(SolutionDir)bin\Release Win32" />
@@ -59,6 +61,7 @@
 		</Compiler>
 		<Linker>
 			<Add option="`wx-config --libs`" />
+			<Add library="freeimage" />
 			<Add directory="../../../../../lib" />
 		</Linker>
 		<Unit filename="../include/CallTipManager.h" />
@@ -188,6 +191,8 @@
 			<lib_finder disable_auto="1">
 				<lib name="gtk+-2.0" />
 				<lib name="x11" />
+				<lib name="zziplib" />
+				<lib name="xaw7" />
 			</lib_finder>
 		</Extensions>
 	</Project>
