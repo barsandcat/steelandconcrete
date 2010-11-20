@@ -35,8 +35,6 @@
 				<Compiler>
 					<Add option="-pg" />
 					<Add option="-g" />
-					<Add option="-D__WXDEBUG__" />
-					<Add option="-D_DEBUG" />
 				</Compiler>
 				<ResourceCompiler>
 					<Add directory="$(WXWIN)/lib/vc_amd64_lib/mswud" />
