@@ -3,9 +3,12 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <stdarg.h>
-#include <windows.h>
 
 #include "Platform.h"
+
+#if PLAT_WIN
+#include <windows.h>
+#endif
 
 #include "PropSet.h"
 #include "Accessor.h"
@@ -66,7 +69,7 @@ static void ColouriseOMS(unsigned int startPos, int length, int initStyle, WordL
 			if(sc.atLineEnd)
 				sc.ForwardSetState(SCE_OMS_DEFAULT);
 		break;
-			
+
 		case SCE_OMS_OPERATOR:
 			sc.SetState(SCE_OMS_DEFAULT);
 		break;
@@ -141,11 +144,11 @@ static void FoldOMS(unsigned int startPos, int length, int initStyle, WordList* 
 		if (atEOL)
 		{
 			int lev = levelPrev;
-			if (visibleChars == 0 && foldCompact) 
+			if (visibleChars == 0 && foldCompact)
 			{
 				lev |= SC_FOLDLEVELWHITEFLAG;
 			}
-			
+
 			if ((levelCurrent > levelPrev) && (visibleChars > 0))
 			{
 				lev |= SC_FOLDLEVELHEADERFLAG;
@@ -166,7 +169,7 @@ static void FoldOMS(unsigned int startPos, int length, int initStyle, WordList* 
 			visibleChars++;
 		}
 	}
-	
+
 	// Fill in the real level of the next line, keeping the current flags as they will be filled in later
 	int flagsNext = styler.LevelAt(lineCurrent) & ~SC_FOLDLEVELNUMBERMASK;
 	styler.SetLevel(lineCurrent, levelPrev | flagsNext);
