@@ -22,24 +22,9 @@
 				<Linker>
 					<Add option="-s" />
 					<Add option="-pg" />
-					<Add library="wxbase28d" />
-					<Add library="wxmsw28d_core" />
-					<Add library="wxmsw28d_aui" />
-					<Add library="wxmsw28d_adv" />
-					<Add library="wxtiffd" />
-					<Add library="wxjpegd" />
-					<Add library="wxpngd" />
-					<Add library="wxzlibd" />
-					<Add library="wxregexd" />
-					<Add library="wxexpatd" />
-					<Add library="winmm" />
-					<Add library="comctl32" />
-					<Add library="rpcrt4" />
-					<Add library="wsock32" />
-					<Add library="oleacc" />
 					<Add library="OgreMain_d" />
-					<Add library="wxmsw28d_propgrid" />
-					<Add library="wxscintillad" />
+					<Add library="wxpropgrid_d" />
+					<Add library="wxscintilla_d" />
 				</Linker>
 				<ExtraCommands>
 					<Add after="copy .\Debug Win32\*.exe $(SolutionDir)\bin\Debug Win32" />
@@ -56,24 +41,9 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="wxbase28d" />
-					<Add library="wxmsw28d_core" />
-					<Add library="wxmsw28d_aui" />
-					<Add library="wxmsw28d_adv" />
-					<Add library="wxtiffd" />
-					<Add library="wxjpegd" />
-					<Add library="wxpngd" />
-					<Add library="wxzlibd" />
-					<Add library="wxregexd" />
-					<Add library="wxexpatd" />
-					<Add library="winmm" />
-					<Add library="comctl32" />
-					<Add library="rpcrt4" />
-					<Add library="wsock32" />
-					<Add library="oleacc" />
 					<Add library="OgreMain" />
-					<Add library="wxmsw28d_propgrid" />
-					<Add library="wxscintillad" />
+					<Add library="wxpropgrid" />
+					<Add library="wxscintilla" />
 				</Linker>
 				<ExtraCommands>
 					<Add after="copy .\Release Win32\*.exe $(SolutionDir)bin\Release Win32" />
@@ -89,6 +59,7 @@
 		</Compiler>
 		<Linker>
 			<Add option="`wx-config --libs`" />
+			<Add directory="../../../../../lib" />
 		</Linker>
 		<Unit filename="../include/CallTipManager.h" />
 		<Unit filename="../include/CgEditor.h" />
