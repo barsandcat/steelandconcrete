@@ -76,5 +76,6 @@
 			<Depends filename="boost/build/libs/thread/src/boost_thread-mt-static-staticrt.cbp" />
 		</Project>
 		<Project filename="ogre1.6.5/Tools/MaterialEditor/MaterialEditor/build/MaterialEditor.cbp" active="1" />
+		<Project filename="wxpropgrid/build/propgrid_propgrid_vc9.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>
