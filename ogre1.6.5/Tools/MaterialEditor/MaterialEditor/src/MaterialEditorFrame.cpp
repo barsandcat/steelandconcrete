@@ -449,7 +449,7 @@ void MaterialEditorFrame::OnActivate(wxActivateEvent& event)
 void MaterialEditorFrame::OnActiveEditorChanged(EventArgs& args)
 {
 	EditorEventArgs eea = dynamic_cast<EditorEventArgs&>(args);
-	Editor* editor = eea.getEditor();
+	EditorBase* editor = eea.getEditor();
 
 	// TODO: Update menu item enablement
 }
@@ -552,7 +552,7 @@ void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
 
 void MaterialEditorFrame::OnFileSave(wxCommandEvent& event)
 {
-	Editor* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
 	if(editor != NULL) editor->save();
 
 	// TODO: Support project & workspace save
@@ -560,7 +560,7 @@ void MaterialEditorFrame::OnFileSave(wxCommandEvent& event)
 
 void MaterialEditorFrame::OnFileSaveAs(wxCommandEvent& event)
 {
-	Editor* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
 	if(editor != NULL) editor->saveAs();
 
 	// TODO: Support project & workspace saveAs
@@ -577,31 +577,31 @@ void MaterialEditorFrame::OnFileExit(wxCommandEvent& event)
 
 void MaterialEditorFrame::OnEditUndo(wxCommandEvent& event)
 {
-	Editor* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
 	if(editor != NULL) editor->undo();
 }
 
 void MaterialEditorFrame::OnEditRedo(wxCommandEvent& event)
 {
-	Editor* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
 	if(editor != NULL) editor->redo();
 }
 
 void MaterialEditorFrame::OnEditCut(wxCommandEvent& event)
 {
-	Editor* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
 	if(editor != NULL) editor->cut();
 }
 
 void MaterialEditorFrame::OnEditCopy(wxCommandEvent& event)
 {
-	Editor* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
 	if(editor != NULL) editor->copy();
 }
 
 void MaterialEditorFrame::OnEditPaste(wxCommandEvent& event)
 {
-	Editor* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
 	if(editor != NULL) editor->paste();
 }
 

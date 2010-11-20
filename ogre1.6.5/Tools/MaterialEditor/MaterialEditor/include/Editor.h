@@ -43,7 +43,7 @@ class EditorInput;
 
 using Ogre::String;
 
-class Editor : public EventContainer
+class EditorBase : public EventContainer
 {
 public:
 	enum EditorEvent
@@ -52,16 +52,16 @@ public:
 		DirtyStateChanged
 	};
 
-	Editor();
-	Editor(EditorInput* input);
-	virtual ~Editor();
+	EditorBase();
+	EditorBase(EditorInput* input);
+	virtual ~EditorBase();
 
 	wxControl* getControl() const;
 	void setControl(wxControl* control);
 
 	EditorInput* getEditorInput() const;
 	void setEditorInput(EditorInput* input);
-	
+
 	EditorContributor* getEditorContributor() const;
 
 	const wxString& getName() const;

@@ -24,7 +24,7 @@ protected:
 	wxString mFocusedWord;
 };
 
-class ScintillaEditor : public wxScintilla, public Editor
+class ScintillaEditor : public wxScintilla, public EditorBase
 {
 public:
 	enum ScintillaEditorEvent

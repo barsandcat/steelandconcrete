@@ -44,7 +44,7 @@ DocPanel::~DocPanel()
 void DocPanel::OnActiveEditorChanged(EventArgs& args)
 {
 	EditorEventArgs eea = dynamic_cast<EditorEventArgs&>(args);
-	Editor* editor = eea.getEditor();
+	EditorBase* editor = eea.getEditor();
 
 	// TODO: Unsubscribe from previous editor
 

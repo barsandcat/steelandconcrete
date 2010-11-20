@@ -33,142 +33,142 @@ Torus Knot Software Ltd.
 #include "EditorEventArgs.h"
 #include "EditorInput.h"
 
-Editor::Editor()
+EditorBase::EditorBase()
 : mEditorInput(NULL), mName(wxT("Editor"))
 {
 	registerEvents();
 }
 
-Editor::Editor(EditorInput* input)
+EditorBase::EditorBase(EditorInput* input)
 : mEditorInput(input)
 {
 	registerEvents();
 }
 
-Editor::~Editor()
+EditorBase::~EditorBase()
 {
 }
 
-wxControl* Editor::getControl() const
+wxControl* EditorBase::getControl() const
 {
 	return mControl;
 }
 
-void Editor::setControl(wxControl* control)
+void EditorBase::setControl(wxControl* control)
 {
 	mControl = control;
 }
 
-void Editor::registerEvents()
+void EditorBase::registerEvents()
 {
 	registerEvent(NameChanged);
 	registerEvent(DirtyStateChanged);
 }
 
 
-EditorInput* Editor::getEditorInput() const
+EditorInput* EditorBase::getEditorInput() const
 {
 	return mEditorInput;
 }
 
-void Editor::setEditorInput(EditorInput* input)
+void EditorBase::setEditorInput(EditorInput* input)
 {
 	mEditorInput = input;
 }
 
-EditorContributor* Editor::getEditorContributor() const
+EditorContributor* EditorBase::getEditorContributor() const
 {
 	return NULL;
 }
 
-const wxString& Editor::getName() const
+const wxString& EditorBase::getName() const
 {
 	return mName;
 }
 
-void Editor::setName(const wxString& name)
+void EditorBase::setName(const wxString& name)
 {
 	mName = name;
 
 	fireEvent(NameChanged, EditorEventArgs(this));
 }
 
-void Editor::activate()
+void EditorBase::activate()
 {
 	// Do nothing
 }
 
-void Editor::deactivate()
+void EditorBase::deactivate()
 {
 	// Do nothing
 }
 
-bool Editor::isDirty()
+bool EditorBase::isDirty()
 {
 	return false;
 }
 
-void Editor::save()
+void EditorBase::save()
 {
 	// Do nothing
 }
 
-void Editor::saveAs()
+void EditorBase::saveAs()
 {
 	// Do nothing
 }
 
-bool Editor::isSaveAsAllowed()
+bool EditorBase::isSaveAsAllowed()
 {
 	return false;
 }
 
-bool Editor::isRedoable()
+bool EditorBase::isRedoable()
 {
 	return false;
 }
 
-void Editor::redo()
+void EditorBase::redo()
 {
 	// Do nothing
 }
 
-bool Editor::isUndoable()
+bool EditorBase::isUndoable()
 {
 	return false;
 }
 
-void Editor::undo()
+void EditorBase::undo()
 {
 	// Do nothing
 }
 
-bool Editor::isCuttable()
+bool EditorBase::isCuttable()
 {
 	return false;
 }
 
-void Editor::cut()
+void EditorBase::cut()
 {
 	// Do nothing
 }
 
-bool Editor::isCopyable()
+bool EditorBase::isCopyable()
 {
 	return false;
 }
 
-void Editor::copy()
+void EditorBase::copy()
 {
 	// Do nothing
 }
 
-bool Editor::isPastable()
+bool EditorBase::isPastable()
 {
 	return false;
 }
 
-void Editor::paste()
+void EditorBase::paste()
 {
 	// Do nothing
 }
