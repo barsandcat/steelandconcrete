@@ -66,6 +66,7 @@ http://www.gnu.org/copyleft/lesser.txt
 #include "ResourcePanel.h"
 #include "WorkspacePanel.h"
 #include "wxOgre.h"
+#include "OgreGLPlugin.h"
 
 using Ogre::Camera;
 using Ogre::ColourValue;
@@ -267,6 +268,10 @@ void MaterialEditorFrame::createPropertiesPane()
 void MaterialEditorFrame::createOgrePane()
 {
 	mRoot = new Ogre::Root();
+
+	// Gl renedr system
+    Ogre::Plugin* mGLPlugin = new Ogre::GLPlugin();
+    mRoot->installPlugin(mGLPlugin);
 
 	// Find Render Systems
 	// Testing only, this will be deleted once Projects can tell us
