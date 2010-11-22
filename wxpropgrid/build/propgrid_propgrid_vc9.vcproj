@@ -20,8 +20,8 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\lib\vc_lib"
-			IntermediateDirectory="vcmsw\propgrid"
+			OutputDirectory="$(SolutionDir)lib"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -47,13 +47,13 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="2"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\msw;$(WXWIN)\include;..\include"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)wxMSW-2.8.11\include\msvc&quot;;&quot;$(SolutionDir)wxMSW-2.8.11\include&quot;;..\include"
 				PreprocessorDefinitions="WIN32;_LIB;__WXMSW__"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
-				ObjectFile="vcmsw\propgrid\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28_propgrid.pdb"
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="$(IntDir)\wxcode_msw28_propgrid.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="0"
@@ -72,7 +72,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\lib\vc_lib\wxcode_msw28_propgrid.lib"
+				OutputFile="$(OutDir)\wxcode_msw28_propgrid.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -320,8 +320,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\lib\vc_lib"
-			IntermediateDirectory="vcmswd\propgrid"
+			OutputDirectory="$(SolutionDir)lib"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -347,15 +347,15 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(WXWIN)\lib\vc_lib\mswd;$(WXWIN)\include;..\include"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)wxMSW-2.8.11\include\msvc&quot;;&quot;$(SolutionDir)wxMSW-2.8.11\include&quot;;..\include"
 				PreprocessorDefinitions="WIN32;_LIB;__WXDEBUG__;__WXMSW__;_DEBUG"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				BufferSecurityCheck="true"
 				RuntimeTypeInfo="true"
-				ObjectFile="vcmswd\propgrid\"
-				ProgramDataBaseFileName="..\lib\vc_lib\wxcode_msw28d_propgrid.pdb"
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="$(IntDir)\wxcode_msw28d_propgrid.pdb"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
@@ -374,7 +374,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\lib\vc_lib\wxcode_msw28d_propgrid.lib"
+				OutputFile="$(OutDir)\wxcode_msw28d_propgrid.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
