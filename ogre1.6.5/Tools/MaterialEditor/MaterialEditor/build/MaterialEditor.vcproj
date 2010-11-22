@@ -143,7 +143,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wxbase28.lib wxmsw28_core.lib winmm.lib comctl32.lib rpcrt4.lib wsock32.lib oleacc.lib OgreMain.lib wxmsw28d_propgrid.lib wxscintilla.lib libboost_signals-mt-s$(ConfigurationName).lib"
+				AdditionalDependencies="wxbase28.lib wxmsw28_core.lib winmm.lib comctl32.lib rpcrt4.lib wsock32.lib oleacc.lib OgreMain.lib wxcode_msw28_propgrid.lib wxscintilla.lib libboost_signals-mt-s$(ConfigurationName).lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(SolutionDir)\Lib&quot;"
 				GenerateManifest="false"
