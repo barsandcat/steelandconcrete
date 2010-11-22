@@ -67,6 +67,6 @@ void ProjectWizard::OnFinish(wxWizardEvent& event)
 	wxString location;
 	mProjectPage->getLocation(location);
 
-	Project* project = new Project(name.c_str());
+	Project* project = new Project(name);
 	Workspace::getSingletonPtr()->addProject(project);
 }

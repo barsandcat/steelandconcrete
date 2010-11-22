@@ -35,8 +35,8 @@ Torus Knot Software Ltd.
 template<> Workspace* Ogre::Singleton<Workspace>::ms_Singleton = 0;
 
 Workspace& Workspace::getSingleton(void)
-{  
-	assert( ms_Singleton );  return ( *ms_Singleton );  
+{
+	assert( ms_Singleton );  return ( *ms_Singleton );
 }
 
 Workspace* Workspace::getSingletonPtr(void)
@@ -67,7 +67,7 @@ void Workspace::registerEvents()
 void Workspace::addProject(Project* project)
 {
 	mProjects.push_back(project);
-	
+
 	fireEvent(ProjectAdded, WorkspaceEventArgs(this, project));
 }
 
@@ -78,12 +78,12 @@ void Workspace::removeProject(Project* project)
 	delete project;
 }
 
-void Workspace::removeProject(const String& name)
+void Workspace::removeProject(const wxString& name)
 {
 	removeProject(getProject(name));
 }
 
-Project* Workspace::getProject(const String& name)
+Project* Workspace::getProject(const wxString& name)
 {
 	Project* p;
 	ProjectList::iterator it;

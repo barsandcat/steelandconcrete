@@ -42,22 +42,22 @@ CallTipManager::~CallTipManager()
 {
 }
 
-void CallTipManager::load(wxString& path)
+void CallTipManager::load(std::string& path)
 {
 	// TODO: Clear tips list
 
 	std::ifstream fp;
-	fp.open(path, std::ios::in | std::ios::binary);
+	fp.open(path.c_str(), std::ios::in | std::ios::binary);
 	if(fp)
 	{
 		DataStreamPtr stream(new FileStreamDataStream(path.c_str(), &fp, false));
 
 		int index = -1;
-		String line;
-		String key;
+		wxString line;
+		wxString key;
 		while(!stream->eof())
 		{
-			line = stream->getLine();
+			line = wxString(stream->getLine().c_str(), wxConvUTF8);
 
 			// Ignore blank lines and comments (comment lines start with '#')
 			if(line.length() > 0 && line.at(0) != '#')
@@ -73,7 +73,7 @@ void CallTipManager::load(wxString& path)
 				else
 				{
 					if(mCallTips.find(key) != mCallTips.end())
-						mCallTips[key] = mCallTips[key] + "\n" + line;
+						mCallTips[key] = mCallTips[key] + wxT("\n") + line;
 					else
 						mCallTips[key] = line;
 				}
@@ -111,7 +111,7 @@ void CallTipManager::removeTrigger(wxChar& trigger)
 	}
 }
 
-bool CallTipManager::isTrigger(wxChar& ch)
+bool CallTipManager::isTrigger(char& ch)
 {
 	TriggerList::iterator it;
 	for(it = mTriggers.begin(); it != mTriggers.end(); ++it)

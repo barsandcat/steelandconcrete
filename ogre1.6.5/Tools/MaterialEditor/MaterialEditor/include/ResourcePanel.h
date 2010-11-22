@@ -9,7 +9,7 @@ class wxTreeCtrl;
 class ResourcePanel : public wxPanel
 {
 public:
-	ResourcePanel(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = "ResourcePanel");
+	ResourcePanel(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("ResourcePanel"));
 	~ResourcePanel();
 
 private:

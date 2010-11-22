@@ -67,6 +67,10 @@ http://www.gnu.org/copyleft/lesser.txt
 #include "WorkspacePanel.h"
 #include "wxOgre.h"
 
+#if OGRE_STATIC_LIB
+#include "OgreGLPlugin.h"
+#endif
+
 using Ogre::Camera;
 using Ogre::ColourValue;
 using Ogre::RenderSystemList;
@@ -145,11 +149,11 @@ MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
 {
 	createAuiManager();
 	createMenuBar();
-	
+
 	CreateToolBar();
 	CreateStatusBar();
 
-	/* 
+	/*
 	** We have to create the OgrePanel first
 	** since some of the other panels rely on Ogre.
 	*/
@@ -162,7 +166,7 @@ MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
 	mAuiManager->Update();
 }
 
-MaterialEditorFrame::~MaterialEditorFrame() 
+MaterialEditorFrame::~MaterialEditorFrame()
 {
 	mLogPanel->detachLog(Ogre::LogManager::getSingleton().getDefaultLog());
 
@@ -215,10 +219,10 @@ void MaterialEditorFrame::createManagementPane()
 
 	mWorkspacePanel = new WorkspacePanel(mManagementNotebook);
 	//mMaterialTree = new wxTreeCtrl(mWorkspaceNotebook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxNO_BORDER);
-	mManagementNotebook->AddPage(mWorkspacePanel, "Materials");
+	mManagementNotebook->AddPage(mWorkspacePanel, wxT("Materials"));
 
 	mResourcePanel = new ResourcePanel(mManagementNotebook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxNO_BORDER);
-	mManagementNotebook->AddPage(mResourcePanel, "Resources");
+	mManagementNotebook->AddPage(mResourcePanel, wxT("Resources"));
 
 	wxAuiPaneInfo info;
 	info.Caption(wxT("Management"));
@@ -235,11 +239,11 @@ void MaterialEditorFrame::createInformationPane()
 	mInformationNotebook = new wxAuiNotebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxAUI_NB_TOP | wxAUI_NB_TAB_SPLIT | wxAUI_NB_TAB_MOVE | wxAUI_NB_SCROLL_BUTTONS | wxNO_BORDER);
 
 	mLogPanel = new LogPanel(mInformationNotebook);
-	mInformationNotebook->AddPage(mLogPanel, "Log");
+	mInformationNotebook->AddPage(mLogPanel, wxT("Log"));
 	mLogPanel->attachLog(Ogre::LogManager::getSingleton().getDefaultLog());
 
 	mDocPanel = new DocPanel(mInformationNotebook);
-	mInformationNotebook->AddPage(mDocPanel, "Documentation");
+	mInformationNotebook->AddPage(mDocPanel, wxT("Documentation"));
 
 	wxAuiPaneInfo info;
 	info.Caption(wxT("Information"));
@@ -267,6 +271,11 @@ void MaterialEditorFrame::createPropertiesPane()
 void MaterialEditorFrame::createOgrePane()
 {
 	mRoot = new Ogre::Root();
+#if OGRE_STATIC_LIB
+	// Gl renedr system
+    Ogre::Plugin* mGLPlugin = new Ogre::GLPlugin();
+    mRoot->installPlugin(mGLPlugin);
+#endif
 
 	// Find Render Systems
 	// Testing only, this will be deleted once Projects can tell us
@@ -274,9 +283,9 @@ void MaterialEditorFrame::createOgrePane()
 	mDirectXRenderSystem = NULL;
 	mOpenGLRenderSystem = NULL;
 	RenderSystemList *rl = mRoot->getAvailableRenderers();
-	if (rl->empty()) 
+	if (rl->empty())
 	{
-		wxMessageBox("No render systems found", "Error");
+		wxMessageBox(wxT("No render systems found"), wxT("Error"));
 		return;
 	}
 	for(RenderSystemList::iterator it = rl->begin(); it != rl->end(); ++it)
@@ -285,8 +294,8 @@ void MaterialEditorFrame::createOgrePane()
 		rs->setConfigOption("Full Screen", "No");
 		rs->setConfigOption("VSync", "No");
 		rs->setConfigOption("Video Mode", "512 x 512 @ 32-bit");
-		
-		if(rs->getName() == "OpenGL Rendering Subsystem") 
+
+		if(rs->getName() == "OpenGL Rendering Subsystem")
 			mOpenGLRenderSystem = *it;
 		else if(rs->getName() == "Direct3D9 Rendering Subsystem")
 			mDirectXRenderSystem = *it;
@@ -325,8 +334,8 @@ void MaterialEditorFrame::createOgrePane()
 
 	wxString caption;
 	String rs = mRoot->getRenderSystem()->getName();
-	if(rs == "OpenGL Rendering Subsystem") caption = "OGRE - OpenGL";
-	else caption = "OGRE - DirectX";
+	if(rs == "OpenGL Rendering Subsystem") caption = wxT("OGRE - OpenGL");
+	else caption = wxT("OGRE - DirectX");
 
 	wxAuiPaneInfo info;
 	info.Caption(caption);
@@ -354,42 +363,42 @@ void MaterialEditorFrame::createMenuBar()
 }
 
 void MaterialEditorFrame::createFileMenu()
-{	
+{
 	mFileMenu = new wxMenu();
 
 	// New sub menu
 	wxMenu* newMenu = new wxMenu();
 
-	wxMenuItem *menuItem = new wxMenuItem(newMenu, ID_FILE_NEW_MENU_PROJECT, "&Project");
+	wxMenuItem *menuItem = new wxMenuItem(newMenu, ID_FILE_NEW_MENU_PROJECT, wxT("&Project"));
 	menuItem->SetBitmap(IconManager::getSingleton().getIcon(IconManager::PROJECT_NEW));
 	newMenu->Append(menuItem);
 
-	menuItem = new wxMenuItem(newMenu, ID_FILE_NEW_MENU_MATERIAL, "&Material");
+	menuItem = new wxMenuItem(newMenu, ID_FILE_NEW_MENU_MATERIAL, wxT("&Material"));
 	menuItem->SetBitmap(IconManager::getSingleton().getIcon(IconManager::MATERIAL));
 	newMenu->Append(menuItem);
 
 	mFileMenu->AppendSubMenu(newMenu, wxT("&New"));
 
-	menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_OPEN, "&Open");
+	menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_OPEN, wxT("&Open"));
 	mFileMenu->Append(menuItem);
 
-	menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_SAVE, "&Save");
+	menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_SAVE, wxT("&Save"));
 	menuItem->SetBitmap(IconManager::getSingleton().getIcon(IconManager::SAVE));
 	mFileMenu->Append(menuItem);
 
-	menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_SAVE_AS, "Save &As...");
+	menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_SAVE_AS, wxT("Save &As..."));
 	menuItem->SetBitmap(IconManager::getSingleton().getIcon(IconManager::SAVE_AS));
 	mFileMenu->Append(menuItem);
 
 	mFileMenu->AppendSeparator();
 
-	menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_CLOSE, "&Close");
+	menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_CLOSE, wxT("&Close"));
 	menuItem->SetBitmap(IconManager::getSingleton().getIcon(IconManager::CLOSE));
 	mFileMenu->Append(menuItem);
 
 	mFileMenu->AppendSeparator();
 
-	menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_EXIT, "E&xit");
+	menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_EXIT, wxT("E&xit"));
 	mFileMenu->Append(menuItem);
 	mFileMenu->UpdateUI();
 
@@ -398,20 +407,20 @@ void MaterialEditorFrame::createFileMenu()
 
 void MaterialEditorFrame::createEditMenu()
 {
-	mEditMenu = new wxMenu("");
+	mEditMenu = new wxMenu();
 	mEditMenu->Append(ID_EDIT_MENU_UNDO, wxT("Undo"));
 	mEditMenu->Append(ID_EDIT_MENU_REDO, wxT("Redo"));
 	mEditMenu->AppendSeparator();
 	mEditMenu->Append(ID_EDIT_MENU_CUT, wxT("Cut"));
 	mEditMenu->Append(ID_EDIT_MENU_COPY, wxT("Copy"));
 	mEditMenu->Append(ID_EDIT_MENU_PASTE, wxT("Paste"));
-	
+
 	mMenuBar->Append(mEditMenu, wxT("&Edit"));
 }
 
 void MaterialEditorFrame::createViewMenu()
 {
-	mViewMenu = new wxMenu("");
+	mViewMenu = new wxMenu();
 	mViewMenu->Append(ID_VIEW_MENU_OPENGL, wxT("OpenGL"));
 	mViewMenu->Append(ID_VIEW_MENU_DIRECTX, wxT("DirectX"));
 	mMenuBar->Append(mViewMenu, wxT("&View"));
@@ -419,8 +428,8 @@ void MaterialEditorFrame::createViewMenu()
 
 void MaterialEditorFrame::createToolsMenu()
 {
-	mToolsMenu = new wxMenu("");
-	wxMenu* resourceMenu = new wxMenu("");
+	mToolsMenu = new wxMenu();
+	wxMenu* resourceMenu = new wxMenu();
 	resourceMenu->Append(ID_TOOLS_MENU_RESOURCES_MENU_ADD_GROUP, wxT("Add Group"));
 	resourceMenu->Append(ID_TOOLS_MENU_RESOURCES_MENU_REMOVE_GROUP, wxT("Remove Group"));
 	resourceMenu->Append(ID_TOOLS_MENU_RESOURCES_MENU_ADD, wxT("Add"));
@@ -431,13 +440,13 @@ void MaterialEditorFrame::createToolsMenu()
 
 void MaterialEditorFrame::createWindowMenu()
 {
-	mWindowMenu = new wxMenu("");
+	mWindowMenu = new wxMenu();
 	mMenuBar->Append(mWindowMenu, wxT("&Window"));
 }
 
 void MaterialEditorFrame::createHelpMenu()
 {
-	mHelpMenu = new wxMenu("");
+	mHelpMenu = new wxMenu();
 	mMenuBar->Append(mHelpMenu, wxT("&Help"));
 }
 
@@ -449,7 +458,7 @@ void MaterialEditorFrame::OnActivate(wxActivateEvent& event)
 void MaterialEditorFrame::OnActiveEditorChanged(EventArgs& args)
 {
 	EditorEventArgs eea = dynamic_cast<EditorEventArgs&>(args);
-	Editor* editor = eea.getEditor();
+	EditorBase* editor = eea.getEditor();
 
 	// TODO: Update menu item enablement
 }
@@ -517,7 +526,7 @@ void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
 				sceneMgr->destroyEntity(mEntity);
 				mEntity = 0;
 			}
-			
+
 			static int meshNumber = 0;
 			Ogre::String meshName = Ogre::String("Mesh") + Ogre::StringConverter::toString(meshNumber++);
 
@@ -525,7 +534,7 @@ void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
 			if(index == -1) index = (int)path.find_last_of('/');
 			wxString mesh = (index != -1) ? path.substr(index + 1, path.Length()) : path;
 
-			mEntity = sceneMgr->createEntity(meshName, mesh.GetData());
+			mEntity = sceneMgr->createEntity(meshName, Ogre::String(mesh.mb_str()));
 			sceneMgr->getRootSceneNode()->attachObject(mEntity);
 
 			Ogre::AxisAlignedBox box = mEntity->getBoundingBox();
@@ -552,7 +561,7 @@ void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
 
 void MaterialEditorFrame::OnFileSave(wxCommandEvent& event)
 {
-	Editor* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
 	if(editor != NULL) editor->save();
 
 	// TODO: Support project & workspace save
@@ -560,7 +569,7 @@ void MaterialEditorFrame::OnFileSave(wxCommandEvent& event)
 
 void MaterialEditorFrame::OnFileSaveAs(wxCommandEvent& event)
 {
-	Editor* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
 	if(editor != NULL) editor->saveAs();
 
 	// TODO: Support project & workspace saveAs
@@ -577,31 +586,31 @@ void MaterialEditorFrame::OnFileExit(wxCommandEvent& event)
 
 void MaterialEditorFrame::OnEditUndo(wxCommandEvent& event)
 {
-	Editor* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
 	if(editor != NULL) editor->undo();
 }
 
 void MaterialEditorFrame::OnEditRedo(wxCommandEvent& event)
 {
-	Editor* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
 	if(editor != NULL) editor->redo();
 }
 
 void MaterialEditorFrame::OnEditCut(wxCommandEvent& event)
 {
-	Editor* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
 	if(editor != NULL) editor->cut();
 }
 
 void MaterialEditorFrame::OnEditCopy(wxCommandEvent& event)
 {
-	Editor* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
 	if(editor != NULL) editor->copy();
 }
 
 void MaterialEditorFrame::OnEditPaste(wxCommandEvent& event)
 {
-	Editor* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
 	if(editor != NULL) editor->paste();
 }
 
@@ -612,7 +621,7 @@ void MaterialEditorFrame::OnViewOpenGL(wxCommandEvent& event)
 	//	wxMessageBox("OpenGL Render System not found", "Error");
 	//	return;
 	//}
-                                                                               
+
 	//mOgreControl->SetRenderSystem(mOpenGLRenderSystem);
 
 	//wxAuiPaneInfo info = mAuiManager->GetPane(mOgreControl);

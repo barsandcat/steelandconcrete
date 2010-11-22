@@ -46,7 +46,7 @@ ScintillaEditor::ScintillaEditor(wxWindow *parent, wxWindowID id, const wxPoint 
 	registerEvent(FocusedWordChanged);
 
 	setControl(this);
-	
+
 	mLineNumID = 0;
 	mLineNumMargin = TextWidth(wxSCI_STYLE_LINENUMBER, _T("99999"));
 	mFoldingID = 1;
@@ -144,7 +144,7 @@ ScintillaEditor::ScintillaEditor(wxWindow *parent, wxWindowID id, const wxPoint 
 	SetBufferedDraw(1);
 }
 
-ScintillaEditor::~ScintillaEditor() 
+ScintillaEditor::~ScintillaEditor()
 {
 }
 
@@ -172,7 +172,7 @@ void ScintillaEditor::save()
 		return;
 	}
 
-	if(SaveFile(mFileName)) 
+	if(SaveFile(mFileName))
 	{
 		setDirty(false);
 		int index = (int)mFileName.find_last_of('\\');
@@ -207,7 +207,7 @@ bool ScintillaEditor::isRedoable()
 void ScintillaEditor::redo()
 {
 	if(!CanRedo()) return;
-	
+
 	Redo();
 }
 
@@ -219,7 +219,7 @@ bool ScintillaEditor::isUndoable()
 void ScintillaEditor::undo()
 {
 	if(!CanUndo()) return;
-	
+
 	Undo();
 }
 
@@ -231,7 +231,7 @@ bool ScintillaEditor::isCuttable()
 void ScintillaEditor::cut()
 {
 	if(GetReadOnly() || (GetSelectionEnd() - GetSelectionStart() <= 0)) return;
-	
+
 	Cut();
 }
 
@@ -243,7 +243,7 @@ bool ScintillaEditor::isCopyable()
 void ScintillaEditor::copy()
 {
 	if(GetSelectionEnd() - GetSelectionStart() <= 0) return;
-	
+
 	Copy();
 }
 
@@ -255,11 +255,11 @@ bool ScintillaEditor::isPastable()
 void ScintillaEditor::paste()
 {
 	if(!CanPaste()) return;
-	
+
 	Paste();
 }
 
-bool ScintillaEditor::loadFile() 
+bool ScintillaEditor::loadFile()
 {
 	// Get filname
 	if (!mFileName)
@@ -283,21 +283,21 @@ bool ScintillaEditor::loadFile(const wxString &filename)
 	return true;
 }
 
-void ScintillaEditor::loadKeywords(wxString& path)
+void ScintillaEditor::loadKeywords(std::string& path)
 {
 	std::ifstream fp;
-	fp.open(path, std::ios::in | std::ios::binary);
+	fp.open(path.c_str(), std::ios::in | std::ios::binary);
 	if(fp)
 	{
 		DataStreamPtr stream(new FileStreamDataStream(path.c_str(), &fp, false));
-		
+
 		int index = -1;
 		String line;
 		wxString keywords;
 		while(!stream->eof())
 		{
 			line = stream->getLine();
-			
+
 			// Ignore blank lines and comments (comment lines start with '#')
 			if(line.length() > 0 && line.at(0) != '#')
 			{
@@ -308,17 +308,17 @@ void ScintillaEditor::loadKeywords(wxString& path)
 						SetKeyWords(index, keywords);
 						keywords.clear();
 					}
-					
+
 					++index;
 				}
 				else
 				{
-					keywords.Append(line);
-					keywords.Append(" ");
+					keywords.Append(wxString(line.c_str(), wxConvUTF8));
+					keywords.Append(wxT(" "));
 				}
 			}
 		}
-		
+
 		SetKeyWords(index, keywords);
 	}
 }
@@ -338,7 +338,7 @@ wxString ScintillaEditor::getSurroundingWord(int pos /* = -1 */)
 	if(pos == -1) pos = GetCurrentPos();
 
 	int lineNum = GetCurrentLine();
-	wxString word("");
+	wxString word;
 	if(lineNum != -1)
 	{
 		wxString line = GetLine(lineNum);

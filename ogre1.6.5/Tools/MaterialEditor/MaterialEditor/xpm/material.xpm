@@ -1,5 +1,5 @@
 /* XPM */
-static char * material_xpm[] = {
+static const char * material_xpm[] = {
 "16 16 159 2",
 "  	c None",
 ". 	c #D4935F",

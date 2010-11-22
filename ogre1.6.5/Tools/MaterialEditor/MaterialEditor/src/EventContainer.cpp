@@ -55,8 +55,8 @@ void EventContainer::registerEvent(int eventId)
 	mDelegates[eventId] = new Delegate();
 }
 
-void EventContainer::fireEvent(int eventId, EventArgs& args)
+void EventContainer::fireEvent(int eventId, const EventArgs& args)
 {
 	DelegateMap::iterator it = mDelegates.find(eventId);
-	(*(it->second))(args);
+	(*(it->second))(const_cast<EventArgs&>(args));
 }

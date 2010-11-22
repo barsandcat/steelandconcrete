@@ -41,3 +41,6 @@ glob:steelandconcrete.mo
 glob:version.nsh
 glob:setup_steelandconcrete_*.*.exe
 glob:*.cbTemp
+glob:bin/core
+glob:*.cscope_file_list
+glob:bin/MaterialEditor

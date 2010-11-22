@@ -37,7 +37,7 @@ END_EVENT_TABLE()
 MaterialPropertyGridPage::MaterialPropertyGridPage(MaterialController* controller)
 : mController(controller)
 {
-	
+
 }
 
 MaterialPropertyGridPage::~MaterialPropertyGridPage()
@@ -46,7 +46,7 @@ MaterialPropertyGridPage::~MaterialPropertyGridPage()
 
 void MaterialPropertyGridPage::populate()
 {
-	mPropertyNameId = Append(new wxStringProperty(wxT("Name"), wxPG_LABEL, mController->getMaterial()->getName()));
+	mPropertyNameId = Append(new wxStringProperty(wxT("Name"), wxPG_LABEL, wxString(mController->getMaterial()->getName().c_str(), wxConvUTF8)));
 	mPropertyReceiveShadowsId = Append(new wxBoolProperty(wxT("Receive Shadows"), wxPG_LABEL, mController->getMaterial()->getReceiveShadows()));
 	mPropertyTransparencyCastsShadowsId = Append(new wxBoolProperty(wxT("Transparency Casts Shadows"), wxPG_LABEL, mController->getMaterial()->getTransparencyCastsShadows()));
 }
@@ -56,7 +56,7 @@ void MaterialPropertyGridPage::propertyChange(wxPropertyGridEvent& event)
 	wxPGId id = event.GetProperty();
 	if(id == mPropertyNameId)
 	{
-		
+
 	}
 	else if(id == mPropertyReceiveShadowsId)
 	{

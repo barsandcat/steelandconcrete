@@ -49,11 +49,11 @@ public:
 
 	void subscribe(int eventId, EventHandler handler);
 	void unsubscribe(int eventId, EventHandler handler);
-	
+
 protected:
 	void registerEvent(int eventId);
-	void fireEvent(int eventId, EventArgs& args);
-	
+	void fireEvent(int eventId, const EventArgs& args);
+
 private:
 	DelegateMap mDelegates;
 };

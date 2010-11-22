@@ -130,7 +130,6 @@ struct CompareEdgesAngles
 
     Ogre::Radian CalcAngle(const Ogre::Vector3& u) const
     {
-        OgreProfile("ClientEdge::CalcAngle");
         // Two vectors that forms angle between pole and neighbour
         Ogre::Vector3 a = mRoot.crossProduct(u);
         Ogre::Vector3 b = mRoot.crossProduct(mPole);

@@ -24,7 +24,7 @@ protected:
 	wxString mFocusedWord;
 };
 
-class ScintillaEditor : public wxScintilla, public Editor
+class ScintillaEditor : public wxScintilla, public EditorBase
 {
 public:
 	enum ScintillaEditorEvent
@@ -63,9 +63,9 @@ public:
 	virtual bool isCopyable();
 	virtual void copy();
 	virtual bool isPastable();
-	virtual void paste(); 
-	
-	virtual void loadKeywords(wxString& path);
+	virtual void paste();
+
+	virtual void loadKeywords(std::string& path);
 
 	virtual bool loadFile();
 	virtual bool loadFile(const wxString &filename);

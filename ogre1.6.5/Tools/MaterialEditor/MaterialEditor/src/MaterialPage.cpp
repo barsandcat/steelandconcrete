@@ -54,7 +54,7 @@ MaterialPage::~MaterialPage()
 void MaterialPage::createPage()
 {
 	mSizer = new wxBoxSizer(wxVERTICAL);
-	
+
 	// Project Label
 	mProjectLabel = new wxStaticText(this, wxID_ANY, wxT("Project:"), wxDefaultPosition, wxDefaultSize, 0);
 	mSizer->Add(mProjectLabel, 0, wxALL, 5);
@@ -63,13 +63,13 @@ void MaterialPage::createPage()
 	wxArrayString projectNames;
 	const ProjectList* projects = Workspace::getSingletonPtr()->getProjects();
 	for(ProjectList::const_iterator it = projects->begin(); it != projects->end(); ++it)
-		projectNames.Add((*it)->getName().c_str());
-	
+		projectNames.Add(wxString((*it)->getName().c_str(), wxConvUTF8));
+
 	// TODO: Select first Project
 	mProjectComboBox = new wxComboBox(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, projectNames, wxCB_DROPDOWN);
 	mProjectComboBox->SetEditable(false);
 	mSizer->Add(mProjectComboBox, 0, wxALL | wxEXPAND, 5);
-	
+
 	// Name Label
 	mNameLabel = new wxStaticText(this, wxID_ANY, wxT("Name:"), wxDefaultPosition, wxDefaultSize, 0);
 	mSizer->Add(mNameLabel, 0, wxALL, 5);
@@ -89,13 +89,14 @@ void MaterialPage::getName(wxString& name) const
 
 Project* MaterialPage::getProject() const
 {
-	wxString project = mProjectComboBox->GetValue();
-
-	return Workspace::getSingletonPtr()->getProject(project.c_str());
+	return Workspace::getSingletonPtr()->getProject(mProjectComboBox->GetValue());
 }
 
 void MaterialPage::setProject(Project* project)
 {
-	mProjectComboBox->SetValue(project != NULL ? project->getName().c_str() : wxEmptyString);
+    wxString value = wxEmptyString;
+    if (project)
+     value = wxString(project->getName().c_str(), wxConvUTF8);
+	mProjectComboBox->SetValue(value);
 }
 

@@ -87,80 +87,80 @@ TextureUnitPropertyGridPage::TextureUnitPropertyGridPage(TextureUnitController* 
 	mController->subscribe(TextureUnitController::TextureNameAliasChanged, boost::bind(&TextureUnitPropertyGridPage::textureNameAliasChanged, this, _1));
 }
 
-TextureUnitPropertyGridPage::~TextureUnitPropertyGridPage() 
+TextureUnitPropertyGridPage::~TextureUnitPropertyGridPage()
 {
 }
 
-void TextureUnitPropertyGridPage::populate() 
+void TextureUnitPropertyGridPage::populate()
 {
 	const TextureUnitState* tus = mController->getTextureUnit();
-	
-	mTextureNameId = Append(new wxStringProperty(wxT("Texture Name"), wxPG_LABEL, tus->getTextureName()));
+
+	mTextureNameId = Append(new wxStringProperty(wxT("Texture Name"), wxPG_LABEL, wxString(tus->getTextureName().c_str(), wxConvUTF8)));
 	mCurrentFrameId = Append(new wxIntProperty(wxT("Current Frame"), wxPG_LABEL, tus->getCurrentFrame()));
-	
+
 	wxPGChoices btChoices;
 	btChoices.Add(wxT("Fragment"), TextureUnitState::BT_FRAGMENT);
 	btChoices.Add(wxT("Vertex"), TextureUnitState::BT_VERTEX);
 	mBindingTypeId = Append(new wxEnumProperty(wxT("Binding Type"), wxPG_LABEL, btChoices, TextureUnitState::BT_FRAGMENT));
-	
+
 	wxPGChoices ctChoices;
 	ctChoices.Add(wxT("Named"), TextureUnitState::CONTENT_NAMED);
 	ctChoices.Add(wxT("Shadow"), TextureUnitState::CONTENT_SHADOW);
 	mContentTypeId = Append(new wxEnumProperty(wxT("Content Type"), wxPG_LABEL, ctChoices, TextureUnitState::CONTENT_NAMED));
-	
+
 	wxPGChoices pfChoices;
 	pfChoices.Add(wxT("Unknown"), PF_UNKNOWN);
 	pfChoices.Add(wxT("L8"), PF_L8);
-	pfChoices.Add(wxT("BYTE_L"), PF_BYTE_L);   
-	pfChoices.Add(wxT("L16"), PF_L16); 
-	pfChoices.Add(wxT("SHORT_L"), PF_SHORT_L);   
-	pfChoices.Add(wxT("A8"), PF_A8); 
-	pfChoices.Add(wxT("BYTE_A"), PF_BYTE_A);   
-	pfChoices.Add(wxT("A4L4"), PF_A4L4);  
-	pfChoices.Add(wxT("BYTE_LA"), PF_BYTE_LA);  
-	pfChoices.Add(wxT("R5G6B5"), PF_R5G6B5);   
-	pfChoices.Add(wxT("B5G6R5"), PF_B5G6R5); 
-	pfChoices.Add(wxT("R3G3B2"), PF_R3G3B2);  
-	pfChoices.Add(wxT("A4R4G4B4"), PF_A4R4G4B4);  
-	pfChoices.Add(wxT("A1R5G5B5"), PF_A1R5G5B5); 
-	pfChoices.Add(wxT("R8G8B8"), PF_R8G8B8);  
-	pfChoices.Add(wxT("B8G8R8"), PF_B8G8R8);  
-	pfChoices.Add(wxT("A8R8G8B8"), PF_A8R8G8B8);  
-	pfChoices.Add(wxT("A8B8G8R8"), PF_A8B8G8R8);  
-	pfChoices.Add(wxT("B8G8R8A8"), PF_B8G8R8A8);  
-	pfChoices.Add(wxT("R8G8B8A8"), PF_R8G8B8A8); 
-	pfChoices.Add(wxT("X8R8G8B8"), PF_X8R8G8B8);  
-	pfChoices.Add(wxT("X8B8G8R8"), PF_X8B8G8R8);  
-	pfChoices.Add(wxT("BYTE_RGB"), PF_BYTE_RGB);  
-	pfChoices.Add(wxT("BYTE_BGR"), PF_BYTE_BGR);  
-	pfChoices.Add(wxT("BYTE_BGRA"), PF_BYTE_BGRA);  
-	pfChoices.Add(wxT("BYTE_RGBA"), PF_BYTE_RGBA);  
-	pfChoices.Add(wxT("A2R10G10B10"), PF_A2R10G10B10);  
-	pfChoices.Add(wxT("A2B10G10R10"), PF_A2B10G10R10); 
-	pfChoices.Add(wxT("DXT1"), PF_DXT1); 
-	pfChoices.Add(wxT("DXT2"), PF_DXT2); 
-	pfChoices.Add(wxT("DXT3"), PF_DXT3); 
+	pfChoices.Add(wxT("BYTE_L"), PF_BYTE_L);
+	pfChoices.Add(wxT("L16"), PF_L16);
+	pfChoices.Add(wxT("SHORT_L"), PF_SHORT_L);
+	pfChoices.Add(wxT("A8"), PF_A8);
+	pfChoices.Add(wxT("BYTE_A"), PF_BYTE_A);
+	pfChoices.Add(wxT("A4L4"), PF_A4L4);
+	pfChoices.Add(wxT("BYTE_LA"), PF_BYTE_LA);
+	pfChoices.Add(wxT("R5G6B5"), PF_R5G6B5);
+	pfChoices.Add(wxT("B5G6R5"), PF_B5G6R5);
+	pfChoices.Add(wxT("R3G3B2"), PF_R3G3B2);
+	pfChoices.Add(wxT("A4R4G4B4"), PF_A4R4G4B4);
+	pfChoices.Add(wxT("A1R5G5B5"), PF_A1R5G5B5);
+	pfChoices.Add(wxT("R8G8B8"), PF_R8G8B8);
+	pfChoices.Add(wxT("B8G8R8"), PF_B8G8R8);
+	pfChoices.Add(wxT("A8R8G8B8"), PF_A8R8G8B8);
+	pfChoices.Add(wxT("A8B8G8R8"), PF_A8B8G8R8);
+	pfChoices.Add(wxT("B8G8R8A8"), PF_B8G8R8A8);
+	pfChoices.Add(wxT("R8G8B8A8"), PF_R8G8B8A8);
+	pfChoices.Add(wxT("X8R8G8B8"), PF_X8R8G8B8);
+	pfChoices.Add(wxT("X8B8G8R8"), PF_X8B8G8R8);
+	pfChoices.Add(wxT("BYTE_RGB"), PF_BYTE_RGB);
+	pfChoices.Add(wxT("BYTE_BGR"), PF_BYTE_BGR);
+	pfChoices.Add(wxT("BYTE_BGRA"), PF_BYTE_BGRA);
+	pfChoices.Add(wxT("BYTE_RGBA"), PF_BYTE_RGBA);
+	pfChoices.Add(wxT("A2R10G10B10"), PF_A2R10G10B10);
+	pfChoices.Add(wxT("A2B10G10R10"), PF_A2B10G10R10);
+	pfChoices.Add(wxT("DXT1"), PF_DXT1);
+	pfChoices.Add(wxT("DXT2"), PF_DXT2);
+	pfChoices.Add(wxT("DXT3"), PF_DXT3);
 	pfChoices.Add(wxT("DXT4"), PF_DXT4);
-	pfChoices.Add(wxT("DXT5"), PF_DXT5); 
-	pfChoices.Add(wxT("FLOAT16_R"), PF_FLOAT16_R);   
-	pfChoices.Add(wxT("FLOAT16_RGB"), PF_FLOAT16_RGB);   
-	pfChoices.Add(wxT("FLOAT16_RGBA"), PF_FLOAT16_RGBA);   
-	pfChoices.Add(wxT("FLOAT32_R"), PF_FLOAT32_R);   
-	pfChoices.Add(wxT("FLOAT32_RGB"), PF_FLOAT32_RGB);   
-	pfChoices.Add(wxT("FLOAT32_RGBA"), PF_FLOAT32_RGBA);   
-	pfChoices.Add(wxT("FLOAT16_GR"), PF_FLOAT16_GR);   
-	pfChoices.Add(wxT("FLOAT32_GR"), PF_FLOAT32_GR);   
-	pfChoices.Add(wxT("PF_DEPTH"), PF_DEPTH);   
-	pfChoices.Add(wxT("SHORT_RGBA"), PF_SHORT_RGBA);   
-	pfChoices.Add(wxT("SHORT_GR"), PF_SHORT_GR);   
-	pfChoices.Add(wxT("SHORT_RGB"), PF_SHORT_RGB);   
-	pfChoices.Add(wxT("PF_COUNT"), PF_COUNT); 
+	pfChoices.Add(wxT("DXT5"), PF_DXT5);
+	pfChoices.Add(wxT("FLOAT16_R"), PF_FLOAT16_R);
+	pfChoices.Add(wxT("FLOAT16_RGB"), PF_FLOAT16_RGB);
+	pfChoices.Add(wxT("FLOAT16_RGBA"), PF_FLOAT16_RGBA);
+	pfChoices.Add(wxT("FLOAT32_R"), PF_FLOAT32_R);
+	pfChoices.Add(wxT("FLOAT32_RGB"), PF_FLOAT32_RGB);
+	pfChoices.Add(wxT("FLOAT32_RGBA"), PF_FLOAT32_RGBA);
+	pfChoices.Add(wxT("FLOAT16_GR"), PF_FLOAT16_GR);
+	pfChoices.Add(wxT("FLOAT32_GR"), PF_FLOAT32_GR);
+	pfChoices.Add(wxT("PF_DEPTH"), PF_DEPTH);
+	pfChoices.Add(wxT("SHORT_RGBA"), PF_SHORT_RGBA);
+	pfChoices.Add(wxT("SHORT_GR"), PF_SHORT_GR);
+	pfChoices.Add(wxT("SHORT_RGB"), PF_SHORT_RGB);
+	pfChoices.Add(wxT("PF_COUNT"), PF_COUNT);
 	mPixelFormatId = Append(new wxEnumProperty(wxT("Desired Format"), wxPG_LABEL, pfChoices, PF_UNKNOWN));
-	
+
 	mNumMipMapsId = Append(new wxIntProperty(wxT("Mip Maps")));
 }
 
-void TextureUnitPropertyGridPage::propertyChanged(wxPropertyGridEvent& event) 
+void TextureUnitPropertyGridPage::propertyChanged(wxPropertyGridEvent& event)
 {
 	wxPGId id = event.GetProperty();
 	if(id == mTextureNameId) {}
@@ -199,7 +199,7 @@ void TextureUnitPropertyGridPage::propertyChanged(wxPropertyGridEvent& event)
 	else if(id == mTextureNameAliasId) {}
 }
 
-void TextureUnitPropertyGridPage::textureNameChanged(EventArgs& args) 
+void TextureUnitPropertyGridPage::textureNameChanged(EventArgs& args)
 {
 	TextureUnitEventArgs tuea = dynamic_cast<TextureUnitEventArgs&>(args);
 	TextureUnitController* tc = tuea.getController();
@@ -209,7 +209,7 @@ void TextureUnitPropertyGridPage::textureNameChanged(EventArgs& args)
 		return;
 }
 
-void TextureUnitPropertyGridPage::cubicTextureNameChanged(EventArgs& args) 
+void TextureUnitPropertyGridPage::cubicTextureNameChanged(EventArgs& args)
 {
 	TextureUnitEventArgs tuea = dynamic_cast<TextureUnitEventArgs&>(args);
 	TextureUnitController* tc = tuea.getController();
@@ -219,7 +219,7 @@ void TextureUnitPropertyGridPage::cubicTextureNameChanged(EventArgs& args)
 		return;
 }
 
-void TextureUnitPropertyGridPage::animatedTextureNameChanged(EventArgs& args) 
+void TextureUnitPropertyGridPage::animatedTextureNameChanged(EventArgs& args)
 {
 	TextureUnitEventArgs tuea = dynamic_cast<TextureUnitEventArgs&>(args);
 	TextureUnitController* tc = tuea.getController();
@@ -229,7 +229,7 @@ void TextureUnitPropertyGridPage::animatedTextureNameChanged(EventArgs& args)
 		return;
 }
 
-void TextureUnitPropertyGridPage::textureDimensionsChanged(EventArgs& args) 
+void TextureUnitPropertyGridPage::textureDimensionsChanged(EventArgs& args)
 {
 	TextureUnitEventArgs tuea = dynamic_cast<TextureUnitEventArgs&>(args);
 	TextureUnitController* tc = tuea.getController();
@@ -239,7 +239,7 @@ void TextureUnitPropertyGridPage::textureDimensionsChanged(EventArgs& args)
 		return;
 }
 
-void TextureUnitPropertyGridPage::currentFrameChanged(EventArgs& args) 
+void TextureUnitPropertyGridPage::currentFrameChanged(EventArgs& args)
 {
 	TextureUnitEventArgs tuea = dynamic_cast<TextureUnitEventArgs&>(args);
 	TextureUnitController* tc = tuea.getController();
@@ -249,7 +249,7 @@ void TextureUnitPropertyGridPage::currentFrameChanged(EventArgs& args)
 		return;
 }
 
-void TextureUnitPropertyGridPage::frameTextureNameChanged(EventArgs& args) 
+void TextureUnitPropertyGridPage::frameTextureNameChanged(EventArgs& args)
 {
 	TextureUnitEventArgs tuea = dynamic_cast<TextureUnitEventArgs&>(args);
 	TextureUnitController* tc = tuea.getController();
@@ -259,7 +259,7 @@ void TextureUnitPropertyGridPage::frameTextureNameChanged(EventArgs& args)
 		return;
 }
 
-void TextureUnitPropertyGridPage::frameTextureNameAdded(EventArgs& args) 
+void TextureUnitPropertyGridPage::frameTextureNameAdded(EventArgs& args)
 {
 	TextureUnitEventArgs tuea = dynamic_cast<TextureUnitEventArgs&>(args);
 	TextureUnitController* tc = tuea.getController();
@@ -269,7 +269,7 @@ void TextureUnitPropertyGridPage::frameTextureNameAdded(EventArgs& args)
 		return;
 }
 
-void TextureUnitPropertyGridPage::frameTextureNameRemoved(EventArgs& args) 
+void TextureUnitPropertyGridPage::frameTextureNameRemoved(EventArgs& args)
 {
 	TextureUnitEventArgs tuea = dynamic_cast<TextureUnitEventArgs&>(args);
 	TextureUnitController* tc = tuea.getController();

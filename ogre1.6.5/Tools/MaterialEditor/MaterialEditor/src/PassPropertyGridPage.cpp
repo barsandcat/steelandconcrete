@@ -55,7 +55,7 @@ PassPropertyGridPage::~PassPropertyGridPage()
 }
 
 void PassPropertyGridPage::populate()
-{	
+{
 	createGeneralCategory();
 	createReflectanceCategory();
 	createPointCategory();
@@ -75,7 +75,7 @@ void PassPropertyGridPage::createGeneralCategory()
 	Append(new wxPropertyCategory(wxT("General")));
 
 	// Name
-	mNameId = Append(new wxStringProperty(wxT("Name"), wxPG_LABEL, pass->getName()));
+	mNameId = Append(new wxStringProperty(wxT("Name"), wxPG_LABEL, wxString(pass->getName().c_str(), wxConvUTF8)));
 	SetPropertyHelpString(mNameId, wxT("Name of this Pass"));
 }
 
@@ -121,7 +121,7 @@ void PassPropertyGridPage::createPointCategory()
 	mPointSpritesId = Append(new wxBoolProperty(wxT("Point Sprites"), wxPG_LABEL, pass->getPointSpritesEnabled()));
 
 	// Point Attenuation
-	mAttenuationId = Append(new wxParentProperty(wxT("Attenuation"),wxPG_LABEL)); 
+	mAttenuationId = Append(new wxParentProperty(wxT("Attenuation"),wxPG_LABEL));
 	SetPropertyHelpString(mAttenuationId, wxT("Determines how points are attenuated with distance"));
 	mPointAttenuationId = AppendIn(mAttenuationId, new wxBoolProperty(wxT("Enabled"), wxPG_LABEL, pass->isPointAttenuationEnabled()));
 	mPointMinSizeId = AppendIn(mAttenuationId, new wxFloatProperty(wxT("Min"), wxPG_LABEL, pass->getPointMinSize()));
@@ -200,7 +200,7 @@ void PassPropertyGridPage::createDepthCategory()
 	mDepthCheckId = Append(new wxBoolProperty(wxT("Depth Check"), wxPG_LABEL, pass->getDepthCheckEnabled()));
 
 	// Depth Write
-	mDepthWriteId = Append(new wxBoolProperty(wxT("Depth Write"), wxPG_LABEL, pass->getDepthWriteEnabled()));	
+	mDepthWriteId = Append(new wxBoolProperty(wxT("Depth Write"), wxPG_LABEL, pass->getDepthWriteEnabled()));
 
 	//  Depth Function
 	wxPGChoices compareFuncChoices;
@@ -253,7 +253,7 @@ void PassPropertyGridPage::createIlluminationCategory()
 
 	Append(new wxPropertyCategory(wxT("Illumination")));
 
-	mLightingId = Append(new wxBoolProperty(wxT("Lighting"), wxPG_LABEL, pass->getLightingEnabled()));	
+	mLightingId = Append(new wxBoolProperty(wxT("Lighting"), wxPG_LABEL, pass->getLightingEnabled()));
 
 	// Max Simultaneous Lights
 	mMaxLightsId = Append(new wxIntProperty(wxT("Max Lights"), wxPG_LABEL, pass->getMaxSimultaneousLights()));
@@ -285,7 +285,7 @@ void PassPropertyGridPage::createFogCategory()
 	mOverrideSceneId = Append(new wxPropertyCategory(wxT("Fog")));
 
 	// Fog Enabled
-	mFogOverrideId = Append(new wxBoolProperty(wxT("Override Scene"), wxPG_LABEL, pass->getFogOverride()));	
+	mFogOverrideId = Append(new wxBoolProperty(wxT("Override Scene"), wxPG_LABEL, pass->getFogOverride()));
 
 	// Fog Mode
 	wxPGChoices fogModeChoices;
@@ -302,7 +302,7 @@ void PassPropertyGridPage::createAlphaRejectionCategory()
 {
 	const Pass* pass = mController->getPass();
 	Append(new wxPropertyCategory(wxT("Alpha Rejection"), wxPG_LABEL));
-		
+
 	// Alpha Reject Func
 	wxPGChoices compareFuncChoices;
 	compareFuncChoices.Add(wxT("Fail"), CMPF_ALWAYS_FAIL);
@@ -314,7 +314,7 @@ void PassPropertyGridPage::createAlphaRejectionCategory()
 	compareFuncChoices.Add(wxT(">="), CMPF_GREATER_EQUAL);
 	compareFuncChoices.Add(wxT(">"), CMPF_GREATER);
 	mAlphaRejectFuncId = Append(new wxEnumProperty(wxT("Function"), wxPG_LABEL, compareFuncChoices, pass->getAlphaRejectFunction()));
-	
+
 	// Alpha Reject Value
 	mAlphaRejectValueId = Append(new wxIntProperty(wxT("Value"), wxPG_LABEL, pass->getAlphaRejectValue()));
 }
@@ -326,7 +326,7 @@ void PassPropertyGridPage::createMiscCategory()
 	Append(new wxPropertyCategory(wxT("Misc")));
 
 	// Colour Write
-	mColourWriteId = Append(new wxBoolProperty(wxT("Colour Write"), wxPG_LABEL, pass->getColourWriteEnabled()));	
+	mColourWriteId = Append(new wxBoolProperty(wxT("Colour Write"), wxPG_LABEL, pass->getColourWriteEnabled()));
 
 	// Polygon Mode
 	wxPGChoices polygonModeChoices;
@@ -352,7 +352,7 @@ void PassPropertyGridPage::propertyChanged(wxPropertyGridEvent& event)
 	wxPGId id = event.GetProperty();
 	if(id == mNameId)
 	{
-		mController->setName(event.GetPropertyValueAsString().c_str());
+		mController->setName(Ogre::String(event.GetPropertyValueAsString().mb_str()));
 	}
 	else if(id == mAmbientId)
 	{
@@ -384,8 +384,8 @@ void PassPropertyGridPage::propertyChanged(wxPropertyGridEvent& event)
 	else if(id == mPointAttenuationId)
 	{
 		const Pass* pass = mController->getPass();
-		mController->setPointAttenuation(event.GetPropertyValueAsBool(), 
-			pass->getPointAttenuationConstant(), pass->getPointAttenuationLinear(), 
+		mController->setPointAttenuation(event.GetPropertyValueAsBool(),
+			pass->getPointAttenuationConstant(), pass->getPointAttenuationLinear(),
 			pass->getPointAttenuationQuadratic());
 	}
 	else if(id == mPointMinSizeId)
@@ -406,15 +406,15 @@ void PassPropertyGridPage::propertyChanged(wxPropertyGridEvent& event)
 	else if(id == mPointAttenuationLinearId)
 	{
 		const Pass* pass = mController->getPass();
-		mController->setPointAttenuation(pass->isPointAttenuationEnabled(), 
-			pass->getPointAttenuationConstant(), (Real)event.GetPropertyValueAsDouble(), 
+		mController->setPointAttenuation(pass->isPointAttenuationEnabled(),
+			pass->getPointAttenuationConstant(), (Real)event.GetPropertyValueAsDouble(),
 			pass->getPointAttenuationQuadratic());
 	}
 	else if(id == mPointAttenuationQuadraticId)
 	{
 		const Pass* pass = mController->getPass();
-		mController->setPointAttenuation(pass->isPointAttenuationEnabled(), 
-			pass->getPointAttenuationConstant(), pass->getPointAttenuationLinear(), 
+		mController->setPointAttenuation(pass->isPointAttenuationEnabled(),
+			pass->getPointAttenuationConstant(), pass->getPointAttenuationLinear(),
 			(Real)event.GetPropertyValueAsDouble());
 	}
 	else if(id == mSceneBlendTypeId)
@@ -423,12 +423,12 @@ void PassPropertyGridPage::propertyChanged(wxPropertyGridEvent& event)
 	}
 	else if(id == mSrcSceneBlendTypeId)
 	{
-		mController->setSceneBlending((SceneBlendFactor)event.GetPropertyValueAsInt(), 
+		mController->setSceneBlending((SceneBlendFactor)event.GetPropertyValueAsInt(),
 			mController->getPass()->getDestBlendFactor());
 	}
 	else if(id == mDestSceneBlendTypeId)
 	{
-		mController->setSceneBlending(mController->getPass()->getSourceBlendFactor(), 
+		mController->setSceneBlending(mController->getPass()->getSourceBlendFactor(),
 			(SceneBlendFactor)event.GetPropertyValueAsInt());
 	}
 	else if(id == mDepthCheckId)

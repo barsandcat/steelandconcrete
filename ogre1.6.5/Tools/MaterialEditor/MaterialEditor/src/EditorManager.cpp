@@ -38,8 +38,8 @@ Torus Knot Software Ltd.
 template<> EditorManager* Ogre::Singleton<EditorManager>::ms_Singleton = 0;
 
 EditorManager& EditorManager::getSingleton(void)
-{  
-	assert( ms_Singleton );  return ( *ms_Singleton );  
+{
+	assert( ms_Singleton );  return ( *ms_Singleton );
 }
 
 EditorManager* EditorManager::getSingletonPtr(void)
@@ -80,9 +80,9 @@ void EditorManager::setEditorNotebook(wxAuiNotebook* notebook)
 
 		mEditorNotebook->RemoveEventHandler(this);
 	}
-	
+
 	mEditorNotebook = notebook;
-	
+
 	if(mEditorNotebook != NULL)
 	{
 		Connect(wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGED, wxAuiNotebookEventHandler(EditorManager::OnPageChanged));
@@ -92,7 +92,7 @@ void EditorManager::setEditorNotebook(wxAuiNotebook* notebook)
 	}
 }
 
-void EditorManager::openEditor(Editor* editor)
+void EditorManager::openEditor(EditorBase* editor)
 {
 	assert(mEditorNotebook != NULL);
 
@@ -101,12 +101,12 @@ void EditorManager::openEditor(Editor* editor)
 
 	mEditorIndexMap[editor] = mEditorNotebook->GetPageIndex(editor->getControl());
 
-	editor->subscribe(Editor::NameChanged, boost::bind(&EditorManager::nameChanged, this, _1));
+	editor->subscribe(EditorBase::NameChanged, boost::bind(&EditorManager::nameChanged, this, _1));
 
 	setActiveEditor(editor);
 }
 
-void EditorManager::closeEditor(Editor* editor)
+void EditorManager::closeEditor(EditorBase* editor)
 {
 	assert(mEditorNotebook != NULL);
 
@@ -125,10 +125,10 @@ void EditorManager::closeEditor(Editor* editor)
 	}
 }
 
-Editor* EditorManager::findEditor(const wxString& name)
+EditorBase* EditorManager::findEditor(const wxString& name)
 {
 	EditorList::iterator it;
-	Editor* editor = NULL;
+	EditorBase* editor = NULL;
 	for(it = mEditors.begin(); it != mEditors.end(); ++it)
 	{
 		editor = (*it);
@@ -138,12 +138,12 @@ Editor* EditorManager::findEditor(const wxString& name)
 	return NULL;
 }
 
-Editor* EditorManager::getActiveEditor() const
+EditorBase* EditorManager::getActiveEditor() const
 {
 	return mActiveEditor;
 }
 
-void EditorManager::setActiveEditor(Editor* editor)
+void EditorManager::setActiveEditor(EditorBase* editor)
 {
 	if(mActiveEditor == editor) return;
 
@@ -151,7 +151,7 @@ void EditorManager::setActiveEditor(Editor* editor)
 
 	mActiveEditor = editor;
 
-	if(mActiveEditor != NULL) 
+	if(mActiveEditor != NULL)
 	{
 		mActiveEditor->activate();
 
@@ -179,7 +179,7 @@ void EditorManager::registerEvents()
 void EditorManager::nameChanged(EventArgs& args)
 {
 	EditorEventArgs eea = dynamic_cast<EditorEventArgs&>(args);
-	Editor* editor = eea.getEditor();
+	EditorBase* editor = eea.getEditor();
 	if(mEditorIndexMap.find(editor) != mEditorIndexMap.end())
 	{
 		int index = mEditorIndexMap[editor];
@@ -191,7 +191,7 @@ void EditorManager::OnPageChanged(wxAuiNotebookEvent& event)
 {
 	int index = event.GetSelection();
 
-	if(mActiveEditor != NULL) 
+	if(mActiveEditor != NULL)
 	{
 		if(mEditorIndexMap.find(mActiveEditor) != mEditorIndexMap.end())
 		{
@@ -230,7 +230,7 @@ void EditorManager::OnPageClosed(wxAuiNotebookEvent& event)
 {
 	int index = event.GetSelection();
 
-	Editor* editor = NULL;
+	EditorBase* editor = NULL;
 	EditorIndexMap::iterator it;
 	for(it = mEditorIndexMap.begin(); it != mEditorIndexMap.end(); ++it)
 	{
@@ -256,7 +256,7 @@ void EditorManager::OnPageClosed(wxAuiNotebookEvent& event)
 				mEditors.erase(lit);
 				break;
 			}
-		}	
+		}
 	}
 
 	fireEvent(EditorClosed, EditorEventArgs(editor));

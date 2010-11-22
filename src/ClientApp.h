@@ -82,7 +82,6 @@ private:
     MainMenuSheet* mMainMenu;
     ServerBrowserSheet* mServerBrowserSheet;
     boost::asio::io_service mIOService;
-    void Frame(unsigned long aFrameTime);
 };
 
 #endif // APP_H
