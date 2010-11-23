@@ -172,6 +172,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wxcore", "wxMSW-2.8.11\buil
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wxpropgrid", "wxpropgrid\build\propgrid_propgrid_vc9.vcproj", "{ECA5FC4D-29CE-5030-9175-551834BF6CB0}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wxscintilla", "ogre1.6.5\Tools\MaterialEditor\wxscintilla_1.69.2\build\wxscintilla.vcproj", "{4A1BADCC-74D0-4131-8915-35BEC29AB6AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -333,6 +335,10 @@ Global
 		{ECA5FC4D-29CE-5030-9175-551834BF6CB0}.Debug|Win32.ActiveCfg = Debug|Win32
 		{ECA5FC4D-29CE-5030-9175-551834BF6CB0}.Release|Win32.ActiveCfg = Release|Win32
 		{ECA5FC4D-29CE-5030-9175-551834BF6CB0}.Release|Win32.Build.0 = Release|Win32
+		{4A1BADCC-74D0-4131-8915-35BEC29AB6AE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4A1BADCC-74D0-4131-8915-35BEC29AB6AE}.Debug|Win32.Build.0 = Debug|Win32
+		{4A1BADCC-74D0-4131-8915-35BEC29AB6AE}.Release|Win32.ActiveCfg = Release|Win32
+		{4A1BADCC-74D0-4131-8915-35BEC29AB6AE}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

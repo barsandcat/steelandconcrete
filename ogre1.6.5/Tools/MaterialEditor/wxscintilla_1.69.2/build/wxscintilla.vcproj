@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="9,00"
 	Name="wxscintilla"
 	ProjectGUID="{4A1BADCC-74D0-4131-8915-35BEC29AB6AE}"
+	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -163,8 +164,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\Release"
-			IntermediateDirectory=".\Release"
+			OutputDirectory="$(SolutionDir)lib"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
@@ -189,17 +190,17 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\include,..\src\scintilla\include,..\src\scintilla\src,$(WXWIN)\include,$(WXWIN)\lib\vc_lib\msw"
+				AdditionalIncludeDirectories="..\include;..\src\scintilla\include;..\src\scintilla\src;&quot;$(SolutionDir)\wxMSW-2.8.11\include\msvc&quot;;&quot;$(SolutionDir)\wxMSW-2.8.11\include&quot;"
 				PreprocessorDefinitions="WIN32;_LIB;__WXMSW__;__WX__;SCI_LEXER;LINK_LEXERS"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				RuntimeTypeInfo="true"
 				PrecompiledHeaderFile=".\Release/wxscintilla.pch"
-				AssemblerListingLocation=".\Release/"
-				ObjectFile=".\Release/"
-				ProgramDataBaseFileName=".\Release/"
-				WarningLevel="3"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
+				WarningLevel="0"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -214,7 +215,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\lib\wxscintilla.lib"
+				OutputFile="$(OutDir)\wxscintilla.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -460,8 +461,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\Debug"
-			IntermediateDirectory=".\Debug"
+			OutputDirectory="$(SolutionDir)lib"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
@@ -485,17 +486,17 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include,..\src\scintilla\include,..\src\scintilla\src,$(WXWIN)\include,$(WXWIN)\lib\vc_lib\mswd,${WXWIN}\contrib\include"
+				AdditionalIncludeDirectories="..\include;..\src\scintilla\include;..\src\scintilla\src;&quot;$(SolutionDir)\wxMSW-2.8.11\include\msvc&quot;;&quot;$(SolutionDir)\wxMSW-2.8.11\include&quot;"
 				PreprocessorDefinitions="WIN32;_LIB;_DEBUG;__WXMSW__;__WXDEBUG__;__WX__;SCI_LEXER;LINK_LEXERS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				RuntimeTypeInfo="true"
 				PrecompiledHeaderFile=".\Debug/wxscintilla.pch"
-				AssemblerListingLocation=".\Debug/"
-				ObjectFile=".\Debug/"
-				ProgramDataBaseFileName=".\Debug/"
-				WarningLevel="4"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
+				WarningLevel="0"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
 			/>
@@ -511,7 +512,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\lib\wxscintillad.lib"
+				OutputFile="$(OutDir)\wxscintillad.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
