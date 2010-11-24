@@ -163,6 +163,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "msgfmt", "gettext-0.13.1\ms
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MaterialEditor", "ogre1.6.5\Tools\MaterialEditor\MaterialEditor\build\MaterialEditor.vcproj", "{8046B14F-8C1C-4A8A-ADC7-945A22099495}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ECA5FC4D-29CE-5030-9175-551834BF6CB0} = {ECA5FC4D-29CE-5030-9175-551834BF6CB0}
+		{D215484E-F216-434B-ADCE-5AF22F448D4C} = {D215484E-F216-434B-ADCE-5AF22F448D4C}
+		{EC254F5B-99C9-47F0-A55A-3545264B6B2F} = {EC254F5B-99C9-47F0-A55A-3545264B6B2F}
+		{4A1BADCC-74D0-4131-8915-35BEC29AB6AE} = {4A1BADCC-74D0-4131-8915-35BEC29AB6AE}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boost_signals-mt-static-staticrt", "boost\build\libs\signals\src\boost_signals-mt-static-staticrt.vcproj", "{4132DE37-B42B-4975-A21E-3827F49E0108}"
 EndProject
@@ -173,6 +179,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wxpropgrid", "wxpropgrid\build\propgrid_propgrid_vc9.vcproj", "{ECA5FC4D-29CE-5030-9175-551834BF6CB0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wxscintilla", "ogre1.6.5\Tools\MaterialEditor\wxscintilla_1.69.2\build\wxscintilla.vcproj", "{4A1BADCC-74D0-4131-8915-35BEC29AB6AE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wxnet", "wxMSW-2.8.11\build\msw\wx_net.vcproj", "{CA2549B6-83B1-4CA7-BD06-78056B7649D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -339,6 +347,10 @@ Global
 		{4A1BADCC-74D0-4131-8915-35BEC29AB6AE}.Debug|Win32.Build.0 = Debug|Win32
 		{4A1BADCC-74D0-4131-8915-35BEC29AB6AE}.Release|Win32.ActiveCfg = Release|Win32
 		{4A1BADCC-74D0-4131-8915-35BEC29AB6AE}.Release|Win32.Build.0 = Release|Win32
+		{CA2549B6-83B1-4CA7-BD06-78056B7649D6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CA2549B6-83B1-4CA7-BD06-78056B7649D6}.Debug|Win32.Build.0 = Debug|Win32
+		{CA2549B6-83B1-4CA7-BD06-78056B7649D6}.Release|Win32.ActiveCfg = Release|Win32
+		{CA2549B6-83B1-4CA7-BD06-78056B7649D6}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
