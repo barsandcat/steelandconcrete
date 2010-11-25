@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="Server"
+	Name="GameServer"
 	ProjectGUID="{AC38182A-4ED0-4AAF-9822-104356A5B738}"
 	RootNamespace="Server"
 	Keyword="Win32Proj"

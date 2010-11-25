@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="Client"
+	Name="GameClient"
 	ProjectGUID="{0F83CA41-4364-49FF-A230-613B08B5CF82}"
 	RootNamespace="Steel and Concrete"
 	Keyword="Win32Proj"
@@ -760,10 +760,6 @@
 			Filter="po"
 			>
 			<File
-				RelativePath=".\bin\lang\ru\LC_MESSAGES\steelandconcrete.po"
-				>
-			</File>
-			<File
 				RelativePath=".\bin\lang\uk\LC_MESSAGES\steelandconcrete.po"
 				>
 			</File>
@@ -773,6 +769,10 @@
 			</File>
 			<File
 				RelativePath=".\bin\lang\ja\LC_MESSAGES\steelandconcrete.po"
+				>
+			</File>
+			<File
+				RelativePath=".\bin\lang\ru\LC_MESSAGES\steelandconcrete.po"
 				>
 			</File>
 		</Filter>

@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="LibTIFF"
+	Name="FreeImageLibTIFF"
 	ProjectGUID="{431E3F3F-7C4D-430A-B8F1-4F165DB64EDC}"
 	RootNamespace="LibTIFF"
 	TargetFrameworkVersion="131072"

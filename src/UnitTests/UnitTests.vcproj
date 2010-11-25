@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="UnitTests"
+	Name="ToolUnitTests"
 	ProjectGUID="{D1EFEAEB-3AEC-42A2-AECC-2D6D84D2AB9D}"
 	RootNamespace="UnitTests"
 	Keyword="Win32Proj"
@@ -86,7 +86,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreMain_d.lib libprotobuf_d.lib wsock32.lib libboost_system-mt-s$(ConfigurationName).lib libboost_thread-mt-s$(ConfigurationName).lib"
-				OutputFile="$(OutDir)\$(ProjectName)_d.exe"
+				OutputFile="$(OutDir)\UnitTests_d.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\lib"
 				GenerateDebugInformation="true"
@@ -182,6 +182,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreMain.lib libprotobuf.lib wsock32.lib libboost_system-mt-s$(ConfigurationName).lib libboost_thread-mt-s$(ConfigurationName).lib"
+				OutputFile="$(OutDir)\UnitTests.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\lib"
 				GenerateDebugInformation="true"

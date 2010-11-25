@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="RenderSystem_GL"
+	Name="OgreRenderSystem_GL"
 	ProjectGUID="{7D0A20FE-40A6-4E64-AD26-5E34AE391DF4}"
 	RootNamespace="RenderSystem_GL"
 	Keyword="Win32Proj"
@@ -66,7 +66,7 @@
 			<Tool
 				Name="VCLibrarianTool"
 				AdditionalDependencies="OPENGL32.lib GLU32.lib"
-				OutputFile="$(OutDir)\$(ProjectName)Static_d.lib"
+				OutputFile="$(OutDir)\RenderSystem_GLStatic_d.lib"
 				AdditionalLibraryDirectories="&quot;..\..\..\lib&quot;;&quot;..\..\..\Dependencies\lib\$(ConfigurationName)&quot;"
 			/>
 			<Tool
@@ -143,7 +143,7 @@
 			<Tool
 				Name="VCLibrarianTool"
 				AdditionalDependencies="OPENGL32.lib GLU32.lib"
-				OutputFile="$(OutDir)\$(ProjectName)Static.lib"
+				OutputFile="$(OutDir)\RenderSystem_GLStatic.lib"
 				AdditionalLibraryDirectories="&quot;..\..\..\lib&quot;;&quot;..\..\..\Dependencies\lib\$(ConfigurationName)&quot;"
 			/>
 			<Tool

@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="DummyClient"
+	Name="ToolDummyClient"
 	ProjectGUID="{BD9CC52A-3992-4B0E-8D74-C113F861E9CC}"
 	RootNamespace="DummyClient"
 	Keyword="Win32Proj"
