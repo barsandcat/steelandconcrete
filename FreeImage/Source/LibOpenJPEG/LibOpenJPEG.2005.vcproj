@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="LibOpenJPEG"
+	Name="FreeImageLibOpenJPEG"
 	ProjectGUID="{E3536C28-A7F1-4B53-8E52-7D2232F9E098}"
 	RootNamespace="LibOpenJPEG"
 	TargetFrameworkVersion="131072"

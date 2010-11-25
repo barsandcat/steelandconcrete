@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="libgettext"
+	Name="gettext_libgettext"
 	ProjectGUID="{63691F4D-6F12-4294-B655-0FBFCBF866FC}"
 	RootNamespace="libgettext"
 	Keyword="Win32Proj"

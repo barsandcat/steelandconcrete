@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="LibMNG"
+	Name="FreeImageLibMNG"
 	ProjectGUID="{912A2D43-35A3-4AF2-B2EB-0D81EFFDA6DC}"
 	RootNamespace="LibMNG"
 	TargetFrameworkVersion="131072"

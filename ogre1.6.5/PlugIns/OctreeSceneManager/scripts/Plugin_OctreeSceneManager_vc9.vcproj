@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="Plugin_OctreeSceneManager"
+	Name="OgrePlugin_OctreeSceneManager"
 	ProjectGUID="{A6830BB5-9993-4F6D-8D4E-930F36A1B88F}"
 	RootNamespace="Plugin_OctreeSceneManager"
 	Keyword="Win32Proj"
@@ -71,7 +71,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName)Static.lib"
+				OutputFile="$(OutDir)\Plugin_OctreeSceneManagerStatic.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -139,7 +139,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName)Static_d.lib"
+				OutputFile="$(OutDir)\Plugin_OctreeSceneManagerStatic_d.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"

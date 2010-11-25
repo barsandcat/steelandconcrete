@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="libiconv-1.9.1"
+	Name="gettext_libiconv-1.9.1"
 	ProjectGUID="{AEF3F457-35D0-48A1-B873-E741A952A134}"
 	RootNamespace="libiconv191"
 	Keyword="Win32Proj"

@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="OpenEXR"
+	Name="FreeImageOpenEXR"
 	ProjectGUID="{17A4874B-0606-4687-90B6-F91F8CB3B8AF}"
 	RootNamespace="OpenEXR"
 	TargetFrameworkVersion="131072"

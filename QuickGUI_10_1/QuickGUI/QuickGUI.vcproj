@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="QuickGUI"
+	Name="OgreQuickGUI"
 	ProjectGUID="{AEF9FF05-DF46-4982-94C4-F8C99A3938A1}"
 	RootNamespace="QuickGUI"
 	Keyword="Win32Proj"

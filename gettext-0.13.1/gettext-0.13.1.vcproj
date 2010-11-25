@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="libintl"
+	Name="gettext_libintl"
 	ProjectGUID="{D881DEBF-B293-4092-9778-2F944D4931D4}"
 	RootNamespace="gettext0131"
 	Keyword="Win32Proj"

@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="vorbis_static"
+	Name="ogg_vorbis_static"
 	ProjectGUID="{F88DC819-3F9B-48FE-8110-4168ED30D98D}"
 	RootNamespace="vorbis_static"
 	TargetFrameworkVersion="131072"
