@@ -286,7 +286,7 @@ bool ScintillaEditor::loadFile(const wxString &filename)
 void ScintillaEditor::loadKeywords(std::string& path)
 {
 	std::ifstream fp;
-	fp.open(path, std::ios::in | std::ios::binary);
+	fp.open(path.c_str(), std::ios::in | std::ios::binary);
 	if(fp)
 	{
 		DataStreamPtr stream(new FileStreamDataStream(path.c_str(), &fp, false));
@@ -313,8 +313,8 @@ void ScintillaEditor::loadKeywords(std::string& path)
 				}
 				else
 				{
-					keywords.Append(line);
-					keywords.Append(" ");
+					keywords.Append(wxString(line.c_str(), wxConvUTF8));
+					keywords.Append(wxT(" "));
 				}
 			}
 		}
@@ -338,7 +338,7 @@ wxString ScintillaEditor::getSurroundingWord(int pos /* = -1 */)
 	if(pos == -1) pos = GetCurrentPos();
 
 	int lineNum = GetCurrentLine();
-	wxString word("");
+	wxString word;
 	if(lineNum != -1)
 	{
 		wxString line = GetLine(lineNum);

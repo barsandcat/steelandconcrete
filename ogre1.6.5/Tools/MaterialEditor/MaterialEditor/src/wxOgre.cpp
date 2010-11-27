@@ -3,6 +3,10 @@
 #ifdef __WXGTK__
 #include <gdk/gdk.h>
 #include <gtk/gtk.h> // just this should suffice as it should include gdk.h itself
+#include <X11/Xlib.h>
+#include <gdk/gdkx.h>
+#include <wx/gtk/win_gtk.h>
+
 #endif
 
 // Required for the timer
@@ -24,7 +28,7 @@ BEGIN_EVENT_TABLE(wxOgre, wxControl)
 	EVT_MOUSEWHEEL(wxOgre::OnMouseWheel)
 END_EVENT_TABLE()
 
-wxOgre::wxOgre(wxFrame* parent, Ogre::RenderSystem* renderSystem) : 
+wxOgre::wxOgre(wxFrame* parent, Ogre::RenderSystem* renderSystem) :
 		wxControl(parent, -1),
 		mTimer(this, ID_RENDERTIMER),
 		mRoot(0),
@@ -53,7 +57,7 @@ void wxOgre::createOgreRenderWindow(Ogre::RenderSystem* renderSystem)
 	{
 		mRoot = new Ogre::Root();
 	}
-	
+
 	// If we got an Ogre::RenderSystem, we'll use that
 	if(renderSystem)
 	{
@@ -83,25 +87,62 @@ void wxOgre::createOgreRenderWindow(Ogre::RenderSystem* renderSystem)
 	Ogre::String handle;
 #ifdef __WXMSW__
 	handle = Ogre::StringConverter::toString((size_t)((HWND)GetHandle()));
+	params["externalWindowHandle"] = handle;
 #elif defined(__WXGTK__)
-	// TODO: Someone test this. you might to use "parentWindowHandle" if this
-	// does not work.  Ogre 1.2 + Linux + GLX platform wants a string of the
-	// format display:screen:window, which has variable types ulong:uint:ulong.
-	GtkWidget* widget = GetHandle();
-	gtk_widget_realize( widget );	// Mandatory. Otherwise, a segfault happens.
-	std::stringstream handleStream;
-	Display* display = GDK_WINDOW_XDISPLAY( widget->window );
-	Window wid = GDK_WINDOW_XWINDOW( widget->window );	// Window is a typedef for XID, which is a typedef for unsigned int
-	/* Get the right display (DisplayString() returns ":display.screen") */
-	std::string displayStr = DisplayString( display );
-	displayStr = displayStr.substr( 1, ( displayStr.find( ".", 0 ) - 1 ) );
-	/* Put all together */
-	handleStream << displayStr << ':' << DefaultScreen( display ) << ':' << wid;
-	handle = handleStream.str();
+   /*
+     * Ok here is the most important comment about the GTK+
+     * part of this lib.
+     *
+     * Why we don't use GetHandle() here? Because it returns a
+     * generic GtkWidget* that isn't one of the internals used
+     * by wxGTK and can't be passed to the GTK_PIZZA() macro.
+     *
+     * This becomes a problem when we need to know the window ID
+     * of the current widget. If you know Gtk+ you may want to use
+     * gtk_widget_get_window() but in that case it doesn't return
+     * the good pointer and the Ogre render window will be painted
+     * under the background of this wxControl.
+     *
+     * Look at "wx/gtk/win_gtk.c" for more detailes.
+     */
+    GtkWidget* widget = m_wxwindow;
+
+    /* May prevent from flickering */
+    gtk_widget_set_double_buffered(widget, false);
+
+    /*
+     * The frame need to be realize unless the parent
+     * is already shown.
+     */
+    gtk_widget_realize(widget);
+
+    /* Get the window: this Control */
+    GdkWindow* gdkWin = GTK_PIZZA(widget)->bin_window;
+	  XID        window = GDK_WINDOW_XWINDOW(gdkWin);
+
+    /* Get the display */
+    Display* display = GDK_WINDOW_XDISPLAY(gdkWin);
+		XSync(display, false);
+
+//#if WXOGRE_OGRE_VER < 150
+//
+//    /* Get the Screen */
+//    unsigned int screen = DefaultScreen(display);
+//
+//    params["parentWindowHandle"] = Ogre::StringConverter::toString((unsigned long)display) + ":"
+//                             + Ogre::StringConverter::toString(screen) + ":"
+//                             + Ogre::StringConverter::toString(window);
+//
+//#else // WXOGRE_OGRE_VER < 150
+
+    params["parentWindowHandle"] = Ogre::StringConverter::toString(window);
+
+//#endif
+
 #else
 	#error Not supported on this platform.
 #endif
-	params["externalWindowHandle"] = handle;
+
 
 	// Get wx control window size
 	int width;
@@ -124,9 +165,9 @@ void wxOgre::createOgreRenderWindow(Ogre::RenderSystem* renderSystem)
 	mCameraPitchNode->attachObject(mCamera);
 	mCamera->setNearClipDistance(0.1);
 	// Set the viewport
-	mViewPort = mRenderWindow->addViewport(mCamera); 
+	mViewPort = mRenderWindow->addViewport(mCamera);
 	// Set the background to match the wxWindow background color
-	mViewPort->setBackgroundColour(Ogre::ColourValue(212.0f/255.0f, 208.0f/255.0f, 200.0f/255.0f, 1.0f)); 
+	mViewPort->setBackgroundColour(Ogre::ColourValue(212.0f/255.0f, 208.0f/255.0f, 200.0f/255.0f, 1.0f));
 
 	mLightYawNode = mCameraPitchNode->createChildSceneNode();
 	mLightPitchNode = mLightYawNode->createChildSceneNode();
@@ -168,6 +209,8 @@ wxOgre::~wxOgre()
 
 void wxOgre::OnSize(wxSizeEvent& event)
 {
+    if (!mRenderWindow)
+        return;
 	// Setting new size;
 	int width;
 	int height;

@@ -72,5 +72,5 @@ void PassWizard::OnFinish(wxWizardEvent& event)
 	wxString name;
 	mPassPage->getName(name);
 
-	tc->createPass(name.c_str());
+	tc->createPass(Ogre::String(name.mb_str()));
 }

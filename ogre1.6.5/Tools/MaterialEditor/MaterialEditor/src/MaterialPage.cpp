@@ -89,9 +89,7 @@ void MaterialPage::getName(wxString& name) const
 
 Project* MaterialPage::getProject() const
 {
-	Ogre::String project(mProjectComboBox->GetValue().mb_str());
-
-	return Workspace::getSingletonPtr()->getProject(project);
+	return Workspace::getSingletonPtr()->getProject(mProjectComboBox->GetValue());
 }
 
 void MaterialPage::setProject(Project* project)

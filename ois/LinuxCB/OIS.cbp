@@ -17,7 +17,6 @@
 				<Compiler>
 					<Add option="-pg" />
 					<Add option="-g" />
-					<Add option="-D_DEBUG" />
 					<Add directory="../includes" />
 				</Compiler>
 				<Linker>
@@ -34,6 +33,7 @@
 				<Option projectResourceIncludeDirsRelation="2" />
 				<Compiler>
 					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
 					<Add directory="../includes" />
 				</Compiler>
 				<Linker>

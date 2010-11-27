@@ -31,11 +31,11 @@ Torus Knot Software Ltd.
 class EditorEventArgs : public EventArgs
 {
 public:
-	EditorEventArgs(Editor* editor) : mEditor(editor) {}
+	EditorEventArgs(EditorBase* editor) : mEditor(editor) {}
 	virtual ~EditorEventArgs() {}
 
-	Editor* getEditor() { return mEditor; }
+	EditorBase* getEditor() { return mEditor; }
 
 protected:
-	Editor* mEditor;
+	EditorBase* mEditor;
 };

@@ -55,9 +55,9 @@ TechniquePropertyGridPage::~TechniquePropertyGridPage()
 
 void TechniquePropertyGridPage::populate()
 {
-	mNameId = Append(wxStringProperty(wxT("Name"), wxPG_LABEL, mController->getTechnique()->getName()));
-	mSchemeNameId = Append(wxStringProperty(wxT("Scheme Name"), wxPG_LABEL, mController->getTechnique()->getSchemeName()));
-	mLodIndexId = Append(wxIntProperty(wxT("LOD Index"), wxPG_LABEL, mController->getTechnique()->getLodIndex()));
+	mNameId = Append(new wxStringProperty(wxT("Name"), wxPG_LABEL, wxString(mController->getTechnique()->getName().c_str(), wxConvUTF8)));
+	mSchemeNameId = Append(new wxStringProperty(wxT("Scheme Name"), wxPG_LABEL, wxString(mController->getTechnique()->getSchemeName().c_str(), wxConvUTF8)));
+	mLodIndexId = Append(new wxIntProperty(wxT("LOD Index"), wxPG_LABEL, mController->getTechnique()->getLodIndex()));
 }
 
 void TechniquePropertyGridPage::propertyChanged(wxPropertyGridEvent& event)
@@ -65,11 +65,11 @@ void TechniquePropertyGridPage::propertyChanged(wxPropertyGridEvent& event)
 	wxPGId id = event.GetProperty();
 	if(id == mNameId)
 	{
-		mController->setName(event.GetPropertyValueAsString().c_str());
+		mController->setName(Ogre::String(event.GetPropertyValueAsString().mb_str()));
 	}
 	else if(id == mSchemeNameId)
 	{
-		mController->setSchemeName(event.GetPropertyValueAsString().c_str());
+		mController->setSchemeName(Ogre::String(event.GetPropertyValueAsString().mb_str()));
 	}
 	else if(id = mLodIndexId)
 	{
@@ -84,7 +84,7 @@ void TechniquePropertyGridPage::nameChanged(EventArgs& args)
 
 	wxPGProperty* prop = GetPropertyPtr(mNameId);
 	if(prop == NULL) return;
-	prop->SetValueFromString(tc->getTechnique()->getName().c_str());
+	prop->SetValueFromString(wxString(tc->getTechnique()->getName().c_str(), wxConvUTF8));
 }
 
 void TechniquePropertyGridPage::schemeNameChanged(EventArgs& args)
@@ -94,7 +94,7 @@ void TechniquePropertyGridPage::schemeNameChanged(EventArgs& args)
 
 	wxPGProperty* prop = GetPropertyPtr(mSchemeNameId);
 	if(prop == NULL) return;
-	prop->SetValueFromString(tc->getTechnique()->getSchemeName().c_str());
+	prop->SetValueFromString(wxString(tc->getTechnique()->getSchemeName().c_str(), wxConvUTF8));
 }
 
 void TechniquePropertyGridPage::lodIndexChanged(EventArgs& args)
