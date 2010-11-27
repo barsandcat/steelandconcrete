@@ -1,0 +1,46 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: steelandconcret\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-06-25 16:06+0300\n"
+"PO-Revision-Date: 2010-06-25 16:07+0300\n"
+"Last-Translator: \n"
+"Language-Team: ddr <barsandcat@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: _\n"
+"X-Poedit-Basepath: ../../../../\n"
+"X-Poedit-SearchPath-0: src\n"
+
+#: src/ServerBrowserSheet.cpp:32
+msgid "Connect"
+msgstr "Connect"
+
+#: src/ServerBrowserSheet.cpp:44
+msgid "Return"
+msgstr "Return"
+
+#: src/ServerBrowserSheet.cpp:80
+msgid "Address"
+msgstr "Address"
+
+#: src/ServerBrowserSheet.cpp:90
+msgid "Port"
+msgstr "Port"
+
+#: src/SystemMenuSheet.cpp:35
+msgid "Exit"
+msgstr "Exit"
+
+#: src/MainMenuSheet.cpp:30
+msgid "Create server"
+msgstr "Create server"
+

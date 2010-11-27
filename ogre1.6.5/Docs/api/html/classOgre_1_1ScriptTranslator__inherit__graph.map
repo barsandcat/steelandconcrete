@@ -1,0 +1,16 @@
+<area shape="rect" href="$classOgre_1_1CompositionPassClearTranslator.html" title="Ogre::CompositionPassClearTranslator" alt="" coords="419,6,683,32">
+<area shape="rect" href="$classOgre_1_1CompositionPassStencilTranslator.html" title="Ogre::CompositionPassStencilTranslator" alt="" coords="413,56,688,83">
+<area shape="rect" href="$classOgre_1_1CompositionPassTranslator.html" title="Ogre::CompositionPassTranslator" alt="" coords="435,107,667,134">
+<area shape="rect" href="$classOgre_1_1CompositionTargetPassTranslator.html" title="Ogre::CompositionTargetPassTranslator" alt="" coords="416,158,685,184">
+<area shape="rect" href="$classOgre_1_1CompositionTechniqueTranslator.html" title="Ogre::CompositionTechniqueTranslator" alt="" coords="419,208,683,235">
+<area shape="rect" href="$classOgre_1_1CompositorTranslator.html" title="Ogre::CompositorTranslator" alt="" coords="453,259,648,286">
+<area shape="rect" href="$classOgre_1_1GpuProgramTranslator.html" title="Ogre::GpuProgramTranslator" alt="" coords="449,310,652,336">
+<area shape="rect" href="$classOgre_1_1MaterialTranslator.html" title="Ogre::MaterialTranslator" alt="" coords="464,360,637,387">
+<area shape="rect" href="$classOgre_1_1ParticleAffectorTranslator.html" title="Ogre::ParticleAffectorTranslator" alt="" coords="441,411,660,438">
+<area shape="rect" href="$classOgre_1_1ParticleEmitterTranslator.html" title="Ogre::ParticleEmitterTranslator" alt="" coords="443,462,659,488">
+<area shape="rect" href="$classOgre_1_1ParticleSystemTranslator.html" title="Ogre::ParticleSystemTranslator" alt="" coords="443,512,659,539">
+<area shape="rect" href="$classOgre_1_1PassTranslator.html" title="Ogre::PassTranslator" alt="" coords="475,563,627,590">
+<area shape="rect" href="$classOgre_1_1TechniqueTranslator.html" title="Ogre::TechniqueTranslator" alt="" coords="459,614,643,640">
+<area shape="rect" href="$classOgre_1_1TextureSourceTranslator.html" title="Ogre::TextureSourceTranslator" alt="" coords="444,664,657,691">
+<area shape="rect" href="$classOgre_1_1TextureUnitTranslator.html" title="Ogre::TextureUnitTranslator" alt="" coords="453,715,648,742">
+<area shape="rect" href="$classOgre_1_1AllocatedObject.html" title="Superclass for all objects that wish to use custom memory allocators when their new..." alt="" coords="7,360,156,387">

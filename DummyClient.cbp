@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="DummyClient" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/dummy_d" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin" />
+				<Option object_output="obj/DummyClientDebugLinux/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="protobuf_d" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/dummy" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin" />
+				<Option object_output="obj/DummyClientReleaseLinux/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="protobuf" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-Wreturn-type" />
+			<Add option="-Wsign-compare" />
+			<Add option="-Wunused-variable" />
+			<Add option="-DBOOST_ALL_NO_LIB=1" />
+			<Add directory="src" />
+			<Add directory="ois/includes" />
+			<Add directory="ogre1.6.5/OgreMain/include" />
+			<Add directory="ogreal/ogreal/include" />
+			<Add directory="SAL" />
+			<Add directory="QuickGUI_10_1/QuickGUI/include" />
+			<Add directory="protobuf-2.0.3/src" />
+			<Add directory="src/proto" />
+			<Add directory="boost/boost_1_43_0" />
+		</Compiler>
+		<Linker>
+			<Add library="pthread" />
+			<Add library="boost_thread$(TARGET_NAME)" />
+			<Add library="boost_system$(TARGET_NAME)" />
+			<Add directory="lib" />
+		</Linker>
+		<Unit filename="src/DummyClient.cpp" />
+		<Unit filename="src/Network.cpp" />
+		<Unit filename="src/Network.h" />
+		<Unit filename="src/ServerLog.cpp" />
+		<Unit filename="src/ServerLog.h" />
+		<Unit filename="src/proto/ChangeList.pb.cc" />
+		<Unit filename="src/proto/ChangeList.pb.h" />
+		<Unit filename="src/proto/ChangeList.proto" />
+		<Unit filename="src/proto/CommandList.pb.cc" />
+		<Unit filename="src/proto/CommandList.pb.h" />
+		<Unit filename="src/proto/CommandList.proto" />
+		<Unit filename="src/proto/Edge.pb.cc" />
+		<Unit filename="src/proto/Edge.pb.h" />
+		<Unit filename="src/proto/Edge.proto" />
+		<Unit filename="src/proto/GeodesicGrid.pb.cc" />
+		<Unit filename="src/proto/GeodesicGrid.pb.h" />
+		<Unit filename="src/proto/GeodesicGrid.proto" />
+		<Unit filename="src/proto/Handshake.pb.cc" />
+		<Unit filename="src/proto/Handshake.pb.h" />
+		<Unit filename="src/proto/Handshake.proto" />
+		<Unit filename="src/proto/Header.pb.cc" />
+		<Unit filename="src/proto/Header.pb.h" />
+		<Unit filename="src/proto/Header.proto" />
+		<Unit filename="src/proto/Makefile.proto" />
+		<Unit filename="src/proto/Request.pb.cc" />
+		<Unit filename="src/proto/Request.pb.h" />
+		<Unit filename="src/proto/Request.proto" />
+		<Unit filename="src/proto/Response.pb.cc" />
+		<Unit filename="src/proto/Response.pb.h" />
+		<Unit filename="src/proto/Response.proto" />
+		<Unit filename="src/proto/Tile.pb.cc" />
+		<Unit filename="src/proto/Tile.pb.h" />
+		<Unit filename="src/proto/Tile.proto" />
+		<Unit filename="src/proto/Unit.pb.cc" />
+		<Unit filename="src/proto/Unit.pb.h" />
+		<Unit filename="src/proto/Unit.proto" />
+		<Unit filename="src/proto/Vector.pb.cc" />
+		<Unit filename="src/proto/Vector.pb.h" />
+		<Unit filename="src/proto/Vector.proto" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
