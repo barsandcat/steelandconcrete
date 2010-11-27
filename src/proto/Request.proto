@@ -1,0 +1,18 @@
+import "CommandList.proto";
+
+enum RequestType
+{
+    REQUEST_DISCONNECT = 1;
+    REQUEST_GET_TIME = 2;
+    REQUEST_COMMANDS = 3;
+}
+
+message RequestMsg
+{
+    required RequestType type = 1;
+    optional bool last = 2 [default = true];
+    optional uint64 time = 3;
+    repeated CommandMsg commands = 4;
+}
+
+
