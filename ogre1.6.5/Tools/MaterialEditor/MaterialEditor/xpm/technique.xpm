@@ -1,5 +1,5 @@
 /* XPM */
-static const char * technique_xpm[] = {
+static char * technique_xpm[] = {
 "16 16 37 1",
 " 	c None",
 ".	c #717171",
