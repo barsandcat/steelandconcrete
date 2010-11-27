@@ -1,5 +1,5 @@
 /* XPM */
-static const char * workspace_xpm[] = {
+static char * workspace_xpm[] = {
 "16 16 90 1",
 " 	c None",
 ".	c #8DB1DD",

@@ -1,5 +1,5 @@
 /* XPM */
-static const char * material_script_xpm[] = {
+static char * material_script_xpm[] = {
 "16 16 185 2",
 "  	c None",
 ". 	c #5FACE2",
