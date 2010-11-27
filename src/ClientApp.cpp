@@ -228,7 +228,9 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnUkranian", &ClientApp::OnUkranian, this);
         QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnJapanese", &ClientApp::OnJapanese, this);
     }
+#if OGRE_PROFILING
     Ogre::Profiler::getSingleton().setEnabled(true);
+#endif
 }
 
 void ClientApp::OnClick(const QuickGUI::EventArgs& args)

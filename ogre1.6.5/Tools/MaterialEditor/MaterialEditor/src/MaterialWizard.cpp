@@ -67,5 +67,5 @@ void MaterialWizard::OnFinish(wxWizardEvent& event)
 	wxString name;
 	mMaterialPage->getName(name);
 
-	project->createMaterial(name.c_str());
+	project->createMaterial(Ogre::String(name.mb_str()));
 }

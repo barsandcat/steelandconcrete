@@ -69,10 +69,6 @@ Torus Knot Software Ltd.
 #define TECHNIQUE_IMAGE 4
 #define PASS_IMAGE 5
 
-namespace
-{
-	class Ogre::MaterialSerializer;
-}
 
 const long ID_TREE_CTRL = wxNewId();
 const long ID_MENU_NEW = wxNewId();
@@ -323,7 +319,7 @@ void WorkspacePanel::OnNewProject(wxCommandEvent& event)
 void WorkspacePanel::OnNewMaterialScript(wxCommandEvent& event)
 {
 	wxTreeItemId id = mTreeCtrl->GetSelection();
-	mTreeCtrl->AppendItem(id, "Material Script", MATERIAL_SCRIPT_IMAGE);
+	mTreeCtrl->AppendItem(id, wxT("Material Script"), MATERIAL_SCRIPT_IMAGE);
 }
 
 void WorkspacePanel::OnNewMaterial(wxCommandEvent& event)
@@ -394,7 +390,7 @@ void WorkspacePanel::OnNewPass(wxCommandEvent& event)
 
 		wxTreeItemId projectId = mTreeCtrl->GetItemParent(materialId);
 		project = getProject(projectId);
-	
+
 		technique = getTechnique(selId);
 	}
 
@@ -446,10 +442,10 @@ void WorkspacePanel::OnEdit(wxCommandEvent& event)
 	if(isMaterial(selId))
 	{
 		MaterialController* mc = getMaterial(selId);
-		
+
 		EditorManager* editorManager = EditorManager::getSingletonPtr();
-		Editor* editor = editorManager->findEditor(mc->getMaterial()->getName().c_str());
-		Editor* editorMat = editorManager->findEditor(Ogre::String(mc->getMaterial()->getName() + ".material").c_str());
+		EditorBase* editor = editorManager->findEditor(wxString(mc->getMaterial()->getName().c_str(), wxConvUTF8));
+		EditorBase* editorMat = editorManager->findEditor(wxString((mc->getMaterial()->getName() + ".material").c_str(), wxConvUTF8));
 		if(editor != NULL)
 		{
 			editorManager->setActiveEditor(editor);
@@ -465,10 +461,10 @@ void WorkspacePanel::OnEdit(wxCommandEvent& event)
 			String script = ms->getQueuedAsString();
 
 			MaterialScriptEditor* materialEditor = new MaterialScriptEditor(editorManager->getEditorNotebook(), wxID_ANY);
-			wxString name = mc->getMaterial()->getName().c_str();
-			name += wxT(".material");
-			materialEditor->setName(name);
-			materialEditor->SetText(script);
+			Ogre::String name = mc->getMaterial()->getName();
+			name += ".material";
+			materialEditor->setName(wxString(name.c_str(), wxConvUTF8));
+			materialEditor->SetText(wxString(script.c_str(), wxConvUTF8));
 
 			editorManager->openEditor(materialEditor);
 		}
@@ -484,7 +480,7 @@ void WorkspacePanel::OnUpdateTechniqueMenuItem(wxUpdateUIEvent& event)
 {
 	bool enable = false;
 	const ProjectList* projects = Workspace::getSingletonPtr()->getProjects();
-	
+
 	ProjectList::const_iterator it;
 	for(it = projects->begin(); it != projects->end(); ++it)
 	{
@@ -494,7 +490,7 @@ void WorkspacePanel::OnUpdateTechniqueMenuItem(wxUpdateUIEvent& event)
 			break;
 		}
 	}
-	
+
 	event.Enable(enable);
 }
 
@@ -502,7 +498,7 @@ void WorkspacePanel::OnUpdatePassMenuItem(wxUpdateUIEvent& event)
 {
 	bool enable = false;
 	const ProjectList* projects = Workspace::getSingletonPtr()->getProjects();
-	
+
 	ProjectList::const_iterator pit;
 	for(pit = projects->begin(); pit != projects->end(); ++pit)
 	{
@@ -517,7 +513,7 @@ void WorkspacePanel::OnUpdatePassMenuItem(wxUpdateUIEvent& event)
 			}
 		}
 	}
-	
+
 	event.Enable(enable);
 }
 
@@ -554,7 +550,7 @@ void WorkspacePanel::projectMaterialAdded(EventArgs& args)
 	MaterialController* material = pea.getMaterial();
 
 	wxTreeItemId projectId = mProjectIdMap[project];
-	wxTreeItemId id = mTreeCtrl->AppendItem(projectId, material->getMaterial()->getName().c_str(), MATERIAL_IMAGE);
+	wxTreeItemId id = mTreeCtrl->AppendItem(projectId, wxString(material->getMaterial()->getName().c_str(), wxConvUTF8), MATERIAL_IMAGE);
 	mTreeCtrl->SelectItem(id, true);
 
 	mMaterialIdMap[material] = id;
@@ -573,7 +569,7 @@ void WorkspacePanel::materialNameChanged(EventArgs& args)
 	MaterialController* mc = mea.getMaterialController();
 
 	wxTreeItemId materialId = mMaterialIdMap[mc];
-	mTreeCtrl->SetItemText(materialId, mc->getMaterial()->getName().c_str());
+	mTreeCtrl->SetItemText(materialId, wxString(mc->getMaterial()->getName().c_str(), wxConvUTF8));
 }
 
 void WorkspacePanel::materialTechniqueAdded(EventArgs& args)
@@ -583,9 +579,9 @@ void WorkspacePanel::materialTechniqueAdded(EventArgs& args)
 	TechniqueController* tc = mea.getTechniqueController();
 
 	wxTreeItemId materialId = mMaterialIdMap[mc];
-	wxTreeItemId id = mTreeCtrl->AppendItem(materialId, tc->getTechnique()->getName().c_str(), TECHNIQUE_IMAGE);
+	wxTreeItemId id = mTreeCtrl->AppendItem(materialId, wxString(tc->getTechnique()->getName().c_str(), wxConvUTF8), TECHNIQUE_IMAGE);
 	mTreeCtrl->SelectItem(id, true);
-	
+
 	mTechniqueIdMap[tc] = id;
 
 	subscribe(tc);
@@ -602,7 +598,7 @@ void WorkspacePanel::techniqueNameChanged(EventArgs& args)
 	TechniqueController* tc = tea.getTechniqueController();
 
 	wxTreeItemId techniqueId = mTechniqueIdMap[tc];
-	mTreeCtrl->SetItemText(techniqueId, tc->getTechnique()->getName().c_str());
+	mTreeCtrl->SetItemText(techniqueId, wxString(tc->getTechnique()->getName().c_str(), wxConvUTF8));
 }
 
 void WorkspacePanel::techniquePassAdded(EventArgs& args)
@@ -612,7 +608,7 @@ void WorkspacePanel::techniquePassAdded(EventArgs& args)
 	PassController* pc = tea.getPassController();
 
 	wxTreeItemId techniqueId = mTechniqueIdMap[tc];
-	wxTreeItemId id = mTreeCtrl->AppendItem(techniqueId, pc->getPass()->getName().c_str(), PASS_IMAGE);
+	wxTreeItemId id = mTreeCtrl->AppendItem(techniqueId, wxString(pc->getPass()->getName().c_str(), wxConvUTF8), PASS_IMAGE);
 	mTreeCtrl->SelectItem(id, true);
 
 	mPassIdMap[pc] = id;

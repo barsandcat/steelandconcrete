@@ -37,6 +37,7 @@
 				<Compiler>
 					<Add option="-Os" />
 					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
 				</Compiler>
 				<ResourceCompiler>
 					<Add directory="./include" />
