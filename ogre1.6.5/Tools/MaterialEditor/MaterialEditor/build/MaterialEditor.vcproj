@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(SolutionDir)\wxMSW-2.8.11\include\msvc&quot;;&quot;$(SolutionDir)\wxMSW-2.8.11\include&quot;;&quot;$(SolutionDir)\wxpropgrid\include&quot;;..\..\wxScintilla_1.69.2\include;&quot;$(SolutionDir)boost\boost_1_43_0&quot;;&quot;$(SolutionDir)ogre1.6.5\OgreMain\include&quot;;&quot;$(SolutionDir)ogre1.6.5\RenderSystems\GL\include&quot;"
+				AdditionalIncludeDirectories="..\include;&quot;$(SolutionDir)\wxMSW-2.8.11\include\msvc&quot;;&quot;$(SolutionDir)\wxMSW-2.8.11\include&quot;;&quot;$(SolutionDir)\wxpropgrid\include&quot;;..\..\wxScintilla_1.69.2\include;&quot;$(SolutionDir)boost\boost_1_43_0&quot;;&quot;$(SolutionDir)ogre1.6.5\OgreMain\include&quot;;&quot;$(SolutionDir)ogre1.6.5\RenderSystems\GL\include&quot;;&quot;$(SolutionDir)ogre1.6.5\RenderSystems\GL\src\GLSL\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;__WXMSW__;__WXDEBUG__;_WINDOWS;NOPCH;OGRE_STATIC_LIB;_CRT_NONSTDC_NO_DEPRECATE;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -63,7 +63,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wxbase28d.lib wxmsw28d_core.lib wxmsw28d_aui.lib wxmsw28d_adv.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexd.lib wxexpatd.lib winmm.lib comctl32.lib rpcrt4.lib wsock32.lib oleacc.lib OgreMain_d.lib wxmsw28d_propgrid.lib wxscintillad.lib"
+				AdditionalDependencies="wxbase28d.lib wxmsw28d_core.lib wxmsw28d_aui.lib wxmsw28d_adv.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexd.lib wxexpatd.lib winmm.lib comctl32.lib rpcrt4.lib wsock32.lib oleacc.lib OgreMain_d.lib RenderSystem_GLStatic_d.lib FreeImage_d.lib LibJPEG_d.lib LibMNG_d.lib LibOpenJPEG_d.lib LibPNG_d.lib LibTIFF_d.lib OpenEXR_d.lib wxmsw28d_propgrid.lib wxscintillad.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(SolutionDir)\Lib&quot;"
 				GenerateManifest="true"
@@ -96,7 +96,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy &quot;.\$(ConfigurationName)\*.exe&quot; &quot;$(SolutionDir)\bin\$(ConfigurationName)&quot;"
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
@@ -124,7 +124,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\include;&quot;$(SolutionDir)\wxMSW-2.8.11\include\msvc&quot;;&quot;$(SolutionDir)\wxMSW-2.8.11\include&quot;;&quot;$(SolutionDir)\wxpropgrid\include&quot;;..\..\wxScintilla_1.69.2\include;&quot;$(SolutionDir)boost\boost_1_43_0&quot;;&quot;$(SolutionDir)ogre1.6.5\OgreMain\include&quot;;&quot;$(SolutionDir)ogre1.6.5\RenderSystems\GL\include&quot;"
+				AdditionalIncludeDirectories="..\include;&quot;$(SolutionDir)\wxMSW-2.8.11\include\msvc&quot;;&quot;$(SolutionDir)\wxMSW-2.8.11\include&quot;;&quot;$(SolutionDir)\wxpropgrid\include&quot;;..\..\wxScintilla_1.69.2\include;&quot;$(SolutionDir)boost\boost_1_43_0&quot;;&quot;$(SolutionDir)ogre1.6.5\OgreMain\include&quot;;&quot;$(SolutionDir)ogre1.6.5\RenderSystems\GL\include&quot;;&quot;$(SolutionDir)ogre1.6.5\RenderSystems\GL\src\GLSL\include&quot;"
 				PreprocessorDefinitions="WIN32;__WXMSW__;_WINDOWS;NOPCH;OGRE_STATIC_LIB;_CRT_NONSTDC_NO_DEPRECATE;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
@@ -143,7 +143,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wxbase28.lib wxmsw28_core.lib winmm.lib comctl32.lib rpcrt4.lib wsock32.lib oleacc.lib OgreMain.lib wxcode_msw28_propgrid.lib wxscintilla.lib libboost_signals-mt-s$(ConfigurationName).lib"
+				AdditionalDependencies="wxbase28.lib wxmsw28_core.lib winmm.lib comctl32.lib rpcrt4.lib wsock32.lib oleacc.lib OgreMain.lib wxcode_msw28_propgrid.lib wxscintilla.lib libboost_signals-mt-s$(ConfigurationName).lib RenderSystem_GLStatic.lib FreeImage.lib LibJPEG.lib LibMNG.lib LibOpenJPEG.lib LibPNG.lib LibTIFF.lib OpenEXR.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(SolutionDir)\Lib&quot;"
 				GenerateManifest="false"
@@ -175,7 +175,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy &quot;.\$(ConfigurationName)\*.exe&quot; &quot;$(SolutionDir)bin\$(ConfigurationName)&quot;"
+				CommandLine=""
 			/>
 		</Configuration>
 	</Configurations>
