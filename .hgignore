@@ -46,3 +46,5 @@ glob:*.cscope_file_list
 glob:bin/MaterialEditor
 glob:wx*/lib/vc_lib/msw/wx/setup.h
 glob:wx*/lib/vc_lib/msw/wx/msw/rcdefs.h
+glob:wx*/lib/vc_lib/mswd/wx/msw/rcdefs.h
+glob:wx*/lib/vc_lib/mswd/wx/setup.h
