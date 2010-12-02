@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName)_d.lib"
+				OutputFile="$(OutDir)\libprotobuf_d.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -123,6 +123,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\libprotobuf.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"

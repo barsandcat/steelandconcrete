@@ -63,7 +63,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="winmm.lib comctl32.lib rpcrt4.lib wsock32.lib oleacc.lib OgreMain_d.lib RenderSystem_GLStatic_d.lib FreeImage_d.lib LibJPEG_d.lib LibMNG_d.lib LibOpenJPEG_d.lib LibPNG_d.lib LibTIFF_d.lib OpenEXR_d.lib wxcode_msw28d_propgrid.lib wxscintillad.lib"
+				AdditionalDependencies="winmm.lib comctl32.lib rpcrt4.lib wsock32.lib oleacc.lib OgreMain_d.lib wxcode_msw28d_propgrid.lib wxscintillad.lib libboost_signals-mt-s$(ConfigurationName).lib RenderSystem_GLStatic_d.lib FreeImage_d.lib LibJPEG_d.lib LibMNG_d.lib LibOpenJPEG_d.lib LibPNG_d.lib LibTIFF_d.lib OpenEXR_d.lib"
+				ShowProgress="2"
 				OutputFile="$(OutDir)\$(ProjectName)_d.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(SolutionDir)\Lib&quot;"
