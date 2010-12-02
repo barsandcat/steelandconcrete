@@ -144,7 +144,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wxbase28.lib wxmsw28_core.lib winmm.lib comctl32.lib rpcrt4.lib wsock32.lib oleacc.lib OgreMain.lib wxcode_msw28_propgrid.lib wxscintilla.lib libboost_signals-mt-s$(ConfigurationName).lib RenderSystem_GLStatic.lib FreeImage.lib LibJPEG.lib LibMNG.lib LibOpenJPEG.lib LibPNG.lib LibTIFF.lib OpenEXR.lib"
+				AdditionalDependencies="winmm.lib comctl32.lib rpcrt4.lib wsock32.lib oleacc.lib OgreMain.lib wxcode_msw28_propgrid.lib wxscintilla.lib libboost_signals-mt-s$(ConfigurationName).lib RenderSystem_GLStatic.lib FreeImage.lib LibJPEG.lib LibMNG.lib LibOpenJPEG.lib LibPNG.lib LibTIFF.lib OpenEXR.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(SolutionDir)\Lib&quot;"
 				GenerateManifest="false"
