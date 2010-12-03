@@ -63,11 +63,12 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="winmm.lib comctl32.lib rpcrt4.lib wsock32.lib oleacc.lib OgreMain_d.lib wxcode_msw28d_propgrid.lib wxscintillad.lib libboost_signals-mt-s$(ConfigurationName).lib RenderSystem_GLStatic_d.lib FreeImage_d.lib LibJPEG_d.lib LibMNG_d.lib LibOpenJPEG_d.lib LibPNG_d.lib LibTIFF_d.lib OpenEXR_d.lib"
+				LinkLibraryDependencies="true"
+				AdditionalDependencies="winmm.lib comctl32.lib rpcrt4.lib wsock32.lib oleacc.lib"
 				ShowProgress="2"
 				OutputFile="$(OutDir)\$(ProjectName)_d.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(SolutionDir)\Lib&quot;"
+				AdditionalLibraryDirectories=""
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
@@ -145,9 +146,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="winmm.lib comctl32.lib rpcrt4.lib wsock32.lib oleacc.lib OgreMain.lib wxcode_msw28_propgrid.lib wxscintilla.lib libboost_signals-mt-s$(ConfigurationName).lib RenderSystem_GLStatic.lib FreeImage.lib LibJPEG.lib LibMNG.lib LibOpenJPEG.lib LibPNG.lib LibTIFF.lib OpenEXR.lib"
+				AdditionalDependencies="winmm.lib comctl32.lib rpcrt4.lib wsock32.lib oleacc.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(SolutionDir)\Lib&quot;"
+				AdditionalLibraryDirectories=""
 				GenerateManifest="false"
 				GenerateDebugInformation="true"
 				SubSystem="2"
