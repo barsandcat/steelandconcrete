@@ -57,7 +57,7 @@
 				AdditionalIncludeDirectories="$(SolutionDir)boost\boost_1_43_0"
 				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,BOOST_ALL_NO_LIB=1,BOOST_SIGNALS_NO_LIB=1,CMAKE_INTDIR=\&quot;Debug\&quot;"
 				ExceptionHandling="1"
-				RuntimeLibrary="0"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
 				AssemblerListingLocation="Debug"
 				ObjectFile="$(IntDir)\"
