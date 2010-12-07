@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)\$(ProjectName).exe"
+				OutputFile="$(OutDir)\protoc_d.exe"
 				LinkIncremental="0"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -135,6 +135,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				OutputFile="$(OutDir)\protoc.exe"
 				LinkIncremental="0"
 				GenerateDebugInformation="true"
 				SubSystem="1"
