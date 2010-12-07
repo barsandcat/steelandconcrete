@@ -85,7 +85,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib libprotobuf_d.lib wsock32.lib libboost_system-mt-s$(ConfigurationName).lib libboost_thread-mt-s$(ConfigurationName).lib"
+				AdditionalDependencies="wsock32.lib"
 				OutputFile="$(OutDir)\UnitTests_d.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\lib"
@@ -181,7 +181,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib libprotobuf.lib wsock32.lib libboost_system-mt-s$(ConfigurationName).lib libboost_thread-mt-s$(ConfigurationName).lib"
+				AdditionalDependencies="wsock32.lib"
 				OutputFile="$(OutDir)\UnitTests.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\lib"

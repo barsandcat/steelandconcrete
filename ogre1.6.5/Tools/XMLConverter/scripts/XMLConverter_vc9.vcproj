@@ -64,7 +64,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="FreeImage_d.lib LibJPEG_d.lib LibMNG_d.lib LibOpenJPEG_d.lib LibPNG_d.lib LibTIFF_d.lib OpenEXR_d.lib ZLib_d.lib freetype238MT_d.lib OgreMain_d.lib zziplib_d.lib"
 				OutputFile="$(OutDir)/OgreXMLConverter_d.exe"
 				Version="0.99"
 				LinkIncremental="2"
@@ -150,7 +149,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="FreeImage.lib LibJPEG.lib LibMNG.lib LibOpenJPEG.lib LibPNG.lib LibTIFF.lib OpenEXR.lib ZLib.lib freetype238MT.lib OgreMain.lib zziplib.lib"
 				OutputFile="$(OutDir)/OgreXMLConverter.exe"
 				Version="0.99"
 				LinkIncremental="1"
