@@ -84,5 +84,6 @@
 		</Project>
 		<Project filename="wxpropgrid/build/propgrid_propgrid_vc9.cbp" />
 		<Project filename="ogre1.6.5/Tools/MaterialEditor/wxscintilla_1.69.2/build/wxscintilla.cbp" />
+		<Project filename="wxogre-svn312/wxogre.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>
