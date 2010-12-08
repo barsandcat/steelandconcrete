@@ -1,0 +1,31 @@
+body {
+  padding: 0 1em;
+}
+
+h4 {
+  margin: 0;
+  color: black;
+}
+
+hr {
+  clear: both;
+}
+
+.code {
+  margin: 2.5em auto;
+  padding: 1mm;
+	width: 60em;
+	font-size: 12px;
+  font: monospace;
+  background-color: #eef;
+  border: solid 1px #aaf;
+}
+
+.navheader, .navfooter {
+  margin: 1em 0;
+  text-align: center;
+}
+
+.screenshot {
+	text-align: center;
+}
