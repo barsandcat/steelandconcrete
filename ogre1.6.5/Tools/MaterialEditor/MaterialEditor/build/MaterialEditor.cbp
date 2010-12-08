@@ -46,6 +46,7 @@
 		</Build>
 		<Compiler>
 			<Add option="`wx-config --cxxflags`" />
+			<Add option="-Wno-write-strings" />
 			<Add option="-DNOPCH" />
 			<Add option="-DOGRE_STATIC_LIB" />
 			<Add directory="../include" />
