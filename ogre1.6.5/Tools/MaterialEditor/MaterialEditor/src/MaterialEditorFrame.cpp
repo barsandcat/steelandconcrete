@@ -452,8 +452,7 @@ void MaterialEditorFrame::createHelpMenu()
 
 void MaterialEditorFrame::OnActivate(wxActivateEvent& event)
 {
-	//if(mOgreControl) mOgreControl->initOgre();
-}
+
 
 void MaterialEditorFrame::OnActiveEditorChanged(EventArgs& args)
 {
@@ -616,53 +615,11 @@ void MaterialEditorFrame::OnEditPaste(wxCommandEvent& event)
 
 void MaterialEditorFrame::OnViewOpenGL(wxCommandEvent& event)
 {
-	//if(mOpenGLRenderSystem == NULL)
-	//{
-	//	wxMessageBox("OpenGL Render System not found", "Error");
-	//	return;
-	//}
 
-	//mOgreControl->SetRenderSystem(mOpenGLRenderSystem);
-
-	//wxAuiPaneInfo info = mAuiManager->GetPane(mOgreControl);
-	//if(!info.IsOk())
-	//{
-	//	info.MaximizeButton(true);
-	//	info.MinimizeButton(true);
-	//	info.Float();
-
-	//	mAuiManager->AddPane(mOgreControl, info);
-	//}
-
-	//info.Caption(wxT("OGRE - OpenGL"));
-
-	//mAuiManager->Update();
 }
 
 void MaterialEditorFrame::OnViewDirectX(wxCommandEvent& event)
 {
-	/*
-	if(mDirectXRenderSystem == NULL)
-	{
-		wxMessageBox("DirectX Render System not found", "Error");
-		return;
-	}
 
-	mOgreControl->SetRenderSystem(mDirectXRenderSystem);
-
-	wxAuiPaneInfo info = mAuiManager->GetPane(mOgreControl);
-	if(!info.IsOk())
-	{
-		info.MaximizeButton(true);
-		info.MinimizeButton(true);
-		info.Float();
-
-		mAuiManager->AddPane(mOgreControl, info);
-	}
-
-	info.Caption(wxT("OGRE - DirectX"));
-
-	mAuiManager->Update();
-	*/
 }
 

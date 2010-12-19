@@ -1,0 +1,3 @@
+- CMake FindwxOgre.cmake
+- MacOS X port
+- Thread safe implementation
