@@ -332,20 +332,7 @@ void MaterialEditorFrame::createOgrePane()
 
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
-	wxString caption;
-	String rs = mRoot->getRenderSystem()->getName();
-	if(rs == "OpenGL Rendering Subsystem") caption = wxT("OGRE - OpenGL");
-	else caption = wxT("OGRE - DirectX");
-
-	wxAuiPaneInfo info;
-	info.Caption(caption);
-	info.MaximizeButton(true);
-	info.MinimizeButton(true);
-	info.Floatable(true);
-	info.BestSize(512, 512);
-	info.Left();
-
-	mAuiManager->AddPane(mOgreControl, info);
+	mAuiManager->AddPane(mOgreControl, wxCENTER);
 }
 
 void MaterialEditorFrame::createMenuBar()
@@ -452,7 +439,7 @@ void MaterialEditorFrame::createHelpMenu()
 
 void MaterialEditorFrame::OnActivate(wxActivateEvent& event)
 {
-
+}
 
 void MaterialEditorFrame::OnActiveEditorChanged(EventArgs& args)
 {
