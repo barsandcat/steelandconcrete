@@ -113,6 +113,7 @@ private:
 
 	Ogre::Root* mRoot;
 	Ogre::Entity* mEntity;
+	Ogre::SceneManager* m_sm;
 
 	LogPanel* mLogPanel;
 	DocPanel* mDocPanel;

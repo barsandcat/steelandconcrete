@@ -48,37 +48,49 @@ MaterialEditorApp::~MaterialEditorApp()
 
 bool MaterialEditorApp::OnInit()
 {
+	try
+	{
+		// Initialize Ogre render system
+		m_rsys->LoadPlugin("RenderSystem_GL");
+		m_rsys->SelectOgreRenderSystem("OpenGL Rendering Subsystem");
+		m_rsys->Initialise();
 
-    // Initialize Ogre render system
-    m_rsys->LoadPlugin("RenderSystem_GL");
-    m_rsys->SelectOgreRenderSystem("OpenGL Rendering Subsystem");
-    m_rsys->Initialise();
+		wxInitAllImageHandlers();
 
-	wxInitAllImageHandlers();
+		// Create Selection Service
+		new SelectionService();
 
-	// Create Selection Service
-	new SelectionService();
+		// Ensure Workspace is created
+		new Workspace();
 
-	// Ensure Workspace is created
-	new Workspace();
+		// Create the IconManager
+		new IconManager();
 
-	// Create the IconManager
-	new IconManager();
+		MaterialEditorFrame* frame = new MaterialEditorFrame();
 
-	MaterialEditorFrame* frame = new MaterialEditorFrame();
+		// load resources yeah!
+		m_res->LoadResourceFile("resources.cfg");
+		m_res->InitialiseAllResources();
 
-    // load resources yeah!
-    m_res->LoadResourceFile("resources.cfg");
-    m_res->InitialiseAllResources();
+		frame->SetIcon(wxIcon(ogre_xpm));
+		frame->Show(true);
 
-	frame->SetIcon(wxIcon(ogre_xpm));
-	frame->Show(true);
+		SetTopWindow(frame);
 
-	SetTopWindow(frame);
+		frame->CreateScene();
 
-    frame->CreateScene();
-
-	return true;
+		return true;
+	}
+	catch (std::exception& e)
+	{
+		wxLogError("An exception has occured: %s", e.what());
+		return false;
+	}
+	catch (...)
+	{
+		wxLogError("Exception!");
+		return false;
+	}	
 }
 
 int MaterialEditorApp::OnExit()

@@ -264,13 +264,13 @@ void MaterialEditorFrame::createPropertiesPane()
 
 void MaterialEditorFrame::CreateScene()
 {
-    /*m_sm =*/ mOgreControl->CreateSceneManager(Ogre::ST_GENERIC);
+    m_sm = mOgreControl->CreateSceneManager(Ogre::ST_GENERIC);
 
-    //Ogre::Entity* ent = m_sm->createEntity("head", "ogrehead.mesh");
-    //Ogre::SceneNode* no = m_sm->getRootSceneNode()->createChildSceneNode();
+    Ogre::Entity* ent = m_sm->createEntity("head", "Febra.mesh");
+    Ogre::SceneNode* no = m_sm->getRootSceneNode()->createChildSceneNode();
 
-    //no->setPosition(0, 0, -120);
-    //no->attachObject(ent);
+    no->setPosition(0, 0, -120);
+    no->attachObject(ent);
 
     mOgreControl->Refresh();
 }
