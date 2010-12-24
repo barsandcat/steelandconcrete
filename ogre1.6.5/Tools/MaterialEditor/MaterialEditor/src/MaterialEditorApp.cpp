@@ -83,14 +83,14 @@ bool MaterialEditorApp::OnInit()
 	}
 	catch (std::exception& e)
 	{
-		wxLogError("An exception has occured: %s", e.what());
+		wxLogError(wxString(e.what(), wxConvUTF8));
 		return false;
 	}
 	catch (...)
 	{
-		wxLogError("Exception!");
+		wxLogError(wxT("Exception!"));
 		return false;
-	}	
+	}
 }
 
 int MaterialEditorApp::OnExit()
