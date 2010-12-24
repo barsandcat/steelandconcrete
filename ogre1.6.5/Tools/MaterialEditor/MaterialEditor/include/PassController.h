@@ -23,55 +23,18 @@ using namespace Ogre;
 class PassController : public EventContainer
 {
 public:
-	enum PassEvent
-	{
-		NameChanged,
-		AmbientChanged,
-		DiffuseChanged,
-		SpecularChanged,
-		ShininessChanged,
-		SelfIllumChanged,
-		VertexColourTrackingChanged,
-		PointSizeChanged,
-		PointSpritesChanged,
-		PointAttenuationChanged,
-		PointMinSizeChanged,
-		PointMaxSizeChanged,
-		SceneBlendingTypeChanged,
-		SceneBlendSrcFactorChanged,
-		SceneBlendDestFactorChanged,
-		DepthCheckChanged,
-		DepthWriteChanged,
-		DepthFunctionChanged,
-		ColourWriteChanged,
-		CullingModeChanged,
-		ManualCullingModeChanged,
-		LightingChanged,
-		MaxLightsChanged,
-		StartLightChanged,
-		ShadingModeChanged,
-		PolygonModeChanged,
-		FogChanged,
-		DepthBiasChanged,
-		AlphaRejectionChanged,
-		IteratePerLightChanged,
-		LightCountPerIterationChanged,
-	};
-
 	PassController(Pass* pass);
 	PassController(TechniqueController* parent, Pass* pass);
 	virtual ~PassController();
-	
+
 	TechniqueController* getParentController() const;
 	Pass* getPass() const;
-	
-	void registerEvents();
 
 	void  setName(const String& name);
 	void  setAmbient(Real red, Real green, Real blue);
-	void  setAmbient(const ColourValue& ambient); 
+	void  setAmbient(const ColourValue& ambient);
 	void  setDiffuse(Real red, Real green, Real blue, Real alpha);
-	void  setDiffuse(const ColourValue &diffuse); 
+	void  setDiffuse(const ColourValue &diffuse);
 	void  setSpecular(Real red, Real green, Real blue, Real alpha);
 	void  setSpecular(const ColourValue &specular);
 	void  setShininess(Real val);
@@ -115,7 +78,7 @@ public:
 	void  setFragmentProgramParameters(GpuProgramParametersSharedPtr params);
 	void  setTextureFiltering(TextureFilterOptions filterType);
 	void  setTextureAnisotropy(unsigned int maxAniso);
-	
+
 protected:
 	Pass* mPass;
 	TechniqueController* mParentController;
