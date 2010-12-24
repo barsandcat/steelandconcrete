@@ -34,8 +34,11 @@
 		</Build>
 		<Compiler>
 			<Add option="`wx-config --cflags`" />
+			<Add option="-DOGRE_STATIC_LIB" />
 			<Add directory="include" />
 			<Add directory="../ogre1.6.5/OgreMain/include" />
+			<Add directory="../ogre1.6.5/RenderSystems/GL/include" />
+			<Add directory="../ogre1.6.5/RenderSystems/GL/src/GLSL/include" />
 		</Compiler>
 		<Unit filename="include/wx/ogre/app.h" />
 		<Unit filename="include/wx/ogre/control.h" />

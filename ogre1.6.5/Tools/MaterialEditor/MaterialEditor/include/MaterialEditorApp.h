@@ -26,12 +26,13 @@ http://www.gnu.org/copyleft/lesser.txt
 #define _MATERIALEDITORAPP_H_
 
 #include <wx/wx.h>
+#include <wx/ogre/ogre.h>
 
 #include "OgreRoot.h"
 
 using Ogre::Root;
 
-class MaterialEditorApp : public wxApp
+class MaterialEditorApp : public wxOgreApp
 {
 public:
 	virtual ~MaterialEditorApp();
@@ -43,6 +44,6 @@ private:
 	Root* mRoot;
 };
 
-IMPLEMENT_APP(MaterialEditorApp)
+DECLARE_APP(MaterialEditorApp)
 
 #endif // _MATERIALEDITORAPP_H_

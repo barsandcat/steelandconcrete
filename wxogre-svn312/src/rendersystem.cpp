@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007-2008 Martin Pieuchot 
+ * Copyright (C) 2007-2008 Martin Pieuchot
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,11 +21,15 @@
 #include "wx/ogre/rendersystem.h"
 #include "wx/ogre/utils.h"
 
+#if OGRE_STATIC_LIB
+#include "OgreGLPlugin.h"
+#endif
+
 #if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
  #ifndef OGRE_PLUGINDIR
  #define OGRE_PLUGINDIR "/usr/local/lib/OGRE"
  #endif
-#else 
+#else
  #define OGRE_PLUGINDIR ""
 #endif
 
@@ -58,10 +62,16 @@ wxOgreRenderSystem::~wxOgreRenderSystem()
 void wxOgreRenderSystem::LoadPlugin(const Ogre::String& plugin)
 {
     try {
+#if OGRE_STATIC_LIB
+	// Gl renedr system
+    Ogre::Plugin* mGLPlugin = new Ogre::GLPlugin();
+    m_root->installPlugin(mGLPlugin);
+#else
 #if WXOGRE_DEBUG and OGRE_PLATFORM == OGRE_PLATFORM_WINDOWS
 		m_root->loadPlugin(OGRE_PLUGINDIR + plugin + "_d");
 #else
 		m_root->loadPlugin(OGRE_PLUGINDIR + plugin);
+#endif
 #endif
 	} catch (Ogre::Exception& e) {
         wxOgreExceptionBox(e);

@@ -40,12 +40,20 @@ using Ogre::ConfigFile;
 using Ogre::LogManager;
 using Ogre::ResourceGroupManager;
 
+IMPLEMENT_APP(MaterialEditorApp)
+
 MaterialEditorApp::~MaterialEditorApp()
 {
 }
 
 bool MaterialEditorApp::OnInit()
 {
+
+    // Initialize Ogre render system
+    m_rsys->LoadPlugin("RenderSystem_GL");
+    m_rsys->SelectOgreRenderSystem("OpenGL Rendering Subsystem");
+    m_rsys->Initialise();
+
 	wxInitAllImageHandlers();
 
 	// Create Selection Service
@@ -58,10 +66,17 @@ bool MaterialEditorApp::OnInit()
 	new IconManager();
 
 	MaterialEditorFrame* frame = new MaterialEditorFrame();
+
+    // load resources yeah!
+    m_res->LoadResourceFile("resources.cfg");
+    m_res->InitialiseAllResources();
+
 	frame->SetIcon(wxIcon(ogre_xpm));
 	frame->Show(true);
 
 	SetTopWindow(frame);
+
+    frame->CreateScene();
 
 	return true;
 }

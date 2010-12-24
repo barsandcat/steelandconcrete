@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007-2008 Martin Pieuchot 
+ * Copyright (C) 2007-2008 Martin Pieuchot
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -34,12 +34,12 @@ unsigned int wxOgreControl::m_instances = 0;
 
 BEGIN_EVENT_TABLE(wxOgreControl, wxControl)
     EVT_MOUSE_EVENTS    (wxOgreControl::OnMouseMove)
-    EVT_ERASE_BACKGROUND(wxOgreControl::OnEraseBackground) 
+    EVT_ERASE_BACKGROUND(wxOgreControl::OnEraseBackground)
     EVT_PAINT           (wxOgreControl::OnPaint)
     EVT_SIZE            (wxOgreControl::OnSize)
 END_EVENT_TABLE()
 
-IMPLEMENT_DYNAMIC_CLASS(wxOgreControl, wxControl)    
+IMPLEMENT_DYNAMIC_CLASS(wxOgreControl, wxControl)
 
 //------------------------------------------------------------------------------
 wxOgreControl::wxOgreControl()
@@ -47,7 +47,7 @@ wxOgreControl::wxOgreControl()
     Init();
 }
 //------------------------------------------------------------------------------
-wxOgreControl::wxOgreControl(wxWindow* parent, wxWindowID id, 
+wxOgreControl::wxOgreControl(wxWindow* parent, wxWindowID id,
                              const wxPoint& pos, const wxSize& size, long style,
                              const wxValidator& val, const wxString& name)
 {
@@ -64,7 +64,7 @@ bool wxOgreControl::Create(wxWindow* parent, wxWindowID id,
                            const wxPoint& pos, const wxSize& size, long style,
                            const wxValidator& val, const wxString& name)
 {
-    wxString instance_name = name + wxString::Format(wxT("%u"), m_instances); 
+    wxString instance_name = name + wxString::Format(wxT("%u"), m_instances);
 
     if (!wxControl::Create(parent, id, pos, size, style, val, instance_name)) {
         wxFAIL_MSG(wxT("wxOgreControl creation failed"));
@@ -166,6 +166,7 @@ void wxOgreControl::AddViewport(Ogre::Camera* cam, int ZOrder, float left,
 
     if (m_rwin) {
         m_vp = m_rwin->addViewport(cam, ZOrder, left, top, width, height);
+        m_vp->setBackgroundColour(Ogre::ColourValue(212.0f/255.0f, 208.0f/255.0f, 200.0f/255.0f, 1.0f));
     }
 }
 //------------------------------------------------------------------------------
@@ -177,7 +178,7 @@ Ogre::RenderWindow* wxOgreControl::CreateRenderWindow(const Ogre::String& name)
 		SetBackgroundStyle(wxBG_STYLE_CUSTOM);
 
     Ogre::NameValuePairList params;
-    GetParentWindowHandle(params); 
+    GetParentWindowHandle(params);
 
     int w, h;
     GetParent()->GetSize(&w, &h);
@@ -185,7 +186,7 @@ Ogre::RenderWindow* wxOgreControl::CreateRenderWindow(const Ogre::String& name)
     try {
         m_rwin = m_root->createRenderWindow(name, w, h, false, &params);
         m_rwin->setActive(true);
-				
+
         // Even if we are not always using Ogre's
         // rendering loop, set it as AutoUpdated
         // in case of...
@@ -214,7 +215,7 @@ void wxOgreControl::GetParentWindowHandle(Ogre::NameValuePairList& pl)
 
 #elif defined(__WXGTK20__)
 
-    /* 
+    /*
      * Ok here is the most important comment about the GTK+
      * part of this lib.
      *
@@ -235,16 +236,16 @@ void wxOgreControl::GetParentWindowHandle(Ogre::NameValuePairList& pl)
     /* May prevent from flickering */
     gtk_widget_set_double_buffered(widget, false);
 
-    /* 
+    /*
      * The frame need to be realize unless the parent
      * is already shown.
      */
     gtk_widget_realize(widget);
-    
+
     /* Get the window: this Control */
     GdkWindow* gdkWin = GTK_PIZZA(widget)->bin_window;
 	  XID        window = GDK_WINDOW_XWINDOW(gdkWin);
-	    
+
     /* Get the display */
     Display* display = GDK_WINDOW_XDISPLAY(gdkWin);
 		XSync(display, false);
@@ -261,7 +262,7 @@ void wxOgreControl::GetParentWindowHandle(Ogre::NameValuePairList& pl)
 #else // WXOGRE_OGRE_VER < 150
 
     pl["parentWindowHandle"] = all2std(window);
-    
+
 #endif
 
 #else
@@ -291,7 +292,7 @@ void wxOgreControl::SetSceneManager(Ogre::SceneManager* sm)
 //------------------------------------------------------------------------------
 void wxOgreControl::SetCamera(Ogre::Camera* cam)
 {
-    if (m_cam) 
+    if (m_cam)
         m_sm->destroyCamera(m_cam);
 
     int width, height;
