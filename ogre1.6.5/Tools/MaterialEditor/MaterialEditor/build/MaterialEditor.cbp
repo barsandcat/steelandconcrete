@@ -94,7 +94,6 @@
 		<Unit filename="../include/MaterialWizard.h" />
 		<Unit filename="../include/Observer.h" />
 		<Unit filename="../include/PassController.h" />
-		<Unit filename="../include/PassEventArgs.h" />
 		<Unit filename="../include/PassPage.h" />
 		<Unit filename="../include/PassPropertyGridPage.h" />
 		<Unit filename="../include/PassWizard.h" />
@@ -145,7 +144,6 @@
 		<Unit filename="../src/MaterialScriptEditor.cpp" />
 		<Unit filename="../src/MaterialWizard.cpp" />
 		<Unit filename="../src/PassController.cpp" />
-		<Unit filename="../src/PassEventArgs.cpp" />
 		<Unit filename="../src/PassPage.cpp" />
 		<Unit filename="../src/PassPropertyGridPage.cpp" />
 		<Unit filename="../src/PassWizard.cpp" />
