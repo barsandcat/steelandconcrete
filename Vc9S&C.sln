@@ -201,6 +201,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wxhtml", "wxMSW-2.8.11\buil
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wxaui", "wxMSW-2.8.11\build\msw\wx_aui.vcproj", "{80F49E07-D84F-4FD4-B642-94CD6B183414}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wxogre", "wxogre-svn312\wxogre.vcproj", "{1BF6EC53-9E57-4FB3-ABE9-E749625B7FB9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EC254F5B-99C9-47F0-A55A-3545264B6B2F} = {EC254F5B-99C9-47F0-A55A-3545264B6B2F}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -387,6 +392,10 @@ Global
 		{80F49E07-D84F-4FD4-B642-94CD6B183414}.Debug|Win32.Build.0 = Debug|Win32
 		{80F49E07-D84F-4FD4-B642-94CD6B183414}.Release|Win32.ActiveCfg = Release|Win32
 		{80F49E07-D84F-4FD4-B642-94CD6B183414}.Release|Win32.Build.0 = Release|Win32
+		{1BF6EC53-9E57-4FB3-ABE9-E749625B7FB9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1BF6EC53-9E57-4FB3-ABE9-E749625B7FB9}.Debug|Win32.Build.0 = Debug|Win32
+		{1BF6EC53-9E57-4FB3-ABE9-E749625B7FB9}.Release|Win32.ActiveCfg = Release|Win32
+		{1BF6EC53-9E57-4FB3-ABE9-E749625B7FB9}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
