@@ -352,7 +352,7 @@ void PassPropertyGridPage::propertyChanged(wxPropertyGridEvent& event)
 	wxPGId id = event.GetProperty();
 	if(id == mNameId)
 	{
-		mController->setName(Ogre::String(event.GetPropertyValueAsString().mb_str()));
+		mController->getPass()->setName(Ogre::String(event.GetPropertyValueAsString().mb_str()));
 	}
 	else if(id == mAmbientId)
 	{
@@ -368,15 +368,15 @@ void PassPropertyGridPage::propertyChanged(wxPropertyGridEvent& event)
 	}
 	else if(id == mShininessId)
 	{
-		mController->setShininess((Real)event.GetPropertyValueAsDouble());
+		mController->getPass()->setShininess((Real)event.GetPropertyValueAsDouble());
 	}
 	else if(id == mPointSizeId)
 	{
-		mController->setPointSize((Real)event.GetPropertyValueAsDouble());
+		mController->getPass()->setPointSize((Real)event.GetPropertyValueAsDouble());
 	}
 	else if(id == mPointSpritesId)
 	{
-		mController->setPointSpritesEnabled(event.GetPropertyValueAsBool());
+		mController->getPass()->setPointSpritesEnabled(event.GetPropertyValueAsBool());
 	}
 	//else if(id == mAttenuationId)
 	//{
@@ -384,99 +384,99 @@ void PassPropertyGridPage::propertyChanged(wxPropertyGridEvent& event)
 	else if(id == mPointAttenuationId)
 	{
 		const Pass* pass = mController->getPass();
-		mController->setPointAttenuation(event.GetPropertyValueAsBool(),
+		mController->getPass()->setPointAttenuation(event.GetPropertyValueAsBool(),
 			pass->getPointAttenuationConstant(), pass->getPointAttenuationLinear(),
 			pass->getPointAttenuationQuadratic());
 	}
 	else if(id == mPointMinSizeId)
 	{
-		mController->setPointMinSize((Real)event.GetPropertyValueAsDouble());
+		mController->getPass()->setPointMinSize((Real)event.GetPropertyValueAsDouble());
 	}
 	else if(id == mPointMaxSizeId)
 	{
-		mController->setPointMaxSize((Real)event.GetPropertyValueAsDouble());
+		mController->getPass()->setPointMaxSize((Real)event.GetPropertyValueAsDouble());
 	}
 	else if(id == mPointAttenuationConstantId)
 	{
 		const Pass* pass = mController->getPass();
-		mController->setPointAttenuation(pass->isPointAttenuationEnabled(),
+		mController->getPass()->setPointAttenuation(pass->isPointAttenuationEnabled(),
 			(Real)event.GetPropertyValueAsDouble(), pass->getPointAttenuationLinear(),
 			pass->getPointAttenuationQuadratic());
 	}
 	else if(id == mPointAttenuationLinearId)
 	{
 		const Pass* pass = mController->getPass();
-		mController->setPointAttenuation(pass->isPointAttenuationEnabled(),
+		mController->getPass()->setPointAttenuation(pass->isPointAttenuationEnabled(),
 			pass->getPointAttenuationConstant(), (Real)event.GetPropertyValueAsDouble(),
 			pass->getPointAttenuationQuadratic());
 	}
 	else if(id == mPointAttenuationQuadraticId)
 	{
 		const Pass* pass = mController->getPass();
-		mController->setPointAttenuation(pass->isPointAttenuationEnabled(),
+		mController->getPass()->setPointAttenuation(pass->isPointAttenuationEnabled(),
 			pass->getPointAttenuationConstant(), pass->getPointAttenuationLinear(),
 			(Real)event.GetPropertyValueAsDouble());
 	}
 	else if(id == mSceneBlendTypeId)
 	{
-		mController->setSceneBlending((SceneBlendType)event.GetPropertyValueAsInt());
+		mController->getPass()->setSceneBlending((SceneBlendType)event.GetPropertyValueAsInt());
 	}
 	else if(id == mSrcSceneBlendTypeId)
 	{
-		mController->setSceneBlending((SceneBlendFactor)event.GetPropertyValueAsInt(),
+		mController->getPass()->setSceneBlending((SceneBlendFactor)event.GetPropertyValueAsInt(),
 			mController->getPass()->getDestBlendFactor());
 	}
 	else if(id == mDestSceneBlendTypeId)
 	{
-		mController->setSceneBlending(mController->getPass()->getSourceBlendFactor(),
+		mController->getPass()->setSceneBlending(mController->getPass()->getSourceBlendFactor(),
 			(SceneBlendFactor)event.GetPropertyValueAsInt());
 	}
 	else if(id == mDepthCheckId)
 	{
-		mController->setDepthCheckEnabled(event.GetPropertyValueAsBool());
+		mController->getPass()->setDepthCheckEnabled(event.GetPropertyValueAsBool());
 	}
 	else if(id == mDepthWriteId)
 	{
-		mController->setDepthWriteEnabled(event.GetPropertyValueAsBool());
+		mController->getPass()->setDepthWriteEnabled(event.GetPropertyValueAsBool());
 	}
 	else if(id == mDepthFunctionId)
 	{
-		mController->setDepthFunction((CompareFunction)event.GetPropertyValueAsInt());
+		mController->getPass()->setDepthFunction((CompareFunction)event.GetPropertyValueAsInt());
 	}
 	//else if(id == mDepthBiasId)
 	//{
 	//}
 	else if(id == mDepthBiasConstantId)
 	{
-		mController->setDepthBias(event.GetPropertyValueAsDouble(), mController->getPass()->getDepthBiasSlopeScale());
+		mController->getPass()->setDepthBias(event.GetPropertyValueAsDouble(), mController->getPass()->getDepthBiasSlopeScale());
 	}
 	else if(id == mDepthBiasSlopeId)
 	{
-		mController->setDepthBias(mController->getPass()->getDepthBiasConstant(), event.GetPropertyValueAsDouble());
+		mController->getPass()->setDepthBias(mController->getPass()->getDepthBiasConstant(), event.GetPropertyValueAsDouble());
 	}
 	else if(id == mManualCullingModeId)
 	{
-		mController->setManualCullingMode((ManualCullingMode)event.GetPropertyValueAsInt());
+		mController->getPass()->setManualCullingMode((ManualCullingMode)event.GetPropertyValueAsInt());
 	}
 	else if(id == mLightingId)
 	{
-		mController->setLightingEnabled(event.GetPropertyValueAsBool());
+		mController->getPass()->setLightingEnabled(event.GetPropertyValueAsBool());
 	}
 	else if(id == mMaxLightsId)
 	{
-		mController->setMaxSimultaneousLights(event.GetPropertyValueAsInt());
+		mController->getPass()->setMaxSimultaneousLights(event.GetPropertyValueAsInt());
 	}
 	else if(id == mStartLightId)
 	{
-		mController->setStartLight(event.GetPropertyValueAsInt());
+		mController->getPass()->setStartLight(event.GetPropertyValueAsInt());
 	}
 	else if(id == mIterationId)
 	{
-		mController->setLightCountPerIteration(event.GetPropertyValueAsInt());
+		mController->getPass()->setLightCountPerIteration(event.GetPropertyValueAsInt());
 	}
 	else if(id == mShadingModeId)
 	{
-		mController->setShadingMode((ShadeOptions)event.GetPropertyValueAsInt());
+		mController->getPass()->setShadingMode((ShadeOptions)event.GetPropertyValueAsInt());
 	}
 	else if(id == mSelfIlluminationId)
 	{
@@ -485,40 +485,40 @@ void PassPropertyGridPage::propertyChanged(wxPropertyGridEvent& event)
 	else if(id == mOverrideSceneId)
 	{
 		const Pass* pass = mController->getPass();
-		mController->setFog(event.GetPropertyValueAsBool(), pass->getFogMode(), pass->getFogColour(),
+		mController->getPass()->setFog(event.GetPropertyValueAsBool(), pass->getFogMode(), pass->getFogColour(),
 			pass->getFogDensity(), pass->getFogStart(), pass->getFogEnd());
 	}
 	else if(id == mFogOverrideId)
 	{
 		const Pass* pass = mController->getPass();
-		mController->setFog(event.GetPropertyValueAsBool(), pass->getFogMode(), pass->getFogColour(),
+		mController->getPass()->setFog(event.GetPropertyValueAsBool(), pass->getFogMode(), pass->getFogColour(),
 			pass->getFogDensity(), pass->getFogStart(), pass->getFogEnd());
 	}
 	else if(id == mFogModeId)
 	{
 		const Pass* pass = mController->getPass();
-		mController->setFog(pass->getFogOverride(), (FogMode)event.GetPropertyValueAsInt(), pass->getFogColour(),
+		mController->getPass()->setFog(pass->getFogOverride(), (FogMode)event.GetPropertyValueAsInt(), pass->getFogColour(),
 			pass->getFogDensity(), pass->getFogStart(), pass->getFogEnd());
 	}
 	else if(id == mAlphaRejectFuncId)
 	{
-		mController->setAlphaRejectFunction((CompareFunction)event.GetPropertyValueAsInt());
+		mController->getPass()->setAlphaRejectFunction((CompareFunction)event.GetPropertyValueAsInt());
 	}
 	else if(id == mAlphaRejectValueId)
 	{
-		mController->setAlphaRejectValue(event.GetPropertyValueAsInt());
+		mController->getPass()->setAlphaRejectValue(event.GetPropertyValueAsInt());
 	}
 	else if(id == mColourWriteId)
 	{
-		mController->setColourWriteEnabled(event.GetPropertyValueAsBool());
+		mController->getPass()->setColourWriteEnabled(event.GetPropertyValueAsBool());
 	}
 	else if(id == mPolygonModeId)
 	{
-		mController->setPolygonMode((PolygonMode)event.GetPropertyValueAsInt());
+		mController->getPass()->setPolygonMode((PolygonMode)event.GetPropertyValueAsInt());
 	}
 	else if(id == mTrackVertexColourTypeId)
 	{
-		mController->setVertexColourTracking((TrackVertexColourType)event.GetPropertyValueAsInt());
+		mController->getPass()->setVertexColourTracking((TrackVertexColourType)event.GetPropertyValueAsInt());
 	}
 }
 
