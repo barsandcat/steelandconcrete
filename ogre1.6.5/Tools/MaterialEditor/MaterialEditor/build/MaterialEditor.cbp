@@ -188,7 +188,7 @@
 			<code_completion />
 			<envvars />
 			<debugger />
-			<lib_finder disable_auto="1">
+			<lib_finder disable_auto="0">
 				<lib name="gtk+-2.0" />
 				<lib name="x11" />
 				<lib name="zziplib" />
