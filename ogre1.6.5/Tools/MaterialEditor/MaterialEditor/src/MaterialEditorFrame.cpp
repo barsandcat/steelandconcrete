@@ -65,7 +65,7 @@ http://www.gnu.org/copyleft/lesser.txt
 #include "ProjectWizard.h"
 #include "ResourcePanel.h"
 #include "WorkspacePanel.h"
-#include "wxOgre.h"
+#include <wx/ogre/ogre.h>
 
 #if OGRE_STATIC_LIB
 #include "OgreGLPlugin.h"
@@ -204,13 +204,7 @@ void MaterialEditorFrame::createAuiNotebookPane()
 	// Create EditorManager singleton
 	new EditorManager(mAuiNotebook);
 
-	wxAuiPaneInfo info;
-
-	info.Floatable(false);
-	info.Movable(false);
-	info.CenterPane();
-
-	mAuiManager->AddPane(mAuiNotebook, info);
+	mAuiManager->AddPane(mAuiNotebook, wxLEFT);
 }
 
 void MaterialEditorFrame::createManagementPane()
@@ -268,69 +262,23 @@ void MaterialEditorFrame::createPropertiesPane()
 	mAuiManager->AddPane(mPropertiesPanel, info);
 }
 
+void MaterialEditorFrame::CreateScene()
+{
+    /*m_sm =*/ mOgreControl->CreateSceneManager(Ogre::ST_GENERIC);
+
+    //Ogre::Entity* ent = m_sm->createEntity("head", "ogrehead.mesh");
+    //Ogre::SceneNode* no = m_sm->getRootSceneNode()->createChildSceneNode();
+
+    //no->setPosition(0, 0, -120);
+    //no->attachObject(ent);
+
+    mOgreControl->Refresh();
+}
+
 void MaterialEditorFrame::createOgrePane()
 {
-	mRoot = new Ogre::Root();
-#if OGRE_STATIC_LIB
-	// Gl renedr system
-    Ogre::Plugin* mGLPlugin = new Ogre::GLPlugin();
-    mRoot->installPlugin(mGLPlugin);
-#endif
 
-	// Find Render Systems
-	// Testing only, this will be deleted once Projects can tell us
-	// which rendering system they want used
-	mDirectXRenderSystem = NULL;
-	mOpenGLRenderSystem = NULL;
-	RenderSystemList *rl = mRoot->getAvailableRenderers();
-	if (rl->empty())
-	{
-		wxMessageBox(wxT("No render systems found"), wxT("Error"));
-		return;
-	}
-	for(RenderSystemList::iterator it = rl->begin(); it != rl->end(); ++it)
-	{
-		Ogre::RenderSystem *rs = (*it);
-		rs->setConfigOption("Full Screen", "No");
-		rs->setConfigOption("VSync", "No");
-		rs->setConfigOption("Video Mode", "512 x 512 @ 32-bit");
-
-		if(rs->getName() == "OpenGL Rendering Subsystem")
-			mOpenGLRenderSystem = *it;
-		else if(rs->getName() == "Direct3D9 Rendering Subsystem")
-			mDirectXRenderSystem = *it;
-	}
-
-	// We'll see if there is already and Ogre.cfg, if not we'll
-	// default to OpenGL since we know that will work on all
-	// platforms
-	if(!mRoot->restoreConfig())
-	{
-		mRoot->setRenderSystem(mOpenGLRenderSystem);
-	}
-
-	mOgreControl = new wxOgre(this);
-
-	ConfigFile cf;
-	cf.load("resources.cfg");
-
-	ConfigFile::SectionIterator seci = cf.getSectionIterator();
-
-	Ogre::String secName, typeName, archName;
-	while(seci.hasMoreElements())
-	{
-		secName = seci.peekNextKey();
-		ConfigFile::SettingsMultiMap *settings = seci.getNext();
-		ConfigFile::SettingsMultiMap::iterator i;
-		for(i = settings->begin(); i != settings->end(); ++i)
-		{
-			typeName = i->first;
-			archName = i->second;
-			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(archName, typeName, secName);
-		}
-	}
-
-	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+	mOgreControl = new wxOgreControl(this, wxID_ANY, wxDefaultPosition, this->GetClientSize());
 
 	mAuiManager->AddPane(mOgreControl, wxCENTER);
 }
@@ -503,8 +451,9 @@ void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
 		}
 		else if(path.EndsWith(wxT(".mesh")))
 		{
-			Ogre::SceneManager *sceneMgr = wxOgre::getSingleton().getSceneManager();
-			Ogre::Camera *camera = wxOgre::getSingleton().getCamera();
+
+			Ogre::Camera *camera = mOgreControl->GetCamera();
+			Ogre::SceneManager *sceneMgr = camera->getSceneManager();
 
 			if(mEntity)
 			{
@@ -528,8 +477,9 @@ void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
 			Ogre::Vector3 maxPoint = box.getMaximum();
 			Ogre::Vector3 size = box.getSize();
 
-			wxOgre::getSingleton().setZoomScale(max(size.x, max(size.y, size.z)));
-			wxOgre::getSingleton().resetCamera();
+
+			//wxOgre::getSingleton().setZoomScale(max(size.x, max(size.y, size.z)));
+			//wxOgre::getSingleton().resetCamera();
 
 			Ogre::Vector3 camPos;
 			camPos.x = minPoint.x + (size.x / 2.0);
@@ -537,10 +487,10 @@ void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
 			Ogre::Real width = max(size.x, size.y);
 			camPos.z = (width / tan(camera->getFOVy().valueRadians())) + size.z / 2;
 
-			wxOgre::getSingleton().getCamera()->setPosition(camPos);
-			wxOgre::getSingleton().getCamera()->lookAt(0,0,0);
+			camera->setPosition(camPos);
+			camera->lookAt(0,0,0);
 
-			wxOgre::getSingleton().getLight()->setPosition(maxPoint * 2);
+			//wxOgre::getSingleton().getLight()->setPosition(maxPoint * 2);
 		}
 	}
 }

@@ -50,14 +50,14 @@ class LogPanel;
 class PropertiesPanel;
 class ResourcePanel;
 class WorkspacePanel;
-class wxOgre;
+class wxOgreControl;
 
 class MaterialEditorFrame : public wxFrame
 {
 public:
 	MaterialEditorFrame(wxWindow* parent = NULL);
 	~MaterialEditorFrame();
-
+    void CreateScene();
 protected:
 	void createAuiManager(void);
 	void createAuiNotebookPane(void);
@@ -113,10 +113,10 @@ private:
 
 	Ogre::Root* mRoot;
 	Ogre::Entity* mEntity;
-	
+
 	LogPanel* mLogPanel;
 	DocPanel* mDocPanel;
-	wxOgre* mOgreControl;
+	wxOgreControl* mOgreControl;
 
 	Ogre::RenderSystem* mDirectXRenderSystem;
 	Ogre::RenderSystem* mOpenGLRenderSystem;
