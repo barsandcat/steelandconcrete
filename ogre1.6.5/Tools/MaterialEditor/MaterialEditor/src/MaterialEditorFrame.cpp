@@ -266,10 +266,10 @@ void MaterialEditorFrame::CreateScene()
 {
     m_sm = mOgreControl->CreateSceneManager(Ogre::ST_GENERIC);
 
-    Ogre::Entity* ent = m_sm->createEntity("head", "Febra.mesh");
+    Ogre::Entity* ent = m_sm->createEntity("Display", Ogre::SceneManager::PT_CUBE);
     Ogre::SceneNode* no = m_sm->getRootSceneNode()->createChildSceneNode();
 
-    no->setPosition(0, 0, -120);
+    no->setPosition(0, 0, -200);
     no->attachObject(ent);
 
     mOgreControl->Refresh();
