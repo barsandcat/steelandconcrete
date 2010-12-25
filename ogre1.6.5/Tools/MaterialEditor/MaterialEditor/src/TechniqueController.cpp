@@ -79,7 +79,7 @@ PassController* TechniqueController::createPass(void)
 	Pass* pass = mTechnique->createPass();
 
 	// Create controller
-	PassController* pc = new PassController(this, pass);
+	PassController* pc = new PassController(pass);
 	mPassControllers.push_back(pc);
 
 	fireEvent(PassAdded, TechniqueEventArgs(this, pc));
@@ -93,7 +93,7 @@ PassController* TechniqueController::createPass(const String& name)
 	pass->setName(name);
 
 	// Create controller
-	PassController* pc = new PassController(this, pass);
+	PassController* pc = new PassController(pass);
 	mPassControllers.push_back(pc);
 
 	fireEvent(PassAdded, TechniqueEventArgs(this, pc));
