@@ -28,20 +28,3 @@ Torus Knot Software Ltd.
 */
 #include "PassController.h"
 
-#include "OgrePass.h"
-#include "TechniqueController.h"
-
-PassController::PassController(Pass* pass)
-: mPass(pass)
-{
-}
-
-PassController::~PassController()
-{
-}
-
-Pass* PassController::getPass() const
-{
-	return mPass;
-}
-

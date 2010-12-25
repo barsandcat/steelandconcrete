@@ -45,11 +45,15 @@ class MaterialController;
 class PassController;
 class Project;
 class TechniqueController;
+namespace Ogre
+{
+    class Pass;
+}
 
 typedef std::map<Project*, wxTreeItemId> ProjectIdMap;
 typedef std::map<MaterialController*, wxTreeItemId> MaterialIdMap;
 typedef std::map<TechniqueController*, wxTreeItemId> TechniqueIdMap;
-typedef std::map<PassController*, wxTreeItemId> PassIdMap;
+typedef std::map<Ogre::Pass*, wxTreeItemId> PassIdMap;
 
 class WorkspacePanel : public wxPanel
 {
@@ -100,7 +104,7 @@ public:
 protected:
 	void createPanel();
 	wxImageList* getImageList();
-	
+
 	void appendNewMenu(wxMenu* menu);
 	void showContextMenu(wxPoint point, wxTreeItemId id);
 	void appendProjectMenuItems(wxMenu* menu);
@@ -111,7 +115,7 @@ protected:
 	Project* getProject(wxTreeItemId id);
 	MaterialController* getMaterial(wxTreeItemId id);
 	TechniqueController* getTechnique(wxTreeItemId id);
-	PassController* getPass(wxTreeItemId id);
+	Ogre::Pass* getPass(wxTreeItemId id);
 
 	bool isWorkspace(wxTreeItemId id);
 	bool isProject(wxTreeItemId id);

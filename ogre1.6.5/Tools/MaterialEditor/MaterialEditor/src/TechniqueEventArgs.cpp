@@ -34,7 +34,7 @@ TechniqueEventArgs::TechniqueEventArgs(TechniqueController* tc)
 {
 }
 
-TechniqueEventArgs::TechniqueEventArgs(TechniqueController* tc, PassController* pc)
+TechniqueEventArgs::TechniqueEventArgs(TechniqueController* tc, Ogre::Pass* pc)
 : mTechniqueController(tc), mPassController(pc)
 {
 }
@@ -44,7 +44,7 @@ TechniqueController* TechniqueEventArgs::getTechniqueController() const
 	return mTechniqueController;
 }
 
-PassController* TechniqueEventArgs::getPassController() const
+Ogre::Pass* TechniqueEventArgs::getPassController() const
 {
 	return mPassController;
 }

@@ -74,31 +74,26 @@ const PassControllerList* TechniqueController::getPassControllers() const
 	return &mPassControllers;
 }
 
-PassController* TechniqueController::createPass(void)
+Ogre::Pass* TechniqueController::createPass(void)
 {
 	Pass* pass = mTechnique->createPass();
+	mPassControllers.push_back(pass);
 
-	// Create controller
-	PassController* pc = new PassController(pass);
-	mPassControllers.push_back(pc);
+	fireEvent(PassAdded, TechniqueEventArgs(this, pass));
 
-	fireEvent(PassAdded, TechniqueEventArgs(this, pc));
-
-	return pc;
+	return pass;
 }
 
-PassController* TechniqueController::createPass(const String& name)
+Ogre::Pass* TechniqueController::createPass(const String& name)
 {
 	Pass* pass = mTechnique->createPass();
 	pass->setName(name);
 
-	// Create controller
-	PassController* pc = new PassController(pass);
-	mPassControllers.push_back(pc);
+	mPassControllers.push_back(pass);
 
-	fireEvent(PassAdded, TechniqueEventArgs(this, pc));
+	fireEvent(PassAdded, TechniqueEventArgs(this, pass));
 
-	return pc;
+	return pass;
 }
 
 void TechniqueController::removeAllPasses(void)
@@ -138,63 +133,63 @@ void TechniqueController::setAmbient(const ColourValue& ambient)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setAmbient(ambient);
+		(*it)->setAmbient(ambient);
 }
 
 void TechniqueController::setAmbient(Real red, Real green, Real blue)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setAmbient(red, green, blue);
+		(*it)->setAmbient(red, green, blue);
 }
 
 void TechniqueController::setColourWriteEnabled(bool enabled)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setColourWriteEnabled(enabled);
+		(*it)->setColourWriteEnabled(enabled);
 }
 
 void TechniqueController::setCullingMode(CullingMode mode)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setCullingMode(mode);
+		(*it)->setCullingMode(mode);
 }
 
 void TechniqueController::setDepthBias(float constantBias, float slopeScaleBias)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setDepthBias(constantBias, slopeScaleBias);
+		(*it)->setDepthBias(constantBias, slopeScaleBias);
 }
 
 void TechniqueController::setDepthCheckEnabled(bool enabled)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setDepthCheckEnabled(enabled);
+		(*it)->setDepthCheckEnabled(enabled);
 }
 
 void TechniqueController::setDepthFunction(CompareFunction func)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setDepthFunction(func);
+		(*it)->setDepthFunction(func);
 }
 
 void TechniqueController::setDepthWriteEnabled(bool enabled)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setDepthWriteEnabled(enabled);
+		(*it)->setDepthWriteEnabled(enabled);
 }
 
 void TechniqueController::setDiffuse(const ColourValue&  diffuse)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setDiffuse(diffuse);
+		(*it)->setDiffuse(diffuse);
 }
 
 
@@ -202,104 +197,104 @@ void TechniqueController::setDiffuse(Real red, Real green, Real blue, Real alpha
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setDiffuse(red, green, blue, alpha);
+		(*it)->setDiffuse(red, green, blue, alpha);
 }
 
 void TechniqueController::setFog(bool overrideScene, FogMode mode /* = FOG_NONE */, const ColourValue& colour /* = ColourValue::White */, Real expDensity /* = 0.001 */, Real linearStart /* = 0.0 */, Real linearEnd /* = 1.0 */)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setFog(overrideScene, mode, colour, expDensity, linearStart, linearEnd);
+		(*it)->setFog(overrideScene, mode, colour, expDensity, linearStart, linearEnd);
 }
 
 void TechniqueController::setLightingEnabled(bool enabled)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setLightingEnabled(true);
+		(*it)->setLightingEnabled(true);
 }
 
 void TechniqueController::setManualCullingMode(ManualCullingMode mode)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setManualCullingMode(mode);
+		(*it)->setManualCullingMode(mode);
 }
 
 void TechniqueController::setPointSize(Real ps)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setPointSize(ps);
+		(*it)->setPointSize(ps);
 }
 
 void TechniqueController::setSceneBlending(const SceneBlendFactor sourceFactor, const SceneBlendFactor  destFactor)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setSceneBlending(sourceFactor, destFactor);
+		(*it)->setSceneBlending(sourceFactor, destFactor);
 }
 
 void TechniqueController::setSceneBlending(const SceneBlendType sbt)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setSceneBlending(sbt);
+		(*it)->setSceneBlending(sbt);
 }
 
 void TechniqueController::setSelfIllumination(const ColourValue& selfIllum)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setSelfIllumination(selfIllum);
+		(*it)->setSelfIllumination(selfIllum);
 }
 
 void TechniqueController::setSelfIllumination(Real red, Real green, Real blue)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setSelfIllumination(red, green, blue);
+		(*it)->setSelfIllumination(red, green, blue);
 }
 
 void TechniqueController::setShadingMode(ShadeOptions mode)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setShadingMode(mode);
+		(*it)->setShadingMode(mode);
 }
 
 void TechniqueController::setShininess(Real val)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setShininess(val);
+		(*it)->setShininess(val);
 }
 
 void TechniqueController::setSpecular(const ColourValue& specular)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setSpecular(specular);
+		(*it)->setSpecular(specular);
 }
 
 void TechniqueController::setSpecular(Real red, Real green, Real blue, Real alpha)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setSpecular(red, green, blue, alpha);
+		(*it)->setSpecular(red, green, blue, alpha);
 }
 
 void TechniqueController::setTextureAnisotropy(unsigned int maxAniso)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setTextureAnisotropy(maxAniso);
+		(*it)->setTextureAnisotropy(maxAniso);
 }
 
 void TechniqueController::setTextureFiltering(TextureFilterOptions filterType)
 {
 	PassControllerList::iterator it;
 	for(it = mPassControllers.begin(); it != mPassControllers.end(); ++it)
-		(*it)->getPass()->setTextureFiltering(filterType);
+		(*it)->setTextureFiltering(filterType);
 }
 

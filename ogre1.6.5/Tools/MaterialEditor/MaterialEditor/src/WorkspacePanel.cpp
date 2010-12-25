@@ -226,7 +226,7 @@ TechniqueController* WorkspacePanel::getTechnique(wxTreeItemId id)
 	return NULL;
 }
 
-PassController* WorkspacePanel::getPass(wxTreeItemId id)
+Ogre::Pass* WorkspacePanel::getPass(wxTreeItemId id)
 {
 	for(PassIdMap::iterator it = mPassIdMap.begin(); it != mPassIdMap.end(); ++it)
 	{
@@ -605,10 +605,10 @@ void WorkspacePanel::techniquePassAdded(EventArgs& args)
 {
 	TechniqueEventArgs tea = dynamic_cast<TechniqueEventArgs&>(args);
 	TechniqueController* tc = tea.getTechniqueController();
-	PassController* pc = tea.getPassController();
+	Ogre::Pass* pc = tea.getPassController();
 
 	wxTreeItemId techniqueId = mTechniqueIdMap[tc];
-	wxTreeItemId id = mTreeCtrl->AppendItem(techniqueId, wxString(pc->getPass()->getName().c_str(), wxConvUTF8), PASS_IMAGE);
+	wxTreeItemId id = mTreeCtrl->AppendItem(techniqueId, wxString(pc->getName().c_str(), wxConvUTF8), PASS_IMAGE);
 	mTreeCtrl->SelectItem(id, true);
 
 	mPassIdMap[pc] = id;

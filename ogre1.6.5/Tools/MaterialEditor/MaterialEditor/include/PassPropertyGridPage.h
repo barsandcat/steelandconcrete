@@ -31,13 +31,16 @@ Torus Knot Software Ltd.
 
 #include <wx/wx.h>
 #include <wx/propgrid/manager.h>
+namespace Ogre
+{
+class Pass;
+}
 
-class PassController;
 
 class PassPropertyGridPage : public wxPropertyGridPage
 {
 public:
-	PassPropertyGridPage(PassController* controller);
+	PassPropertyGridPage(Ogre::Pass* controller);
 	virtual ~PassPropertyGridPage();
 
 	virtual void populate();
@@ -55,8 +58,8 @@ protected:
 	virtual void createMiscCategory();
 
 	virtual void propertyChanged(wxPropertyGridEvent& event);
-	
-	PassController* mController;
+
+	Ogre::Pass* mController;
 
 	wxPGId mNameId;
 

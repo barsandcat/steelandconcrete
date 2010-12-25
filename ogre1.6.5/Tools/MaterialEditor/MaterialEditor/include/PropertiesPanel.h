@@ -32,7 +32,10 @@ Torus Knot Software Ltd.
 #include <map>
 
 #include <wx/panel.h>
-
+namespace Ogre
+{
+    class Pass;
+}
 class wxGridSizer;
 class wxPropertyGridManager;
 
@@ -52,7 +55,7 @@ class TechniquePropertyGridPage;
 //typedef std::map<Project*, ProjectP> ProjectPageMap;
 typedef std::map<MaterialController*, int> MaterialPageIndexMap;
 typedef std::map<TechniqueController*, int> TechniquePageIndexMap;
-typedef std::map<PassController*, int> PassPageIndexMap;
+typedef std::map<Ogre::Pass*, int> PassPageIndexMap;
 
 class PropertiesPanel : public wxPanel
 {

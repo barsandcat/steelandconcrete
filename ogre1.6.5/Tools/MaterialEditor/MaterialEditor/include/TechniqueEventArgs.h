@@ -29,21 +29,25 @@ http://www.gnu.org/copyleft/lesser.txt
 
 #include "EventArgs.h"
 
-class PassController;
+namespace Ogre
+{
+    class Pass;
+}
+
 class TechniqueController;
 
 class TechniqueEventArgs : public EventArgs
 {
 public:
 	TechniqueEventArgs(TechniqueController* tc);
-	TechniqueEventArgs(TechniqueController* tc, PassController* pc);
+	TechniqueEventArgs(TechniqueController* tc, Ogre::Pass* pc);
 
 	TechniqueController* getTechniqueController() const;
-	PassController* getPassController() const;
+	Ogre::Pass* getPassController() const;
 
 protected:
 	TechniqueController* mTechniqueController;
-	PassController* mPassController;
+	Ogre::Pass* mPassController;
 };
 
 #endif // _PROJECTEVENTARGS_H_
