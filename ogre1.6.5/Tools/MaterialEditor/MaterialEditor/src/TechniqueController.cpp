@@ -31,7 +31,6 @@ Torus Knot Software Ltd.
 #include "OgreTechnique.h"
 
 #include "MaterialController.h"
-#include "PassController.h"
 #include "TechniqueEventArgs.h"
 
 TechniqueController::TechniqueController(Technique* technique)

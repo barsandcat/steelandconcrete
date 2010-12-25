@@ -42,7 +42,6 @@ class wxMenu;
 
 class EventArgs;
 class MaterialController;
-class PassController;
 class Project;
 class TechniqueController;
 namespace Ogre

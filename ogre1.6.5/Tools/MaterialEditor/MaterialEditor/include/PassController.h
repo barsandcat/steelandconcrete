@@ -1,5 +1,0 @@
-#ifndef _PASSCONTROLLER_H_
-#define _PASSCONTROLLER_H_
-
-
-#endif // _PASSCONTROLLER_H_

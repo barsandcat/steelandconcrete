@@ -29,7 +29,6 @@ http://www.gnu.org/copyleft/lesser.txt
 #include <wx/sizer.h>
 
 #include "MaterialController.h"
-#include "PassController.h"
 #include "Project.h"
 #include "TechniqueController.h"
 #include "TechniquePage.h"

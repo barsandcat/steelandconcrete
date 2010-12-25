@@ -279,14 +279,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\PassController.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\PassEventArgs.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\PassPage.cpp"
 				>
 			</File>
@@ -356,10 +348,6 @@
 			</File>
 			<File
 				RelativePath="..\src\TechniqueWizard.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\TextureUnitController.cpp"
 				>
 			</File>
 			<File
@@ -489,14 +477,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\PassController.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\PassEventArgs.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\PassPage.h"
 				>
 			</File>
@@ -574,10 +554,6 @@
 			</File>
 			<File
 				RelativePath="..\include\TechniqueWizard.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\TextureUnitController.h"
 				>
 			</File>
 			<File

@@ -26,7 +26,6 @@ http://www.gnu.org/copyleft/lesser.txt
 */
 #include "TechniqueEventArgs.h"
 
-#include "PassController.h"
 #include "TechniqueController.h"
 
 TechniqueEventArgs::TechniqueEventArgs(TechniqueController* tc)
