@@ -203,6 +203,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wxaui", "wxMSW-2.8.11\build\msw\wx_aui.vcproj", "{80F49E07-D84F-4FD4-B642-94CD6B183414}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wxogre", "wxogre-svn312\wxogre.vcproj", "{1BF6EC53-9E57-4FB3-ABE9-E749625B7FB9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D215484E-F216-434B-ADCE-5AF22F448D4C} = {D215484E-F216-434B-ADCE-5AF22F448D4C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
