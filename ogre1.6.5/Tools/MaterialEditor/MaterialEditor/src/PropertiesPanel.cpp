@@ -163,9 +163,9 @@ void PropertiesPanel::selectionChanged(EventArgs& args)
 				mPropertyGrid->SelectPage(index);
 			}
 		}
-		else if(sel.type() == typeid(PassController*))
+		else if(sel.type() == typeid(Ogre::Pass*))
 		{
-			PassController* pc = any_cast<PassController*>(sel);
+			Ogre::Pass* pc = any_cast<Ogre::Pass*>(sel);
 
 			PassPageIndexMap::iterator it = mPassPageIndexMap.find(pc);
 			if(it != mPassPageIndexMap.end())
@@ -193,7 +193,7 @@ void PropertiesPanel::selectionChanged(EventArgs& args)
 void PropertiesPanel::projectRemoved(EventArgs& args)
 {
 	// Consider: Should this method also attempt to remove all
-	//           of the page associated with this Projects, 
+	//           of the page associated with this Projects,
 	//           Materials, Techniques, and Passes?
 }
 
@@ -233,7 +233,7 @@ void PropertiesPanel::techniqueRemoved(EventArgs& args)
 void PropertiesPanel::passRemoved(EventArgs& args)
 {
 	TechniqueEventArgs tea = dynamic_cast<TechniqueEventArgs&>(args);
-	PassController* pc = tea.getPassController();
+	Ogre::Pass* pc = tea.getPassController();
 
 	PassPageIndexMap::iterator it = mPassPageIndexMap.find(pc);
 	if(it != mPassPageIndexMap.end())

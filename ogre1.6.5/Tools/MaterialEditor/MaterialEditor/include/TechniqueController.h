@@ -48,12 +48,12 @@ class PassController;
 
 using namespace Ogre;
 
-typedef std::list<PassController*> PassControllerList;
+typedef std::list<Ogre::Pass*> PassControllerList;
 
 class TechniqueController : public EventContainer
 {
 public:
-	enum TechniqueEvent 
+	enum TechniqueEvent
 	{
 		NameChanged,
 		SchemeChanged,
@@ -70,8 +70,8 @@ public:
 	const Technique* getTechnique() const;
 	const PassControllerList* getPassControllers() const;
 
-	PassController* createPass(void);
-	PassController* createPass(const String& name);
+	Ogre::Pass* createPass(void);
+	Ogre::Pass* createPass(const String& name);
 	void removeAllPasses(void);
 	void removePass(unsigned short index);
 
@@ -82,28 +82,28 @@ public:
 
 	void setAmbient(const ColourValue& ambient);
 	void setAmbient(Real red, Real green, Real blue);
-	void setColourWriteEnabled(bool enabled);   
-	void setCullingMode(CullingMode mode);   
-	void setDepthBias(float constantBias, float slopeScaleBias);   
-	void setDepthCheckEnabled(bool enabled);  
+	void setColourWriteEnabled(bool enabled);
+	void setCullingMode(CullingMode mode);
+	void setDepthBias(float constantBias, float slopeScaleBias);
+	void setDepthCheckEnabled(bool enabled);
 	void setDepthFunction(CompareFunction func);
-	void setDepthWriteEnabled(bool enabled);   
+	void setDepthWriteEnabled(bool enabled);
 	void setDiffuse(const ColourValue&  diffuse);
-	void setDiffuse(Real red, Real green, Real blue, Real alpha);   
-	void setFog(bool overrideScene, FogMode mode = FOG_NONE, const ColourValue& colour = ColourValue::White, Real expDensity = 0.001, Real linearStart = 0.0, Real linearEnd = 1.0);   
+	void setDiffuse(Real red, Real green, Real blue, Real alpha);
+	void setFog(bool overrideScene, FogMode mode = FOG_NONE, const ColourValue& colour = ColourValue::White, Real expDensity = 0.001, Real linearStart = 0.0, Real linearEnd = 1.0);
 	void setLightingEnabled(bool enabled);
 	void setManualCullingMode(ManualCullingMode mode);
-	void setPointSize(Real ps);   
-	void setSceneBlending(const SceneBlendFactor sourceFactor, const SceneBlendFactor  destFactor);   
-	void setSceneBlending(const SceneBlendType sbt);   
-	void setSelfIllumination(const ColourValue& selfIllum);   
-	void setSelfIllumination(Real red, Real green, Real blue);   
-	void setShadingMode(ShadeOptions mode);   
-	void setShininess(Real val);   
-	void setSpecular(const ColourValue& specular);   
-	void setSpecular(Real red, Real green, Real blue, Real alpha);   
-	void setTextureAnisotropy(unsigned int maxAniso);   
-	void setTextureFiltering(TextureFilterOptions filterType);   
+	void setPointSize(Real ps);
+	void setSceneBlending(const SceneBlendFactor sourceFactor, const SceneBlendFactor  destFactor);
+	void setSceneBlending(const SceneBlendType sbt);
+	void setSelfIllumination(const ColourValue& selfIllum);
+	void setSelfIllumination(Real red, Real green, Real blue);
+	void setShadingMode(ShadeOptions mode);
+	void setShininess(Real val);
+	void setSpecular(const ColourValue& specular);
+	void setSpecular(Real red, Real green, Real blue, Real alpha);
+	void setTextureAnisotropy(unsigned int maxAniso);
+	void setTextureFiltering(TextureFilterOptions filterType);
 
 protected:
 	void registerEvents();
