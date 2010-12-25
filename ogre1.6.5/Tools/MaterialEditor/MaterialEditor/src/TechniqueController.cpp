@@ -55,16 +55,6 @@ const Technique* TechniqueController::getTechnique() const
 	return  mTechnique;
 }
 
-Ogre::Pass* TechniqueController::createPass(void)
-{
-	Pass* pass = mTechnique->createPass();
-	mPassControllers.push_back(pass);
-
-	fireEvent(PassAdded, TechniqueEventArgs(this, pass));
-
-	return pass;
-}
-
 Ogre::Pass* TechniqueController::createPass(const String& name)
 {
 	Pass* pass = mTechnique->createPass();

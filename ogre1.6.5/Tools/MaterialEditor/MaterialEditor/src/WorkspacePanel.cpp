@@ -269,7 +269,6 @@ void WorkspacePanel::subscribe(Project* project)
 
 void WorkspacePanel::subscribe(MaterialController* material)
 {
-	material->subscribe(MaterialController::NameChanged, boost::bind(&WorkspacePanel::materialNameChanged, this, _1));
 	material->subscribe(MaterialController::TechniqueAdded, boost::bind(&WorkspacePanel::materialTechniqueAdded, this, _1));
 	material->subscribe(MaterialController::TechniqueRemoved, boost::bind(&WorkspacePanel::materialTechniqueRemoved, this, _1));
 }
@@ -560,15 +559,6 @@ void WorkspacePanel::projectMaterialAdded(EventArgs& args)
 void WorkspacePanel::projectMaterialRemoved(EventArgs& args)
 {
 	// TODO: Implement projectMaterialRemoved
-}
-
-void WorkspacePanel::materialNameChanged(EventArgs& args)
-{
-	MaterialEventArgs mea = dynamic_cast<MaterialEventArgs&>(args);
-	MaterialController* mc = mea.getMaterialController();
-
-	wxTreeItemId materialId = mMaterialIdMap[mc];
-	mTreeCtrl->SetItemText(materialId, wxString(mc->getMaterial()->getName().c_str(), wxConvUTF8));
 }
 
 void WorkspacePanel::materialTechniqueAdded(EventArgs& args)
