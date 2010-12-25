@@ -38,7 +38,6 @@ Torus Knot Software Ltd.
 #include "OgreTechnique.h"
 
 #include "MaterialController.h"
-#include "PassController.h"
 #include "Project.h"
 #include "TechniqueController.h"
 #include "Workspace.h"

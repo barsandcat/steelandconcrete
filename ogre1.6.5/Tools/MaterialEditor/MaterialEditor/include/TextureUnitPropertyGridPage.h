@@ -31,14 +31,15 @@ Torus Knot Software Ltd.
 
 #include <wx/wx.h>
 #include <wx/propgrid/manager.h>
-
-class TextureUnitController;
-class EventArgs;
+namespace Ogre
+{
+	class TextureUnitState;
+}
 
 class TextureUnitPropertyGridPage : public wxPropertyGridPage
 {
 public:
-	TextureUnitPropertyGridPage(TextureUnitController* controller);
+	TextureUnitPropertyGridPage(Ogre::TextureUnitState* controller);
 	virtual ~TextureUnitPropertyGridPage();
 
 	virtual void populate();
@@ -47,7 +48,7 @@ public:
 protected:
 	virtual void propertyChanged(wxPropertyGridEvent& event);
 
-	TextureUnitController* mController;
+	Ogre::TextureUnitState* mController;
 
 	wxPGId mTextureNameId;
 	wxPGId mCubicTextureNameId;

@@ -50,7 +50,6 @@ Torus Knot Software Ltd.
 #include "MaterialEventArgs.h"
 #include "MaterialScriptEditor.h"
 #include "MaterialWizard.h"
-#include "PassController.h"
 #include "PassWizard.h"
 #include "Project.h"
 #include "ProjectEventArgs.h"
@@ -429,7 +428,7 @@ void WorkspacePanel::OnAddMaterial(wxCommandEvent& event)
 
 				EditorManager::getSingletonPtr()->openEditor(editor);
 
-				Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().getByName("Ogre/Earring");
+				Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().getByName("GrassMaterial");
 				project->addMaterial(mat);
 			}
 		}

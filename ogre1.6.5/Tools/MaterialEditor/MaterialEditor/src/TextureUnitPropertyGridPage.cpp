@@ -35,15 +35,13 @@
 #include "OgreCommon.h"
 #include "OgreTextureUnitState.h"
 
-#include "TextureUnitController.h"
-
 using namespace Ogre;
 
 BEGIN_EVENT_TABLE(TextureUnitPropertyGridPage, wxPropertyGridPage)
 EVT_PG_CHANGED(-1, TextureUnitPropertyGridPage::propertyChanged)
 END_EVENT_TABLE()
 
-TextureUnitPropertyGridPage::TextureUnitPropertyGridPage(TextureUnitController* controller)
+TextureUnitPropertyGridPage::TextureUnitPropertyGridPage(Ogre::TextureUnitState* controller)
 : mController(controller)
 {
 }
@@ -54,7 +52,7 @@ TextureUnitPropertyGridPage::~TextureUnitPropertyGridPage()
 
 void TextureUnitPropertyGridPage::populate()
 {
-	const TextureUnitState* tus = mController->getTextureUnit();
+	const TextureUnitState* tus = mController;
 
 	mTextureNameId = Append(new wxStringProperty(wxT("Texture Name"), wxPG_LABEL, wxString(tus->getTextureName().c_str(), wxConvUTF8)));
 	mCurrentFrameId = Append(new wxIntProperty(wxT("Current Frame"), wxPG_LABEL, tus->getCurrentFrame()));

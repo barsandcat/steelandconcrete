@@ -59,7 +59,6 @@ http://www.gnu.org/copyleft/lesser.txt
 #include "PropertiesPanel.h"
 #include "TechniqueController.h"
 #include "TechniquePropertyGridPage.h"
-#include "PassController.h"
 #include "PassPropertyGridPage.h"
 #include "ProjectPage.h"
 #include "ProjectWizard.h"
