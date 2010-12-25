@@ -42,11 +42,6 @@ public:
 	virtual ~TechniquePropertyGridPage();
 
 	virtual void populate();
-
-	void nameChanged(EventArgs& args);
-	void schemeNameChanged(EventArgs& args);
-	void lodIndexChanged(EventArgs& args);
-
 protected:
 	virtual void propertyChanged(wxPropertyGridEvent& event);
 	

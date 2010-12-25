@@ -56,8 +56,6 @@ public:
 	enum TechniqueEvent
 	{
 		NameChanged,
-		SchemeChanged,
-		LodIndexChanged,
 		PassAdded,
 		PassRemoved
 	};
