@@ -63,12 +63,9 @@ public:
 	};
 
 	TechniqueController(Technique* technique);
-	TechniqueController(MaterialController* parent, Technique* technique);
 	virtual ~TechniqueController();
 
-	MaterialController* getParentController() const;
 	const Technique* getTechnique() const;
-	const PassControllerList* getPassControllers() const;
 
 	Ogre::Pass* createPass(void);
 	Ogre::Pass* createPass(const String& name);
@@ -108,7 +105,6 @@ public:
 protected:
 	void registerEvents();
 
-	MaterialController* mParentController;
 	Technique* mTechnique;
 	PassControllerList mPassControllers;
 };

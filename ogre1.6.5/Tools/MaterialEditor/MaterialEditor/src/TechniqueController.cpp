@@ -34,13 +34,7 @@ Torus Knot Software Ltd.
 #include "TechniqueEventArgs.h"
 
 TechniqueController::TechniqueController(Technique* technique)
-: mParentController(NULL), mTechnique(technique)
-{
-	registerEvents();
-}
-
-TechniqueController::TechniqueController(MaterialController* parent, Technique* technique)
-: mParentController(parent), mTechnique(technique)
+: mTechnique(technique)
 {
 	registerEvents();
 }
@@ -61,16 +55,6 @@ void TechniqueController::registerEvents()
 const Technique* TechniqueController::getTechnique() const
 {
 	return  mTechnique;
-}
-
-MaterialController* TechniqueController::getParentController() const
-{
-	return mParentController;
-}
-
-const PassControllerList* TechniqueController::getPassControllers() const
-{
-	return &mPassControllers;
 }
 
 Ogre::Pass* TechniqueController::createPass(void)
