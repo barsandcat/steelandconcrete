@@ -32,13 +32,13 @@ http://www.gnu.org/copyleft/lesser.txt
 #include "MaterialEventArgs.h"
 #include "TechniqueController.h"
 
-MaterialController::MaterialController() 
+MaterialController::MaterialController()
 : mMaterialPtr(NULL)
 {
 	registerEvents();
 }
 
-MaterialController::MaterialController(MaterialPtr materialPtr) 
+MaterialController::MaterialController(MaterialPtr materialPtr)
 : mMaterialPtr(materialPtr)
 {
 	registerEvents();
@@ -50,7 +50,6 @@ MaterialController::~MaterialController()
 
 void MaterialController::registerEvents()
 {
-	registerEvent(NameChanged);
 	registerEvent(TechniqueAdded);
 	registerEvent(TechniqueRemoved);
 }

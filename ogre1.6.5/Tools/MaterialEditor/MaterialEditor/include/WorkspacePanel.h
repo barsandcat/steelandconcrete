@@ -91,7 +91,6 @@ public:
 	void projectMaterialRemoved(EventArgs& args);
 
 	// Material Event Handlers
-	void materialNameChanged(EventArgs& args);
 	void materialTechniqueAdded(EventArgs& args);
 	void materialTechniqueRemoved(EventArgs& args);
 

@@ -51,7 +51,6 @@ class MaterialController : public EventContainer
 public:
 	enum MaterialEvent
 	{
-		NameChanged,
 		TechniqueAdded,
 		TechniqueRemoved
 	};
@@ -62,9 +61,9 @@ public:
 
 	MaterialPtr getMaterial() const;
 	void setMaterial(MaterialPtr mp);
-	
+
 	TechniqueController* getTechniqueController(const String& name);
-	const TechniqueControllerList* getTechniqueControllers() const;		
+	const TechniqueControllerList* getTechniqueControllers() const;
 
 	void setName(const String& name);
 	void setReceiveShadows(bool enabled);

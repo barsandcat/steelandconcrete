@@ -65,7 +65,6 @@ public:
 
 	const Technique* getTechnique() const;
 
-	Ogre::Pass* createPass(void);
 	Ogre::Pass* createPass(const String& name);
 	void setName(const String& name);
 	void setSchemeName(const String& schemeName);
