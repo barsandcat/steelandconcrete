@@ -46,8 +46,6 @@ TechniqueController::~TechniqueController()
 void TechniqueController::registerEvents()
 {
 	registerEvent(NameChanged);
-	registerEvent(SchemeChanged);
-	registerEvent(LodIndexChanged);
 	registerEvent(PassAdded);
 	registerEvent(PassRemoved);
 }
@@ -101,15 +99,11 @@ void TechniqueController::setName(const String& name)
 void TechniqueController::setSchemeName(const String& schemeName)
 {
 	mTechnique->setSchemeName(schemeName);
-
-	fireEvent(SchemeChanged, TechniqueEventArgs(this));
 }
 
 void TechniqueController::setLodIndex(unsigned short index)
 {
 	mTechnique->setLodIndex(index);
-
-	fireEvent(LodIndexChanged, TechniqueEventArgs(this));
 }
 
 void TechniqueController::setAmbient(const ColourValue& ambient)
