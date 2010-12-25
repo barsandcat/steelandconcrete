@@ -32,22 +32,12 @@ Torus Knot Software Ltd.
 #include "TechniqueController.h"
 
 PassController::PassController(Pass* pass)
-: mParentController(NULL), mPass(pass)
-{
-}
-
-PassController::PassController(TechniqueController* parent, Pass* pass)
-: mParentController(parent), mPass(pass)
+: mPass(pass)
 {
 }
 
 PassController::~PassController()
 {
-}
-
-TechniqueController* PassController::getParentController() const
-{
-	return mParentController;
 }
 
 Pass* PassController::getPass() const
