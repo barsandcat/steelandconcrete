@@ -38,7 +38,6 @@ Torus Knot Software Ltd.
 
 class wxControl;
 
-class EditorContributor;
 class EditorInput;
 
 using Ogre::String;
@@ -61,8 +60,6 @@ public:
 
 	EditorInput* getEditorInput() const;
 	void setEditorInput(EditorInput* input);
-
-	EditorContributor* getEditorContributor() const;
 
 	const wxString& getName() const;
 	void setName(const wxString& name);

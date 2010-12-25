@@ -93,7 +93,6 @@
 		<Unit filename="../include/MaterialScriptEditor.h" />
 		<Unit filename="../include/MaterialWizard.h" />
 		<Unit filename="../include/Observer.h" />
-		<Unit filename="../include/PassController.h" />
 		<Unit filename="../include/PassPage.h" />
 		<Unit filename="../include/PassPropertyGridPage.h" />
 		<Unit filename="../include/PassWizard.h" />
@@ -114,7 +113,6 @@
 		<Unit filename="../include/TechniquePage.h" />
 		<Unit filename="../include/TechniquePropertyGridPage.h" />
 		<Unit filename="../include/TechniqueWizard.h" />
-		<Unit filename="../include/TextureUnitController.h" />
 		<Unit filename="../include/TextureUnitPropertyGridPage.h" />
 		<Unit filename="../include/Workspace.h" />
 		<Unit filename="../include/WorkspaceEventArgs.h" />
@@ -143,7 +141,6 @@
 		<Unit filename="../src/MaterialPropertyGridPage.cpp" />
 		<Unit filename="../src/MaterialScriptEditor.cpp" />
 		<Unit filename="../src/MaterialWizard.cpp" />
-		<Unit filename="../src/PassController.cpp" />
 		<Unit filename="../src/PassPage.cpp" />
 		<Unit filename="../src/PassPropertyGridPage.cpp" />
 		<Unit filename="../src/PassWizard.cpp" />
@@ -162,7 +159,6 @@
 		<Unit filename="../src/TechniquePage.cpp" />
 		<Unit filename="../src/TechniquePropertyGridPage.cpp" />
 		<Unit filename="../src/TechniqueWizard.cpp" />
-		<Unit filename="../src/TextureUnitController.cpp" />
 		<Unit filename="../src/TextureUnitPropertyGridPage.cpp" />
 		<Unit filename="../src/Workspace.cpp" />
 		<Unit filename="../src/WorkspaceEventArgs.cpp" />

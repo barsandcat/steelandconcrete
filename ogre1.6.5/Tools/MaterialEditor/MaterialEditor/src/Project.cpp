@@ -192,9 +192,6 @@ void Project::generateScene(Ogre::SceneManager* sceneManager)
 	sceneManager->getRootSceneNode()->createChildSceneNode()->attachObject(entity);
 }
 
-void Project::subscribeTo(RootEventPlugin* plugin)
-{
-}
 
 void Project::OnRootInitialized(EventArgs& args)
 {

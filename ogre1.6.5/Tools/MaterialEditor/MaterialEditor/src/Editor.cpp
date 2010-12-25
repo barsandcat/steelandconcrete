@@ -76,10 +76,6 @@ void EditorBase::setEditorInput(EditorInput* input)
 	mEditorInput = input;
 }
 
-EditorContributor* EditorBase::getEditorContributor() const
-{
-	return NULL;
-}
 
 const wxString& EditorBase::getName() const
 {

@@ -46,7 +46,6 @@ namespace Ogre
 
 class MaterialController;
 class Project;
-class RootEventPlugin;
 
 using Ogre::Material;
 using Ogre::MaterialPtr;
@@ -107,7 +106,6 @@ protected:
 	MaterialController* mActiveMaterial;
 	MaterialControllerList mMaterialControllers;
 
-	void subscribeTo(RootEventPlugin* plugin);
 };
 
 #endif // _PROJECT_H_
