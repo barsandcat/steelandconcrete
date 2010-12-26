@@ -34,6 +34,7 @@ http://www.gnu.org/copyleft/lesser.txt
 class PassWizard : public wxWizard
 {
 public:
+    boost::signal<void (TechniqueController*, Ogre::Pass*)> mPassAddedSignal;
 	PassWizard();
 	virtual ~PassWizard();
 

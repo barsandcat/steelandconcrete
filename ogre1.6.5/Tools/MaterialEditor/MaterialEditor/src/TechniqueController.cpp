@@ -54,8 +54,6 @@ Ogre::Pass* TechniqueController::createPass(const String& name)
 
 	mPassControllers.push_back(pass);
 
-	mPassAddedSignal(this, pass);
-
 	return pass;
 }
 
