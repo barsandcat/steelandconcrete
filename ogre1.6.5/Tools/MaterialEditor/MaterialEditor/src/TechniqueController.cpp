@@ -36,18 +36,10 @@ Torus Knot Software Ltd.
 TechniqueController::TechniqueController(Technique* technique)
 : mTechnique(technique)
 {
-	registerEvents();
 }
 
 TechniqueController::~TechniqueController()
 {
-}
-
-void TechniqueController::registerEvents()
-{
-	registerEvent(NameChanged);
-	registerEvent(PassAdded);
-	registerEvent(PassRemoved);
 }
 
 const Technique* TechniqueController::getTechnique() const
@@ -62,7 +54,7 @@ Ogre::Pass* TechniqueController::createPass(const String& name)
 
 	mPassControllers.push_back(pass);
 
-	fireEvent(PassAdded, TechniqueEventArgs(this, pass));
+	mPassAddedSignal(this, pass);
 
 	return pass;
 }
@@ -71,7 +63,7 @@ void TechniqueController::setName(const String& name)
 {
 	mTechnique->setName(name);
 
-	fireEvent(NameChanged, TechniqueEventArgs(this));
+    mNameChangedSignal(this);
 }
 
 void TechniqueController::setSchemeName(const String& schemeName)

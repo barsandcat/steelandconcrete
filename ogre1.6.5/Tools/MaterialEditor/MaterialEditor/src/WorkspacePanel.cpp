@@ -108,7 +108,6 @@ WorkspacePanel::WorkspacePanel(wxWindow* parent,
 	createPanel();
 
 	Workspace::getSingletonPtr()->subscribe(Workspace::ProjectAdded, boost::bind(&WorkspacePanel::projectAdded, this, _1));
-	Workspace::getSingletonPtr()->subscribe(Workspace::ProjectRemoved, boost::bind(&WorkspacePanel::projectRemoved, this, _1));
 }
 
 WorkspacePanel::~WorkspacePanel()
@@ -157,10 +156,10 @@ void WorkspacePanel::showContextMenu(wxPoint point, wxTreeItemId id)
 	wxMenu contextMenu;
 	appendNewMenu(&contextMenu);
 	contextMenu.AppendSeparator();
-	if(isProject(id)) appendProjectMenuItems(&contextMenu);
-	else if(isMaterial(id)) appendMaterialMenuItems(&contextMenu);
-	else if(isTechnique(id)) appendTechniqueMenuItems(&contextMenu);
-	//else appendPassMenuItems(&contextMenu);
+	if(isProject(id))
+	{
+	    appendProjectMenuItems(&contextMenu);
+	}
 	contextMenu.Append(ID_MENU_EDIT, wxT("Edit"));
 	PopupMenu(&contextMenu, point);
 }
@@ -180,19 +179,6 @@ void WorkspacePanel::appendNewMenu(wxMenu* menu)
 void WorkspacePanel::appendProjectMenuItems(wxMenu* menu)
 {
 	menu->Append(ID_MENU_ADD_MATERIAL, wxT("Add Material"));
-}
-
-void WorkspacePanel::appendMaterialMenuItems(wxMenu* menu)
-{
-}
-
-void WorkspacePanel::appendTechniqueMenuItems(wxMenu* menu)
-{
-}
-
-void WorkspacePanel::appendPassMenuItems(wxMenu* menu)
-{
-	menu->AppendCheckItem(ID_MENU_PASS_ENABLED, wxT("Enabled"));
 }
 
 Project* WorkspacePanel::getProject(wxTreeItemId id)
@@ -264,20 +250,17 @@ void WorkspacePanel::subscribe(Project* project)
 {
 	project->subscribe(Project::NameChanged, boost::bind(&WorkspacePanel::projectNameChanged, this, _1));
 	project->subscribe(Project::MaterialAdded, boost::bind(&WorkspacePanel::projectMaterialAdded, this, _1));
-	project->subscribe(Project::MaterialRemoved, boost::bind(&WorkspacePanel::projectMaterialRemoved, this, _1));
 }
 
 void WorkspacePanel::subscribe(MaterialController* material)
 {
 	material->subscribe(MaterialController::TechniqueAdded, boost::bind(&WorkspacePanel::materialTechniqueAdded, this, _1));
-	material->subscribe(MaterialController::TechniqueRemoved, boost::bind(&WorkspacePanel::materialTechniqueRemoved, this, _1));
 }
 
 void WorkspacePanel::subscribe(TechniqueController* technique)
 {
-	technique->subscribe(TechniqueController::NameChanged, boost::bind(&WorkspacePanel::techniqueNameChanged, this, _1));
-	technique->subscribe(TechniqueController::PassAdded, boost::bind(&WorkspacePanel::techniquePassAdded, this, _1));
-	technique->subscribe(TechniqueController::PassRemoved, boost::bind(&WorkspacePanel::techniquePassRemoved, this, _1));
+	technique->mNameChangedSignal.connect(boost::bind(&WorkspacePanel::TechniqueNameChanged, this, _1));
+	technique->mPassAddedSignal.connect(boost::bind(&WorkspacePanel::TechniquePassAdded, this, _1, _2));
 }
 
 void WorkspacePanel::OnRightClick(wxTreeEvent& event)
@@ -527,11 +510,6 @@ void WorkspacePanel::projectAdded(EventArgs& args)
 	mProjectIdMap[project] = id;
 }
 
-void WorkspacePanel::projectRemoved(EventArgs& args)
-{
-	// TODO: Implement projectRemoved
-}
-
 void WorkspacePanel::projectNameChanged(EventArgs& args)
 {
 	ProjectEventArgs pea = dynamic_cast<ProjectEventArgs&>(args);
@@ -556,11 +534,6 @@ void WorkspacePanel::projectMaterialAdded(EventArgs& args)
 	subscribe(material);
 }
 
-void WorkspacePanel::projectMaterialRemoved(EventArgs& args)
-{
-	// TODO: Implement projectMaterialRemoved
-}
-
 void WorkspacePanel::materialTechniqueAdded(EventArgs& args)
 {
 	MaterialEventArgs mea = dynamic_cast<MaterialEventArgs&>(args);
@@ -576,35 +549,17 @@ void WorkspacePanel::materialTechniqueAdded(EventArgs& args)
 	subscribe(tc);
 }
 
-void WorkspacePanel::materialTechniqueRemoved(EventArgs& args)
+void WorkspacePanel::TechniqueNameChanged(TechniqueController* tc)
 {
-	// TODO: Implement materialTechniqueRemoved
-}
-
-void WorkspacePanel::techniqueNameChanged(EventArgs& args)
-{
-	TechniqueEventArgs tea = dynamic_cast<TechniqueEventArgs&>(args);
-	TechniqueController* tc = tea.getTechniqueController();
-
 	wxTreeItemId techniqueId = mTechniqueIdMap[tc];
 	mTreeCtrl->SetItemText(techniqueId, wxString(tc->getTechnique()->getName().c_str(), wxConvUTF8));
 }
 
-void WorkspacePanel::techniquePassAdded(EventArgs& args)
+void WorkspacePanel::TechniquePassAdded(TechniqueController* tc, Ogre::Pass* pc)
 {
-	TechniqueEventArgs tea = dynamic_cast<TechniqueEventArgs&>(args);
-	TechniqueController* tc = tea.getTechniqueController();
-	Ogre::Pass* pc = tea.getPassController();
-
 	wxTreeItemId techniqueId = mTechniqueIdMap[tc];
 	wxTreeItemId id = mTreeCtrl->AppendItem(techniqueId, wxString(pc->getName().c_str(), wxConvUTF8), PASS_IMAGE);
 	mTreeCtrl->SelectItem(id, true);
 
 	mPassIdMap[pc] = id;
 }
-
-void WorkspacePanel::techniquePassRemoved(EventArgs& args)
-{
-	// TODO: Implement materialTechniqueRemoved
-}
-

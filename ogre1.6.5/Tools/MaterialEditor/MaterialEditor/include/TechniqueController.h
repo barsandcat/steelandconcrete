@@ -34,8 +34,7 @@ Torus Knot Software Ltd.
 #include "OgreBlendMode.h"
 #include "OgreCommon.h"
 #include "OgrePrerequisites.h"
-
-#include "EventContainer.h"
+#include <boost/signal.hpp>
 
 namespace Ogre
 {
@@ -50,15 +49,11 @@ using namespace Ogre;
 
 typedef std::list<Ogre::Pass*> PassControllerList;
 
-class TechniqueController : public EventContainer
+class TechniqueController
 {
 public:
-	enum TechniqueEvent
-	{
-		NameChanged,
-		PassAdded,
-		PassRemoved
-	};
+    boost::signal<void (TechniqueController*)> mNameChangedSignal;
+    boost::signal<void (TechniqueController*, Ogre::Pass*)> mPassAddedSignal;
 
 	TechniqueController(Technique* technique);
 	virtual ~TechniqueController();
@@ -69,10 +64,7 @@ public:
 	void setName(const String& name);
 	void setSchemeName(const String& schemeName);
 	void setLodIndex(unsigned short index);
-
 protected:
-	void registerEvents();
-
 	Technique* mTechnique;
 	PassControllerList mPassControllers;
 };

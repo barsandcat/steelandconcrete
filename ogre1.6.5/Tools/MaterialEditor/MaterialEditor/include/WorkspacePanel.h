@@ -83,22 +83,16 @@ public:
 
 	// Workspace Event Handlers
 	void projectAdded(EventArgs& args);
-	void projectRemoved(EventArgs& args);
 
 	// Project Event Handlers
 	void projectNameChanged(EventArgs& args);
 	void projectMaterialAdded(EventArgs& args);
-	void projectMaterialRemoved(EventArgs& args);
 
 	// Material Event Handlers
 	void materialTechniqueAdded(EventArgs& args);
-	void materialTechniqueRemoved(EventArgs& args);
 
-	// Technique Event Handlers
-	void techniqueNameChanged(EventArgs& args);
-	void techniquePassAdded(EventArgs& args);
-	void techniquePassRemoved(EventArgs& args);
-
+    void TechniqueNameChanged(TechniqueController* tc);
+    void TechniquePassAdded(TechniqueController* tc, Ogre::Pass* pc);
 protected:
 	void createPanel();
 	wxImageList* getImageList();
@@ -106,9 +100,6 @@ protected:
 	void appendNewMenu(wxMenu* menu);
 	void showContextMenu(wxPoint point, wxTreeItemId id);
 	void appendProjectMenuItems(wxMenu* menu);
-	void appendMaterialMenuItems(wxMenu* memu);
-	void appendTechniqueMenuItems(wxMenu* menu);
-	void appendPassMenuItems(wxMenu* menu);
 
 	Project* getProject(wxTreeItemId id);
 	MaterialController* getMaterial(wxTreeItemId id);
