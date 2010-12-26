@@ -64,12 +64,11 @@ PassPage* PassWizard::getPassPage() const
 
 void PassWizard::OnFinish(wxWizardEvent& event)
 {
-	Project* project = mPassPage->getProject();
-	MaterialController* mc = mPassPage->getMaterial();
 	TechniqueController* tc = mPassPage->getTechnique();
 
 	wxString name;
 	mPassPage->getName(name);
 
-	tc->createPass(Ogre::String(name.mb_str()));
+	Ogre::Pass* pass = tc->createPass(Ogre::String(name.mb_str()));
+    mPassAddedSignal(tc, pass);
 }

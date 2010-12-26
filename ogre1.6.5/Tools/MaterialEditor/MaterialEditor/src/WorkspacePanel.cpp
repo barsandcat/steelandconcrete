@@ -260,7 +260,6 @@ void WorkspacePanel::subscribe(MaterialController* material)
 void WorkspacePanel::subscribe(TechniqueController* technique)
 {
 	technique->mNameChangedSignal.connect(boost::bind(&WorkspacePanel::TechniqueNameChanged, this, _1));
-	technique->mPassAddedSignal.connect(boost::bind(&WorkspacePanel::TechniquePassAdded, this, _1, _2));
 }
 
 void WorkspacePanel::OnRightClick(wxTreeEvent& event)
@@ -376,6 +375,7 @@ void WorkspacePanel::OnNewPass(wxCommandEvent& event)
 	}
 
 	PassWizard* wizard = new PassWizard();
+	wizard->mPassAddedSignal.connect(boost::bind(&WorkspacePanel::TechniquePassAdded, this, _1, _2));
 	wizard->Create(this, wxID_ANY, wxT("New Pass"), wxNullBitmap, wxDefaultPosition, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
 	wizard->getPassPage()->setProject(project);
 	wizard->getPassPage()->setMaterial(material);

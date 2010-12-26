@@ -53,7 +53,6 @@ class TechniqueController
 {
 public:
     boost::signal<void (TechniqueController*)> mNameChangedSignal;
-    boost::signal<void (TechniqueController*, Ogre::Pass*)> mPassAddedSignal;
 
 	TechniqueController(Technique* technique);
 	virtual ~TechniqueController();
