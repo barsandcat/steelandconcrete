@@ -60,8 +60,6 @@ Ogre::Pass* TechniqueController::createPass(const String& name)
 void TechniqueController::setName(const String& name)
 {
 	mTechnique->setName(name);
-
-    mNameChangedSignal(this);
 }
 
 void TechniqueController::setSchemeName(const String& schemeName)

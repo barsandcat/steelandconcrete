@@ -44,10 +44,9 @@ public:
 	virtual void populate();
 protected:
 	virtual void propertyChanged(wxPropertyGridEvent& event);
-	
+
 	TechniqueController* mController;
 
-	wxPGId mNameId;
 	wxPGId mSchemeNameId;
 	wxPGId mLodIndexId;
 
