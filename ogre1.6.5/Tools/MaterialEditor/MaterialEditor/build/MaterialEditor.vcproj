@@ -247,10 +247,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\MaterialDescriptor.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\MaterialEditorApp.cpp"
 				>
 			</File>
@@ -315,10 +311,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\RootEventPlugin.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\ScintillaEditor.cpp"
 				>
 			</File>
@@ -328,14 +320,6 @@
 			</File>
 			<File
 				RelativePath="..\src\SelectionService.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\TechniqueController.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\TechniqueEventArgs.cpp"
 				>
 			</File>
 			<File
@@ -441,10 +425,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\MaterialDescriptor.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\MaterialEditorApp.h"
 				>
 			</File>
@@ -470,10 +450,6 @@
 			</File>
 			<File
 				RelativePath="..\include\MaterialWizard.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\Observer.h"
 				>
 			</File>
 			<File
@@ -513,14 +489,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\RootEventArgs.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\RootEventPlugin.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\ScintillaEditor.h"
 				>
 			</File>
@@ -534,14 +502,6 @@
 			</File>
 			<File
 				RelativePath="..\include\SharedDefs.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\TechniqueController.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\TechniqueEventArgs.h"
 				>
 			</File>
 			<File
@@ -570,10 +530,6 @@
 			</File>
 			<File
 				RelativePath="..\include\WorkspacePanel.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\wxOgre.h"
 				>
 			</File>
 			<File

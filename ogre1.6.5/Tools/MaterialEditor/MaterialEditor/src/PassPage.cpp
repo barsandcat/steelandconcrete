@@ -39,7 +39,6 @@ Torus Knot Software Ltd.
 
 #include "MaterialController.h"
 #include "Project.h"
-#include "TechniqueController.h"
 #include "Workspace.h"
 
 const long ID_PROJECT_COMBO_BOX = wxNewId();

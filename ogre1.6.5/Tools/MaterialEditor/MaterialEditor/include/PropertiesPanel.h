@@ -71,11 +71,6 @@ public:
 
 	void selectionChanged(EventArgs& args);
 
-	void projectRemoved(EventArgs& args);
-	void materialRemoved(EventArgs& args);
-	void techniqueRemoved(EventArgs& args);
-	void passRemoved(EventArgs& args);
-
 protected:
 	wxGridSizer* mGridSizer;
 	wxPropertyGridManager* mPropertyGrid;

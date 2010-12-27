@@ -57,7 +57,6 @@ http://www.gnu.org/copyleft/lesser.txt
 #include "MaterialScriptEditor.h"
 #include "MaterialWizard.h"
 #include "PropertiesPanel.h"
-#include "TechniqueController.h"
 #include "TechniquePropertyGridPage.h"
 #include "PassPropertyGridPage.h"
 #include "ProjectPage.h"
