@@ -140,9 +140,9 @@ void PropertiesPanel::selectionChanged(EventArgs& args)
 				mPropertyGrid->SelectPage(index);
 			}
 		}
-		else if(sel.type() == typeid(TechniqueController*))
+		else if(sel.type() == typeid(Ogre::Technique*))
 		{
-			TechniqueController* tc = any_cast<TechniqueController*>(sel);
+			Ogre::Technique* tc = any_cast<Ogre::Technique*>(sel);
 
 			TechniquePageIndexMap::iterator it = mTechniquePageIndexMap.find(tc);
 			if(it != mTechniquePageIndexMap.end())
@@ -219,7 +219,7 @@ void PropertiesPanel::techniqueRemoved(EventArgs& args)
 	//           of the page associated with this Techniques, Passes?
 
 	MaterialEventArgs mea = dynamic_cast<MaterialEventArgs&>(args);
-	TechniqueController* tc = mea.getTechniqueController();
+	Ogre::Technique* tc = mea.getTechniqueController();
 
 	TechniquePageIndexMap::iterator it = mTechniquePageIndexMap.find(tc);
 	if(it != mTechniquePageIndexMap.end())

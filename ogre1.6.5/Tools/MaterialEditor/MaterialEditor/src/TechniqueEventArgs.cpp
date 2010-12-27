@@ -26,19 +26,19 @@ http://www.gnu.org/copyleft/lesser.txt
 */
 #include "TechniqueEventArgs.h"
 
-#include "TechniqueController.h"
+#include <OgreTechnique.h>
 
-TechniqueEventArgs::TechniqueEventArgs(TechniqueController* tc)
+TechniqueEventArgs::TechniqueEventArgs(Ogre::Technique* tc)
 : mTechniqueController(tc), mPassController(NULL)
 {
 }
 
-TechniqueEventArgs::TechniqueEventArgs(TechniqueController* tc, Ogre::Pass* pc)
+TechniqueEventArgs::TechniqueEventArgs(Ogre::Technique* tc, Ogre::Pass* pc)
 : mTechniqueController(tc), mPassController(pc)
 {
 }
 
-TechniqueController* TechniqueEventArgs::getTechniqueController() const
+Ogre::Technique* TechniqueEventArgs::getTechniqueController() const
 {
 	return mTechniqueController;
 }

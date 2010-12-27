@@ -33,6 +33,7 @@ http://www.gnu.org/copyleft/lesser.txt
 #include "TechniqueController.h"
 #include "TechniquePage.h"
 #include "Workspace.h"
+#include <OgreTechnique.h>
 
 BEGIN_EVENT_TABLE(PassWizard, wxWizard)
 EVT_WIZARD_FINISHED(wxID_ANY, PassWizard::OnFinish)
@@ -64,11 +65,12 @@ PassPage* PassWizard::getPassPage() const
 
 void PassWizard::OnFinish(wxWizardEvent& event)
 {
-	TechniqueController* tc = mPassPage->getTechnique();
+	Ogre::Technique* tc = mPassPage->getTechnique();
 
 	wxString name;
 	mPassPage->getName(name);
 
-	Ogre::Pass* pass = tc->createPass(Ogre::String(name.mb_str()));
+	Ogre::Pass* pass = tc->createPass();
+	pass->setName(Ogre::String(name.mb_str()));
     mPassAddedSignal(tc, pass);
 }

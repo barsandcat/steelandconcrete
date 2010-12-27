@@ -51,9 +51,6 @@ Ogre::Pass* TechniqueController::createPass(const String& name)
 {
 	Pass* pass = mTechnique->createPass();
 	pass->setName(name);
-
-	mPassControllers.push_back(pass);
-
 	return pass;
 }
 
