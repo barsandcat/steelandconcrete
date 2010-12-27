@@ -28,22 +28,31 @@ http://www.gnu.org/copyleft/lesser.txt
 #define _MATERIALEVENTARGS_H_
 
 #include "EventArgs.h"
+namespace Ogre
+{
+    class Technique;
+}
+
 
 class MaterialController;
-class TechniqueController;
+
+namespace Ogre
+{
+    class Technique;
+}
 
 class MaterialEventArgs : public EventArgs
 {
 public:
 	MaterialEventArgs(MaterialController* mc);
-	MaterialEventArgs(MaterialController* mc, TechniqueController* tc);
+	MaterialEventArgs(MaterialController* mc, Ogre::Technique* tc);
 
 	MaterialController* getMaterialController() const;
-	TechniqueController* getTechniqueController() const;
+	Ogre::Technique* getTechniqueController() const;
 
 protected:
 	MaterialController* mMaterialController;
-	TechniqueController* mTechniqueController;
+	Ogre::Technique* mTechniqueController;
 };
 
 #endif // _MATERIALEVENTARGS_H_

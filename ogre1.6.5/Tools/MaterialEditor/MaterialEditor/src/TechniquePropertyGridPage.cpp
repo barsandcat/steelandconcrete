@@ -34,14 +34,13 @@ Torus Knot Software Ltd.
 
 #include "OgreTechnique.h"
 
-#include "TechniqueController.h"
 #include "TechniqueEventArgs.h"
 
 BEGIN_EVENT_TABLE(TechniquePropertyGridPage, wxPropertyGridPage)
 	EVT_PG_CHANGED(-1, TechniquePropertyGridPage::propertyChanged)
 END_EVENT_TABLE()
 
-TechniquePropertyGridPage::TechniquePropertyGridPage(TechniqueController* controller)
+TechniquePropertyGridPage::TechniquePropertyGridPage(Ogre::Technique* controller)
 : mController(controller)
 {
 }
@@ -52,8 +51,8 @@ TechniquePropertyGridPage::~TechniquePropertyGridPage()
 
 void TechniquePropertyGridPage::populate()
 {
-	mSchemeNameId = Append(new wxStringProperty(wxT("Scheme Name"), wxPG_LABEL, wxString(mController->getTechnique()->getSchemeName().c_str(), wxConvUTF8)));
-	mLodIndexId = Append(new wxIntProperty(wxT("LOD Index"), wxPG_LABEL, mController->getTechnique()->getLodIndex()));
+	mSchemeNameId = Append(new wxStringProperty(wxT("Scheme Name"), wxPG_LABEL, wxString(mController->getSchemeName().c_str(), wxConvUTF8)));
+	mLodIndexId = Append(new wxIntProperty(wxT("LOD Index"), wxPG_LABEL, mController->getLodIndex()));
 }
 
 void TechniquePropertyGridPage::propertyChanged(wxPropertyGridEvent& event)

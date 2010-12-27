@@ -29,39 +29,5 @@ Torus Knot Software Ltd.
 #ifndef _TECHNIQUECONTROLLER_H_
 #define _TECHNIQUECONTROLLER_H_
 
-#include <list>
 
-#include "OgreBlendMode.h"
-#include "OgreCommon.h"
-#include "OgrePrerequisites.h"
-#include <boost/signal.hpp>
-
-namespace Ogre
-{
-	class ColourValue;
-	class Technique;
-}
-
-class MaterialController;
-
-using namespace Ogre;
-
-typedef std::list<Ogre::Pass*> PassControllerList;
-
-class TechniqueController
-{
-public:
-	TechniqueController(Technique* technique);
-	virtual ~TechniqueController();
-
-	const Technique* getTechnique() const;
-
-	Ogre::Pass* createPass(const String& name);
-	void setName(const String& name);
-	void setSchemeName(const String& schemeName);
-	void setLodIndex(unsigned short index);
-protected:
-	Technique* mTechnique;
-	PassControllerList mPassControllers;
-};
 #endif // _TECHNIQUECONTROLLER_H_

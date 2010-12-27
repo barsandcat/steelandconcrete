@@ -147,7 +147,6 @@
 		<Unit filename="../src/ScintillaEditor.cpp" />
 		<Unit filename="../src/SelectionEventArgs.cpp" />
 		<Unit filename="../src/SelectionService.cpp" />
-		<Unit filename="../src/TechniqueController.cpp" />
 		<Unit filename="../src/TechniqueEventArgs.cpp" />
 		<Unit filename="../src/TechniquePage.cpp" />
 		<Unit filename="../src/TechniquePropertyGridPage.cpp" />

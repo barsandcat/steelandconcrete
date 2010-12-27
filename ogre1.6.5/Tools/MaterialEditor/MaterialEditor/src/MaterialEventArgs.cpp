@@ -34,7 +34,7 @@ MaterialEventArgs::MaterialEventArgs(MaterialController* mc)
 {
 }
 
-MaterialEventArgs::MaterialEventArgs(MaterialController* mc, TechniqueController* tc)
+MaterialEventArgs::MaterialEventArgs(MaterialController* mc, Ogre::Technique* tc)
 : mMaterialController(mc), mTechniqueController(tc)
 {
 }
@@ -44,7 +44,7 @@ MaterialController* MaterialEventArgs::getMaterialController() const
 	return mMaterialController;
 }
 
-TechniqueController* MaterialEventArgs::getTechniqueController() const
+Ogre::Technique* MaterialEventArgs::getTechniqueController() const
 {
 	return mTechniqueController;
 }

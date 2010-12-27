@@ -40,11 +40,10 @@ namespace Ogre
 	class Technique;
 }
 
-class TechniqueController;
 
 using namespace Ogre;
 
-typedef std::list<TechniqueController*> TechniqueControllerList;
+typedef std::list<Ogre::Technique*> TechniqueControllerList;
 
 class MaterialController : public EventContainer
 {
@@ -62,14 +61,14 @@ public:
 	MaterialPtr getMaterial() const;
 	void setMaterial(MaterialPtr mp);
 
-	TechniqueController* getTechniqueController(const String& name);
+	Ogre::Technique* getTechniqueController(const String& name);
 	const TechniqueControllerList* getTechniqueControllers() const;
 
 	void setName(const String& name);
 	void setReceiveShadows(bool enabled);
 	void setTransparencyCastsShadows(bool enabled);
-	TechniqueController* createTechnique(void);
-	TechniqueController* createTechnique(const String& name);
+	Ogre::Technique* createTechnique(void);
+	Ogre::Technique* createTechnique(const String& name);
 	void removeTechnique(unsigned short index);
 	void removeAllTechniques(void);
 

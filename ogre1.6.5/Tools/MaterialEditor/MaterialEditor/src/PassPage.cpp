@@ -71,7 +71,7 @@ PassPage::PassPage(wxWizard* parent, Project* project, MaterialController* mc)
 	createPage();
 }
 
-PassPage::PassPage(wxWizard* parent, Project* project, MaterialController* mc, TechniqueController* tc)
+PassPage::PassPage(wxWizard* parent, Project* project, MaterialController* mc, Ogre::Technique* tc)
 : wxWizardPageSimple(parent), mProject(project), mMaterial(mc), mTechnique(tc)
 {
 	createPage();
@@ -145,7 +145,7 @@ MaterialController* PassPage::getMaterial() const
 	return getProject()->getMaterialController(material);
 }
 
-TechniqueController* PassPage::getTechnique() const
+Ogre::Technique* PassPage::getTechnique() const
 {
 	Ogre::String technique(mTechniqueComboBox->GetValue().mb_str());
 
@@ -169,12 +169,12 @@ void PassPage::setMaterial(MaterialController* mc)
 	populateTechniques(mc != NULL ? mc->getTechniqueControllers() : NULL);
 }
 
-void PassPage::setTechnique(TechniqueController* tc)
+void PassPage::setTechnique(Ogre::Technique* tc)
 {
     wxString name;
     if (tc)
     {
-        name = wxString(tc->getTechnique()->getName().c_str(), wxConvUTF8);
+        name = wxString(tc->getName().c_str(), wxConvUTF8);
     }
 	mTechniqueComboBox->SetValue(name);
 }
@@ -224,7 +224,7 @@ void PassPage::populateTechniques(const TechniqueControllerList* techniques)
 	TechniqueControllerList::const_iterator it;
 	for(it = techniques->begin(); it != techniques->end(); ++it)
 	{
-		techniqueNames.Add(wxString((*it)->getTechnique()->getName().c_str(), wxConvUTF8));
+		techniqueNames.Add(wxString((*it)->getName().c_str(), wxConvUTF8));
 	}
 
 	mTechniqueComboBox->Clear();

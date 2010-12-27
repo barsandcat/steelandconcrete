@@ -204,7 +204,7 @@ MaterialController* WorkspacePanel::getMaterial(wxTreeItemId id)
 	return NULL;
 }
 
-TechniqueController* WorkspacePanel::getTechnique(wxTreeItemId id)
+Ogre::Technique* WorkspacePanel::getTechnique(wxTreeItemId id)
 {
 	for(TechniqueIdMap::iterator it = mTechniqueIdMap.begin(); it != mTechniqueIdMap.end(); ++it)
 	{
@@ -347,7 +347,7 @@ void WorkspacePanel::OnNewPass(wxCommandEvent& event)
 {
 	Project* project = NULL;
 	MaterialController* material = NULL;
-	TechniqueController* technique = NULL;
+	Ogre::Technique* technique = NULL;
 
 	wxTreeItemId selId = mTreeCtrl->GetSelection();
 	if(isProject(selId))
@@ -501,7 +501,7 @@ void WorkspacePanel::LabelChanged(wxTreeEvent& event)
     wxTreeItemId id = event.GetItem();
     if (isTechnique(id))
     {
-        TechniqueController* tc = getTechnique(id);
+        Ogre::Technique* tc = getTechnique(id);
         tc->setName(Ogre::String(event.GetLabel().mb_str()));
     }
 }
@@ -546,16 +546,16 @@ void WorkspacePanel::materialTechniqueAdded(EventArgs& args)
 {
 	MaterialEventArgs mea = dynamic_cast<MaterialEventArgs&>(args);
 	MaterialController* mc = mea.getMaterialController();
-	TechniqueController* tc = mea.getTechniqueController();
+	Ogre::Technique* tc = mea.getTechniqueController();
 
 	wxTreeItemId materialId = mMaterialIdMap[mc];
-	wxTreeItemId id = mTreeCtrl->AppendItem(materialId, wxString(tc->getTechnique()->getName().c_str(), wxConvUTF8), TECHNIQUE_IMAGE);
+	wxTreeItemId id = mTreeCtrl->AppendItem(materialId, wxString(tc->getName().c_str(), wxConvUTF8), TECHNIQUE_IMAGE);
 	mTreeCtrl->SelectItem(id, true);
 
 	mTechniqueIdMap[tc] = id;
 }
 
-void WorkspacePanel::TechniquePassAdded(TechniqueController* tc, Ogre::Pass* pc)
+void WorkspacePanel::TechniquePassAdded(Ogre::Technique* tc, Ogre::Pass* pc)
 {
 	wxTreeItemId techniqueId = mTechniqueIdMap[tc];
 	wxTreeItemId id = mTreeCtrl->AppendItem(techniqueId, wxString(pc->getName().c_str(), wxConvUTF8), PASS_IMAGE);

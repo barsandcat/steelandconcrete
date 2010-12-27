@@ -32,21 +32,20 @@ http://www.gnu.org/copyleft/lesser.txt
 namespace Ogre
 {
     class Pass;
+    class Technique;
 }
-
-class TechniqueController;
 
 class TechniqueEventArgs : public EventArgs
 {
 public:
-	TechniqueEventArgs(TechniqueController* tc);
-	TechniqueEventArgs(TechniqueController* tc, Ogre::Pass* pc);
+	TechniqueEventArgs(Ogre::Technique* tc);
+	TechniqueEventArgs(Ogre::Technique* tc, Ogre::Pass* pc);
 
-	TechniqueController* getTechniqueController() const;
+	Ogre::Technique* getTechniqueController() const;
 	Ogre::Pass* getPassController() const;
 
 protected:
-	TechniqueController* mTechniqueController;
+	Ogre::Technique* mTechniqueController;
 	Ogre::Pass* mPassController;
 };
 

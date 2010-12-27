@@ -30,7 +30,6 @@ http://www.gnu.org/copyleft/lesser.txt
 #include "OgreTechnique.h"
 
 #include "MaterialEventArgs.h"
-#include "TechniqueController.h"
 
 MaterialController::MaterialController()
 : mMaterialPtr(NULL)
@@ -64,14 +63,14 @@ void MaterialController::setMaterial(MaterialPtr mp)
 	mMaterialPtr = mp;
 }
 
-TechniqueController* MaterialController::getTechniqueController(const String& name)
+Ogre::Technique* MaterialController::getTechniqueController(const String& name)
 {
-	TechniqueController* tc;
+	Ogre::Technique* tc;
 	TechniqueControllerList::iterator it;
 	for(it = mTechniqueControllers.begin(); it != mTechniqueControllers.end(); ++it)
 	{
 		tc = (*it);
-		if(tc->getTechnique()->getName() == name) return tc;
+		if(tc->getName() == name) return tc;
 	}
 
 	return NULL;
@@ -97,31 +96,23 @@ void MaterialController::setTransparencyCastsShadows(bool enabled)
 	mMaterialPtr->setTransparencyCastsShadows(enabled);
 }
 
-TechniqueController* MaterialController::createTechnique(void)
+Ogre::Technique* MaterialController::createTechnique(void)
 {
 	Technique* t = mMaterialPtr->createTechnique();
 
-	// Create controller
-	TechniqueController* tc = new TechniqueController(t);
-	mTechniqueControllers.push_back(tc);
+	fireEvent(TechniqueAdded, MaterialEventArgs(this, t));
 
-	fireEvent(TechniqueAdded, MaterialEventArgs(this, tc));
-
-	return tc;
+	return t;
 }
 
-TechniqueController* MaterialController::createTechnique(const String& name)
+Ogre::Technique* MaterialController::createTechnique(const String& name)
 {
 	Technique* t = mMaterialPtr->createTechnique();
 	t->setName(name);
 
-	// Create controller
-	TechniqueController* tc = new TechniqueController(t);
-	mTechniqueControllers.push_back(tc);
+	fireEvent(TechniqueAdded, MaterialEventArgs(this, t));
 
-	fireEvent(TechniqueAdded, MaterialEventArgs(this, tc));
-
-	return tc;
+	return t;
 }
 
 void MaterialController::removeTechnique(unsigned short index)

@@ -32,20 +32,23 @@ Torus Knot Software Ltd.
 #include <wx/wx.h>
 #include <wx/propgrid/manager.h>
 
-class TechniqueController;
 class EventArgs;
+namespace Ogre
+{
+    class Technique;
+}
 
 class TechniquePropertyGridPage : public wxPropertyGridPage
 {
 public:
-	TechniquePropertyGridPage(TechniqueController* controller);
+	TechniquePropertyGridPage(Ogre::Technique* controller);
 	virtual ~TechniquePropertyGridPage();
 
 	virtual void populate();
 protected:
 	virtual void propertyChanged(wxPropertyGridEvent& event);
 
-	TechniqueController* mController;
+	Ogre::Technique* mController;
 
 	wxPGId mSchemeNameId;
 	wxPGId mLodIndexId;
