@@ -61,7 +61,6 @@ Workspace::~Workspace()
 void Workspace::registerEvents()
 {
 	registerEvent(ProjectAdded);
-	registerEvent(ProjectRemoved);
 }
 
 void Workspace::addProject(Project* project)
