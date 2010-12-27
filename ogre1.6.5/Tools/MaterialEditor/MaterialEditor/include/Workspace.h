@@ -50,7 +50,6 @@ public:
 	enum WorkspaceEvent
 	{
 		ProjectAdded,
-		ProjectRemoved
 	};
 
 	Workspace();
