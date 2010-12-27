@@ -87,7 +87,6 @@ public:
 	void projectAdded(EventArgs& args);
 
 	// Project Event Handlers
-	void projectNameChanged(EventArgs& args);
 	void projectMaterialAdded(EventArgs& args);
 
 	// Material Event Handlers

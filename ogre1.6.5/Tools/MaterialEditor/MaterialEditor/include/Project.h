@@ -58,10 +58,7 @@ class Project : public EventContainer
 public:
 	enum ProjectEvent
 	{
-		NameChanged,
 		MaterialAdded,
-		MaterialRemoved,
-		ActiveMaterialChanged
 	};
 
 	Project();
@@ -71,39 +68,18 @@ public:
 	void registerEvents();
 
 	const wxString& getName() const;
-	void setName(const wxString& name);
 
 	void addMaterial(MaterialPtr materialPtr);
 	void createMaterial(const String& name);
-
-	void removeMaterial(MaterialController* controller);
-	void removeMaterial(Material* material);
-	void removeMaterial(const String& name);
-
-	MaterialController* getActiveMaterial() const;
-	void setActiveMaterial(MaterialController* controller);
-	void setActiveMaterial(Material* material);
-	void setActiveMaterial(const String& name);
 
 	MaterialController* getMaterialController(const String& name);
 
 	const MaterialControllerList* getMaterials() const;
 
-	void open();
-	void close();
 
-	bool isOpen();
-	bool isClosed();
-
-	void generateScene(Ogre::SceneManager* sceneManager);
-
-	void OnRootInitialized(EventArgs& args);
-	void OnRootShutdown(EventArgs& args);
 
 protected:
 	wxString mName;
-	bool mOpen;
-	MaterialController* mActiveMaterial;
 	MaterialControllerList mMaterialControllers;
 
 };
