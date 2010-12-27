@@ -27,7 +27,6 @@ http://www.gnu.org/copyleft/lesser.txt
 #include "MaterialEventArgs.h"
 
 #include "MaterialController.h"
-#include "TechniqueController.h"
 
 MaterialEventArgs::MaterialEventArgs(MaterialController* mc)
 : mMaterialController(mc), mTechniqueController(NULL)

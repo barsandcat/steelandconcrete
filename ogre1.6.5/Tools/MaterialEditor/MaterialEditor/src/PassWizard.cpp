@@ -30,7 +30,6 @@ http://www.gnu.org/copyleft/lesser.txt
 
 #include "MaterialController.h"
 #include "Project.h"
-#include "TechniqueController.h"
 #include "TechniquePage.h"
 #include "Workspace.h"
 #include <OgreTechnique.h>

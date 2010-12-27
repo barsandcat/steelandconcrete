@@ -34,7 +34,6 @@ Torus Knot Software Ltd.
 
 #include "OgreTechnique.h"
 
-#include "TechniqueEventArgs.h"
 
 BEGIN_EVENT_TABLE(TechniquePropertyGridPage, wxPropertyGridPage)
 	EVT_PG_CHANGED(-1, TechniquePropertyGridPage::propertyChanged)

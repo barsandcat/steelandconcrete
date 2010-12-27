@@ -57,8 +57,6 @@ Torus Knot Software Ltd.
 #include "PassPropertyGridPage.h"
 #include "SelectionEventArgs.h"
 #include "SelectionService.h"
-#include "TechniqueController.h"
-#include "TechniqueEventArgs.h"
 #include "TechniquePropertyGridPage.h"
 #include "TechniqueWizard.h"
 #include "Workspace.h"
@@ -101,7 +99,6 @@ PropertiesPanel::PropertiesPanel(wxWindow* parent,
 	Layout();
 
 	SelectionService::getSingletonPtr()->subscribe(SelectionService::SelectionChanged, boost::bind(&PropertiesPanel::selectionChanged, this, _1));
-	Workspace::getSingletonPtr()->subscribe(Workspace::ProjectRemoved, boost::bind(&PropertiesPanel::projectRemoved, this, _1));
 }
 
 PropertiesPanel::~PropertiesPanel()
@@ -189,55 +186,3 @@ void PropertiesPanel::selectionChanged(EventArgs& args)
 	}
 }
 
-void PropertiesPanel::projectRemoved(EventArgs& args)
-{
-	// Consider: Should this method also attempt to remove all
-	//           of the page associated with this Projects,
-	//           Materials, Techniques, and Passes?
-}
-
-void PropertiesPanel::materialRemoved(EventArgs& args)
-{
-	// Consider: Should this method also attempt to remove all
-	//           of the page associated with this Materials, Techniques,
-	//           and Passes?
-
-	ProjectEventArgs pea = dynamic_cast<ProjectEventArgs&>(args);
-	MaterialController* mc = pea.getMaterial();
-
-	MaterialPageIndexMap::iterator it = mMaterialPageIndexMap.find(mc);
-	if(it != mMaterialPageIndexMap.end())
-	{
-		mPropertyGrid->RemovePage(mMaterialPageIndexMap[mc]);
-		mMaterialPageIndexMap.erase(it);
-	}
-}
-
-void PropertiesPanel::techniqueRemoved(EventArgs& args)
-{
-	// Consider: Should this method also attempt to remove all
-	//           of the page associated with this Techniques, Passes?
-
-	MaterialEventArgs mea = dynamic_cast<MaterialEventArgs&>(args);
-	Ogre::Technique* tc = mea.getTechniqueController();
-
-	TechniquePageIndexMap::iterator it = mTechniquePageIndexMap.find(tc);
-	if(it != mTechniquePageIndexMap.end())
-	{
-		mPropertyGrid->RemovePage(mTechniquePageIndexMap[tc]);
-		mTechniquePageIndexMap.erase(it);
-	}
-}
-
-void PropertiesPanel::passRemoved(EventArgs& args)
-{
-	TechniqueEventArgs tea = dynamic_cast<TechniqueEventArgs&>(args);
-	Ogre::Pass* pc = tea.getPassController();
-
-	PassPageIndexMap::iterator it = mPassPageIndexMap.find(pc);
-	if(it != mPassPageIndexMap.end())
-	{
-		mPropertyGrid->RemovePage(mPassPageIndexMap[pc]);
-		mPassPageIndexMap.erase(it);
-	}
-}

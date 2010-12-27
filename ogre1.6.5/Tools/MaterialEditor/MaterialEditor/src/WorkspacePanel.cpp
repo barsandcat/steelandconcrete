@@ -55,8 +55,6 @@ Torus Knot Software Ltd.
 #include "ProjectEventArgs.h"
 #include "ProjectWizard.h"
 #include "SelectionService.h"
-#include "TechniqueController.h"
-#include "TechniqueEventArgs.h"
 #include "TechniqueWizard.h"
 #include "Workspace.h"
 #include "WorkspaceEventArgs.h"
