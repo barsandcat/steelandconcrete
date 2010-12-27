@@ -60,10 +60,10 @@ void MaterialPropertyGridPage::propertyChange(wxPropertyGridEvent& event)
 	}
 	else if(id == mPropertyReceiveShadowsId)
 	{
-		mController->setReceiveShadows(event.GetPropertyValueAsBool());
+		mController->getMaterial()->setReceiveShadows(event.GetPropertyValueAsBool());
 	}
 	else if(id == mPropertyTransparencyCastsShadowsId)
 	{
-		mController->setTransparencyCastsShadows(event.GetPropertyValueAsBool());
+		mController->getMaterial()->setTransparencyCastsShadows(event.GetPropertyValueAsBool());
 	}
 }

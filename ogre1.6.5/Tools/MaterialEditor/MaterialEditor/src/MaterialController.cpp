@@ -50,7 +50,6 @@ MaterialController::~MaterialController()
 void MaterialController::registerEvents()
 {
 	registerEvent(TechniqueAdded);
-	registerEvent(TechniqueRemoved);
 }
 
 MaterialPtr MaterialController::getMaterial() const
@@ -81,30 +80,6 @@ const TechniqueControllerList* MaterialController::getTechniqueControllers() con
 	return &mTechniqueControllers;
 }
 
-void MaterialController::setName(const String& name)
-{
-	// ???
-}
-
-void MaterialController::setReceiveShadows(bool enabled)
-{
-	mMaterialPtr->setReceiveShadows(enabled);
-}
-
-void MaterialController::setTransparencyCastsShadows(bool enabled)
-{
-	mMaterialPtr->setTransparencyCastsShadows(enabled);
-}
-
-Ogre::Technique* MaterialController::createTechnique(void)
-{
-	Technique* t = mMaterialPtr->createTechnique();
-
-	fireEvent(TechniqueAdded, MaterialEventArgs(this, t));
-
-	return t;
-}
-
 Ogre::Technique* MaterialController::createTechnique(const String& name)
 {
 	Technique* t = mMaterialPtr->createTechnique();
@@ -113,18 +88,4 @@ Ogre::Technique* MaterialController::createTechnique(const String& name)
 	fireEvent(TechniqueAdded, MaterialEventArgs(this, t));
 
 	return t;
-}
-
-void MaterialController::removeTechnique(unsigned short index)
-{
-	mMaterialPtr->removeTechnique(index);
-
-	fireEvent(TechniqueRemoved, MaterialEventArgs(this));
-}
-
-void MaterialController::removeAllTechniques(void)
-{
-	mMaterialPtr->removeAllTechniques();
-
-	fireEvent(TechniqueRemoved, MaterialEventArgs(this));
 }
