@@ -41,12 +41,12 @@ using Ogre::Entity;
 using Ogre::Light;
 using Ogre::MaterialManager;
 
-Project::Project() : mActiveMaterial(NULL)
+Project::Project()
 {
 	registerEvents();
 }
 
-Project::Project(const wxString& name) : mActiveMaterial(NULL), mName(name)
+Project::Project(const wxString& name) :mName(name)
 {
 	registerEvents();
 }
@@ -64,22 +64,12 @@ Project::~Project()
 
 void Project::registerEvents()
 {
-	registerEvent(NameChanged);
 	registerEvent(MaterialAdded);
-	registerEvent(MaterialRemoved);
-	registerEvent(ActiveMaterialChanged);
 }
 
 const wxString& Project::getName() const
 {
 	return mName;
-}
-
-void Project::setName(const wxString& name)
-{
-	mName = name;
-
-	fireEvent(NameChanged, ProjectEventArgs(this));
 }
 
 void Project::addMaterial(MaterialPtr materialPtr)
@@ -101,58 +91,6 @@ void Project::createMaterial(const String& name)
 	fireEvent(MaterialAdded, ProjectEventArgs(this, controller));
 }
 
-void Project::removeMaterial(MaterialController* controller)
-{
-	MaterialControllerList::iterator it;
-	for(it = mMaterialControllers.begin(); it != mMaterialControllers.end(); ++it)
-	{
-		if(*it == controller)
-		{
-			mMaterialControllers.erase(it);
-			break;
-		}
-	}
-
-	// Consider: Should this be fired BEFORE the actual removal?
-	fireEvent(MaterialRemoved, ProjectEventArgs(this, controller));
-}
-
-void Project::removeMaterial(Material* material)
-{
-	removeMaterial(getMaterialController(material->getName()));
-}
-
-void Project::removeMaterial(const String& name)
-{
-	removeMaterial(getMaterialController(name));
-}
-
-MaterialController* Project::getActiveMaterial() const
-{
-	return mActiveMaterial;
-}
-
-void Project::setActiveMaterial(MaterialController* controller)
-{
-	assert(controller);
-
-	if(controller == mActiveMaterial) return;
-
-	mActiveMaterial = controller;
-
-	fireEvent(ActiveMaterialChanged, ProjectEventArgs(this));
-}
-
-void Project::setActiveMaterial(Material* material)
-{
-	setActiveMaterial(getMaterialController(material->getName()));
-}
-
-void Project::setActiveMaterial(const String& name)
-{
-	setActiveMaterial(getMaterialController(name));
-}
-
 MaterialController* Project::getMaterialController(const String& name)
 {
 	MaterialController* mc;
@@ -171,32 +109,3 @@ const MaterialControllerList* Project::getMaterials() const
 	return &mMaterialControllers;
 }
 
-void Project::open()
-{
-}
-
-void Project::close()
-{
-}
-
-void Project::generateScene(Ogre::SceneManager* sceneManager)
-{
-	sceneManager->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
-
-	Light* light = sceneManager->createLight("MainLight");
-	light->setPosition(20,80,50);
-
-	Entity* entity = sceneManager->createEntity("head", "ogrehead.mesh");
-	entity->setMaterialName(mActiveMaterial->getMaterial()->getName());
-
-	sceneManager->getRootSceneNode()->createChildSceneNode()->attachObject(entity);
-}
-
-
-void Project::OnRootInitialized(EventArgs& args)
-{
-}
-
-void Project::OnRootShutdown(EventArgs& args)
-{
-}

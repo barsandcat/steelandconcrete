@@ -249,7 +249,6 @@ bool WorkspacePanel::isPass(wxTreeItemId id)
 
 void WorkspacePanel::subscribe(Project* project)
 {
-	project->subscribe(Project::NameChanged, boost::bind(&WorkspacePanel::projectNameChanged, this, _1));
 	project->subscribe(Project::MaterialAdded, boost::bind(&WorkspacePanel::projectMaterialAdded, this, _1));
 }
 
@@ -516,14 +515,6 @@ void WorkspacePanel::projectAdded(EventArgs& args)
 	mProjectIdMap[project] = id;
 }
 
-void WorkspacePanel::projectNameChanged(EventArgs& args)
-{
-	ProjectEventArgs pea = dynamic_cast<ProjectEventArgs&>(args);
-	Project* project = pea.getProject();
-
-	wxTreeItemId projectId = mProjectIdMap[project];
-	mTreeCtrl->SetItemText(projectId, project->getName().c_str());
-}
 
 void WorkspacePanel::projectMaterialAdded(EventArgs& args)
 {
