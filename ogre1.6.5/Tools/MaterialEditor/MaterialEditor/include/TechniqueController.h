@@ -43,7 +43,6 @@ namespace Ogre
 }
 
 class MaterialController;
-class PassController;
 
 using namespace Ogre;
 
@@ -52,8 +51,6 @@ typedef std::list<Ogre::Pass*> PassControllerList;
 class TechniqueController
 {
 public:
-    boost::signal<void (TechniqueController*)> mNameChangedSignal;
-
 	TechniqueController(Technique* technique);
 	virtual ~TechniqueController();
 

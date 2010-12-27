@@ -80,6 +80,7 @@ public:
 	void OnUpdateMaterialMenuItem(wxUpdateUIEvent& event);
 	void OnUpdateTechniqueMenuItem(wxUpdateUIEvent& event);
 	void OnUpdatePassMenuItem(wxUpdateUIEvent& event);
+    void LabelChanged(wxTreeEvent& event);
 
 	// Workspace Event Handlers
 	void projectAdded(EventArgs& args);
@@ -91,7 +92,6 @@ public:
 	// Material Event Handlers
 	void materialTechniqueAdded(EventArgs& args);
 
-    void TechniqueNameChanged(TechniqueController* tc);
     void TechniquePassAdded(TechniqueController* tc, Ogre::Pass* pc);
 protected:
 	void createPanel();
@@ -115,7 +115,6 @@ protected:
 	// Event Handling Utils
 	void subscribe(Project* project);
 	void subscribe(MaterialController* material);
-	void subscribe(TechniqueController* technique);
 
 	wxImageList* mImageList;
 	wxFlexGridSizer* mSizer;

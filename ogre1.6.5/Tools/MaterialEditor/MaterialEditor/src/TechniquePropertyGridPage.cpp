@@ -52,7 +52,6 @@ TechniquePropertyGridPage::~TechniquePropertyGridPage()
 
 void TechniquePropertyGridPage::populate()
 {
-	mNameId = Append(new wxStringProperty(wxT("Name"), wxPG_LABEL, wxString(mController->getTechnique()->getName().c_str(), wxConvUTF8)));
 	mSchemeNameId = Append(new wxStringProperty(wxT("Scheme Name"), wxPG_LABEL, wxString(mController->getTechnique()->getSchemeName().c_str(), wxConvUTF8)));
 	mLodIndexId = Append(new wxIntProperty(wxT("LOD Index"), wxPG_LABEL, mController->getTechnique()->getLodIndex()));
 }
@@ -60,11 +59,7 @@ void TechniquePropertyGridPage::populate()
 void TechniquePropertyGridPage::propertyChanged(wxPropertyGridEvent& event)
 {
 	wxPGId id = event.GetProperty();
-	if(id == mNameId)
-	{
-		mController->setName(Ogre::String(event.GetPropertyValueAsString().mb_str()));
-	}
-	else if(id == mSchemeNameId)
+    if(id == mSchemeNameId)
 	{
 		mController->setSchemeName(Ogre::String(event.GetPropertyValueAsString().mb_str()));
 	}

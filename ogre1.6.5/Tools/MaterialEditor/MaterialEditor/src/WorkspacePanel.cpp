@@ -85,6 +85,7 @@ BEGIN_EVENT_TABLE(WorkspacePanel, wxPanel)
 	EVT_TREE_ITEM_RIGHT_CLICK(ID_TREE_CTRL, WorkspacePanel::OnRightClick)
 	EVT_TREE_ITEM_ACTIVATED(ID_TREE_CTRL, WorkspacePanel::OnActivate)
 	EVT_TREE_SEL_CHANGED(ID_TREE_CTRL, WorkspacePanel::OnSelectionChanged)
+	EVT_TREE_END_LABEL_EDIT(ID_TREE_CTRL, WorkspacePanel::LabelChanged)
 	EVT_MENU(ID_MENU_NEW_PROJECT, WorkspacePanel::OnNewProject)
 	EVT_MENU(ID_MENU_NEW_MATERIAL_SCRIPT, WorkspacePanel::OnNewMaterialScript)
 	EVT_MENU(ID_MENU_NEW_MATERIAL, WorkspacePanel::OnNewMaterial)
@@ -125,7 +126,9 @@ void WorkspacePanel::createPanel()
 	//mToolBarPanel = new wxPanel(this);
 	//mSizer->Add(mToolBarPanel, 1, wxALL | wxEXPAND, 0);
 
-	mTreeCtrl = new wxTreeCtrl(this, ID_TREE_CTRL, wxDefaultPosition, wxDefaultSize, wxNO_BORDER | wxTR_FULL_ROW_HIGHLIGHT | wxTR_HAS_BUTTONS | wxTR_SINGLE);
+	mTreeCtrl = new wxTreeCtrl(this, ID_TREE_CTRL, wxDefaultPosition, wxDefaultSize,
+                            wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT |
+                            wxTR_HAS_BUTTONS | wxTR_SINGLE);
 	mTreeCtrl->AssignImageList(getImageList());
 	mRootId = mTreeCtrl->AddRoot(wxT("Workspace"), WORKSPACE_IMAGE);
 
@@ -255,11 +258,6 @@ void WorkspacePanel::subscribe(Project* project)
 void WorkspacePanel::subscribe(MaterialController* material)
 {
 	material->subscribe(MaterialController::TechniqueAdded, boost::bind(&WorkspacePanel::materialTechniqueAdded, this, _1));
-}
-
-void WorkspacePanel::subscribe(TechniqueController* technique)
-{
-	technique->mNameChangedSignal.connect(boost::bind(&WorkspacePanel::TechniqueNameChanged, this, _1));
 }
 
 void WorkspacePanel::OnRightClick(wxTreeEvent& event)
@@ -498,6 +496,16 @@ void WorkspacePanel::OnUpdatePassMenuItem(wxUpdateUIEvent& event)
 	event.Enable(enable);
 }
 
+void WorkspacePanel::LabelChanged(wxTreeEvent& event)
+{
+    wxTreeItemId id = event.GetItem();
+    if (isTechnique(id))
+    {
+        TechniqueController* tc = getTechnique(id);
+        tc->setName(Ogre::String(event.GetLabel().mb_str()));
+    }
+}
+
 void WorkspacePanel::projectAdded(EventArgs& args)
 {
 	WorkspaceEventArgs wea = dynamic_cast<WorkspaceEventArgs&>(args);
@@ -545,14 +553,6 @@ void WorkspacePanel::materialTechniqueAdded(EventArgs& args)
 	mTreeCtrl->SelectItem(id, true);
 
 	mTechniqueIdMap[tc] = id;
-
-	subscribe(tc);
-}
-
-void WorkspacePanel::TechniqueNameChanged(TechniqueController* tc)
-{
-	wxTreeItemId techniqueId = mTechniqueIdMap[tc];
-	mTreeCtrl->SetItemText(techniqueId, wxString(tc->getTechnique()->getName().c_str(), wxConvUTF8));
 }
 
 void WorkspacePanel::TechniquePassAdded(TechniqueController* tc, Ogre::Pass* pc)
