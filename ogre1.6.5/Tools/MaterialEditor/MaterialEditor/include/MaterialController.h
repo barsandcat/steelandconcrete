@@ -51,7 +51,6 @@ public:
 	enum MaterialEvent
 	{
 		TechniqueAdded,
-		TechniqueRemoved
 	};
 
 	MaterialController();
@@ -64,13 +63,7 @@ public:
 	Ogre::Technique* getTechniqueController(const String& name);
 	const TechniqueControllerList* getTechniqueControllers() const;
 
-	void setName(const String& name);
-	void setReceiveShadows(bool enabled);
-	void setTransparencyCastsShadows(bool enabled);
-	Ogre::Technique* createTechnique(void);
 	Ogre::Technique* createTechnique(const String& name);
-	void removeTechnique(unsigned short index);
-	void removeAllTechniques(void);
 
 protected:
 	void registerEvents();

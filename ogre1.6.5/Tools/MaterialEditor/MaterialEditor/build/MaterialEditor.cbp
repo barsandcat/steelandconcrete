@@ -103,8 +103,6 @@
 		<Unit filename="../include/SelectionEventArgs.h" />
 		<Unit filename="../include/SelectionService.h" />
 		<Unit filename="../include/SharedDefs.h" />
-		<Unit filename="../include/TechniqueController.h" />
-		<Unit filename="../include/TechniqueEventArgs.h" />
 		<Unit filename="../include/TechniquePage.h" />
 		<Unit filename="../include/TechniquePropertyGridPage.h" />
 		<Unit filename="../include/TechniqueWizard.h" />
@@ -112,7 +110,6 @@
 		<Unit filename="../include/Workspace.h" />
 		<Unit filename="../include/WorkspaceEventArgs.h" />
 		<Unit filename="../include/WorkspacePanel.h" />
-		<Unit filename="../include/wxOgre.h" />
 		<Unit filename="../include/wxOgreLogControl.h" />
 		<Unit filename="../src/CallTipManager.cpp" />
 		<Unit filename="../src/CgEditor.cpp" />
@@ -147,7 +144,6 @@
 		<Unit filename="../src/ScintillaEditor.cpp" />
 		<Unit filename="../src/SelectionEventArgs.cpp" />
 		<Unit filename="../src/SelectionService.cpp" />
-		<Unit filename="../src/TechniqueEventArgs.cpp" />
 		<Unit filename="../src/TechniquePage.cpp" />
 		<Unit filename="../src/TechniquePropertyGridPage.cpp" />
 		<Unit filename="../src/TechniqueWizard.cpp" />
