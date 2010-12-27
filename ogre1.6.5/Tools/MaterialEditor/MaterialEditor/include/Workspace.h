@@ -56,8 +56,6 @@ public:
 	virtual ~Workspace();
 
 	void addProject(Project* project);
-	void removeProject(Project* project);
-	void removeProject(const wxString& name);
 
 	Project* getProject(const wxString& name);
 	const ProjectList* getProjects() const;

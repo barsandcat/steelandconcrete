@@ -70,18 +70,6 @@ void Workspace::addProject(Project* project)
 	fireEvent(ProjectAdded, WorkspaceEventArgs(this, project));
 }
 
-void Workspace::removeProject(Project* project)
-{
-	mProjects.remove(project);
-	fireEvent(ProjectAdded, WorkspaceEventArgs(this, project));
-	delete project;
-}
-
-void Workspace::removeProject(const wxString& name)
-{
-	removeProject(getProject(name));
-}
-
 Project* Workspace::getProject(const wxString& name)
 {
 	Project* p;
