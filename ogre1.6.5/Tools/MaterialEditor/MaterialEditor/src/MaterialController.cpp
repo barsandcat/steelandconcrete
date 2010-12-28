@@ -75,6 +75,7 @@ Ogre::Technique* MaterialController::createTechnique(const String& name)
 {
 	Technique* t = mMaterialPtr->createTechnique();
 	t->setName(name);
+	mTechniqueControllers.push_back(t);
 
 	return t;
 }
