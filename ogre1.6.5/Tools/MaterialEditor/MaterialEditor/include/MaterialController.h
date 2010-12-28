@@ -28,12 +28,7 @@ http://www.gnu.org/copyleft/lesser.txt
 #define _MATERIALCONTROLLER_H_
 
 #include <list>
-
-#include <boost/signal.hpp>
-
 #include "OgreMaterial.h"
-
-#include "EventContainer.h"
 
 namespace Ogre
 {
@@ -45,13 +40,9 @@ using namespace Ogre;
 
 typedef std::list<Ogre::Technique*> TechniqueControllerList;
 
-class MaterialController : public EventContainer
+class MaterialController
 {
 public:
-	enum MaterialEvent
-	{
-		TechniqueAdded,
-	};
 
 	MaterialController();
 	MaterialController(MaterialPtr material);
@@ -66,8 +57,6 @@ public:
 	Ogre::Technique* createTechnique(const String& name);
 
 protected:
-	void registerEvents();
-
 	MaterialPtr mMaterialPtr;
 
 	TechniqueControllerList mTechniqueControllers;

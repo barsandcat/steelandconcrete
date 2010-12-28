@@ -85,7 +85,6 @@
 		<Unit filename="../include/MaterialController.h" />
 		<Unit filename="../include/MaterialEditorApp.h" />
 		<Unit filename="../include/MaterialEditorFrame.h" />
-		<Unit filename="../include/MaterialEventArgs.h" />
 		<Unit filename="../include/MaterialPage.h" />
 		<Unit filename="../include/MaterialPropertyGridPage.h" />
 		<Unit filename="../include/MaterialScriptEditor.h" />
@@ -127,7 +126,6 @@
 		<Unit filename="../src/MaterialController.cpp" />
 		<Unit filename="../src/MaterialEditorApp.cpp" />
 		<Unit filename="../src/MaterialEditorFrame.cpp" />
-		<Unit filename="../src/MaterialEventArgs.cpp" />
 		<Unit filename="../src/MaterialPage.cpp" />
 		<Unit filename="../src/MaterialPropertyGridPage.cpp" />
 		<Unit filename="../src/MaterialScriptEditor.cpp" />

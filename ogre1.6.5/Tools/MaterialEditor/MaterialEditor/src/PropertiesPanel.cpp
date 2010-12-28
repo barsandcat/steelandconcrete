@@ -47,7 +47,6 @@ Torus Knot Software Ltd.
 
 #include "EventArgs.h"
 #include "MaterialController.h"
-#include "MaterialEventArgs.h"
 #include "MaterialPropertyGridPage.h"
 #include "MaterialWizard.h"
 #include "PassPropertyGridPage.h"

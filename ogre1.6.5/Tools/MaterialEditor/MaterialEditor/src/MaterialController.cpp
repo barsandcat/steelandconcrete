@@ -29,27 +29,18 @@ http://www.gnu.org/copyleft/lesser.txt
 #include "OgreColourValue.h"
 #include "OgreTechnique.h"
 
-#include "MaterialEventArgs.h"
-
 MaterialController::MaterialController()
 : mMaterialPtr(NULL)
 {
-	registerEvents();
 }
 
 MaterialController::MaterialController(MaterialPtr materialPtr)
 : mMaterialPtr(materialPtr)
 {
-	registerEvents();
 }
 
 MaterialController::~MaterialController()
 {
-}
-
-void MaterialController::registerEvents()
-{
-	registerEvent(TechniqueAdded);
 }
 
 MaterialPtr MaterialController::getMaterial() const
@@ -84,8 +75,6 @@ Ogre::Technique* MaterialController::createTechnique(const String& name)
 {
 	Technique* t = mMaterialPtr->createTechnique();
 	t->setName(name);
-
-	fireEvent(TechniqueAdded, MaterialEventArgs(this, t));
 
 	return t;
 }

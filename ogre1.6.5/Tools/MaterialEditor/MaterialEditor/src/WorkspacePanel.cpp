@@ -47,7 +47,6 @@ Torus Knot Software Ltd.
 #include "EventArgs.h"
 #include "IconManager.h"
 #include "MaterialController.h"
-#include "MaterialEventArgs.h"
 #include "MaterialScriptEditor.h"
 #include "MaterialWizard.h"
 #include "PassWizard.h"
@@ -252,11 +251,6 @@ void WorkspacePanel::subscribe(Project* project)
 	project->subscribe(Project::MaterialAdded, boost::bind(&WorkspacePanel::projectMaterialAdded, this, _1));
 }
 
-void WorkspacePanel::subscribe(MaterialController* material)
-{
-	material->subscribe(MaterialController::TechniqueAdded, boost::bind(&WorkspacePanel::materialTechniqueAdded, this, _1));
-}
-
 void WorkspacePanel::OnRightClick(wxTreeEvent& event)
 {
 	showContextMenu(event.GetPoint(), event.GetItem());
@@ -331,6 +325,7 @@ void WorkspacePanel::OnNewTechnique(wxCommandEvent& event)
 
 	TechniqueWizard* wizard = new TechniqueWizard();
 	wizard->Create(this, wxID_ANY, wxT("New Technique"), wxNullBitmap, wxDefaultPosition, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
+	wizard->mTechniqueAddedSignal.connect(boost::bind(&WorkspacePanel::TechniqueAdded, this, _1, _2));
 	wizard->getTechniquePage()->setProject(project);
 	wizard->getTechniquePage()->setMaterial(material);
 	wizard->RunWizard(wizard->getTechniquePage()); // This seems unnatural, seems there must be a better way to deal with wizards
@@ -527,16 +522,10 @@ void WorkspacePanel::projectMaterialAdded(EventArgs& args)
 	mTreeCtrl->SelectItem(id, true);
 
 	mMaterialIdMap[material] = id;
-
-	subscribe(material);
 }
 
-void WorkspacePanel::materialTechniqueAdded(EventArgs& args)
+void WorkspacePanel::TechniqueAdded(MaterialController* mc, Ogre::Technique* tc)
 {
-	MaterialEventArgs mea = dynamic_cast<MaterialEventArgs&>(args);
-	MaterialController* mc = mea.getMaterialController();
-	Ogre::Technique* tc = mea.getTechniqueController();
-
 	wxTreeItemId materialId = mMaterialIdMap[mc];
 	wxTreeItemId id = mTreeCtrl->AppendItem(materialId, wxString(tc->getName().c_str(), wxConvUTF8), TECHNIQUE_IMAGE);
 	mTreeCtrl->SelectItem(id, true);
