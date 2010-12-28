@@ -90,7 +90,7 @@ public:
 	void projectMaterialAdded(EventArgs& args);
 
 	// Material Event Handlers
-	void materialTechniqueAdded(EventArgs& args);
+	void TechniqueAdded(MaterialController* mc, Ogre::Technique* tc);
 
     void TechniquePassAdded(Ogre::Technique* tc, Ogre::Pass* pc);
 protected:
@@ -114,7 +114,6 @@ protected:
 
 	// Event Handling Utils
 	void subscribe(Project* project);
-	void subscribe(MaterialController* material);
 
 	wxImageList* mImageList;
 	wxFlexGridSizer* mSizer;

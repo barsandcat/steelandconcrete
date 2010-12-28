@@ -30,10 +30,18 @@ http://www.gnu.org/copyleft/lesser.txt
 #include <wx/wizard.h>
 
 #include "TechniquePage.h"
+#include <boost/bind.hpp>
+#include <boost/signal.hpp>
+namespace Ogre
+{
+    class Technique;
+}
+class MaterialController;
 
 class TechniqueWizard : public wxWizard
 {
 public:
+    boost::signal< void(MaterialController* , Ogre::Technique* ) > mTechniqueAddedSignal;
 	TechniqueWizard();
 	virtual ~TechniqueWizard();
 

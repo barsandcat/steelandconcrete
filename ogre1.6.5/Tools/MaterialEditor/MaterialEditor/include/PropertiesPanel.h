@@ -42,14 +42,10 @@ class wxPropertyGridManager;
 
 class EventArgs;
 class MaterialController;
-class MaterialEventArgs;
 class MaterialPropertyGridPage;
-class PassController;
-class PassEventArgs;
 class PassPropertyGridPage;
 class ProjectEventArgs;
 class SelectionEventArgs;
-class TechniqueEventArgs;
 class TechniquePropertyGridPage;
 
 //typedef std::map<Project*, ProjectP> ProjectPageMap;
