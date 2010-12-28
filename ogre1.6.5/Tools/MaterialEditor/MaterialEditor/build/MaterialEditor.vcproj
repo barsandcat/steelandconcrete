@@ -255,10 +255,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\MaterialEventArgs.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\MaterialPage.cpp"
 				>
 			</File>
@@ -430,10 +426,6 @@
 			</File>
 			<File
 				RelativePath="..\include\MaterialEditorFrame.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\MaterialEventArgs.h"
 				>
 			</File>
 			<File
