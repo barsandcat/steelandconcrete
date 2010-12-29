@@ -55,12 +55,15 @@ void MaterialController::setMaterial(MaterialPtr mp)
 
 Ogre::Technique* MaterialController::getTechniqueController(const String& name)
 {
-	Ogre::Technique* tc;
-	TechniqueControllerList::iterator it;
-	for(it = mTechniqueControllers.begin(); it != mTechniqueControllers.end(); ++it)
+	Ogre::Material::TechniqueIterator it = mMaterialPtr->getTechniqueIterator();
+	while (it.hasMoreElements())
 	{
-		tc = (*it);
-		if(tc->getName() == name) return tc;
+	    Ogre::Technique* tc = it.peekNext();
+		if (tc->getName() == name)
+		{
+		    return tc;
+		}
+        it.moveNext();
 	}
 
 	return NULL;
