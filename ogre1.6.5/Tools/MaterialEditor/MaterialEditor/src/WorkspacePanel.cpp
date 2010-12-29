@@ -50,7 +50,6 @@ Torus Knot Software Ltd.
 #include "MaterialWizard.h"
 #include "PassWizard.h"
 #include "Project.h"
-#include "ProjectEventArgs.h"
 #include "ProjectWizard.h"
 #include "SelectionService.h"
 #include "TechniqueWizard.h"
@@ -245,11 +244,6 @@ bool WorkspacePanel::isPass(wxTreeItemId id)
 	return getPass(id) != NULL;
 }
 
-void WorkspacePanel::subscribe(Project* project)
-{
-	project->subscribe(Project::MaterialAdded, boost::bind(&WorkspacePanel::projectMaterialAdded, this, _1));
-}
-
 void WorkspacePanel::OnRightClick(wxTreeEvent& event)
 {
 	showContextMenu(event.GetPoint(), event.GetItem());
@@ -295,6 +289,7 @@ void WorkspacePanel::OnNewMaterial(wxCommandEvent& event)
 	wxTreeItemId id = mTreeCtrl->GetSelection();
 
 	MaterialWizard* wizard = new MaterialWizard();
+	wizard->mMaterialAddedSignal.connect(boost::bind(&WorkspacePanel::projectMaterialAdded, this, _1, _2));
 	wizard->Create(this, wxID_ANY, wxT("New Project"), wxNullBitmap, wxDefaultPosition, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
 	wizard->getMaterialPage()->setProject(getProject(id));
 	wizard->RunWizard(wizard->getMaterialPage()); // This seems unnatural, seems there must be a better way to deal with wizards
@@ -401,6 +396,7 @@ void WorkspacePanel::OnAddMaterial(wxCommandEvent& event)
 
 				Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().getByName("GrassMaterial");
 				project->addMaterial(mat);
+				projectMaterialAdded(project, mat);
 			}
 		}
 	}
@@ -501,7 +497,6 @@ void WorkspacePanel::projectAdded(EventArgs& args)
 {
 	WorkspaceEventArgs wea = dynamic_cast<WorkspaceEventArgs&>(args);
 	Project* project = wea.getProject();
-	subscribe(project);
 
 	wxTreeItemId id = mTreeCtrl->AppendItem(mRootId, project->getName().c_str(), PROJECT_IMAGE);
 	mTreeCtrl->SelectItem(id, true);
@@ -510,12 +505,8 @@ void WorkspacePanel::projectAdded(EventArgs& args)
 }
 
 
-void WorkspacePanel::projectMaterialAdded(EventArgs& args)
+void WorkspacePanel::projectMaterialAdded(Project* project, Ogre::MaterialPtr material)
 {
-	ProjectEventArgs pea = dynamic_cast<ProjectEventArgs&>(args);
-	Project* project = pea.getProject();
-	MaterialPtr material = pea.getMaterial();
-
 	wxTreeItemId projectId = mProjectIdMap[project];
 	wxTreeItemId id = mTreeCtrl->AppendItem(projectId, wxString(material->getName().c_str(), wxConvUTF8), MATERIAL_IMAGE);
 	mTreeCtrl->SelectItem(id, true);

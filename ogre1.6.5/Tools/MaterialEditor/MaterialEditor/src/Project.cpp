@@ -34,20 +34,12 @@ Torus Knot Software Ltd.
 #include "OgreMaterialManager.h"
 #include "OgreSceneManager.h"
 
-#include "ProjectEventArgs.h"
-
-using Ogre::Entity;
-using Ogre::Light;
-using Ogre::MaterialManager;
-
 Project::Project()
 {
-	registerEvents();
 }
 
 Project::Project(const wxString& name) :mName(name)
 {
-	registerEvents();
 }
 
 Project::~Project()
@@ -55,34 +47,25 @@ Project::~Project()
 	mMaterialControllers.clear();
 }
 
-void Project::registerEvents()
-{
-	registerEvent(MaterialAdded);
-}
-
 const wxString& Project::getName() const
 {
 	return mName;
 }
 
-void Project::addMaterial(MaterialPtr materialPtr)
+void Project::addMaterial(Ogre::MaterialPtr materialPtr)
 {
 	mMaterialControllers.push_back(materialPtr);
-
-	fireEvent(MaterialAdded, ProjectEventArgs(this, materialPtr));
 }
 
-void Project::createMaterial(const String& name)
+Ogre::MaterialPtr Project::createMaterial(const Ogre::String& name)
 {
 	// TODO: Projects should probably have their own resource groups instead of using the default
-	MaterialPtr materialPtr = (MaterialPtr)MaterialManager::getSingletonPtr()->create(name, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-	
-	mMaterialControllers.push_back(materialPtr);
+	Ogre::MaterialPtr materialPtr = (Ogre::MaterialPtr)Ogre::MaterialManager::getSingletonPtr()->create(name, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
-	fireEvent(MaterialAdded, ProjectEventArgs(this, materialPtr));
+	mMaterialControllers.push_back(materialPtr);
 }
 
-Ogre::MaterialPtr Project::getMaterialController(const String& name)
+Ogre::MaterialPtr Project::getMaterialController(const Ogre::String& name)
 {
 	Ogre::MaterialPtr mc;
 	MaterialControllerList::iterator it;

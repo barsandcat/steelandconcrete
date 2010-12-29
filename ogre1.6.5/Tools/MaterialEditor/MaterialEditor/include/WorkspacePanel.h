@@ -87,7 +87,7 @@ public:
 	void projectAdded(EventArgs& args);
 
 	// Project Event Handlers
-	void projectMaterialAdded(EventArgs& args);
+	void projectMaterialAdded(Project* project, Ogre::MaterialPtr material);
 
 	// Material Event Handlers
 	void TechniqueAdded(Ogre::MaterialPtr mc, Ogre::Technique* tc);
@@ -111,9 +111,6 @@ protected:
 	bool isMaterial(wxTreeItemId id);
 	bool isTechnique(wxTreeItemId id);
 	bool isPass(wxTreeItemId id);
-
-	// Event Handling Utils
-	void subscribe(Project* project);
 
 	wxImageList* mImageList;
 	wxFlexGridSizer* mSizer;

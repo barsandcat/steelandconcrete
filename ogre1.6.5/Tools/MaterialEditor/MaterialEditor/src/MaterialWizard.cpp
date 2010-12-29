@@ -67,5 +67,6 @@ void MaterialWizard::OnFinish(wxWizardEvent& event)
 	wxString name;
 	mMaterialPage->getName(name);
 
-	project->createMaterial(Ogre::String(name.mb_str()));
+	Ogre::MaterialPtr material = project->createMaterial(Ogre::String(name.mb_str()));
+	mMaterialAddedSignal(project, material);
 }

@@ -82,7 +82,6 @@
 		<Unit filename="../include/IconManager.h" />
 		<Unit filename="../include/LogPanel.h" />
 		<Unit filename="../include/LogToTextRedirector.h" />
-		<Unit filename="../include/MaterialController.h" />
 		<Unit filename="../include/MaterialEditorApp.h" />
 		<Unit filename="../include/MaterialEditorFrame.h" />
 		<Unit filename="../include/MaterialPage.h" />
@@ -123,7 +122,6 @@
 		<Unit filename="../src/IconManager.cpp" />
 		<Unit filename="../src/LogPanel.cpp" />
 		<Unit filename="../src/LogToTextRedirector.cpp" />
-		<Unit filename="../src/MaterialController.cpp" />
 		<Unit filename="../src/MaterialEditorApp.cpp" />
 		<Unit filename="../src/MaterialEditorFrame.cpp" />
 		<Unit filename="../src/MaterialPage.cpp" />
