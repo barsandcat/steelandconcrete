@@ -37,7 +37,6 @@ Torus Knot Software Ltd.
 
 #include "OgreTechnique.h"
 
-#include "MaterialController.h"
 #include "Project.h"
 #include "Workspace.h"
 
@@ -64,13 +63,13 @@ PassPage::PassPage(wxWizard* parent, Project* project)
 }
 
 
-PassPage::PassPage(wxWizard* parent, Project* project, MaterialController* mc)
+PassPage::PassPage(wxWizard* parent, Project* project, Ogre::MaterialPtr mc)
 : wxWizardPageSimple(parent), mProject(project), mMaterial(mc), mTechnique(NULL)
 {
 	createPage();
 }
 
-PassPage::PassPage(wxWizard* parent, Project* project, MaterialController* mc, Ogre::Technique* tc)
+PassPage::PassPage(wxWizard* parent, Project* project, Ogre::MaterialPtr mc, Ogre::Technique* tc)
 : wxWizardPageSimple(parent), mProject(project), mMaterial(mc), mTechnique(tc)
 {
 	createPage();
@@ -137,7 +136,7 @@ Project* PassPage::getProject() const
 	return Workspace::getSingletonPtr()->getProject(mProjectComboBox->GetValue());
 }
 
-MaterialController* PassPage::getMaterial() const
+Ogre::MaterialPtr PassPage::getMaterial() const
 {
 	Ogre::String material(mMaterialComboBox->GetValue().mb_str());
 
@@ -147,8 +146,19 @@ MaterialController* PassPage::getMaterial() const
 Ogre::Technique* PassPage::getTechnique() const
 {
 	Ogre::String technique(mTechniqueComboBox->GetValue().mb_str());
+	
+	Ogre::Material::TechniqueIterator it = getMaterial()->getTechniqueIterator();
+	while (it.hasMoreElements())
+	{
+		Ogre::Technique* tc = it.peekNext();
+		if (tc->getName() == technique)
+		{
+			return tc;
+		}
+		it.moveNext();
+	}
 
-	return getMaterial()->getTechniqueController(technique);
+	return NULL;
 }
 
 void PassPage::setProject(Project* project)
@@ -157,15 +167,12 @@ void PassPage::setProject(Project* project)
 	populateMaterials(project != NULL ? project->getMaterials() : NULL);
 }
 
-void PassPage::setMaterial(MaterialController* mc)
+void PassPage::setMaterial(Ogre::MaterialPtr mc)
 {
     wxString name;
-    if (mc)
-    {
-        name = wxString(mc->getMaterial()->getName().c_str(), wxConvUTF8);
-    }
+    name = wxString(mc->getName().c_str(), wxConvUTF8);
 	mMaterialComboBox->SetValue(name);
-	populateTechniques(mc->getMaterial());
+	populateTechniques(getMaterial());
 }
 
 void PassPage::setTechnique(Ogre::Technique* tc)
@@ -187,9 +194,7 @@ void PassPage::OnProjectSelected(wxCommandEvent& event)
 
 void PassPage::OnMaterialSelected(wxCommandEvent& event)
 {
-	MaterialController* mc = getMaterial();
-	if(mc != NULL)
-		populateTechniques(mc->getMaterial());
+	populateTechniques(getMaterial());
 }
 
 void PassPage::populateMaterials(const MaterialControllerList* materials)
@@ -204,7 +209,7 @@ void PassPage::populateMaterials(const MaterialControllerList* materials)
 	MaterialControllerList::const_iterator it;
 	for(it = materials->begin(); it != materials->end(); ++it)
 	{
-		materialNames.Add(wxString((*it)->getMaterial()->getName().c_str(), wxConvUTF8));
+		materialNames.Add(wxString((*it)->getName().c_str(), wxConvUTF8));
 	}
 
 	mMaterialComboBox->Clear();

@@ -28,13 +28,11 @@ http://www.gnu.org/copyleft/lesser.txt
 
 #include "MaterialPropertyGridPage.h"
 
-#include "MaterialController.h"
-
 BEGIN_EVENT_TABLE(MaterialPropertyGridPage, wxPropertyGridPage)
 	EVT_PG_CHANGED(-1, MaterialPropertyGridPage::propertyChange)
 END_EVENT_TABLE()
 
-MaterialPropertyGridPage::MaterialPropertyGridPage(MaterialController* controller)
+MaterialPropertyGridPage::MaterialPropertyGridPage(Ogre::MaterialPtr controller)
 : mController(controller)
 {
 
@@ -46,9 +44,9 @@ MaterialPropertyGridPage::~MaterialPropertyGridPage()
 
 void MaterialPropertyGridPage::populate()
 {
-	mPropertyNameId = Append(new wxStringProperty(wxT("Name"), wxPG_LABEL, wxString(mController->getMaterial()->getName().c_str(), wxConvUTF8)));
-	mPropertyReceiveShadowsId = Append(new wxBoolProperty(wxT("Receive Shadows"), wxPG_LABEL, mController->getMaterial()->getReceiveShadows()));
-	mPropertyTransparencyCastsShadowsId = Append(new wxBoolProperty(wxT("Transparency Casts Shadows"), wxPG_LABEL, mController->getMaterial()->getTransparencyCastsShadows()));
+	mPropertyNameId = Append(new wxStringProperty(wxT("Name"), wxPG_LABEL, wxString(mController->getName().c_str(), wxConvUTF8)));
+	mPropertyReceiveShadowsId = Append(new wxBoolProperty(wxT("Receive Shadows"), wxPG_LABEL, mController->getReceiveShadows()));
+	mPropertyTransparencyCastsShadowsId = Append(new wxBoolProperty(wxT("Transparency Casts Shadows"), wxPG_LABEL, mController->getTransparencyCastsShadows()));
 }
 
 void MaterialPropertyGridPage::propertyChange(wxPropertyGridEvent& event)
@@ -60,10 +58,10 @@ void MaterialPropertyGridPage::propertyChange(wxPropertyGridEvent& event)
 	}
 	else if(id == mPropertyReceiveShadowsId)
 	{
-		mController->getMaterial()->setReceiveShadows(event.GetPropertyValueAsBool());
+		mController->setReceiveShadows(event.GetPropertyValueAsBool());
 	}
 	else if(id == mPropertyTransparencyCastsShadowsId)
 	{
-		mController->getMaterial()->setTransparencyCastsShadows(event.GetPropertyValueAsBool());
+		mController->setTransparencyCastsShadows(event.GetPropertyValueAsBool());
 	}
 }

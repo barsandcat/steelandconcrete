@@ -44,14 +44,13 @@ namespace Ogre
 	class SceneManager;
 }
 
-class MaterialController;
 class Project;
 
 using Ogre::Material;
 using Ogre::MaterialPtr;
 using Ogre::String;
 
-typedef std::list<MaterialController*> MaterialControllerList;
+typedef std::list<MaterialPtr> MaterialControllerList;
 
 class Project : public EventContainer
 {
@@ -72,7 +71,7 @@ public:
 	void addMaterial(MaterialPtr materialPtr);
 	void createMaterial(const String& name);
 
-	MaterialController* getMaterialController(const String& name);
+	MaterialPtr getMaterialController(const String& name);
 
 	const MaterialControllerList* getMaterials() const;
 

@@ -36,12 +36,12 @@ namespace Ogre
 {
     class Pass;
     class Technique;
+		class MaterialPtr;
 }
 class wxGridSizer;
 class wxPropertyGridManager;
 
 class EventArgs;
-class MaterialController;
 class MaterialPropertyGridPage;
 class PassPropertyGridPage;
 class ProjectEventArgs;
@@ -49,7 +49,7 @@ class SelectionEventArgs;
 class TechniquePropertyGridPage;
 
 //typedef std::map<Project*, ProjectP> ProjectPageMap;
-typedef std::map<MaterialController*, int> MaterialPageIndexMap;
+typedef std::map<Ogre::MaterialPtr, int> MaterialPageIndexMap;
 typedef std::map<Ogre::Technique*, int> TechniquePageIndexMap;
 typedef std::map<Ogre::Pass*, int> PassPageIndexMap;
 

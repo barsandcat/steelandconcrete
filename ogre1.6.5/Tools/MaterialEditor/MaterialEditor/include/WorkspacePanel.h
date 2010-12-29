@@ -33,7 +33,7 @@ Torus Knot Software Ltd.
 
 #include <wx/panel.h>
 #include <wx/treectrl.h>
-
+#include <OgreMaterial.h>
 class wxBitmapButton;
 class wxCommandEvent;
 class wxFlexGridSizer;
@@ -51,7 +51,7 @@ namespace Ogre
 }
 
 typedef std::map<Project*, wxTreeItemId> ProjectIdMap;
-typedef std::map<MaterialController*, wxTreeItemId> MaterialIdMap;
+typedef std::map<Ogre::MaterialPtr, wxTreeItemId> MaterialIdMap;
 typedef std::map<Ogre::Technique*, wxTreeItemId> TechniqueIdMap;
 typedef std::map<Ogre::Pass*, wxTreeItemId> PassIdMap;
 
@@ -90,7 +90,7 @@ public:
 	void projectMaterialAdded(EventArgs& args);
 
 	// Material Event Handlers
-	void TechniqueAdded(MaterialController* mc, Ogre::Technique* tc);
+	void TechniqueAdded(Ogre::MaterialPtr mc, Ogre::Technique* tc);
 
     void TechniquePassAdded(Ogre::Technique* tc, Ogre::Pass* pc);
 protected:
@@ -102,7 +102,7 @@ protected:
 	void appendProjectMenuItems(wxMenu* menu);
 
 	Project* getProject(wxTreeItemId id);
-	MaterialController* getMaterial(wxTreeItemId id);
+	Ogre::MaterialPtr getMaterial(wxTreeItemId id);
 	Ogre::Technique* getTechnique(wxTreeItemId id);
 	Ogre::Pass* getPass(wxTreeItemId id);
 

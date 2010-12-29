@@ -29,20 +29,19 @@ http://www.gnu.org/copyleft/lesser.txt
 
 #include <wx/wx.h>
 #include <wx/propgrid/manager.h>
-
-class MaterialController;
+#include <OgreMaterial.h>
 
 class MaterialPropertyGridPage : public wxPropertyGridPage
 {
 public:
-	MaterialPropertyGridPage(MaterialController* controller);
+	MaterialPropertyGridPage(Ogre::MaterialPtr controller);
 	virtual ~MaterialPropertyGridPage();
 	virtual void populate();
 
 protected:
 	virtual void propertyChange(wxPropertyGridEvent& event);
 
-	MaterialController* mController;
+	Ogre::MaterialPtr mController;
 
 	wxPGId mPropertyNameId;
 	wxPGId mPropertyReceiveShadowsId;
