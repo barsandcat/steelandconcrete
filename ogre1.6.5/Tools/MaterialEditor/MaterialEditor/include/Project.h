@@ -36,8 +36,6 @@ Torus Knot Software Ltd.
 #include "OgreMaterial.h"
 #include "OgreString.h"
 
-#include "EventContainer.h"
-
 #include "wx/string.h"
 namespace Ogre
 {
@@ -46,32 +44,22 @@ namespace Ogre
 
 class Project;
 
-using Ogre::Material;
-using Ogre::MaterialPtr;
-using Ogre::String;
+typedef std::list<Ogre::MaterialPtr> MaterialControllerList;
 
-typedef std::list<MaterialPtr> MaterialControllerList;
-
-class Project : public EventContainer
+class Project
 {
 public:
-	enum ProjectEvent
-	{
-		MaterialAdded,
-	};
 
 	Project();
 	Project(const wxString& name);
 	virtual ~Project();
 
-	void registerEvents();
-
 	const wxString& getName() const;
 
-	void addMaterial(MaterialPtr materialPtr);
-	void createMaterial(const String& name);
+	void addMaterial(Ogre::MaterialPtr materialPtr);
+	Ogre::MaterialPtr createMaterial(const Ogre::String& name);
 
-	MaterialPtr getMaterialController(const String& name);
+	Ogre::MaterialPtr getMaterialController(const Ogre::String& name);
 
 	const MaterialControllerList* getMaterials() const;
 

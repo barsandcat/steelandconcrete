@@ -30,10 +30,15 @@ http://www.gnu.org/copyleft/lesser.txt
 #include <wx/wizard.h>
 
 #include "MaterialPage.h"
+#include <boost/bind.hpp>
+#include <boost/signal.hpp>
+#include <OgreMaterial.h>
 
 class MaterialWizard : public wxWizard
 {
 public:
+    boost::signal< void (Project*, Ogre::MaterialPtr) > mMaterialAddedSignal;
+
 	MaterialWizard();
 	virtual ~MaterialWizard();
 

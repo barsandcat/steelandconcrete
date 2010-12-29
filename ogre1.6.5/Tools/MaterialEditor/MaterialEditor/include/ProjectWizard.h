@@ -30,10 +30,10 @@ http://www.gnu.org/copyleft/lesser.txt
 #include <wx/wizard.h>
 
 #include "ProjectPage.h"
-
 class ProjectWizard : public wxWizard
 {
 public:
+
 	ProjectWizard();
 	virtual ~ProjectWizard();
 

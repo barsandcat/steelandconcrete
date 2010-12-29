@@ -50,7 +50,6 @@ Torus Knot Software Ltd.
 #include "MaterialWizard.h"
 #include "PassPropertyGridPage.h"
 #include "Project.h"
-#include "ProjectEventArgs.h"
 #include "ProjectWizard.h"
 #include "PassPropertyGridPage.h"
 #include "SelectionEventArgs.h"
