@@ -38,8 +38,6 @@ namespace Ogre
 
 using namespace Ogre;
 
-typedef std::list<Ogre::Technique*> TechniqueControllerList;
-
 class MaterialController
 {
 public:
@@ -52,14 +50,11 @@ public:
 	void setMaterial(MaterialPtr mp);
 
 	Ogre::Technique* getTechniqueController(const String& name);
-	const TechniqueControllerList* getTechniqueControllers() const;
 
 	Ogre::Technique* createTechnique(const String& name);
 
 protected:
 	MaterialPtr mMaterialPtr;
-
-	TechniqueControllerList mTechniqueControllers;
 };
 
 #endif // _MATERIALCONTROLLER_H_

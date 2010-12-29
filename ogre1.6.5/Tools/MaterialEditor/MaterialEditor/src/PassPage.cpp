@@ -165,7 +165,7 @@ void PassPage::setMaterial(MaterialController* mc)
         name = wxString(mc->getMaterial()->getName().c_str(), wxConvUTF8);
     }
 	mMaterialComboBox->SetValue(name);
-	populateTechniques(mc != NULL ? mc->getTechniqueControllers() : NULL);
+	populateTechniques(mc->getMaterial());
 }
 
 void PassPage::setTechnique(Ogre::Technique* tc)
@@ -189,7 +189,7 @@ void PassPage::OnMaterialSelected(wxCommandEvent& event)
 {
 	MaterialController* mc = getMaterial();
 	if(mc != NULL)
-		populateTechniques(mc->getTechniqueControllers());
+		populateTechniques(mc->getMaterial());
 }
 
 void PassPage::populateMaterials(const MaterialControllerList* materials)
@@ -211,19 +211,15 @@ void PassPage::populateMaterials(const MaterialControllerList* materials)
 	mMaterialComboBox->Append(materialNames);
 }
 
-void PassPage::populateTechniques(const TechniqueControllerList* techniques)
+void PassPage::populateTechniques(Ogre::MaterialPtr mMaterialPtr)
 {
-	if(techniques == NULL)
+    Ogre::Material::TechniqueIterator it = mMaterialPtr->getTechniqueIterator();
+    wxArrayString techniqueNames;
+	while (it.hasMoreElements())
 	{
-		mTechniqueComboBox->Clear();
-		return;
-	}
-
-	wxArrayString techniqueNames;
-	TechniqueControllerList::const_iterator it;
-	for(it = techniques->begin(); it != techniques->end(); ++it)
-	{
-		techniqueNames.Add(wxString((*it)->getName().c_str(), wxConvUTF8));
+	    Ogre::Technique* tc = it.peekNext();
+	    techniqueNames.Add(wxString(tc->getName().c_str(), wxConvUTF8));
+        it.moveNext();
 	}
 
 	mTechniqueComboBox->Clear();

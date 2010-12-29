@@ -477,7 +477,7 @@ void WorkspacePanel::OnUpdatePassMenuItem(wxUpdateUIEvent& event)
 		MaterialControllerList::const_iterator mit;
 		for(mit = materials->begin(); mit != materials->end(); ++mit)
 		{
-			if(!(*mit)->getTechniqueControllers()->empty())
+			if((*mit)->getMaterial()->getNumTechniques() > 0)
 			{
 				enable = true;
 				break;
