@@ -31,7 +31,7 @@ ProjectEventArgs::ProjectEventArgs(Project* project)
 {
 }
 
-ProjectEventArgs::ProjectEventArgs(Project* project, MaterialController* material)
+ProjectEventArgs::ProjectEventArgs(Project* project, Ogre::MaterialPtr material)
 : mProject(project), mMaterial(material)
 {
 }
@@ -41,7 +41,7 @@ Project* ProjectEventArgs::getProject() const
 	return mProject;
 }
 
-MaterialController* ProjectEventArgs::getMaterial() const
+Ogre::MaterialPtr ProjectEventArgs::getMaterial() const
 {
 	return mMaterial;
 }

@@ -35,7 +35,6 @@ Torus Knot Software Ltd.
 #include <wx/stattext.h>
 #include <wx/textctrl.h>
 
-#include "MaterialController.h"
 #include "Workspace.h"
 
 const long ID_MATERIAL_COMBO_BOX = wxNewId();
@@ -57,7 +56,7 @@ TechniquePage::TechniquePage(wxWizard* parent, Project* project)
 }
 
 
-TechniquePage::TechniquePage(wxWizard* parent, Project* project, MaterialController* mc)
+TechniquePage::TechniquePage(wxWizard* parent, Project* project, Ogre::MaterialPtr mc)
 : wxWizardPageSimple(parent), mProject(project), mMaterial(mc)
 {
 	createPage();
@@ -118,7 +117,7 @@ Project* TechniquePage::getProject() const
 	return Workspace::getSingletonPtr()->getProject(project.c_str());
 }
 
-MaterialController* TechniquePage::getMaterial() const
+Ogre::MaterialPtr TechniquePage::getMaterial() const
 {
 	Ogre::String material(mMaterialComboBox->GetValue().mb_str());
 
@@ -131,13 +130,10 @@ void TechniquePage::setProject(Project* project)
 	populateMaterials(project->getMaterials());
 }
 
-void TechniquePage::setMaterial(MaterialController* mc)
+void TechniquePage::setMaterial(Ogre::MaterialPtr mc)
 {
     wxString name;
-    if (mc)
-    {
-        name = wxString(mc->getMaterial()->getName().c_str(), wxConvUTF8);
-    }
+    name = wxString(mc->getName().c_str(), wxConvUTF8);
 	mMaterialComboBox->SetValue(name);
 }
 
@@ -154,7 +150,7 @@ void TechniquePage::populateMaterials(const MaterialControllerList* materials)
 	MaterialControllerList::const_iterator it;
 	for(it = materials->begin(); it != materials->end(); ++it)
 	{
-		materialNames.Add(wxString((*it)->getMaterial()->getName().c_str(), wxConvUTF8));
+		materialNames.Add(wxString((*it)->getName().c_str(), wxConvUTF8));
 	}
 
 	mMaterialComboBox->Clear();

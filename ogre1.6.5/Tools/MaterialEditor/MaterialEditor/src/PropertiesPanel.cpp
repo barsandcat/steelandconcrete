@@ -46,7 +46,6 @@ Torus Knot Software Ltd.
 #include "OgreTechnique.h"
 
 #include "EventArgs.h"
-#include "MaterialController.h"
 #include "MaterialPropertyGridPage.h"
 #include "MaterialWizard.h"
 #include "PassPropertyGridPage.h"
@@ -114,9 +113,9 @@ void PropertiesPanel::selectionChanged(EventArgs& args)
 		if(sel.type() == typeid(Project))
 		{
 		}
-		else if(sel.type() == typeid(MaterialController*))
+		else if(sel.type() == typeid(Ogre::MaterialPtr))
 		{
-			MaterialController* mc = any_cast<MaterialController*>(sel);
+			Ogre::MaterialPtr mc = boost::any_cast<Ogre::MaterialPtr>(sel);
 
 			MaterialPageIndexMap::iterator it = mMaterialPageIndexMap.find(mc);
 			if(it != mMaterialPageIndexMap.end())
@@ -138,7 +137,7 @@ void PropertiesPanel::selectionChanged(EventArgs& args)
 		}
 		else if(sel.type() == typeid(Ogre::Technique*))
 		{
-			Ogre::Technique* tc = any_cast<Ogre::Technique*>(sel);
+			Ogre::Technique* tc = boost::any_cast<Ogre::Technique*>(sel);
 
 			TechniquePageIndexMap::iterator it = mTechniquePageIndexMap.find(tc);
 			if(it != mTechniquePageIndexMap.end())
@@ -160,7 +159,7 @@ void PropertiesPanel::selectionChanged(EventArgs& args)
 		}
 		else if(sel.type() == typeid(Ogre::Pass*))
 		{
-			Ogre::Pass* pc = any_cast<Ogre::Pass*>(sel);
+			Ogre::Pass* pc = boost::any_cast<Ogre::Pass*>(sel);
 
 			PassPageIndexMap::iterator it = mPassPageIndexMap.find(pc);
 			if(it != mPassPageIndexMap.end())

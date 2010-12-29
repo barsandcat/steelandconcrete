@@ -32,7 +32,7 @@ Torus Knot Software Ltd.
 #include <wx/wizard.h>
 
 #include "Project.h"
-
+#include <OgreMaterial.h>
 class wxBoxSizer;
 class wxComboBox;
 class wxStaticText;
@@ -45,7 +45,7 @@ class TechniquePage : public wxWizardPageSimple
 public:
 	TechniquePage(wxWizard* parent);
 	TechniquePage(wxWizard* parent, Project* project);
-	TechniquePage(wxWizard* parent, Project* project, MaterialController* mc);
+	TechniquePage(wxWizard* parent, Project* project, Ogre::MaterialPtr mc);
 	virtual ~TechniquePage();
 
 	void getName(wxString& name) const;
@@ -53,8 +53,8 @@ public:
 	Project* getProject() const;
 	void setProject(Project* project);
 
-	MaterialController* getMaterial() const;
-	void setMaterial(MaterialController* mc);
+	Ogre::MaterialPtr getMaterial() const;
+	void setMaterial(Ogre::MaterialPtr mc);
 
 	void populateMaterials(const MaterialControllerList* materials);
 
@@ -72,7 +72,7 @@ protected:
 	wxTextCtrl* mNameText;
 
 	Project* mProject;
-	MaterialController* mMaterial;
+	Ogre::MaterialPtr mMaterial;
 
 	DECLARE_EVENT_TABLE()
 };

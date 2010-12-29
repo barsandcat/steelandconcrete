@@ -28,10 +28,10 @@ http://www.gnu.org/copyleft/lesser.txt
 
 #include <wx/sizer.h>
 
-#include "MaterialController.h"
 #include "Project.h"
 #include "TechniquePage.h"
 #include "Workspace.h"
+#include <OgreTechnique.h>
 
 BEGIN_EVENT_TABLE(TechniqueWizard, wxWizard)
 	EVT_WIZARD_FINISHED(wxID_ANY, TechniqueWizard::OnFinish)
@@ -64,11 +64,13 @@ TechniquePage* TechniqueWizard::getTechniquePage() const
 void TechniqueWizard::OnFinish(wxWizardEvent& event)
 {
 	Project* project = mTechniquePage->getProject();
-	MaterialController* mc = mTechniquePage->getMaterial();
+	Ogre::MaterialPtr mc = mTechniquePage->getMaterial();
 
 	wxString name;
 	mTechniquePage->getName(name);
 
-	Ogre::Technique* technique = mc->createTechnique(Ogre::String(name.mb_str()));
+	Ogre::Technique*  technique = mc->createTechnique();
+	technique->setName(Ogre::String(name.mb_str()));
+
 	mTechniqueAddedSignal(mc, technique);
 }

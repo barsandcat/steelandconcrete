@@ -34,7 +34,6 @@ Torus Knot Software Ltd.
 #include "OgreMaterialManager.h"
 #include "OgreSceneManager.h"
 
-#include "MaterialController.h"
 #include "ProjectEventArgs.h"
 
 using Ogre::Entity;
@@ -53,12 +52,6 @@ Project::Project(const wxString& name) :mName(name)
 
 Project::~Project()
 {
-	MaterialControllerList::iterator it;
-	for(it = mMaterialControllers.begin(); it != mMaterialControllers.end(); ++it)
-	{
-		delete *it;
-	}
-
 	mMaterialControllers.clear();
 }
 
@@ -74,34 +67,32 @@ const wxString& Project::getName() const
 
 void Project::addMaterial(MaterialPtr materialPtr)
 {
-	MaterialController* controller = new MaterialController(materialPtr);
-	mMaterialControllers.push_back(controller);
+	mMaterialControllers.push_back(materialPtr);
 
-	fireEvent(MaterialAdded, ProjectEventArgs(this, controller));
+	fireEvent(MaterialAdded, ProjectEventArgs(this, materialPtr));
 }
 
 void Project::createMaterial(const String& name)
 {
 	// TODO: Projects should probably have their own resource groups instead of using the default
-	MaterialPtr materialPtr = (MaterialPtr)MaterialManager::getSingletonPtr()->create(name, ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	MaterialPtr materialPtr = (MaterialPtr)MaterialManager::getSingletonPtr()->create(name, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	
+	mMaterialControllers.push_back(materialPtr);
 
-	MaterialController* controller = new MaterialController(materialPtr);
-	mMaterialControllers.push_back(controller);
-
-	fireEvent(MaterialAdded, ProjectEventArgs(this, controller));
+	fireEvent(MaterialAdded, ProjectEventArgs(this, materialPtr));
 }
 
-MaterialController* Project::getMaterialController(const String& name)
+Ogre::MaterialPtr Project::getMaterialController(const String& name)
 {
-	MaterialController* mc;
+	Ogre::MaterialPtr mc;
 	MaterialControllerList::iterator it;
 	for(it = mMaterialControllers.begin(); it != mMaterialControllers.end(); ++it)
 	{
 		mc = (*it);
-		if(mc->getMaterial()->getName() == name) return mc;
+		if(mc->getName() == name) return mc;
 	}
 
-	return NULL;
+	return Ogre::MaterialPtr();
 }
 
 const MaterialControllerList* Project::getMaterials() const

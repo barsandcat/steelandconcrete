@@ -243,10 +243,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\MaterialController.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\MaterialEditorApp.cpp"
 				>
 			</File>
@@ -414,10 +410,6 @@
 			</File>
 			<File
 				RelativePath="..\include\LogToTextRedirector.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\MaterialController.h"
 				>
 			</File>
 			<File

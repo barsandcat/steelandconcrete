@@ -52,7 +52,6 @@ http://www.gnu.org/copyleft/lesser.txt
 #include "EditorManager.h"
 #include "IconManager.h"
 #include "LogPanel.h"
-#include "MaterialController.h"
 #include "MaterialPropertyGridPage.h"
 #include "MaterialScriptEditor.h"
 #include "MaterialWizard.h"

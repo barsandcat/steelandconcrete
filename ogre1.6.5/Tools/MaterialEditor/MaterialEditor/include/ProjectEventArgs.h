@@ -29,21 +29,20 @@ http://www.gnu.org/copyleft/lesser.txt
 
 #include "EventArgs.h"
 #include "Project.h"
-
-class MaterialController;
+#include "OgreMaterial.h"
 
 class ProjectEventArgs : public EventArgs
 {
 public:
 	ProjectEventArgs(Project* project);
-	ProjectEventArgs(Project* project, MaterialController* material);
+	ProjectEventArgs(Project* project, Ogre::MaterialPtr material);
 
 	Project* getProject() const;
-	MaterialController* getMaterial() const;
+	Ogre::MaterialPtr getMaterial() const;
 
 protected:
 	Project* mProject;
-	MaterialController* mMaterial;
+	Ogre::MaterialPtr mMaterial;
 };
 
 #endif // _PROJECTEVENTARGS_H_

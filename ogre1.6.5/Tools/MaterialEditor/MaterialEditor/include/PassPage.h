@@ -37,7 +37,7 @@ class wxStaticText;
 class wxTextCtrl;
 
 #include "Project.h"
-#include "MaterialController.h"
+#include "OgreMaterial.h"
 namespace Ogre
 {
     class Technique;
@@ -48,8 +48,8 @@ class PassPage : public wxWizardPageSimple
 public:
 	PassPage(wxWizard* parent);
 	PassPage(wxWizard* parent, Project* project);
-	PassPage(wxWizard* parent, Project* project, MaterialController* mc);
-	PassPage(wxWizard* parent, Project* project, MaterialController* mc, Ogre::Technique* tc);
+	PassPage(wxWizard* parent, Project* project, Ogre::MaterialPtr mc);
+	PassPage(wxWizard* parent, Project* project, Ogre::MaterialPtr mc, Ogre::Technique* tc);
 	virtual ~PassPage();
 
 	void getName(wxString& name) const;
@@ -57,8 +57,8 @@ public:
 	Project* getProject() const;
 	void setProject(Project* project);
 
-	MaterialController* getMaterial() const;
-	void setMaterial(MaterialController* mc);
+	Ogre::MaterialPtr getMaterial() const;
+	void setMaterial(Ogre::MaterialPtr mc);
 
 	Ogre::Technique* getTechnique() const;
 	void setTechnique(Ogre::Technique* mc);
@@ -84,7 +84,7 @@ protected:
 	wxTextCtrl* mNameText;
 
 	Project* mProject;
-	MaterialController* mMaterial;
+	Ogre::MaterialPtr mMaterial;
 	Ogre::Technique* mTechnique;
 
 	DECLARE_EVENT_TABLE()
