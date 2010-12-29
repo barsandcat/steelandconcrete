@@ -69,16 +69,10 @@ Ogre::Technique* MaterialController::getTechniqueController(const String& name)
 	return NULL;
 }
 
-const TechniqueControllerList* MaterialController::getTechniqueControllers() const
-{
-	return &mTechniqueControllers;
-}
-
 Ogre::Technique* MaterialController::createTechnique(const String& name)
 {
 	Technique* t = mMaterialPtr->createTechnique();
 	t->setName(name);
-	mTechniqueControllers.push_back(t);
 
 	return t;
 }

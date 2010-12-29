@@ -64,7 +64,7 @@ public:
 	void setTechnique(Ogre::Technique* mc);
 
 	void populateMaterials(const MaterialControllerList* materials);
-	void populateTechniques(const TechniqueControllerList* techniques);
+	void populateTechniques(Ogre::MaterialPtr mMaterialPtr);
 
 	void OnProjectSelected(wxCommandEvent& event);
 	void OnMaterialSelected(wxCommandEvent& event);
