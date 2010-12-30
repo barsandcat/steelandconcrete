@@ -52,7 +52,6 @@ public:
 	virtual ~SelectionService();
 
 	const SelectionList& getSelection() const;
-	void setSelection(boost::any& sel);
 	void setSelection(const SelectionList& sel);
 
 	/** Override standard Singleton retrieval.

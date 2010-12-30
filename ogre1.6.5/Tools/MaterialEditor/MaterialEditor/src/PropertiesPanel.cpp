@@ -58,6 +58,7 @@ Torus Knot Software Ltd.
 #include "TechniqueWizard.h"
 #include "Workspace.h"
 #include "WorkspaceEventArgs.h"
+#include "WorkspacePanel.h"
 
 BEGIN_EVENT_TABLE(PropertiesPanel, wxPanel)
 END_EVENT_TABLE()
@@ -75,31 +76,38 @@ PropertiesPanel::PropertiesPanel(wxWindow* parent,
 	mPropertyGrid = new wxPropertyGridManager(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
 		wxPG_BOLD_MODIFIED | wxPG_SPLITTER_AUTO_CENTER | wxPG_DESCRIPTION | wxPGMAN_DEFAULT_STYLE);
 
-	// Adding a page sets target page to the one added, so
-	// we don't have to call SetTargetPage if we are filling
-	// it right after adding.
-	//MaterialController* controller = new MaterialController((MaterialPtr)MaterialManager::getSingletonPtr()->create("Test", ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
-	//TechniqueController* tc = controller->createTechnique();
-	//PassController* pc = tc->createPass();
-	//PassPropertyGridPage* page = new PassPropertyGridPage(pc);
-	//TechniquePropertyGridPage* page = new TechniquePropertyGridPage(tc);
-	//MaterialPropertyGridPage* page = new MaterialPropertyGridPage(controller);
-	//mPropertyGrid->AddPage(wxEmptyString, wxPG_NULL_BITMAP, page);
-	//page->populate();
-
-	// For total safety, finally reset the target page.
-	//mPropertyGrid->SetTargetPage(0);
-
 	mGridSizer->Add(mPropertyGrid, 0, wxALL | wxEXPAND, 0);
 
 	SetSizer(mGridSizer);
 	Layout();
 
 	SelectionService::getSingletonPtr()->subscribe(SelectionService::SelectionChanged, boost::bind(&PropertiesPanel::selectionChanged, this, _1));
+	WorkspacePanel::mMaterialSelectedSignal.connect(boost::bind(&PropertiesPanel::MaterialSelected, this, _1));
 }
 
 PropertiesPanel::~PropertiesPanel()
 {
+}
+
+void PropertiesPanel::MaterialSelected(Ogre::MaterialPtr material)
+{
+	MaterialPageIndexMap::iterator it = mMaterialPageIndexMap.find(material);
+	if(it != mMaterialPageIndexMap.end())
+	{
+		int index = mMaterialPageIndexMap[material];
+		mPropertyGrid->SelectPage(index);
+	}
+	else
+	{
+		MaterialPropertyGridPage* page = new MaterialPropertyGridPage(material);
+
+		int index = mPropertyGrid->AddPage(wxEmptyString, wxPG_NULL_BITMAP, page);
+		page->populate();
+
+		mMaterialPageIndexMap[material] = index;
+
+		mPropertyGrid->SelectPage(index);
+	}
 }
 
 void PropertiesPanel::selectionChanged(EventArgs& args)
@@ -109,32 +117,7 @@ void PropertiesPanel::selectionChanged(EventArgs& args)
 	if(!selection.empty())
 	{
 		boost::any sel = selection.front();
-		if(sel.type() == typeid(Project))
-		{
-		}
-		else if(sel.type() == typeid(Ogre::MaterialPtr))
-		{
-			Ogre::MaterialPtr mc = boost::any_cast<Ogre::MaterialPtr>(sel);
-
-			MaterialPageIndexMap::iterator it = mMaterialPageIndexMap.find(mc);
-			if(it != mMaterialPageIndexMap.end())
-			{
-				int index = mMaterialPageIndexMap[mc];
-				mPropertyGrid->SelectPage(index);
-			}
-			else
-			{
-				MaterialPropertyGridPage* page = new MaterialPropertyGridPage(mc);
-
-				int index = mPropertyGrid->AddPage(wxEmptyString, wxPG_NULL_BITMAP, page);
-				page->populate();
-
-				mMaterialPageIndexMap[mc] = index;
-
-				mPropertyGrid->SelectPage(index);
-			}
-		}
-		else if(sel.type() == typeid(Ogre::Technique*))
+    if(sel.type() == typeid(Ogre::Technique*))
 		{
 			Ogre::Technique* tc = boost::any_cast<Ogre::Technique*>(sel);
 

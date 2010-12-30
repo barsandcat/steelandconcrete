@@ -28,15 +28,8 @@ Torus Knot Software Ltd.
 */
 #include "SelectionEventArgs.h"
 
-#include <boost/any.hpp>
-
 SelectionEventArgs::SelectionEventArgs(SelectionList& selection)
 : mSelection(selection)
-{
-}
-
-SelectionEventArgs::SelectionEventArgs(boost::any& source, SelectionList& selection)
-: mSource(source), mSelection(selection)
 {
 }
 
@@ -44,11 +37,6 @@ SelectionEventArgs::~SelectionEventArgs()
 {
 }
 	
-const boost::any& SelectionEventArgs::getSource() const
-{
-	return mSource;
-}
-
 const SelectionList& SelectionEventArgs::getSelection() const
 {
 	return mSelection;

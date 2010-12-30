@@ -61,15 +61,6 @@ const SelectionList& SelectionService::getSelection() const
 	return mSelection;
 }
 
-void SelectionService::setSelection(boost::any& sel)
-{
-	mSelection.clear();
-	
-	mSelection.push_back(sel);
-	
-	fireEvent(SelectionChanged, SelectionEventArgs(mSelection));
-}
-
 void SelectionService::setSelection(const SelectionList& sel)
 {
 	mSelection = sel;
