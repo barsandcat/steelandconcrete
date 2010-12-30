@@ -63,6 +63,7 @@ Ogre::MaterialPtr Project::createMaterial(const Ogre::String& name)
 	Ogre::MaterialPtr materialPtr = (Ogre::MaterialPtr)Ogre::MaterialManager::getSingletonPtr()->create(name, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
 	mMaterialControllers.push_back(materialPtr);
+	return materialPtr;
 }
 
 Ogre::MaterialPtr Project::getMaterialController(const Ogre::String& name)
