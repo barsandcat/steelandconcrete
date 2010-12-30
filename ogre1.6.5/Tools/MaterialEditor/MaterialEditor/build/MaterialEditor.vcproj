@@ -283,10 +283,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\ProjectEventArgs.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\ProjectPage.cpp"
 				>
 			</File>
@@ -450,10 +446,6 @@
 			</File>
 			<File
 				RelativePath="..\include\Project.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\ProjectEventArgs.h"
 				>
 			</File>
 			<File
