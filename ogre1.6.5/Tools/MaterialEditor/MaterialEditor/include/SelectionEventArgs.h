@@ -41,14 +41,11 @@ class SelectionEventArgs : public EventArgs
 {
 public:
 	SelectionEventArgs(SelectionList& selection);
-	SelectionEventArgs(boost::any& source, SelectionList& selection);
 	virtual ~SelectionEventArgs();
 
-	const boost::any& getSource() const;
 	const SelectionList& getSelection() const;
 
 protected:
-	boost::any mSource;
 	SelectionList mSelection;
 };
 

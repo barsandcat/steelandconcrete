@@ -66,6 +66,7 @@ public:
 	virtual ~PropertiesPanel();
 
 	void selectionChanged(EventArgs& args);
+	void MaterialSelected(Ogre::MaterialPtr material);
 
 protected:
 	wxGridSizer* mGridSizer;

@@ -34,6 +34,9 @@ Torus Knot Software Ltd.
 #include <wx/panel.h>
 #include <wx/treectrl.h>
 #include <OgreMaterial.h>
+#include <boost/any.hpp>
+#include <boost/signal.hpp>
+
 class wxBitmapButton;
 class wxCommandEvent;
 class wxFlexGridSizer;
@@ -58,6 +61,7 @@ typedef std::map<Ogre::Pass*, wxTreeItemId> PassIdMap;
 class WorkspacePanel : public wxPanel
 {
 public:
+	static boost::signal< void (Ogre::MaterialPtr) > mMaterialSelectedSignal;
 	WorkspacePanel(wxWindow* parent,
 				   wxWindowID id = wxID_ANY,
 				   const wxPoint& pos = wxDefaultPosition,

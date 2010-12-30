@@ -63,6 +63,7 @@ Torus Knot Software Ltd.
 #define TECHNIQUE_IMAGE 4
 #define PASS_IMAGE 5
 
+boost::signal< void (Ogre::MaterialPtr) > WorkspacePanel::mMaterialSelectedSignal;
 
 const long ID_TREE_CTRL = wxNewId();
 const long ID_MENU_NEW = wxNewId();
@@ -256,15 +257,32 @@ void WorkspacePanel::OnActivate(wxTreeEvent& event)
 
 void WorkspacePanel::OnSelectionChanged(wxTreeEvent& event)
 {
-	SelectionList list;
-	wxTreeItemId id = event.GetItem();
-	if(isProject(id)) list.push_back(getProject(id));
-	else if(isMaterial(id)) list.push_back(getMaterial(id));
-	else if(isTechnique(id)) list.push_back(getTechnique(id));
-	else if(isPass(id)) list.push_back(getPass(id));
-	// else its the workspace so just leave the list empty as if nothing were selected
 
-	SelectionService::getSingletonPtr()->setSelection(list);
+	wxTreeItemId id = event.GetItem();
+	if(isProject(id))
+	{
+		SelectionList list;
+		list.push_back(getProject(id));
+		SelectionService::getSingletonPtr()->setSelection(list);
+	}
+	else if(isMaterial(id)) 
+	{
+		mMaterialSelectedSignal(getMaterial(id));
+	}
+	else if(isTechnique(id))
+	{
+		SelectionList list;
+		list.push_back(getTechnique(id));
+		SelectionService::getSingletonPtr()->setSelection(list);
+	}
+	else if(isPass(id))
+	{
+		SelectionList list;
+		list.push_back(getPass(id));
+		SelectionService::getSingletonPtr()->setSelection(list);
+	}
+	// else its the workspace so just leave the list empty as if nothing were selected
+	
 }
 
 void WorkspacePanel::OnNewProject(wxCommandEvent& event)
