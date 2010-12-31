@@ -69,11 +69,9 @@
 		</Linker>
 		<Unit filename="../include/CallTipManager.h" />
 		<Unit filename="../include/CgEditor.h" />
-		<Unit filename="../include/CodeEditor.h" />
 		<Unit filename="../include/DocManager.h" />
 		<Unit filename="../include/DocPanel.h" />
 		<Unit filename="../include/Editor.h" />
-		<Unit filename="../include/EditorInput.h" />
 		<Unit filename="../include/EditorManager.h" />
 		<Unit filename="../include/EventArgs.h" />
 		<Unit filename="../include/EventContainer.h" />
@@ -108,7 +106,6 @@
 		<Unit filename="../include/wxOgreLogControl.h" />
 		<Unit filename="../src/CallTipManager.cpp" />
 		<Unit filename="../src/CgEditor.cpp" />
-		<Unit filename="../src/CodeEditor.cpp" />
 		<Unit filename="../src/DocManager.cpp" />
 		<Unit filename="../src/DocPanel.cpp" />
 		<Unit filename="../src/Editor.cpp" />

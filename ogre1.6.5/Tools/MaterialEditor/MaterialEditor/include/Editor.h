@@ -52,14 +52,10 @@ public:
 	};
 
 	EditorBase();
-	EditorBase(EditorInput* input);
 	virtual ~EditorBase();
 
 	wxControl* getControl() const;
 	void setControl(wxControl* control);
-
-	EditorInput* getEditorInput() const;
-	void setEditorInput(EditorInput* input);
 
 	const wxString& getName() const;
 	void setName(const wxString& name);
@@ -87,7 +83,6 @@ public:
 private:
 	void registerEvents();
 
-	EditorInput* mEditorInput;
 	wxControl* mControl;
 	wxString mName;
 };

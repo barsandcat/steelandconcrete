@@ -42,7 +42,6 @@ class wxAuiNotebook;
 class wxAuiNotebookEvent;
 
 class EditorBase;
-class EditorInput;
 class EventArgs;
 class Project;
 class Workspace;
@@ -69,9 +68,7 @@ public:
 	void setEditorNotebook(wxAuiNotebook* notebook);
 
 	void openEditor(EditorBase* editor);
-	//void openEditor(EditorInput* input);
 	void closeEditor(EditorBase* editor);
-	//void closeEditor(EditorInput* input);
 	EditorBase* findEditor(const wxString& name);
 
 	EditorBase* getActiveEditor() const;

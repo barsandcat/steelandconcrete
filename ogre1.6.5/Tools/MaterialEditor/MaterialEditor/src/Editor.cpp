@@ -31,16 +31,9 @@ Torus Knot Software Ltd.
 #include <wx/control.h>
 
 #include "EditorEventArgs.h"
-#include "EditorInput.h"
 
 EditorBase::EditorBase()
-: mEditorInput(NULL), mName(wxT("Editor"))
-{
-	registerEvents();
-}
-
-EditorBase::EditorBase(EditorInput* input)
-: mEditorInput(input)
+: mName(wxT("Editor"))
 {
 	registerEvents();
 }
@@ -66,15 +59,6 @@ void EditorBase::registerEvents()
 }
 
 
-EditorInput* EditorBase::getEditorInput() const
-{
-	return mEditorInput;
-}
-
-void EditorBase::setEditorInput(EditorInput* input)
-{
-	mEditorInput = input;
-}
 
 
 const wxString& EditorBase::getName() const
