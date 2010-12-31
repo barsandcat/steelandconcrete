@@ -51,7 +51,6 @@ Torus Knot Software Ltd.
 #include "PassWizard.h"
 #include "Project.h"
 #include "ProjectWizard.h"
-#include "SelectionService.h"
 #include "TechniqueWizard.h"
 #include "Workspace.h"
 #include "WorkspaceEventArgs.h"
@@ -64,6 +63,8 @@ Torus Knot Software Ltd.
 #define PASS_IMAGE 5
 
 boost::signal< void (Ogre::MaterialPtr) > WorkspacePanel::mMaterialSelectedSignal;
+boost::signal< void (Ogre::Technique*) > WorkspacePanel::mTechniqueSelectedSignal;
+boost::signal< void (Ogre::Pass*) > WorkspacePanel::mPassSelectedSignal;
 
 const long ID_TREE_CTRL = wxNewId();
 const long ID_MENU_NEW = wxNewId();
@@ -118,9 +119,6 @@ void WorkspacePanel::createPanel()
 	mSizer->AddGrowableRow(0);
 	mSizer->SetFlexibleDirection(wxVERTICAL);
 	mSizer->SetNonFlexibleGrowMode(wxFLEX_GROWMODE_SPECIFIED);
-
-	//mToolBarPanel = new wxPanel(this);
-	//mSizer->Add(mToolBarPanel, 1, wxALL | wxEXPAND, 0);
 
 	mTreeCtrl = new wxTreeCtrl(this, ID_TREE_CTRL, wxDefaultPosition, wxDefaultSize,
                             wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT |
@@ -257,32 +255,23 @@ void WorkspacePanel::OnActivate(wxTreeEvent& event)
 
 void WorkspacePanel::OnSelectionChanged(wxTreeEvent& event)
 {
-
 	wxTreeItemId id = event.GetItem();
 	if(isProject(id))
 	{
-		SelectionList list;
-		list.push_back(getProject(id));
-		SelectionService::getSingletonPtr()->setSelection(list);
 	}
-	else if(isMaterial(id)) 
+	else if(isMaterial(id))
 	{
 		mMaterialSelectedSignal(getMaterial(id));
 	}
 	else if(isTechnique(id))
 	{
-		SelectionList list;
-		list.push_back(getTechnique(id));
-		SelectionService::getSingletonPtr()->setSelection(list);
+	    mTechniqueSelectedSignal(getTechnique(id));
 	}
 	else if(isPass(id))
 	{
-		SelectionList list;
-		list.push_back(getPass(id));
-		SelectionService::getSingletonPtr()->setSelection(list);
+	    mPassSelectedSignal(getPass(id));
 	}
 	// else its the workspace so just leave the list empty as if nothing were selected
-	
 }
 
 void WorkspacePanel::OnNewProject(wxCommandEvent& event)

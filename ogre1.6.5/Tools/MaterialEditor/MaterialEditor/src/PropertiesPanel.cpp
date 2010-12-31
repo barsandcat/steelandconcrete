@@ -45,15 +45,12 @@ Torus Knot Software Ltd.
 #include "OgrePass.h"
 #include "OgreTechnique.h"
 
-#include "EventArgs.h"
 #include "MaterialPropertyGridPage.h"
 #include "MaterialWizard.h"
 #include "PassPropertyGridPage.h"
 #include "Project.h"
 #include "ProjectWizard.h"
 #include "PassPropertyGridPage.h"
-#include "SelectionEventArgs.h"
-#include "SelectionService.h"
 #include "TechniquePropertyGridPage.h"
 #include "TechniqueWizard.h"
 #include "Workspace.h"
@@ -81,8 +78,9 @@ PropertiesPanel::PropertiesPanel(wxWindow* parent,
     SetSizer(mGridSizer);
     Layout();
 
-    SelectionService::getSingletonPtr()->subscribe(SelectionService::SelectionChanged, boost::bind(&PropertiesPanel::selectionChanged, this, _1));
     WorkspacePanel::mMaterialSelectedSignal.connect(boost::bind(&PropertiesPanel::MaterialSelected, this, _1));
+    WorkspacePanel::mTechniqueSelectedSignal.connect(boost::bind(&PropertiesPanel::TechniqueSelected, this, _1));
+    WorkspacePanel::mPassSelectedSignal.connect(boost::bind(&PropertiesPanel::PassSelected, this, _1));
 }
 
 PropertiesPanel::~PropertiesPanel()
@@ -156,25 +154,4 @@ void PropertiesPanel::PassSelected(Ogre::Pass* pc)
     mPropertyGrid->Refresh();
 }
 
-void PropertiesPanel::selectionChanged(EventArgs& args)
-{
-    SelectionEventArgs sea = dynamic_cast<SelectionEventArgs&>(args);
-    SelectionList selection = sea.getSelection();
-    if(!selection.empty())
-    {
-        boost::any sel = selection.front();
-        if(sel.type() == typeid(Ogre::Technique*))
-        {
-            Ogre::Technique* tc = boost::any_cast<Ogre::Technique*>(sel);
-            TechniqueSelected(tc);
-        }
-        else if(sel.type() == typeid(Ogre::Pass*))
-        {
-            Ogre::Pass* pc = boost::any_cast<Ogre::Pass*>(sel);
-            PassSelected(pc);
-
-        }
-
-    }
-}
 

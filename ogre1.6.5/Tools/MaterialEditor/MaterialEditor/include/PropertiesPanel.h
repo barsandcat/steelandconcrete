@@ -41,14 +41,10 @@ class MaterialPtr;
 class wxGridSizer;
 class wxPropertyGridManager;
 
-class EventArgs;
 class MaterialPropertyGridPage;
 class PassPropertyGridPage;
-class ProjectEventArgs;
-class SelectionEventArgs;
 class TechniquePropertyGridPage;
 
-//typedef std::map<Project*, ProjectP> ProjectPageMap;
 typedef std::map<Ogre::MaterialPtr, int> MaterialPageIndexMap;
 typedef std::map<Ogre::Technique*, int> TechniquePageIndexMap;
 typedef std::map<Ogre::Pass*, int> PassPageIndexMap;
@@ -65,7 +61,6 @@ public:
 
     virtual ~PropertiesPanel();
 
-    void selectionChanged(EventArgs& args);
     void MaterialSelected(Ogre::MaterialPtr material);
     void TechniqueSelected(Ogre::Technique* tc);
     void PassSelected(Ogre::Pass* pc);

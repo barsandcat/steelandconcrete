@@ -33,7 +33,6 @@ http://www.gnu.org/copyleft/lesser.txt
 
 #include "IconManager.h"
 #include "MaterialEditorFrame.h"
-#include "SelectionService.h"
 #include "Workspace.h"
 
 using Ogre::ConfigFile;
@@ -56,9 +55,6 @@ bool MaterialEditorApp::OnInit()
 		m_rsys->Initialise();
 
 		wxInitAllImageHandlers();
-
-		// Create Selection Service
-		new SelectionService();
 
 		// Ensure Workspace is created
 		new Workspace();
