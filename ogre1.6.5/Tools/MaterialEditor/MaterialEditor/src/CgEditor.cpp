@@ -52,11 +52,11 @@ void CgEditor::initialize()
 	SetLexer(wxSCI_LEX_CPP);
 
 	// Load keywords
-	std::string path = "../lexers/cg/keywords";
+	std::string path = "res/lexers/cg/keywords";
 	loadKeywords(path);
 
 	// Load call tips
-	path = "../lexers/cg/calltips";
+	path = "res/lexers/cg/calltips";
 	getCallTipManager().load(path);
 	wxChar trigger('(');
 	getCallTipManager().addTrigger(trigger);
