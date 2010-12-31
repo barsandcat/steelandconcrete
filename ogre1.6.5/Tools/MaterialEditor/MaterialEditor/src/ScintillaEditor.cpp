@@ -605,5 +605,4 @@ void ScintillaEditor::setDirty(const bool dirty)
 {
 	if(mDirty == dirty) return;
 	mDirty = dirty;
-	//fireEvent(DirtyStateChanged, new EditorEventArgs(this, getEditorInput()));
 }
