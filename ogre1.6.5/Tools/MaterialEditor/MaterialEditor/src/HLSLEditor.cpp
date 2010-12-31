@@ -47,7 +47,7 @@ void HLSLEditor::initialize()
 	SetLexer(wxSCI_LEX_OMS);
 
 	// Load keywords
-	std::string path = "../lexers/hlsl/keywords";
+	std::string path = "res/lexers/hlsl/keywords";
 	loadKeywords(path);
 
 	// Set styles
