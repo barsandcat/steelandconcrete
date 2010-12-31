@@ -34,7 +34,6 @@ Torus Knot Software Ltd.
 #include <wx/panel.h>
 #include <wx/treectrl.h>
 #include <OgreMaterial.h>
-#include <boost/any.hpp>
 #include <boost/signal.hpp>
 
 class wxBitmapButton;
@@ -62,6 +61,8 @@ class WorkspacePanel : public wxPanel
 {
 public:
 	static boost::signal< void (Ogre::MaterialPtr) > mMaterialSelectedSignal;
+	static boost::signal< void (Ogre::Technique*) > mTechniqueSelectedSignal;
+	static boost::signal< void (Ogre::Pass*) > mPassSelectedSignal;
 	WorkspacePanel(wxWindow* parent,
 				   wxWindowID id = wxID_ANY,
 				   const wxPoint& pos = wxDefaultPosition,
