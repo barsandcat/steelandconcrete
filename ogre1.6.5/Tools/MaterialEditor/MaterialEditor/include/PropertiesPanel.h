@@ -34,9 +34,9 @@ Torus Knot Software Ltd.
 #include <wx/panel.h>
 namespace Ogre
 {
-    class Pass;
-    class Technique;
-		class MaterialPtr;
+class Pass;
+class Technique;
+class MaterialPtr;
 }
 class wxGridSizer;
 class wxPropertyGridManager;
@@ -56,27 +56,29 @@ typedef std::map<Ogre::Pass*, int> PassPageIndexMap;
 class PropertiesPanel : public wxPanel
 {
 public:
-	PropertiesPanel(wxWindow* parent,
-		wxWindowID id = wxID_ANY,
-		const wxPoint& pos = wxDefaultPosition,
-		const wxSize& size = wxDefaultSize,
-		long style = wxTAB_TRAVERSAL | wxNO_BORDER,
-		const wxString& name = wxT("Properties Panel"));
+    PropertiesPanel(wxWindow* parent,
+                    wxWindowID id = wxID_ANY,
+                    const wxPoint& pos = wxDefaultPosition,
+                    const wxSize& size = wxDefaultSize,
+                    long style = wxTAB_TRAVERSAL | wxNO_BORDER,
+                    const wxString& name = wxT("Properties Panel"));
 
-	virtual ~PropertiesPanel();
+    virtual ~PropertiesPanel();
 
-	void selectionChanged(EventArgs& args);
-	void MaterialSelected(Ogre::MaterialPtr material);
+    void selectionChanged(EventArgs& args);
+    void MaterialSelected(Ogre::MaterialPtr material);
+    void TechniqueSelected(Ogre::Technique* tc);
+    void PassSelected(Ogre::Pass* pc);
 
 protected:
-	wxGridSizer* mGridSizer;
-	wxPropertyGridManager* mPropertyGrid;
+    wxGridSizer* mGridSizer;
+    wxPropertyGridManager* mPropertyGrid;
 
-	MaterialPageIndexMap mMaterialPageIndexMap;
-	TechniquePageIndexMap mTechniquePageIndexMap;
-	PassPageIndexMap mPassPageIndexMap;
+    MaterialPageIndexMap mMaterialPageIndexMap;
+    TechniquePageIndexMap mTechniquePageIndexMap;
+    PassPageIndexMap mPassPageIndexMap;
 
-	DECLARE_EVENT_TABLE()
+    DECLARE_EVENT_TABLE()
 };
 
 #endif // _PROPERTIESPANEL_H_
