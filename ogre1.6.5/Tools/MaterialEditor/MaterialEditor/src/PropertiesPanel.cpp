@@ -64,25 +64,25 @@ BEGIN_EVENT_TABLE(PropertiesPanel, wxPanel)
 END_EVENT_TABLE()
 
 PropertiesPanel::PropertiesPanel(wxWindow* parent,
-							   wxWindowID id /* = wxID_ANY */,
-							   const wxPoint& pos /* = wxDefaultPosition */,
-							   const wxSize& size /* = wxDefaultSize */,
-							   long style /* = wxTAB_TRAVERSAL | wxNO_BORDER */,
-							   const wxString& name /* = wxT("Workspace Panel")) */)
-							   : wxPanel(parent, id, pos, size, style, name)
+                                 wxWindowID id /* = wxID_ANY */,
+                                 const wxPoint& pos /* = wxDefaultPosition */,
+                                 const wxSize& size /* = wxDefaultSize */,
+                                 long style /* = wxTAB_TRAVERSAL | wxNO_BORDER */,
+                                 const wxString& name /* = wxT("Workspace Panel")) */)
+    : wxPanel(parent, id, pos, size, style, name)
 {
-	mGridSizer = new wxGridSizer(1, 1, 0, 0);
+    mGridSizer = new wxGridSizer(1, 1, 0, 0);
 
-	mPropertyGrid = new wxPropertyGridManager(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
-		wxPG_BOLD_MODIFIED | wxPG_SPLITTER_AUTO_CENTER | wxPG_DESCRIPTION | wxPGMAN_DEFAULT_STYLE);
+    mPropertyGrid = new wxPropertyGridManager(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
+            wxPG_BOLD_MODIFIED | wxPG_SPLITTER_AUTO_CENTER | wxPG_DESCRIPTION | wxPGMAN_DEFAULT_STYLE);
 
-	mGridSizer->Add(mPropertyGrid, 0, wxALL | wxEXPAND, 0);
+    mGridSizer->Add(mPropertyGrid, 0, wxALL | wxEXPAND, 0);
 
-	SetSizer(mGridSizer);
-	Layout();
+    SetSizer(mGridSizer);
+    Layout();
 
-	SelectionService::getSingletonPtr()->subscribe(SelectionService::SelectionChanged, boost::bind(&PropertiesPanel::selectionChanged, this, _1));
-	WorkspacePanel::mMaterialSelectedSignal.connect(boost::bind(&PropertiesPanel::MaterialSelected, this, _1));
+    SelectionService::getSingletonPtr()->subscribe(SelectionService::SelectionChanged, boost::bind(&PropertiesPanel::selectionChanged, this, _1));
+    WorkspacePanel::mMaterialSelectedSignal.connect(boost::bind(&PropertiesPanel::MaterialSelected, this, _1));
 }
 
 PropertiesPanel::~PropertiesPanel()
@@ -91,78 +91,90 @@ PropertiesPanel::~PropertiesPanel()
 
 void PropertiesPanel::MaterialSelected(Ogre::MaterialPtr material)
 {
-	MaterialPageIndexMap::iterator it = mMaterialPageIndexMap.find(material);
-	if(it != mMaterialPageIndexMap.end())
-	{
-		int index = mMaterialPageIndexMap[material];
-		mPropertyGrid->SelectPage(index);
-	}
-	else
-	{
-		MaterialPropertyGridPage* page = new MaterialPropertyGridPage(material);
+    MaterialPageIndexMap::iterator it = mMaterialPageIndexMap.find(material);
+    if(it != mMaterialPageIndexMap.end())
+    {
+        int index = mMaterialPageIndexMap[material];
+        mPropertyGrid->SelectPage(index);
+    }
+    else
+    {
+        MaterialPropertyGridPage* page = new MaterialPropertyGridPage(material);
 
-		int index = mPropertyGrid->AddPage(wxEmptyString, wxPG_NULL_BITMAP, page);
-		page->populate();
+        int index = mPropertyGrid->AddPage(wxEmptyString, wxPG_NULL_BITMAP, page);
+        page->populate();
 
-		mMaterialPageIndexMap[material] = index;
+        mMaterialPageIndexMap[material] = index;
 
-		mPropertyGrid->SelectPage(index);
-	}
+        mPropertyGrid->SelectPage(index);
+    }
+    mPropertyGrid->Refresh();
+}
+
+void PropertiesPanel::TechniqueSelected(Ogre::Technique* tc)
+{
+    TechniquePageIndexMap::iterator it = mTechniquePageIndexMap.find(tc);
+    if(it != mTechniquePageIndexMap.end())
+    {
+        int index = mTechniquePageIndexMap[tc];
+        mPropertyGrid->SelectPage(index);
+    }
+    else
+    {
+        TechniquePropertyGridPage* page = new TechniquePropertyGridPage(tc);
+
+        int index = mPropertyGrid->AddPage(wxEmptyString, wxPG_NULL_BITMAP, page);
+        page->populate();
+
+        mTechniquePageIndexMap[tc] = index;
+
+        mPropertyGrid->SelectPage(index);
+    }
+    mPropertyGrid->Refresh();
+}
+
+void PropertiesPanel::PassSelected(Ogre::Pass* pc)
+{
+    PassPageIndexMap::iterator it = mPassPageIndexMap.find(pc);
+    if(it != mPassPageIndexMap.end())
+    {
+        int index = mPassPageIndexMap[pc];
+        mPropertyGrid->SelectPage(index);
+    }
+    else
+    {
+        PassPropertyGridPage* page = new PassPropertyGridPage(pc);
+
+        int index = mPropertyGrid->AddPage(wxEmptyString, wxPG_NULL_BITMAP, page);
+        page->populate();
+
+        mPassPageIndexMap[pc] = index;
+
+        mPropertyGrid->SelectPage(index);
+    }
+
+    mPropertyGrid->Refresh();
 }
 
 void PropertiesPanel::selectionChanged(EventArgs& args)
 {
-	SelectionEventArgs sea = dynamic_cast<SelectionEventArgs&>(args);
-	SelectionList selection = sea.getSelection();
-	if(!selection.empty())
-	{
-		boost::any sel = selection.front();
-    if(sel.type() == typeid(Ogre::Technique*))
-		{
-			Ogre::Technique* tc = boost::any_cast<Ogre::Technique*>(sel);
+    SelectionEventArgs sea = dynamic_cast<SelectionEventArgs&>(args);
+    SelectionList selection = sea.getSelection();
+    if(!selection.empty())
+    {
+        boost::any sel = selection.front();
+        if(sel.type() == typeid(Ogre::Technique*))
+        {
+            Ogre::Technique* tc = boost::any_cast<Ogre::Technique*>(sel);
+            TechniqueSelected(tc);
+        }
+        else if(sel.type() == typeid(Ogre::Pass*))
+        {
+            Ogre::Pass* pc = boost::any_cast<Ogre::Pass*>(sel);
+            PassSelected(pc);
 
-			TechniquePageIndexMap::iterator it = mTechniquePageIndexMap.find(tc);
-			if(it != mTechniquePageIndexMap.end())
-			{
-				int index = mTechniquePageIndexMap[tc];
-				mPropertyGrid->SelectPage(index);
-			}
-			else
-			{
-				TechniquePropertyGridPage* page = new TechniquePropertyGridPage(tc);
+        }
 
-				int index = mPropertyGrid->AddPage(wxEmptyString, wxPG_NULL_BITMAP, page);
-				page->populate();
-
-				mTechniquePageIndexMap[tc] = index;
-
-				mPropertyGrid->SelectPage(index);
-			}
-		}
-		else if(sel.type() == typeid(Ogre::Pass*))
-		{
-			Ogre::Pass* pc = boost::any_cast<Ogre::Pass*>(sel);
-
-			PassPageIndexMap::iterator it = mPassPageIndexMap.find(pc);
-			if(it != mPassPageIndexMap.end())
-			{
-				int index = mPassPageIndexMap[pc];
-				mPropertyGrid->SelectPage(index);
-			}
-			else
-			{
-				PassPropertyGridPage* page = new PassPropertyGridPage(pc);
-
-				int index = mPropertyGrid->AddPage(wxEmptyString, wxPG_NULL_BITMAP, page);
-				page->populate();
-
-				mPassPageIndexMap[pc] = index;
-
-				mPropertyGrid->SelectPage(index);
-			}
-		}
-
-		mPropertyGrid->Refresh();
-	}
+    }
 }
 
