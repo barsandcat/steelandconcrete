@@ -56,8 +56,6 @@ class EditorManager : public wxEvtHandler, public Ogre::Singleton<EditorManager>
 public:
 	enum EditorManagerEvent
 	{
-		EditorOpened,
-		EditorClosed,
 		ActiveEditorChanged
 	};
 

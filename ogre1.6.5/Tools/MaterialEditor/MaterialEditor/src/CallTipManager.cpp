@@ -28,6 +28,7 @@ http://www.gnu.org/copyleft/lesser.txt
 
 #include "OgreDataStream.h"
 #include "OgreString.h"
+#include <wx/log.h>
 
 using Ogre::DataStream;
 using Ogre::DataStreamPtr;
@@ -44,88 +45,91 @@ CallTipManager::~CallTipManager()
 
 void CallTipManager::load(std::string& path)
 {
-	// TODO: Clear tips list
+    // TODO: Clear tips list
+    try
+    {
+        std::ifstream fp(path.c_str(), std::ios::in | std::ios::binary);
+        fp.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+        DataStreamPtr stream(new FileStreamDataStream(path.c_str(), &fp, false));
 
-	std::ifstream fp;
-	fp.open(path.c_str(), std::ios::in | std::ios::binary);
-	if(fp)
-	{
-		DataStreamPtr stream(new FileStreamDataStream(path.c_str(), &fp, false));
+        int index = -1;
+        wxString line;
+        wxString key;
+        while(!stream->eof())
+        {
+            line = wxString(stream->getLine().c_str(), wxConvUTF8);
 
-		int index = -1;
-		wxString line;
-		wxString key;
-		while(!stream->eof())
-		{
-			line = wxString(stream->getLine().c_str(), wxConvUTF8);
-
-			// Ignore blank lines and comments (comment lines start with '#')
-			if(line.length() > 0 && line.at(0) != '#')
-			{
-				if(line.at(0) == '[')
-				{
-					int endBrace = (int)line.find(']');
-					if(endBrace != -1)
-					{
-						key = line.substr(1, endBrace - 1);
-					}
-				}
-				else
-				{
-					if(mCallTips.find(key) != mCallTips.end())
-						mCallTips[key] = mCallTips[key] + wxT("\n") + line;
-					else
-						mCallTips[key] = line;
-				}
-			}
-		}
-	}
+            // Ignore blank lines and comments (comment lines start with '#')
+            if(line.length() > 0 && line.at(0) != '#')
+            {
+                if(line.at(0) == '[')
+                {
+                    int endBrace = (int)line.find(']');
+                    if(endBrace != -1)
+                    {
+                        key = line.substr(1, endBrace - 1);
+                    }
+                }
+                else
+                {
+                    if(mCallTips.find(key) != mCallTips.end())
+                        mCallTips[key] = mCallTips[key] + wxT("\n") + line;
+                    else
+                        mCallTips[key] = line;
+                }
+            }
+        }
+    }
+    catch(std::exception& e)
+    {
+        wxLogError(wxString((std::string("Exception! ") + e.what() + " " + path).c_str(), wxConvUTF8));
+    }
 }
 
 void CallTipManager::addTip(wxString& key, wxString& tip)
 {
-	mCallTips[key] = tip;
+    mCallTips[key] = tip;
 }
 
 void CallTipManager::removeTip(wxString& key)
 {
-	CallTipMap::iterator it = mCallTips.find(key);
-	if(it != mCallTips.end()) mCallTips.erase(it);
+    CallTipMap::iterator it = mCallTips.find(key);
+    if(it != mCallTips.end()) mCallTips.erase(it);
 }
 
 void CallTipManager::addTrigger(wxChar& trigger)
 {
-	mTriggers.push_back(trigger);
+    mTriggers.push_back(trigger);
 }
 
 void CallTipManager::removeTrigger(wxChar& trigger)
 {
-	TriggerList::iterator it;
-	for(it = mTriggers.begin(); it != mTriggers.end(); ++it)
-	{
-		if((*it) == trigger)
-		{
-			mTriggers.erase(it);
-			return;
-		}
-	}
+    TriggerList::iterator it;
+    for(it = mTriggers.begin(); it != mTriggers.end(); ++it)
+    {
+        if((*it) == trigger)
+        {
+            mTriggers.erase(it);
+            return;
+        }
+    }
 }
 
 bool CallTipManager::isTrigger(char& ch)
 {
-	TriggerList::iterator it;
-	for(it = mTriggers.begin(); it != mTriggers.end(); ++it)
-	{
-		if((*it) == ch) return true;
-	}
+    TriggerList::iterator it;
+    for(it = mTriggers.begin(); it != mTriggers.end(); ++it)
+    {
+        if((*it) == ch) return true;
+    }
 
-	return false;
+    return false;
 }
 
 wxString* CallTipManager::find(wxString& s)
 {
-	if(mCallTips.find(s) != mCallTips.end())
-		return &mCallTips[s];
+    if(mCallTips.find(s) != mCallTips.end())
+        return &mCallTips[s];
 
-	return NULL;
+    return NULL;
 }

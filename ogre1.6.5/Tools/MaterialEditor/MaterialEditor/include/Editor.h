@@ -48,7 +48,6 @@ public:
 	enum EditorEvent
 	{
 		NameChanged,
-		DirtyStateChanged
 	};
 
 	EditorBase();

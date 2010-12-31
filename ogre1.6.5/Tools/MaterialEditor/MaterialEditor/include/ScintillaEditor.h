@@ -30,7 +30,6 @@ public:
 	enum ScintillaEditorEvent
 	{
 		NameChanged, // Editor Event
-		DirtyStateChanged, // Editor Event
 		FocusedWordChanged
 	};
 

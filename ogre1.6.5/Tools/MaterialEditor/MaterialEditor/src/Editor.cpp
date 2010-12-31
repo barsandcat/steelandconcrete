@@ -55,7 +55,6 @@ void EditorBase::setControl(wxControl* control)
 void EditorBase::registerEvents()
 {
 	registerEvent(NameChanged);
-	registerEvent(DirtyStateChanged);
 }
 
 
