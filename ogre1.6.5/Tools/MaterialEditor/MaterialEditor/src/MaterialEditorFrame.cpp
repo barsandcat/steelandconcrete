@@ -58,10 +58,10 @@ http://www.gnu.org/copyleft/lesser.txt
 #include "PropertiesPanel.h"
 #include "TechniquePropertyGridPage.h"
 #include "PassPropertyGridPage.h"
-#include "ProjectPage.h"
-#include "ProjectWizard.h"
 #include "ResourcePanel.h"
 #include "WorkspacePanel.h"
+#include <Project.h>
+#include <Workspace.h>
 #include <wx/ogre/ogre.h>
 
 #if OGRE_STATIC_LIB
@@ -102,7 +102,6 @@ const long ID_VIEW_MENU_DIRECTX = wxNewId();
 BEGIN_EVENT_TABLE(MaterialEditorFrame, wxFrame)
 	EVT_ACTIVATE(MaterialEditorFrame::OnActivate)
 	// File Menu
-	EVT_MENU (ID_FILE_NEW_MENU_PROJECT,  MaterialEditorFrame::OnNewProject)
 	EVT_MENU (ID_FILE_NEW_MENU_MATERIAL, MaterialEditorFrame::OnNewMaterial)
 	EVT_MENU (ID_FILE_MENU_OPEN,		 MaterialEditorFrame::OnFileOpen)
 	EVT_MENU (ID_FILE_MENU_SAVE,		 MaterialEditorFrame::OnFileSave)
@@ -394,18 +393,6 @@ void MaterialEditorFrame::OnActiveEditorChanged(EventArgs& args)
 	// TODO: Update menu item enablement
 }
 
-void MaterialEditorFrame::OnNewProject(wxCommandEvent& event)
-{
-	//wxBitmap projectImage;
-	//projectImage.LoadFile("resources/images/new_project.gif", wxBITMAP_TYPE_GIF);
-
-	ProjectWizard* wizard = new ProjectWizard();
-	wizard->Create(this, wxID_ANY, wxT("New Project"), wxNullBitmap, wxDefaultPosition, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
-	wizard->RunWizard(wizard->getProjectPage()); // This seems unnatural, seems there must be a better way to deal with wizards
-
-	wizard->Destroy();
-}
-
 void MaterialEditorFrame::OnNewMaterial(wxCommandEvent& event)
 {
 	//wxBitmap materialImage;
@@ -423,10 +410,16 @@ void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
 	wxFileDialog * openDialog = new wxFileDialog(this, wxT("Choose a file to open"), wxEmptyString, wxEmptyString,
 		wxT("All Ogre Files (*.material;*.mesh;*.program;*.cg;*.vert;*.frag)|*.material;*.mesh;*.program;*.cg;*.vert;*.frag|Material Files (*.material)|*.material|Mesh Files (*.mesh)|*.mesh|Program Files (*.program)|*.program|Cg Files (*.cg)|*.cg|GLSL Files(*.vert; *.frag)|*.vert;*.frag|All Files (*.*)|*.*"));
 
-	if(openDialog->ShowModal() == wxID_OK)
-	{
-		wxString path = openDialog->GetPath();
-		if(path.EndsWith(wxT(".material")) || path.EndsWith(wxT(".program")))
+    if(openDialog->ShowModal() == wxID_OK)
+    {
+        wxString path = openDialog->GetPath();
+        if(path.EndsWith(wxT(".material")))
+        {
+            Project* project = new Project(path);
+            Workspace::AddProject(project);
+            mWorkspacePanel->ProjectAdded(project);
+        }
+        else if(path.EndsWith(wxT(".program")))
 		{
 			MaterialScriptEditor* editor = new MaterialScriptEditor(EditorManager::getSingletonPtr()->getEditorNotebook());
 			editor->loadFile(path);
