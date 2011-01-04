@@ -89,7 +89,7 @@ public:
     void LabelChanged(wxTreeEvent& event);
 
 	// Workspace Event Handlers
-	void projectAdded(EventArgs& args);
+	void ProjectAdded(Project* project);
 
 	// Project Event Handlers
 	void projectMaterialAdded(Project* project, Ogre::MaterialPtr material);

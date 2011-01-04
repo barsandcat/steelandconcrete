@@ -28,12 +28,15 @@ http://www.gnu.org/copyleft/lesser.txt
 #define _PROJECTWIZARD_H_
 
 #include <wx/wizard.h>
-
+#include <boost/signal.hpp>
 #include "ProjectPage.h"
+
+class Project;
+
 class ProjectWizard : public wxWizard
 {
 public:
-
+    boost::signal< void(Project*) > mProjectAddedSignal;
 	ProjectWizard();
 	virtual ~ProjectWizard();
 

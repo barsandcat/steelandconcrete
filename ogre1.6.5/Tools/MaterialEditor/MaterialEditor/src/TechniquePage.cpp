@@ -77,8 +77,8 @@ void TechniquePage::createPage()
 
 	// Project Combo Box
 	wxArrayString projectNames;
-	const ProjectList* projects = Workspace::getSingletonPtr()->getProjects();
-	for(ProjectList::const_iterator it = projects->begin(); it != projects->end(); ++it)
+	const ProjectList& projects = Workspace::GetProjects();
+	for(ProjectList::const_iterator it = projects.begin(); it != projects.end(); ++it)
 		projectNames.Add((*it)->getName().c_str());
 
 	// TODO: Select first Project
@@ -114,7 +114,7 @@ Project* TechniquePage::getProject() const
 {
 	wxString project = mProjectComboBox->GetValue();
 
-	return Workspace::getSingletonPtr()->getProject(project.c_str());
+	return Workspace::GetProject(project.c_str());
 }
 
 Ogre::MaterialPtr TechniquePage::getMaterial() const

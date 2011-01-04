@@ -30,26 +30,10 @@ Torus Knot Software Ltd.
 
 #include "EventArgs.h"
 #include "Project.h"
-#include "WorkspaceEventArgs.h"
 
-template<> Workspace* Ogre::Singleton<Workspace>::ms_Singleton = 0;
+ProjectList Workspace::mProjects;
 
-Workspace& Workspace::getSingleton(void)
-{
-	assert( ms_Singleton );  return ( *ms_Singleton );
-}
-
-Workspace* Workspace::getSingletonPtr(void)
-{
-	return ms_Singleton;
-}
-
-Workspace::Workspace()
-{
-	registerEvents();
-}
-
-Workspace::~Workspace()
+void Workspace::Clean()
 {
 	ProjectList::iterator it;
 	for(it = mProjects.begin(); it != mProjects.end(); ++it)
@@ -58,19 +42,12 @@ Workspace::~Workspace()
 	}
 }
 
-void Workspace::registerEvents()
-{
-	registerEvent(ProjectAdded);
-}
-
-void Workspace::addProject(Project* project)
+void Workspace::AddProject(Project* project)
 {
 	mProjects.push_back(project);
-
-	fireEvent(ProjectAdded, WorkspaceEventArgs(this, project));
 }
 
-Project* Workspace::getProject(const wxString& name)
+Project* Workspace::GetProject(const wxString& name)
 {
 	Project* p;
 	ProjectList::iterator it;
@@ -83,7 +60,7 @@ Project* Workspace::getProject(const wxString& name)
 	return NULL;
 }
 
-const ProjectList* Workspace::getProjects() const
+const ProjectList& Workspace::GetProjects()
 {
-	return &mProjects;
+	return mProjects;
 }
