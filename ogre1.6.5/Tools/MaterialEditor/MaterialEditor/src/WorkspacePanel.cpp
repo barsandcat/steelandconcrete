@@ -50,7 +50,6 @@ Torus Knot Software Ltd.
 #include "MaterialWizard.h"
 #include "PassWizard.h"
 #include "Project.h"
-#include "ProjectWizard.h"
 #include "TechniqueWizard.h"
 #include "Workspace.h"
 
@@ -82,7 +81,6 @@ BEGIN_EVENT_TABLE(WorkspacePanel, wxPanel)
 	EVT_TREE_ITEM_ACTIVATED(ID_TREE_CTRL, WorkspacePanel::OnActivate)
 	EVT_TREE_SEL_CHANGED(ID_TREE_CTRL, WorkspacePanel::OnSelectionChanged)
 	EVT_TREE_END_LABEL_EDIT(ID_TREE_CTRL, WorkspacePanel::LabelChanged)
-	EVT_MENU(ID_MENU_NEW_PROJECT, WorkspacePanel::OnNewProject)
 	EVT_MENU(ID_MENU_NEW_MATERIAL_SCRIPT, WorkspacePanel::OnNewMaterialScript)
 	EVT_MENU(ID_MENU_NEW_MATERIAL, WorkspacePanel::OnNewMaterial)
 	EVT_MENU(ID_MENU_NEW_TECHNIQUE, WorkspacePanel::OnNewTechnique)
@@ -269,18 +267,6 @@ void WorkspacePanel::OnSelectionChanged(wxTreeEvent& event)
 	    mPassSelectedSignal(getPass(id));
 	}
 	// else its the workspace so just leave the list empty as if nothing were selected
-}
-
-void WorkspacePanel::OnNewProject(wxCommandEvent& event)
-{
-	ProjectWizard* wizard = new ProjectWizard();
-    wizard->mProjectAddedSignal.connect(boost::bind(&WorkspacePanel::ProjectAdded, this, _1));
-	wizard->Create(this, wxID_ANY, wxT("New Project"), wxNullBitmap, wxDefaultPosition, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
-	wizard->RunWizard(wizard->getProjectPage()); // This seems unnatural, seems there must be a better way to deal with wizards
-
-	wizard->Destroy();
-
-	delete wizard;
 }
 
 void WorkspacePanel::OnNewMaterialScript(wxCommandEvent& event)

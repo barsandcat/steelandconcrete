@@ -78,7 +78,6 @@ protected:
 
 	void OnActiveEditorChanged(EventArgs& args);
 
-	void OnNewProject(wxCommandEvent& event);
 	void OnNewMaterial(wxCommandEvent& event);
 	void OnFileOpen(wxCommandEvent& event);
 	void OnFileSave(wxCommandEvent& event);
