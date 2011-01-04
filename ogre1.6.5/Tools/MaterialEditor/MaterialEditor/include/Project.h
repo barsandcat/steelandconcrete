@@ -49,8 +49,6 @@ typedef std::list<Ogre::MaterialPtr> MaterialControllerList;
 class Project
 {
 public:
-
-	Project();
 	Project(const wxString& name);
 	virtual ~Project();
 

@@ -33,13 +33,15 @@ Torus Knot Software Ltd.
 #include "OgreMaterial.h"
 #include "OgreMaterialManager.h"
 #include "OgreSceneManager.h"
-
-Project::Project()
-{
-}
+#include <OgreDataStream.h>
 
 Project::Project(const wxString& name) :mName(name)
 {
+    Ogre::String fileName = Ogre::String(name.mb_str());
+    std::ifstream *origStream = new std::ifstream(fileName.c_str(), std::ios::in | std::ios::binary);    
+    Ogre::DataStreamPtr stream(new Ogre::FileStreamDataStream(origStream, true));
+    Ogre::MaterialManager::getSingleton().parseScript(stream, fileName);
+
 }
 
 Project::~Project()
