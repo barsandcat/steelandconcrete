@@ -45,7 +45,7 @@
 			/>
 			<Tool
 				Name="proto"
-				protocompiler="$(SolutionDir)bin\protoc.exe"
+				protocompiler="$(SolutionDir)bin\protoc$(ConfigurationName).exe"
 				protodir="..\proto"
 				outdir="..\proto"
 			/>
@@ -141,7 +141,7 @@
 			/>
 			<Tool
 				Name="proto"
-				protocompiler="$(SolutionDir)bin\protoc.exe"
+				protocompiler="$(SolutionDir)bin\protoc$(ConfigurationName).exe"
 				protodir="..\proto"
 				outdir="..\proto"
 			/>
