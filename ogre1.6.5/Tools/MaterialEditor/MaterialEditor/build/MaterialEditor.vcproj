@@ -199,10 +199,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\CodeEditor.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\DocManager.cpp"
 				>
 			</File>
@@ -303,14 +299,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\SelectionEventArgs.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\SelectionService.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\TechniquePage.cpp"
 				>
 			</File>
@@ -350,10 +338,6 @@
 			</File>
 			<File
 				RelativePath="..\include\CgEditor.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\CodeEditor.h"
 				>
 			</File>
 			<File
@@ -466,14 +450,6 @@
 			</File>
 			<File
 				RelativePath="..\include\ScintillaEditor.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\SelectionEventArgs.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\SelectionService.h"
 				>
 			</File>
 			<File
