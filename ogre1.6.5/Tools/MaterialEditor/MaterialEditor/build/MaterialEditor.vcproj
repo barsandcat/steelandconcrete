@@ -319,10 +319,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\WorkspaceEventArgs.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\WorkspacePanel.cpp"
 				>
 			</File>
@@ -474,10 +470,6 @@
 			</File>
 			<File
 				RelativePath="..\include\Workspace.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\WorkspaceEventArgs.h"
 				>
 			</File>
 			<File

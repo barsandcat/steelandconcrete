@@ -53,7 +53,6 @@ Torus Knot Software Ltd.
 #include "ProjectWizard.h"
 #include "TechniqueWizard.h"
 #include "Workspace.h"
-#include "WorkspaceEventArgs.h"
 
 #define WORKSPACE_IMAGE 0
 #define PROJECT_IMAGE 1
@@ -104,8 +103,6 @@ WorkspacePanel::WorkspacePanel(wxWindow* parent,
 			   : mImageList(NULL), wxPanel(parent, id, pos, size, style, name)
 {
 	createPanel();
-
-	Workspace::getSingletonPtr()->subscribe(Workspace::ProjectAdded, boost::bind(&WorkspacePanel::projectAdded, this, _1));
 }
 
 WorkspacePanel::~WorkspacePanel()
@@ -277,6 +274,7 @@ void WorkspacePanel::OnSelectionChanged(wxTreeEvent& event)
 void WorkspacePanel::OnNewProject(wxCommandEvent& event)
 {
 	ProjectWizard* wizard = new ProjectWizard();
+    wizard->mProjectAddedSignal.connect(boost::bind(&WorkspacePanel::ProjectAdded, this, _1));
 	wizard->Create(this, wxID_ANY, wxT("New Project"), wxNullBitmap, wxDefaultPosition, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
 	wizard->RunWizard(wizard->getProjectPage()); // This seems unnatural, seems there must be a better way to deal with wizards
 
@@ -446,16 +444,16 @@ void WorkspacePanel::OnEdit(wxCommandEvent& event)
 
 void WorkspacePanel::OnUpdateMaterialMenuItem(wxUpdateUIEvent& event)
 {
-	event.Enable(!Workspace::getSingletonPtr()->getProjects()->empty());
+	event.Enable(!Workspace::GetProjects().empty());
 }
 
 void WorkspacePanel::OnUpdateTechniqueMenuItem(wxUpdateUIEvent& event)
 {
 	bool enable = false;
-	const ProjectList* projects = Workspace::getSingletonPtr()->getProjects();
+	const ProjectList& projects = Workspace::GetProjects();
 
 	ProjectList::const_iterator it;
-	for(it = projects->begin(); it != projects->end(); ++it)
+	for(it = projects.begin(); it != projects.end(); ++it)
 	{
 		if(!(*it)->getMaterials()->empty())
 		{
@@ -470,10 +468,10 @@ void WorkspacePanel::OnUpdateTechniqueMenuItem(wxUpdateUIEvent& event)
 void WorkspacePanel::OnUpdatePassMenuItem(wxUpdateUIEvent& event)
 {
 	bool enable = false;
-	const ProjectList* projects = Workspace::getSingletonPtr()->getProjects();
+	const ProjectList& projects = Workspace::GetProjects();
 
 	ProjectList::const_iterator pit;
-	for(pit = projects->begin(); pit != projects->end(); ++pit)
+	for(pit = projects.begin(); pit != projects.end(); ++pit)
 	{
 		const MaterialControllerList* materials = (*pit)->getMaterials();
 		MaterialControllerList::const_iterator mit;
@@ -500,11 +498,8 @@ void WorkspacePanel::LabelChanged(wxTreeEvent& event)
     }
 }
 
-void WorkspacePanel::projectAdded(EventArgs& args)
+void WorkspacePanel::ProjectAdded(Project* project)
 {
-	WorkspaceEventArgs wea = dynamic_cast<WorkspaceEventArgs&>(args);
-	Project* project = wea.getProject();
-
 	wxTreeItemId id = mTreeCtrl->AppendItem(mRootId, project->getName().c_str(), PROJECT_IMAGE);
 	mTreeCtrl->SelectItem(id, true);
 

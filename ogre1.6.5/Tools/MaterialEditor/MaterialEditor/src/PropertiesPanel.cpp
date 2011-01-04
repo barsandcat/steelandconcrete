@@ -54,7 +54,6 @@ Torus Knot Software Ltd.
 #include "TechniquePropertyGridPage.h"
 #include "TechniqueWizard.h"
 #include "Workspace.h"
-#include "WorkspaceEventArgs.h"
 #include "WorkspacePanel.h"
 
 BEGIN_EVENT_TABLE(PropertiesPanel, wxPanel)

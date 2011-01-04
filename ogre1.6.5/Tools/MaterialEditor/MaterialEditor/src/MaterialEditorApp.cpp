@@ -93,6 +93,7 @@ int MaterialEditorApp::OnExit()
 {
 	// Minimally clean up the IconManager
 	delete IconManager::getSingletonPtr();
+    Workspace::Clean();
 
 	return 0;
 }

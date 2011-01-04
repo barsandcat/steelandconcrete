@@ -90,8 +90,8 @@ void PassPage::createPage()
 
 	// Project Combo Box
 	wxArrayString projectNames;
-	const ProjectList* projects = Workspace::getSingletonPtr()->getProjects();
-	for(ProjectList::const_iterator it = projects->begin(); it != projects->end(); ++it)
+	const ProjectList& projects = Workspace::GetProjects();
+	for(ProjectList::const_iterator it = projects.begin(); it != projects.end(); ++it)
 		projectNames.Add(wxString((*it)->getName().c_str(), wxConvUTF8));
 
 	// TODO: Select first Project
@@ -133,7 +133,7 @@ void PassPage::getName(wxString& name) const
 
 Project* PassPage::getProject() const
 {
-	return Workspace::getSingletonPtr()->getProject(mProjectComboBox->GetValue());
+	return Workspace::GetProject(mProjectComboBox->GetValue());
 }
 
 Ogre::MaterialPtr PassPage::getMaterial() const
