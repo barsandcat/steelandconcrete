@@ -93,8 +93,8 @@ Ogre::MaterialPtr Project::getMaterialController(const Ogre::String& name)
 	return Ogre::MaterialPtr();
 }
 
-const MaterialControllerList* Project::getMaterials() const
+const MaterialControllerList& Project::getMaterials() const
 {
-	return &mMaterialControllers;
+	return mMaterialControllers;
 }
 
