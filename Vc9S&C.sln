@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+# Visual C++ Express 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameClient", "Vc9S&C.vcproj", "{0F83CA41-4364-49FF-A230-613B08B5CF82}"
 	ProjectSection(ProjectDependencies) = postProject
 		{AEF9FF05-DF46-4982-94C4-F8C99A3938A1} = {AEF9FF05-DF46-4982-94C4-F8C99A3938A1}
@@ -199,8 +199,14 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wxadv", "wxMSW-2.8.11\build\msw\wx_adv.vcproj", "{25E91AE8-5893-408F-B046-9F0097390B6E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wxhtml", "wxMSW-2.8.11\build\msw\wx_html.vcproj", "{D1EF074E-852B-455A-80AE-27F04599A0AE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D215484E-F216-434B-ADCE-5AF22F448D4C} = {D215484E-F216-434B-ADCE-5AF22F448D4C}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wxaui", "wxMSW-2.8.11\build\msw\wx_aui.vcproj", "{80F49E07-D84F-4FD4-B642-94CD6B183414}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D215484E-F216-434B-ADCE-5AF22F448D4C} = {D215484E-F216-434B-ADCE-5AF22F448D4C}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wxogre", "wxogre-svn312\wxogre.vcproj", "{1BF6EC53-9E57-4FB3-ABE9-E749625B7FB9}"
 	ProjectSection(ProjectDependencies) = postProject
