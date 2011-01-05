@@ -164,7 +164,7 @@ Ogre::Technique* PassPage::getTechnique() const
 void PassPage::setProject(Project* project)
 {
     mProjectComboBox->SetValue(project->getName());
-	populateMaterials(project != NULL ? project->getMaterials() : NULL);
+	populateMaterials(project != NULL ? &project->getMaterials() : NULL);
 }
 
 void PassPage::setMaterial(Ogre::MaterialPtr mc)
@@ -189,7 +189,7 @@ void PassPage::OnProjectSelected(wxCommandEvent& event)
 {
 	Project* project = getProject();
 	if(project != NULL)
-		populateMaterials(project->getMaterials());
+		populateMaterials(&project->getMaterials());
 }
 
 void PassPage::OnMaterialSelected(wxCommandEvent& event)

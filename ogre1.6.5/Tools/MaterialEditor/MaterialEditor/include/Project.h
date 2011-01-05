@@ -59,7 +59,7 @@ public:
 
 	Ogre::MaterialPtr getMaterialController(const Ogre::String& name);
 
-	const MaterialControllerList* getMaterials() const;
+	const MaterialControllerList& getMaterials() const;
 
 
 

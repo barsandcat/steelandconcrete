@@ -441,7 +441,7 @@ void WorkspacePanel::OnUpdateTechniqueMenuItem(wxUpdateUIEvent& event)
 	ProjectList::const_iterator it;
 	for(it = projects.begin(); it != projects.end(); ++it)
 	{
-		if(!(*it)->getMaterials()->empty())
+		if(!(*it)->getMaterials().empty())
 		{
 			enable = true;
 			break;
@@ -459,9 +459,9 @@ void WorkspacePanel::OnUpdatePassMenuItem(wxUpdateUIEvent& event)
 	ProjectList::const_iterator pit;
 	for(pit = projects.begin(); pit != projects.end(); ++pit)
 	{
-		const MaterialControllerList* materials = (*pit)->getMaterials();
+		const MaterialControllerList& materials = (*pit)->getMaterials();
 		MaterialControllerList::const_iterator mit;
-		for(mit = materials->begin(); mit != materials->end(); ++mit)
+		for(mit = materials.begin(); mit != materials.end(); ++mit)
 		{
 			if((*mit)->getNumTechniques() > 0)
 			{

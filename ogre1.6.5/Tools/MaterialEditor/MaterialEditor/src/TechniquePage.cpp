@@ -127,7 +127,7 @@ Ogre::MaterialPtr TechniquePage::getMaterial() const
 void TechniquePage::setProject(Project* project)
 {
 	mProjectComboBox->SetValue(project != NULL ? project->getName().c_str() : wxEmptyString);
-	populateMaterials(project->getMaterials());
+	populateMaterials(&project->getMaterials());
 }
 
 void TechniquePage::setMaterial(Ogre::MaterialPtr mc)
@@ -141,7 +141,7 @@ void TechniquePage::OnProjectSelected(wxCommandEvent& event)
 {
 	Project* project = getProject();
 	if(project != NULL)
-		populateMaterials(project->getMaterials());
+		populateMaterials(&project->getMaterials());
 }
 
 void TechniquePage::populateMaterials(const MaterialControllerList* materials)

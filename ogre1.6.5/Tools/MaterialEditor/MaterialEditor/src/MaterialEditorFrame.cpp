@@ -418,6 +418,12 @@ void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
             Project* project = new Project(path);
             Workspace::AddProject(project);
             mWorkspacePanel->ProjectAdded(project);
+            const MaterialControllerList& materials = project->getMaterials();
+            MaterialControllerList::const_iterator it = materials.begin();
+            for (; it != materials.end(); ++ it)
+            {
+                mWorkspacePanel->projectMaterialAdded(project, *it);
+            }
         }
         else if(path.EndsWith(wxT(".program")))
 		{
