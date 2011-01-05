@@ -38,10 +38,18 @@ Torus Knot Software Ltd.
 Project::Project(const wxString& name) :mName(name)
 {
     Ogre::String fileName = Ogre::String(name.mb_str());
-    std::ifstream *origStream = new std::ifstream(fileName.c_str(), std::ios::in | std::ios::binary);    
-    Ogre::DataStreamPtr stream(new Ogre::FileStreamDataStream(origStream, true));
+    std::ifstream *origStream = OGRE_NEW_T(std::ifstream, Ogre::MEMCATEGORY_GENERAL)(fileName.c_str(), std::ios::in | std::ios::binary);
+    // File ok, now parse it
+    Ogre::ResourceGroupManager::getSingleton().createResourceGroup(fileName);
+    Ogre::DataStreamPtr stream(OGRE_NEW Ogre::FileStreamDataStream(origStream, true));
     Ogre::MaterialManager::getSingleton().parseScript(stream, fileName);
-
+    // Now get materials
+    Ogre::ResourceManager::ResourceMapIterator it = Ogre::MaterialManager::getSingleton().getResourceIterator();
+    while (it.hasMoreElements())
+    {
+        Ogre::MaterialPtr material = it.getNext();
+        mMaterialControllers.push_back(material);
+    }
 }
 
 Project::~Project()
