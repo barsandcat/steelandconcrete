@@ -92,7 +92,7 @@ public:
 	void ProjectAdded(Project* project);
 
 	// Project Event Handlers
-	void projectMaterialAdded(Project* project, Ogre::MaterialPtr material);
+	void ProjectMaterialAdded(Project* project, Ogre::MaterialPtr material);
 
 	// Material Event Handlers
 	void TechniqueAdded(Ogre::MaterialPtr mc, Ogre::Technique* tc);
