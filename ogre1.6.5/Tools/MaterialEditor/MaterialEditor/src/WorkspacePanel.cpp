@@ -280,7 +280,7 @@ void WorkspacePanel::OnNewMaterial(wxCommandEvent& event)
 	wxTreeItemId id = mTreeCtrl->GetSelection();
 
 	MaterialWizard* wizard = new MaterialWizard();
-	wizard->mMaterialAddedSignal.connect(boost::bind(&WorkspacePanel::projectMaterialAdded, this, _1, _2));
+	wizard->mMaterialAddedSignal.connect(boost::bind(&WorkspacePanel::ProjectMaterialAdded, this, _1, _2));
 	wizard->Create(this, wxID_ANY, wxT("New Project"), wxNullBitmap, wxDefaultPosition, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
 	wizard->getMaterialPage()->setProject(getProject(id));
 	wizard->RunWizard(wizard->getMaterialPage()); // This seems unnatural, seems there must be a better way to deal with wizards
@@ -387,7 +387,7 @@ void WorkspacePanel::OnAddMaterial(wxCommandEvent& event)
 
 				Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().getByName("GrassMaterial");
 				project->addMaterial(mat);
-				projectMaterialAdded(project, mat);
+				ProjectMaterialAdded(project, mat);
 			}
 		}
 	}
@@ -490,16 +490,29 @@ void WorkspacePanel::ProjectAdded(Project* project)
 	mTreeCtrl->SelectItem(id, true);
 
 	mProjectIdMap[project] = id;
+    const MaterialControllerList& materials = project->getMaterials();
+    MaterialControllerList::const_iterator it = materials.begin();
+    for (; it != materials.end(); ++ it)
+    {
+        ProjectMaterialAdded(project, *it);
+    }
+
 }
 
 
-void WorkspacePanel::projectMaterialAdded(Project* project, Ogre::MaterialPtr material)
+void WorkspacePanel::ProjectMaterialAdded(Project* project, Ogre::MaterialPtr material)
 {
 	wxTreeItemId projectId = mProjectIdMap[project];
 	wxTreeItemId id = mTreeCtrl->AppendItem(projectId, wxString(material->getName().c_str(), wxConvUTF8), MATERIAL_IMAGE);
 	mTreeCtrl->SelectItem(id, true);
 
 	mMaterialIdMap[material] = id;
+    Ogre::Material::TechniqueIterator it = material->getTechniqueIterator();
+    while (it.hasMoreElements())
+    {
+        Ogre::Technique* techinque = it.getNext();
+        TechniqueAdded(material, techinque);
+    }
 }
 
 void WorkspacePanel::TechniqueAdded(Ogre::MaterialPtr mc, Ogre::Technique* tc)
@@ -509,6 +522,12 @@ void WorkspacePanel::TechniqueAdded(Ogre::MaterialPtr mc, Ogre::Technique* tc)
 	mTreeCtrl->SelectItem(id, true);
 
 	mTechniqueIdMap[tc] = id;
+    Ogre::Technique::PassIterator it = tc->getPassIterator();
+    while (it.hasMoreElements())
+    {
+        Ogre::Pass* pass = it.getNext();
+        TechniquePassAdded(tc, pass);
+    }
 }
 
 void WorkspacePanel::TechniquePassAdded(Ogre::Technique* tc, Ogre::Pass* pc)
