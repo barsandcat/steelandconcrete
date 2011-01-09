@@ -85,11 +85,11 @@
 		<Unit filename="../include/MaterialPage.h" />
 		<Unit filename="../include/MaterialPropertyGridPage.h" />
 		<Unit filename="../include/MaterialScriptEditor.h" />
+		<Unit filename="../include/MaterialScriptFile.h" />
 		<Unit filename="../include/MaterialWizard.h" />
 		<Unit filename="../include/PassPage.h" />
 		<Unit filename="../include/PassPropertyGridPage.h" />
 		<Unit filename="../include/PassWizard.h" />
-		<Unit filename="../include/Project.h" />
 		<Unit filename="../include/PropertiesPanel.h" />
 		<Unit filename="../include/ResourcePanel.h" />
 		<Unit filename="../include/ScintillaEditor.h" />
@@ -118,11 +118,11 @@
 		<Unit filename="../src/MaterialPage.cpp" />
 		<Unit filename="../src/MaterialPropertyGridPage.cpp" />
 		<Unit filename="../src/MaterialScriptEditor.cpp" />
+		<Unit filename="../src/MaterialScriptFile.cpp" />
 		<Unit filename="../src/MaterialWizard.cpp" />
 		<Unit filename="../src/PassPage.cpp" />
 		<Unit filename="../src/PassPropertyGridPage.cpp" />
 		<Unit filename="../src/PassWizard.cpp" />
-		<Unit filename="../src/Project.cpp" />
 		<Unit filename="../src/PropertiesPanel.cpp" />
 		<Unit filename="../src/ResourcePanel.cpp" />
 		<Unit filename="../src/ScintillaEditor.cpp" />

@@ -31,6 +31,7 @@ Torus Knot Software Ltd.
 
 #include <list>
 
+#include <OgreString.h>
 #include "wx/string.h"
 
 class MaterialScriptFile;
@@ -42,7 +43,7 @@ class Workspace
 {
 public:
 	static void Clean();
-
+	static void OpenConfigFile(const Ogre::String& aPath);
 	static void AddProject(MaterialScriptFile* project);
 
 	static MaterialScriptFile* GetProject(const wxString& name);
