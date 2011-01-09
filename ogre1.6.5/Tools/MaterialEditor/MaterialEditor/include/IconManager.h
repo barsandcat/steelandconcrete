@@ -48,6 +48,13 @@ http://www.gnu.org/copyleft/lesser.txt
 #include "../xpm/technique.xpm"
 #include "../xpm/workspace.xpm"
 
+#include "../xpm/application-x-font-pcf.xpm"
+#include "../xpm/application-x-kpovmodeler.xpm"
+#include "../xpm/image-x-generic.xpm"
+#include "../xpm/folder.xpm"
+#include "../xpm/utilities-file-archiver-3.xpm"
+#include "../xpm/unknown.xpm"
+
 class IconManager : public Ogre::Singleton<IconManager>
 {
 public:
@@ -72,7 +79,13 @@ public:
 		SAVE_AS,
 		SHADER,
 		TECHNIQUE,
-		WORKSPACE
+		WORKSPACE,
+		FONT,
+		MESH,
+		FILE_SYSTEM,
+		TEXTURE,
+		ZIP,
+		UNKNOWN,
 	};
 
 	const wxBitmap& getIcon(IconType type) const;
