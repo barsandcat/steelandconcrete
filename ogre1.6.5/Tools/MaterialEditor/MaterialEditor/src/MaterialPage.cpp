@@ -35,7 +35,7 @@ Torus Knot Software Ltd.
 #include <wx/stattext.h>
 #include <wx/textctrl.h>
 
-#include "Project.h"
+#include "MaterialScriptFile.h"
 #include "Workspace.h"
 
 BEGIN_EVENT_TABLE(MaterialPage, wxWizardPageSimple)

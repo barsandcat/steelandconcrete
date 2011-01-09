@@ -31,7 +31,7 @@ Torus Knot Software Ltd.
 
 #include <wx/wizard.h>
 
-#include "Project.h"
+#include "MaterialScriptFile.h"
 #include <OgreMaterial.h>
 class wxBoxSizer;
 class wxComboBox;

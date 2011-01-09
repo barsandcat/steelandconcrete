@@ -29,7 +29,7 @@ http://www.gnu.org/copyleft/lesser.txt
 #include <wx/sizer.h>
 
 #include "MaterialPage.h"
-#include "Project.h"
+#include "MaterialScriptFile.h"
 #include "Workspace.h"
 
 BEGIN_EVENT_TABLE(MaterialWizard, wxWizard)

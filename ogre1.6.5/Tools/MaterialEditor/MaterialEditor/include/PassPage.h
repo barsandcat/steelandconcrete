@@ -36,7 +36,7 @@ class wxComboBox;
 class wxStaticText;
 class wxTextCtrl;
 
-#include "Project.h"
+#include "MaterialScriptFile.h"
 #include "OgreMaterial.h"
 namespace Ogre
 {

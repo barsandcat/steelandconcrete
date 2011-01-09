@@ -49,7 +49,7 @@ Torus Knot Software Ltd.
 #include "MaterialScriptEditor.h"
 #include "MaterialWizard.h"
 #include "PassWizard.h"
-#include "Project.h"
+#include "MaterialScriptFile.h"
 #include "TechniqueWizard.h"
 #include "Workspace.h"
 

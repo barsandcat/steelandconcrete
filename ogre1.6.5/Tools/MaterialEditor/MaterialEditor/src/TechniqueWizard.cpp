@@ -28,7 +28,7 @@ http://www.gnu.org/copyleft/lesser.txt
 
 #include <wx/sizer.h>
 
-#include "Project.h"
+#include "MaterialScriptFile.h"
 #include "TechniquePage.h"
 #include "Workspace.h"
 #include <OgreTechnique.h>
