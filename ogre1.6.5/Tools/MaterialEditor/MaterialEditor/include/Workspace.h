@@ -44,6 +44,7 @@ class Workspace
 public:
 	static void Clean();
 	static void OpenConfigFile(const Ogre::String& aPath);
+	static const Ogre::String& GetFileName() { return mConfigFile; }
 	static void AddProject(MaterialScriptFile* project);
 
 	static MaterialScriptFile* GetProject(const wxString& name);
@@ -51,6 +52,7 @@ public:
 
 private:
 	static ProjectList mProjects;
+	static Ogre::String mConfigFile;
 };
 
 #endif // WORKSPACE_H
