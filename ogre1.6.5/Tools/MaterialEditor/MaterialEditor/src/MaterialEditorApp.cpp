@@ -64,10 +64,6 @@ bool MaterialEditorApp::OnInit()
 
 		MaterialEditorFrame* frame = new MaterialEditorFrame();
 
-		// load resources yeah!
-		m_res->LoadResourceFile("resources.cfg");
-		m_res->InitialiseAllResources();
-
 		frame->SetIcon(wxIcon(ogre_xpm));
 		frame->Show(true);
 

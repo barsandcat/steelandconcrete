@@ -408,80 +408,12 @@ void MaterialEditorFrame::OnNewMaterial(wxCommandEvent& event)
 void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
 {
 	wxFileDialog * openDialog = new wxFileDialog(this, wxT("Choose a file to open"), wxEmptyString, wxEmptyString,
-		wxT("All Ogre Files (*.material;*.mesh;*.program;*.cg;*.vert;*.frag)|*.material;*.mesh;*.program;*.cg;*.vert;*.frag|Material Files (*.material)|*.material|Mesh Files (*.mesh)|*.mesh|Program Files (*.program)|*.program|Cg Files (*.cg)|*.cg|GLSL Files(*.vert; *.frag)|*.vert;*.frag|All Files (*.*)|*.*"));
+		wxT("Resource configuration (*.cfg)|*.cfg|All Files (*.*)|*.*"));
 
     if(openDialog->ShowModal() == wxID_OK)
     {
         wxString path = openDialog->GetPath();
-        if(path.EndsWith(wxT(".material")))
-        {
-            MaterialScriptFile* project = new MaterialScriptFile(path);
-            Workspace::AddProject(project);
-            mWorkspacePanel->ProjectAdded(project);
-        }
-        else if(path.EndsWith(wxT(".program")))
-		{
-			MaterialScriptEditor* editor = new MaterialScriptEditor(EditorManager::getSingletonPtr()->getEditorNotebook());
-			editor->loadFile(path);
-			int index = (int)path.find_last_of('\\');
-			if(index == -1) index = (int)path.find_last_of('/');
-			editor->setName((index != -1) ? path.substr(index + 1, path.Length()) : path);
-
-			EditorManager::getSingletonPtr()->openEditor(editor);
-		}
-		else if(path.EndsWith(wxT(".cg")))
-		{
-			CgEditor* editor = new CgEditor(EditorManager::getSingletonPtr()->getEditorNotebook());
-			editor->loadFile(path);
-			int index = (int)path.find_last_of('\\');
-			if(index == -1) index = (int)path.find_last_of('/');
-			editor->setName((index != -1) ? path.substr(index + 1, path.Length()) : path);
-
-			EditorManager::getSingletonPtr()->openEditor(editor);
-		}
-		else if(path.EndsWith(wxT(".mesh")))
-		{
-
-			Ogre::Camera *camera = mOgreControl->GetCamera();
-			Ogre::SceneManager *sceneMgr = camera->getSceneManager();
-
-			if(mEntity)
-			{
-				sceneMgr->getRootSceneNode()->detachObject(mEntity);
-				sceneMgr->destroyEntity(mEntity);
-				mEntity = 0;
-			}
-
-			static int meshNumber = 0;
-			Ogre::String meshName = Ogre::String("Mesh") + Ogre::StringConverter::toString(meshNumber++);
-
-			int index = (int)path.find_last_of('\\');
-			if(index == -1) index = (int)path.find_last_of('/');
-			wxString mesh = (index != -1) ? path.substr(index + 1, path.Length()) : path;
-
-			mEntity = sceneMgr->createEntity(meshName, Ogre::String(mesh.mb_str()));
-			sceneMgr->getRootSceneNode()->attachObject(mEntity);
-
-			Ogre::AxisAlignedBox box = mEntity->getBoundingBox();
-			Ogre::Vector3 minPoint = box.getMinimum();
-			Ogre::Vector3 maxPoint = box.getMaximum();
-			Ogre::Vector3 size = box.getSize();
-
-
-			//wxOgre::getSingleton().setZoomScale(max(size.x, max(size.y, size.z)));
-			//wxOgre::getSingleton().resetCamera();
-
-			Ogre::Vector3 camPos;
-			camPos.x = minPoint.x + (size.x / 2.0);
-			camPos.y = minPoint.y + (size.y / 2.0);
-			Ogre::Real width = max(size.x, size.y);
-			camPos.z = (width / tan(camera->getFOVy().valueRadians())) + size.z / 2;
-
-			camera->setPosition(camPos);
-			camera->lookAt(0,0,0);
-
-			//wxOgre::getSingleton().getLight()->setPosition(maxPoint * 2);
-		}
+        Workspace::OpenConfigFile(Ogre::String(path.mb_str()));
 	}
 }
 

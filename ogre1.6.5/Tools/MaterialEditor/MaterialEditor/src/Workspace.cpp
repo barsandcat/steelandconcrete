@@ -31,6 +31,9 @@ Torus Knot Software Ltd.
 #include "EventArgs.h"
 #include "MaterialScriptFile.h"
 
+#include <OgreConfigFile.h>
+#include <OgreResourceGroupManager.h>
+
 ProjectList Workspace::mProjects;
 
 void Workspace::Clean()
@@ -40,6 +43,29 @@ void Workspace::Clean()
 	{
 		delete *it;
 	}
+}
+
+void Workspace::OpenConfigFile(const Ogre::String& aPath)
+{
+    Ogre::ConfigFile cf;
+    cf.load(aPath);
+    Ogre::ConfigFile::SectionIterator it = cf.getSectionIterator();
+
+    Ogre::String location, type, group;
+    while (it.hasMoreElements())
+    {
+        group = it.peekNextKey();
+        Ogre::ConfigFile::SettingsMultiMap *settings = it.getNext();
+        Ogre::ConfigFile::SettingsMultiMap::iterator i;
+
+        for (i = settings->begin(); i != settings->end(); ++i)
+        {
+            type = i->first;
+            location = i->second;
+            Ogre::ResourceGroupManager::getSingleton().addResourceLocation(location, type, group);
+        }
+    }
+
 }
 
 void Workspace::AddProject(MaterialScriptFile* project)
