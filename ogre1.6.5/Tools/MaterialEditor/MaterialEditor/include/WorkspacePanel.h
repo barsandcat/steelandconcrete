@@ -44,7 +44,7 @@ class wxMenu;
 
 class EventArgs;
 class MaterialController;
-class Project;
+class MaterialScriptFile;
 
 namespace Ogre
 {
@@ -52,7 +52,7 @@ namespace Ogre
     class Technique;
 }
 
-typedef std::map<Project*, wxTreeItemId> ProjectIdMap;
+typedef std::map<MaterialScriptFile*, wxTreeItemId> ProjectIdMap;
 typedef std::map<Ogre::MaterialPtr, wxTreeItemId> MaterialIdMap;
 typedef std::map<Ogre::Technique*, wxTreeItemId> TechniqueIdMap;
 typedef std::map<Ogre::Pass*, wxTreeItemId> PassIdMap;
@@ -89,10 +89,10 @@ public:
     void LabelChanged(wxTreeEvent& event);
 
 	// Workspace Event Handlers
-	void ProjectAdded(Project* project);
+	void ProjectAdded(MaterialScriptFile* project);
 
-	// Project Event Handlers
-	void ProjectMaterialAdded(Project* project, Ogre::MaterialPtr material);
+	// MaterialScriptFile Event Handlers
+	void ProjectMaterialAdded(MaterialScriptFile* project, Ogre::MaterialPtr material);
 
 	// Material Event Handlers
 	void TechniqueAdded(Ogre::MaterialPtr mc, Ogre::Technique* tc);
@@ -106,7 +106,7 @@ protected:
 	void showContextMenu(wxPoint point, wxTreeItemId id);
 	void appendProjectMenuItems(wxMenu* menu);
 
-	Project* getProject(wxTreeItemId id);
+	MaterialScriptFile* getProject(wxTreeItemId id);
 	Ogre::MaterialPtr getMaterial(wxTreeItemId id);
 	Ogre::Technique* getTechnique(wxTreeItemId id);
 	Ogre::Pass* getPass(wxTreeItemId id);

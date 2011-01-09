@@ -37,7 +37,7 @@ http://www.gnu.org/copyleft/lesser.txt
 class MaterialWizard : public wxWizard
 {
 public:
-    boost::signal< void (Project*, Ogre::MaterialPtr) > mMaterialAddedSignal;
+    boost::signal< void (MaterialScriptFile*, Ogre::MaterialPtr) > mMaterialAddedSignal;
 
 	MaterialWizard();
 	virtual ~MaterialWizard();

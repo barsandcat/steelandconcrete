@@ -49,14 +49,14 @@ TechniquePage::TechniquePage(wxWizard* parent)
 	createPage();
 }
 
-TechniquePage::TechniquePage(wxWizard* parent, Project* project)
+TechniquePage::TechniquePage(wxWizard* parent, MaterialScriptFile* project)
 : wxWizardPageSimple(parent), mProject(project), mMaterial(NULL)
 {
 	createPage();
 }
 
 
-TechniquePage::TechniquePage(wxWizard* parent, Project* project, Ogre::MaterialPtr mc)
+TechniquePage::TechniquePage(wxWizard* parent, MaterialScriptFile* project, Ogre::MaterialPtr mc)
 : wxWizardPageSimple(parent), mProject(project), mMaterial(mc)
 {
 	createPage();
@@ -71,17 +71,17 @@ void TechniquePage::createPage()
 {
 	mSizer = new wxBoxSizer(wxVERTICAL);
 
-	// Project Label
-	mProjectLabel = new wxStaticText(this, wxID_ANY, wxT("Project:"), wxDefaultPosition, wxDefaultSize, 0);
+	// MaterialScriptFile Label
+	mProjectLabel = new wxStaticText(this, wxID_ANY, wxT("MaterialScriptFile:"), wxDefaultPosition, wxDefaultSize, 0);
 	mSizer->Add(mProjectLabel, 0, wxALL, 5);
 
-	// Project Combo Box
+	// MaterialScriptFile Combo Box
 	wxArrayString projectNames;
 	const ProjectList& projects = Workspace::GetProjects();
 	for(ProjectList::const_iterator it = projects.begin(); it != projects.end(); ++it)
 		projectNames.Add((*it)->getName().c_str());
 
-	// TODO: Select first Project
+	// TODO: Select first MaterialScriptFile
 	mProjectComboBox = new wxComboBox(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, projectNames, wxCB_DROPDOWN);
 	mSizer->Add(mProjectComboBox, 0, wxALL | wxEXPAND, 5);
 
@@ -110,7 +110,7 @@ void TechniquePage::getName(wxString& name) const
 	name = mNameText->GetValue();
 }
 
-Project* TechniquePage::getProject() const
+MaterialScriptFile* TechniquePage::getProject() const
 {
 	wxString project = mProjectComboBox->GetValue();
 
@@ -124,7 +124,7 @@ Ogre::MaterialPtr TechniquePage::getMaterial() const
 	return getProject()->getMaterialController(material);
 }
 
-void TechniquePage::setProject(Project* project)
+void TechniquePage::setProject(MaterialScriptFile* project)
 {
 	mProjectComboBox->SetValue(project != NULL ? project->getName().c_str() : wxEmptyString);
 	populateMaterials(&project->getMaterials());
@@ -139,7 +139,7 @@ void TechniquePage::setMaterial(Ogre::MaterialPtr mc)
 
 void TechniquePage::OnProjectSelected(wxCommandEvent& event)
 {
-	Project* project = getProject();
+	MaterialScriptFile* project = getProject();
 	if(project != NULL)
 		populateMaterials(&project->getMaterials());
 }

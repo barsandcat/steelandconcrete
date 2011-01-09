@@ -159,7 +159,7 @@ void WorkspacePanel::showContextMenu(wxPoint point, wxTreeItemId id)
 void WorkspacePanel::appendNewMenu(wxMenu* menu)
 {
 	wxMenu* newMenu = new wxMenu();
-	newMenu->Append(ID_MENU_NEW_PROJECT, wxT("Project"));
+	newMenu->Append(ID_MENU_NEW_PROJECT, wxT("MaterialScriptFile"));
 	newMenu->Append(ID_MENU_NEW_MATERIAL_SCRIPT, wxT("Material Script"));
 	newMenu->Append(ID_MENU_NEW_MATERIAL, wxT("Material"));
 	newMenu->Append(ID_MENU_NEW_TECHNIQUE, wxT("Technique"));
@@ -173,7 +173,7 @@ void WorkspacePanel::appendProjectMenuItems(wxMenu* menu)
 	menu->Append(ID_MENU_ADD_MATERIAL, wxT("Add Material"));
 }
 
-Project* WorkspacePanel::getProject(wxTreeItemId id)
+MaterialScriptFile* WorkspacePanel::getProject(wxTreeItemId id)
 {
 	for(ProjectIdMap::iterator it = mProjectIdMap.begin(); it != mProjectIdMap.end(); ++it)
 	{
@@ -281,7 +281,7 @@ void WorkspacePanel::OnNewMaterial(wxCommandEvent& event)
 
 	MaterialWizard* wizard = new MaterialWizard();
 	wizard->mMaterialAddedSignal.connect(boost::bind(&WorkspacePanel::ProjectMaterialAdded, this, _1, _2));
-	wizard->Create(this, wxID_ANY, wxT("New Project"), wxNullBitmap, wxDefaultPosition, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
+	wizard->Create(this, wxID_ANY, wxT("New MaterialScriptFile"), wxNullBitmap, wxDefaultPosition, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
 	wizard->getMaterialPage()->setProject(getProject(id));
 	wizard->RunWizard(wizard->getMaterialPage()); // This seems unnatural, seems there must be a better way to deal with wizards
 
@@ -292,7 +292,7 @@ void WorkspacePanel::OnNewMaterial(wxCommandEvent& event)
 
 void WorkspacePanel::OnNewTechnique(wxCommandEvent& event)
 {
-	Project* project = NULL;
+	MaterialScriptFile* project = NULL;
 	Ogre::MaterialPtr material;
 
 	wxTreeItemId selId = mTreeCtrl->GetSelection();
@@ -322,7 +322,7 @@ void WorkspacePanel::OnNewTechnique(wxCommandEvent& event)
 
 void WorkspacePanel::OnNewPass(wxCommandEvent& event)
 {
-	Project* project = NULL;
+	MaterialScriptFile* project = NULL;
 	Ogre::MaterialPtr material;
 	Ogre::Technique* technique = NULL;
 
@@ -375,7 +375,7 @@ void WorkspacePanel::OnAddMaterial(wxCommandEvent& event)
 			wxTreeItemId selId = mTreeCtrl->GetSelection();
 			if(isProject(selId))
 			{
-				Project* project = getProject(selId);
+				MaterialScriptFile* project = getProject(selId);
 
 				MaterialScriptEditor* editor = new MaterialScriptEditor(EditorManager::getSingletonPtr()->getEditorNotebook());
 				editor->loadFile(path);
@@ -484,7 +484,7 @@ void WorkspacePanel::LabelChanged(wxTreeEvent& event)
     }
 }
 
-void WorkspacePanel::ProjectAdded(Project* project)
+void WorkspacePanel::ProjectAdded(MaterialScriptFile* project)
 {
 	wxTreeItemId id = mTreeCtrl->AppendItem(mRootId, project->getName().c_str(), PROJECT_IMAGE);
 	mTreeCtrl->SelectItem(id, true);
@@ -500,7 +500,7 @@ void WorkspacePanel::ProjectAdded(Project* project)
 }
 
 
-void WorkspacePanel::ProjectMaterialAdded(Project* project, Ogre::MaterialPtr material)
+void WorkspacePanel::ProjectMaterialAdded(MaterialScriptFile* project, Ogre::MaterialPtr material)
 {
 	wxTreeItemId projectId = mProjectIdMap[project];
 	wxTreeItemId id = mTreeCtrl->AppendItem(projectId, wxString(material->getName().c_str(), wxConvUTF8), MATERIAL_IMAGE);

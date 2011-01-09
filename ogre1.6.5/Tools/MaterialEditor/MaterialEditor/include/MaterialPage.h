@@ -36,7 +36,7 @@ class wxComboBox;
 class wxStaticText;
 class wxTextCtrl;
 
-class Project;
+class MaterialScriptFile;
 
 class MaterialPage : public wxWizardPageSimple
 {
@@ -45,8 +45,8 @@ public:
 	virtual ~MaterialPage();
 
 	void getName(wxString& name) const;
-	Project* getProject() const;
-	void setProject(Project* project);
+	MaterialScriptFile* getProject() const;
+	void setProject(MaterialScriptFile* project);
 
 protected:
 	void createPage();

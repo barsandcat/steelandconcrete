@@ -300,7 +300,7 @@ void MaterialEditorFrame::createFileMenu()
 	// New sub menu
 	wxMenu* newMenu = new wxMenu();
 
-	wxMenuItem *menuItem = new wxMenuItem(newMenu, ID_FILE_NEW_MENU_PROJECT, wxT("&Project"));
+	wxMenuItem *menuItem = new wxMenuItem(newMenu, ID_FILE_NEW_MENU_PROJECT, wxT("&MaterialScriptFile"));
 	menuItem->SetBitmap(IconManager::getSingleton().getIcon(IconManager::PROJECT_NEW));
 	newMenu->Append(menuItem);
 
@@ -415,7 +415,7 @@ void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
         wxString path = openDialog->GetPath();
         if(path.EndsWith(wxT(".material")))
         {
-            Project* project = new Project(path);
+            MaterialScriptFile* project = new MaterialScriptFile(path);
             Workspace::AddProject(project);
             mWorkspacePanel->ProjectAdded(project);
         }

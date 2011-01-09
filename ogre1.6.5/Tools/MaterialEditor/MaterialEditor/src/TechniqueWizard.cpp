@@ -63,7 +63,7 @@ TechniquePage* TechniqueWizard::getTechniquePage() const
 
 void TechniqueWizard::OnFinish(wxWizardEvent& event)
 {
-	Project* project = mTechniquePage->getProject();
+	MaterialScriptFile* project = mTechniquePage->getProject();
 	Ogre::MaterialPtr mc = mTechniquePage->getMaterial();
 
 	wxString name;

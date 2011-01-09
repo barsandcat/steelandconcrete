@@ -42,15 +42,15 @@ namespace Ogre
 	class SceneManager;
 }
 
-class Project;
+class MaterialScriptFile;
 
 typedef std::list<Ogre::MaterialPtr> MaterialControllerList;
 
-class Project
+class MaterialScriptFile
 {
 public:
-	Project(const wxString& name);
-	virtual ~Project();
+	MaterialScriptFile(const wxString& name);
+	virtual ~MaterialScriptFile();
 
 	const wxString& getName() const;
 
