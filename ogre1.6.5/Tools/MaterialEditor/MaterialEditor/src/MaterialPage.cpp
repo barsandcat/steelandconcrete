@@ -55,17 +55,17 @@ void MaterialPage::createPage()
 {
 	mSizer = new wxBoxSizer(wxVERTICAL);
 
-	// Project Label
-	mProjectLabel = new wxStaticText(this, wxID_ANY, wxT("Project:"), wxDefaultPosition, wxDefaultSize, 0);
+	// MaterialScriptFile Label
+	mProjectLabel = new wxStaticText(this, wxID_ANY, wxT("MaterialScriptFile:"), wxDefaultPosition, wxDefaultSize, 0);
 	mSizer->Add(mProjectLabel, 0, wxALL, 5);
 
-	// Project Combo Box
+	// MaterialScriptFile Combo Box
 	wxArrayString projectNames;
 	const ProjectList& projects = Workspace::GetProjects();
 	for(ProjectList::const_iterator it = projects.begin(); it != projects.end(); ++it)
 		projectNames.Add(wxString((*it)->getName().c_str(), wxConvUTF8));
 
-	// TODO: Select first Project
+	// TODO: Select first MaterialScriptFile
 	mProjectComboBox = new wxComboBox(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, projectNames, wxCB_DROPDOWN);
 	mProjectComboBox->SetEditable(false);
 	mSizer->Add(mProjectComboBox, 0, wxALL | wxEXPAND, 5);
@@ -87,12 +87,12 @@ void MaterialPage::getName(wxString& name) const
 	name = mNameText->GetValue();
 }
 
-Project* MaterialPage::getProject() const
+MaterialScriptFile* MaterialPage::getProject() const
 {
 	return Workspace::GetProject(mProjectComboBox->GetValue());
 }
 
-void MaterialPage::setProject(Project* project)
+void MaterialPage::setProject(MaterialScriptFile* project)
 {
     wxString value = wxEmptyString;
     if (project)

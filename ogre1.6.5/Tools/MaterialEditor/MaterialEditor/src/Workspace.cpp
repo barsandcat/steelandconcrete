@@ -42,14 +42,14 @@ void Workspace::Clean()
 	}
 }
 
-void Workspace::AddProject(Project* project)
+void Workspace::AddProject(MaterialScriptFile* project)
 {
 	mProjects.push_back(project);
 }
 
-Project* Workspace::GetProject(const wxString& name)
+MaterialScriptFile* Workspace::GetProject(const wxString& name)
 {
-	Project* p;
+	MaterialScriptFile* p;
 	ProjectList::iterator it;
 	for(it = mProjects.begin(); it != mProjects.end(); ++it)
 	{

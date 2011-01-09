@@ -47,15 +47,15 @@ class PassPage : public wxWizardPageSimple
 {
 public:
 	PassPage(wxWizard* parent);
-	PassPage(wxWizard* parent, Project* project);
-	PassPage(wxWizard* parent, Project* project, Ogre::MaterialPtr mc);
-	PassPage(wxWizard* parent, Project* project, Ogre::MaterialPtr mc, Ogre::Technique* tc);
+	PassPage(wxWizard* parent, MaterialScriptFile* project);
+	PassPage(wxWizard* parent, MaterialScriptFile* project, Ogre::MaterialPtr mc);
+	PassPage(wxWizard* parent, MaterialScriptFile* project, Ogre::MaterialPtr mc, Ogre::Technique* tc);
 	virtual ~PassPage();
 
 	void getName(wxString& name) const;
 
-	Project* getProject() const;
-	void setProject(Project* project);
+	MaterialScriptFile* getProject() const;
+	void setProject(MaterialScriptFile* project);
 
 	Ogre::MaterialPtr getMaterial() const;
 	void setMaterial(Ogre::MaterialPtr mc);
@@ -83,7 +83,7 @@ protected:
 	wxStaticText* mNameLabel;
 	wxTextCtrl* mNameText;
 
-	Project* mProject;
+	MaterialScriptFile* mProject;
 	Ogre::MaterialPtr mMaterial;
 	Ogre::Technique* mTechnique;
 

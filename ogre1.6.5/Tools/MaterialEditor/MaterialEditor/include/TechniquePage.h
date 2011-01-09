@@ -44,14 +44,14 @@ class TechniquePage : public wxWizardPageSimple
 {
 public:
 	TechniquePage(wxWizard* parent);
-	TechniquePage(wxWizard* parent, Project* project);
-	TechniquePage(wxWizard* parent, Project* project, Ogre::MaterialPtr mc);
+	TechniquePage(wxWizard* parent, MaterialScriptFile* project);
+	TechniquePage(wxWizard* parent, MaterialScriptFile* project, Ogre::MaterialPtr mc);
 	virtual ~TechniquePage();
 
 	void getName(wxString& name) const;
 
-	Project* getProject() const;
-	void setProject(Project* project);
+	MaterialScriptFile* getProject() const;
+	void setProject(MaterialScriptFile* project);
 
 	Ogre::MaterialPtr getMaterial() const;
 	void setMaterial(Ogre::MaterialPtr mc);
@@ -71,7 +71,7 @@ protected:
 	wxStaticText* mNameLabel;
 	wxTextCtrl* mNameText;
 
-	Project* mProject;
+	MaterialScriptFile* mProject;
 	Ogre::MaterialPtr mMaterial;
 
 	DECLARE_EVENT_TABLE()

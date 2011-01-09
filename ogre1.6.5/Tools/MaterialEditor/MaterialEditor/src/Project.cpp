@@ -35,11 +35,11 @@ Torus Knot Software Ltd.
 #include "OgreSceneManager.h"
 #include <OgreDataStream.h>
 
-Project::Project(const wxString& name) :mName(name)
+MaterialScriptFile::MaterialScriptFile(const wxString& name) :mName(name)
 {
     Ogre::String fileName = Ogre::String(name.mb_str());
     std::ifstream *origStream = OGRE_NEW_T(std::ifstream, Ogre::MEMCATEGORY_GENERAL)(fileName.c_str(), std::ios::in | std::ios::binary);
-    
+
     Ogre::LogManager::getSingleton().logMessage("File " + fileName + " ok, now parse it");
     Ogre::DataStreamPtr stream(OGRE_NEW Ogre::FileStreamDataStream(fileName, origStream, true));
     Ogre::MaterialManager::getSingleton().parseScript(stream, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
@@ -56,22 +56,22 @@ Project::Project(const wxString& name) :mName(name)
     }
 }
 
-Project::~Project()
+MaterialScriptFile::~MaterialScriptFile()
 {
 	mMaterialControllers.clear();
 }
 
-const wxString& Project::getName() const
+const wxString& MaterialScriptFile::getName() const
 {
 	return mName;
 }
 
-void Project::addMaterial(Ogre::MaterialPtr materialPtr)
+void MaterialScriptFile::addMaterial(Ogre::MaterialPtr materialPtr)
 {
 	mMaterialControllers.push_back(materialPtr);
 }
 
-Ogre::MaterialPtr Project::createMaterial(const Ogre::String& name)
+Ogre::MaterialPtr MaterialScriptFile::createMaterial(const Ogre::String& name)
 {
 	// TODO: Projects should probably have their own resource groups instead of using the default
 	Ogre::MaterialPtr materialPtr = (Ogre::MaterialPtr)Ogre::MaterialManager::getSingletonPtr()->create(name, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
@@ -80,7 +80,7 @@ Ogre::MaterialPtr Project::createMaterial(const Ogre::String& name)
 	return materialPtr;
 }
 
-Ogre::MaterialPtr Project::getMaterialController(const Ogre::String& name)
+Ogre::MaterialPtr MaterialScriptFile::getMaterialController(const Ogre::String& name)
 {
 	Ogre::MaterialPtr mc;
 	MaterialControllerList::iterator it;
@@ -93,7 +93,7 @@ Ogre::MaterialPtr Project::getMaterialController(const Ogre::String& name)
 	return Ogre::MaterialPtr();
 }
 
-const MaterialControllerList& Project::getMaterials() const
+const MaterialControllerList& MaterialScriptFile::getMaterials() const
 {
 	return mMaterialControllers;
 }

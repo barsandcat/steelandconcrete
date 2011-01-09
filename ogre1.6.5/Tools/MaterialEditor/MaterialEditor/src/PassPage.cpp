@@ -56,20 +56,20 @@ PassPage::PassPage(wxWizard* parent)
 	createPage();
 }
 
-PassPage::PassPage(wxWizard* parent, Project* project)
+PassPage::PassPage(wxWizard* parent, MaterialScriptFile* project)
 : wxWizardPageSimple(parent), mProject(project), mMaterial(NULL), mTechnique(NULL)
 {
 	createPage();
 }
 
 
-PassPage::PassPage(wxWizard* parent, Project* project, Ogre::MaterialPtr mc)
+PassPage::PassPage(wxWizard* parent, MaterialScriptFile* project, Ogre::MaterialPtr mc)
 : wxWizardPageSimple(parent), mProject(project), mMaterial(mc), mTechnique(NULL)
 {
 	createPage();
 }
 
-PassPage::PassPage(wxWizard* parent, Project* project, Ogre::MaterialPtr mc, Ogre::Technique* tc)
+PassPage::PassPage(wxWizard* parent, MaterialScriptFile* project, Ogre::MaterialPtr mc, Ogre::Technique* tc)
 : wxWizardPageSimple(parent), mProject(project), mMaterial(mc), mTechnique(tc)
 {
 	createPage();
@@ -84,17 +84,17 @@ void PassPage::createPage()
 {
 	mSizer = new wxBoxSizer(wxVERTICAL);
 
-	// Project Label
-	mProjectLabel = new wxStaticText(this, wxID_ANY, wxT("Project:"), wxDefaultPosition, wxDefaultSize, 0);
+	// MaterialScriptFile Label
+	mProjectLabel = new wxStaticText(this, wxID_ANY, wxT("MaterialScriptFile:"), wxDefaultPosition, wxDefaultSize, 0);
 	mSizer->Add(mProjectLabel, 0, wxALL, 0);
 
-	// Project Combo Box
+	// MaterialScriptFile Combo Box
 	wxArrayString projectNames;
 	const ProjectList& projects = Workspace::GetProjects();
 	for(ProjectList::const_iterator it = projects.begin(); it != projects.end(); ++it)
 		projectNames.Add(wxString((*it)->getName().c_str(), wxConvUTF8));
 
-	// TODO: Select first Project
+	// TODO: Select first MaterialScriptFile
 	mProjectComboBox = new wxComboBox(this, ID_PROJECT_COMBO_BOX, wxEmptyString, wxDefaultPosition, wxDefaultSize, projectNames, wxCB_DROPDOWN);
 	mSizer->Add(mProjectComboBox, 0, wxALL | wxEXPAND, 0);
 
@@ -131,7 +131,7 @@ void PassPage::getName(wxString& name) const
 	name = mNameText->GetValue();
 }
 
-Project* PassPage::getProject() const
+MaterialScriptFile* PassPage::getProject() const
 {
 	return Workspace::GetProject(mProjectComboBox->GetValue());
 }
@@ -146,7 +146,7 @@ Ogre::MaterialPtr PassPage::getMaterial() const
 Ogre::Technique* PassPage::getTechnique() const
 {
 	Ogre::String technique(mTechniqueComboBox->GetValue().mb_str());
-	
+
 	Ogre::Material::TechniqueIterator it = getMaterial()->getTechniqueIterator();
 	while (it.hasMoreElements())
 	{
@@ -161,7 +161,7 @@ Ogre::Technique* PassPage::getTechnique() const
 	return NULL;
 }
 
-void PassPage::setProject(Project* project)
+void PassPage::setProject(MaterialScriptFile* project)
 {
     mProjectComboBox->SetValue(project->getName());
 	populateMaterials(project != NULL ? &project->getMaterials() : NULL);
@@ -187,7 +187,7 @@ void PassPage::setTechnique(Ogre::Technique* tc)
 
 void PassPage::OnProjectSelected(wxCommandEvent& event)
 {
-	Project* project = getProject();
+	MaterialScriptFile* project = getProject();
 	if(project != NULL)
 		populateMaterials(&project->getMaterials());
 }

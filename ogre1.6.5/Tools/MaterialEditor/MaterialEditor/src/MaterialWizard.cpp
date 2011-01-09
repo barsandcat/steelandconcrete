@@ -62,7 +62,7 @@ MaterialPage* MaterialWizard::getMaterialPage() const
 
 void MaterialWizard::OnFinish(wxWizardEvent& event)
 {
-	Project* project = mMaterialPage->getProject();
+	MaterialScriptFile* project = mMaterialPage->getProject();
 
 	wxString name;
 	mMaterialPage->getName(name);

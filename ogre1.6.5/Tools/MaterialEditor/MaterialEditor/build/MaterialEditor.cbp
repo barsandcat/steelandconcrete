@@ -90,8 +90,6 @@
 		<Unit filename="../include/PassPropertyGridPage.h" />
 		<Unit filename="../include/PassWizard.h" />
 		<Unit filename="../include/Project.h" />
-		<Unit filename="../include/ProjectPage.h" />
-		<Unit filename="../include/ProjectWizard.h" />
 		<Unit filename="../include/PropertiesPanel.h" />
 		<Unit filename="../include/ResourcePanel.h" />
 		<Unit filename="../include/ScintillaEditor.h" />
@@ -101,7 +99,6 @@
 		<Unit filename="../include/TechniqueWizard.h" />
 		<Unit filename="../include/TextureUnitPropertyGridPage.h" />
 		<Unit filename="../include/Workspace.h" />
-		<Unit filename="../include/WorkspaceEventArgs.h" />
 		<Unit filename="../include/WorkspacePanel.h" />
 		<Unit filename="../include/wxOgreLogControl.h" />
 		<Unit filename="../src/CallTipManager.cpp" />
@@ -126,8 +123,6 @@
 		<Unit filename="../src/PassPropertyGridPage.cpp" />
 		<Unit filename="../src/PassWizard.cpp" />
 		<Unit filename="../src/Project.cpp" />
-		<Unit filename="../src/ProjectPage.cpp" />
-		<Unit filename="../src/ProjectWizard.cpp" />
 		<Unit filename="../src/PropertiesPanel.cpp" />
 		<Unit filename="../src/ResourcePanel.cpp" />
 		<Unit filename="../src/ScintillaEditor.cpp" />
@@ -136,7 +131,6 @@
 		<Unit filename="../src/TechniqueWizard.cpp" />
 		<Unit filename="../src/TextureUnitPropertyGridPage.cpp" />
 		<Unit filename="../src/Workspace.cpp" />
-		<Unit filename="../src/WorkspaceEventArgs.cpp" />
 		<Unit filename="../src/WorkspacePanel.cpp" />
 		<Unit filename="../xpm/close.xpm" />
 		<Unit filename="../xpm/copy.xpm" />
