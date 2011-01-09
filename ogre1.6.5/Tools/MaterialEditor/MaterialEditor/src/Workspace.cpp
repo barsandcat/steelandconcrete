@@ -29,7 +29,7 @@ Torus Knot Software Ltd.
 #include "Workspace.h"
 
 #include "EventArgs.h"
-#include "Project.h"
+#include "MaterialScriptFile.h"
 
 ProjectList Workspace::mProjects;
 

@@ -60,7 +60,7 @@ http://www.gnu.org/copyleft/lesser.txt
 #include "PassPropertyGridPage.h"
 #include "ResourcePanel.h"
 #include "WorkspacePanel.h"
-#include <Project.h>
+#include <MaterialScriptFile.h>
 #include <Workspace.h>
 #include <wx/ogre/ogre.h>
 

@@ -37,7 +37,7 @@ Torus Knot Software Ltd.
 
 #include "OgreTechnique.h"
 
-#include "Project.h"
+#include "MaterialScriptFile.h"
 #include "Workspace.h"
 
 const long ID_PROJECT_COMBO_BOX = wxNewId();

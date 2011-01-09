@@ -26,7 +26,7 @@ the OGRE Unrestricted License provided you have obtained such a license from
 Torus Knot Software Ltd.
 -----------------------------------------------------------------------------
 */
-#include "Project.h"
+#include "MaterialScriptFile.h"
 
 #include "OgreEntity.h"
 #include "OgreLight.h"
