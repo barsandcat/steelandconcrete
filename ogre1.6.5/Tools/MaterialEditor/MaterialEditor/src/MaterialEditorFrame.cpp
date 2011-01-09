@@ -414,6 +414,7 @@ void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
     {
         wxString path = openDialog->GetPath();
         Workspace::OpenConfigFile(Ogre::String(path.mb_str()));
+        mWorkspacePanel->Fill();
 	}
 }
 

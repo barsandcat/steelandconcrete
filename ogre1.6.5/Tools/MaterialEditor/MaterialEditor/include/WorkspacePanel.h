@@ -87,6 +87,7 @@ public:
 	void OnUpdateTechniqueMenuItem(wxUpdateUIEvent& event);
 	void OnUpdatePassMenuItem(wxUpdateUIEvent& event);
     void LabelChanged(wxTreeEvent& event);
+    void Fill();
 
 	// Workspace Event Handlers
 	void ProjectAdded(MaterialScriptFile* project);

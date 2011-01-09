@@ -35,7 +35,7 @@ Torus Knot Software Ltd.
 #include <OgreResourceGroupManager.h>
 
 ProjectList Workspace::mProjects;
-
+Ogre::String Workspace::mConfigFile;
 void Workspace::Clean()
 {
 	ProjectList::iterator it;
@@ -47,8 +47,9 @@ void Workspace::Clean()
 
 void Workspace::OpenConfigFile(const Ogre::String& aPath)
 {
+    mConfigFile = aPath;
     Ogre::ConfigFile cf;
-    cf.load(aPath);
+    cf.load(mConfigFile);
     Ogre::ConfigFile::SectionIterator it = cf.getSectionIterator();
 
     Ogre::String location, type, group;

@@ -119,7 +119,6 @@ void WorkspacePanel::createPanel()
                             wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT |
                             wxTR_HAS_BUTTONS | wxTR_SINGLE);
 	mTreeCtrl->AssignImageList(getImageList());
-	mRootId = mTreeCtrl->AddRoot(wxT("Workspace"), WORKSPACE_IMAGE);
 
 	mSizer->Add(mTreeCtrl, 0, wxALL | wxEXPAND, 0);
 
@@ -236,6 +235,37 @@ bool WorkspacePanel::isTechnique(wxTreeItemId id)
 bool WorkspacePanel::isPass(wxTreeItemId id)
 {
 	return getPass(id) != NULL;
+}
+
+void WorkspacePanel::Fill()
+{
+    mTreeCtrl->DeleteAllItems();
+    mRootId = mTreeCtrl->AddRoot(wxString(Workspace::GetFileName().c_str(), wxConvUTF8), WORKSPACE_IMAGE);
+    Ogre::ResourceGroupManager& rgm = Ogre::ResourceGroupManager::getSingleton();
+    Ogre::StringVector groups = rgm.getResourceGroups();
+    for (Ogre::StringVector::iterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt)
+    {
+        wxTreeItemId groupId = mTreeCtrl->AppendItem(mRootId, wxString(groupIt->c_str(), wxConvUTF8), PROJECT_IMAGE);
+        Ogre::FileInfoListPtr fileInfoList = rgm.listResourceFileInfo(*groupIt, false);
+
+        // Collect archives. In Ogre 1.7, this will be removed, and archives queried directly
+        std::set< Ogre::Archive* > archives;
+        for (Ogre::FileInfoList::iterator fileIt = fileInfoList->begin(); fileIt != fileInfoList->end(); ++fileIt)
+        {
+            archives.insert(fileIt->archive);
+        }
+
+        for (std::set< Ogre::Archive* >::iterator archiveIt = archives.begin(); archiveIt != archives.end(); ++archiveIt)
+        {
+            Ogre::Archive* archive = *archiveIt;
+            wxTreeItemId archiveId = mTreeCtrl->AppendItem(groupId, wxString(archive->getName().c_str(), wxConvUTF8), PROJECT_IMAGE);
+            Ogre::StringVectorPtr fileList = archive->list();
+            for (Ogre::StringVector::iterator it = fileList->begin(); it != fileList->end(); ++it)
+            {
+                mTreeCtrl->AppendItem(archiveId, wxString(it->c_str(), wxConvUTF8), MATERIAL_SCRIPT_IMAGE);
+            }
+        }
+    }
 }
 
 void WorkspacePanel::OnRightClick(wxTreeEvent& event)
