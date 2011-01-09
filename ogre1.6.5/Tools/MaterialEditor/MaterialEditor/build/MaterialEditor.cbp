@@ -132,9 +132,13 @@
 		<Unit filename="../src/TextureUnitPropertyGridPage.cpp" />
 		<Unit filename="../src/Workspace.cpp" />
 		<Unit filename="../src/WorkspacePanel.cpp" />
+		<Unit filename="../xpm/application-x-font-pcf.xpm" />
+		<Unit filename="../xpm/application-x-kpovmodeler.xpm" />
 		<Unit filename="../xpm/close.xpm" />
 		<Unit filename="../xpm/copy.xpm" />
 		<Unit filename="../xpm/cut.xpm" />
+		<Unit filename="../xpm/folder.xpm" />
+		<Unit filename="../xpm/image-x-generic.xpm" />
 		<Unit filename="../xpm/material.xpm" />
 		<Unit filename="../xpm/material_script.xpm" />
 		<Unit filename="../xpm/ogre.xpm" />
@@ -148,6 +152,8 @@
 		<Unit filename="../xpm/save_as.xpm" />
 		<Unit filename="../xpm/shader.xpm" />
 		<Unit filename="../xpm/technique.xpm" />
+		<Unit filename="../xpm/unknown.xpm" />
+		<Unit filename="../xpm/utilities-file-archiver-3.xpm" />
 		<Unit filename="../xpm/workspace.xpm" />
 		<Extensions>
 			<code_completion />

@@ -53,12 +53,23 @@ Torus Knot Software Ltd.
 #include "TechniqueWizard.h"
 #include "Workspace.h"
 
-#define WORKSPACE_IMAGE 0
-#define PROJECT_IMAGE 1
-#define MATERIAL_SCRIPT_IMAGE 2
-#define MATERIAL_IMAGE 3
-#define TECHNIQUE_IMAGE 4
-#define PASS_IMAGE 5
+
+const int WORKSPACE_IMAGE = 0;
+const int GROUP_IMAGE = 1;
+// Archive types
+const int UNKNOWN_ARCHIVE_IMAGE = 2;
+const int FILE_SYSTEM_IMAGE = 3;
+const int ZIP_IMAGE = 4;
+// Resource types
+const int UNKNOWN_RESOURCE_IMAGE = 5;
+const int COMPOSITE_IMAGE = 6;
+const int MATERIAL_IMAGE = 7;
+const int MESH_IMAGE = 8;
+const int ASM_PROGRAMM_IMAGE = 9;
+const int HL_PROGRAMM_IMAGE = 10;
+const int TEXTURE_IMAGE = 11;
+const int SKELETON_IMAGE = 12;
+const int FONT_IMAGE = 13;
 
 boost::signal< void (Ogre::MaterialPtr) > WorkspacePanel::mMaterialSelectedSignal;
 boost::signal< void (Ogre::Technique*) > WorkspacePanel::mTechniqueSelectedSignal;
@@ -81,7 +92,6 @@ BEGIN_EVENT_TABLE(WorkspacePanel, wxPanel)
 	EVT_TREE_ITEM_ACTIVATED(ID_TREE_CTRL, WorkspacePanel::OnActivate)
 	EVT_TREE_SEL_CHANGED(ID_TREE_CTRL, WorkspacePanel::OnSelectionChanged)
 	EVT_TREE_END_LABEL_EDIT(ID_TREE_CTRL, WorkspacePanel::LabelChanged)
-	EVT_MENU(ID_MENU_NEW_MATERIAL_SCRIPT, WorkspacePanel::OnNewMaterialScript)
 	EVT_MENU(ID_MENU_NEW_MATERIAL, WorkspacePanel::OnNewMaterial)
 	EVT_MENU(ID_MENU_NEW_TECHNIQUE, WorkspacePanel::OnNewTechnique)
 	EVT_MENU(ID_MENU_NEW_PASS, WorkspacePanel::OnNewPass)
@@ -131,12 +141,22 @@ wxImageList* WorkspacePanel::getImageList()
 	if(mImageList == NULL)
 	{
 		mImageList = new wxImageList(16, 16, true, 6);
-		mImageList->Add(IconManager::getSingleton().getIcon(IconManager::WORKSPACE));
-		mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROJECT));
-		mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MATERIAL_SCRIPT));
-		mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MATERIAL));
-		mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TECHNIQUE));
-		mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PASS));
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::WORKSPACE));// WORKSPACE_IMAGE = 0;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROJECT));// GROUP
+        // Archive types
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::UNKNOWN));// UNKNOW_ARCHIVE_IMAGE = 1;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::FILE_SYSTEM));// FILESYTEM_IMAGE = 2;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::ZIP));// ZIP_IMAGE = 3;
+        // Resource types
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::UNKNOWN));// UNKNOW_RESOURCE_IMAGE = 4;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROJECT));// COMPOSITE_IMAGE = 5;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MATERIAL));// MATERIAL_IMAGE = 6;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MESH));// MESH_IMAGE = 7;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROGRAM_SCRIPT));// ASM_PROGRAMM_IMAGE = 8;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROGRAM_SCRIPT));// HL_PROGRAMM_IMAGE = 9;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TEXTURE));// TEXTURE_IMAGE = 10;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TECHNIQUE));// SKELETON_IMAGE = 11;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::FONT));// FONT_IMAGE = 12;
 	}
 
 	return mImageList;
@@ -245,7 +265,7 @@ void WorkspacePanel::Fill()
     Ogre::StringVector groups = rgm.getResourceGroups();
     for (Ogre::StringVector::iterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt)
     {
-        wxTreeItemId groupId = mTreeCtrl->AppendItem(mRootId, wxString(groupIt->c_str(), wxConvUTF8), PROJECT_IMAGE);
+        wxTreeItemId groupId = mTreeCtrl->AppendItem(mRootId, wxString(groupIt->c_str(), wxConvUTF8), GROUP_IMAGE);
         Ogre::FileInfoListPtr fileInfoList = rgm.listResourceFileInfo(*groupIt, false);
 
         // Collect archives. In Ogre 1.7, this will be removed, and archives queried directly
@@ -258,11 +278,20 @@ void WorkspacePanel::Fill()
         for (std::set< Ogre::Archive* >::iterator archiveIt = archives.begin(); archiveIt != archives.end(); ++archiveIt)
         {
             Ogre::Archive* archive = *archiveIt;
-            wxTreeItemId archiveId = mTreeCtrl->AppendItem(groupId, wxString(archive->getName().c_str(), wxConvUTF8), PROJECT_IMAGE);
+            wxTreeItemId archiveId = mTreeCtrl->AppendItem(groupId, wxString(archive->getName().c_str(), wxConvUTF8), FILE_SYSTEM_IMAGE);
             Ogre::StringVectorPtr fileList = archive->list();
-            for (Ogre::StringVector::iterator it = fileList->begin(); it != fileList->end(); ++it)
+            for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
             {
-                mTreeCtrl->AppendItem(archiveId, wxString(it->c_str(), wxConvUTF8), MATERIAL_SCRIPT_IMAGE);
+                Ogre::ResourceManager::ResourceMapIterator it = Ogre::MaterialManager::getSingleton().getResourceIterator();
+                while (it.hasMoreElements())
+                {
+                    Ogre::MaterialPtr material = it.getNext();
+                    //if (material->getOrigin() == *fileNameIt)
+                    {
+                        Ogre::LogManager::getSingleton().logMessage("Found material " + material->getName() + " " + material->getOrigin());
+                    }
+                }
+                mTreeCtrl->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MATERIAL_IMAGE);
             }
         }
     }
@@ -299,11 +328,6 @@ void WorkspacePanel::OnSelectionChanged(wxTreeEvent& event)
 	// else its the workspace so just leave the list empty as if nothing were selected
 }
 
-void WorkspacePanel::OnNewMaterialScript(wxCommandEvent& event)
-{
-	wxTreeItemId id = mTreeCtrl->GetSelection();
-	mTreeCtrl->AppendItem(id, wxT("Material Script"), MATERIAL_SCRIPT_IMAGE);
-}
 
 void WorkspacePanel::OnNewMaterial(wxCommandEvent& event)
 {
@@ -516,7 +540,7 @@ void WorkspacePanel::LabelChanged(wxTreeEvent& event)
 
 void WorkspacePanel::ProjectAdded(MaterialScriptFile* project)
 {
-	wxTreeItemId id = mTreeCtrl->AppendItem(mRootId, project->getName().c_str(), PROJECT_IMAGE);
+	wxTreeItemId id = mTreeCtrl->AppendItem(mRootId, project->getName().c_str(), GROUP_IMAGE);
 	mTreeCtrl->SelectItem(id, true);
 
 	mProjectIdMap[project] = id;
@@ -548,7 +572,7 @@ void WorkspacePanel::ProjectMaterialAdded(MaterialScriptFile* project, Ogre::Mat
 void WorkspacePanel::TechniqueAdded(Ogre::MaterialPtr mc, Ogre::Technique* tc)
 {
 	wxTreeItemId materialId = mMaterialIdMap[mc];
-	wxTreeItemId id = mTreeCtrl->AppendItem(materialId, wxString(tc->getName().c_str(), wxConvUTF8), TECHNIQUE_IMAGE);
+	wxTreeItemId id = mTreeCtrl->AppendItem(materialId, wxString(tc->getName().c_str(), wxConvUTF8), GROUP_IMAGE);
 	mTreeCtrl->SelectItem(id, true);
 
 	mTechniqueIdMap[tc] = id;
@@ -563,7 +587,7 @@ void WorkspacePanel::TechniqueAdded(Ogre::MaterialPtr mc, Ogre::Technique* tc)
 void WorkspacePanel::TechniquePassAdded(Ogre::Technique* tc, Ogre::Pass* pc)
 {
 	wxTreeItemId techniqueId = mTechniqueIdMap[tc];
-	wxTreeItemId id = mTreeCtrl->AppendItem(techniqueId, wxString(pc->getName().c_str(), wxConvUTF8), PASS_IMAGE);
+	wxTreeItemId id = mTreeCtrl->AppendItem(techniqueId, wxString(pc->getName().c_str(), wxConvUTF8), GROUP_IMAGE);
 	mTreeCtrl->SelectItem(id, true);
 
 	mPassIdMap[pc] = id;

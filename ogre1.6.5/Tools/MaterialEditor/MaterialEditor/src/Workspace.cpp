@@ -67,6 +67,8 @@ void Workspace::OpenConfigFile(const Ogre::String& aPath)
         }
     }
 
+    Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+
 }
 
 void Workspace::AddProject(MaterialScriptFile* project)
