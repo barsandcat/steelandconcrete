@@ -259,6 +259,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\MaterialScriptFile.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\MaterialWizard.cpp"
 				>
 			</File>
@@ -272,10 +276,6 @@
 			</File>
 			<File
 				RelativePath="..\src\PassWizard.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\Project.cpp"
 				>
 			</File>
 			<File
@@ -401,6 +401,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\MaterialScriptFile.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\MaterialWizard.h"
 				>
 			</File>
@@ -414,10 +418,6 @@
 			</File>
 			<File
 				RelativePath="..\include\PassWizard.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\Project.h"
 				>
 			</File>
 			<File
