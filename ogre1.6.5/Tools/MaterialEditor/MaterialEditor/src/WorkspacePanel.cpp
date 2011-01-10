@@ -266,6 +266,7 @@ void WorkspacePanel::Fill()
     for (Ogre::StringVector::iterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt)
     {
         wxTreeItemId groupId = mTreeCtrl->AppendItem(mRootId, wxString(groupIt->c_str(), wxConvUTF8), GROUP_IMAGE);
+				mTreeCtrl->SelectItem(groupId, true); //This is some kind of hack for windows
         Ogre::FileInfoListPtr fileInfoList = rgm.listResourceFileInfo(*groupIt, false);
 
         // Collect archives. In Ogre 1.7, this will be removed, and archives queried directly
@@ -282,16 +283,19 @@ void WorkspacePanel::Fill()
             Ogre::StringVectorPtr fileList = archive->list();
             for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
             {
+							  bool IsMaterial = false;
                 Ogre::ResourceManager::ResourceMapIterator it = Ogre::MaterialManager::getSingleton().getResourceIterator();
                 while (it.hasMoreElements())
                 {
                     Ogre::MaterialPtr material = it.getNext();
-                    //if (material->getOrigin() == *fileNameIt)
+                    if (material->getOrigin() == *fileNameIt)
                     {
                         Ogre::LogManager::getSingleton().logMessage("Found material " + material->getName() + " " + material->getOrigin());
+												IsMaterial = true;
                     }
                 }
-                mTreeCtrl->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MATERIAL_IMAGE);
+								
+								mTreeCtrl->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), IsMaterial ? MATERIAL_IMAGE : UNKNOWN_RESOURCE_IMAGE);
             }
         }
     }
