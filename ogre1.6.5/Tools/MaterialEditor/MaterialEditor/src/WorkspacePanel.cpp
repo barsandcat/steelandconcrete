@@ -88,29 +88,29 @@ const long ID_MENU_PASS_ENABLED = wxNewId();
 const long ID_MENU_DELETE = wxNewId();
 
 BEGIN_EVENT_TABLE(WorkspacePanel, wxPanel)
-	EVT_TREE_ITEM_RIGHT_CLICK(ID_TREE_CTRL, WorkspacePanel::OnRightClick)
-	EVT_TREE_ITEM_ACTIVATED(ID_TREE_CTRL, WorkspacePanel::OnActivate)
-	EVT_TREE_SEL_CHANGED(ID_TREE_CTRL, WorkspacePanel::OnSelectionChanged)
-	EVT_TREE_END_LABEL_EDIT(ID_TREE_CTRL, WorkspacePanel::LabelChanged)
-	EVT_MENU(ID_MENU_NEW_MATERIAL, WorkspacePanel::OnNewMaterial)
-	EVT_MENU(ID_MENU_NEW_TECHNIQUE, WorkspacePanel::OnNewTechnique)
-	EVT_MENU(ID_MENU_NEW_PASS, WorkspacePanel::OnNewPass)
-	EVT_MENU(ID_MENU_ADD_MATERIAL, WorkspacePanel::OnAddMaterial)
-	EVT_MENU(ID_MENU_EDIT, WorkspacePanel::OnEdit)
-	EVT_UPDATE_UI(ID_MENU_NEW_MATERIAL, WorkspacePanel::OnUpdateMaterialMenuItem)
-	EVT_UPDATE_UI(ID_MENU_NEW_TECHNIQUE, WorkspacePanel::OnUpdateTechniqueMenuItem)
-	EVT_UPDATE_UI(ID_MENU_NEW_PASS, WorkspacePanel::OnUpdatePassMenuItem)
+    EVT_TREE_ITEM_RIGHT_CLICK(ID_TREE_CTRL, WorkspacePanel::OnRightClick)
+    EVT_TREE_ITEM_ACTIVATED(ID_TREE_CTRL, WorkspacePanel::OnActivate)
+    EVT_TREE_SEL_CHANGED(ID_TREE_CTRL, WorkspacePanel::OnSelectionChanged)
+    EVT_TREE_END_LABEL_EDIT(ID_TREE_CTRL, WorkspacePanel::LabelChanged)
+    EVT_MENU(ID_MENU_NEW_MATERIAL, WorkspacePanel::OnNewMaterial)
+    EVT_MENU(ID_MENU_NEW_TECHNIQUE, WorkspacePanel::OnNewTechnique)
+    EVT_MENU(ID_MENU_NEW_PASS, WorkspacePanel::OnNewPass)
+    EVT_MENU(ID_MENU_ADD_MATERIAL, WorkspacePanel::OnAddMaterial)
+    EVT_MENU(ID_MENU_EDIT, WorkspacePanel::OnEdit)
+    EVT_UPDATE_UI(ID_MENU_NEW_MATERIAL, WorkspacePanel::OnUpdateMaterialMenuItem)
+    EVT_UPDATE_UI(ID_MENU_NEW_TECHNIQUE, WorkspacePanel::OnUpdateTechniqueMenuItem)
+    EVT_UPDATE_UI(ID_MENU_NEW_PASS, WorkspacePanel::OnUpdatePassMenuItem)
 END_EVENT_TABLE()
 
 WorkspacePanel::WorkspacePanel(wxWindow* parent,
-			   wxWindowID id /* = wxID_ANY */,
-			   const wxPoint& pos /* = wxDefaultPosition */,
-			   const wxSize& size /* = wxDefaultSize */,
-			   long style /* = wxTAB_TRAVERSAL | wxNO_BORDER */,
-			   const wxString& name /* = wxT("Workspace Panel")) */)
-			   : mImageList(NULL), wxPanel(parent, id, pos, size, style, name)
+                               wxWindowID id /* = wxID_ANY */,
+                               const wxPoint& pos /* = wxDefaultPosition */,
+                               const wxSize& size /* = wxDefaultSize */,
+                               long style /* = wxTAB_TRAVERSAL | wxNO_BORDER */,
+                               const wxString& name /* = wxT("Workspace Panel")) */)
+    : mImageList(NULL), wxPanel(parent, id, pos, size, style, name)
 {
-	createPanel();
+    createPanel();
 }
 
 WorkspacePanel::~WorkspacePanel()
@@ -119,28 +119,28 @@ WorkspacePanel::~WorkspacePanel()
 
 void WorkspacePanel::createPanel()
 {
-	mSizer = new wxFlexGridSizer(1, 1, 0, 0);
-	mSizer->AddGrowableCol(0);
-	mSizer->AddGrowableRow(0);
-	mSizer->SetFlexibleDirection(wxVERTICAL);
-	mSizer->SetNonFlexibleGrowMode(wxFLEX_GROWMODE_SPECIFIED);
+    mSizer = new wxFlexGridSizer(1, 1, 0, 0);
+    mSizer->AddGrowableCol(0);
+    mSizer->AddGrowableRow(0);
+    mSizer->SetFlexibleDirection(wxVERTICAL);
+    mSizer->SetNonFlexibleGrowMode(wxFLEX_GROWMODE_SPECIFIED);
 
-	mTreeCtrl = new wxTreeCtrl(this, ID_TREE_CTRL, wxDefaultPosition, wxDefaultSize,
-                            wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT |
-                            wxTR_HAS_BUTTONS | wxTR_SINGLE);
-	mTreeCtrl->AssignImageList(getImageList());
+    mTreeCtrl = new wxTreeCtrl(this, ID_TREE_CTRL, wxDefaultPosition, wxDefaultSize,
+                               wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT |
+                               wxTR_HAS_BUTTONS | wxTR_SINGLE);
+    mTreeCtrl->AssignImageList(getImageList());
 
-	mSizer->Add(mTreeCtrl, 0, wxALL | wxEXPAND, 0);
+    mSizer->Add(mTreeCtrl, 0, wxALL | wxEXPAND, 0);
 
-	SetSizer(mSizer);
-	Layout();
+    SetSizer(mSizer);
+    Layout();
 }
 
 wxImageList* WorkspacePanel::getImageList()
 {
-	if(mImageList == NULL)
-	{
-		mImageList = new wxImageList(16, 16, true, 6);
+    if(mImageList == NULL)
+    {
+        mImageList = new wxImageList(16, 16, true, 6);
         mImageList->Add(IconManager::getSingleton().getIcon(IconManager::WORKSPACE));// WORKSPACE_IMAGE = 0;
         mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROJECT));// GROUP
         // Archive types
@@ -157,104 +157,104 @@ wxImageList* WorkspacePanel::getImageList()
         mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TEXTURE));// TEXTURE_IMAGE = 10;
         mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TECHNIQUE));// SKELETON_IMAGE = 11;
         mImageList->Add(IconManager::getSingleton().getIcon(IconManager::FONT));// FONT_IMAGE = 12;
-	}
+    }
 
-	return mImageList;
+    return mImageList;
 }
 
 void WorkspacePanel::showContextMenu(wxPoint point, wxTreeItemId id)
 {
-	wxMenu contextMenu;
-	appendNewMenu(&contextMenu);
-	contextMenu.AppendSeparator();
-	if(isProject(id))
-	{
-	    appendProjectMenuItems(&contextMenu);
-	}
-	contextMenu.Append(ID_MENU_EDIT, wxT("Edit"));
-	PopupMenu(&contextMenu, point);
+    wxMenu contextMenu;
+    appendNewMenu(&contextMenu);
+    contextMenu.AppendSeparator();
+    if(isProject(id))
+    {
+        appendProjectMenuItems(&contextMenu);
+    }
+    contextMenu.Append(ID_MENU_EDIT, wxT("Edit"));
+    PopupMenu(&contextMenu, point);
 }
 
 void WorkspacePanel::appendNewMenu(wxMenu* menu)
 {
-	wxMenu* newMenu = new wxMenu();
-	newMenu->Append(ID_MENU_NEW_PROJECT, wxT("MaterialScriptFile"));
-	newMenu->Append(ID_MENU_NEW_MATERIAL_SCRIPT, wxT("Material Script"));
-	newMenu->Append(ID_MENU_NEW_MATERIAL, wxT("Material"));
-	newMenu->Append(ID_MENU_NEW_TECHNIQUE, wxT("Technique"));
-	newMenu->Append(ID_MENU_NEW_PASS, wxT("Pass"));
+    wxMenu* newMenu = new wxMenu();
+    newMenu->Append(ID_MENU_NEW_PROJECT, wxT("MaterialScriptFile"));
+    newMenu->Append(ID_MENU_NEW_MATERIAL_SCRIPT, wxT("Material Script"));
+    newMenu->Append(ID_MENU_NEW_MATERIAL, wxT("Material"));
+    newMenu->Append(ID_MENU_NEW_TECHNIQUE, wxT("Technique"));
+    newMenu->Append(ID_MENU_NEW_PASS, wxT("Pass"));
 
-	menu->AppendSubMenu(newMenu, wxT("New"));
+    menu->AppendSubMenu(newMenu, wxT("New"));
 }
 
 void WorkspacePanel::appendProjectMenuItems(wxMenu* menu)
 {
-	menu->Append(ID_MENU_ADD_MATERIAL, wxT("Add Material"));
+    menu->Append(ID_MENU_ADD_MATERIAL, wxT("Add Material"));
 }
 
 MaterialScriptFile* WorkspacePanel::getProject(wxTreeItemId id)
 {
-	for(ProjectIdMap::iterator it = mProjectIdMap.begin(); it != mProjectIdMap.end(); ++it)
-	{
-		if(it->second == id) return it->first;
-	}
+    for(ProjectIdMap::iterator it = mProjectIdMap.begin(); it != mProjectIdMap.end(); ++it)
+    {
+        if(it->second == id) return it->first;
+    }
 
-	return NULL;
+    return NULL;
 }
 
 Ogre::MaterialPtr WorkspacePanel::getMaterial(wxTreeItemId id)
 {
-	for(MaterialIdMap::iterator it = mMaterialIdMap.begin(); it != mMaterialIdMap.end(); ++it)
-	{
-		if(it->second == id) return it->first;
-	}
+    for(MaterialIdMap::iterator it = mMaterialIdMap.begin(); it != mMaterialIdMap.end(); ++it)
+    {
+        if(it->second == id) return it->first;
+    }
 
-	return Ogre::MaterialPtr();
+    return Ogre::MaterialPtr();
 }
 
 Ogre::Technique* WorkspacePanel::getTechnique(wxTreeItemId id)
 {
-	for(TechniqueIdMap::iterator it = mTechniqueIdMap.begin(); it != mTechniqueIdMap.end(); ++it)
-	{
-		if(it->second == id) return it->first;
-	}
+    for(TechniqueIdMap::iterator it = mTechniqueIdMap.begin(); it != mTechniqueIdMap.end(); ++it)
+    {
+        if(it->second == id) return it->first;
+    }
 
-	return NULL;
+    return NULL;
 }
 
 Ogre::Pass* WorkspacePanel::getPass(wxTreeItemId id)
 {
-	for(PassIdMap::iterator it = mPassIdMap.begin(); it != mPassIdMap.end(); ++it)
-	{
-		if(it->second == id) return it->first;
-	}
+    for(PassIdMap::iterator it = mPassIdMap.begin(); it != mPassIdMap.end(); ++it)
+    {
+        if(it->second == id) return it->first;
+    }
 
-	return NULL;
+    return NULL;
 }
 
 bool WorkspacePanel::isWorkspace(wxTreeItemId id)
 {
-	return mRootId == id;
+    return mRootId == id;
 }
 
 bool WorkspacePanel::isProject(wxTreeItemId id)
 {
-	return getProject(id) != NULL;
+    return getProject(id) != NULL;
 }
 
 bool WorkspacePanel::isMaterial(wxTreeItemId id)
 {
-	return !getMaterial(id).isNull();
+    return !getMaterial(id).isNull();
 }
 
 bool WorkspacePanel::isTechnique(wxTreeItemId id)
 {
-	return getTechnique(id) != NULL;
+    return getTechnique(id) != NULL;
 }
 
 bool WorkspacePanel::isPass(wxTreeItemId id)
 {
-	return getPass(id) != NULL;
+    return getPass(id) != NULL;
 }
 
 void WorkspacePanel::Fill()
@@ -266,7 +266,7 @@ void WorkspacePanel::Fill()
     for (Ogre::StringVector::iterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt)
     {
         wxTreeItemId groupId = mTreeCtrl->AppendItem(mRootId, wxString(groupIt->c_str(), wxConvUTF8), GROUP_IMAGE);
-				mTreeCtrl->SelectItem(groupId, true); //This is some kind of hack for windows
+        mTreeCtrl->SelectItem(groupId, true); //This is some kind of hack for windows
         Ogre::FileInfoListPtr fileInfoList = rgm.listResourceFileInfo(*groupIt, false);
 
         // Collect archives. In Ogre 1.7, this will be removed, and archives queried directly
@@ -280,256 +280,262 @@ void WorkspacePanel::Fill()
         {
             Ogre::Archive* archive = *archiveIt;
             wxTreeItemId archiveId = mTreeCtrl->AppendItem(groupId, wxString(archive->getName().c_str(), wxConvUTF8), FILE_SYSTEM_IMAGE);
-            Ogre::StringVectorPtr fileList = archive->list();
+
+            Ogre::StringVectorPtr fileList;
+            // Materials
+            fileList = archive->find("*.material");
             for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
             {
-							  bool IsMaterial = false;
-                Ogre::ResourceManager::ResourceMapIterator it = Ogre::MaterialManager::getSingleton().getResourceIterator();
-                while (it.hasMoreElements())
-                {
-                    Ogre::MaterialPtr material = it.getNext();
-                    if (material->getOrigin() == *fileNameIt)
-                    {
-                        Ogre::LogManager::getSingleton().logMessage("Found material " + material->getName() + " " + material->getOrigin());
-												IsMaterial = true;
-                    }
-                }
-								
-								mTreeCtrl->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), IsMaterial ? MATERIAL_IMAGE : UNKNOWN_RESOURCE_IMAGE);
+                mTreeCtrl->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MATERIAL_IMAGE);
+            }
+
+            // Meshes
+            fileList = archive->find("*.mesh");
+            for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
+            {
+                mTreeCtrl->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MESH_IMAGE);
+            }
+
+            // Programs
+            fileList = archive->find("*.program");
+            for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
+            {
+                mTreeCtrl->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), HL_PROGRAMM_IMAGE);
             }
         }
     }
 }
 
+
 void WorkspacePanel::OnRightClick(wxTreeEvent& event)
 {
-	showContextMenu(event.GetPoint(), event.GetItem());
+    showContextMenu(event.GetPoint(), event.GetItem());
 }
 
 void WorkspacePanel::OnActivate(wxTreeEvent& event)
 {
-	OnEdit(event);
+    OnEdit(event);
 }
 
 void WorkspacePanel::OnSelectionChanged(wxTreeEvent& event)
 {
-	wxTreeItemId id = event.GetItem();
-	if(isProject(id))
-	{
-	}
-	else if(isMaterial(id))
-	{
-		mMaterialSelectedSignal(getMaterial(id));
-	}
-	else if(isTechnique(id))
-	{
-	    mTechniqueSelectedSignal(getTechnique(id));
-	}
-	else if(isPass(id))
-	{
-	    mPassSelectedSignal(getPass(id));
-	}
-	// else its the workspace so just leave the list empty as if nothing were selected
+    wxTreeItemId id = event.GetItem();
+    if(isProject(id))
+    {
+    }
+    else if(isMaterial(id))
+    {
+        mMaterialSelectedSignal(getMaterial(id));
+    }
+    else if(isTechnique(id))
+    {
+        mTechniqueSelectedSignal(getTechnique(id));
+    }
+    else if(isPass(id))
+    {
+        mPassSelectedSignal(getPass(id));
+    }
+    // else its the workspace so just leave the list empty as if nothing were selected
 }
 
 
 void WorkspacePanel::OnNewMaterial(wxCommandEvent& event)
 {
-	wxTreeItemId id = mTreeCtrl->GetSelection();
+    wxTreeItemId id = mTreeCtrl->GetSelection();
 
-	MaterialWizard* wizard = new MaterialWizard();
-	wizard->mMaterialAddedSignal.connect(boost::bind(&WorkspacePanel::ProjectMaterialAdded, this, _1, _2));
-	wizard->Create(this, wxID_ANY, wxT("New MaterialScriptFile"), wxNullBitmap, wxDefaultPosition, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
-	wizard->getMaterialPage()->setProject(getProject(id));
-	wizard->RunWizard(wizard->getMaterialPage()); // This seems unnatural, seems there must be a better way to deal with wizards
+    MaterialWizard* wizard = new MaterialWizard();
+    wizard->mMaterialAddedSignal.connect(boost::bind(&WorkspacePanel::ProjectMaterialAdded, this, _1, _2));
+    wizard->Create(this, wxID_ANY, wxT("New MaterialScriptFile"), wxNullBitmap, wxDefaultPosition, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
+    wizard->getMaterialPage()->setProject(getProject(id));
+    wizard->RunWizard(wizard->getMaterialPage()); // This seems unnatural, seems there must be a better way to deal with wizards
 
-	wizard->Destroy();
+    wizard->Destroy();
 
-	delete wizard;
+    delete wizard;
 }
 
 void WorkspacePanel::OnNewTechnique(wxCommandEvent& event)
 {
-	MaterialScriptFile* project = NULL;
-	Ogre::MaterialPtr material;
+    MaterialScriptFile* project = NULL;
+    Ogre::MaterialPtr material;
 
-	wxTreeItemId selId = mTreeCtrl->GetSelection();
-	if(isProject(selId))
-	{
-		project = getProject(selId);
-	}
-	else if(isMaterial(selId))
-	{
-		wxTreeItemId projectId = mTreeCtrl->GetItemParent(selId);
-		project = getProject(projectId);
+    wxTreeItemId selId = mTreeCtrl->GetSelection();
+    if(isProject(selId))
+    {
+        project = getProject(selId);
+    }
+    else if(isMaterial(selId))
+    {
+        wxTreeItemId projectId = mTreeCtrl->GetItemParent(selId);
+        project = getProject(projectId);
 
-		material = getMaterial(selId);
-	}
+        material = getMaterial(selId);
+    }
 
-	TechniqueWizard* wizard = new TechniqueWizard();
-	wizard->Create(this, wxID_ANY, wxT("New Technique"), wxNullBitmap, wxDefaultPosition, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
-	wizard->mTechniqueAddedSignal.connect(boost::bind(&WorkspacePanel::TechniqueAdded, this, _1, _2));
-	wizard->getTechniquePage()->setProject(project);
-	wizard->getTechniquePage()->setMaterial(material);
-	wizard->RunWizard(wizard->getTechniquePage()); // This seems unnatural, seems there must be a better way to deal with wizards
+    TechniqueWizard* wizard = new TechniqueWizard();
+    wizard->Create(this, wxID_ANY, wxT("New Technique"), wxNullBitmap, wxDefaultPosition, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
+    wizard->mTechniqueAddedSignal.connect(boost::bind(&WorkspacePanel::TechniqueAdded, this, _1, _2));
+    wizard->getTechniquePage()->setProject(project);
+    wizard->getTechniquePage()->setMaterial(material);
+    wizard->RunWizard(wizard->getTechniquePage()); // This seems unnatural, seems there must be a better way to deal with wizards
 
-	wizard->Destroy();
+    wizard->Destroy();
 
-	delete wizard;
+    delete wizard;
 }
 
 void WorkspacePanel::OnNewPass(wxCommandEvent& event)
 {
-	MaterialScriptFile* project = NULL;
-	Ogre::MaterialPtr material;
-	Ogre::Technique* technique = NULL;
+    MaterialScriptFile* project = NULL;
+    Ogre::MaterialPtr material;
+    Ogre::Technique* technique = NULL;
 
-	wxTreeItemId selId = mTreeCtrl->GetSelection();
-	if(isProject(selId))
-	{
-		project = getProject(selId);
-	}
-	else if(isMaterial(selId))
-	{
-		wxTreeItemId projectId = mTreeCtrl->GetItemParent(selId);
-		project = getProject(projectId);
+    wxTreeItemId selId = mTreeCtrl->GetSelection();
+    if(isProject(selId))
+    {
+        project = getProject(selId);
+    }
+    else if(isMaterial(selId))
+    {
+        wxTreeItemId projectId = mTreeCtrl->GetItemParent(selId);
+        project = getProject(projectId);
 
-		material = getMaterial(selId);
-	}
-	else if(isTechnique(selId))
-	{
-		wxTreeItemId materialId = mTreeCtrl->GetItemParent(selId);
-		material = getMaterial(materialId);
+        material = getMaterial(selId);
+    }
+    else if(isTechnique(selId))
+    {
+        wxTreeItemId materialId = mTreeCtrl->GetItemParent(selId);
+        material = getMaterial(materialId);
 
-		wxTreeItemId projectId = mTreeCtrl->GetItemParent(materialId);
-		project = getProject(projectId);
+        wxTreeItemId projectId = mTreeCtrl->GetItemParent(materialId);
+        project = getProject(projectId);
 
-		technique = getTechnique(selId);
-	}
+        technique = getTechnique(selId);
+    }
 
-	PassWizard* wizard = new PassWizard();
-	wizard->mPassAddedSignal.connect(boost::bind(&WorkspacePanel::TechniquePassAdded, this, _1, _2));
-	wizard->Create(this, wxID_ANY, wxT("New Pass"), wxNullBitmap, wxDefaultPosition, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
-	wizard->getPassPage()->setProject(project);
-	wizard->getPassPage()->setMaterial(material);
-	wizard->getPassPage()->setTechnique(technique);
-	wizard->RunWizard(wizard->getPassPage());
+    PassWizard* wizard = new PassWizard();
+    wizard->mPassAddedSignal.connect(boost::bind(&WorkspacePanel::TechniquePassAdded, this, _1, _2));
+    wizard->Create(this, wxID_ANY, wxT("New Pass"), wxNullBitmap, wxDefaultPosition, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
+    wizard->getPassPage()->setProject(project);
+    wizard->getPassPage()->setMaterial(material);
+    wizard->getPassPage()->setTechnique(technique);
+    wizard->RunWizard(wizard->getPassPage());
 
-	wizard->Destroy();
+    wizard->Destroy();
 
-	delete wizard;
+    delete wizard;
 }
 
 void WorkspacePanel::OnAddMaterial(wxCommandEvent& event)
 {
-	wxFileDialog * openDialog = new wxFileDialog(this, wxT("Add a Material"), wxEmptyString, wxEmptyString,
-		wxT("Material Files (*.material)|*.material|All Files (*.*)|*.*"));
+    wxFileDialog * openDialog = new wxFileDialog(this, wxT("Add a Material"), wxEmptyString, wxEmptyString,
+            wxT("Material Files (*.material)|*.material|All Files (*.*)|*.*"));
 
-	if(openDialog->ShowModal() == wxID_OK)
-	{
-		wxString path = openDialog->GetPath();
-		if(path.EndsWith(wxT(".material")))
-		{
-			wxTreeItemId selId = mTreeCtrl->GetSelection();
-			if(isProject(selId))
-			{
-				MaterialScriptFile* project = getProject(selId);
+    if(openDialog->ShowModal() == wxID_OK)
+    {
+        wxString path = openDialog->GetPath();
+        if(path.EndsWith(wxT(".material")))
+        {
+            wxTreeItemId selId = mTreeCtrl->GetSelection();
+            if(isProject(selId))
+            {
+                MaterialScriptFile* project = getProject(selId);
 
-				MaterialScriptEditor* editor = new MaterialScriptEditor(EditorManager::getSingletonPtr()->getEditorNotebook());
-				editor->loadFile(path);
-				int index = (int)path.find_last_of('\\');
-				if(index == -1) index = (int)path.find_last_of('/');
-				editor->setName((index != -1) ? path.substr(index + 1, path.Length()) : path);
+                MaterialScriptEditor* editor = new MaterialScriptEditor(EditorManager::getSingletonPtr()->getEditorNotebook());
+                editor->loadFile(path);
+                int index = (int)path.find_last_of('\\');
+                if(index == -1) index = (int)path.find_last_of('/');
+                editor->setName((index != -1) ? path.substr(index + 1, path.Length()) : path);
 
-				EditorManager::getSingletonPtr()->openEditor(editor);
+                EditorManager::getSingletonPtr()->openEditor(editor);
 
-				Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().getByName("GrassMaterial");
-				project->addMaterial(mat);
-				ProjectMaterialAdded(project, mat);
-			}
-		}
-	}
+                Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().getByName("GrassMaterial");
+                project->addMaterial(mat);
+                ProjectMaterialAdded(project, mat);
+            }
+        }
+    }
 }
 
 void WorkspacePanel::OnEdit(wxCommandEvent& event)
 {
-	wxTreeItemId selId = mTreeCtrl->GetSelection();
-	if(isMaterial(selId))
-	{
-		Ogre::MaterialPtr mc = getMaterial(selId);
+    wxTreeItemId selId = mTreeCtrl->GetSelection();
+    if(isMaterial(selId))
+    {
+        Ogre::MaterialPtr mc = getMaterial(selId);
 
-		EditorManager* editorManager = EditorManager::getSingletonPtr();
-		EditorBase* editor = editorManager->findEditor(wxString(mc->getName().c_str(), wxConvUTF8));
-		EditorBase* editorMat = editorManager->findEditor(wxString((mc->getName() + ".material").c_str(), wxConvUTF8));
-		if(editor != NULL)
-		{
-			editorManager->setActiveEditor(editor);
-		}
-		else if(editorMat != NULL)
-		{
-			editorManager->setActiveEditor(editorMat);
-		}
-		else
-		{
-			Ogre::MaterialSerializer* ms = new Ogre::MaterialSerializer();
-			ms->queueForExport(mc, true);
-			String script = ms->getQueuedAsString();
+        EditorManager* editorManager = EditorManager::getSingletonPtr();
+        EditorBase* editor = editorManager->findEditor(wxString(mc->getName().c_str(), wxConvUTF8));
+        EditorBase* editorMat = editorManager->findEditor(wxString((mc->getName() + ".material").c_str(), wxConvUTF8));
+        if(editor != NULL)
+        {
+            editorManager->setActiveEditor(editor);
+        }
+        else if(editorMat != NULL)
+        {
+            editorManager->setActiveEditor(editorMat);
+        }
+        else
+        {
+            Ogre::MaterialSerializer* ms = new Ogre::MaterialSerializer();
+            ms->queueForExport(mc, true);
+            String script = ms->getQueuedAsString();
 
-			MaterialScriptEditor* materialEditor = new MaterialScriptEditor(editorManager->getEditorNotebook(), wxID_ANY);
-			Ogre::String name = mc->getName();
-			name += ".material";
-			materialEditor->setName(wxString(name.c_str(), wxConvUTF8));
-			materialEditor->SetText(wxString(script.c_str(), wxConvUTF8));
+            MaterialScriptEditor* materialEditor = new MaterialScriptEditor(editorManager->getEditorNotebook(), wxID_ANY);
+            Ogre::String name = mc->getName();
+            name += ".material";
+            materialEditor->setName(wxString(name.c_str(), wxConvUTF8));
+            materialEditor->SetText(wxString(script.c_str(), wxConvUTF8));
 
-			editorManager->openEditor(materialEditor);
-		}
-	}
+            editorManager->openEditor(materialEditor);
+        }
+    }
 }
 
 void WorkspacePanel::OnUpdateMaterialMenuItem(wxUpdateUIEvent& event)
 {
-	event.Enable(!Workspace::GetProjects().empty());
+    event.Enable(!Workspace::GetProjects().empty());
 }
 
 void WorkspacePanel::OnUpdateTechniqueMenuItem(wxUpdateUIEvent& event)
 {
-	bool enable = false;
-	const ProjectList& projects = Workspace::GetProjects();
+    bool enable = false;
+    const ProjectList& projects = Workspace::GetProjects();
 
-	ProjectList::const_iterator it;
-	for(it = projects.begin(); it != projects.end(); ++it)
-	{
-		if(!(*it)->getMaterials().empty())
-		{
-			enable = true;
-			break;
-		}
-	}
+    ProjectList::const_iterator it;
+    for(it = projects.begin(); it != projects.end(); ++it)
+    {
+        if(!(*it)->getMaterials().empty())
+        {
+            enable = true;
+            break;
+        }
+    }
 
-	event.Enable(enable);
+    event.Enable(enable);
 }
 
 void WorkspacePanel::OnUpdatePassMenuItem(wxUpdateUIEvent& event)
 {
-	bool enable = false;
-	const ProjectList& projects = Workspace::GetProjects();
+    bool enable = false;
+    const ProjectList& projects = Workspace::GetProjects();
 
-	ProjectList::const_iterator pit;
-	for(pit = projects.begin(); pit != projects.end(); ++pit)
-	{
-		const MaterialControllerList& materials = (*pit)->getMaterials();
-		MaterialControllerList::const_iterator mit;
-		for(mit = materials.begin(); mit != materials.end(); ++mit)
-		{
-			if((*mit)->getNumTechniques() > 0)
-			{
-				enable = true;
-				break;
-			}
-		}
-	}
+    ProjectList::const_iterator pit;
+    for(pit = projects.begin(); pit != projects.end(); ++pit)
+    {
+        const MaterialControllerList& materials = (*pit)->getMaterials();
+        MaterialControllerList::const_iterator mit;
+        for(mit = materials.begin(); mit != materials.end(); ++mit)
+        {
+            if((*mit)->getNumTechniques() > 0)
+            {
+                enable = true;
+                break;
+            }
+        }
+    }
 
-	event.Enable(enable);
+    event.Enable(enable);
 }
 
 void WorkspacePanel::LabelChanged(wxTreeEvent& event)
@@ -544,10 +550,10 @@ void WorkspacePanel::LabelChanged(wxTreeEvent& event)
 
 void WorkspacePanel::ProjectAdded(MaterialScriptFile* project)
 {
-	wxTreeItemId id = mTreeCtrl->AppendItem(mRootId, project->getName().c_str(), GROUP_IMAGE);
-	mTreeCtrl->SelectItem(id, true);
+    wxTreeItemId id = mTreeCtrl->AppendItem(mRootId, project->getName().c_str(), GROUP_IMAGE);
+    mTreeCtrl->SelectItem(id, true);
 
-	mProjectIdMap[project] = id;
+    mProjectIdMap[project] = id;
     const MaterialControllerList& materials = project->getMaterials();
     MaterialControllerList::const_iterator it = materials.begin();
     for (; it != materials.end(); ++ it)
@@ -560,11 +566,11 @@ void WorkspacePanel::ProjectAdded(MaterialScriptFile* project)
 
 void WorkspacePanel::ProjectMaterialAdded(MaterialScriptFile* project, Ogre::MaterialPtr material)
 {
-	wxTreeItemId projectId = mProjectIdMap[project];
-	wxTreeItemId id = mTreeCtrl->AppendItem(projectId, wxString(material->getName().c_str(), wxConvUTF8), MATERIAL_IMAGE);
-	mTreeCtrl->SelectItem(id, true);
+    wxTreeItemId projectId = mProjectIdMap[project];
+    wxTreeItemId id = mTreeCtrl->AppendItem(projectId, wxString(material->getName().c_str(), wxConvUTF8), MATERIAL_IMAGE);
+    mTreeCtrl->SelectItem(id, true);
 
-	mMaterialIdMap[material] = id;
+    mMaterialIdMap[material] = id;
     Ogre::Material::TechniqueIterator it = material->getTechniqueIterator();
     while (it.hasMoreElements())
     {
@@ -575,11 +581,11 @@ void WorkspacePanel::ProjectMaterialAdded(MaterialScriptFile* project, Ogre::Mat
 
 void WorkspacePanel::TechniqueAdded(Ogre::MaterialPtr mc, Ogre::Technique* tc)
 {
-	wxTreeItemId materialId = mMaterialIdMap[mc];
-	wxTreeItemId id = mTreeCtrl->AppendItem(materialId, wxString(tc->getName().c_str(), wxConvUTF8), GROUP_IMAGE);
-	mTreeCtrl->SelectItem(id, true);
+    wxTreeItemId materialId = mMaterialIdMap[mc];
+    wxTreeItemId id = mTreeCtrl->AppendItem(materialId, wxString(tc->getName().c_str(), wxConvUTF8), GROUP_IMAGE);
+    mTreeCtrl->SelectItem(id, true);
 
-	mTechniqueIdMap[tc] = id;
+    mTechniqueIdMap[tc] = id;
     Ogre::Technique::PassIterator it = tc->getPassIterator();
     while (it.hasMoreElements())
     {
@@ -590,9 +596,9 @@ void WorkspacePanel::TechniqueAdded(Ogre::MaterialPtr mc, Ogre::Technique* tc)
 
 void WorkspacePanel::TechniquePassAdded(Ogre::Technique* tc, Ogre::Pass* pc)
 {
-	wxTreeItemId techniqueId = mTechniqueIdMap[tc];
-	wxTreeItemId id = mTreeCtrl->AppendItem(techniqueId, wxString(pc->getName().c_str(), wxConvUTF8), GROUP_IMAGE);
-	mTreeCtrl->SelectItem(id, true);
+    wxTreeItemId techniqueId = mTechniqueIdMap[tc];
+    wxTreeItemId id = mTreeCtrl->AppendItem(techniqueId, wxString(pc->getName().c_str(), wxConvUTF8), GROUP_IMAGE);
+    mTreeCtrl->SelectItem(id, true);
 
-	mPassIdMap[pc] = id;
+    mPassIdMap[pc] = id;
 }
