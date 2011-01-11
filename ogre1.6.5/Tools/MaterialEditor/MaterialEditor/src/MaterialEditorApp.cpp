@@ -35,9 +35,7 @@ http://www.gnu.org/copyleft/lesser.txt
 #include "MaterialEditorFrame.h"
 #include "Workspace.h"
 
-using Ogre::ConfigFile;
-using Ogre::LogManager;
-using Ogre::ResourceGroupManager;
+
 
 IMPLEMENT_APP(MaterialEditorApp)
 
@@ -53,6 +51,7 @@ bool MaterialEditorApp::OnInit()
 		m_rsys->LoadPlugin("RenderSystem_GL");
 		m_rsys->SelectOgreRenderSystem("OpenGL Rendering Subsystem");
 		m_rsys->Initialise();
+		Ogre::ArchiveManager::getSingleton().addArchiveFactory(&mFileArchiveFactory);
 
 		wxInitAllImageHandlers();
 
@@ -90,6 +89,5 @@ int MaterialEditorApp::OnExit()
 	// Minimally clean up the IconManager
 	delete IconManager::getSingletonPtr();
     Workspace::Clean();
-
 	return 0;
 }

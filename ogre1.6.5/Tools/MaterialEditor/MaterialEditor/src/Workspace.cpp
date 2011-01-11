@@ -62,6 +62,10 @@ void Workspace::OpenConfigFile(const Ogre::String& aPath)
         for (i = settings->begin(); i != settings->end(); ++i)
         {
             type = i->first;
+            if (type == "FileSystem")
+            {
+                type = "OMEFileSystem";
+            }
             location = i->second;
             Ogre::ResourceGroupManager::getSingleton().addResourceLocation(location, type, group);
         }

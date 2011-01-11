@@ -28,9 +28,7 @@ http://www.gnu.org/copyleft/lesser.txt
 #include <wx/wx.h>
 #include <wx/ogre/ogre.h>
 
-#include "OgreRoot.h"
-
-using Ogre::Root;
+#include <OMEFileSystemArchive.h>
 
 class MaterialEditorApp : public wxOgreApp
 {
@@ -40,8 +38,7 @@ public:
 private:
 	virtual bool OnInit();
 	virtual int OnExit();
-
-	Root* mRoot;
+	OMEFileSystemArchiveFactory mFileArchiveFactory;
 };
 
 DECLARE_APP(MaterialEditorApp)
