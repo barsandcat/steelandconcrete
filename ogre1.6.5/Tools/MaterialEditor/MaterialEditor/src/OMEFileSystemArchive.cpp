@@ -1,10 +1,12 @@
 #include "OMEFileSystemArchive.h"
 #include <OgreException.h>
 
+#include <OgrePrerequisites.h>
+
 static bool is_absolute_path(const char* path)
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-    if (isalpha(uchar(path[0])) && path[1] == ':')
+    if (isalpha(path[0]) && path[1] == ':')
         return true;
 #endif
     return path[0] == '/' || path[0] == '\\';
