@@ -267,6 +267,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\OMEFileSystemArchive.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\PassPage.cpp"
 				>
 			</File>
@@ -406,6 +410,10 @@
 			</File>
 			<File
 				RelativePath="..\include\MaterialWizard.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\OMEFileSystemArchive.h"
 				>
 			</File>
 			<File
