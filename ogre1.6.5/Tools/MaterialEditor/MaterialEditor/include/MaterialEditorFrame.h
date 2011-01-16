@@ -52,9 +52,9 @@ class LogPanel;
 class PropertiesPanel;
 class wxOgreControl;
 
-typedef std::list<Ogre::MaterialPtr> MaterialScriptFile;
-typedef std::map<Ogre::String, MaterialScriptFile> MaterialScriptFileMap;
-typedef std::map<Ogre::String, MaterialScriptFileMap> ArchiveMap;
+typedef std::map<Ogre::String, Ogre::MaterialPtr> MaterialMap;
+typedef std::map<Ogre::String, MaterialMap> ScriptMap;
+typedef std::map<Ogre::String, ScriptMap> ArchiveMap;
 typedef std::map<Ogre::String, ArchiveMap> GroupMap;
 
 class MaterialEditorFrame : public wxFrame
@@ -94,8 +94,10 @@ protected:
 	void OnEditPaste(wxCommandEvent& event);
 
 	void OnResourceSelected(wxTreeEvent& event);
+	void OnFileSelected(wxTreeEvent& event);
 private:
     void FillResourceTree();
+    const MaterialMap* GetMaterialMap(const wxTreeItemId& id);
 	wxMenuBar* mMenuBar;
 	wxMenu* mFileMenu;
 	wxMenu* mEditMenu;
@@ -107,7 +109,7 @@ private:
 	wxAuiNotebook* mAuiNotebook;
 	wxAuiNotebook* mInformationNotebook;
 
-	wxTreeCtrl* mResourceTree;
+	wxTreeCtrl* mFileTree;
 	wxTreeCtrl* mScriptTree;
 	PropertiesPanel* mPropertiesPanel;
 

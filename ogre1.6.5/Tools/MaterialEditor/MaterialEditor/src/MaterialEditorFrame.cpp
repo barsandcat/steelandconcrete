@@ -80,7 +80,7 @@ const long ID_EDIT_MENU_COPY = wxNewId();
 const long ID_EDIT_MENU_PASTE = wxNewId();
 
 const long ID_RESOURCE_TREE = wxNewId();
-const long ID_SCRIPT_TREE = wxNewId();
+const long ID_FILE_TREE = wxNewId();
 
 // Image list
 const int WORKSPACE_IMAGE = 0;
@@ -118,6 +118,7 @@ BEGIN_EVENT_TABLE(MaterialEditorFrame, wxFrame)
     EVT_MENU (ID_EDIT_MENU_COPY,  MaterialEditorFrame::OnEditCopy)
     EVT_MENU (ID_EDIT_MENU_PASTE, MaterialEditorFrame::OnEditPaste)
     // Resource tree
+    EVT_TREE_SEL_CHANGED(ID_FILE_TREE, MaterialEditorFrame::OnFileSelected)
     EVT_TREE_SEL_CHANGED(ID_RESOURCE_TREE, MaterialEditorFrame::OnResourceSelected)
 END_EVENT_TABLE()
 
@@ -131,7 +132,7 @@ MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
     mAuiManager(0),
     mAuiNotebook(0),
     mInformationNotebook(0),
-    mResourceTree(0),
+    mFileTree(0),
     mPropertiesPanel(0),
     mLogPanel(0),
     mDocPanel(0),
@@ -199,33 +200,58 @@ void MaterialEditorFrame::createAuiNotebookPane()
 
 void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
 {
+    if (event.GetItem() != mScriptTree->GetRootItem())
+    {
+        if (const MaterialMap* materials = GetMaterialMap(mFileTree->GetSelection()))
+        {
+            MaterialMap::const_iterator it = materials->find(Ogre::String(mScriptTree->GetItemText(event.GetItem()).mb_str()));
+            Ogre::Entity* ent = m_sm->getEntity("Display");
+            ent->setMaterial(it->second);
+        }
+    }
+}
+
+const MaterialMap* MaterialEditorFrame::GetMaterialMap(const wxTreeItemId& id)
+{
+    if (mFileTree->GetItemImage(id) == MATERIAL_IMAGE)
+    {
+        Ogre::String file(mFileTree->GetItemText(id).mb_str());
+
+        const wxTreeItemId archiveId = mFileTree->GetItemParent(id);
+        Ogre::String archive(mFileTree->GetItemText(archiveId).mb_str());
+
+        const wxTreeItemId groupId = mFileTree->GetItemParent(archiveId);
+        Ogre::String group(mFileTree->GetItemText(groupId).mb_str());
+
+        return &mGroupMap[group][archive][file];
+    }
+    else
+        return NULL;
+}
+
+
+void MaterialEditorFrame::OnFileSelected(wxTreeEvent& event)
+{
     mScriptTree->DeleteAllItems();
 
-    const wxTreeItemId id = event.GetItem();
-    if (mResourceTree->GetItemImage(id) == MATERIAL_IMAGE)
+    if (const MaterialMap* materials = GetMaterialMap(event.GetItem()))
     {
-        Ogre::String file(mResourceTree->GetItemText(id).mb_str());
-
-        const wxTreeItemId archiveId = mResourceTree->GetItemParent(id);
-        Ogre::String archive(mResourceTree->GetItemText(archiveId).mb_str());
-
-        const wxTreeItemId groupId = mResourceTree->GetItemParent(archiveId);
-        Ogre::String group(mResourceTree->GetItemText(groupId).mb_str());
-
-        wxTreeItemId root = mScriptTree->AddRoot(wxString(file.c_str(), wxConvUTF8));
-        const MaterialScriptFile& msf = mGroupMap[group][archive][file];
-        for (MaterialScriptFile::const_iterator it = msf.begin(); it != msf.end(); ++it)
+        wxTreeItemId root = mScriptTree->AddRoot(mFileTree->GetItemText(event.GetItem()));
+        for (MaterialMap::const_iterator it = materials->begin(); it != materials->end(); ++it)
         {
-            mScriptTree->SelectItem(mScriptTree->AppendItem(root, wxString((*it)->getName().c_str(), wxConvUTF8)), true);
+            const wxTreeItemId id = mScriptTree->AppendItem(root, wxString(it->second->getName().c_str(), wxConvUTF8));
+            if (it == materials->begin())
+            {
+                mScriptTree->SelectItem(id, true);
+            }
         }
-
     }
 }
 
 void MaterialEditorFrame::createManagementPane()
 {
     {
-        mScriptTree = new wxTreeCtrl(this, ID_SCRIPT_TREE, wxDefaultPosition, wxDefaultSize,
+        mScriptTree = new wxTreeCtrl(this, ID_RESOURCE_TREE, wxDefaultPosition, wxDefaultSize,
                 wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT |
                 wxTR_HAS_BUTTONS | wxTR_SINGLE);
         mScriptTree->AddRoot(wxT("Heh!"));
@@ -242,7 +268,7 @@ void MaterialEditorFrame::createManagementPane()
 
     {
 
-        mResourceTree = new wxTreeCtrl(this, ID_RESOURCE_TREE, wxDefaultPosition, wxDefaultSize,
+        mFileTree = new wxTreeCtrl(this, ID_FILE_TREE, wxDefaultPosition, wxDefaultSize,
                                        wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT | wxTR_HAS_BUTTONS | wxTR_SINGLE);
 
         wxImageList* mImageList = new wxImageList(16, 16, true, 13);
@@ -263,7 +289,7 @@ void MaterialEditorFrame::createManagementPane()
         mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TECHNIQUE));// SKELETON_IMAGE = 11;
         mImageList->Add(IconManager::getSingleton().getIcon(IconManager::FONT));// FONT_IMAGE = 12;
 
-        mResourceTree->AssignImageList(mImageList);
+        mFileTree->AssignImageList(mImageList);
 
         wxAuiPaneInfo info;
         info.Caption(wxT("Resource browser"));
@@ -272,7 +298,7 @@ void MaterialEditorFrame::createManagementPane()
         info.Left();
         info.Layer(1);
 
-        mAuiManager->AddPane(mResourceTree, info);
+        mAuiManager->AddPane(mFileTree, info);
     }
 
 
@@ -398,14 +424,14 @@ void MaterialEditorFrame::createHelpMenu()
 
 void MaterialEditorFrame::FillResourceTree()
 {
-    mResourceTree->DeleteAllItems();
-    wxTreeItemId mRootId = mResourceTree->AddRoot(wxString(Workspace::GetFileName().c_str(), wxConvUTF8), WORKSPACE_IMAGE);
+    mFileTree->DeleteAllItems();
+    wxTreeItemId mRootId = mFileTree->AddRoot(wxString(Workspace::GetFileName().c_str(), wxConvUTF8), WORKSPACE_IMAGE);
     Ogre::ResourceGroupManager& rgm = Ogre::ResourceGroupManager::getSingleton();
     Ogre::StringVector groups = rgm.getResourceGroups();
     for (Ogre::StringVector::iterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt)
     {
-        wxTreeItemId groupId = mResourceTree->AppendItem(mRootId, wxString(groupIt->c_str(), wxConvUTF8), GROUP_IMAGE);
-        mResourceTree->SelectItem(groupId, true); //This is some kind of hack for windows
+        wxTreeItemId groupId = mFileTree->AppendItem(mRootId, wxString(groupIt->c_str(), wxConvUTF8), GROUP_IMAGE);
+        mFileTree->SelectItem(groupId, true); //This is some kind of hack for windows
         Ogre::FileInfoListPtr fileInfoList = rgm.listResourceFileInfo(*groupIt, false);
 
         // Collect archives. In Ogre 1.7, this will be removed, and archives queried directly
@@ -418,28 +444,28 @@ void MaterialEditorFrame::FillResourceTree()
         for (std::set< Ogre::Archive* >::iterator archiveIt = archives.begin(); archiveIt != archives.end(); ++archiveIt)
         {
             Ogre::Archive* archive = *archiveIt;
-            wxTreeItemId archiveId = mResourceTree->AppendItem(groupId, wxString(archive->getName().c_str(), wxConvUTF8), FILE_SYSTEM_IMAGE);
+            wxTreeItemId archiveId = mFileTree->AppendItem(groupId, wxString(archive->getName().c_str(), wxConvUTF8), FILE_SYSTEM_IMAGE);
 
             Ogre::StringVectorPtr fileList;
             // Materials
             fileList = archive->find("*.material");
             for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
             {
-                wxTreeItemId id = mResourceTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MATERIAL_IMAGE);
+                wxTreeItemId id = mFileTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MATERIAL_IMAGE);
             }
 
             // Meshes
             fileList = archive->find("*.mesh");
             for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
             {
-                mResourceTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MESH_IMAGE);
+                mFileTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MESH_IMAGE);
             }
 
             // Programs
             fileList = archive->find("*.program");
             for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
             {
-                mResourceTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), HL_PROGRAMM_IMAGE);
+                mFileTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), HL_PROGRAMM_IMAGE);
             }
         }
     }
@@ -458,7 +484,7 @@ void MaterialEditorFrame::FillResourceTree()
 
             Ogre::String file = origin.substr(pos + 1, origin.size() - pos);
             GetLog() << group + ":" + archive + ":" + file + ":" + material->getName();
-            mGroupMap[group][archive][file].push_back(material);
+            mGroupMap[group][archive][file][material->getName()] = material;
         }
     }
 
