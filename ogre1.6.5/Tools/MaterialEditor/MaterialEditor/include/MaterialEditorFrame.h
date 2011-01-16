@@ -104,7 +104,6 @@ private:
 	wxAuiManager* mAuiManager;
 
 	wxAuiNotebook* mAuiNotebook;
-	wxAuiNotebook* mManagementNotebook;
 	wxAuiNotebook* mInformationNotebook;
 	WorkspacePanel* mWorkspacePanel;
 	ResourcePanel* mResourcePanel;

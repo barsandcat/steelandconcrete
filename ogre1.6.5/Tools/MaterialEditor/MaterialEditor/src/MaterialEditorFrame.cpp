@@ -130,7 +130,6 @@ MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
 	mHelpMenu(0),
 	mAuiManager(0),
 	mAuiNotebook(0),
-	mManagementNotebook(0),
 	mInformationNotebook(0),
 	mWorkspacePanel(0),
 	mResourcePanel(0),
@@ -205,23 +204,16 @@ void MaterialEditorFrame::createAuiNotebookPane()
 
 void MaterialEditorFrame::createManagementPane()
 {
-	mManagementNotebook = new wxAuiNotebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxAUI_NB_TOP | wxAUI_NB_TAB_SPLIT | wxAUI_NB_TAB_MOVE | wxAUI_NB_SCROLL_BUTTONS | wxNO_BORDER);
-
-	mWorkspacePanel = new WorkspacePanel(mManagementNotebook);
-	//mMaterialTree = new wxTreeCtrl(mWorkspaceNotebook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxNO_BORDER);
-	mManagementNotebook->AddPage(mWorkspacePanel, wxT("Materials"));
-
-	mResourcePanel = new ResourcePanel(mManagementNotebook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxNO_BORDER);
-	mManagementNotebook->AddPage(mResourcePanel, wxT("Resources"));
+	mWorkspacePanel = new WorkspacePanel(this);//, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxAUI_NB_TOP | wxAUI_NB_TAB_SPLIT | wxAUI_NB_TAB_MOVE | wxAUI_NB_SCROLL_BUTTONS | wxNO_BORDER);
 
 	wxAuiPaneInfo info;
-	info.Caption(wxT("Management"));
+	info.Caption(wxT("Resource browser"));
 	info.MaximizeButton(true);
 	info.BestSize(256, 512);
 	info.Left();
 	info.Layer(1);
 
-	mAuiManager->AddPane(mManagementNotebook, info);
+	mAuiManager->AddPane(mWorkspacePanel, info);
 }
 
 void MaterialEditorFrame::createInformationPane()
