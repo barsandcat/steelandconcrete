@@ -55,17 +55,12 @@ http://www.gnu.org/copyleft/lesser.txt
 #include "LogPanel.h"
 #include "MaterialPropertyGridPage.h"
 #include "MaterialScriptEditor.h"
-#include "MaterialWizard.h"
 #include "PropertiesPanel.h"
 #include "TechniquePropertyGridPage.h"
 #include "PassPropertyGridPage.h"
 #include <MaterialScriptFile.h>
 #include <Workspace.h>
 #include <wx/ogre/ogre.h>
-
-#if OGRE_STATIC_LIB
-#include "OgreGLPlugin.h"
-#endif
 
 using Ogre::Camera;
 using Ogre::ColourValue;
@@ -84,6 +79,9 @@ const long ID_EDIT_MENU_REDO = wxNewId();
 const long ID_EDIT_MENU_CUT = wxNewId();
 const long ID_EDIT_MENU_COPY = wxNewId();
 const long ID_EDIT_MENU_PASTE = wxNewId();
+
+const long ID_RESOURCE_TREE = wxNewId();
+const long ID_SCRIPT_TREE = wxNewId();
 
 // Image list
 const int WORKSPACE_IMAGE = 0;
@@ -116,6 +114,8 @@ BEGIN_EVENT_TABLE(MaterialEditorFrame, wxFrame)
     EVT_MENU (ID_EDIT_MENU_CUT,	  MaterialEditorFrame::OnEditCut)
     EVT_MENU (ID_EDIT_MENU_COPY,  MaterialEditorFrame::OnEditCopy)
     EVT_MENU (ID_EDIT_MENU_PASTE, MaterialEditorFrame::OnEditPaste)
+    // Resource tree
+    EVT_TREE_SEL_CHANGED(ID_RESOURCE_TREE, MaterialEditorFrame::OnResourceSelected)
 END_EVENT_TABLE()
 
 MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
@@ -194,10 +194,16 @@ void MaterialEditorFrame::createAuiNotebookPane()
     mAuiManager->AddPane(mAuiNotebook, wxLEFT);
 }
 
+void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
+{
+    wxTreeItemId id = event.GetItem();
+    wxLogMessage(wxT("Heh!"));
+}
+
 void MaterialEditorFrame::createManagementPane()
 {
     {
-        wxTreeCtrl* mScriptTree = new wxTreeCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
+        wxTreeCtrl* mScriptTree = new wxTreeCtrl(this, ID_SCRIPT_TREE, wxDefaultPosition, wxDefaultSize,
                 wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT |
                 wxTR_HAS_BUTTONS | wxTR_SINGLE);
         mScriptTree->AddRoot(wxT("Heh!"));
@@ -214,7 +220,7 @@ void MaterialEditorFrame::createManagementPane()
 
     {
 
-        mResourceTree = new wxTreeCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
+        mResourceTree = new wxTreeCtrl(this, ID_RESOURCE_TREE, wxDefaultPosition, wxDefaultSize,
                                        wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT | wxTR_HAS_BUTTONS | wxTR_SINGLE);
 
         wxImageList* mImageList = new wxImageList(16, 16, true, 13);
@@ -368,15 +374,6 @@ void MaterialEditorFrame::createHelpMenu()
     mMenuBar->Append(mHelpMenu, wxT("&Help"));
 }
 
-
-void MaterialEditorFrame::OnNewMaterial(wxCommandEvent& event)
-{
-    MaterialWizard* wizard = new MaterialWizard();
-    wizard->Create(this, wxID_ANY, wxT("New Material"), wxNullBitmap, wxDefaultPosition, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
-    wizard->RunWizard(wizard->getMaterialPage());// This seems unnatural, seems there must be a better way to deal with wizards
-
-    wizard->Destroy();
-}
 
 void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
 {

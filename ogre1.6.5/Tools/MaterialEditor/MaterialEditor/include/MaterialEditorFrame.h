@@ -85,6 +85,8 @@ protected:
 	void OnEditCut(wxCommandEvent& event);
 	void OnEditCopy(wxCommandEvent& event);
 	void OnEditPaste(wxCommandEvent& event);
+
+	void OnResourceSelected(wxTreeEvent& event);
 private:
 	wxMenuBar* mMenuBar;
 	wxMenu* mFileMenu;
