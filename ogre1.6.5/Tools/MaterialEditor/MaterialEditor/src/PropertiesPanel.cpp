@@ -46,12 +46,10 @@ Torus Knot Software Ltd.
 #include "OgreTechnique.h"
 
 #include "MaterialPropertyGridPage.h"
-#include "MaterialWizard.h"
 #include "PassPropertyGridPage.h"
 #include "MaterialScriptFile.h"
 #include "PassPropertyGridPage.h"
 #include "TechniquePropertyGridPage.h"
-#include "TechniqueWizard.h"
 #include "Workspace.h"
 
 BEGIN_EVENT_TABLE(PropertiesPanel, wxPanel)

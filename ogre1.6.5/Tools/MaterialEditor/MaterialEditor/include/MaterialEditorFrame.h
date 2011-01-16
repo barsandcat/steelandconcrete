@@ -28,9 +28,11 @@ http://www.gnu.org/copyleft/lesser.txt
 #define _MATERIALEDITORFRAME_H_
 
 #include <wx/wx.h>
+#include <wx/treectrl.h>
 
 #include "OgreRenderSystem.h"
 #include "OgreRoot.h"
+
 
 class wxAuiManager;
 class wxAuiNotebook;
@@ -49,6 +51,11 @@ class EventArgs;
 class LogPanel;
 class PropertiesPanel;
 class wxOgreControl;
+
+typedef std::list<Ogre::MaterialPtr> MaterialScriptFile;
+typedef std::map<Ogre::String, MaterialScriptFile> MaterialScriptFileMap;
+typedef std::map<Ogre::String, MaterialScriptFileMap> ArchiveMap;
+typedef std::map<Ogre::String, ArchiveMap> GroupMap;
 
 class MaterialEditorFrame : public wxFrame
 {
@@ -88,6 +95,7 @@ protected:
 
 	void OnResourceSelected(wxTreeEvent& event);
 private:
+    void FillResourceTree();
 	wxMenuBar* mMenuBar;
 	wxMenu* mFileMenu;
 	wxMenu* mEditMenu;
@@ -106,6 +114,8 @@ private:
 	LogPanel* mLogPanel;
 	DocPanel* mDocPanel;
 	wxOgreControl* mOgreControl;
+
+	GroupMap mGroupMap;
 
 	DECLARE_EVENT_TABLE();
 };

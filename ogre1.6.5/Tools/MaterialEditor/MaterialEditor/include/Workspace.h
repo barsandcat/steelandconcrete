@@ -34,24 +34,12 @@ Torus Knot Software Ltd.
 #include <OgreString.h>
 #include "wx/string.h"
 
-class MaterialScriptFile;
-class Workspace;
-
-typedef std::list<MaterialScriptFile*> ProjectList;
-
 class Workspace
 {
 public:
-	static void Clean();
 	static void OpenConfigFile(const Ogre::String& aPath);
 	static const Ogre::String& GetFileName() { return mConfigFile; }
-	static void AddProject(MaterialScriptFile* project);
-
-	static MaterialScriptFile* GetProject(const wxString& name);
-	static const ProjectList& GetProjects();
-
 private:
-	static ProjectList mProjects;
 	static Ogre::String mConfigFile;
 };
 

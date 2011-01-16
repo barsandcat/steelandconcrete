@@ -58,7 +58,6 @@ http://www.gnu.org/copyleft/lesser.txt
 #include "PropertiesPanel.h"
 #include "TechniquePropertyGridPage.h"
 #include "PassPropertyGridPage.h"
-#include <MaterialScriptFile.h>
 #include <Workspace.h>
 #include <wx/ogre/ogre.h>
 
@@ -101,6 +100,10 @@ const int TEXTURE_IMAGE = 11;
 const int SKELETON_IMAGE = 12;
 const int FONT_IMAGE = 13;
 
+Ogre::Log::Stream GetLog()
+{
+    return  Ogre::LogManager::getSingleton().stream();
+}
 
 BEGIN_EVENT_TABLE(MaterialEditorFrame, wxFrame)
     // File Menu
@@ -196,8 +199,27 @@ void MaterialEditorFrame::createAuiNotebookPane()
 
 void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
 {
-    wxTreeItemId id = event.GetItem();
-    wxLogMessage(wxT("Heh!"));
+    const wxTreeItemId id = event.GetItem();
+    if (mResourceTree->GetItemImage(id) == MATERIAL_IMAGE)
+    {
+        Ogre::String file(mResourceTree->GetItemText(id).mb_str());
+
+        const wxTreeItemId archiveId = mResourceTree->GetItemParent(id);
+        Ogre::String archive(mResourceTree->GetItemText(archiveId).mb_str());
+
+        const wxTreeItemId groupId = mResourceTree->GetItemParent(archiveId);
+        Ogre::String group(mResourceTree->GetItemText(groupId).mb_str());
+
+        wxLogMessage(wxString((group + ":" + archive + ":" + file).c_str(), wxConvUTF8));
+
+        const MaterialScriptFile& msf = mGroupMap[group][archive][file];
+
+        for (MaterialScriptFile::const_iterator it = msf.begin(); it != msf.end(); ++it)
+        {
+            wxLogMessage(wxString((*it)->getName().c_str(), wxConvUTF8));
+        }
+
+    }
 }
 
 void MaterialEditorFrame::createManagementPane()
@@ -374,6 +396,73 @@ void MaterialEditorFrame::createHelpMenu()
     mMenuBar->Append(mHelpMenu, wxT("&Help"));
 }
 
+void MaterialEditorFrame::FillResourceTree()
+{
+    mResourceTree->DeleteAllItems();
+    wxTreeItemId mRootId = mResourceTree->AddRoot(wxString(Workspace::GetFileName().c_str(), wxConvUTF8), WORKSPACE_IMAGE);
+    Ogre::ResourceGroupManager& rgm = Ogre::ResourceGroupManager::getSingleton();
+    Ogre::StringVector groups = rgm.getResourceGroups();
+    for (Ogre::StringVector::iterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt)
+    {
+        wxTreeItemId groupId = mResourceTree->AppendItem(mRootId, wxString(groupIt->c_str(), wxConvUTF8), GROUP_IMAGE);
+        mResourceTree->SelectItem(groupId, true); //This is some kind of hack for windows
+        Ogre::FileInfoListPtr fileInfoList = rgm.listResourceFileInfo(*groupIt, false);
+
+        // Collect archives. In Ogre 1.7, this will be removed, and archives queried directly
+        std::set< Ogre::Archive* > archives;
+        for (Ogre::FileInfoList::iterator fileIt = fileInfoList->begin(); fileIt != fileInfoList->end(); ++fileIt)
+        {
+            archives.insert(fileIt->archive);
+        }
+
+        for (std::set< Ogre::Archive* >::iterator archiveIt = archives.begin(); archiveIt != archives.end(); ++archiveIt)
+        {
+            Ogre::Archive* archive = *archiveIt;
+            wxTreeItemId archiveId = mResourceTree->AppendItem(groupId, wxString(archive->getName().c_str(), wxConvUTF8), FILE_SYSTEM_IMAGE);
+
+            Ogre::StringVectorPtr fileList;
+            // Materials
+            fileList = archive->find("*.material");
+            for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
+            {
+                wxTreeItemId id = mResourceTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MATERIAL_IMAGE);
+            }
+
+            // Meshes
+            fileList = archive->find("*.mesh");
+            for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
+            {
+                mResourceTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MESH_IMAGE);
+            }
+
+            // Programs
+            fileList = archive->find("*.program");
+            for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
+            {
+                mResourceTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), HL_PROGRAMM_IMAGE);
+            }
+        }
+    }
+
+    // Now get materials
+    Ogre::ResourceManager::ResourceMapIterator it = Ogre::MaterialManager::getSingleton().getResourceIterator();
+    while (it.hasMoreElements())
+    {
+        Ogre::MaterialPtr material = it.getNext();
+        const Ogre::String& origin = material->getOrigin();
+        if (!origin.empty())
+        {
+            const Ogre::String& group = material->getGroup();
+            const size_t pos = origin.rfind(":");
+            Ogre::String archive = origin.substr(0, pos);
+
+            Ogre::String file = origin.substr(pos + 1, origin.size() - pos);
+            GetLog() << group + ":" + archive + ":" + file + ":" + material->getName();
+            mGroupMap[group][archive][file].push_back(material);
+        }
+    }
+
+}
 
 void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
 {
@@ -384,53 +473,7 @@ void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
     {
         wxString path = openDialog->GetPath();
         Workspace::OpenConfigFile(Ogre::String(path.mb_str()));
-
-        //mTreeCtrl->DeleteAllItems();
-        wxTreeItemId mRootId = mResourceTree->AddRoot(wxString(Workspace::GetFileName().c_str(), wxConvUTF8), WORKSPACE_IMAGE);
-        Ogre::ResourceGroupManager& rgm = Ogre::ResourceGroupManager::getSingleton();
-        Ogre::StringVector groups = rgm.getResourceGroups();
-        for (Ogre::StringVector::iterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt)
-        {
-            wxTreeItemId groupId = mResourceTree->AppendItem(mRootId, wxString(groupIt->c_str(), wxConvUTF8), GROUP_IMAGE);
-            mResourceTree->SelectItem(groupId, true); //This is some kind of hack for windows
-            Ogre::FileInfoListPtr fileInfoList = rgm.listResourceFileInfo(*groupIt, false);
-
-            // Collect archives. In Ogre 1.7, this will be removed, and archives queried directly
-            std::set< Ogre::Archive* > archives;
-            for (Ogre::FileInfoList::iterator fileIt = fileInfoList->begin(); fileIt != fileInfoList->end(); ++fileIt)
-            {
-                archives.insert(fileIt->archive);
-            }
-
-            for (std::set< Ogre::Archive* >::iterator archiveIt = archives.begin(); archiveIt != archives.end(); ++archiveIt)
-            {
-                Ogre::Archive* archive = *archiveIt;
-                wxTreeItemId archiveId = mResourceTree->AppendItem(groupId, wxString(archive->getName().c_str(), wxConvUTF8), FILE_SYSTEM_IMAGE);
-
-                Ogre::StringVectorPtr fileList;
-                // Materials
-                fileList = archive->find("*.material");
-                for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
-                {
-                    mResourceTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MATERIAL_IMAGE);
-                }
-
-                // Meshes
-                fileList = archive->find("*.mesh");
-                for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
-                {
-                    mResourceTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MESH_IMAGE);
-                }
-
-                // Programs
-                fileList = archive->find("*.program");
-                for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
-                {
-                    mResourceTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), HL_PROGRAMM_IMAGE);
-                }
-            }
-        }
-
+        FillResourceTree();
     }
 }
 
