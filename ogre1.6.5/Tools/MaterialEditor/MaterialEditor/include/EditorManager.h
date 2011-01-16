@@ -43,7 +43,6 @@ class wxAuiNotebookEvent;
 
 class EditorBase;
 class EventArgs;
-class MaterialScriptFile;
 class Workspace;
 
 typedef std::list<EditorBase*> EditorList;
