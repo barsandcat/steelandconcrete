@@ -122,7 +122,7 @@ BEGIN_EVENT_TABLE(MaterialEditorFrame, wxFrame)
 END_EVENT_TABLE()
 
 MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
-    wxFrame(parent, - 1, wxT("Ogre Material Editor"), wxDefaultPosition, wxSize(512, 512), wxDEFAULT_FRAME_STYLE),
+    wxFrame(parent, - 1, wxT("Ogre Material Editor"), wxDefaultPosition, wxSize(800, 600), wxDEFAULT_FRAME_STYLE),
     mMenuBar(0),
     mFileMenu(0),
     mEditMenu(0),
@@ -199,6 +199,8 @@ void MaterialEditorFrame::createAuiNotebookPane()
 
 void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
 {
+    mScriptTree->DeleteAllItems();
+
     const wxTreeItemId id = event.GetItem();
     if (mResourceTree->GetItemImage(id) == MATERIAL_IMAGE)
     {
@@ -210,13 +212,11 @@ void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
         const wxTreeItemId groupId = mResourceTree->GetItemParent(archiveId);
         Ogre::String group(mResourceTree->GetItemText(groupId).mb_str());
 
-        wxLogMessage(wxString((group + ":" + archive + ":" + file).c_str(), wxConvUTF8));
-
+        wxTreeItemId root = mScriptTree->AddRoot(wxString(file.c_str(), wxConvUTF8));
         const MaterialScriptFile& msf = mGroupMap[group][archive][file];
-
         for (MaterialScriptFile::const_iterator it = msf.begin(); it != msf.end(); ++it)
         {
-            wxLogMessage(wxString((*it)->getName().c_str(), wxConvUTF8));
+            mScriptTree->SelectItem(mScriptTree->AppendItem(root, wxString((*it)->getName().c_str(), wxConvUTF8)), true);
         }
 
     }
@@ -225,7 +225,7 @@ void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
 void MaterialEditorFrame::createManagementPane()
 {
     {
-        wxTreeCtrl* mScriptTree = new wxTreeCtrl(this, ID_SCRIPT_TREE, wxDefaultPosition, wxDefaultSize,
+        mScriptTree = new wxTreeCtrl(this, ID_SCRIPT_TREE, wxDefaultPosition, wxDefaultSize,
                 wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT |
                 wxTR_HAS_BUTTONS | wxTR_SINGLE);
         mScriptTree->AddRoot(wxT("Heh!"));

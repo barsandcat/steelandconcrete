@@ -106,7 +106,9 @@ private:
 
 	wxAuiNotebook* mAuiNotebook;
 	wxAuiNotebook* mInformationNotebook;
+
 	wxTreeCtrl* mResourceTree;
+	wxTreeCtrl* mScriptTree;
 	PropertiesPanel* mPropertiesPanel;
 
 	Ogre::SceneManager* m_sm;
