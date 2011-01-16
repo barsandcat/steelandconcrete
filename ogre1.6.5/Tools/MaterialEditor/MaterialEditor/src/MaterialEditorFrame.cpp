@@ -75,13 +75,9 @@ using Ogre::Root;
 using Ogre::String;
 using Ogre::Vector3;
 
-const long ID_FILE_NEW_MENU = wxNewId();
-const long ID_FILE_NEW_MENU_PROJECT = wxNewId();
-const long ID_FILE_NEW_MENU_MATERIAL = wxNewId();
 const long ID_FILE_MENU_OPEN = wxNewId();
 const long ID_FILE_MENU_SAVE = wxNewId();
 const long ID_FILE_MENU_SAVE_AS = wxNewId();
-const long ID_FILE_MENU_CLOSE = wxNewId();
 const long ID_FILE_MENU_EXIT = wxNewId();
 
 const long ID_EDIT_MENU_UNDO = wxNewId();
@@ -90,23 +86,12 @@ const long ID_EDIT_MENU_CUT = wxNewId();
 const long ID_EDIT_MENU_COPY = wxNewId();
 const long ID_EDIT_MENU_PASTE = wxNewId();
 
-const long ID_TOOLS_MENU_RESOURCES = wxNewId();
-const long ID_TOOLS_MENU_RESOURCES_MENU_ADD_GROUP = wxNewId();
-const long ID_TOOLS_MENU_RESOURCES_MENU_REMOVE_GROUP = wxNewId();
-const long ID_TOOLS_MENU_RESOURCES_MENU_ADD = wxNewId();
-const long ID_TOOLS_MENU_RESOURCES_MENU_REMOVE = wxNewId();
-
-const long ID_VIEW_MENU_OPENGL = wxNewId();
-const long ID_VIEW_MENU_DIRECTX = wxNewId();
 
 BEGIN_EVENT_TABLE(MaterialEditorFrame, wxFrame)
-	EVT_ACTIVATE(MaterialEditorFrame::OnActivate)
 	// File Menu
-	EVT_MENU (ID_FILE_NEW_MENU_MATERIAL, MaterialEditorFrame::OnNewMaterial)
 	EVT_MENU (ID_FILE_MENU_OPEN,		 MaterialEditorFrame::OnFileOpen)
 	EVT_MENU (ID_FILE_MENU_SAVE,		 MaterialEditorFrame::OnFileSave)
 	EVT_MENU (ID_FILE_MENU_SAVE_AS,		 MaterialEditorFrame::OnFileSaveAs)
-	EVT_MENU (ID_FILE_MENU_CLOSE,		 MaterialEditorFrame::OnFileClose)
 	EVT_MENU (ID_FILE_MENU_EXIT,		 MaterialEditorFrame::OnFileExit)
 	// Edit Menu
 	EVT_MENU (ID_EDIT_MENU_UNDO,  MaterialEditorFrame::OnEditUndo)
@@ -114,9 +99,6 @@ BEGIN_EVENT_TABLE(MaterialEditorFrame, wxFrame)
 	EVT_MENU (ID_EDIT_MENU_CUT,	  MaterialEditorFrame::OnEditCut)
 	EVT_MENU (ID_EDIT_MENU_COPY,  MaterialEditorFrame::OnEditCopy)
 	EVT_MENU (ID_EDIT_MENU_PASTE, MaterialEditorFrame::OnEditPaste)
-	// View Menu
-	EVT_MENU (ID_VIEW_MENU_OPENGL , MaterialEditorFrame::OnViewOpenGL)
-	EVT_MENU (ID_VIEW_MENU_DIRECTX, MaterialEditorFrame::OnViewDirectX)
 END_EVENT_TABLE()
 
 MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
@@ -124,8 +106,6 @@ MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
 	mMenuBar(0),
 	mFileMenu(0),
 	mEditMenu(0),
-	mViewMenu(0),
-	mToolsMenu(0),
 	mWindowMenu(0),
 	mHelpMenu(0),
 	mAuiManager(0),
@@ -134,13 +114,9 @@ MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
 	mWorkspacePanel(0),
 	mResourcePanel(0),
 	mPropertiesPanel(0),
-	mRoot(0),
-	mEntity(0),
 	mLogPanel(0),
 	mDocPanel(0),
-	mOgreControl(0),
-	mDirectXRenderSystem(0),
-	mOpenGLRenderSystem(0)
+	mOgreControl(0)
 {
 	createAuiManager();
 	createMenuBar();
@@ -277,8 +253,6 @@ void MaterialEditorFrame::createMenuBar()
 
 	createFileMenu();
 	createEditMenu();
-	createViewMenu();
-	createToolsMenu();
 	createWindowMenu();
 	createHelpMenu();
 
@@ -288,20 +262,9 @@ void MaterialEditorFrame::createMenuBar()
 void MaterialEditorFrame::createFileMenu()
 {
 	mFileMenu = new wxMenu();
+	wxMenuItem* menuItem = NULL;
 
 	// New sub menu
-	wxMenu* newMenu = new wxMenu();
-
-	wxMenuItem *menuItem = new wxMenuItem(newMenu, ID_FILE_NEW_MENU_PROJECT, wxT("&MaterialScriptFile"));
-	menuItem->SetBitmap(IconManager::getSingleton().getIcon(IconManager::PROJECT_NEW));
-	newMenu->Append(menuItem);
-
-	menuItem = new wxMenuItem(newMenu, ID_FILE_NEW_MENU_MATERIAL, wxT("&Material"));
-	menuItem->SetBitmap(IconManager::getSingleton().getIcon(IconManager::MATERIAL));
-	newMenu->Append(menuItem);
-
-	mFileMenu->AppendSubMenu(newMenu, wxT("&New"));
-
 	menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_OPEN, wxT("&Open"));
 	mFileMenu->Append(menuItem);
 
@@ -311,12 +274,6 @@ void MaterialEditorFrame::createFileMenu()
 
 	menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_SAVE_AS, wxT("Save &As..."));
 	menuItem->SetBitmap(IconManager::getSingleton().getIcon(IconManager::SAVE_AS));
-	mFileMenu->Append(menuItem);
-
-	mFileMenu->AppendSeparator();
-
-	menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_CLOSE, wxT("&Close"));
-	menuItem->SetBitmap(IconManager::getSingleton().getIcon(IconManager::CLOSE));
 	mFileMenu->Append(menuItem);
 
 	mFileMenu->AppendSeparator();
@@ -341,26 +298,6 @@ void MaterialEditorFrame::createEditMenu()
 	mMenuBar->Append(mEditMenu, wxT("&Edit"));
 }
 
-void MaterialEditorFrame::createViewMenu()
-{
-	mViewMenu = new wxMenu();
-	mViewMenu->Append(ID_VIEW_MENU_OPENGL, wxT("OpenGL"));
-	mViewMenu->Append(ID_VIEW_MENU_DIRECTX, wxT("DirectX"));
-	mMenuBar->Append(mViewMenu, wxT("&View"));
-}
-
-void MaterialEditorFrame::createToolsMenu()
-{
-	mToolsMenu = new wxMenu();
-	wxMenu* resourceMenu = new wxMenu();
-	resourceMenu->Append(ID_TOOLS_MENU_RESOURCES_MENU_ADD_GROUP, wxT("Add Group"));
-	resourceMenu->Append(ID_TOOLS_MENU_RESOURCES_MENU_REMOVE_GROUP, wxT("Remove Group"));
-	resourceMenu->Append(ID_TOOLS_MENU_RESOURCES_MENU_ADD, wxT("Add"));
-	resourceMenu->Append(ID_TOOLS_MENU_RESOURCES_MENU_REMOVE, wxT("Remove"));
-	mToolsMenu->AppendSubMenu(resourceMenu, wxT("Resources"));
-	mMenuBar->Append(mToolsMenu, wxT("&Tools"));
-}
-
 void MaterialEditorFrame::createWindowMenu()
 {
 	mWindowMenu = new wxMenu();
@@ -373,23 +310,9 @@ void MaterialEditorFrame::createHelpMenu()
 	mMenuBar->Append(mHelpMenu, wxT("&Help"));
 }
 
-void MaterialEditorFrame::OnActivate(wxActivateEvent& event)
-{
-}
-
-void MaterialEditorFrame::OnActiveEditorChanged(EventArgs& args)
-{
-	EditorEventArgs eea = dynamic_cast<EditorEventArgs&>(args);
-	EditorBase* editor = eea.getEditor();
-
-	// TODO: Update menu item enablement
-}
 
 void MaterialEditorFrame::OnNewMaterial(wxCommandEvent& event)
 {
-	//wxBitmap materialImage;
-	//materialImage.LoadFile("resources/images/new_material.gif", wxBITMAP_TYPE_GIF);
-
 	MaterialWizard* wizard = new MaterialWizard();
 	wizard->Create(this, wxID_ANY, wxT("New Material"), wxNullBitmap, wxDefaultPosition, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
 	wizard->RunWizard(wizard->getMaterialPage());// This seems unnatural, seems there must be a better way to deal with wizards
@@ -400,7 +323,7 @@ void MaterialEditorFrame::OnNewMaterial(wxCommandEvent& event)
 void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
 {
 	wxFileDialog * openDialog = new wxFileDialog(this, wxT("Choose a file to open"), wxEmptyString, wxEmptyString,
-		wxT("Resource configuration (*.cfg)|*.cfg|All Files (*.*)|*.*"));
+	wxT("Resource configuration (*.cfg)|*.cfg|All Files (*.*)|*.*"));
 
     if(openDialog->ShowModal() == wxID_OK)
     {
@@ -424,10 +347,6 @@ void MaterialEditorFrame::OnFileSaveAs(wxCommandEvent& event)
 	if(editor != NULL) editor->saveAs();
 
 	// TODO: Support project & workspace saveAs
-}
-
-void MaterialEditorFrame::OnFileClose(wxCommandEvent& event)
-{
 }
 
 void MaterialEditorFrame::OnFileExit(wxCommandEvent& event)
@@ -464,14 +383,3 @@ void MaterialEditorFrame::OnEditPaste(wxCommandEvent& event)
 	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
 	if(editor != NULL) editor->paste();
 }
-
-void MaterialEditorFrame::OnViewOpenGL(wxCommandEvent& event)
-{
-
-}
-
-void MaterialEditorFrame::OnViewDirectX(wxCommandEvent& event)
-{
-
-}
-

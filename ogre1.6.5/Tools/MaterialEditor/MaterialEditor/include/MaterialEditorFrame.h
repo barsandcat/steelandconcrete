@@ -69,8 +69,6 @@ protected:
 	void createMenuBar(void);
 	void createFileMenu(void);
 	void createEditMenu(void);
-	void createViewMenu(void);
-	void createToolsMenu(void);
 	void createWindowMenu(void);
 	void createHelpMenu(void);
 
@@ -89,15 +87,10 @@ protected:
 	void OnEditCut(wxCommandEvent& event);
 	void OnEditCopy(wxCommandEvent& event);
 	void OnEditPaste(wxCommandEvent& event);
-	void OnViewOpenGL(wxCommandEvent& event);
-	void OnViewDirectX(wxCommandEvent& event);
-
 private:
 	wxMenuBar* mMenuBar;
 	wxMenu* mFileMenu;
 	wxMenu* mEditMenu;
-	wxMenu* mViewMenu;
-	wxMenu* mToolsMenu;
 	wxMenu* mWindowMenu;
 	wxMenu* mHelpMenu;
 
@@ -109,16 +102,11 @@ private:
 	ResourcePanel* mResourcePanel;
 	PropertiesPanel* mPropertiesPanel;
 
-	Ogre::Root* mRoot;
-	Ogre::Entity* mEntity;
 	Ogre::SceneManager* m_sm;
 
 	LogPanel* mLogPanel;
 	DocPanel* mDocPanel;
 	wxOgreControl* mOgreControl;
-
-	Ogre::RenderSystem* mDirectXRenderSystem;
-	Ogre::RenderSystem* mOpenGLRenderSystem;
 
 	DECLARE_EVENT_TABLE();
 };
