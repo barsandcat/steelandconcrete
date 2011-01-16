@@ -100,7 +100,6 @@ public:
 
     void TechniquePassAdded(Ogre::Technique* tc, Ogre::Pass* pc);
 protected:
-	void createPanel();
 	wxImageList* getImageList();
 
 	void appendNewMenu(wxMenu* menu);
@@ -119,13 +118,9 @@ protected:
 	bool isPass(wxTreeItemId id);
 
 	wxImageList* mImageList;
-	wxFlexGridSizer* mSizer;
-	wxPanel* mToolBarPanel;
 	wxTreeCtrl* mTreeCtrl;
 
 	wxTreeItemId mRootId;
-
-	wxMenu* mNewMenu;
 
 	ProjectIdMap mProjectIdMap;
 	MaterialIdMap mMaterialIdMap;

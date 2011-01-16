@@ -110,16 +110,7 @@ WorkspacePanel::WorkspacePanel(wxWindow* parent,
                                const wxString& name /* = wxT("Workspace Panel")) */)
     : mImageList(NULL), wxPanel(parent, id, pos, size, style, name)
 {
-    createPanel();
-}
-
-WorkspacePanel::~WorkspacePanel()
-{
-}
-
-void WorkspacePanel::createPanel()
-{
-    mSizer = new wxFlexGridSizer(1, 1, 0, 0);
+    wxFlexGridSizer* mSizer = new wxFlexGridSizer(1, 1, 0, 0);
     mSizer->AddGrowableCol(0);
     mSizer->AddGrowableRow(0);
     mSizer->SetFlexibleDirection(wxVERTICAL);
@@ -134,6 +125,10 @@ void WorkspacePanel::createPanel()
 
     SetSizer(mSizer);
     Layout();
+}
+
+WorkspacePanel::~WorkspacePanel()
+{
 }
 
 wxImageList* WorkspacePanel::getImageList()
