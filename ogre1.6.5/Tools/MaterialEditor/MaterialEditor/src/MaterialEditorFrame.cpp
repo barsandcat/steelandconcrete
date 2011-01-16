@@ -88,142 +88,160 @@ const long ID_EDIT_MENU_PASTE = wxNewId();
 
 
 BEGIN_EVENT_TABLE(MaterialEditorFrame, wxFrame)
-	// File Menu
-	EVT_MENU (ID_FILE_MENU_OPEN,		 MaterialEditorFrame::OnFileOpen)
-	EVT_MENU (ID_FILE_MENU_SAVE,		 MaterialEditorFrame::OnFileSave)
-	EVT_MENU (ID_FILE_MENU_SAVE_AS,		 MaterialEditorFrame::OnFileSaveAs)
-	EVT_MENU (ID_FILE_MENU_EXIT,		 MaterialEditorFrame::OnFileExit)
-	// Edit Menu
-	EVT_MENU (ID_EDIT_MENU_UNDO,  MaterialEditorFrame::OnEditUndo)
-	EVT_MENU (ID_EDIT_MENU_REDO,  MaterialEditorFrame::OnEditRedo)
-	EVT_MENU (ID_EDIT_MENU_CUT,	  MaterialEditorFrame::OnEditCut)
-	EVT_MENU (ID_EDIT_MENU_COPY,  MaterialEditorFrame::OnEditCopy)
-	EVT_MENU (ID_EDIT_MENU_PASTE, MaterialEditorFrame::OnEditPaste)
+    // File Menu
+    EVT_MENU (ID_FILE_MENU_OPEN,		 MaterialEditorFrame::OnFileOpen)
+    EVT_MENU (ID_FILE_MENU_SAVE,		 MaterialEditorFrame::OnFileSave)
+    EVT_MENU (ID_FILE_MENU_SAVE_AS,		 MaterialEditorFrame::OnFileSaveAs)
+    EVT_MENU (ID_FILE_MENU_EXIT,		 MaterialEditorFrame::OnFileExit)
+    // Edit Menu
+    EVT_MENU (ID_EDIT_MENU_UNDO,  MaterialEditorFrame::OnEditUndo)
+    EVT_MENU (ID_EDIT_MENU_REDO,  MaterialEditorFrame::OnEditRedo)
+    EVT_MENU (ID_EDIT_MENU_CUT,	  MaterialEditorFrame::OnEditCut)
+    EVT_MENU (ID_EDIT_MENU_COPY,  MaterialEditorFrame::OnEditCopy)
+    EVT_MENU (ID_EDIT_MENU_PASTE, MaterialEditorFrame::OnEditPaste)
 END_EVENT_TABLE()
 
 MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
-	wxFrame(parent, - 1, wxT("Ogre Material Editor"), wxDefaultPosition, wxSize(512, 512), wxDEFAULT_FRAME_STYLE),
-	mMenuBar(0),
-	mFileMenu(0),
-	mEditMenu(0),
-	mWindowMenu(0),
-	mHelpMenu(0),
-	mAuiManager(0),
-	mAuiNotebook(0),
-	mInformationNotebook(0),
-	mWorkspacePanel(0),
-	mResourcePanel(0),
-	mPropertiesPanel(0),
-	mLogPanel(0),
-	mDocPanel(0),
-	mOgreControl(0)
+    wxFrame(parent, - 1, wxT("Ogre Material Editor"), wxDefaultPosition, wxSize(512, 512), wxDEFAULT_FRAME_STYLE),
+    mMenuBar(0),
+    mFileMenu(0),
+    mEditMenu(0),
+    mWindowMenu(0),
+    mHelpMenu(0),
+    mAuiManager(0),
+    mAuiNotebook(0),
+    mInformationNotebook(0),
+    mWorkspacePanel(0),
+    mResourcePanel(0),
+    mPropertiesPanel(0),
+    mLogPanel(0),
+    mDocPanel(0),
+    mOgreControl(0)
 {
-	createAuiManager();
-	createMenuBar();
+    createAuiManager();
+    createMenuBar();
 
-	CreateToolBar();
-	CreateStatusBar();
+    CreateToolBar();
+    CreateStatusBar();
 
-	/*
-	** We have to create the OgrePanel first
-	** since some of the other panels rely on Ogre.
-	*/
-	createAuiNotebookPane();
-	createOgrePane();
-	createInformationPane();
-	createManagementPane();
-	createPropertiesPane();
+    /*
+    ** We have to create the OgrePanel first
+    ** since some of the other panels rely on Ogre.
+    */
+    createAuiNotebookPane();
+    createOgrePane();
+    createInformationPane();
+    createManagementPane();
+    createPropertiesPane();
 
-	mAuiManager->Update();
+    mAuiManager->Update();
 }
 
 MaterialEditorFrame::~MaterialEditorFrame()
 {
-	mLogPanel->detachLog(Ogre::LogManager::getSingleton().getDefaultLog());
+    mLogPanel->detachLog(Ogre::LogManager::getSingleton().getDefaultLog());
 
-	if(mAuiManager)
-	{
-		mAuiManager->UnInit();
-		delete mAuiManager;
-	}
+    if(mAuiManager)
+    {
+        mAuiManager->UnInit();
+        delete mAuiManager;
+    }
 }
 
 void MaterialEditorFrame::createAuiManager()
 {
-	mAuiManager = new wxAuiManager();
-	mAuiManager->SetFlags(wxAUI_MGR_DEFAULT | wxAUI_MGR_ALLOW_ACTIVE_PANE | wxAUI_MGR_TRANSPARENT_DRAG);
-	mAuiManager->SetManagedWindow(this);
+    mAuiManager = new wxAuiManager();
+    mAuiManager->SetFlags(wxAUI_MGR_DEFAULT | wxAUI_MGR_ALLOW_ACTIVE_PANE | wxAUI_MGR_TRANSPARENT_DRAG);
+    mAuiManager->SetManagedWindow(this);
 
-	wxAuiDockArt* art = mAuiManager->GetArtProvider();
-	art->SetMetric(wxAUI_DOCKART_PANE_BORDER_SIZE, 1);
-	art->SetMetric(wxAUI_DOCKART_SASH_SIZE, 4);
-	art->SetMetric(wxAUI_DOCKART_CAPTION_SIZE, 17);
-	art->SetColour(wxAUI_DOCKART_ACTIVE_CAPTION_COLOUR, wxColour(49, 106, 197));
-	art->SetColour(wxAUI_DOCKART_ACTIVE_CAPTION_GRADIENT_COLOUR, wxColour(90, 135, 208));
-	art->SetColour(wxAUI_DOCKART_ACTIVE_CAPTION_TEXT_COLOUR, wxColour(255, 255, 255));
-	art->SetColour(wxAUI_DOCKART_INACTIVE_CAPTION_COLOUR, wxColour(200, 198, 183));
-	art->SetColour(wxAUI_DOCKART_INACTIVE_CAPTION_GRADIENT_COLOUR, wxColour(228, 226, 209));
-	art->SetColour(wxAUI_DOCKART_INACTIVE_CAPTION_TEXT_COLOUR, wxColour(0, 0, 0));
+    wxAuiDockArt* art = mAuiManager->GetArtProvider();
+    art->SetMetric(wxAUI_DOCKART_PANE_BORDER_SIZE, 1);
+    art->SetMetric(wxAUI_DOCKART_SASH_SIZE, 4);
+    art->SetMetric(wxAUI_DOCKART_CAPTION_SIZE, 17);
+    art->SetColour(wxAUI_DOCKART_ACTIVE_CAPTION_COLOUR, wxColour(49, 106, 197));
+    art->SetColour(wxAUI_DOCKART_ACTIVE_CAPTION_GRADIENT_COLOUR, wxColour(90, 135, 208));
+    art->SetColour(wxAUI_DOCKART_ACTIVE_CAPTION_TEXT_COLOUR, wxColour(255, 255, 255));
+    art->SetColour(wxAUI_DOCKART_INACTIVE_CAPTION_COLOUR, wxColour(200, 198, 183));
+    art->SetColour(wxAUI_DOCKART_INACTIVE_CAPTION_GRADIENT_COLOUR, wxColour(228, 226, 209));
+    art->SetColour(wxAUI_DOCKART_INACTIVE_CAPTION_TEXT_COLOUR, wxColour(0, 0, 0));
 
-	mAuiManager->Update();
+    mAuiManager->Update();
 }
 
 void MaterialEditorFrame::createAuiNotebookPane()
 {
-	mAuiNotebook = new wxAuiNotebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxAUI_NB_DEFAULT_STYLE | wxNO_BORDER);
+    mAuiNotebook = new wxAuiNotebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxAUI_NB_DEFAULT_STYLE | wxNO_BORDER);
 
-	// Create EditorManager singleton
-	new EditorManager(mAuiNotebook);
+    // Create EditorManager singleton
+    new EditorManager(mAuiNotebook);
 
-	mAuiManager->AddPane(mAuiNotebook, wxLEFT);
+    mAuiManager->AddPane(mAuiNotebook, wxLEFT);
 }
 
 void MaterialEditorFrame::createManagementPane()
 {
-	mWorkspacePanel = new WorkspacePanel(this);//, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxAUI_NB_TOP | wxAUI_NB_TAB_SPLIT | wxAUI_NB_TAB_MOVE | wxAUI_NB_SCROLL_BUTTONS | wxNO_BORDER);
+    {
+        wxTreeCtrl* mScriptTree = new wxTreeCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
+                wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT |
+                wxTR_HAS_BUTTONS | wxTR_SINGLE);
+        mScriptTree->AddRoot(wxT("Heh!"));
 
-	wxAuiPaneInfo info;
-	info.Caption(wxT("Resource browser"));
-	info.MaximizeButton(true);
-	info.BestSize(256, 512);
-	info.Left();
-	info.Layer(1);
+        wxAuiPaneInfo info;
+        info.Caption(wxT("Script browser"));
+        info.MaximizeButton(true);
+        info.BestSize(256, 512);
+        info.Left();
+        info.Layer(1);
 
-	mAuiManager->AddPane(mWorkspacePanel, info);
+        mAuiManager->AddPane(mScriptTree, info);
+    }
+
+    mWorkspacePanel = new WorkspacePanel(this);//, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxAUI_NB_TOP | wxAUI_NB_TAB_SPLIT | wxAUI_NB_TAB_MOVE | wxAUI_NB_SCROLL_BUTTONS | wxNO_BORDER);
+
+    wxAuiPaneInfo info;
+    info.Caption(wxT("Resource browser"));
+    info.MaximizeButton(true);
+    info.BestSize(256, 512);
+    info.Left();
+    info.Layer(1);
+
+    mAuiManager->AddPane(mWorkspacePanel, info);
+
+
 }
 
 void MaterialEditorFrame::createInformationPane()
 {
-	mInformationNotebook = new wxAuiNotebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxAUI_NB_TOP | wxAUI_NB_TAB_SPLIT | wxAUI_NB_TAB_MOVE | wxAUI_NB_SCROLL_BUTTONS | wxNO_BORDER);
+    mInformationNotebook = new wxAuiNotebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxAUI_NB_TOP | wxAUI_NB_TAB_SPLIT | wxAUI_NB_TAB_MOVE | wxAUI_NB_SCROLL_BUTTONS | wxNO_BORDER);
 
-	mLogPanel = new LogPanel(mInformationNotebook);
-	mInformationNotebook->AddPage(mLogPanel, wxT("Log"));
-	mLogPanel->attachLog(Ogre::LogManager::getSingleton().getDefaultLog());
+    mLogPanel = new LogPanel(mInformationNotebook);
+    mInformationNotebook->AddPage(mLogPanel, wxT("Log"));
+    mLogPanel->attachLog(Ogre::LogManager::getSingleton().getDefaultLog());
 
-	mDocPanel = new DocPanel(mInformationNotebook);
-	mInformationNotebook->AddPage(mDocPanel, wxT("Documentation"));
+    mDocPanel = new DocPanel(mInformationNotebook);
+    mInformationNotebook->AddPage(mDocPanel, wxT("Documentation"));
 
-	wxAuiPaneInfo info;
-	info.Caption(wxT("Information"));
-	info.MaximizeButton(true);
-	info.BestSize(256, 128);
-	info.Bottom();
+    wxAuiPaneInfo info;
+    info.Caption(wxT("Information"));
+    info.MaximizeButton(true);
+    info.BestSize(256, 128);
+    info.Bottom();
 
-	mAuiManager->AddPane(mInformationNotebook, info);
+    mAuiManager->AddPane(mInformationNotebook, info);
 }
 
 void MaterialEditorFrame::createPropertiesPane()
 {
-	mPropertiesPanel = new PropertiesPanel(this);
+    mPropertiesPanel = new PropertiesPanel(this);
 
-	wxAuiPaneInfo info;
-	info.Caption(wxT("Properties"));
-	info.MaximizeButton(true);
-	info.BestSize(256, 512);
-	info.Left();
-	info.Layer(1);
+    wxAuiPaneInfo info;
+    info.Caption(wxT("Properties"));
+    info.MaximizeButton(true);
+    info.BestSize(256, 512);
+    info.Right();
+    info.Layer(1);
 
-	mAuiManager->AddPane(mPropertiesPanel, info);
+    mAuiManager->AddPane(mPropertiesPanel, info);
 }
 
 void MaterialEditorFrame::CreateScene()
@@ -242,144 +260,144 @@ void MaterialEditorFrame::CreateScene()
 void MaterialEditorFrame::createOgrePane()
 {
 
-	mOgreControl = new wxOgreControl(this, wxID_ANY, wxDefaultPosition, this->GetClientSize());
+    mOgreControl = new wxOgreControl(this, wxID_ANY, wxDefaultPosition, this->GetClientSize());
 
-	mAuiManager->AddPane(mOgreControl, wxCENTER);
+    mAuiManager->AddPane(mOgreControl, wxCENTER);
 }
 
 void MaterialEditorFrame::createMenuBar()
 {
-	mMenuBar = new wxMenuBar();
+    mMenuBar = new wxMenuBar();
 
-	createFileMenu();
-	createEditMenu();
-	createWindowMenu();
-	createHelpMenu();
+    createFileMenu();
+    createEditMenu();
+    createWindowMenu();
+    createHelpMenu();
 
-	SetMenuBar(mMenuBar);
+    SetMenuBar(mMenuBar);
 }
 
 void MaterialEditorFrame::createFileMenu()
 {
-	mFileMenu = new wxMenu();
-	wxMenuItem* menuItem = NULL;
+    mFileMenu = new wxMenu();
+    wxMenuItem* menuItem = NULL;
 
-	// New sub menu
-	menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_OPEN, wxT("&Open"));
-	mFileMenu->Append(menuItem);
+    // New sub menu
+    menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_OPEN, wxT("&Open"));
+    mFileMenu->Append(menuItem);
 
-	menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_SAVE, wxT("&Save"));
-	menuItem->SetBitmap(IconManager::getSingleton().getIcon(IconManager::SAVE));
-	mFileMenu->Append(menuItem);
+    menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_SAVE, wxT("&Save"));
+    menuItem->SetBitmap(IconManager::getSingleton().getIcon(IconManager::SAVE));
+    mFileMenu->Append(menuItem);
 
-	menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_SAVE_AS, wxT("Save &As..."));
-	menuItem->SetBitmap(IconManager::getSingleton().getIcon(IconManager::SAVE_AS));
-	mFileMenu->Append(menuItem);
+    menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_SAVE_AS, wxT("Save &As..."));
+    menuItem->SetBitmap(IconManager::getSingleton().getIcon(IconManager::SAVE_AS));
+    mFileMenu->Append(menuItem);
 
-	mFileMenu->AppendSeparator();
+    mFileMenu->AppendSeparator();
 
-	menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_EXIT, wxT("E&xit"));
-	mFileMenu->Append(menuItem);
-	mFileMenu->UpdateUI();
+    menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_EXIT, wxT("E&xit"));
+    mFileMenu->Append(menuItem);
+    mFileMenu->UpdateUI();
 
-	mMenuBar->Append(mFileMenu, wxT("&File"));
+    mMenuBar->Append(mFileMenu, wxT("&File"));
 }
 
 void MaterialEditorFrame::createEditMenu()
 {
-	mEditMenu = new wxMenu();
-	mEditMenu->Append(ID_EDIT_MENU_UNDO, wxT("Undo"));
-	mEditMenu->Append(ID_EDIT_MENU_REDO, wxT("Redo"));
-	mEditMenu->AppendSeparator();
-	mEditMenu->Append(ID_EDIT_MENU_CUT, wxT("Cut"));
-	mEditMenu->Append(ID_EDIT_MENU_COPY, wxT("Copy"));
-	mEditMenu->Append(ID_EDIT_MENU_PASTE, wxT("Paste"));
+    mEditMenu = new wxMenu();
+    mEditMenu->Append(ID_EDIT_MENU_UNDO, wxT("Undo"));
+    mEditMenu->Append(ID_EDIT_MENU_REDO, wxT("Redo"));
+    mEditMenu->AppendSeparator();
+    mEditMenu->Append(ID_EDIT_MENU_CUT, wxT("Cut"));
+    mEditMenu->Append(ID_EDIT_MENU_COPY, wxT("Copy"));
+    mEditMenu->Append(ID_EDIT_MENU_PASTE, wxT("Paste"));
 
-	mMenuBar->Append(mEditMenu, wxT("&Edit"));
+    mMenuBar->Append(mEditMenu, wxT("&Edit"));
 }
 
 void MaterialEditorFrame::createWindowMenu()
 {
-	mWindowMenu = new wxMenu();
-	mMenuBar->Append(mWindowMenu, wxT("&Window"));
+    mWindowMenu = new wxMenu();
+    mMenuBar->Append(mWindowMenu, wxT("&Window"));
 }
 
 void MaterialEditorFrame::createHelpMenu()
 {
-	mHelpMenu = new wxMenu();
-	mMenuBar->Append(mHelpMenu, wxT("&Help"));
+    mHelpMenu = new wxMenu();
+    mMenuBar->Append(mHelpMenu, wxT("&Help"));
 }
 
 
 void MaterialEditorFrame::OnNewMaterial(wxCommandEvent& event)
 {
-	MaterialWizard* wizard = new MaterialWizard();
-	wizard->Create(this, wxID_ANY, wxT("New Material"), wxNullBitmap, wxDefaultPosition, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
-	wizard->RunWizard(wizard->getMaterialPage());// This seems unnatural, seems there must be a better way to deal with wizards
+    MaterialWizard* wizard = new MaterialWizard();
+    wizard->Create(this, wxID_ANY, wxT("New Material"), wxNullBitmap, wxDefaultPosition, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
+    wizard->RunWizard(wizard->getMaterialPage());// This seems unnatural, seems there must be a better way to deal with wizards
 
-	wizard->Destroy();
+    wizard->Destroy();
 }
 
 void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
 {
-	wxFileDialog * openDialog = new wxFileDialog(this, wxT("Choose a file to open"), wxEmptyString, wxEmptyString,
-	wxT("Resource configuration (*.cfg)|*.cfg|All Files (*.*)|*.*"));
+    wxFileDialog * openDialog = new wxFileDialog(this, wxT("Choose a file to open"), wxEmptyString, wxEmptyString,
+            wxT("Resource configuration (*.cfg)|*.cfg|All Files (*.*)|*.*"));
 
     if(openDialog->ShowModal() == wxID_OK)
     {
         wxString path = openDialog->GetPath();
         Workspace::OpenConfigFile(Ogre::String(path.mb_str()));
         mWorkspacePanel->Fill();
-	}
+    }
 }
 
 void MaterialEditorFrame::OnFileSave(wxCommandEvent& event)
 {
-	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
-	if(editor != NULL) editor->save();
+    EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+    if(editor != NULL) editor->save();
 
-	// TODO: Support project & workspace save
+    // TODO: Support project & workspace save
 }
 
 void MaterialEditorFrame::OnFileSaveAs(wxCommandEvent& event)
 {
-	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
-	if(editor != NULL) editor->saveAs();
+    EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+    if(editor != NULL) editor->saveAs();
 
-	// TODO: Support project & workspace saveAs
+    // TODO: Support project & workspace saveAs
 }
 
 void MaterialEditorFrame::OnFileExit(wxCommandEvent& event)
 {
-	Close();
+    Close();
 }
 
 void MaterialEditorFrame::OnEditUndo(wxCommandEvent& event)
 {
-	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
-	if(editor != NULL) editor->undo();
+    EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+    if(editor != NULL) editor->undo();
 }
 
 void MaterialEditorFrame::OnEditRedo(wxCommandEvent& event)
 {
-	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
-	if(editor != NULL) editor->redo();
+    EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+    if(editor != NULL) editor->redo();
 }
 
 void MaterialEditorFrame::OnEditCut(wxCommandEvent& event)
 {
-	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
-	if(editor != NULL) editor->cut();
+    EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+    if(editor != NULL) editor->cut();
 }
 
 void MaterialEditorFrame::OnEditCopy(wxCommandEvent& event)
 {
-	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
-	if(editor != NULL) editor->copy();
+    EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+    if(editor != NULL) editor->copy();
 }
 
 void MaterialEditorFrame::OnEditPaste(wxCommandEvent& event)
 {
-	EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
-	if(editor != NULL) editor->paste();
+    EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
+    if(editor != NULL) editor->paste();
 }
