@@ -117,7 +117,6 @@ protected:
 	bool isTechnique(wxTreeItemId id);
 	bool isPass(wxTreeItemId id);
 
-	wxImageList* mImageList;
 	wxTreeCtrl* mTreeCtrl;
 
 	wxTreeItemId mRootId;

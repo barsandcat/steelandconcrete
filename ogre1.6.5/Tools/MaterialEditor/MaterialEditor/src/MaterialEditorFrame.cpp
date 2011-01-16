@@ -35,6 +35,7 @@ http://www.gnu.org/copyleft/lesser.txt
 #include <wx/aui/framemanager.h>
 #include <wx/propgrid/manager.h>
 #include <wx/propgrid/advprops.h>
+#include <wx/imaglist.h>
 
 #include "OgreCamera.h"
 #include "OgreColourValue.h"
@@ -58,8 +59,6 @@ http://www.gnu.org/copyleft/lesser.txt
 #include "PropertiesPanel.h"
 #include "TechniquePropertyGridPage.h"
 #include "PassPropertyGridPage.h"
-#include "ResourcePanel.h"
-#include "WorkspacePanel.h"
 #include <MaterialScriptFile.h>
 #include <Workspace.h>
 #include <wx/ogre/ogre.h>
@@ -86,6 +85,24 @@ const long ID_EDIT_MENU_CUT = wxNewId();
 const long ID_EDIT_MENU_COPY = wxNewId();
 const long ID_EDIT_MENU_PASTE = wxNewId();
 
+// Image list
+const int WORKSPACE_IMAGE = 0;
+const int GROUP_IMAGE = 1;
+// Archive types
+const int UNKNOWN_ARCHIVE_IMAGE = 2;
+const int FILE_SYSTEM_IMAGE = 3;
+const int ZIP_IMAGE = 4;
+// Resource types
+const int UNKNOWN_RESOURCE_IMAGE = 5;
+const int COMPOSITE_IMAGE = 6;
+const int MATERIAL_IMAGE = 7;
+const int MESH_IMAGE = 8;
+const int ASM_PROGRAMM_IMAGE = 9;
+const int HL_PROGRAMM_IMAGE = 10;
+const int TEXTURE_IMAGE = 11;
+const int SKELETON_IMAGE = 12;
+const int FONT_IMAGE = 13;
+
 
 BEGIN_EVENT_TABLE(MaterialEditorFrame, wxFrame)
     // File Menu
@@ -111,8 +128,7 @@ MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
     mAuiManager(0),
     mAuiNotebook(0),
     mInformationNotebook(0),
-    mWorkspacePanel(0),
-    mResourcePanel(0),
+    mResourceTree(0),
     mPropertiesPanel(0),
     mLogPanel(0),
     mDocPanel(0),
@@ -196,16 +212,40 @@ void MaterialEditorFrame::createManagementPane()
         mAuiManager->AddPane(mScriptTree, info);
     }
 
-    mWorkspacePanel = new WorkspacePanel(this);//, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxAUI_NB_TOP | wxAUI_NB_TAB_SPLIT | wxAUI_NB_TAB_MOVE | wxAUI_NB_SCROLL_BUTTONS | wxNO_BORDER);
+    {
 
-    wxAuiPaneInfo info;
-    info.Caption(wxT("Resource browser"));
-    info.MaximizeButton(true);
-    info.BestSize(256, 512);
-    info.Left();
-    info.Layer(1);
+        mResourceTree = new wxTreeCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
+                                       wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT | wxTR_HAS_BUTTONS | wxTR_SINGLE);
 
-    mAuiManager->AddPane(mWorkspacePanel, info);
+        wxImageList* mImageList = new wxImageList(16, 16, true, 13);
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::WORKSPACE));// WORKSPACE_IMAGE = 0;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROJECT));// GROUP
+        // Archive types
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::UNKNOWN));// UNKNOW_ARCHIVE_IMAGE = 1;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::FILE_SYSTEM));// FILESYTEM_IMAGE = 2;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::ZIP));// ZIP_IMAGE = 3;
+        // Resource types
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::UNKNOWN));// UNKNOW_RESOURCE_IMAGE = 4;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROJECT));// COMPOSITE_IMAGE = 5;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MATERIAL));// MATERIAL_IMAGE = 6;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MESH));// MESH_IMAGE = 7;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROGRAM_SCRIPT));// ASM_PROGRAMM_IMAGE = 8;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROGRAM_SCRIPT));// HL_PROGRAMM_IMAGE = 9;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TEXTURE));// TEXTURE_IMAGE = 10;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TECHNIQUE));// SKELETON_IMAGE = 11;
+        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::FONT));// FONT_IMAGE = 12;
+
+        mResourceTree->AssignImageList(mImageList);
+
+        wxAuiPaneInfo info;
+        info.Caption(wxT("Resource browser"));
+        info.MaximizeButton(true);
+        info.BestSize(256, 512);
+        info.Left();
+        info.Layer(1);
+
+        mAuiManager->AddPane(mResourceTree, info);
+    }
 
 
 }
@@ -347,7 +387,53 @@ void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
     {
         wxString path = openDialog->GetPath();
         Workspace::OpenConfigFile(Ogre::String(path.mb_str()));
-        mWorkspacePanel->Fill();
+
+        //mTreeCtrl->DeleteAllItems();
+        wxTreeItemId mRootId = mResourceTree->AddRoot(wxString(Workspace::GetFileName().c_str(), wxConvUTF8), WORKSPACE_IMAGE);
+        Ogre::ResourceGroupManager& rgm = Ogre::ResourceGroupManager::getSingleton();
+        Ogre::StringVector groups = rgm.getResourceGroups();
+        for (Ogre::StringVector::iterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt)
+        {
+            wxTreeItemId groupId = mResourceTree->AppendItem(mRootId, wxString(groupIt->c_str(), wxConvUTF8), GROUP_IMAGE);
+            mResourceTree->SelectItem(groupId, true); //This is some kind of hack for windows
+            Ogre::FileInfoListPtr fileInfoList = rgm.listResourceFileInfo(*groupIt, false);
+
+            // Collect archives. In Ogre 1.7, this will be removed, and archives queried directly
+            std::set< Ogre::Archive* > archives;
+            for (Ogre::FileInfoList::iterator fileIt = fileInfoList->begin(); fileIt != fileInfoList->end(); ++fileIt)
+            {
+                archives.insert(fileIt->archive);
+            }
+
+            for (std::set< Ogre::Archive* >::iterator archiveIt = archives.begin(); archiveIt != archives.end(); ++archiveIt)
+            {
+                Ogre::Archive* archive = *archiveIt;
+                wxTreeItemId archiveId = mResourceTree->AppendItem(groupId, wxString(archive->getName().c_str(), wxConvUTF8), FILE_SYSTEM_IMAGE);
+
+                Ogre::StringVectorPtr fileList;
+                // Materials
+                fileList = archive->find("*.material");
+                for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
+                {
+                    mResourceTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MATERIAL_IMAGE);
+                }
+
+                // Meshes
+                fileList = archive->find("*.mesh");
+                for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
+                {
+                    mResourceTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MESH_IMAGE);
+                }
+
+                // Programs
+                fileList = archive->find("*.program");
+                for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
+                {
+                    mResourceTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), HL_PROGRAMM_IMAGE);
+                }
+            }
+        }
+
     }
 }
 
