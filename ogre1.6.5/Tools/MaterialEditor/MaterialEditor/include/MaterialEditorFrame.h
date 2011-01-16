@@ -48,8 +48,6 @@ class DocPanel;
 class EventArgs;
 class LogPanel;
 class PropertiesPanel;
-class ResourcePanel;
-class WorkspacePanel;
 class wxOgreControl;
 
 class MaterialEditorFrame : public wxFrame
@@ -98,8 +96,7 @@ private:
 
 	wxAuiNotebook* mAuiNotebook;
 	wxAuiNotebook* mInformationNotebook;
-	WorkspacePanel* mWorkspacePanel;
-	ResourcePanel* mResourcePanel;
+	wxTreeCtrl* mResourceTree;
 	PropertiesPanel* mPropertiesPanel;
 
 	Ogre::SceneManager* m_sm;
