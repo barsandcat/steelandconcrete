@@ -207,6 +207,7 @@ void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
             MaterialMap::const_iterator it = materials->find(Ogre::String(mScriptTree->GetItemText(event.GetItem()).mb_str()));
             Ogre::Entity* ent = m_sm->getEntity("Display");
             ent->setMaterial(it->second);
+            mOgreControl->Refresh();
         }
     }
 }
@@ -252,8 +253,8 @@ void MaterialEditorFrame::createManagementPane()
 {
     {
         mScriptTree = new wxTreeCtrl(this, ID_RESOURCE_TREE, wxDefaultPosition, wxDefaultSize,
-                wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT |
-                wxTR_HAS_BUTTONS | wxTR_SINGLE);
+                                     wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT |
+                                     wxTR_HAS_BUTTONS | wxTR_SINGLE);
         mScriptTree->AddRoot(wxT("Heh!"));
 
         wxAuiPaneInfo info;
@@ -269,7 +270,7 @@ void MaterialEditorFrame::createManagementPane()
     {
 
         mFileTree = new wxTreeCtrl(this, ID_FILE_TREE, wxDefaultPosition, wxDefaultSize,
-                                       wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT | wxTR_HAS_BUTTONS | wxTR_SINGLE);
+                                   wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT | wxTR_HAS_BUTTONS | wxTR_SINGLE);
 
         wxImageList* mImageList = new wxImageList(16, 16, true, 13);
         mImageList->Add(IconManager::getSingleton().getIcon(IconManager::WORKSPACE));// WORKSPACE_IMAGE = 0;
@@ -349,6 +350,14 @@ void MaterialEditorFrame::CreateScene()
     no->attachObject(ent);
 
     mOgreControl->Refresh();
+
+    struct stat stFileInfo;
+    const char* resources = "resources.cfg";
+    if (!stat(resources, &stFileInfo))
+    {
+        Workspace::OpenConfigFile(resources);
+        FillResourceTree();
+    }
 }
 
 void MaterialEditorFrame::createOgrePane()
