@@ -92,13 +92,19 @@ const int ZIP_IMAGE = 4;
 // Resource types
 const int UNKNOWN_RESOURCE_IMAGE = 5;
 const int COMPOSITE_IMAGE = 6;
-const int MATERIAL_IMAGE = 7;
+const int MATERIAL_SCRIPT_IMAGE = 7;
 const int MESH_IMAGE = 8;
 const int ASM_PROGRAMM_IMAGE = 9;
 const int HL_PROGRAMM_IMAGE = 10;
 const int TEXTURE_IMAGE = 11;
 const int SKELETON_IMAGE = 12;
 const int FONT_IMAGE = 13;
+// Materials script
+const int MATERIAL_IMAGE = 14;
+const int TECHNIQUE_IMAGE = 15;
+const int PASS_IMAGE = 16;
+const int TEXTURE_UNIT_IMAGE = 17;
+
 
 Ogre::Log::Stream GetLog()
 {
@@ -200,7 +206,7 @@ void MaterialEditorFrame::createAuiNotebookPane()
 
 void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
 {
-    if (event.GetItem() != mScriptTree->GetRootItem())
+    if (mScriptTree->GetItemImage(event.GetItem()) == MATERIAL_IMAGE)
     {
         if (const MaterialMap* materials = GetMaterialMap(mFileTree->GetSelection()))
         {
@@ -216,7 +222,7 @@ void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
 
 const MaterialMap* MaterialEditorFrame::GetMaterialMap(const wxTreeItemId& id)
 {
-    if (mFileTree->GetItemImage(id) == MATERIAL_IMAGE)
+    if (mFileTree->GetItemImage(id) == MATERIAL_SCRIPT_IMAGE)
     {
         Ogre::String file(mFileTree->GetItemText(id).mb_str());
 
@@ -243,7 +249,7 @@ void MaterialEditorFrame::OnFileSelected(wxTreeEvent& event)
         for (MaterialMap::const_iterator it = materials->begin(); it != materials->end(); ++it)
         {
             Ogre::MaterialPtr material = it->second;
-            const wxTreeItemId materialId = mScriptTree->AppendItem(root, wxString(material->getName().c_str(), wxConvUTF8));
+            const wxTreeItemId materialId = mScriptTree->AppendItem(root, wxString(material->getName().c_str(), wxConvUTF8), MATERIAL_IMAGE);
             if (it == materials->begin())
             {
                 mScriptTree->SelectItem(materialId, true);
@@ -253,22 +259,50 @@ void MaterialEditorFrame::OnFileSelected(wxTreeEvent& event)
             while (it.hasMoreElements())
             {
                 Ogre::Technique* techique = it.getNext();
-                const wxTreeItemId techiqueId = mScriptTree->AppendItem(materialId, wxString(techique->getName().c_str(), wxConvUTF8));
+                const wxTreeItemId techiqueId = mScriptTree->AppendItem(materialId, wxString(techique->getName().c_str(), wxConvUTF8), TECHNIQUE_IMAGE);
                 Ogre::Technique::PassIterator passIt = techique->getPassIterator();
                 while (passIt.hasMoreElements())
                 {
                     Ogre::Pass* pass = passIt.getNext();
-                    const wxTreeItemId passId = mScriptTree->AppendItem(techiqueId, wxString(pass->getName().c_str(), wxConvUTF8));
+                    const wxTreeItemId passId = mScriptTree->AppendItem(techiqueId, wxString(pass->getName().c_str(), wxConvUTF8), PASS_IMAGE);
                     Ogre::Pass::TextureUnitStateIterator texIt = pass->getTextureUnitStateIterator();
                     while (texIt.hasMoreElements())
                     {
                         Ogre::TextureUnitState* tu = texIt.getNext();
-                        const wxTreeItemId texId = mScriptTree->AppendItem(passId, wxString(tu->getName().c_str(), wxConvUTF8));
+                        const wxTreeItemId texId = mScriptTree->AppendItem(passId, wxString(tu->getName().c_str(), wxConvUTF8), TEXTURE_IMAGE);
                     }
                 }
             }
         }
     }
+}
+
+
+wxImageList* CreateImageList()
+{
+    wxImageList* mImageList = new wxImageList(16, 16, true, 17);
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::WORKSPACE));// WORKSPACE_IMAGE = 0;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROJECT));// GROUP
+    // Archive types
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::UNKNOWN));// UNKNOW_ARCHIVE_IMAGE = 1;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::FILE_SYSTEM));// FILESYTEM_IMAGE = 2;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::ZIP));// ZIP_IMAGE = 3;
+    // Resource types
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::UNKNOWN));// UNKNOW_RESOURCE_IMAGE = 4;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROJECT));// COMPOSITE_IMAGE = 5;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MATERIAL_SCRIPT));// MATERIAL_IMAGE = 6;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MESH));// MESH_IMAGE = 7;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROGRAM_SCRIPT));// ASM_PROGRAMM_IMAGE = 8;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROGRAM_SCRIPT));// HL_PROGRAMM_IMAGE = 9;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TEXTURE));// TEXTURE_IMAGE = 10;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TECHNIQUE));// SKELETON_IMAGE = 11;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::FONT));// FONT_IMAGE = 12;
+
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MATERIAL));
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TECHNIQUE));
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PASS));
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TEXTURE));
+    return mImageList;
 }
 
 void MaterialEditorFrame::createManagementPane()
@@ -277,7 +311,7 @@ void MaterialEditorFrame::createManagementPane()
         mScriptTree = new wxTreeCtrl(this, ID_RESOURCE_TREE, wxDefaultPosition, wxDefaultSize,
                                      wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT |
                                      wxTR_HAS_BUTTONS | wxTR_SINGLE);
-        mScriptTree->AddRoot(wxT("Heh!"));
+        mScriptTree->AssignImageList(CreateImageList());
 
         wxAuiPaneInfo info;
         info.Caption(wxT("Script browser"));
@@ -294,25 +328,10 @@ void MaterialEditorFrame::createManagementPane()
         mFileTree = new wxTreeCtrl(this, ID_FILE_TREE, wxDefaultPosition, wxDefaultSize,
                                    wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT | wxTR_HAS_BUTTONS | wxTR_SINGLE);
 
-        wxImageList* mImageList = new wxImageList(16, 16, true, 13);
-        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::WORKSPACE));// WORKSPACE_IMAGE = 0;
-        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROJECT));// GROUP
-        // Archive types
-        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::UNKNOWN));// UNKNOW_ARCHIVE_IMAGE = 1;
-        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::FILE_SYSTEM));// FILESYTEM_IMAGE = 2;
-        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::ZIP));// ZIP_IMAGE = 3;
-        // Resource types
-        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::UNKNOWN));// UNKNOW_RESOURCE_IMAGE = 4;
-        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROJECT));// COMPOSITE_IMAGE = 5;
-        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MATERIAL));// MATERIAL_IMAGE = 6;
-        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MESH));// MESH_IMAGE = 7;
-        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROGRAM_SCRIPT));// ASM_PROGRAMM_IMAGE = 8;
-        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROGRAM_SCRIPT));// HL_PROGRAMM_IMAGE = 9;
-        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TEXTURE));// TEXTURE_IMAGE = 10;
-        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TECHNIQUE));// SKELETON_IMAGE = 11;
-        mImageList->Add(IconManager::getSingleton().getIcon(IconManager::FONT));// FONT_IMAGE = 12;
 
-        mFileTree->AssignImageList(mImageList);
+
+
+        mFileTree->AssignImageList(CreateImageList());
 
         wxAuiPaneInfo info;
         info.Caption(wxT("Resource browser"));
@@ -482,7 +501,7 @@ void MaterialEditorFrame::FillResourceTree()
             fileList = archive->find("*.material");
             for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
             {
-                wxTreeItemId id = mFileTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MATERIAL_IMAGE);
+                wxTreeItemId id = mFileTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MATERIAL_SCRIPT_IMAGE);
             }
 
             // Meshes
