@@ -205,10 +205,11 @@ void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
         if (const MaterialMap* materials = GetMaterialMap(mFileTree->GetSelection()))
         {
             MaterialMap::const_iterator it = materials->find(Ogre::String(mScriptTree->GetItemText(event.GetItem()).mb_str()));
+            Ogre::MaterialPtr material = it->second;
             Ogre::Entity* ent = m_sm->getEntity("Display");
-            ent->setMaterial(it->second);
+            ent->setMaterial(material);
             mOgreControl->Refresh();
-            mPropertiesPanel->MaterialSelected(it->second);
+            mPropertiesPanel->MaterialSelected(material);
         }
     }
 }
@@ -241,10 +242,24 @@ void MaterialEditorFrame::OnFileSelected(wxTreeEvent& event)
         wxTreeItemId root = mScriptTree->AddRoot(mFileTree->GetItemText(event.GetItem()));
         for (MaterialMap::const_iterator it = materials->begin(); it != materials->end(); ++it)
         {
-            const wxTreeItemId id = mScriptTree->AppendItem(root, wxString(it->second->getName().c_str(), wxConvUTF8));
+            Ogre::MaterialPtr material = it->second;
+            const wxTreeItemId materialId = mScriptTree->AppendItem(root, wxString(material->getName().c_str(), wxConvUTF8));
             if (it == materials->begin())
             {
-                mScriptTree->SelectItem(id, true);
+                mScriptTree->SelectItem(materialId, true);
+            }
+
+            Ogre::Material::TechniqueIterator it = material->getTechniqueIterator();
+            while (it.hasMoreElements())
+            {
+                Ogre::Technique* techique = it.getNext();
+                const wxTreeItemId techiqueId = mScriptTree->AppendItem(materialId, wxString(techique->getName().c_str(), wxConvUTF8));
+                Ogre::Technique::PassIterator passIt = techique->getPassIterator();
+                while (passIt.hasMoreElements())
+                {
+                    Ogre::Pass* pass = passIt.getNext();
+                    const wxTreeItemId passId = mScriptTree->AppendItem(techiqueId, wxString(pass->getName().c_str(), wxConvUTF8));
+                }
             }
         }
     }
