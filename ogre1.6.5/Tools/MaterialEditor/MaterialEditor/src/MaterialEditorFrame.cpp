@@ -259,6 +259,12 @@ void MaterialEditorFrame::OnFileSelected(wxTreeEvent& event)
                 {
                     Ogre::Pass* pass = passIt.getNext();
                     const wxTreeItemId passId = mScriptTree->AppendItem(techiqueId, wxString(pass->getName().c_str(), wxConvUTF8));
+                    Ogre::Pass::TextureUnitStateIterator texIt = pass->getTextureUnitStateIterator();
+                    while (texIt.hasMoreElements())
+                    {
+                        Ogre::TextureUnitState* tu = texIt.getNext();
+                        const wxTreeItemId texId = mScriptTree->AppendItem(passId, wxString(tu->getName().c_str(), wxConvUTF8));
+                    }
                 }
             }
         }
