@@ -208,6 +208,7 @@ void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
             Ogre::Entity* ent = m_sm->getEntity("Display");
             ent->setMaterial(it->second);
             mOgreControl->Refresh();
+            mPropertiesPanel->MaterialSelected(it->second);
         }
     }
 }
