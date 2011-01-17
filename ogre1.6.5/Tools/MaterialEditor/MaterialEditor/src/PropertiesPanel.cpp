@@ -47,7 +47,6 @@ Torus Knot Software Ltd.
 
 #include "MaterialPropertyGridPage.h"
 #include "PassPropertyGridPage.h"
-#include "MaterialScriptFile.h"
 #include "PassPropertyGridPage.h"
 #include "TechniquePropertyGridPage.h"
 #include "Workspace.h"

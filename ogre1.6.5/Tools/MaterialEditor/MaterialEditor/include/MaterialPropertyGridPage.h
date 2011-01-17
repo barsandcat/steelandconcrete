@@ -43,7 +43,6 @@ protected:
 
 	Ogre::MaterialPtr mController;
 
-	wxPGId mPropertyNameId;
 	wxPGId mPropertyReceiveShadowsId;
 	wxPGId mPropertyTransparencyCastsShadowsId;
 
