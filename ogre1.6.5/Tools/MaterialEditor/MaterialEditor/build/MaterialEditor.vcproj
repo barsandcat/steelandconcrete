@@ -247,10 +247,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\MaterialPage.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\MaterialPropertyGridPage.cpp"
 				>
 			</File>
@@ -259,27 +255,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\MaterialScriptFile.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\MaterialWizard.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\OMEFileSystemArchive.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\PassPage.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\PassPropertyGridPage.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\PassWizard.cpp"
 				>
 			</File>
 			<File
@@ -295,15 +275,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\TechniquePage.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\TechniquePropertyGridPage.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\TechniqueWizard.cpp"
 				>
 			</File>
 			<File
@@ -312,10 +284,6 @@
 			</File>
 			<File
 				RelativePath="..\src\Workspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\WorkspacePanel.cpp"
 				>
 			</File>
 		</Filter>
@@ -393,10 +361,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\MaterialPage.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\MaterialPropertyGridPage.h"
 				>
 			</File>
@@ -405,27 +369,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\MaterialScriptFile.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\MaterialWizard.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\OMEFileSystemArchive.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\PassPage.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\PassPropertyGridPage.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\PassWizard.h"
 				>
 			</File>
 			<File
@@ -445,15 +393,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\TechniquePage.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\TechniquePropertyGridPage.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\TechniqueWizard.h"
 				>
 			</File>
 			<File
@@ -462,10 +402,6 @@
 			</File>
 			<File
 				RelativePath="..\include\Workspace.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\WorkspacePanel.h"
 				>
 			</File>
 			<File
