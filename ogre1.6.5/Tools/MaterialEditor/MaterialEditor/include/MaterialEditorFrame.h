@@ -95,6 +95,7 @@ protected:
 
 	void OnResourceSelected(wxTreeEvent& event);
 	void OnFileSelected(wxTreeEvent& event);
+	void OnRenderTimer(wxTimerEvent& event);
 private:
     void FillResourceTree();
     const MaterialMap* GetMaterialMap(const wxTreeItemId& id);
@@ -120,6 +121,8 @@ private:
 	wxOgreControl* mOgreControl;
 
 	GroupMap mGroupMap;
+
+	wxTimer* mRenderTimer;
 
 	DECLARE_EVENT_TABLE();
 };

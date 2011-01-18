@@ -61,12 +61,6 @@ http://www.gnu.org/copyleft/lesser.txt
 #include <Workspace.h>
 #include <wx/ogre/ogre.h>
 
-using Ogre::Camera;
-using Ogre::ColourValue;
-using Ogre::RenderSystemList;
-using Ogre::Root;
-using Ogre::String;
-using Ogre::Vector3;
 
 const long ID_FILE_MENU_OPEN = wxNewId();
 const long ID_FILE_MENU_SAVE = wxNewId();
@@ -81,6 +75,7 @@ const long ID_EDIT_MENU_PASTE = wxNewId();
 
 const long ID_RESOURCE_TREE = wxNewId();
 const long ID_FILE_TREE = wxNewId();
+const long ID_RENDER_TIMER = wxNewId();
 
 // Image list
 const int WORKSPACE_IMAGE = 0;
@@ -126,6 +121,8 @@ BEGIN_EVENT_TABLE(MaterialEditorFrame, wxFrame)
     // Resource tree
     EVT_TREE_SEL_CHANGED(ID_FILE_TREE, MaterialEditorFrame::OnFileSelected)
     EVT_TREE_SEL_CHANGED(ID_RESOURCE_TREE, MaterialEditorFrame::OnResourceSelected)
+
+    EVT_TIMER(ID_RENDER_TIMER, MaterialEditorFrame::OnRenderTimer)
 END_EVENT_TABLE()
 
 MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
@@ -161,6 +158,9 @@ MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
     createPropertiesPane();
 
     mAuiManager->Update();
+
+    mRenderTimer = new wxTimer(this, ID_RENDER_TIMER);
+    mRenderTimer->Start(33);
 }
 
 MaterialEditorFrame::~MaterialEditorFrame()
@@ -172,6 +172,14 @@ MaterialEditorFrame::~MaterialEditorFrame()
         mAuiManager->UnInit();
         delete mAuiManager;
     }
+
+    mRenderTimer->Stop();
+    delete mRenderTimer;
+}
+
+void MaterialEditorFrame::OnRenderTimer(wxTimerEvent& event)
+{
+    mOgreControl->Update();
 }
 
 void MaterialEditorFrame::createAuiManager()
@@ -240,7 +248,6 @@ void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
 
     Ogre::Entity* ent = m_sm->getEntity("Display");
     ent->setMaterial(mat);
-    mOgreControl->Refresh();
 
     Ogre::Technique* tec = NULL;
     Ogre::Pass* pass = NULL;
@@ -435,8 +442,6 @@ void MaterialEditorFrame::CreateScene()
 
     no->setPosition(0, 0, -200);
     no->attachObject(ent);
-
-    mOgreControl->Refresh();
 
     struct stat stFileInfo;
     const char* resources = "resources.cfg";

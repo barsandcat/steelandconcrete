@@ -72,9 +72,6 @@ PropertiesPanel::PropertiesPanel(wxWindow* parent,
     SetSizer(mGridSizer);
     Layout();
 
-    //WorkspacePanel::mMaterialSelectedSignal.connect(boost::bind(&PropertiesPanel::MaterialSelected, this, _1));
-    //WorkspacePanel::mTechniqueSelectedSignal.connect(boost::bind(&PropertiesPanel::TechniqueSelected, this, _1));
-    //WorkspacePanel::mPassSelectedSignal.connect(boost::bind(&PropertiesPanel::PassSelected, this, _1));
 }
 
 PropertiesPanel::~PropertiesPanel()
