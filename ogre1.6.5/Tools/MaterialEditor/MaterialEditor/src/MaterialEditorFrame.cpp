@@ -318,7 +318,7 @@ void MaterialEditorFrame::OnFileSelected(wxTreeEvent& event)
                     while (texIt.hasMoreElements())
                     {
                         Ogre::TextureUnitState* tu = texIt.getNext();
-                        const wxTreeItemId texId = mScriptTree->AppendItem(passId, wxString(tu->getName().c_str(), wxConvUTF8), TEXTURE_IMAGE);
+                        const wxTreeItemId texId = mScriptTree->AppendItem(passId, wxString(tu->getName().c_str(), wxConvUTF8), TEXTURE_UNIT_IMAGE);
                     }
                 }
             }
