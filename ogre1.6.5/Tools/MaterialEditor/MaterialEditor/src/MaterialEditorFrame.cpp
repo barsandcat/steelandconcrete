@@ -206,18 +206,50 @@ void MaterialEditorFrame::createAuiNotebookPane()
 
 void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
 {
-    if (mScriptTree->GetItemImage(event.GetItem()) == MATERIAL_IMAGE)
-    {
-        if (const MaterialMap* materials = GetMaterialMap(mFileTree->GetSelection()))
-        {
-            MaterialMap::const_iterator it = materials->find(Ogre::String(mScriptTree->GetItemText(event.GetItem()).mb_str()));
-            Ogre::MaterialPtr material = it->second;
-            Ogre::Entity* ent = m_sm->getEntity("Display");
-            ent->setMaterial(material);
-            mOgreControl->Refresh();
-            mPropertiesPanel->MaterialSelected(material);
-        }
-    }
+	if (mScriptTree->GetRootItem() == event.GetItem())
+		return;
+
+	const MaterialMap* materials = GetMaterialMap(mFileTree->GetSelection());
+	if (!materials)
+		return;
+
+	Ogre::String tuName;
+	Ogre::String passName;
+	Ogre::String tecName;
+	Ogre::String matName;
+	wxTreeItemId curr = event.GetItem();
+
+	switch (mScriptTree->GetItemImage(event.GetItem()))
+	{
+	case TEXTURE_UNIT_IMAGE:
+		{
+			tuName = Ogre::String(mScriptTree->GetItemText(curr).mb_str());
+			curr = mScriptTree->GetItemParent(curr);
+		}
+	case PASS_IMAGE:
+		{
+			passName = Ogre::String(mScriptTree->GetItemText(curr).mb_str());
+			curr = mScriptTree->GetItemParent(curr);
+			//mPropertiesPanel->PassSelected(pass)
+		}
+	case TECHNIQUE_IMAGE:
+		{
+			tecName = Ogre::String(mScriptTree->GetItemText(curr).mb_str());
+			curr = mScriptTree->GetItemParent(curr);
+			//mPropertiesPanel->TechniqueSelected(tec);
+		}
+	case MATERIAL_IMAGE:
+		{
+			matName = Ogre::String(mScriptTree->GetItemText(curr).mb_str());
+			MaterialMap::const_iterator it = materials->find(matName);
+
+			Ogre::Entity* ent = m_sm->getEntity("Display");
+			ent->setMaterial(it->second);
+			mOgreControl->Refresh();
+
+			mPropertiesPanel->MaterialSelected(it->second);				
+		}
+	}
 }
 
 const MaterialMap* MaterialEditorFrame::GetMaterialMap(const wxTreeItemId& id)
