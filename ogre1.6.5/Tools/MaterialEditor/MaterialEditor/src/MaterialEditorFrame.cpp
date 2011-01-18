@@ -255,10 +255,10 @@ void MaterialEditorFrame::OnFileSelected(wxTreeEvent& event)
                 mScriptTree->SelectItem(materialId, true);
             }
 
-            Ogre::Material::TechniqueIterator it = material->getTechniqueIterator();
-            while (it.hasMoreElements())
+            Ogre::Material::TechniqueIterator matIt = material->getTechniqueIterator();
+            while (matIt.hasMoreElements())
             {
-                Ogre::Technique* techique = it.getNext();
+                Ogre::Technique* techique = matIt.getNext();
                 const wxTreeItemId techiqueId = mScriptTree->AppendItem(materialId, wxString(techique->getName().c_str(), wxConvUTF8), TECHNIQUE_IMAGE);
                 Ogre::Technique::PassIterator passIt = techique->getPassIterator();
                 while (passIt.hasMoreElements())
