@@ -206,50 +206,67 @@ void MaterialEditorFrame::createAuiNotebookPane()
 
 void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
 {
-	if (mScriptTree->GetRootItem() == event.GetItem())
-		return;
+    if (mScriptTree->GetRootItem() == event.GetItem())
+        return;
 
-	const MaterialMap* materials = GetMaterialMap(mFileTree->GetSelection());
-	if (!materials)
-		return;
+    const MaterialMap* materials = GetMaterialMap(mFileTree->GetSelection());
+    if (!materials)
+        return;
 
-	Ogre::String tuName;
-	Ogre::String passName;
-	Ogre::String tecName;
-	Ogre::String matName;
-	wxTreeItemId curr = event.GetItem();
+    Ogre::String tuName;
+    Ogre::String passName;
+    Ogre::String tecName;
+    Ogre::String matName;
+    wxTreeItemId curr = event.GetItem();
+    const int image = mScriptTree->GetItemImage(curr);
+    switch (image)
+    {
+    case TEXTURE_UNIT_IMAGE:
+        tuName = Ogre::String(mScriptTree->GetItemText(curr).mb_str());
+        curr = mScriptTree->GetItemParent(curr);
+    case PASS_IMAGE:
+        passName = Ogre::String(mScriptTree->GetItemText(curr).mb_str());
+        curr = mScriptTree->GetItemParent(curr);
+    case TECHNIQUE_IMAGE:
+        tecName = Ogre::String(mScriptTree->GetItemText(curr).mb_str());
+        curr = mScriptTree->GetItemParent(curr);
+    case MATERIAL_IMAGE:
+        matName = Ogre::String(mScriptTree->GetItemText(curr).mb_str());
+    }
 
-	switch (mScriptTree->GetItemImage(event.GetItem()))
-	{
-	case TEXTURE_UNIT_IMAGE:
-		{
-			tuName = Ogre::String(mScriptTree->GetItemText(curr).mb_str());
-			curr = mScriptTree->GetItemParent(curr);
-		}
-	case PASS_IMAGE:
-		{
-			passName = Ogre::String(mScriptTree->GetItemText(curr).mb_str());
-			curr = mScriptTree->GetItemParent(curr);
-			//mPropertiesPanel->PassSelected(pass)
-		}
-	case TECHNIQUE_IMAGE:
-		{
-			tecName = Ogre::String(mScriptTree->GetItemText(curr).mb_str());
-			curr = mScriptTree->GetItemParent(curr);
-			//mPropertiesPanel->TechniqueSelected(tec);
-		}
-	case MATERIAL_IMAGE:
-		{
-			matName = Ogre::String(mScriptTree->GetItemText(curr).mb_str());
-			MaterialMap::const_iterator it = materials->find(matName);
+    matName = Ogre::String(mScriptTree->GetItemText(curr).mb_str());
+    MaterialMap::const_iterator it = materials->find(matName);
+    Ogre::MaterialPtr mat = it->second;
 
-			Ogre::Entity* ent = m_sm->getEntity("Display");
-			ent->setMaterial(it->second);
-			mOgreControl->Refresh();
+    Ogre::Entity* ent = m_sm->getEntity("Display");
+    ent->setMaterial(mat);
+    mOgreControl->Refresh();
 
-			mPropertiesPanel->MaterialSelected(it->second);				
-		}
-	}
+    Ogre::Technique* tec = NULL;
+    Ogre::Pass* pass = NULL;
+    Ogre::TextureUnitState* tu = NULL;
+
+    switch (image)
+    {
+    case MATERIAL_IMAGE:
+        mPropertiesPanel->MaterialSelected(mat);
+        break;
+    case TECHNIQUE_IMAGE:
+        tec = mat->getTechnique(tecName);
+        mPropertiesPanel->TechniqueSelected(tec);
+        break;
+    case PASS_IMAGE:
+        tec = mat->getTechnique(tecName);
+        pass = tec->getPass(passName);
+        mPropertiesPanel->PassSelected(pass);
+        break;
+    case TEXTURE_UNIT_IMAGE:
+        tec = mat->getTechnique(tecName);
+        pass = tec->getPass(passName);
+        tu = pass->getTextureUnitState(tuName);
+        //mPropertiesPanel->TextureUnitStateSelected(tu);
+        break;
+    }
 }
 
 const MaterialMap* MaterialEditorFrame::GetMaterialMap(const wxTreeItemId& id)
@@ -359,9 +376,6 @@ void MaterialEditorFrame::createManagementPane()
 
         mFileTree = new wxTreeCtrl(this, ID_FILE_TREE, wxDefaultPosition, wxDefaultSize,
                                    wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT | wxTR_HAS_BUTTONS | wxTR_SINGLE);
-
-
-
 
         mFileTree->AssignImageList(CreateImageList());
 
