@@ -96,6 +96,9 @@ protected:
 	void OnResourceSelected(wxTreeEvent& event);
 	void OnFileSelected(wxTreeEvent& event);
 	void OnRenderTimer(wxTimerEvent& event);
+	void OnKeyUp(wxKeyEvent& event);
+	void OnKeyDown(wxKeyEvent& event);
+
 private:
     void FillResourceTree();
     const MaterialMap* GetMaterialMap(const wxTreeItemId& id);

@@ -123,6 +123,9 @@ BEGIN_EVENT_TABLE(MaterialEditorFrame, wxFrame)
     EVT_TREE_SEL_CHANGED(ID_RESOURCE_TREE, MaterialEditorFrame::OnResourceSelected)
 
     EVT_TIMER(ID_RENDER_TIMER, MaterialEditorFrame::OnRenderTimer)
+		//
+		EVT_KEY_DOWN(MaterialEditorFrame::OnKeyUp)
+		EVT_KEY_UP(MaterialEditorFrame::OnKeyDown)
 END_EVENT_TABLE()
 
 MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
@@ -182,6 +185,18 @@ void MaterialEditorFrame::OnRenderTimer(wxTimerEvent& event)
     mOgreControl->Update();
 }
 
+void MaterialEditorFrame::OnKeyUp(wxKeyEvent& event)
+{
+	Ogre::LogManager::getSingleton().getDefaultLog()->stream() << char(event.GetKeyCode());
+	event.Skip();
+}
+
+void MaterialEditorFrame::OnKeyDown(wxKeyEvent& event)
+{
+	Ogre::LogManager::getSingleton().getDefaultLog()->stream() << event.GetKeyCode();
+	event.Skip();
+}
+
 void MaterialEditorFrame::createAuiManager()
 {
     mAuiManager = new wxAuiManager();
@@ -208,8 +223,13 @@ void MaterialEditorFrame::createAuiNotebookPane()
 
     // Create EditorManager singleton
     new EditorManager(mAuiNotebook);
+		wxAuiPaneInfo info;
+		info.Caption(wxT("Scripts"));
+		info.MaximizeButton(true);
+		info.Bottom();
+		info.CloseButton(false);
 
-    mAuiManager->AddPane(mAuiNotebook, wxLEFT);
+    mAuiManager->AddPane(mAuiNotebook, info);
 }
 
 void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
@@ -372,6 +392,7 @@ void MaterialEditorFrame::createManagementPane()
         wxAuiPaneInfo info;
         info.Caption(wxT("Script browser"));
         info.MaximizeButton(true);
+				info.CloseButton(false);
         info.BestSize(256, 512);
         info.Left();
         info.Layer(1);
@@ -389,6 +410,7 @@ void MaterialEditorFrame::createManagementPane()
         wxAuiPaneInfo info;
         info.Caption(wxT("Resource browser"));
         info.MaximizeButton(true);
+				info.CloseButton(false);
         info.BestSize(256, 512);
         info.Left();
         info.Layer(1);
@@ -413,6 +435,7 @@ void MaterialEditorFrame::createInformationPane()
     wxAuiPaneInfo info;
     info.Caption(wxT("Information"));
     info.MaximizeButton(true);
+		info.CloseButton(false);
     info.BestSize(256, 128);
     info.Bottom();
 
@@ -426,6 +449,7 @@ void MaterialEditorFrame::createPropertiesPane()
     wxAuiPaneInfo info;
     info.Caption(wxT("Properties"));
     info.MaximizeButton(true);
+		info.CloseButton(false);
     info.BestSize(256, 512);
     info.Right();
     info.Layer(1);
@@ -456,8 +480,14 @@ void MaterialEditorFrame::createOgrePane()
 {
 
     mOgreControl = new wxOgreControl(this, wxID_ANY, wxDefaultPosition, this->GetClientSize());
+		
+		wxAuiPaneInfo info;
+		info.Caption(wxT("Render"));
+		info.MaximizeButton(true);
+		info.Center();		
+		info.CloseButton(false);
 
-    mAuiManager->AddPane(mOgreControl, wxCENTER);
+    mAuiManager->AddPane(mOgreControl, info);
 }
 
 void MaterialEditorFrame::createMenuBar()
