@@ -38,7 +38,10 @@ public:
 private:
 	virtual bool OnInit();
 	virtual int OnExit();
+	void OnKeyUp(wxKeyEvent& event);
+
 	OMEFileSystemArchiveFactory mFileArchiveFactory;
+	DECLARE_EVENT_TABLE();
 };
 
 DECLARE_APP(MaterialEditorApp)

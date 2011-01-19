@@ -123,9 +123,6 @@ BEGIN_EVENT_TABLE(MaterialEditorFrame, wxFrame)
     EVT_TREE_SEL_CHANGED(ID_RESOURCE_TREE, MaterialEditorFrame::OnResourceSelected)
 
     EVT_TIMER(ID_RENDER_TIMER, MaterialEditorFrame::OnRenderTimer)
-		//
-		EVT_KEY_DOWN(MaterialEditorFrame::OnKeyUp)
-		EVT_KEY_UP(MaterialEditorFrame::OnKeyDown)
 END_EVENT_TABLE()
 
 MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
@@ -135,7 +132,6 @@ MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
     mEditMenu(0),
     mWindowMenu(0),
     mHelpMenu(0),
-    mAuiManager(0),
     mAuiNotebook(0),
     mInformationNotebook(0),
     mFileTree(0),
@@ -160,7 +156,7 @@ MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
     createManagementPane();
     createPropertiesPane();
 
-    mAuiManager->Update();
+    mAuiManager.Update();
 
     mRenderTimer = new wxTimer(this, ID_RENDER_TIMER);
     mRenderTimer->Start(33);
@@ -170,11 +166,7 @@ MaterialEditorFrame::~MaterialEditorFrame()
 {
     mLogPanel->detachLog(Ogre::LogManager::getSingleton().getDefaultLog());
 
-    if(mAuiManager)
-    {
-        mAuiManager->UnInit();
-        delete mAuiManager;
-    }
+    mAuiManager.UnInit();
 
     mRenderTimer->Stop();
     delete mRenderTimer;
@@ -185,25 +177,12 @@ void MaterialEditorFrame::OnRenderTimer(wxTimerEvent& event)
     mOgreControl->Update();
 }
 
-void MaterialEditorFrame::OnKeyUp(wxKeyEvent& event)
-{
-	Ogre::LogManager::getSingleton().getDefaultLog()->stream() << char(event.GetKeyCode());
-	event.Skip();
-}
-
-void MaterialEditorFrame::OnKeyDown(wxKeyEvent& event)
-{
-	Ogre::LogManager::getSingleton().getDefaultLog()->stream() << event.GetKeyCode();
-	event.Skip();
-}
-
 void MaterialEditorFrame::createAuiManager()
 {
-    mAuiManager = new wxAuiManager();
-    mAuiManager->SetFlags(wxAUI_MGR_DEFAULT | wxAUI_MGR_ALLOW_ACTIVE_PANE | wxAUI_MGR_TRANSPARENT_DRAG);
-    mAuiManager->SetManagedWindow(this);
+    mAuiManager.SetFlags(wxAUI_MGR_DEFAULT | wxAUI_MGR_ALLOW_ACTIVE_PANE | wxAUI_MGR_TRANSPARENT_DRAG);
+    mAuiManager.SetManagedWindow(this);
 
-    wxAuiDockArt* art = mAuiManager->GetArtProvider();
+    wxAuiDockArt* art = mAuiManager.GetArtProvider();
     art->SetMetric(wxAUI_DOCKART_PANE_BORDER_SIZE, 1);
     art->SetMetric(wxAUI_DOCKART_SASH_SIZE, 4);
     art->SetMetric(wxAUI_DOCKART_CAPTION_SIZE, 17);
@@ -214,7 +193,7 @@ void MaterialEditorFrame::createAuiManager()
     art->SetColour(wxAUI_DOCKART_INACTIVE_CAPTION_GRADIENT_COLOUR, wxColour(228, 226, 209));
     art->SetColour(wxAUI_DOCKART_INACTIVE_CAPTION_TEXT_COLOUR, wxColour(0, 0, 0));
 
-    mAuiManager->Update();
+    mAuiManager.Update();
 }
 
 void MaterialEditorFrame::createAuiNotebookPane()
@@ -229,7 +208,7 @@ void MaterialEditorFrame::createAuiNotebookPane()
 		info.Bottom();
 		info.CloseButton(false);
 
-    mAuiManager->AddPane(mAuiNotebook, info);
+    mAuiManager.AddPane(mAuiNotebook, info);
 }
 
 void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
@@ -397,7 +376,7 @@ void MaterialEditorFrame::createManagementPane()
         info.Left();
         info.Layer(1);
 
-        mAuiManager->AddPane(mScriptTree, info);
+        mAuiManager.AddPane(mScriptTree, info);
     }
 
     {
@@ -415,7 +394,7 @@ void MaterialEditorFrame::createManagementPane()
         info.Left();
         info.Layer(1);
 
-        mAuiManager->AddPane(mFileTree, info);
+        mAuiManager.AddPane(mFileTree, info);
     }
 
 
@@ -439,7 +418,7 @@ void MaterialEditorFrame::createInformationPane()
     info.BestSize(256, 128);
     info.Bottom();
 
-    mAuiManager->AddPane(mInformationNotebook, info);
+    mAuiManager.AddPane(mInformationNotebook, info);
 }
 
 void MaterialEditorFrame::createPropertiesPane()
@@ -454,7 +433,7 @@ void MaterialEditorFrame::createPropertiesPane()
     info.Right();
     info.Layer(1);
 
-    mAuiManager->AddPane(mPropertiesPanel, info);
+    mAuiManager.AddPane(mPropertiesPanel, info);
 }
 
 void MaterialEditorFrame::CreateScene()
@@ -478,16 +457,15 @@ void MaterialEditorFrame::CreateScene()
 
 void MaterialEditorFrame::createOgrePane()
 {
-
     mOgreControl = new wxOgreControl(this, wxID_ANY, wxDefaultPosition, this->GetClientSize());
-		
+				
 		wxAuiPaneInfo info;
 		info.Caption(wxT("Render"));
 		info.MaximizeButton(true);
 		info.Center();		
 		info.CloseButton(false);
 
-    mAuiManager->AddPane(mOgreControl, info);
+    mAuiManager.AddPane(mOgreControl, info);
 }
 
 void MaterialEditorFrame::createMenuBar()
