@@ -33,8 +33,9 @@ http://www.gnu.org/copyleft/lesser.txt
 #include "OgreRenderSystem.h"
 #include "OgreRoot.h"
 
+#include <wx/aui/framemanager.h>
 
-class wxAuiManager;
+
 class wxAuiNotebook;
 class wxNotebook;
 class wxPropertyGridManager;
@@ -96,9 +97,6 @@ protected:
 	void OnResourceSelected(wxTreeEvent& event);
 	void OnFileSelected(wxTreeEvent& event);
 	void OnRenderTimer(wxTimerEvent& event);
-	void OnKeyUp(wxKeyEvent& event);
-	void OnKeyDown(wxKeyEvent& event);
-
 private:
     void FillResourceTree();
     const MaterialMap* GetMaterialMap(const wxTreeItemId& id);
@@ -108,7 +106,7 @@ private:
 	wxMenu* mWindowMenu;
 	wxMenu* mHelpMenu;
 
-	wxAuiManager* mAuiManager;
+	wxAuiManager mAuiManager;
 
 	wxAuiNotebook* mAuiNotebook;
 	wxAuiNotebook* mInformationNotebook;

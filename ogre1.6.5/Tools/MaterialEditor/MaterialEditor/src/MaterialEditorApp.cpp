@@ -39,8 +39,18 @@ http://www.gnu.org/copyleft/lesser.txt
 
 IMPLEMENT_APP(MaterialEditorApp)
 
+BEGIN_EVENT_TABLE(MaterialEditorApp, wxOgreApp)
+EVT_KEY_DOWN(MaterialEditorApp::OnKeyUp)
+END_EVENT_TABLE()
+
 MaterialEditorApp::~MaterialEditorApp()
 {
+}
+
+void MaterialEditorApp::OnKeyUp(wxKeyEvent& event)
+{
+	Ogre::LogManager::getSingleton().getDefaultLog()->stream() << char(event.GetKeyCode());
+	event.Skip();
 }
 
 bool MaterialEditorApp::OnInit()
