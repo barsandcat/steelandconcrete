@@ -64,6 +64,7 @@ public:
 	MaterialEditorFrame(wxWindow* parent = NULL);
 	~MaterialEditorFrame();
     void CreateScene();
+		void OnKey(wxKeyEvent& event);		
 protected:
 	void createAuiManager(void);
 	void createAuiNotebookPane(void);
@@ -124,6 +125,11 @@ private:
 	GroupMap mGroupMap;
 
 	wxTimer* mRenderTimer;
+
+	Ogre::Real mForward;
+	Ogre::Real mBackward;
+	Ogre::Real mLeft;
+	Ogre::Real mRight;
 
 	DECLARE_EVENT_TABLE();
 };
