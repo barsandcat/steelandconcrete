@@ -138,7 +138,11 @@ MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
     mPropertiesPanel(0),
     mLogPanel(0),
     mDocPanel(0),
-    mOgreControl(0)
+    mOgreControl(0),
+		mForward(0),
+		mBackward(0),
+		mRight(0),
+		mLeft(0)
 {
     createAuiManager();
     createMenuBar();
@@ -159,7 +163,7 @@ MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
     mAuiManager.Update();
 
     mRenderTimer = new wxTimer(this, ID_RENDER_TIMER);
-    mRenderTimer->Start(33);
+    mRenderTimer->Start(20);
 }
 
 MaterialEditorFrame::~MaterialEditorFrame()
@@ -174,7 +178,9 @@ MaterialEditorFrame::~MaterialEditorFrame()
 
 void MaterialEditorFrame::OnRenderTimer(wxTimerEvent& event)
 {
-    mOgreControl->Update();
+    mOgreControl->TranslateCamera(mRight - mLeft, 0, mBackward - mForward);
+		//mOgreControl->TranslateCamera(1, 0, 0);
+    mOgreControl->Update();		
 }
 
 void MaterialEditorFrame::createAuiManager()
@@ -661,4 +667,25 @@ void MaterialEditorFrame::OnEditPaste(wxCommandEvent& event)
 {
     EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
     if(editor != NULL) editor->paste();
+}
+
+void MaterialEditorFrame::OnKey( wxKeyEvent& event )
+{
+	Ogre::Real dir = event.GetEventType() == wxEVT_KEY_DOWN ? 100 : 0;
+	switch (event.GetKeyCode())
+	{
+	case 'W':
+		mForward = dir;
+		break;
+	case 'S':
+		mBackward = dir;
+		break;
+	case 'A':
+		mLeft = dir;
+		break;
+	case 'D':
+		mRight = dir;
+		break;
+	}
+	event.Skip();
 }

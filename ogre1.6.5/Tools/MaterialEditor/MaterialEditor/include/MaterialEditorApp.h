@@ -29,6 +29,7 @@ http://www.gnu.org/copyleft/lesser.txt
 #include <wx/ogre/ogre.h>
 
 #include <OMEFileSystemArchive.h>
+class MaterialEditorFrame;
 
 class MaterialEditorApp : public wxOgreApp
 {
@@ -38,10 +39,12 @@ public:
 private:
 	virtual bool OnInit();
 	virtual int OnExit();
-	void OnKeyUp(wxKeyEvent& event);
+	void OnKey(wxKeyEvent& event);
+
+	MaterialEditorFrame* mFrame;
 
 	OMEFileSystemArchiveFactory mFileArchiveFactory;
-	DECLARE_EVENT_TABLE();
+	DECLARE_EVENT_TABLE();	
 };
 
 DECLARE_APP(MaterialEditorApp)

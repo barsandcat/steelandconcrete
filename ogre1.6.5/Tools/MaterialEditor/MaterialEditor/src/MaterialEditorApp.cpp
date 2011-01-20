@@ -40,17 +40,17 @@ http://www.gnu.org/copyleft/lesser.txt
 IMPLEMENT_APP(MaterialEditorApp)
 
 BEGIN_EVENT_TABLE(MaterialEditorApp, wxOgreApp)
-EVT_KEY_DOWN(MaterialEditorApp::OnKeyUp)
+EVT_KEY_UP(MaterialEditorApp::OnKey)
+EVT_KEY_DOWN(MaterialEditorApp::OnKey)
 END_EVENT_TABLE()
 
 MaterialEditorApp::~MaterialEditorApp()
 {
 }
 
-void MaterialEditorApp::OnKeyUp(wxKeyEvent& event)
+void MaterialEditorApp::OnKey(wxKeyEvent& event)
 {
-	Ogre::LogManager::getSingleton().getDefaultLog()->stream() << char(event.GetKeyCode());
-	event.Skip();
+	mFrame->OnKey(event);
 }
 
 bool MaterialEditorApp::OnInit()
@@ -71,14 +71,14 @@ bool MaterialEditorApp::OnInit()
 		// Create the IconManager
 		new IconManager();
 
-		MaterialEditorFrame* frame = new MaterialEditorFrame();
+		mFrame = new MaterialEditorFrame();
 
-		frame->SetIcon(wxIcon(ogre_xpm));
-		frame->Show(true);
+		mFrame->SetIcon(wxIcon(ogre_xpm));
+		mFrame->Show(true);
 
-		SetTopWindow(frame);
+		SetTopWindow(mFrame);
 
-		frame->CreateScene();
+		mFrame->CreateScene();
 
 		return true;
 	}
