@@ -140,10 +140,10 @@ MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
     mLogPanel(0),
     mDocPanel(0),
     mOgreControl(0),
-		mForward(0),
-		mBackward(0),
-		mRight(0),
-		mLeft(0)
+    mForward(0),
+    mBackward(0),
+    mRight(0),
+    mLeft(0)
 {
     createAuiManager();
     createMenuBar();
@@ -162,20 +162,20 @@ MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
     createPropertiesPane();
 
     mAuiManager.Update();
-		if (wxFileExists(wxT("aui.cfg")))
-		{
-			wxFileInputStream stream(wxT("aui.cfg"));
-			if (stream.Ok())
-			{
-				int cnt = stream.GetLength()/sizeof(wxChar);
-				wxChar * tmp = new wxChar[cnt+1];
-				stream.Read(tmp, stream.GetLength());
-				tmp[cnt] = wxChar(0);
-				wxString perspective(tmp);
-				delete [] tmp;
-				mAuiManager.LoadPerspective(perspective);
-			}
-		}
+    if (wxFileExists(wxT("aui.cfg")))
+    {
+        wxFileInputStream stream(wxT("aui.cfg"));
+        if (stream.Ok())
+        {
+            int cnt = stream.GetLength()/sizeof(wxChar);
+            wxChar * tmp = new wxChar[cnt+1];
+            stream.Read(tmp, stream.GetLength());
+            tmp[cnt] = wxChar(0);
+            wxString perspective(tmp);
+            delete [] tmp;
+            mAuiManager.LoadPerspective(perspective);
+        }
+    }
 
     mRenderTimer = new wxTimer(this, ID_RENDER_TIMER);
     mRenderTimer->Start(20);
@@ -194,7 +194,7 @@ MaterialEditorFrame::~MaterialEditorFrame()
 void MaterialEditorFrame::OnRenderTimer(wxTimerEvent& event)
 {
     mOgreControl->TranslateCamera(mRight - mLeft, 0, mBackward - mForward);
-		//mOgreControl->TranslateCamera(1, 0, 0);
+    //mOgreControl->TranslateCamera(1, 0, 0);
     mOgreControl->Update();
 }
 
@@ -223,11 +223,11 @@ void MaterialEditorFrame::createAuiNotebookPane()
 
     // Create EditorManager singleton
     new EditorManager(mAuiNotebook);
-		wxAuiPaneInfo info;
-		info.Caption(wxT("Scripts"));
-		info.MaximizeButton(true);
-		info.Bottom();
-		info.CloseButton(false);
+    wxAuiPaneInfo info;
+    info.Caption(wxT("Scripts"));
+    info.MaximizeButton(true);
+    info.Bottom();
+    info.CloseButton(false);
 
     mAuiManager.AddPane(mAuiNotebook, info);
 }
@@ -392,7 +392,7 @@ void MaterialEditorFrame::createManagementPane()
         wxAuiPaneInfo info;
         info.Caption(wxT("Script browser"));
         info.MaximizeButton(true);
-				info.CloseButton(false);
+        info.CloseButton(false);
         info.BestSize(256, 512);
         info.Left();
         info.Layer(1);
@@ -410,7 +410,7 @@ void MaterialEditorFrame::createManagementPane()
         wxAuiPaneInfo info;
         info.Caption(wxT("Resource browser"));
         info.MaximizeButton(true);
-				info.CloseButton(false);
+        info.CloseButton(false);
         info.BestSize(256, 512);
         info.Left();
         info.Layer(1);
@@ -435,7 +435,7 @@ void MaterialEditorFrame::createInformationPane()
     wxAuiPaneInfo info;
     info.Caption(wxT("Information"));
     info.MaximizeButton(true);
-		info.CloseButton(false);
+    info.CloseButton(false);
     info.BestSize(256, 128);
     info.Bottom();
 
@@ -449,7 +449,7 @@ void MaterialEditorFrame::createPropertiesPane()
     wxAuiPaneInfo info;
     info.Caption(wxT("Properties"));
     info.MaximizeButton(true);
-		info.CloseButton(false);
+    info.CloseButton(false);
     info.BestSize(256, 512);
     info.Right();
     info.Layer(1);
@@ -480,11 +480,11 @@ void MaterialEditorFrame::createOgrePane()
 {
     mOgreControl = new wxOgreControl(this, wxID_ANY, wxDefaultPosition, this->GetClientSize());
 
-		wxAuiPaneInfo info;
-		info.Caption(wxT("Render"));
-		info.MaximizeButton(true);
-		info.Center();
-		info.CloseButton(false);
+    wxAuiPaneInfo info;
+    info.Caption(wxT("Render"));
+    info.MaximizeButton(true);
+    info.Center();
+    info.CloseButton(false);
 
     mAuiManager.AddPane(mOgreControl, info);
 }
@@ -651,12 +651,13 @@ void MaterialEditorFrame::OnFileSaveAs(wxCommandEvent& event)
 
 void MaterialEditorFrame::OnFileExit(wxCommandEvent& event)
 {
-	wxString perspective = mAuiManager.SavePerspective();
-	wxFileOutputStream stream(wxT("aui.cfg"));
-	if(stream.Ok())
-	{
-		stream.Write(perspective.GetData(), perspective.Length()*sizeof(wxChar));
-	}
+    wxString perspective = mAuiManager.SavePerspective();
+    wxFileOutputStream stream(wxT("aui.cfg"));
+    if(stream.Ok())
+    {
+        stream.Write(perspective.GetData(), perspective.Length()*sizeof(wxChar));
+    }
+    stream.Close();
     Close();
 }
 
@@ -692,21 +693,21 @@ void MaterialEditorFrame::OnEditPaste(wxCommandEvent& event)
 
 void MaterialEditorFrame::OnKey( wxKeyEvent& event )
 {
-	Ogre::Real dir = event.GetEventType() == wxEVT_KEY_DOWN ? 100 : 0;
-	switch (event.GetKeyCode())
-	{
-	case 'W':
-		mForward = dir;
-		break;
-	case 'S':
-		mBackward = dir;
-		break;
-	case 'A':
-		mLeft = dir;
-		break;
-	case 'D':
-		mRight = dir;
-		break;
-	}
-	event.Skip();
+    Ogre::Real dir = event.GetEventType() == wxEVT_KEY_DOWN ? 100 : 0;
+    switch (event.GetKeyCode())
+    {
+    case 'W':
+        mForward = dir;
+        break;
+    case 'S':
+        mBackward = dir;
+        break;
+    case 'A':
+        mLeft = dir;
+        break;
+    case 'D':
+        mRight = dir;
+        break;
+    }
+    event.Skip();
 }
