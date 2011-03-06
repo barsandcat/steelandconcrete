@@ -37,6 +37,7 @@ http://www.gnu.org/copyleft/lesser.txt
 #include <wx/propgrid/advprops.h>
 #include <wx/imaglist.h>
 #include <wx/wfstream.h>
+#include <wx/sstream.h>
 
 #include "OgreCamera.h"
 #include "OgreColourValue.h"
@@ -653,9 +654,10 @@ void MaterialEditorFrame::OnFileExit(wxCommandEvent& event)
 {
     wxString perspective = mAuiManager.SavePerspective();
     wxFileOutputStream stream(wxT("aui.cfg"));
+    wxStringInputStream stringStream(perspective);
     if(stream.Ok())
     {
-        stream.Write(perspective.GetData(), perspective.Length()*sizeof(wxChar));
+        stream.Write(stringStream);
     }
     stream.Close();
     Close();
