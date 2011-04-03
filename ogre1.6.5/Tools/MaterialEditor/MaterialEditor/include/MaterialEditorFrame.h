@@ -43,8 +43,8 @@ class wxTreeCtrl;
 
 namespace
 {
-	class RenderSystem;
-	class Root;
+class RenderSystem;
+class Root;
 }
 
 class DocPanel;
@@ -61,77 +61,77 @@ typedef std::map<Ogre::String, ArchiveMap> GroupMap;
 class MaterialEditorFrame : public wxFrame
 {
 public:
-	MaterialEditorFrame(wxWindow* parent = NULL);
-	~MaterialEditorFrame();
+    MaterialEditorFrame(wxWindow* parent = NULL);
+    ~MaterialEditorFrame();
     void CreateScene();
-		void OnKey(wxKeyEvent& event);		
+    void OnKey(wxKeyEvent& event);
 protected:
-	void createAuiManager(void);
-	void createAuiNotebookPane(void);
-	void createManagementPane(void);
-	void createInformationPane(void);
-	void createPropertiesPane();
-	void createOgrePane(void);
+    void createAuiManager(void);
+    void createAuiNotebookPane(void);
+    void createManagementPane(void);
+    void createInformationPane(void);
+    void createPropertiesPane();
+    void createOgrePane(void);
 
-	void createMenuBar(void);
-	void createFileMenu(void);
-	void createEditMenu(void);
-	void createWindowMenu(void);
-	void createHelpMenu(void);
+    void createMenuBar(void);
+    void createFileMenu(void);
+    void createEditMenu(void);
+    void createWindowMenu(void);
+    void createHelpMenu(void);
 
-	void OnActivate(wxActivateEvent& event);
+    void OnActivate(wxActivateEvent& event);
 
-	void OnActiveEditorChanged(EventArgs& args);
+    void OnActiveEditorChanged(EventArgs& args);
 
-	void OnNewMaterial(wxCommandEvent& event);
-	void OnFileOpen(wxCommandEvent& event);
-	void OnFileSave(wxCommandEvent& event);
-	void OnFileSaveAs(wxCommandEvent& event);
-	void OnFileClose(wxCommandEvent& event);
-	void OnFileExit(wxCommandEvent& event);
-	void OnEditUndo(wxCommandEvent& event);
-	void OnEditRedo(wxCommandEvent& event);
-	void OnEditCut(wxCommandEvent& event);
-	void OnEditCopy(wxCommandEvent& event);
-	void OnEditPaste(wxCommandEvent& event);
+    void OnNewMaterial(wxCommandEvent& event);
+    void OnFileOpen(wxCommandEvent& event);
+    void OnFileSave(wxCommandEvent& event);
+    void OnFileSaveAs(wxCommandEvent& event);
+    void OnFileClose(wxCommandEvent& event);
+    void OnFileExit(wxCommandEvent& event);
+    void OnEditUndo(wxCommandEvent& event);
+    void OnEditRedo(wxCommandEvent& event);
+    void OnEditCut(wxCommandEvent& event);
+    void OnEditCopy(wxCommandEvent& event);
+    void OnEditPaste(wxCommandEvent& event);
 
-	void OnResourceSelected(wxTreeEvent& event);
-	void OnFileSelected(wxTreeEvent& event);
-	void OnRenderTimer(wxTimerEvent& event);
+    void OnResourceSelected(wxTreeEvent& event);
+    void OnFileSelected(wxTreeEvent& event);
+    void OnRenderTimer(wxTimerEvent& event);
 private:
     void FillResourceTree();
     const MaterialMap* GetMaterialMap(const wxTreeItemId& id);
-	wxMenuBar* mMenuBar;
-	wxMenu* mFileMenu;
-	wxMenu* mEditMenu;
-	wxMenu* mWindowMenu;
-	wxMenu* mHelpMenu;
+    wxMenuBar* mMenuBar;
+    wxMenu* mFileMenu;
+    wxMenu* mEditMenu;
+    wxMenu* mWindowMenu;
+    wxMenu* mHelpMenu;
 
-	wxAuiManager mAuiManager;
+    wxAuiManager mAuiManager;
 
-	wxAuiNotebook* mAuiNotebook;
-	wxAuiNotebook* mInformationNotebook;
+    wxAuiNotebook* mAuiNotebook;
+    wxAuiNotebook* mInformationNotebook;
 
-	wxTreeCtrl* mFileTree;
-	wxTreeCtrl* mScriptTree;
-	PropertiesPanel* mPropertiesPanel;
+    wxTreeCtrl* mFileTree;
+    wxTreeCtrl* mScriptTree;
+    PropertiesPanel* mPropertiesPanel;
 
-	Ogre::SceneManager* m_sm;
+    Ogre::SceneManager* m_sm;
 
-	LogPanel* mLogPanel;
-	DocPanel* mDocPanel;
-	wxOgreControl* mOgreControl;
+    LogPanel* mLogPanel;
+    DocPanel* mDocPanel;
+    wxOgreControl* mOgreControl;
 
-	GroupMap mGroupMap;
+    GroupMap mGroupMap;
 
-	wxTimer* mRenderTimer;
+    wxTimer* mRenderTimer;
 
-	Ogre::Real mForward;
-	Ogre::Real mBackward;
-	Ogre::Real mLeft;
-	Ogre::Real mRight;
+    Ogre::Real mForward;
+    Ogre::Real mBackward;
+    Ogre::Real mLeft;
+    Ogre::Real mRight;
 
-	DECLARE_EVENT_TABLE();
+    DECLARE_EVENT_TABLE();
 };
 
 #endif // _MATERIALEDITORFRAME_H_

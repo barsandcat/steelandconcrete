@@ -90,7 +90,7 @@ const int ZIP_IMAGE = 4;
 const int UNKNOWN_RESOURCE_IMAGE = 5;
 const int COMPOSITE_IMAGE = 6;
 const int MATERIAL_SCRIPT_IMAGE = 7;
-const int MESH_IMAGE = 8;
+const int MESH_FILE_IMAGE = 8;
 const int ASM_PROGRAMM_IMAGE = 9;
 const int HL_PROGRAMM_IMAGE = 10;
 const int TEXTURE_IMAGE = 11;
@@ -101,6 +101,7 @@ const int MATERIAL_IMAGE = 14;
 const int TECHNIQUE_IMAGE = 15;
 const int PASS_IMAGE = 16;
 const int TEXTURE_UNIT_IMAGE = 17;
+const int MESH_IMAGE = 18;
 
 
 Ogre::Log::Stream GetLog()
@@ -163,20 +164,21 @@ MaterialEditorFrame::MaterialEditorFrame(wxWindow* parent) :
     createPropertiesPane();
 
     mAuiManager.Update();
-    if (wxFileExists(wxT("aui.cfg")))
-    {
-        wxFileInputStream stream(wxT("aui.cfg"));
-        if (stream.Ok())
-        {
-            int cnt = stream.GetLength()/sizeof(wxChar);
-            wxChar * tmp = new wxChar[cnt+1];
-            stream.Read(tmp, stream.GetLength());
-            tmp[cnt] = wxChar(0);
-            wxString perspective(tmp);
-            delete [] tmp;
-            mAuiManager.LoadPerspective(perspective);
-        }
-    }
+    /*     if (wxFileExists(wxT("aui.cfg")))
+     *     {
+     *         wxFileInputStream stream(wxT("aui.cfg"));
+     *         if (stream.Ok())
+     *         {
+     *             int cnt = stream.GetLength()/sizeof(wxChar);
+     *             wxChar * tmp = new wxChar[cnt+1];
+     *             stream.Read(tmp, stream.GetLength());
+     *             tmp[cnt] = wxChar(0);
+     *             wxString perspective(tmp);
+     *             delete [] tmp;
+     *             mAuiManager.LoadPerspective(perspective);
+     *         }
+     *     }
+     */
 
     mRenderTimer = new wxTimer(this, ID_RENDER_TIMER);
     mRenderTimer->Start(20);
@@ -299,30 +301,29 @@ void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
 
 const MaterialMap* MaterialEditorFrame::GetMaterialMap(const wxTreeItemId& id)
 {
-    if (mFileTree->GetItemImage(id) == MATERIAL_SCRIPT_IMAGE)
-    {
-        Ogre::String file(mFileTree->GetItemText(id).mb_str());
+    Ogre::String file(mFileTree->GetItemText(id).mb_str());
 
-        const wxTreeItemId archiveId = mFileTree->GetItemParent(id);
-        Ogre::String archive(mFileTree->GetItemText(archiveId).mb_str());
+    const wxTreeItemId archiveId = mFileTree->GetItemParent(id);
+    Ogre::String archive(mFileTree->GetItemText(archiveId).mb_str());
 
-        const wxTreeItemId groupId = mFileTree->GetItemParent(archiveId);
-        Ogre::String group(mFileTree->GetItemText(groupId).mb_str());
+    const wxTreeItemId groupId = mFileTree->GetItemParent(archiveId);
+    Ogre::String group(mFileTree->GetItemText(groupId).mb_str());
 
-        return &mGroupMap[group][archive][file];
-    }
-    else
-        return NULL;
+    return &mGroupMap[group][archive][file];
 }
 
 
 void MaterialEditorFrame::OnFileSelected(wxTreeEvent& event)
 {
     mScriptTree->DeleteAllItems();
+    wxString selectedNodeName = mFileTree->GetItemText(event.GetItem());
+    wxTreeItemId root = mScriptTree->AddRoot(selectedNodeName);
 
-    if (const MaterialMap* materials = GetMaterialMap(event.GetItem()))
+    switch (mFileTree->GetItemImage(event.GetItem()))
     {
-        wxTreeItemId root = mScriptTree->AddRoot(mFileTree->GetItemText(event.GetItem()));
+    case MATERIAL_SCRIPT_IMAGE:
+    {
+        const MaterialMap* materials = GetMaterialMap(event.GetItem());
         for (MaterialMap::const_iterator it = materials->begin(); it != materials->end(); ++it)
         {
             Ogre::MaterialPtr material = it->second;
@@ -351,6 +352,15 @@ void MaterialEditorFrame::OnFileSelected(wxTreeEvent& event)
                 }
             }
         }
+        break;
+    }
+    case MESH_FILE_IMAGE:
+    {
+        Ogre::String meshName(selectedNodeName.mb_str());
+        Ogre::MeshPtr mesh = Ogre::MeshManager::getSingleton().getByName(meshName);
+        mScriptTree->AppendItem(root, selectedNodeName, MESH_IMAGE);
+        break;
+    }
     }
 }
 
@@ -379,6 +389,7 @@ wxImageList* CreateImageList()
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TECHNIQUE));
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PASS));
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TEXTURE));
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MESH));
     return mImageList;
 }
 
@@ -589,7 +600,7 @@ void MaterialEditorFrame::FillResourceTree()
             fileList = archive->find("*.mesh");
             for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
             {
-                mFileTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MESH_IMAGE);
+                mFileTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MESH_FILE_IMAGE);
             }
 
             // Programs
