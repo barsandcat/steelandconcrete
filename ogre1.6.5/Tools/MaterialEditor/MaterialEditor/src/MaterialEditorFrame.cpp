@@ -406,7 +406,8 @@ void MaterialEditorFrame::OnFileSelected(wxTreeEvent& event)
     }
     case MESH_FILE_IMAGE:
     {
-        mScriptTree->AppendItem(root, selectedNodeName, MESH_IMAGE);
+        const wxTreeItemId meshId = mScriptTree->AppendItem(root, selectedNodeName, MESH_IMAGE);
+        mScriptTree->SelectItem(meshId, true);
         break;
     }
     }
