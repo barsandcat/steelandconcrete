@@ -514,12 +514,12 @@ void MaterialEditorFrame::createPropertiesPane()
 
 void MaterialEditorFrame::CreateScene()
 {
-    m_sm = mOgreControl->CreateSceneManager(Ogre::ST_GENERIC);
+    m_sm = mOgreControl->CreateSceneManager();
 
     Ogre::Entity* ent = m_sm->createEntity(DISPLAY_NAME, Ogre::SceneManager::PT_CUBE);
     Ogre::SceneNode* no = m_sm->getRootSceneNode()->createChildSceneNode("DisplayNode");
 
-    no->setPosition(0, 0, -200);
+    no->setPosition(0, 0, 0);
     no->attachObject(ent);
 
     struct stat stFileInfo;
