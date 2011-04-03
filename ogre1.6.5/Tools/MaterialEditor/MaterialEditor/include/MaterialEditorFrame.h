@@ -51,7 +51,7 @@ class DocPanel;
 class EventArgs;
 class LogPanel;
 class PropertiesPanel;
-class wxOgreControl;
+class OgreControl;
 
 typedef std::map<Ogre::String, Ogre::MaterialPtr> MaterialMap;
 typedef std::map<Ogre::String, MaterialMap> ScriptMap;
@@ -64,7 +64,6 @@ public:
     MaterialEditorFrame(wxWindow* parent = NULL);
     ~MaterialEditorFrame();
     void CreateScene();
-    void OnKey(wxKeyEvent& event);
 protected:
     void createAuiManager(void);
     void createAuiNotebookPane(void);
@@ -127,16 +126,11 @@ private:
 
     LogPanel* mLogPanel;
     DocPanel* mDocPanel;
-    wxOgreControl* mOgreControl;
+    OgreControl* mOgreControl;
 
     GroupMap mGroupMap;
 
     wxTimer* mRenderTimer;
-
-    Ogre::Real mForward;
-    Ogre::Real mBackward;
-    Ogre::Real mLeft;
-    Ogre::Real mRight;
 
     DECLARE_EVENT_TABLE();
 };
