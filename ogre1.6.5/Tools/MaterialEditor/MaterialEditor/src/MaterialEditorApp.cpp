@@ -40,18 +40,12 @@ http://www.gnu.org/copyleft/lesser.txt
 IMPLEMENT_APP(MaterialEditorApp)
 
 BEGIN_EVENT_TABLE(MaterialEditorApp, wxOgreApp)
-EVT_KEY_UP(MaterialEditorApp::OnKey)
-EVT_KEY_DOWN(MaterialEditorApp::OnKey)
 END_EVENT_TABLE()
 
 MaterialEditorApp::~MaterialEditorApp()
 {
 }
 
-void MaterialEditorApp::OnKey(wxKeyEvent& event)
-{
-	mFrame->OnKey(event);
-}
 
 bool MaterialEditorApp::OnInit()
 {
