@@ -235,20 +235,13 @@ void MaterialEditorFrame::createAuiNotebookPane()
     mAuiManager.AddPane(mAuiNotebook, info);
 }
 
-void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
+void MaterialEditorFrame::GetTuPassTecMatNames(const wxTreeItemId selectedItemId,
+                                               Ogre::String &tuName,
+                                               Ogre::String &passName,
+                                               Ogre::String &tecName,
+                                               Ogre::String &matName) const
 {
-    if (mScriptTree->GetRootItem() == event.GetItem())
-        return;
-
-    const MaterialMap* materials = GetMaterialMap(mFileTree->GetSelection());
-    if (!materials)
-        return;
-
-    Ogre::String tuName;
-    Ogre::String passName;
-    Ogre::String tecName;
-    Ogre::String matName;
-    wxTreeItemId curr = event.GetItem();
+    wxTreeItemId curr = selectedItemId;
     const int image = mScriptTree->GetItemImage(curr);
     switch (image)
     {
@@ -266,6 +259,26 @@ void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
     }
 
     matName = Ogre::String(mScriptTree->GetItemText(curr).mb_str());
+}
+
+void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
+{
+    if (mScriptTree->GetRootItem() == event.GetItem())
+        return;
+
+    const int image = mScriptTree->GetItemImage(event.GetItem());
+
+    const MaterialMap* materials = GetMaterialMap(mFileTree->GetSelection());
+    if (!materials)
+        return;
+
+    Ogre::String tuName;
+    Ogre::String passName;
+    Ogre::String tecName;
+    Ogre::String matName;
+
+    GetTuPassTecMatNames(event.GetItem(), tuName, passName, tecName, matName);
+
     MaterialMap::const_iterator it = materials->find(matName);
     Ogre::MaterialPtr mat = it->second;
 
@@ -299,7 +312,7 @@ void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
     }
 }
 
-const MaterialMap* MaterialEditorFrame::GetMaterialMap(const wxTreeItemId& id)
+const MaterialMap* MaterialEditorFrame::GetMaterialMap(const wxTreeItemId& id) const
 {
     Ogre::String file(mFileTree->GetItemText(id).mb_str());
 
@@ -309,7 +322,7 @@ const MaterialMap* MaterialEditorFrame::GetMaterialMap(const wxTreeItemId& id)
     const wxTreeItemId groupId = mFileTree->GetItemParent(archiveId);
     Ogre::String group(mFileTree->GetItemText(groupId).mb_str());
 
-    return &mGroupMap[group][archive][file];
+    return &mGroupMap.at(group).at(archive).at(file);
 }
 
 
