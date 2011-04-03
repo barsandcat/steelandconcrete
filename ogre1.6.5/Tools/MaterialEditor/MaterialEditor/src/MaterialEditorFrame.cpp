@@ -236,10 +236,10 @@ void MaterialEditorFrame::createAuiNotebookPane()
 }
 
 void MaterialEditorFrame::GetTuPassTecMatNames(const wxTreeItemId selectedItemId,
-                                               Ogre::String &tuName,
-                                               Ogre::String &passName,
-                                               Ogre::String &tecName,
-                                               Ogre::String &matName) const
+        Ogre::String &tuName,
+        Ogre::String &passName,
+        Ogre::String &tecName,
+        Ogre::String &matName) const
 {
     wxTreeItemId curr = selectedItemId;
     const int image = mScriptTree->GetItemImage(curr);
@@ -256,6 +256,9 @@ void MaterialEditorFrame::GetTuPassTecMatNames(const wxTreeItemId selectedItemId
         curr = mScriptTree->GetItemParent(curr);
     case MATERIAL_IMAGE:
         matName = Ogre::String(mScriptTree->GetItemText(curr).mb_str());
+        break;
+    default:
+        assert(0 && "GetTuPassTecMatNames can handle only materials!");
     }
 
     matName = Ogre::String(mScriptTree->GetItemText(curr).mb_str());
@@ -267,49 +270,68 @@ void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
         return;
 
     const int image = mScriptTree->GetItemImage(event.GetItem());
-
-    const MaterialMap* materials = GetMaterialMap(mFileTree->GetSelection());
-    if (!materials)
-        return;
-
-    Ogre::String tuName;
-    Ogre::String passName;
-    Ogre::String tecName;
-    Ogre::String matName;
-
-    GetTuPassTecMatNames(event.GetItem(), tuName, passName, tecName, matName);
-
-    MaterialMap::const_iterator it = materials->find(matName);
-    Ogre::MaterialPtr mat = it->second;
-
-    Ogre::Entity* ent = m_sm->getEntity("Display");
-    ent->setMaterial(mat);
-
-    Ogre::Technique* tec = NULL;
-    Ogre::Pass* pass = NULL;
-    Ogre::TextureUnitState* tu = NULL;
-
     switch (image)
     {
     case MATERIAL_IMAGE:
-        mPropertiesPanel->MaterialSelected(mat);
-        break;
     case TECHNIQUE_IMAGE:
-        tec = mat->getTechnique(tecName);
-        mPropertiesPanel->TechniqueSelected(tec);
-        break;
     case PASS_IMAGE:
-        tec = mat->getTechnique(tecName);
-        pass = tec->getPass(passName);
-        mPropertiesPanel->PassSelected(pass);
-        break;
     case TEXTURE_UNIT_IMAGE:
-        tec = mat->getTechnique(tecName);
-        pass = tec->getPass(passName);
-        tu = pass->getTextureUnitState(tuName);
-        //mPropertiesPanel->TextureUnitStateSelected(tu);
+    {
+        Ogre::String tuName;
+        Ogre::String passName;
+        Ogre::String tecName;
+        Ogre::String matName;
+
+        GetTuPassTecMatNames(event.GetItem(), tuName, passName, tecName, matName);
+
+        const MaterialMap* materials = GetMaterialMap(mFileTree->GetSelection());
+        MaterialMap::const_iterator it = materials->find(matName);
+        Ogre::MaterialPtr mat = it->second;
+        Ogre::Technique* tec = NULL;
+        Ogre::Pass* pass = NULL;
+        Ogre::TextureUnitState* tu = NULL;
+
+        switch (image)
+        {
+        case MATERIAL_IMAGE:
+            mPropertiesPanel->MaterialSelected(mat);
+            break;
+        case TECHNIQUE_IMAGE:
+            tec = mat->getTechnique(tecName);
+            mPropertiesPanel->TechniqueSelected(tec);
+            break;
+        case PASS_IMAGE:
+            tec = mat->getTechnique(tecName);
+            pass = tec->getPass(passName);
+            mPropertiesPanel->PassSelected(pass);
+            break;
+        case TEXTURE_UNIT_IMAGE:
+            tec = mat->getTechnique(tecName);
+            pass = tec->getPass(passName);
+            tu = pass->getTextureUnitState(tuName);
+            //mPropertiesPanel->TextureUnitStateSelected(tu);
+            break;
+        }
+        // Update display
+        Ogre::Entity* ent = m_sm->getEntity("Display");
+        ent->setMaterial(mat);
         break;
     }
+    case MESH_IMAGE:
+    {
+        // Update display
+        Ogre::SceneNode* node = m_sm->getSceneNode("DisplayNode");
+        Ogre::Entity* ent = m_sm->getEntity("Display");
+        node->detachObject(ent);
+        m_sm->destroyEntity(ent);
+
+        Ogre::String meshName(mScriptTree->GetItemText(event.GetItem()).mb_str());
+        ent = m_sm->createEntity("Display", meshName);
+        node->attachObject(ent);
+        break;
+    }
+    }
+
 }
 
 const MaterialMap* MaterialEditorFrame::GetMaterialMap(const wxTreeItemId& id) const
@@ -369,8 +391,6 @@ void MaterialEditorFrame::OnFileSelected(wxTreeEvent& event)
     }
     case MESH_FILE_IMAGE:
     {
-        Ogre::String meshName(selectedNodeName.mb_str());
-        Ogre::MeshPtr mesh = Ogre::MeshManager::getSingleton().getByName(meshName);
         mScriptTree->AppendItem(root, selectedNodeName, MESH_IMAGE);
         break;
     }
@@ -487,7 +507,7 @@ void MaterialEditorFrame::CreateScene()
     m_sm = mOgreControl->CreateSceneManager(Ogre::ST_GENERIC);
 
     Ogre::Entity* ent = m_sm->createEntity("Display", Ogre::SceneManager::PT_CUBE);
-    Ogre::SceneNode* no = m_sm->getRootSceneNode()->createChildSceneNode();
+    Ogre::SceneNode* no = m_sm->getRootSceneNode()->createChildSceneNode("DisplayNode");
 
     no->setPosition(0, 0, -200);
     no->attachObject(ent);
