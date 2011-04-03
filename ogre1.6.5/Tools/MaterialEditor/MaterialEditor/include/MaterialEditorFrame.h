@@ -100,7 +100,13 @@ protected:
     void OnRenderTimer(wxTimerEvent& event);
 private:
     void FillResourceTree();
-    const MaterialMap* GetMaterialMap(const wxTreeItemId& id);
+    const MaterialMap* GetMaterialMap(const wxTreeItemId& id) const;
+    void GetTuPassTecMatNames(const wxTreeItemId selectedItemId,
+                                               Ogre::String &tuName,
+                                               Ogre::String &passName,
+                                               Ogre::String &tecName,
+                                               Ogre::String &matName) const;
+
     wxMenuBar* mMenuBar;
     wxMenu* mFileMenu;
     wxMenu* mEditMenu;
