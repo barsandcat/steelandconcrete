@@ -85,6 +85,7 @@
 		<Unit filename="../include/MaterialPropertyGridPage.h" />
 		<Unit filename="../include/MaterialScriptEditor.h" />
 		<Unit filename="../include/OMEFileSystemArchive.h" />
+		<Unit filename="../include/OgreControl.h" />
 		<Unit filename="../include/PassPropertyGridPage.h" />
 		<Unit filename="../include/PropertiesPanel.h" />
 		<Unit filename="../include/ScintillaEditor.h" />
@@ -110,6 +111,7 @@
 		<Unit filename="../src/MaterialPropertyGridPage.cpp" />
 		<Unit filename="../src/MaterialScriptEditor.cpp" />
 		<Unit filename="../src/OMEFileSystemArchive.cpp" />
+		<Unit filename="../src/OgreControl.cpp" />
 		<Unit filename="../src/PassPropertyGridPage.cpp" />
 		<Unit filename="../src/PropertiesPanel.cpp" />
 		<Unit filename="../src/ScintillaEditor.cpp" />
