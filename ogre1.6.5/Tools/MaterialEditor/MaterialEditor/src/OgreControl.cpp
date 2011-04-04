@@ -13,6 +13,7 @@ Ogre::SceneManager* OgreControl::CreateSceneManager()
     m_node = sm->getRootSceneNode()->createChildSceneNode();
     m_node->attachObject(m_cam);
     m_cam->setNearClipDistance(1);
+    m_cam->moveRelative(Ogre::Vector3(0, 0, 300));
     return sm;
 }
 
