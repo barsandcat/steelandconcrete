@@ -255,6 +255,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\OgreControl.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\OMEFileSystemArchive.cpp"
 				>
 			</File>
@@ -366,6 +370,10 @@
 			</File>
 			<File
 				RelativePath="..\include\MaterialScriptEditor.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\OgreControl.h"
 				>
 			</File>
 			<File
