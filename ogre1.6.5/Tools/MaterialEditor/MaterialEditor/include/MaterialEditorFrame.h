@@ -99,7 +99,6 @@ protected:
     void OnRenderTimer(wxTimerEvent& event);
 private:
     void FillResourceTree();
-    const MaterialMap* GetMaterialMap(const wxTreeItemId& aId) const;
     void GetTuPassTecMatNames(const wxTreeItemId aSelectedItemId,
                                                Ogre::String &aTuName,
                                                Ogre::String &aPassName,
