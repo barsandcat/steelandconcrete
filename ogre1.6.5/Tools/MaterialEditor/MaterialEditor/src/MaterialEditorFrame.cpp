@@ -636,7 +636,25 @@ void MaterialEditorFrame::FillResourceTree()
             fileList = archive->find("*.material");
             for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
             {
-                wxTreeItemId id = mFileTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MATERIAL_SCRIPT_IMAGE);
+                mFileTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MATERIAL_SCRIPT_IMAGE);
+            }
+
+            fileList = archive->find("*.png");
+            for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
+            {
+                mFileTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), TEXTURE_IMAGE);
+            }
+
+            fileList = archive->find("*.jpg");
+            for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
+            {
+                mFileTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), TEXTURE_IMAGE);
+            }
+
+            fileList = archive->find("*.bmp");
+            for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
+            {
+                mFileTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), TEXTURE_IMAGE);
             }
 
             // Meshes
