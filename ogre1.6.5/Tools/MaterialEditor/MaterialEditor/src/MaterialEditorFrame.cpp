@@ -636,7 +636,7 @@ void MaterialEditorFrame::FillResourceTree()
             for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
             {
                 wxTreeItemId materialScriptId = mFileTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MATERIAL_SCRIPT_IMAGE);
-                const MaterialMap &materials = mGroupMap.at(*groupIt).at(archive->getName()).at(fileNameIt->c_str());
+                const MaterialMap &materials = mGroupMap.find(*groupIt)->second.find(archive->getName())->second.find(fileNameIt->c_str())->second;
                 for (MaterialMap::const_iterator it = materials.begin(); it != materials.end(); ++it)
                 {
                     mFileTree->AppendItem(materialScriptId, wxString(it->first.c_str(), wxConvUTF8), MATERIAL_IMAGE);
