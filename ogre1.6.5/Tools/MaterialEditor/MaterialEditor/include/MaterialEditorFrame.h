@@ -104,7 +104,6 @@ private:
                                                Ogre::String &aPassName,
                                                Ogre::String &aTecName,
                                                Ogre::String &aMatName) const;
-    void UpdateDisplay(Ogre::String aMeshName, Ogre::String aMaterialName);
 
     wxMenuBar* mMenuBar;
     wxMenu* mFileMenu;
