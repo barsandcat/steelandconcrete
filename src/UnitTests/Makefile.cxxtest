@@ -1,5 +1,5 @@
 TESTGEN=../../cxxtest/cxxtestgen.py
-all : NetworkTest.cpp VisualCodesTest.cpp ServerUnitTest.cpp UpdateTimerTest.cpp UnitListTest.cpp MindListTest.cpp MindTest.cpp
+all : NetworkTest.cpp VisualCodesTest.cpp ServerUnitTest.cpp UpdateTimerTest.cpp UnitListTest.cpp MindListTest.cpp MindTest.cpp GeodesicGridTest.cpp
 NetworkTest.cpp: NetworkTest.h
 	$(TESTGEN) --runner=ParenPrinter -o NetworkTest.cpp NetworkTest.h
 
@@ -20,3 +20,6 @@ MindListTest.cpp: MindListTest.h
 
 MindTest.cpp: MindTest.h
 	$(TESTGEN) --part -o MindTest.cpp MindTest.h
+
+GeodesicGridTest.cpp: GeodesicGridTest.h
+	$(TESTGEN) --part -o GeodesicGridTest.cpp GeodesicGridTest.h
