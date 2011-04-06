@@ -1,8 +1,9 @@
 #ifndef COMPAREEDGESANGLES_H_INCLUDED
 #define COMPAREEDGESANGLES_H_INCLUDED
 
-struct CompareEdgesAngles
+class CompareEdgesAngles
 {
+public:
     CompareEdgesAngles(const Ogre::Vector3& aRoot, const Ogre::Vector3&  aPole): mRoot(aRoot), mPole(aPole) {}
     bool operator()(ServerTile* a, ServerTile* b)
     {
@@ -34,6 +35,7 @@ struct CompareEdgesAngles
         assert(C >= 0 && C <= Ogre::Math::TWO_PI);
         return Ogre::Radian(C);
     }
+private:
     const Ogre::Vector3&  mRoot;
     const Ogre::Vector3&  mPole;
 };
