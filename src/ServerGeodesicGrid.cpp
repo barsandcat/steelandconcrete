@@ -14,30 +14,35 @@ ServerGeodesicGrid::ServerGeodesicGrid(int aSize, int32 aSeaLevel): mSeaLevel(aS
     // 4  10000
     // 5  40000
     // 6 160000
-
-    const Ogre::Real phi = (1.0f + sqrt(5.0f)) / 2.0f;
+    const Ogre::Real tileRadius = 10;
+    const Ogre::Real tileArea = 2.598076211 * tileRadius * tileRadius;
     int tileCount = (int)(5.0f * pow(2.0f, 2 * aSize + 3)) + 2;
-    int edgeCount = tileCount * 6 / 2;
+    const Ogre::Real sphereArea = tileArea * tileCount;
+    const Ogre::Real sphereRadius = 1;//sqrt(sphereArea / (4 * Ogre::Math::PI));
+
+    const Ogre::Real phi =  1.618033989;
+
+    int edgeCount = tileCount * 3;
 
     mTiles.reserve(tileCount);
     mEdges.reserve(edgeCount);
 
     // Vertices of icoshaedron
 
-    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, 1.0f, phi).normalisedCopy(), rand() % SEA_LEVEL_MAX));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, 1.0f, -phi).normalisedCopy(), rand() % SEA_LEVEL_MAX));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, -1.0f, phi).normalisedCopy(), rand() % SEA_LEVEL_MAX));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, -1.0f, -phi).normalisedCopy(), rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, 1.0f, phi).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, 1.0f, -phi).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, -1.0f, phi).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(0.0f, -1.0f, -phi).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
 
-    mTiles.push_back(new ServerTile(Ogre::Vector3(1.0f, phi, 0.0f).normalisedCopy(), rand() % SEA_LEVEL_MAX));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(1.0f, -phi, 0.0f).normalisedCopy(), rand() % SEA_LEVEL_MAX));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(-1.0f, phi, 0.0f).normalisedCopy(), rand() % SEA_LEVEL_MAX));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(-1.0f, -phi, 0.0f).normalisedCopy(), rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(1.0f, phi, 0.0f).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(1.0f, -phi, 0.0f).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(-1.0f, phi, 0.0f).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(-1.0f, -phi, 0.0f).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
 
-    mTiles.push_back(new ServerTile(Ogre::Vector3(phi, 0.0f, 1.0f).normalisedCopy(), rand() % SEA_LEVEL_MAX));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(phi, 0.0f, -1.0f).normalisedCopy(), rand() % SEA_LEVEL_MAX));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(-phi, 0.0f, 1.0f).normalisedCopy(), rand() % SEA_LEVEL_MAX));
-    mTiles.push_back(new ServerTile(Ogre::Vector3(-phi, 0.0f, -1.0f).normalisedCopy(), rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(phi, 0.0f, 1.0f).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(phi, 0.0f, -1.0f).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(-phi, 0.0f, 1.0f).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new ServerTile(Ogre::Vector3(-phi, 0.0f, -1.0f).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
 
     // Link icoshaedron
 
@@ -88,7 +93,7 @@ ServerGeodesicGrid::ServerGeodesicGrid(int aSize, int32 aSeaLevel): mSeaLevel(aS
 
     for (int i = 0; i <= aSize; ++i)
     {
-        Subdivide();
+        Subdivide(sphereRadius);
     }
 
     InitTiles();
@@ -108,7 +113,7 @@ ServerGeodesicGrid::~ServerGeodesicGrid()
     }
 }
 
-void ServerGeodesicGrid::Subdivide()
+void ServerGeodesicGrid::Subdivide(const Ogre::Real aSphereRadius)
 {
     std::vector< ServerTile* > newTiles;
     newTiles.reserve(mEdges.size());
@@ -125,7 +130,7 @@ void ServerGeodesicGrid::Subdivide()
         float rnd = (rand() % 100 + 1) / 100.0f - 0.5f;
         int32 height = (edge->GetTileA().GetHeight() + edge->GetTileB().GetHeight()) / 2 + rnd * err;
 
-        ServerTile* tile = new ServerTile((a + b).normalisedCopy(), height);
+        ServerTile* tile = new ServerTile((a + b).normalisedCopy() * aSphereRadius, height);
         newEdges.push_back(new ServerEdge(*tile, edge->GetTileA()));
         newEdges.push_back(new ServerEdge(*tile, edge->GetTileB()));
         newTiles.push_back(tile);

@@ -23,7 +23,7 @@ private:
     std::vector< ServerTile* > mTiles;
     std::vector< ServerEdge* > mEdges;
     int32 mSeaLevel;
-    void Subdivide();
+    void Subdivide(const Ogre::Real aSphereRadius);
     void InitTiles();
 };
 
