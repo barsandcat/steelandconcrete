@@ -70,6 +70,7 @@
 		<Unit filename="../ChangeList.cpp" />
 		<Unit filename="../ChangeList.h" />
 		<Unit filename="../ClientConnection.cpp" />
+		<Unit filename="../CompareEdgesAngles.h" />
 		<Unit filename="../ConnectionManager.cpp" />
 		<Unit filename="../DummyNetwork.cpp" />
 		<Unit filename="../DummyNetwork.h" />
@@ -165,6 +166,15 @@
 			<code_completion />
 			<envvars />
 			<debugger />
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
