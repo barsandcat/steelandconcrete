@@ -101,6 +101,8 @@
 		<Unit filename="../UnitList.h" />
 		<Unit filename="../UnitListIterator.cpp" />
 		<Unit filename="../UnitListIterator.h" />
+		<Unit filename="GeodesicGridTest.cpp" />
+		<Unit filename="GeodesicGridTest.h" />
 		<Unit filename="MindListTest.cpp" />
 		<Unit filename="MindListTest.h" />
 		<Unit filename="MindTest.cpp" />
