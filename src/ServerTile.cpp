@@ -19,11 +19,6 @@ ServerTile::~ServerTile()
     //dtor
 }
 
-
-const Ogre::Real pentagonHorizont = 0.5f / tan(Ogre::Math::DegreesToRadians(108.0f / 2.0f));
-const Ogre::Real pentagonBottomStep = (1.0f - 0.5f / sin(Ogre::Math::DegreesToRadians(108.0f / 2.0f))) / 2.0f;
-const Ogre::Real hexagonStep = 0.5f / tan(Ogre::Math::DegreesToRadians(120.0f / 2.0f));
-
 bool CompareEdgesAltitude(ServerTile* a,ServerTile* b)
 {
     return a->GetPosition().z < b->GetPosition().z;
@@ -33,7 +28,7 @@ void ServerTile::SortNeighbourhood()
 {
     assert(mNeighbourhood[0]);
     std::sort(mNeighbourhood.begin(), mNeighbourhood.end(), CompareEdgesAltitude);
-    std::sort(mNeighbourhood.begin() + 1, mNeighbourhood.end(), CompareEdgesAngles(mPosition, mNeighbourhood[0]->mPosition));
+    std::sort(mNeighbourhood.begin() + 1, mNeighbourhood.end(), CompareEdgesAngles<ServerTile>(mPosition, mNeighbourhood[0]->mPosition));
 }
 
 

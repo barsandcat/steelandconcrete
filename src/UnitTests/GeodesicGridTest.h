@@ -54,7 +54,7 @@ public:
     {
         Ogre::Vector3 root(0,           0.52573108,  0.850650787);
         Ogre::Vector3 pole(0.309016973, 0.809016943, 0.49999997);
-        CompareEdgesAngles compare(root, pole);
+        CompareEdgesAngles<ServerTile> compare(root, pole);
         Ogre::Vector3 u(-0.309016973, 0.809016943, 0.49999997);
         Ogre::Radian angle = compare.CalcAngle(u);
         TS_ASSERT(angle == Ogre::Radian(5.02654839));
@@ -65,7 +65,7 @@ public:
         Ogre::Vector3 pole(0.309016973, 0.809016943, 0.49999997);
         root *= 10.0;
         pole *= 10.0;
-        CompareEdgesAngles compare(root, pole);
+        CompareEdgesAngles<ServerTile> compare(root, pole);
         Ogre::Vector3 u(-0.309016973, 0.809016943, 0.49999997);
         u *= 10.0;
         Ogre::Radian angle = compare.CalcAngle(u);

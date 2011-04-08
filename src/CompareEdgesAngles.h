@@ -1,11 +1,12 @@
 #ifndef COMPAREEDGESANGLES_H_INCLUDED
 #define COMPAREEDGESANGLES_H_INCLUDED
 
+template <typename T>
 class CompareEdgesAngles
 {
 public:
     CompareEdgesAngles(const Ogre::Vector3& aRoot, const Ogre::Vector3&  aPole): mRoot(aRoot), mPole(aPole) {}
-    bool operator()(ServerTile* a, ServerTile* b)
+    bool operator()(T* a, T* b)
     {
         return CalcAngle(a->GetPosition()) < CalcAngle(b->GetPosition());
     }

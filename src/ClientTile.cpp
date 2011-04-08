@@ -1,6 +1,8 @@
 #include <pch.h>
 #include <ClientTile.h>
+
 #include <ClientApp.h>
+#include <CompareEdgesAngles.h>
 
 ClientTile::ClientTile(TileId aId, float scale, bool ground, const Ogre::Vector3& aPosition):
         mNode(*ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode(aPosition)),
@@ -9,8 +11,8 @@ ClientTile::ClientTile(TileId aId, float scale, bool ground, const Ogre::Vector3
         mUnit(NULL)
 {
     mNeighbourhood.reserve(6);
-    mNode.setScale(Ogre::Vector3(scale));
-	mNode.setDirection(aPosition, Ogre::Node::TS_LOCAL, Ogre::Vector3::UNIT_Z);
+    //mNode.setScale(Ogre::Vector3(scale));
+	mNode.setDirection(aPosition.normalisedCopy(), Ogre::Node::TS_LOCAL, Ogre::Vector3::UNIT_Z);
  }
 
 ClientTile::~ClientTile()
@@ -18,12 +20,12 @@ ClientTile::~ClientTile()
     //dtor
 }
 
-const Ogre::Real pentagonHorizont = 0.5f / tan(Ogre::Math::DegreesToRadians(108.0f / 2.0f));
-const Ogre::Real pentagonBottomStep = (1.0f - 0.5f / sin(Ogre::Math::DegreesToRadians(108.0f / 2.0f))) / 2.0f;
-const Ogre::Real hexagonStep = 0.5f / tan(Ogre::Math::DegreesToRadians(120.0f / 2.0f));
-
 Ogre::MeshPtr ClientTile::ConstructMesh(const Ogre::String& aMeshName) const
 {
+    const Ogre::Real pentagonHorizont = 0.5f / tan(Ogre::Math::DegreesToRadians(108.0f / 2.0f));
+    const Ogre::Real pentagonBottomStep = (1.0f - 0.5f / sin(Ogre::Math::DegreesToRadians(108.0f / 2.0f))) / 2.0f;
+    const Ogre::Real hexagonStep = 0.5f / tan(Ogre::Math::DegreesToRadians(120.0f / 2.0f));
+
     Ogre::ManualObject manual("Manual" + aMeshName);
 
     //    0-----0.5-----1
@@ -64,40 +66,44 @@ Ogre::MeshPtr ClientTile::ConstructMesh(const Ogre::String& aMeshName) const
     assert(GetNeighbour(3));
     assert(GetNeighbour(4));
 
+    const Ogre::Vector3 positon = GetPosition();
+    const Ogre::Vector3 normal = positon.normalisedCopy();
+    const Ogre::Real len = positon.length();
+
     // Vetex setup
     //0
-    manual.position((GetPosition() + GetNeighbour(0)->GetPosition() + GetNeighbour(1)->GetPosition()).normalisedCopy());
-    manual.normal(GetPosition());
+    manual.position((positon + GetNeighbour(0)->GetPosition() + GetNeighbour(1)->GetPosition()).normalisedCopy() * len);
+    manual.normal(normal);
     manual.textureCoord(pentagon ? pentagonHorizont : hexagonStep, 0);
     //1
-    manual.position((GetPosition() + GetNeighbour(1)->GetPosition() + GetNeighbour(2)->GetPosition()).normalisedCopy());
-    manual.normal(GetPosition());
+    manual.position((positon + GetNeighbour(1)->GetPosition() + GetNeighbour(2)->GetPosition()).normalisedCopy() * len);
+    manual.normal(normal);
     manual.textureCoord(0, 0.5);
     //2
-    manual.position((GetPosition() + GetNeighbour(2)->GetPosition() + GetNeighbour(3)->GetPosition()).normalisedCopy());
-    manual.normal(GetPosition());
+    manual.position((positon + GetNeighbour(2)->GetPosition() + GetNeighbour(3)->GetPosition()).normalisedCopy() * len);
+    manual.normal(normal);
     manual.textureCoord(pentagon ? pentagonHorizont : hexagonStep, 1);
     //3
-    manual.position((GetPosition() + GetNeighbour(3)->GetPosition() + GetNeighbour(4)->GetPosition()).normalisedCopy());
-    manual.normal(GetPosition());
+    manual.position((positon + GetNeighbour(3)->GetPosition() + GetNeighbour(4)->GetPosition()).normalisedCopy() * len);
+    manual.normal(normal);
     manual.textureCoord(1.0f - (pentagon ? 0 : hexagonStep), 1.0f - (pentagon ? pentagonBottomStep : 0));
 
     if (pentagon)
     {
         //4
-        manual.position((GetPosition() + GetNeighbour(4)->GetPosition() + GetNeighbour(0)->GetPosition()).normalisedCopy());
-        manual.normal(GetPosition());
+        manual.position((positon + GetNeighbour(4)->GetPosition() + GetNeighbour(0)->GetPosition()).normalisedCopy() * len);
+        manual.normal(normal);
         manual.textureCoord(1.0f, pentagonBottomStep);
     }
     else
     {
         //4
-        manual.position((GetPosition() + GetNeighbour(4)->GetPosition() + GetNeighbour(5)->GetPosition()).normalisedCopy());
-        manual.normal(GetPosition());
+        manual.position((positon + GetNeighbour(4)->GetPosition() + GetNeighbour(5)->GetPosition()).normalisedCopy() * len);
+        manual.normal(normal);
         manual.textureCoord(1.0f, 0.5f);
         //5
-        manual.position((GetPosition() + GetNeighbour(5)->GetPosition() + GetNeighbour(0)->GetPosition()).normalisedCopy());
-        manual.normal(GetPosition());
+        manual.position((positon + GetNeighbour(5)->GetPosition() + GetNeighbour(0)->GetPosition()).normalisedCopy() * len);
+        manual.normal(normal);
         manual.textureCoord(1.0f - hexagonStep, 0.0f);
     }
 
@@ -120,48 +126,12 @@ bool CompareEdgesAltitude(ClientTile* a, ClientTile* b)
     return a->GetPosition().z < b->GetPosition().z;
 };
 
-struct CompareEdgesAngles
-{
-    CompareEdgesAngles(const Ogre::Vector3& aRoot, const Ogre::Vector3&  aPole): mRoot(aRoot), mPole(aPole) {}
-    bool operator()(ClientTile* a, ClientTile* b)
-    {
-        return CalcAngle(a->GetPosition()) < CalcAngle(b->GetPosition());
-    }
-
-    Ogre::Radian CalcAngle(const Ogre::Vector3& u) const
-    {
-        // Two vectors that forms angle between pole and neighbour
-        Ogre::Vector3 a = mRoot.crossProduct(u);
-        Ogre::Vector3 b = mRoot.crossProduct(mPole);
-
-        // Angle
-        Ogre::Real C = a.angleBetween(b).valueRadians();
-
-        // Rotation axis
-        Ogre::Vector3 normal(a.crossProduct(b).normalisedCopy());
-
-        // Correct angle, if rotation axis is not equal to our positon vector -
-        if (normal != Ogre::Vector3::ZERO)
-        {
-            Ogre::Vector3 delta(mRoot - normal);
-            if (delta.squaredLength() > 0.1)
-            {
-                C = Ogre::Math::TWO_PI - C;
-            }
-        }
-
-        assert(C >= 0 && C <= Ogre::Math::TWO_PI);
-        return Ogre::Radian(C);
-    }
-    const Ogre::Vector3&  mRoot;
-    const Ogre::Vector3&  mPole;
-};
 
 void ClientTile::SortNeighbourhood()
 {
     assert(mNeighbourhood[0]);
     std::sort(mNeighbourhood.begin(), mNeighbourhood.end(), CompareEdgesAltitude);
-    std::sort(mNeighbourhood.begin() + 1, mNeighbourhood.end(), CompareEdgesAngles(GetPosition(), mNeighbourhood[0]->GetPosition()));
+    std::sort(mNeighbourhood.begin() + 1, mNeighbourhood.end(), CompareEdgesAngles<ClientTile>(GetPosition(), mNeighbourhood[0]->GetPosition()));
 }
 
 
