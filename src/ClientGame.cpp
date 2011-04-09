@@ -42,6 +42,7 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
     GetLog() << "Recived all units";
 
     ClientApp::GetCamera().Goto(mAvatar->GetPosition().GetPosition());
+    ClientApp::GetCamera().SetDistance(mAvatar->GetPosition().GetPosition().length() + 50.0f);
 
     // Planet
     mGrid->ConstructStaticGeometry();

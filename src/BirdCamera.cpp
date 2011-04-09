@@ -24,6 +24,11 @@ BirdCamera::BirdCamera(Ogre::SceneManager* const aSceneManager, Ogre::RenderWind
     mCamera->setAspectRatio(Ogre::Real(mViewPort->getActualWidth()) / Ogre::Real(mViewPort->getActualHeight()));
 }
 
+void BirdCamera::SetDistance(Ogre::Real aDistance)
+{
+    mCameraNode->setPosition(Ogre::Vector3(0, 0, aDistance));
+}
+
 void BirdCamera::UpdatePosition(unsigned long aTime)
 {
     mCameraNode->translate(Ogre::Vector3(0.0f, 0.0f, mZoomSpeed * aTime));
