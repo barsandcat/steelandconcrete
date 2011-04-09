@@ -14,8 +14,7 @@ ServerGeodesicGrid::ServerGeodesicGrid(int aSize, int32 aSeaLevel): mSeaLevel(aS
     // 4  10000
     // 5  40000
     // 6 160000
-    const Ogre::Real tileRadius = 10;
-    const Ogre::Real tileArea = 2.598076211 * tileRadius * tileRadius;
+    const Ogre::Real tileArea = 2.598076211 * 70; // results in approximate radius of a tile 10.3
     int tileCount = (int)(5.0f * pow(2.0f, 2 * aSize + 3)) + 2;
     const Ogre::Real sphereArea = tileArea * tileCount;
     const Ogre::Real sphereRadius = sqrt(sphereArea / (4 * Ogre::Math::PI));
@@ -174,6 +173,18 @@ void ServerGeodesicGrid::InitTiles()
         mTiles[i]->SetTileId(i);
     }
 }
+
+Ogre::Real ServerGeodesicGrid::GetTileRadius() const
+{
+    Ogre::Real sum = 0;
+    for (size_t i = 0; i < mEdges.size(); ++i)
+    {
+        const ServerEdge* edge = mEdges.at(i);
+        sum += (edge->GetTileA().GetPosition() - edge->GetTileB().GetPosition()).squaredLength();
+    }
+    return sqrt(sum / mEdges.size() / 2.0f);
+}
+
 
 ServerGeodesicGrid::ServerGeodesicGrid(const Ogre::String aFileName): mSeaLevel(0)
 {

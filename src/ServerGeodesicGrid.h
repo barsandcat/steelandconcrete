@@ -17,6 +17,7 @@ public:
     ServerEdge& GetEdge(size_t aIndex) const { return *mEdges[aIndex]; }
     size_t GetTileCount() const { return mTiles.size(); }
     size_t GetEdgeCount() const { return mEdges.size(); }
+    Ogre::Real GetTileRadius() const;
     ~ServerGeodesicGrid();
 protected:
 private:
