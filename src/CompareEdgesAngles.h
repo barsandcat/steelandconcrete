@@ -21,12 +21,12 @@ public:
         Ogre::Real C = a.angleBetween(b).valueRadians();
 
         // Rotation axis
-        Ogre::Vector3 normal(a.crossProduct(b).normalisedCopy());
+        Ogre::Vector3 normal(a.crossProduct(b));
 
         // Correct angle, if rotation axis is not equal to our positon vector -
         if (normal != Ogre::Vector3::ZERO)
         {
-            Ogre::Vector3 delta(mRoot - normal);
+            Ogre::Vector3 delta(mRoot.normalisedCopy() - normal.normalisedCopy());
             if (delta.squaredLength() > 0.1)
             {
                 C = Ogre::Math::TWO_PI - C;

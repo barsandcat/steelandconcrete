@@ -47,7 +47,7 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
     Ogre::StaticGeometry* staticPlanet = mGrid->ConstructStaticGeometry();
     mLoadingSheet.SetProgress(90);
     assert(staticPlanet);
-    //mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(mApp.GetPlanet()->ConstructDebugMesh());
+    //ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode()->attachObject(mGrid->ConstructDebugMesh());
 
     // Units
     CreateUnitEntities();

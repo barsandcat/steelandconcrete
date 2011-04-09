@@ -18,7 +18,7 @@ ServerGeodesicGrid::ServerGeodesicGrid(int aSize, int32 aSeaLevel): mSeaLevel(aS
     const Ogre::Real tileArea = 2.598076211 * tileRadius * tileRadius;
     int tileCount = (int)(5.0f * pow(2.0f, 2 * aSize + 3)) + 2;
     const Ogre::Real sphereArea = tileArea * tileCount;
-    const Ogre::Real sphereRadius = 1;//sqrt(sphereArea / (4 * Ogre::Math::PI));
+    const Ogre::Real sphereRadius = sqrt(sphereArea / (4 * Ogre::Math::PI));
 
     const Ogre::Real phi = 1.618033989;
 
