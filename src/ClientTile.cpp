@@ -11,7 +11,6 @@ ClientTile::ClientTile(TileId aId, float scale, bool ground, const Ogre::Vector3
         mUnit(NULL)
 {
     mNeighbourhood.reserve(6);
-    //mNode.setScale(Ogre::Vector3(scale));
 	mNode.setDirection(aPosition.normalisedCopy(), Ogre::Node::TS_LOCAL, Ogre::Vector3::UNIT_Z);
  }
 
