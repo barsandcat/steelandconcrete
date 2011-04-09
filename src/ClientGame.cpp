@@ -44,9 +44,8 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
     ClientApp::GetCamera().Goto(mAvatar->GetPosition().GetPosition());
 
     // Planet
-    Ogre::StaticGeometry* staticPlanet = mGrid->ConstructStaticGeometry();
+    mGrid->ConstructStaticGeometry();
     mLoadingSheet.SetProgress(90);
-    assert(staticPlanet);
     //ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode()->attachObject(mGrid->ConstructDebugMesh());
 
     // Units

@@ -14,7 +14,6 @@ ClientUnit::ClientUnit(ClientTile& aTile, UnitMsg& aUnitMsg):
 {
     mTile->SetUnit(this);
     mNode = mTile->GetNode().createChildSceneNode();
-    mNode->setScale(Ogre::Vector3(0.1));
 }
 
 ClientUnit::~ClientUnit()
