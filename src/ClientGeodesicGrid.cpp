@@ -4,6 +4,7 @@
 #include <Network.h>
 #include <ClientLog.h>
 #include <ClientApp.h>
+#include <ClientTile.h>
 
 ClientGeodesicGrid::~ClientGeodesicGrid()
 {
@@ -42,7 +43,7 @@ void ClientGeodesicGrid::ConstructStaticGeometry() const
         Ogre::String indexName = Ogre::StringConverter::toString(i);
         Ogre::String meshName = indexName + "ClientTile.mesh";
         // Create entity
-        Ogre::MeshPtr tileMesh = mTiles[i]->ConstructMesh(meshName);
+        Ogre::MeshPtr tileMesh = mTiles[i]->GetTile()->ConstructMesh(meshName);
         Ogre::Entity* tileEntity = aSceneManager.createEntity(indexName + "ClientTile.entity", meshName);
         // Pack it in
         staticPlanet->addEntity(tileEntity, Ogre::Vector3::ZERO, Ogre::Quaternion::IDENTITY);
@@ -61,7 +62,7 @@ void ClientGeodesicGrid::ConstructTileEntities() const
         Ogre::String indexName = Ogre::StringConverter::toString(i);
         Ogre::String meshName = indexName + "ClientTile.mesh";
         // Create entity
-        Ogre::MeshPtr tileMesh = mTiles[i]->ConstructMesh(meshName);
+        Ogre::MeshPtr tileMesh = mTiles[i]->GetTile()->ConstructMesh(meshName);
         Ogre::Entity* tileEntity = aSceneManager.createEntity(indexName + "ClientTile.entity", meshName);
         root->attachObject(tileEntity);
     }
@@ -83,7 +84,6 @@ ClientGeodesicGrid::ClientGeodesicGrid(Network& aNetwork, LoadingSheet& aLoading
     GetLog() << "Recived grid info " << gridInfo.ShortDebugString();
     mTiles.resize(gridInfo.tilecount());
     mEdges.resize(gridInfo.edgecount());
-    float scale = gridInfo.scale();
     int32 seaLevel = gridInfo.sealevel();
 
     for (size_t i = 0; i < gridInfo.tilecount();)
@@ -93,7 +93,7 @@ ClientGeodesicGrid::ClientGeodesicGrid(Network& aNetwork, LoadingSheet& aLoading
         for (int j = 0; j < tiles.tiles_size(); ++j)
         {
             TileMsg tile = tiles.tiles(j);
-            mTiles[tile.tag()] = new ClientGridNode(tile.tag(), scale, tile.height() > seaLevel,
+            mTiles[tile.tag()] = new ClientGridNode(tile.tag(), tile.height() > seaLevel,
                                                 Ogre::Vector3(tile.position().x(), tile.position().y(), tile.position().z()));
             ++i;
         }

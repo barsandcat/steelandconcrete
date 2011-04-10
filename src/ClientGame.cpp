@@ -8,6 +8,7 @@
 #include <Response.pb.h>
 #include <ChangeList.pb.h>
 #include <ClientApp.h>
+#include <ClientTile.h>
 
 ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
     mGrid(NULL),
@@ -108,7 +109,7 @@ void ClientGame::UpdateTileUnderCursor(Ogre::Ray& aRay)
         Ogre::Vector3 position(aRay.getPoint(res.second));
         mTileUnderCursor = mTileUnderCursor->GetTileAtPosition(position);
         mSelectionMarker->getParent()->removeChild(mSelectionMarker);
-        mTileUnderCursor->GetNode().addChild(mSelectionMarker);
+        mTileUnderCursor->GetTile()->GetNode().addChild(mSelectionMarker);
     }
     mSelectionMarker->setVisible(res.first);
 }
@@ -118,7 +119,7 @@ void ClientGame::OnAct()
     assert(mTileUnderCursor && "Тайл под курсором должен быть!");
     mAvatar->SetTarget(mTileUnderCursor);
     mTargetMarker->getParent()->removeChild(mTargetMarker);
-    mTileUnderCursor->GetNode().addChild(mTargetMarker);
+    mTileUnderCursor->GetTile()->GetNode().addChild(mTargetMarker);
     mTargetMarker->setVisible(true);
 }
 

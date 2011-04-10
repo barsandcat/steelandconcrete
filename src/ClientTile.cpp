@@ -4,14 +4,13 @@
 #include <ClientApp.h>
 #include <CompareEdgesAngles.h>
 
-ClientTile::ClientTile(TileId aId, float scale, bool ground, const Ogre::Vector3& aPosition):
-        mNode(*ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode(aPosition)),
-        mTileId(aId),
+ClientTile::ClientTile(bool ground, const ClientGridNode& aGridNode):
+        mNode(*ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode(aGridNode.GetPosition())),
+        mGridNode(aGridNode),
         mGround(ground),
         mUnit(NULL)
 {
-    mNeighbourhood.reserve(6);
-	mNode.setDirection(aPosition.normalisedCopy(), Ogre::Node::TS_LOCAL, Ogre::Vector3::UNIT_Z);
+	mNode.setDirection(aGridNode.GetPosition().normalisedCopy(), Ogre::Node::TS_LOCAL, Ogre::Vector3::UNIT_Z);
  }
 
 ClientTile::~ClientTile()
@@ -44,7 +43,7 @@ Ogre::MeshPtr ClientTile::ConstructMesh(const Ogre::String& aMeshName) const
     // 1       4      1 - hexagonStep
     //
 
-    bool pentagon = mNeighbourhood.size() == 5;
+    bool pentagon = mGridNode.GetNeighbourCount() == 5;
 
     Ogre::Vector3 point;
     Ogre::String material;
@@ -59,49 +58,49 @@ Ogre::MeshPtr ClientTile::ConstructMesh(const Ogre::String& aMeshName) const
 
     manual.begin(material, Ogre::RenderOperation::OT_TRIANGLE_LIST);
 
-    assert(GetNeighbour(0));
-    assert(GetNeighbour(1));
-    assert(GetNeighbour(2));
-    assert(GetNeighbour(3));
-    assert(GetNeighbour(4));
+    assert(mGridNode.GetNeighbour(0));
+    assert(mGridNode.GetNeighbour(1));
+    assert(mGridNode.GetNeighbour(2));
+    assert(mGridNode.GetNeighbour(3));
+    assert(mGridNode.GetNeighbour(4));
 
-    const Ogre::Vector3 positon = GetPosition();
+    const Ogre::Vector3 positon = mGridNode.GetPosition();
     const Ogre::Vector3 normal = positon.normalisedCopy();
     const Ogre::Real len = positon.length();
 
     // Vetex setup
     //0
-    manual.position((positon + GetNeighbour(0)->GetPosition() + GetNeighbour(1)->GetPosition()).normalisedCopy() * len);
+    manual.position((positon + mGridNode.GetNeighbour(0)->GetPosition() + mGridNode.GetNeighbour(1)->GetPosition()).normalisedCopy() * len);
     manual.normal(normal);
     manual.textureCoord(pentagon ? pentagonHorizont : hexagonStep, 0);
     //1
-    manual.position((positon + GetNeighbour(1)->GetPosition() + GetNeighbour(2)->GetPosition()).normalisedCopy() * len);
+    manual.position((positon + mGridNode.GetNeighbour(1)->GetPosition() + mGridNode.GetNeighbour(2)->GetPosition()).normalisedCopy() * len);
     manual.normal(normal);
     manual.textureCoord(0, 0.5);
     //2
-    manual.position((positon + GetNeighbour(2)->GetPosition() + GetNeighbour(3)->GetPosition()).normalisedCopy() * len);
+    manual.position((positon + mGridNode.GetNeighbour(2)->GetPosition() + mGridNode.GetNeighbour(3)->GetPosition()).normalisedCopy() * len);
     manual.normal(normal);
     manual.textureCoord(pentagon ? pentagonHorizont : hexagonStep, 1);
     //3
-    manual.position((positon + GetNeighbour(3)->GetPosition() + GetNeighbour(4)->GetPosition()).normalisedCopy() * len);
+    manual.position((positon + mGridNode.GetNeighbour(3)->GetPosition() + mGridNode.GetNeighbour(4)->GetPosition()).normalisedCopy() * len);
     manual.normal(normal);
     manual.textureCoord(1.0f - (pentagon ? 0 : hexagonStep), 1.0f - (pentagon ? pentagonBottomStep : 0));
 
     if (pentagon)
     {
         //4
-        manual.position((positon + GetNeighbour(4)->GetPosition() + GetNeighbour(0)->GetPosition()).normalisedCopy() * len);
+        manual.position((positon + mGridNode.GetNeighbour(4)->GetPosition() + mGridNode.GetNeighbour(0)->GetPosition()).normalisedCopy() * len);
         manual.normal(normal);
         manual.textureCoord(1.0f, pentagonBottomStep);
     }
     else
     {
         //4
-        manual.position((positon + GetNeighbour(4)->GetPosition() + GetNeighbour(5)->GetPosition()).normalisedCopy() * len);
+        manual.position((positon + mGridNode.GetNeighbour(4)->GetPosition() + mGridNode.GetNeighbour(5)->GetPosition()).normalisedCopy() * len);
         manual.normal(normal);
         manual.textureCoord(1.0f, 0.5f);
         //5
-        manual.position((positon + GetNeighbour(5)->GetPosition() + GetNeighbour(0)->GetPosition()).normalisedCopy() * len);
+        manual.position((positon + mGridNode.GetNeighbour(5)->GetPosition() + mGridNode.GetNeighbour(0)->GetPosition()).normalisedCopy() * len);
         manual.normal(normal);
         manual.textureCoord(1.0f - hexagonStep, 0.0f);
     }
@@ -118,58 +117,4 @@ Ogre::MeshPtr ClientTile::ConstructMesh(const Ogre::String& aMeshName) const
     manual.end();
 
     return manual.convertToMesh(aMeshName);
-}
-
-bool CompareEdgesAltitude(ClientTile* a, ClientTile* b)
-{
-    return a->GetPosition().z < b->GetPosition().z;
-};
-
-
-void ClientTile::SortNeighbourhood()
-{
-    assert(mNeighbourhood[0]);
-    std::sort(mNeighbourhood.begin(), mNeighbourhood.end(), CompareEdgesAltitude);
-    std::sort(mNeighbourhood.begin() + 1, mNeighbourhood.end(), CompareEdgesAngles<ClientTile>(GetPosition(), mNeighbourhood[0]->GetPosition()));
-}
-
-
-void ClientTile::RemoveNeighbour(ClientTile* aTile)
-{
-    assert(aTile);
-    std::vector< ClientTile* >::iterator i = std::find(mNeighbourhood.begin(), mNeighbourhood.end(), aTile);
-    assert(i != mNeighbourhood.end());
-    mNeighbourhood.erase(i);
-}
-
-Ogre::Real CalcDistance(const Ogre::Vector3& a, const Ogre::Vector3& b)
-{
-    return acos(a.dotProduct(b));
-}
-
-ClientTile* ClientTile::GetTileAtPosition(const Ogre::Vector3& aPosistion)
-{
-    Ogre::Real min = CalcDistance(mNeighbourhood[0]->GetPosition(), GetPosition());
-    ClientTile* currentTile = this;
-    int counter = 0;
-
-    while (CalcDistance(currentTile->GetPosition(), aPosistion) > min && counter < 1000)
-    {
-        ClientTile* bestNeighbour = currentTile->GetNeighbour(0);
-        Ogre::Real bestDistance = CalcDistance(bestNeighbour->GetPosition(), aPosistion);
-        for (size_t i = 1; i < currentTile->GetNeighbourCount(); ++i)
-        {
-            ClientTile* neighbour = currentTile->GetNeighbour(i);
-            Ogre::Real distance = CalcDistance(neighbour->GetPosition(), aPosistion);
-            if (distance < bestDistance)
-            {
-                bestDistance = distance;
-                bestNeighbour = neighbour;
-            }
-        }
-        currentTile = bestNeighbour;
-        ++counter;
-    }
-
-    return currentTile;
 }

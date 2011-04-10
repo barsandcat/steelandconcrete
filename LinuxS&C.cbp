@@ -98,6 +98,8 @@
 		<Unit filename="src/ClientGame.h" />
 		<Unit filename="src/ClientGeodesicGrid.cpp" />
 		<Unit filename="src/ClientGeodesicGrid.h" />
+		<Unit filename="src/ClientGridNode.cpp" />
+		<Unit filename="src/ClientGridNode.h" />
 		<Unit filename="src/ClientLog.cpp" />
 		<Unit filename="src/ClientLog.h" />
 		<Unit filename="src/ClientTile.cpp" />
