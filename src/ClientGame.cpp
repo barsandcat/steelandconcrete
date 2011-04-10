@@ -46,7 +46,7 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
         }
     }
     assert(mAvatar);
-    mLoadingSheet.SetProgress(60);
+    mLoadingSheet.SetProgress(90);
     GetLog() << "Recived all units";
 
     Ogre::Vector3 avatarPosition = mAvatar->GetTile()->GetGridNode().GetPosition();
@@ -55,9 +55,8 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
 
     // Planet
     //mGrid->ConstructStaticGeometry();
-    mGrid->ConstructTileEntities();
-    mLoadingSheet.SetProgress(90);
     //ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode()->attachObject(mGrid->ConstructDebugMesh());
+
 
     // Units
     CreateUnitEntities();
@@ -116,7 +115,11 @@ void ClientGame::UpdateTileUnderCursor(Ogre::Ray& aRay)
     {
         Ogre::Vector3 position(aRay.getPoint(res.second));
         mTileUnderCursor = mTileUnderCursor->GetTileAtPosition(position);
-        mSelectionMarker->getParent()->removeChild(mSelectionMarker);
+        if (mSelectionMarker->getParent())
+        {
+            mSelectionMarker->getParent()->removeChild(mSelectionMarker);
+        }
+
         if (mTileUnderCursor->GetTile())
         {
             mTileUnderCursor->GetTile()->GetNode().addChild(mSelectionMarker);

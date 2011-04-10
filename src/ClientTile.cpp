@@ -10,8 +10,17 @@ ClientTile::ClientTile(bool ground, ClientGridNode& aGridNode):
         mGround(ground),
         mUnit(NULL)
 {
-	mNode.setDirection(aGridNode.GetPosition().normalisedCopy(), Ogre::Node::TS_LOCAL, Ogre::Vector3::UNIT_Z);
- }
+    Ogre::SceneManager& aSceneManager = ClientApp::GetSceneMgr();
+    Ogre::SceneNode* root = aSceneManager.getRootSceneNode();
+    Ogre::String indexName = Ogre::StringConverter::toString(mGridNode.GetTileId());
+    Ogre::String meshName = indexName + "ClientTile.mesh";
+    // Create entity
+    Ogre::MeshPtr tileMesh = ConstructMesh(meshName);
+    Ogre::Entity* tileEntity = aSceneManager.createEntity(indexName + "ClientTile.entity", meshName);
+    root->attachObject(tileEntity);
+
+    mNode.setDirection(aGridNode.GetPosition().normalisedCopy(), Ogre::Node::TS_LOCAL, Ogre::Vector3::UNIT_Z);
+}
 
 ClientTile::~ClientTile()
 {

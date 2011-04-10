@@ -13,7 +13,6 @@ public:
     ClientGeodesicGrid(Network& aNetwork, LoadingSheet& aLoadingSheet);
 
     void ConstructStaticGeometry() const;
-    void ConstructTileEntities() const;
     Ogre::ManualObject* ConstructDebugMesh() const;
     ClientGridNode& GetGridNode(TileId aIndex) const { return *mTiles[aIndex]; }
     ClientEdge& GetEdge(size_t aIndex) const { return *mEdges[aIndex]; }
