@@ -1,11 +1,11 @@
 #include <pch.h>
 #include <ClientUnit.h>
 
-#include <ClientTile.h>
+#include <ClientGridNode.h>
 #include <ClientApp.h>
 #include <VisualCodes.h>
 
-ClientUnit::ClientUnit(ClientTile& aTile, UnitMsg& aUnitMsg):
+ClientUnit::ClientUnit(ClientGridNode& aTile, UnitMsg& aUnitMsg):
     mTile(&aTile),
     mTarget(NULL),
     mEntity(NULL),
@@ -33,7 +33,7 @@ Ogre::Entity* ClientUnit::CreateEntity()
     return mEntity;
 }
 
-void ClientUnit::SetPosition(ClientTile& aTile)
+void ClientUnit::SetPosition(ClientGridNode& aTile)
 {
     mTile->SetUnit(NULL);
     mTile->GetNode().removeChild(mNode);
@@ -42,7 +42,7 @@ void ClientUnit::SetPosition(ClientTile& aTile)
     mTile = &aTile;
 }
 
-void ClientUnit::SetTarget(ClientTile* aTile)
+void ClientUnit::SetTarget(ClientGridNode* aTile)
 {
     mTarget = aTile;
 }

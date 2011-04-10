@@ -4,24 +4,24 @@
 #include <Typedefs.h>
 #include <Unit.pb.h>
 
-class ClientTile;
+class ClientGridNode;
 
 class ClientUnit
 {
 public:
-    ClientUnit(ClientTile& aTile, UnitMsg& aUnitMsg);
-    void SetPosition(ClientTile& aTile);
-    ClientTile& GetPosition() const { return *mTile; }
-    void SetTarget(ClientTile* aTile);
-    ClientTile* GetTarget() const { return mTarget; }
+    ClientUnit(ClientGridNode& aTile, UnitMsg& aUnitMsg);
+    void SetPosition(ClientGridNode& aTile);
+    ClientGridNode& GetPosition() const { return *mTile; }
+    void SetTarget(ClientGridNode* aTile);
+    ClientGridNode* GetTarget() const { return mTarget; }
     ~ClientUnit();
     Ogre::Entity* CreateEntity();
     Ogre::SceneNode& GetNode() { return *mNode; }
 	UnitId GetUnitId() const { return mUnitId; }
 protected:
 private:
-    ClientTile* mTile;
-    ClientTile* mTarget;
+    ClientGridNode* mTile;
+    ClientGridNode* mTarget;
     Ogre::SceneNode* mNode;
     Ogre::Entity* mEntity;
     const UnitId mUnitId;
