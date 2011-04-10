@@ -1,9 +1,9 @@
 #include <pch.h>
 #include <ClientEdge.h>
-#include <ClientTile.h>
+#include <ClientGridNode.h>
 
 
-ClientEdge::ClientEdge(ClientTile* const aTileA, ClientTile* const aTileB): mTileA(aTileA), mTileB(aTileB)
+ClientEdge::ClientEdge(ClientGridNode* const aTileA, ClientGridNode* const aTileB): mTileA(aTileA), mTileB(aTileB)
 {
     mTileA->AddNeighbour(mTileB);
     mTileB->AddNeighbour(mTileA);

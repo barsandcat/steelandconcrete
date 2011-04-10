@@ -32,7 +32,7 @@ private:
 private:
     ClientGeodesicGrid* mGrid;
     ClientUnits mUnits;
-    ClientTile* mTileUnderCursor;
+    ClientGridNode* mTileUnderCursor;
     ClientUnit* mAvatar;
     Ogre::SceneNode* mSelectionMarker;
     Ogre::SceneNode* mTargetMarker;

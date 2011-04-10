@@ -3,19 +3,19 @@
 
 #include <Ogre.h>
 
-class ClientTile;
+class ClientGridNode;
 
 class ClientEdge
 {
 public:
-    ClientEdge(ClientTile* const aTileA, ClientTile* const aTileB);
+    ClientEdge(ClientGridNode* const aTileA, ClientGridNode* const aTileB);
     ~ClientEdge();
-    ClientTile* GetTileA() const { return mTileA; }
-    ClientTile* GetTileB() const { return mTileB; }
+    ClientGridNode* GetTileA() const { return mTileA; }
+    ClientGridNode* GetTileB() const { return mTileB; }
 protected:
 private:
-    ClientTile* const mTileA;
-    ClientTile* const mTileB;
+    ClientGridNode* const mTileA;
+    ClientGridNode* const mTileB;
 };
 
 #endif // EDGE_H
