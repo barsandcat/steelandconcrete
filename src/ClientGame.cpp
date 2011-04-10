@@ -45,7 +45,8 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
     ClientApp::GetCamera().SetDistance(mAvatar->GetPosition().GetPosition().length() + 50.0f);
 
     // Planet
-    mGrid->ConstructStaticGeometry();
+    //mGrid->ConstructStaticGeometry();
+    mGrid->ConstructTileEntities();
     mLoadingSheet.SetProgress(90);
     //ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode()->attachObject(mGrid->ConstructDebugMesh());
 

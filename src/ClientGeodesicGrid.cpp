@@ -33,7 +33,7 @@ Ogre::ManualObject* ClientGeodesicGrid::ConstructDebugMesh() const
     return manual;
 }
 
-Ogre::StaticGeometry* ClientGeodesicGrid::ConstructStaticGeometry() const
+void ClientGeodesicGrid::ConstructStaticGeometry() const
 {
     Ogre::SceneManager& aSceneManager = ClientApp::GetSceneMgr();
     Ogre::StaticGeometry* staticPlanet = aSceneManager.createStaticGeometry("Planet.Static");
@@ -42,7 +42,7 @@ Ogre::StaticGeometry* ClientGeodesicGrid::ConstructStaticGeometry() const
         Ogre::String indexName = Ogre::StringConverter::toString(i);
         Ogre::String meshName = indexName + "ClientTile.mesh";
         // Create entity
-        Ogre::ResourcePtr tileMesh = mTiles[i]->ConstructMesh(meshName);
+        Ogre::MeshPtr tileMesh = mTiles[i]->ConstructMesh(meshName);
         Ogre::Entity* tileEntity = aSceneManager.createEntity(indexName + "ClientTile.entity", meshName);
         // Pack it in
         staticPlanet->addEntity(tileEntity, Ogre::Vector3::ZERO, Ogre::Quaternion::IDENTITY);
@@ -50,7 +50,21 @@ Ogre::StaticGeometry* ClientGeodesicGrid::ConstructStaticGeometry() const
         aSceneManager.destroyEntity(tileEntity);
     }
     staticPlanet->build();
-    return staticPlanet;
+}
+
+void ClientGeodesicGrid::ConstructTileEntities() const
+{
+    Ogre::SceneManager& aSceneManager = ClientApp::GetSceneMgr();
+    Ogre::SceneNode* root = aSceneManager.getRootSceneNode();
+    for (size_t i = 0; i < mTiles.size(); ++i)
+    {
+        Ogre::String indexName = Ogre::StringConverter::toString(i);
+        Ogre::String meshName = indexName + "ClientTile.mesh";
+        // Create entity
+        Ogre::MeshPtr tileMesh = mTiles[i]->ConstructMesh(meshName);
+        Ogre::Entity* tileEntity = aSceneManager.createEntity(indexName + "ClientTile.entity", meshName);
+        root->attachObject(tileEntity);
+    }
 }
 
 void ClientGeodesicGrid::InitTiles()
