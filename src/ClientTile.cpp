@@ -4,7 +4,7 @@
 #include <ClientApp.h>
 #include <CompareEdgesAngles.h>
 
-ClientTile::ClientTile(bool ground, const ClientGridNode& aGridNode):
+ClientTile::ClientTile(bool ground, ClientGridNode& aGridNode):
         mNode(*ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode(aGridNode.GetPosition())),
         mGridNode(aGridNode),
         mGround(ground),

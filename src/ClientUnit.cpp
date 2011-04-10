@@ -6,15 +6,14 @@
 #include <VisualCodes.h>
 #include <ClientTile.h>
 
-ClientUnit::ClientUnit(ClientGridNode& aTile, UnitMsg& aUnitMsg):
-    mTile(&aTile),
+ClientUnit::ClientUnit(UnitMsg& aUnitMsg):
+    mTile(NULL),
     mTarget(NULL),
     mEntity(NULL),
     mUnitId(aUnitMsg.tag()),
     mVisualCode(aUnitMsg.visual())
 {
-    mTile->GetTile()->SetUnit(this);
-    mNode = mTile->GetTile()->GetNode().createChildSceneNode();
+    mNode = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
 }
 
 ClientUnit::~ClientUnit()
@@ -34,16 +33,25 @@ Ogre::Entity* ClientUnit::CreateEntity()
     return mEntity;
 }
 
-void ClientUnit::SetPosition(ClientGridNode& aTile)
+void ClientUnit::SetTile(ClientTile* aTile)
 {
-    mTile->GetTile()->SetUnit(NULL);
-    mTile->GetTile()->GetNode().removeChild(mNode);
-    aTile.GetTile()->SetUnit(this);
-    aTile.GetTile()->GetNode().addChild(mNode);
-    mTile = &aTile;
+    if (mTile)
+    {
+        mTile->SetUnit(NULL);
+        mTile = NULL;
+    }
+
+    mNode->getParentSceneNode()->removeChild(mNode);
+
+    if (aTile)
+    {
+        aTile->SetUnit(this);
+        aTile->GetNode().addChild(mNode);
+        mTile = aTile;
+    }
 }
 
-void ClientUnit::SetTarget(ClientGridNode* aTile)
+void ClientUnit::SetTarget(ClientTile* aTile)
 {
     mTarget = aTile;
 }

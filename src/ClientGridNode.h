@@ -8,8 +8,9 @@ class ClientTile;
 class ClientGridNode: public boost::noncopyable
 {
 public:
-    explicit ClientGridNode(TileId aId, bool ground, const Ogre::Vector3& aPosition);
+    explicit ClientGridNode(TileId aId, const Ogre::Vector3& aPosition);
     ~ClientGridNode();
+    void CreateTile(bool ground);
     void AddNeighbour(ClientGridNode* aTile) { mNeighbourhood.push_back(aTile); }
     void RemoveNeighbour(ClientGridNode* aTile);
     void SortNeighbourhood();

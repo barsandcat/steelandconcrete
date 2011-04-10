@@ -15,7 +15,7 @@ public:
     void ConstructStaticGeometry() const;
     void ConstructTileEntities() const;
     Ogre::ManualObject* ConstructDebugMesh() const;
-    ClientGridNode& GetTile(TileId aIndex) const { return *mTiles[aIndex]; }
+    ClientGridNode& GetGridNode(TileId aIndex) const { return *mTiles[aIndex]; }
     ClientEdge& GetEdge(size_t aIndex) const { return *mEdges[aIndex]; }
     TileId GetTileCount() const { return mTiles.size(); }
     size_t GetEdgeCount() const { return mEdges.size(); }

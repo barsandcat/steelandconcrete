@@ -93,8 +93,11 @@ ClientGeodesicGrid::ClientGeodesicGrid(Network& aNetwork, LoadingSheet& aLoading
         for (int j = 0; j < tiles.tiles_size(); ++j)
         {
             TileMsg tile = tiles.tiles(j);
-            mTiles[tile.tag()] = new ClientGridNode(tile.tag(), tile.height() > seaLevel,
-                                                Ogre::Vector3(tile.position().x(), tile.position().y(), tile.position().z()));
+            Ogre::Vector3 pos(tile.position().x(), tile.position().y(), tile.position().z());
+            ClientGridNode* node = new ClientGridNode(tile.tag(), pos);
+            node->CreateTile(tile.height() > seaLevel);
+            mTiles[tile.tag()] = node;
+
             ++i;
         }
     }
