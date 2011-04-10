@@ -5,7 +5,7 @@
 class ClientUnit;
 class ClientGridNode;
 
-class ClientTile
+class ClientTile: public boost::noncopyable
 {
 public:
     explicit ClientTile(bool ground, const ClientGridNode& aGridNode);
@@ -16,7 +16,6 @@ public:
 
     ClientUnit* GetUnit() const { return mUnit; }
     void SetUnit(ClientUnit* aUnit) { mUnit = aUnit; }
-protected:
 private:
     Ogre::SceneNode& mNode;
     const bool mGround;
