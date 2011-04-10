@@ -7,7 +7,8 @@
 
 ClientGridNode::ClientGridNode(TileId aId, const Ogre::Vector3& aPosition):
         mPosition(aPosition),
-        mTileId(aId)
+        mTileId(aId),
+        mTile(NULL)
 {
     mNeighbourhood.reserve(6);
 }

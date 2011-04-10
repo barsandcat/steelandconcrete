@@ -59,12 +59,16 @@ void ClientGeodesicGrid::ConstructTileEntities() const
     Ogre::SceneNode* root = aSceneManager.getRootSceneNode();
     for (size_t i = 0; i < mTiles.size(); ++i)
     {
-        Ogre::String indexName = Ogre::StringConverter::toString(i);
-        Ogre::String meshName = indexName + "ClientTile.mesh";
-        // Create entity
-        Ogre::MeshPtr tileMesh = mTiles[i]->GetTile()->ConstructMesh(meshName);
-        Ogre::Entity* tileEntity = aSceneManager.createEntity(indexName + "ClientTile.entity", meshName);
-        root->attachObject(tileEntity);
+        if (mTiles[i]->GetTile())
+        {
+            Ogre::String indexName = Ogre::StringConverter::toString(i);
+            Ogre::String meshName = indexName + "ClientTile.mesh";
+            // Create entity
+            Ogre::MeshPtr tileMesh = mTiles[i]->GetTile()->ConstructMesh(meshName);
+            Ogre::Entity* tileEntity = aSceneManager.createEntity(indexName + "ClientTile.entity", meshName);
+            root->attachObject(tileEntity);
+        }
+
     }
 }
 
@@ -95,7 +99,6 @@ ClientGeodesicGrid::ClientGeodesicGrid(Network& aNetwork, LoadingSheet& aLoading
             TileMsg tile = tiles.tiles(j);
             Ogre::Vector3 pos(tile.position().x(), tile.position().y(), tile.position().z());
             ClientGridNode* node = new ClientGridNode(tile.tag(), pos);
-            node->CreateTile(tile.height() > seaLevel);
             mTiles[tile.tag()] = node;
 
             ++i;
