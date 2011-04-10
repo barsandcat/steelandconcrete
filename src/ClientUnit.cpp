@@ -4,6 +4,7 @@
 #include <ClientGridNode.h>
 #include <ClientApp.h>
 #include <VisualCodes.h>
+#include <ClientTile.h>
 
 ClientUnit::ClientUnit(ClientGridNode& aTile, UnitMsg& aUnitMsg):
     mTile(&aTile),
@@ -12,8 +13,8 @@ ClientUnit::ClientUnit(ClientGridNode& aTile, UnitMsg& aUnitMsg):
     mUnitId(aUnitMsg.tag()),
     mVisualCode(aUnitMsg.visual())
 {
-    mTile->SetUnit(this);
-    mNode = mTile->GetNode().createChildSceneNode();
+    mTile->GetTile()->SetUnit(this);
+    mNode = mTile->GetTile()->GetNode().createChildSceneNode();
 }
 
 ClientUnit::~ClientUnit()
@@ -35,10 +36,10 @@ Ogre::Entity* ClientUnit::CreateEntity()
 
 void ClientUnit::SetPosition(ClientGridNode& aTile)
 {
-    mTile->SetUnit(NULL);
-    mTile->GetNode().removeChild(mNode);
-    aTile.SetUnit(this);
-    aTile.GetNode().addChild(mNode);
+    mTile->GetTile()->SetUnit(NULL);
+    mTile->GetTile()->GetNode().removeChild(mNode);
+    aTile.GetTile()->SetUnit(this);
+    aTile.GetTile()->GetNode().addChild(mNode);
     mTile = &aTile;
 }
 

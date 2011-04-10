@@ -247,7 +247,6 @@ void ServerGeodesicGrid::Send(Network& aNetwork) const
     GeodesicGridSizeMsg gridInfo;
     gridInfo.set_tilecount(mTiles.size());
     gridInfo.set_edgecount(mEdges.size());
-    gridInfo.set_scale((mTiles[0]->GetPosition() - mTiles[0]->GetNeighbour(0).GetPosition()).length());
     gridInfo.set_sealevel(mSeaLevel);
     aNetwork.WriteMessage(gridInfo);
     GetLog() << "Grid info send " << gridInfo.ShortDebugString();

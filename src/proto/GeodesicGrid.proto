@@ -22,6 +22,5 @@ message GeodesicGridSizeMsg
 {
   required uint32 tileCount = 1;
   required uint32 edgeCount = 2;
-  required float scale = 3;
-  required int32 sealevel = 4;
+  required int32 sealevel = 3;
 }
