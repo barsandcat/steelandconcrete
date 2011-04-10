@@ -53,25 +53,6 @@ void ClientGeodesicGrid::ConstructStaticGeometry() const
     staticPlanet->build();
 }
 
-void ClientGeodesicGrid::ConstructTileEntities() const
-{
-    Ogre::SceneManager& aSceneManager = ClientApp::GetSceneMgr();
-    Ogre::SceneNode* root = aSceneManager.getRootSceneNode();
-    for (size_t i = 0; i < mTiles.size(); ++i)
-    {
-        if (mTiles[i]->GetTile())
-        {
-            Ogre::String indexName = Ogre::StringConverter::toString(i);
-            Ogre::String meshName = indexName + "ClientTile.mesh";
-            // Create entity
-            Ogre::MeshPtr tileMesh = mTiles[i]->GetTile()->ConstructMesh(meshName);
-            Ogre::Entity* tileEntity = aSceneManager.createEntity(indexName + "ClientTile.entity", meshName);
-            root->attachObject(tileEntity);
-        }
-
-    }
-}
-
 void ClientGeodesicGrid::InitTiles()
 {
     for (TileId i = 0; i < mTiles.size(); ++i)
