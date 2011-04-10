@@ -31,12 +31,18 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
         UnitMsg unit;
         mNetwork->ReadMessage(unit);
         ClientUnit* clientUnit = new ClientUnit(unit);
-        clientUnit->SetTile(mGrid->GetGridNode(unit.tile()).GetTile());
         mUnits.insert(std::make_pair(unit.tag(), clientUnit));
 
         if (unit.tag() == aAvatarId)
         {
             mAvatar = clientUnit;
+            ClientGridNode& gridNode = mGrid->GetGridNode(unit.tile());
+            gridNode.CreateTile(true);
+            for (size_t j = 0; j < gridNode.GetNeighbourCount(); ++j)
+            {
+                gridNode.GetNeighbour(j)->CreateTile(true);
+            }
+            clientUnit->SetTile(gridNode.GetTile());
         }
     }
     assert(mAvatar);
@@ -111,7 +117,11 @@ void ClientGame::UpdateTileUnderCursor(Ogre::Ray& aRay)
         Ogre::Vector3 position(aRay.getPoint(res.second));
         mTileUnderCursor = mTileUnderCursor->GetTileAtPosition(position);
         mSelectionMarker->getParent()->removeChild(mSelectionMarker);
-        mTileUnderCursor->GetTile()->GetNode().addChild(mSelectionMarker);
+        if (mTileUnderCursor->GetTile())
+        {
+            mTileUnderCursor->GetTile()->GetNode().addChild(mSelectionMarker);
+        }
+
     }
     mSelectionMarker->setVisible(res.first);
 }

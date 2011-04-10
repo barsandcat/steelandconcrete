@@ -41,7 +41,11 @@ void ClientUnit::SetTile(ClientTile* aTile)
         mTile = NULL;
     }
 
-    mNode->getParentSceneNode()->removeChild(mNode);
+    Ogre::SceneNode* parent = mNode->getParentSceneNode();
+    if (parent)
+    {
+        parent->removeChild(mNode);
+    }
 
     if (aTile)
     {
