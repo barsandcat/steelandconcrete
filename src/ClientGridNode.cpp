@@ -5,13 +5,18 @@
 #include <ClientApp.h>
 #include <ClientTile.h>
 
-ClientGridNode::ClientGridNode(TileId aId, bool ground, const Ogre::Vector3& aPosition):
+ClientGridNode::ClientGridNode(TileId aId, const Ogre::Vector3& aPosition):
         mPosition(aPosition),
         mTileId(aId)
 {
     mNeighbourhood.reserve(6);
-	mTile = new ClientTile(ground, *this);
- }
+}
+
+void ClientGridNode::CreateTile(bool ground)
+{
+    mTile = new ClientTile(ground, *this);
+}
+
 
 ClientGridNode::~ClientGridNode()
 {

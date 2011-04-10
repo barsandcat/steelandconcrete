@@ -4,24 +4,23 @@
 #include <Typedefs.h>
 #include <Unit.pb.h>
 
-class ClientGridNode;
+class ClientTile;
 
-class ClientUnit
+class ClientUnit: public boost::noncopyable
 {
 public:
-    ClientUnit(ClientGridNode& aTile, UnitMsg& aUnitMsg);
-    void SetPosition(ClientGridNode& aTile);
-    ClientGridNode& GetPosition() const { return *mTile; }
-    void SetTarget(ClientGridNode* aTile);
-    ClientGridNode* GetTarget() const { return mTarget; }
+    ClientUnit(UnitMsg& aUnitMsg);
+    void SetTile(ClientTile* aTile);
+    ClientTile* GetTile() const { return mTile; }
+    void SetTarget(ClientTile* aTile);
+    ClientTile* GetTarget() const { return mTarget; }
     ~ClientUnit();
     Ogre::Entity* CreateEntity();
     Ogre::SceneNode& GetNode() { return *mNode; }
 	UnitId GetUnitId() const { return mUnitId; }
-protected:
 private:
-    ClientGridNode* mTile;
-    ClientGridNode* mTarget;
+    ClientTile* mTile;
+    ClientTile* mTarget;
     Ogre::SceneNode* mNode;
     Ogre::Entity* mEntity;
     const UnitId mUnitId;
