@@ -701,6 +701,26 @@
 			Name="tests"
 			>
 			<File
+				RelativePath=".\GeodesicGridTest.h"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="CxxTest"
+						output="$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="CxxTest"
+						output="$(InputName).cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\MindListTest.cpp"
 				>
 				<FileConfiguration
