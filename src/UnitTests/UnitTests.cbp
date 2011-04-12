@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="UnitTests" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../bin/UnitTests" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../bin" />
+				<Option object_output="../../obj/UnitTestDebugLinux" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-pg" />
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-pg" />
+					<Add library="OgreMain_d" />
+					<Add library="protobuf_d" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../bin/UnitTests" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../bin" />
+				<Option object_output="../../obj/UnitTestReleaseLinux" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="OgreMain" />
+					<Add library="protobuf" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Winvalid-pch" />
+			<Add option="-Wreturn-type" />
+			<Add option="-Wsign-compare" />
+			<Add option="-Wunused-variable" />
+			<Add option="-DBOOST_ALL_NO_LIB=1" />
+			<Add directory="../../cxxtest" />
+			<Add directory=".." />
+			<Add directory="../../ogre1.6.5/OgreMain/include" />
+			<Add directory="../../protobuf-2.0.3/src" />
+			<Add directory="../../ois/includes" />
+			<Add directory="../../ogreal/ogreal/include" />
+			<Add directory="../../betagui2" />
+			<Add directory="../proto" />
+			<Add directory="../../SAL" />
+			<Add directory="../../QuickGUI_10_1/QuickGUI/include" />
+			<Add directory="../../boost/boost_1_43_0" />
+		</Compiler>
+		<Linker>
+			<Add library="freeimage" />
+			<Add library="pthread" />
+			<Add library="boost_system$(TARGET_NAME)" />
+			<Add library="boost_thread$(TARGET_NAME)" />
+			<Add directory="../../lib" />
+		</Linker>
+		<ExtraCommands>
+			<Add before="make -C ../../src/proto -f Makefile.proto" />
+			<Add before="make -f Makefile.cxxtest" />
+		</ExtraCommands>
+		<Unit filename="../ChangeList.cpp" />
+		<Unit filename="../ChangeList.h" />
+		<Unit filename="../ClientConnection.cpp" />
+		<Unit filename="../CompareEdgesAngles.h" />
+		<Unit filename="../ConnectionManager.cpp" />
+		<Unit filename="../DummyNetwork.cpp" />
+		<Unit filename="../DummyNetwork.h" />
+		<Unit filename="../Exceptions.h" />
+		<Unit filename="../INetwork.h" />
+		<Unit filename="../LinuxPlatform.cpp" />
+		<Unit filename="../Mind.cpp" />
+		<Unit filename="../Mind.h" />
+		<Unit filename="../MindList.cpp" />
+		<Unit filename="../MindList.h" />
+		<Unit filename="../Network.cpp" />
+		<Unit filename="../Network.h" />
+		<Unit filename="../Platform.h" />
+		<Unit filename="../ServerEdge.cpp" />
+		<Unit filename="../ServerEdge.h" />
+		<Unit filename="../ServerGame.cpp" />
+		<Unit filename="../ServerGeodesicGrid.cpp" />
+		<Unit filename="../ServerGeodesicGrid.h" />
+		<Unit filename="../ServerLog.cpp" />
+		<Unit filename="../ServerLog.h" />
+		<Unit filename="../ServerTile.cpp" />
+		<Unit filename="../ServerTile.h" />
+		<Unit filename="../ServerUnit.cpp" />
+		<Unit filename="../ServerUnit.h" />
+		<Unit filename="../SyncTimer.h" />
+		<Unit filename="../UnitClass.cpp" />
+		<Unit filename="../UnitClass.h" />
+		<Unit filename="../UnitList.cpp" />
+		<Unit filename="../UnitList.h" />
+		<Unit filename="../UnitListIterator.cpp" />
+		<Unit filename="../UnitListIterator.h" />
+		<Unit filename="GeodesicGridTest.cpp" />
+		<Unit filename="GeodesicGridTest.h" />
+		<Unit filename="MindListTest.cpp" />
+		<Unit filename="MindListTest.h" />
+		<Unit filename="MindTest.cpp" />
+		<Unit filename="MindTest.h" />
+		<Unit filename="NetworkTest.cpp" />
+		<Unit filename="NetworkTest.h" />
+		<Unit filename="ServerUnitTest.cpp" />
+		<Unit filename="ServerUnitTest.h" />
+		<Unit filename="UnitListTest.cpp" />
+		<Unit filename="UnitListTest.h" />
+		<Unit filename="UpdateTimerTest.cpp" />
+		<Unit filename="UpdateTimerTest.h" />
+		<Unit filename="VisualCodesTest.cpp" />
+		<Unit filename="VisualCodesTest.h" />
+		<Unit filename="../UpdateTimer.h" />
+		<Unit filename="../VisualCodes.cpp" />
+		<Unit filename="../VisualCodes.h" />
+		<Unit filename="../pch.cpp" />
+		<Unit filename="../pch.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="../proto/ChangeList.pb.cc" />
+		<Unit filename="../proto/ChangeList.pb.h" />
+		<Unit filename="../proto/ChangeList.proto" />
+		<Unit filename="../proto/CommandList.pb.cc" />
+		<Unit filename="../proto/CommandList.pb.h" />
+		<Unit filename="../proto/CommandList.proto" />
+		<Unit filename="../proto/Edge.pb.cc" />
+		<Unit filename="../proto/Edge.pb.h" />
+		<Unit filename="../proto/Edge.proto" />
+		<Unit filename="../proto/GeodesicGrid.pb.cc" />
+		<Unit filename="../proto/GeodesicGrid.pb.h" />
+		<Unit filename="../proto/GeodesicGrid.proto" />
+		<Unit filename="../proto/Handshake.pb.cc" />
+		<Unit filename="../proto/Handshake.pb.h" />
+		<Unit filename="../proto/Handshake.proto" />
+		<Unit filename="../proto/Header.pb.cc" />
+		<Unit filename="../proto/Header.pb.h" />
+		<Unit filename="../proto/Header.proto" />
+		<Unit filename="../proto/Makefile.proto">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="../proto/Request.pb.cc" />
+		<Unit filename="../proto/Request.pb.h" />
+		<Unit filename="../proto/Request.proto" />
+		<Unit filename="../proto/Response.pb.cc" />
+		<Unit filename="../proto/Response.pb.h" />
+		<Unit filename="../proto/Response.proto" />
+		<Unit filename="../proto/Tile.pb.cc" />
+		<Unit filename="../proto/Tile.pb.h" />
+		<Unit filename="../proto/Tile.proto" />
+		<Unit filename="../proto/Unit.pb.cc" />
+		<Unit filename="../proto/Unit.pb.h" />
+		<Unit filename="../proto/Unit.proto" />
+		<Unit filename="../proto/Vector.pb.cc" />
+		<Unit filename="../proto/Vector.pb.h" />
+		<Unit filename="../proto/Vector.proto" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
