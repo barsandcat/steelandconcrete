@@ -5,11 +5,12 @@
 #include <ServerEdge.h>
 #include <Network.h>
 
-class ServerGeodesicGrid
+template <typename T>
+class GeodesicGrid
 {
 public:
-    ServerGeodesicGrid(int32 aSize, int32 aSeaLevel);
-    ServerGeodesicGrid(const Ogre::String aFileName);
+    GeodesicGrid(int32 aSize, int32 aSeaLevel);
+    GeodesicGrid(const Ogre::String aFileName);
 
     void Save(const Ogre::String aFileName) const;
     void Send(Network& aNetwokr) const;
