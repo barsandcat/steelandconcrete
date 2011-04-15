@@ -74,7 +74,9 @@
 		<Unit filename="src/ClientConnection.h" />
 		<Unit filename="src/ConnectionManager.cpp" />
 		<Unit filename="src/ConnectionManager.h" />
+		<Unit filename="src/Edge.h" />
 		<Unit filename="src/Exceptions.h" />
+		<Unit filename="src/GeodesicGrid.h" />
 		<Unit filename="src/LinuxPlatform.cpp" />
 		<Unit filename="src/LinuxServer.cpp" />
 		<Unit filename="src/Mind.cpp" />
@@ -86,7 +88,6 @@
 		<Unit filename="src/Platform.h" />
 		<Unit filename="src/Server.cpp" />
 		<Unit filename="src/Server.h" />
-		<Unit filename="src/ServerEdge.cpp" />
 		<Unit filename="src/ServerEdge.h" />
 		<Unit filename="src/ServerGame.cpp" />
 		<Unit filename="src/ServerGame.h" />
