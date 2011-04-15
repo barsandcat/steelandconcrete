@@ -20,8 +20,7 @@ public:
     size_t GetTileCount() const { return mTiles.size(); }
     size_t GetEdgeCount() const { return mEdges.size(); }
     Ogre::Real GetTileRadius() const;
-    ~ServerGeodesicGrid();
-protected:
+    ~GeodesicGrid();
 private:
     std::vector< ServerTile* > mTiles;
     std::vector< Edge<T>* > mEdges;
@@ -36,7 +35,7 @@ private:
 const int32 SEA_LEVEL_MAX = 10000;
 
 template <typename T>
-GeodesicGrid::GeodesicGrid(int aSize, int32 aSeaLevel):mSize(aSize), mSeaLevel(aSeaLevel)
+GeodesicGrid<T>::GeodesicGrid(int aSize, int32 aSeaLevel):mSize(aSize), mSeaLevel(aSeaLevel)
 {
     // 2    600
     // 3   2000
@@ -128,7 +127,7 @@ GeodesicGrid::GeodesicGrid(int aSize, int32 aSeaLevel):mSize(aSize), mSeaLevel(a
 }
 
 template <typename T>
-GeodesicGrid::~GeodesicGrid()
+GeodesicGrid<T>::~GeodesicGrid()
 {
     for (size_t i = 0; i < mEdges.size(); ++i)
     {
@@ -143,7 +142,7 @@ GeodesicGrid::~GeodesicGrid()
 }
 
 template <typename T>
-void GeodesicGrid::Subdivide(const Ogre::Real aSphereRadius)
+void GeodesicGrid<T>::Subdivide(const Ogre::Real aSphereRadius)
 {
     std::vector< T* > newTiles;
     newTiles.reserve(mEdges.size());
@@ -197,7 +196,7 @@ void GeodesicGrid::Subdivide(const Ogre::Real aSphereRadius)
 
 
 template <typename T>
-void GeodesicGrid::InitTiles()
+void GeodesicGrid<T>::InitTiles()
 {
     for (TileId i = 0; i < mTiles.size(); ++i)
     {
@@ -207,7 +206,7 @@ void GeodesicGrid::InitTiles()
 }
 
 template <typename T>
-Ogre::Real GeodesicGrid::GetTileRadius() const
+Ogre::Real GeodesicGrid<T>::GetTileRadius() const
 {
     Ogre::Real sum = 0;
     for (size_t i = 0; i < mEdges.size(); ++i)
@@ -220,7 +219,7 @@ Ogre::Real GeodesicGrid::GetTileRadius() const
 
 
 template <typename T>
-GeodesicGrid::GeodesicGrid(const Ogre::String aFileName):mSize(0), mSeaLevel(0)
+GeodesicGrid<T>::GeodesicGrid(const Ogre::String aFileName):mSize(0), mSeaLevel(0)
 {
     GeodesicGridMsg grid;
     std::fstream input(aFileName.c_str(), std::ios::in | std::ios::binary);
@@ -250,7 +249,7 @@ GeodesicGrid::GeodesicGrid(const Ogre::String aFileName):mSize(0), mSeaLevel(0)
 }
 
 template <typename T>
-void GeodesicGrid::Save(const Ogre::String aFileName) const
+void GeodesicGrid<T>::Save(const Ogre::String aFileName) const
 {
     GeodesicGridMsg grid;
     grid.set_sealevel(mSeaLevel);
@@ -278,7 +277,7 @@ void GeodesicGrid::Save(const Ogre::String aFileName) const
 }
 
 template <typename T>
-void GeodesicGrid::Send(Network& aNetwork) const
+void GeodesicGrid<T>::Send(Network& aNetwork) const
 {
     GeodesicGridSizeMsg gridInfo;
     gridInfo.set_tilecount(mTiles.size());
