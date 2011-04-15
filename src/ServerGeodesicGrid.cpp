@@ -7,7 +7,7 @@
 
 const int32 SEA_LEVEL_MAX = 10000;
 
-ServerGeodesicGrid::ServerGeodesicGrid(int aSize, int32 aSeaLevel): mSeaLevel(aSeaLevel)
+ServerGeodesicGrid::ServerGeodesicGrid(int aSize, int32 aSeaLevel):mSize(aSize), mSeaLevel(aSeaLevel)
 {
     // 2    600
     // 3   2000
@@ -186,7 +186,7 @@ Ogre::Real ServerGeodesicGrid::GetTileRadius() const
 }
 
 
-ServerGeodesicGrid::ServerGeodesicGrid(const Ogre::String aFileName): mSeaLevel(0)
+ServerGeodesicGrid::ServerGeodesicGrid(const Ogre::String aFileName):mSize(0), mSeaLevel(0)
 {
     GeodesicGridMsg grid;
     std::fstream input(aFileName.c_str(), std::ios::in | std::ios::binary);
@@ -248,6 +248,7 @@ void ServerGeodesicGrid::Send(Network& aNetwork) const
     gridInfo.set_tilecount(mTiles.size());
     gridInfo.set_edgecount(mEdges.size());
     gridInfo.set_sealevel(mSeaLevel);
+    gridInfo.set_size(mSize);
     aNetwork.WriteMessage(gridInfo);
     GetLog() << "Grid info send " << gridInfo.ShortDebugString();
     const size_t tilesPerMessage = 100;
