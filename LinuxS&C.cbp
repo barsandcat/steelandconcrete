@@ -92,7 +92,6 @@
 		<Unit filename="src/BirdCamera.h" />
 		<Unit filename="src/ClientApp.cpp" />
 		<Unit filename="src/ClientApp.h" />
-		<Unit filename="src/ClientEdge.cpp" />
 		<Unit filename="src/ClientEdge.h" />
 		<Unit filename="src/ClientGame.cpp" />
 		<Unit filename="src/ClientGame.h" />
