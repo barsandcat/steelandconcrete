@@ -4,7 +4,6 @@
 #include <Edge.h>
 #include <GeodesicGrid.pb.h>
 #include <Network.h>
-#include <ServerLog.h>
 
 template <typename T>
 class GeodesicGrid: public boost::noncopyable
@@ -286,7 +285,7 @@ void GeodesicGrid<T>::Send(Network& aNetwork) const
     gridInfo.set_sealevel(mSeaLevel);
     gridInfo.set_size(mSize);
     aNetwork.WriteMessage(gridInfo);
-    GetLog() << "Grid info send " << gridInfo.ShortDebugString();
+    //GetLog() << "Grid info send " << gridInfo.ShortDebugString();
     const size_t tilesPerMessage = 100;
     for (size_t i = 0; i < mTiles.size();)
     {
@@ -305,7 +304,7 @@ void GeodesicGrid<T>::Send(Network& aNetwork) const
         aNetwork.WriteMessage(tiles);
     }
 
-    GetLog() << "Send all tiles";
+    //GetLog() << "Send all tiles";
 
     const size_t edgesPerMessage = 100;
     for (size_t i = 0; i < mEdges.size();)
@@ -320,15 +319,15 @@ void GeodesicGrid<T>::Send(Network& aNetwork) const
         }
         aNetwork.WriteMessage(edges);
     }
-    GetLog() << "Send all edges";
+    //GetLog() << "Send all edges";
 }
 
 template <typename T>
-GeodesicGrid<T>::GeodesicGrid(Network& aNetwork)
+GeodesicGrid<T>::GeodesicGrid(Network& aNetwork): mSize(0)
 {
     GeodesicGridSizeMsg gridInfo;
     aNetwork.ReadMessage(gridInfo);
-    GetLog() << "Recived grid info " << gridInfo.ShortDebugString();
+    //GetLog() << "Recived grid info " << gridInfo.ShortDebugString();
     mTiles.resize(gridInfo.tilecount());
     mEdges.resize(gridInfo.edgecount());
     int32 seaLevel = gridInfo.sealevel();
@@ -347,7 +346,7 @@ GeodesicGrid<T>::GeodesicGrid(Network& aNetwork)
             ++i;
         }
     }
-    GetLog() << "Recived all tiles";
+    //GetLog() << "Recived all tiles";
 
     for (size_t i = 0; i < gridInfo.edgecount();)
     {
@@ -360,7 +359,7 @@ GeodesicGrid<T>::GeodesicGrid(Network& aNetwork)
             ++i;
         }
     }
-    GetLog() << "Recived all edges ";
+    //GetLog() << "Recived all edges ";
 
     InitTiles();
 }
