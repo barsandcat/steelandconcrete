@@ -14,8 +14,6 @@ public:
     GeodesicGrid(Tiles& aTiles, Network& aNetwork);
     void Send(Network& aNetwokr) const;
 
-    Edge<T>& GetEdge(size_t aIndex) const { return *mEdges[aIndex]; }
-    size_t GetEdgeCount() const { return mEdges.size(); }
     Ogre::Real GetTileRadius() const;
     ~GeodesicGrid();
 private:

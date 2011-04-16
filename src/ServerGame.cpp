@@ -27,7 +27,7 @@ GameTime ServerGame::GetTimeStep()
 }
 
 
-ServerGame::ServerGame(int aSize): mGrid(NULL),
+ServerGame::ServerGame(int aSize):mSize(aSize), mGrid(NULL),
     mGrass(VC::LIVE | VC::PLANT, 100, 0),
     mZebra(VC::LIVE | VC::ANIMAL | VC::HERBIVORES, 500, 1),
     mAvatar(VC::LIVE | VC::ANIMAL | VC::HUMAN, 999999, 1),
