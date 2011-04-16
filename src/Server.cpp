@@ -32,6 +32,6 @@ void RunServer(int argc, char **argv)
 	// Parse the args.
 	cmd.parse( argc, argv );
 
-	ServerGame app(size.getValue(), seaLevel.getValue());
+	ServerGame app(size.getValue());
 	app.MainLoop(address.getValue(), port.getValue());
 }

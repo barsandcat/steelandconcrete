@@ -9,20 +9,17 @@ template <typename T>
 class GeodesicGrid: public boost::noncopyable
 {
 public:
-    GeodesicGrid(int32 aSize);
-    GeodesicGrid(const Ogre::String aFileName);
-    GeodesicGrid(Network& aNetwork);
-
-    void Save(const Ogre::String aFileName) const;
+    typedef std::vector<T*> Tiles;
+    GeodesicGrid(Tiles& aTiles, int32 aSize);
+    GeodesicGrid(Tiles& aTiles, Network& aNetwork);
     void Send(Network& aNetwokr) const;
-    T& GetTile(size_t aIndex) const { return *mTiles[aIndex]; }
+
     Edge<T>& GetEdge(size_t aIndex) const { return *mEdges[aIndex]; }
-    size_t GetTileCount() const { return mTiles.size(); }
     size_t GetEdgeCount() const { return mEdges.size(); }
     Ogre::Real GetTileRadius() const;
     ~GeodesicGrid();
 private:
-    std::vector< T* > mTiles;
+    Tiles& mTiles;
     std::vector< Edge<T>* > mEdges;
     void Subdivide(const Ogre::Real aSphereRadius);
     void InitTiles();
@@ -33,7 +30,7 @@ private:
 const int32 SEA_LEVEL_MAX = 10000;
 
 template <typename T>
-GeodesicGrid<T>::GeodesicGrid(int aSize)
+GeodesicGrid<T>::GeodesicGrid(Tiles& aTiles, int aSize): mTiles(aTiles)
 {
     // 2    600
     // 3   2000
@@ -142,7 +139,7 @@ GeodesicGrid<T>::~GeodesicGrid()
 template <typename T>
 void GeodesicGrid<T>::Subdivide(const Ogre::Real aSphereRadius)
 {
-    std::vector< T* > newTiles;
+    Tiles newTiles;
     newTiles.reserve(mEdges.size());
     std::vector< Edge<T>* > newEdges;
 
@@ -216,63 +213,6 @@ Ogre::Real GeodesicGrid<T>::GetTileRadius() const
     return sqrt(sum / mEdges.size() / 2.0f);
 }
 
-
-template <typename T>
-GeodesicGrid<T>::GeodesicGrid(const Ogre::String aFileName)
-{
-    GeodesicGridMsg grid;
-    std::fstream input(aFileName.c_str(), std::ios::in | std::ios::binary);
-    if (grid.ParseFromIstream(&input))
-    {
-        mTiles.reserve(grid.tiles_size());
-        for (int i = 0; i < grid.tiles_size(); ++i)
-        {
-            const TileMsg& tile = grid.tiles(i);
-            const VectorMsg& vector = tile.position();
-            Ogre::Vector3 position(vector.x(), vector.y(), vector.z());
-            T* newTile = new T(position, tile.height());
-            newTile->SetTileId(i);
-            mTiles.push_back(newTile);
-        }
-
-        mEdges.reserve(grid.edges_size());
-        for (int i = 0; i < grid.edges_size(); ++i)
-        {
-            const EdgeMsg& edge = grid.edges(i);
-            mEdges.push_back(new Edge<T>(*mTiles[edge.tilea()], *mTiles[edge.tileb()]));
-        }
-
-        InitTiles();
-    }
-}
-
-template <typename T>
-void GeodesicGrid<T>::Save(const Ogre::String aFileName) const
-{
-    GeodesicGridMsg grid;
-
-    for (size_t i = 0; i < mTiles.size(); ++i)
-    {
-        Ogre::Vector3 pos = mTiles[i]->GetPosition();
-        TileMsg* tile = grid.add_tiles();
-        tile->set_tag(i);
-        tile->set_height(mTiles[i]->GetHeight());
-        tile->mutable_position()->set_x(pos.x);
-        tile->mutable_position()->set_y(pos.y);
-        tile->mutable_position()->set_z(pos.z);
-    }
-
-    for (size_t i = 0; i < mEdges.size(); ++i)
-    {
-        EdgeMsg* edge = grid.add_edges();
-        edge->set_tilea(mEdges[i]->GetTileA().GetTileId());
-        edge->set_tileb(mEdges[i]->GetTileB().GetTileId());
-    }
-
-    std::fstream output(aFileName.c_str(), std::ios::out | std::ios::trunc | std::ios::binary);
-    grid.SerializeToOstream(&output);
-}
-
 template <typename T>
 void GeodesicGrid<T>::Send(Network& aNetwork) const
 {
@@ -318,7 +258,7 @@ void GeodesicGrid<T>::Send(Network& aNetwork) const
 }
 
 template <typename T>
-GeodesicGrid<T>::GeodesicGrid(Network& aNetwork)
+GeodesicGrid<T>::GeodesicGrid(Tiles& aTiles, Network& aNetwork): mTiles(aTiles)
 {
     GeodesicGridSizeMsg gridInfo;
     aNetwork.ReadMessage(gridInfo);
