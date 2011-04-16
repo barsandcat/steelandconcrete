@@ -16,14 +16,14 @@ public:
 
     void Save(const Ogre::String aFileName) const;
     void Send(Network& aNetwokr) const;
-    ServerTile& GetTile(size_t aIndex) const { return *mTiles[aIndex]; }
+    T& GetTile(size_t aIndex) const { return *mTiles[aIndex]; }
     Edge<T>& GetEdge(size_t aIndex) const { return *mEdges[aIndex]; }
     size_t GetTileCount() const { return mTiles.size(); }
     size_t GetEdgeCount() const { return mEdges.size(); }
     Ogre::Real GetTileRadius() const;
     ~GeodesicGrid();
 private:
-    std::vector< ServerTile* > mTiles;
+    std::vector< T* > mTiles;
     std::vector< Edge<T>* > mEdges;
     int32 mSeaLevel;
     const int32 mSize;
@@ -160,7 +160,7 @@ void GeodesicGrid<T>::Subdivide(const Ogre::Real aSphereRadius)
         float rnd = (rand() % 100 + 1) / 100.0f - 0.5f;
         int32 height = (edge->GetTileA().GetHeight() + edge->GetTileB().GetHeight()) / 2 + rnd * err;
 
-        ServerTile* tile = new T((a + b).normalisedCopy() * aSphereRadius, height);
+        T* tile = new T((a + b).normalisedCopy() * aSphereRadius, height);
         newEdges.push_back(new Edge<T>(*tile, edge->GetTileA()));
         newEdges.push_back(new Edge<T>(*tile, edge->GetTileB()));
         newTiles.push_back(tile);
@@ -177,7 +177,7 @@ void GeodesicGrid<T>::Subdivide(const Ogre::Real aSphereRadius)
     // Linking new tiles (mTiles holds only old tiles)
     for (size_t i = 0; i < mTiles.size(); ++i)
     {
-        ServerTile* tile = mTiles[i];
+        T* tile = mTiles[i];
         tile->SortNeighbourhood();
         for (size_t i = 0; i < tile->GetNeighbourCount(); ++i)
         {
