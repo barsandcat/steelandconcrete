@@ -36,7 +36,7 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
         if (unit.tag() == aAvatarId)
         {
             mAvatar = clientUnit;
-            ClientGridNode& gridNode = mGrid->GetGridNode(unit.tile());
+            ClientGridNode& gridNode = mGrid->GetTile(unit.tile());
             gridNode.CreateTile(true);
             for (size_t j = 0; j < gridNode.GetNeighbourCount(); ++j)
             {
@@ -65,7 +65,7 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
     myLight->setDiffuseColour(1, 1, 1);
     myLight->setSpecularColour(1, 1, 1);
 
-    mTileUnderCursor = &mGrid->GetGridNode(0);
+    mTileUnderCursor = &mGrid->GetTile(0);
     mSelectionMarker = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
     mSelectionMarker->setScale(Ogre::Vector3(0.01));
     mSelectionMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Marker", Ogre::SceneManager::PT_SPHERE));
@@ -173,7 +173,7 @@ void ClientGame::LoadEvents(const ResponseMsg& changes)
         if (change.has_unitmove())
         {
             const UnitMoveMsg& move = change.unitmove();
-            GetUnit(move.unitid()).SetTile(mGrid->GetGridNode(move.position()).GetTile());
+            GetUnit(move.unitid()).SetTile(mGrid->GetTile(move.position()).GetTile());
         }
         else if (change.has_commanddone())
         {

@@ -24,6 +24,7 @@ public:
     ClientGridNode* GetTileAtPosition(const Ogre::Vector3& aPosistion);
 
     ClientTile* GetTile() const { return mTile; }
+    void SetTileId(TileId aTileId) { }
 private:
     std::vector< ClientGridNode* > mNeighbourhood;
     TileId mTileId;
