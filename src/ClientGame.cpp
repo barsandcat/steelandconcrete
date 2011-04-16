@@ -19,7 +19,7 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
     mNetwork(aNetwork)
 {
     mLoadingSheet.Activate();
-    mGrid = new ClientGeodesicGrid(*mNetwork, mLoadingSheet);
+    mGrid = new ClientGeodesicGrid(*mNetwork);
 
     UnitCountMsg unitCount;
     mNetwork->ReadMessage(unitCount);
@@ -52,11 +52,6 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
     Ogre::Vector3 avatarPosition = mAvatar->GetTile()->GetGridNode().GetPosition();
     ClientApp::GetCamera().Goto(avatarPosition);
     ClientApp::GetCamera().SetDistance(avatarPosition.length() + 50.0f);
-
-    // Planet
-    //mGrid->ConstructStaticGeometry();
-    //ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode()->attachObject(mGrid->ConstructDebugMesh());
-
 
     // Units
     CreateUnitEntities();

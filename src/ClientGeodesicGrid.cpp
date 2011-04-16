@@ -20,39 +20,6 @@ ClientGeodesicGrid::~ClientGeodesicGrid()
     }
 }
 
-Ogre::ManualObject* ClientGeodesicGrid::ConstructDebugMesh() const
-{
-    Ogre::ManualObject* manual = new Ogre::ManualObject("PlanetDebugManual");
-    manual->begin("Grassland", Ogre::RenderOperation::OT_LINE_LIST);
-    for (size_t i = 0; i < mEdges.size(); ++i)
-    {
-        ClientEdge* edge = mEdges[i];
-        manual->position(edge->GetTileA().GetPosition());
-        manual->position(edge->GetTileB().GetPosition());
-    }
-    manual->end();
-    return manual;
-}
-
-void ClientGeodesicGrid::ConstructStaticGeometry() const
-{
-    Ogre::SceneManager& aSceneManager = ClientApp::GetSceneMgr();
-    Ogre::StaticGeometry* staticPlanet = aSceneManager.createStaticGeometry("Planet.Static");
-    for (size_t i = 0; i < mTiles.size(); ++i)
-    {
-        Ogre::String indexName = Ogre::StringConverter::toString(i);
-        Ogre::String meshName = indexName + "ClientTile.mesh";
-        // Create entity
-        Ogre::MeshPtr tileMesh = mTiles[i]->GetTile()->ConstructMesh(meshName);
-        Ogre::Entity* tileEntity = aSceneManager.createEntity(indexName + "ClientTile.entity", meshName);
-        // Pack it in
-        staticPlanet->addEntity(tileEntity, Ogre::Vector3::ZERO, Ogre::Quaternion::IDENTITY);
-        // Clean up
-        aSceneManager.destroyEntity(tileEntity);
-    }
-    staticPlanet->build();
-}
-
 void ClientGeodesicGrid::InitTiles()
 {
     for (TileId i = 0; i < mTiles.size(); ++i)
@@ -62,7 +29,7 @@ void ClientGeodesicGrid::InitTiles()
 }
 
 
-ClientGeodesicGrid::ClientGeodesicGrid(Network& aNetwork, LoadingSheet& aLoadingSheet)
+ClientGeodesicGrid::ClientGeodesicGrid(Network& aNetwork)
 {
     GeodesicGridSizeMsg gridInfo;
     aNetwork.ReadMessage(gridInfo);
@@ -86,7 +53,6 @@ ClientGeodesicGrid::ClientGeodesicGrid(Network& aNetwork, LoadingSheet& aLoading
         }
     }
     GetLog() << "Recived all tiles";
-    aLoadingSheet.SetProgress(10);
 
     for (size_t i = 0; i < gridInfo.edgecount();)
     {
@@ -100,7 +66,6 @@ ClientGeodesicGrid::ClientGeodesicGrid(Network& aNetwork, LoadingSheet& aLoading
         }
     }
     GetLog() << "Recived all edges ";
-    aLoadingSheet.SetProgress(50);
 
     InitTiles();
 }
