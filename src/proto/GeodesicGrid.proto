@@ -5,7 +5,6 @@ message GeodesicGridMsg
 {
   repeated TileMsg tiles = 2;
   repeated EdgeMsg edges = 3;
-  required int32 sealevel = 4;
 }
 
 message TileListMsg
@@ -22,6 +21,5 @@ message GeodesicGridSizeMsg
 {
   required uint32 tileCount = 1;
   required uint32 edgeCount = 2;
-  required int32 sealevel = 3;
-  required uint32 size = 4;
+  required uint32 size = 3;
 }

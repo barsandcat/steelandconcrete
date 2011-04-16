@@ -9,7 +9,7 @@ template <typename T>
 class GeodesicGrid: public boost::noncopyable
 {
 public:
-    GeodesicGrid(int32 aSize, int32 aSeaLevel);
+    GeodesicGrid(int32 aSize);
     GeodesicGrid(const Ogre::String aFileName);
     GeodesicGrid(Network& aNetwork);
 
@@ -24,8 +24,6 @@ public:
 private:
     std::vector< T* > mTiles;
     std::vector< Edge<T>* > mEdges;
-    int32 mSeaLevel;
-    const int32 mSize;
     void Subdivide(const Ogre::Real aSphereRadius);
     void InitTiles();
 };
@@ -35,7 +33,7 @@ private:
 const int32 SEA_LEVEL_MAX = 10000;
 
 template <typename T>
-GeodesicGrid<T>::GeodesicGrid(int aSize, int32 aSeaLevel):mSize(aSize), mSeaLevel(aSeaLevel)
+GeodesicGrid<T>::GeodesicGrid(int aSize)
 {
     // 2    600
     // 3   2000
@@ -220,14 +218,13 @@ Ogre::Real GeodesicGrid<T>::GetTileRadius() const
 
 
 template <typename T>
-GeodesicGrid<T>::GeodesicGrid(const Ogre::String aFileName):mSize(0), mSeaLevel(0)
+GeodesicGrid<T>::GeodesicGrid(const Ogre::String aFileName)
 {
     GeodesicGridMsg grid;
     std::fstream input(aFileName.c_str(), std::ios::in | std::ios::binary);
     if (grid.ParseFromIstream(&input))
     {
         mTiles.reserve(grid.tiles_size());
-        mSeaLevel = grid.sealevel();
         for (int i = 0; i < grid.tiles_size(); ++i)
         {
             const TileMsg& tile = grid.tiles(i);
@@ -253,7 +250,6 @@ template <typename T>
 void GeodesicGrid<T>::Save(const Ogre::String aFileName) const
 {
     GeodesicGridMsg grid;
-    grid.set_sealevel(mSeaLevel);
 
     for (size_t i = 0; i < mTiles.size(); ++i)
     {
@@ -283,8 +279,6 @@ void GeodesicGrid<T>::Send(Network& aNetwork) const
     GeodesicGridSizeMsg gridInfo;
     gridInfo.set_tilecount(mTiles.size());
     gridInfo.set_edgecount(mEdges.size());
-    gridInfo.set_sealevel(mSeaLevel);
-    gridInfo.set_size(mSize);
     aNetwork.WriteMessage(gridInfo);
     //GetLog() << "Grid info send " << gridInfo.ShortDebugString();
     const size_t tilesPerMessage = 100;
@@ -324,14 +318,13 @@ void GeodesicGrid<T>::Send(Network& aNetwork) const
 }
 
 template <typename T>
-GeodesicGrid<T>::GeodesicGrid(Network& aNetwork): mSize(0)
+GeodesicGrid<T>::GeodesicGrid(Network& aNetwork)
 {
     GeodesicGridSizeMsg gridInfo;
     aNetwork.ReadMessage(gridInfo);
     //GetLog() << "Recived grid info " << gridInfo.ShortDebugString();
     mTiles.resize(gridInfo.tilecount());
     mEdges.resize(gridInfo.edgecount());
-    int32 seaLevel = gridInfo.sealevel();
 
     for (size_t i = 0; i < gridInfo.tilecount();)
     {

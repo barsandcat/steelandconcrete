@@ -34,7 +34,7 @@ ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL),
     mTimer(2000)
 {
     // Create map
-    mGrid = new ServerGeodesicGrid(aSize, aSeaLevel);
+    mGrid = new ServerGeodesicGrid(aSize);
     GetLog() << "Size " << aSize << " Tile count " << mGrid->GetTileCount();
     GetLog() << "Tile radius " << mGrid->GetTileRadius();
     // Populate
