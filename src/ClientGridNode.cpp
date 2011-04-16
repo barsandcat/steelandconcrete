@@ -38,10 +38,9 @@ void ClientGridNode::SortNeighbourhood()
 }
 
 
-void ClientGridNode::RemoveNeighbour(ClientGridNode* aTile)
+void ClientGridNode::RemoveNeighbour(ClientGridNode& aTile)
 {
-    assert(aTile);
-    std::vector< ClientGridNode* >::iterator i = std::find(mNeighbourhood.begin(), mNeighbourhood.end(), aTile);
+    std::vector< ClientGridNode* >::iterator i = std::find(mNeighbourhood.begin(), mNeighbourhood.end(), &aTile);
     assert(i != mNeighbourhood.end());
     mNeighbourhood.erase(i);
 }

@@ -27,8 +27,8 @@ Ogre::ManualObject* ClientGeodesicGrid::ConstructDebugMesh() const
     for (size_t i = 0; i < mEdges.size(); ++i)
     {
         ClientEdge* edge = mEdges[i];
-        manual->position(edge->GetTileA()->GetPosition());
-        manual->position(edge->GetTileB()->GetPosition());
+        manual->position(edge->GetTileA().GetPosition());
+        manual->position(edge->GetTileB().GetPosition());
     }
     manual->end();
     return manual;
@@ -95,7 +95,7 @@ ClientGeodesicGrid::ClientGeodesicGrid(Network& aNetwork, LoadingSheet& aLoading
         for (int j = 0; j < edges.edges_size(); ++j)
         {
             EdgeMsg edge = edges.edges(j);
-            mEdges[i] = new ClientEdge(mTiles[edge.tilea()], mTiles[edge.tileb()]);
+            mEdges[i] = new ClientEdge(*mTiles[edge.tilea()], *mTiles[edge.tileb()]);
             ++i;
         }
     }

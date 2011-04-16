@@ -11,8 +11,8 @@ public:
     explicit ClientGridNode(TileId aId, const Ogre::Vector3& aPosition);
     ~ClientGridNode();
     void CreateTile(bool ground);
-    void AddNeighbour(ClientGridNode* aTile) { mNeighbourhood.push_back(aTile); }
-    void RemoveNeighbour(ClientGridNode* aTile);
+    void AddNeighbour(ClientGridNode& aTile) { mNeighbourhood.push_back(&aTile); }
+    void RemoveNeighbour(ClientGridNode& aTile);
     void SortNeighbourhood();
 
     Ogre::Vector3 GetPosition() const { return mPosition; }
