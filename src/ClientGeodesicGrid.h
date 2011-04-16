@@ -10,10 +10,8 @@
 class ClientGeodesicGrid
 {
 public:
-    ClientGeodesicGrid(Network& aNetwork, LoadingSheet& aLoadingSheet);
+    ClientGeodesicGrid(Network& aNetwork);
 
-    void ConstructStaticGeometry() const;
-    Ogre::ManualObject* ConstructDebugMesh() const;
     ClientGridNode& GetGridNode(TileId aIndex) const { return *mTiles[aIndex]; }
     ClientEdge& GetEdge(size_t aIndex) const { return *mEdges[aIndex]; }
     TileId GetTileCount() const { return mTiles.size(); }
