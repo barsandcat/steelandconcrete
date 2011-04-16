@@ -168,6 +168,7 @@ void GeodesicGrid<T>::Subdivide(const Ogre::Real aSphereRadius)
     // Replacing edges
     for (size_t i = 0; i < mEdges.size(); ++i)
     {
+        mEdges[i]->Unlink();
         delete mEdges[i];
     }
     mEdges = newEdges;

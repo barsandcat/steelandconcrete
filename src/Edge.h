@@ -11,7 +11,7 @@ public:
         mTileB.AddNeighbour(mTileA);
     }
 
-    ~Edge()
+    void Unlink()
     {
         mTileA.RemoveNeighbour(mTileB);
         mTileB.RemoveNeighbour(mTileA);
