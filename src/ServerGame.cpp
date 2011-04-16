@@ -27,30 +27,27 @@ GameTime ServerGame::GetTimeStep()
 }
 
 
-ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL),
+ServerGame::ServerGame(int aSize): mGrid(NULL),
     mGrass(VC::LIVE | VC::PLANT, 100, 0),
     mZebra(VC::LIVE | VC::ANIMAL | VC::HERBIVORES, 500, 1),
     mAvatar(VC::LIVE | VC::ANIMAL | VC::HUMAN, 999999, 1),
     mTimer(2000)
 {
     // Create map
-    mGrid = new ServerGeodesicGrid(aSize);
-    GetLog() << "Size " << aSize << " Tile count " << mGrid->GetTileCount();
+    mGrid = new ServerGeodesicGrid(mTiles, aSize);
+    GetLog() << "Size " << aSize << " Tile count " << mTiles.size();
     GetLog() << "Tile radius " << mGrid->GetTileRadius();
     // Populate
-    for (size_t i = 0; i < mGrid->GetTileCount(); ++i)
+    for (size_t i = 0; i < mTiles.size(); ++i)
     {
-        if (mGrid->GetTile(i).GetHeight() > aSeaLevel)
+        switch (rand() % 10)
         {
-            switch (rand() % 10)
-            {
-            case 1:
-                UnitList::NewUnit(mGrid->GetTile(i), mZebra);
-                break;
-            case 6:
-                UnitList::NewUnit(mGrid->GetTile(i), mGrass);
-                break;
-            }
+        case 1:
+            UnitList::NewUnit(*mTiles.at(i), mZebra);
+            break;
+        case 6:
+            UnitList::NewUnit(*mTiles.at(i), mGrass);
+            break;
         }
     }
 
@@ -142,7 +139,7 @@ void ServerGame::LoadCommands(const RequestMsg& commands)
             const CommandMoveMsg& move = command.commandmove();
             if (ServerUnit* unit = UnitList::GetUnit(move.unitid()))
             {
-                unit->SetCommand(mGrid->GetTile(move.position()));
+                unit->SetCommand(*mTiles.at(move.position()));
             }
             else
             {
