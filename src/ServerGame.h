@@ -11,7 +11,7 @@
 class ServerGame: public boost::noncopyable
 {
 public:
-    ServerGame(int aSize);
+    ServerGame(int32 aSize);
     ~ServerGame();
     void MainLoop(Ogre::String aAddress, int32 aPort);
     ServerGeodesicGrid& GetGrid();
@@ -25,6 +25,7 @@ private:
     void UpdateGame();
     ServerGeodesicGrid::Tiles mTiles;
     ServerGeodesicGrid* mGrid;
+    int32 mSize;
     static GameTime mTime;
     static GameTime mTimeStep;
     UnitClass mGrass;
