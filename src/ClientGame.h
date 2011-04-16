@@ -31,7 +31,6 @@ private:
     ClientUnit& GetUnit(UnitId aUnitId);
 private:
     ClientGeodesicGrid::Tiles mTiles;
-    ClientGeodesicGrid* mGrid;
     ClientUnits mUnits;
     ClientGridNode* mTileUnderCursor;
     ClientUnit* mAvatar;

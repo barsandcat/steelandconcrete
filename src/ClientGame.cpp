@@ -11,7 +11,6 @@
 #include <ClientTile.h>
 
 ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
-    mGrid(NULL),
     mTileUnderCursor(NULL),
     mAvatar(NULL),
     mTime(0),
@@ -19,7 +18,7 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
     mNetwork(aNetwork)
 {
     mLoadingSheet.Activate();
-    mGrid = new ClientGeodesicGrid(mTiles, *mNetwork);
+    ClientGeodesicGrid grid(mTiles, *mNetwork);
 
     UnitCountMsg unitCount;
     mNetwork->ReadMessage(unitCount);
@@ -82,8 +81,6 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
 
 ClientGame::~ClientGame()
 {
-    delete mGrid;
-
     std::map< UnitId, ClientUnit* >::iterator i = mUnits.begin();
     for (; i != mUnits.end(); ++i)
         delete i->second;
