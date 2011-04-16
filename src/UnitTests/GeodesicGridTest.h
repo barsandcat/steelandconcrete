@@ -18,7 +18,7 @@ public:
     }
     void TestGeodesicGrid()
     {
-        ServerGeodesicGrid grid1(0, 5000);
+        ServerGeodesicGrid grid1(0);
         const Ogre::Real len = grid1.GetTile(0).GetPosition().length();
 
         for (size_t i = 0; i < grid1.GetTileCount(); ++i)
@@ -38,7 +38,7 @@ public:
 
     void TestGeodesicGridSave()
     {
-        ServerGeodesicGrid grid1(0, 5000);
+        ServerGeodesicGrid grid1(0);
         grid1.Save("test.gg");
         ServerGeodesicGrid grid2("test.gg");
 
