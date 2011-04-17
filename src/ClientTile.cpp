@@ -67,11 +67,7 @@ Ogre::MeshPtr ClientTile::ConstructMesh(const Ogre::String& aMeshName) const
 
     manual.begin(material, Ogre::RenderOperation::OT_TRIANGLE_LIST);
 
-    assert(mGridNode.GetNeighbour(0));
-    assert(mGridNode.GetNeighbour(1));
-    assert(mGridNode.GetNeighbour(2));
-    assert(mGridNode.GetNeighbour(3));
-    assert(mGridNode.GetNeighbour(4));
+    assert(mGridNode.GetNeighbourCount() > 4);
 
     const Ogre::Vector3 positon = mGridNode.GetPosition();
     const Ogre::Vector3 normal = positon.normalisedCopy();
@@ -79,37 +75,37 @@ Ogre::MeshPtr ClientTile::ConstructMesh(const Ogre::String& aMeshName) const
 
     // Vetex setup
     //0
-    manual.position((positon + mGridNode.GetNeighbour(0)->GetPosition() + mGridNode.GetNeighbour(1)->GetPosition()).normalisedCopy() * len);
+    manual.position((positon + mGridNode.GetNeighbour(0).GetPosition() + mGridNode.GetNeighbour(1).GetPosition()).normalisedCopy() * len);
     manual.normal(normal);
     manual.textureCoord(pentagon ? pentagonHorizont : hexagonStep, 0);
     //1
-    manual.position((positon + mGridNode.GetNeighbour(1)->GetPosition() + mGridNode.GetNeighbour(2)->GetPosition()).normalisedCopy() * len);
+    manual.position((positon + mGridNode.GetNeighbour(1).GetPosition() + mGridNode.GetNeighbour(2).GetPosition()).normalisedCopy() * len);
     manual.normal(normal);
     manual.textureCoord(0, 0.5);
     //2
-    manual.position((positon + mGridNode.GetNeighbour(2)->GetPosition() + mGridNode.GetNeighbour(3)->GetPosition()).normalisedCopy() * len);
+    manual.position((positon + mGridNode.GetNeighbour(2).GetPosition() + mGridNode.GetNeighbour(3).GetPosition()).normalisedCopy() * len);
     manual.normal(normal);
     manual.textureCoord(pentagon ? pentagonHorizont : hexagonStep, 1);
     //3
-    manual.position((positon + mGridNode.GetNeighbour(3)->GetPosition() + mGridNode.GetNeighbour(4)->GetPosition()).normalisedCopy() * len);
+    manual.position((positon + mGridNode.GetNeighbour(3).GetPosition() + mGridNode.GetNeighbour(4).GetPosition()).normalisedCopy() * len);
     manual.normal(normal);
     manual.textureCoord(1.0f - (pentagon ? 0 : hexagonStep), 1.0f - (pentagon ? pentagonBottomStep : 0));
 
     if (pentagon)
     {
         //4
-        manual.position((positon + mGridNode.GetNeighbour(4)->GetPosition() + mGridNode.GetNeighbour(0)->GetPosition()).normalisedCopy() * len);
+        manual.position((positon + mGridNode.GetNeighbour(4).GetPosition() + mGridNode.GetNeighbour(0).GetPosition()).normalisedCopy() * len);
         manual.normal(normal);
         manual.textureCoord(1.0f, pentagonBottomStep);
     }
     else
     {
         //4
-        manual.position((positon + mGridNode.GetNeighbour(4)->GetPosition() + mGridNode.GetNeighbour(5)->GetPosition()).normalisedCopy() * len);
+        manual.position((positon + mGridNode.GetNeighbour(4).GetPosition() + mGridNode.GetNeighbour(5).GetPosition()).normalisedCopy() * len);
         manual.normal(normal);
         manual.textureCoord(1.0f, 0.5f);
         //5
-        manual.position((positon + mGridNode.GetNeighbour(5)->GetPosition() + mGridNode.GetNeighbour(0)->GetPosition()).normalisedCopy() * len);
+        manual.position((positon + mGridNode.GetNeighbour(5).GetPosition() + mGridNode.GetNeighbour(0).GetPosition()).normalisedCopy() * len);
         manual.normal(normal);
         manual.textureCoord(1.0f - hexagonStep, 0.0f);
     }

@@ -39,22 +39,6 @@ int main()
 
             GetLog() << "Recived grid info " << gridInfo.ShortDebugString();
 
-            for(size_t i = 0; i < gridInfo.tilecount();)
-            {
-                TileListMsg tiles;
-                net->ReadMessage(tiles);
-                i += tiles.tiles_size();
-            }
-            GetLog() << "Recived all tiles";
-
-            for(size_t i = 0; i < gridInfo.edgecount();)
-            {
-                EdgeListMsg edges;
-                net->ReadMessage(edges);
-                i += edges.edges_size();
-            }
-            GetLog() << "Recived all edges ";
-
             UnitCountMsg unitCount;
             net->ReadMessage(unitCount);
             int mTime = unitCount.time();
