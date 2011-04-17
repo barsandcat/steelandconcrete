@@ -41,10 +41,6 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
             mAvatar = clientUnit;
             ClientGridNode& gridNode = *mTiles.at(unit.tile());
             gridNode.CreateTile(true);
-            for (size_t j = 0; j < gridNode.GetNeighbourCount(); ++j)
-            {
-                gridNode.GetNeighbour(j).CreateTile(true);
-            }
             clientUnit->SetTile(gridNode.GetTile());
         }
     }
@@ -196,6 +192,12 @@ void ClientGame::LoadEvents(const ResponseMsg& changes)
             }
             delete i->second;
             mUnits.erase(i);
+        }
+        else if (change.has_showtile())
+        {
+            TileId tileId = change.showtile().tileid();
+            ClientGridNode* node = mTiles.at(tileId);
+            node->CreateTile(true);
         }
     }
 }
