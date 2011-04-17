@@ -30,7 +30,7 @@ private:
     void LoadEvents(const ResponseMsg& changes);
     ClientUnit& GetUnit(UnitId aUnitId);
 private:
-    ClientGeodesicGrid* mGrid;
+    ClientGeodesicGrid::Tiles mTiles;
     ClientUnits mUnits;
     ClientGridNode* mTileUnderCursor;
     ClientUnit* mAvatar;

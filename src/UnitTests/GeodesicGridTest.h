@@ -18,12 +18,13 @@ public:
     }
     void TestGeodesicGrid()
     {
-        ServerGeodesicGrid grid1(0, 5000);
-        const Ogre::Real len = grid1.GetTile(0).GetPosition().length();
+        ServerGeodesicGrid::Tiles tiles;
+        ServerGeodesicGrid grid1(tiles, 0);
+        const Ogre::Real len = tiles.at(0)->GetPosition().length();
 
-        for (size_t i = 0; i < grid1.GetTileCount(); ++i)
+        for (size_t i = 0; i < tiles.size(); ++i)
         {
-            ServerTile& tile1 = grid1.GetTile(i);
+            ServerTile& tile1 = *tiles.at(i);
             TS_ASSERT_DELTA(len, tile1.GetPosition().length(), 0.00001f);
             const size_t tileCount = tile1.GetNeighbourCount();
             TS_ASSERT(tileCount == 5 || tileCount == 6);
@@ -36,28 +37,6 @@ public:
         }
     }
 
-    void TestGeodesicGridSave()
-    {
-        ServerGeodesicGrid grid1(0, 5000);
-        grid1.Save("test.gg");
-        ServerGeodesicGrid grid2("test.gg");
-
-        TS_ASSERT_EQUALS(grid1.GetTileCount(), grid2.GetTileCount());
-        TS_ASSERT_EQUALS(grid1.GetEdgeCount(), grid2.GetEdgeCount());
-        for (size_t i = 0; i < grid1.GetTileCount(); ++i)
-        {
-            ServerTile& tile1 = grid1.GetTile(i);
-            ServerTile& tile2 = grid2.GetTile(i);
-            TS_ASSERT(tile1.GetPosition().positionCloses(tile2.GetPosition(), 0.00001f));
-            TS_ASSERT_EQUALS(tile1.GetTileId(), i);
-            TS_ASSERT_EQUALS(tile2.GetTileId(), i);
-            TS_ASSERT_EQUALS(tile1.GetNeighbourCount(), tile2.GetNeighbourCount());
-            for (size_t j = 0; j < tile1.GetNeighbourCount(); ++j)
-            {
-                TS_ASSERT_EQUALS(tile1.GetNeighbour(j).GetTileId(), tile2.GetNeighbour(j).GetTileId());
-            }
-        }
-    }
     void TestCompareAngles()
     {
         Ogre::Vector3 root(0,           0.52573108,  0.850650787);
@@ -72,11 +51,11 @@ public:
     void TestCompareAngles2()
     {
         std::vector<ServerTile*> m;
-        m.push_back(new ServerTile(Ogre::Vector3( 09.11,  23.83,  14.73), 0));
-        m.push_back(new ServerTile(Ogre::Vector3(-09.11,  23.83,  14.73), 0));
-        m.push_back(new ServerTile(Ogre::Vector3( 14.73,  09.11,  23.84), 0));
-        m.push_back(new ServerTile(Ogre::Vector3(-14.73,  09.11,  23.84), 0));
-        m.push_back(new ServerTile(Ogre::Vector3( 00.00,  15.49,  25.07), 0));
+        m.push_back(new ServerTile(Ogre::Vector3( 09.11,  23.83,  14.73)));
+        m.push_back(new ServerTile(Ogre::Vector3(-09.11,  23.83,  14.73)));
+        m.push_back(new ServerTile(Ogre::Vector3( 14.73,  09.11,  23.84)));
+        m.push_back(new ServerTile(Ogre::Vector3(-14.73,  09.11,  23.84)));
+        m.push_back(new ServerTile(Ogre::Vector3( 00.00,  15.49,  25.07)));
         m[0]->SetTileId(0);
         m[1]->SetTileId(1);
         m[2]->SetTileId(2);

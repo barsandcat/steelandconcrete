@@ -27,30 +27,27 @@ GameTime ServerGame::GetTimeStep()
 }
 
 
-ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL),
+ServerGame::ServerGame(int aSize):mSize(aSize),
     mGrass(VC::LIVE | VC::PLANT, 100, 0),
     mZebra(VC::LIVE | VC::ANIMAL | VC::HERBIVORES, 500, 1),
     mAvatar(VC::LIVE | VC::ANIMAL | VC::HUMAN, 999999, 1),
     mTimer(2000)
 {
     // Create map
-    mGrid = new ServerGeodesicGrid(aSize, aSeaLevel);
-    GetLog() << "Size " << aSize << " Tile count " << mGrid->GetTileCount();
-    GetLog() << "Tile radius " << mGrid->GetTileRadius();
+    ServerGeodesicGrid grid(mTiles, aSize);
+    GetLog() << "Size " << aSize << " Tile count " << mTiles.size();
+    GetLog() << "Tile radius " << grid.GetTileRadius();
     // Populate
-    for (size_t i = 0; i < mGrid->GetTileCount(); ++i)
+    for (size_t i = 0; i < mTiles.size(); ++i)
     {
-        if (mGrid->GetTile(i).GetHeight() > aSeaLevel)
+        switch (rand() % 10)
         {
-            switch (rand() % 10)
-            {
-            case 1:
-                UnitList::NewUnit(mGrid->GetTile(i), mZebra);
-                break;
-            case 6:
-                UnitList::NewUnit(mGrid->GetTile(i), mGrass);
-                break;
-            }
+        case 1:
+            UnitList::NewUnit(*mTiles.at(i), mZebra);
+            break;
+        case 6:
+            UnitList::NewUnit(*mTiles.at(i), mGrass);
+            break;
         }
     }
 
@@ -59,12 +56,11 @@ ServerGame::ServerGame(int aSize, int32 aSeaLevel): mGrid(NULL),
 ServerGame::~ServerGame()
 {
     UnitList::Clear();
-    delete mGrid;
-}
-
-ServerGeodesicGrid& ServerGame::GetGrid()
-{
-    return *mGrid;
+    for (size_t i = 0; i < mTiles.size(); ++i)
+    {
+        delete mTiles[i];
+        mTiles[i] = NULL;
+    }
 }
 
 void ServerGame::MainLoop(Ogre::String aAddress, int32 aPort)
@@ -86,13 +82,16 @@ void ServerGame::Send(Network& aNetwork)
 {
     boost::shared_lock<boost::shared_mutex> cs(mGameMutex);
 
-    mGrid->Send(aNetwork);
+    GeodesicGridSizeMsg gridInfo;
+    gridInfo.set_size(mSize)    ;
+    aNetwork.WriteMessage(gridInfo);
+    GetLog() << "Grid info sent; " << gridInfo.ShortDebugString() ;
 
     UnitCountMsg count;
     count.set_count(UnitList::GetCount());
     count.set_time(mTime);
     aNetwork.WriteMessage(count);
-    GetLog() << "Unit count send; " << count.ShortDebugString() ;
+    GetLog() << "Unit count sent; " << count.ShortDebugString() ;
 
     for (UnitListIterator i = UnitList::GetIterator(); !i.IsDone(); i.Next())
     {
@@ -100,7 +99,7 @@ void ServerGame::Send(Network& aNetwork)
         i.GetUnit()->FillUnitMsg(unit);
         aNetwork.WriteMessage(unit);
     }
-    GetLog() << "All units send";
+    GetLog() << "All units sent";
 }
 
 void ServerGame::UpdateGame()
@@ -142,7 +141,7 @@ void ServerGame::LoadCommands(const RequestMsg& commands)
             const CommandMoveMsg& move = command.commandmove();
             if (ServerUnit* unit = UnitList::GetUnit(move.unitid()))
             {
-                unit->SetCommand(mGrid->GetTile(move.position()));
+                unit->SetCommand(*mTiles.at(move.position()));
             }
             else
             {

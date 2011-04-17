@@ -1,13 +1,6 @@
 import "Tile.proto";
 import "Edge.proto";
 
-message GeodesicGridMsg
-{
-  repeated TileMsg tiles = 2;
-  repeated EdgeMsg edges = 3;
-  required int32 sealevel = 4;
-}
-
 message TileListMsg
 {
   repeated TileMsg tiles = 1;
@@ -20,7 +13,5 @@ message EdgeListMsg
 
 message GeodesicGridSizeMsg
 {
-  required uint32 tileCount = 1;
-  required uint32 edgeCount = 2;
-  required int32 sealevel = 3;
+  required uint32 size = 1;
 }

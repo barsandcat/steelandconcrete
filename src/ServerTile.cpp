@@ -5,9 +5,8 @@
 #include <CompareEdgesAngles.h>
 #include <ServerUnit.h>
 
-ServerTile::ServerTile(const Ogre::Vector3& aPosition, int32 aHeight):
+ServerTile::ServerTile(const Ogre::Vector3& aPosition):
         mPosition(aPosition),
-		mHeight(aHeight),
         mTileId(0),
 		mUnit(NULL)
 {

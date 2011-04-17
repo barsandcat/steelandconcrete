@@ -84,10 +84,8 @@
 		<Unit filename="../Network.cpp" />
 		<Unit filename="../Network.h" />
 		<Unit filename="../Platform.h" />
-		<Unit filename="../ServerEdge.cpp" />
 		<Unit filename="../ServerEdge.h" />
 		<Unit filename="../ServerGame.cpp" />
-		<Unit filename="../ServerGeodesicGrid.cpp" />
 		<Unit filename="../ServerGeodesicGrid.h" />
 		<Unit filename="../ServerLog.cpp" />
 		<Unit filename="../ServerLog.h" />
