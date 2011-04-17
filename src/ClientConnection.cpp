@@ -13,6 +13,15 @@
 #include <Handshake.pb.h>
 #include <ProtocolVersion.h>
 #include <Avatar.h>
+#include <UnitList.h>
+
+void AddShowTile(ResponseMsg& aResponse, TileId aTileId)
+{
+    ChangeMsg* change = aResponse.add_changes();
+    ShowTileMsg* showTile = change->mutable_showtile();
+    showTile->set_tileid(aTileId);
+}
+
 
 
 void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
@@ -58,7 +67,24 @@ void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
                     if (req.has_time())
                     {
                         aGame.LoadCommands(req);
-                        ChangeList::Write(network, req.time(), aGame.GetUpdateLength());
+                        // show tiles
+                        ResponseMsg response;
+                        response.set_type(RESPONSE_PART);
+                        ServerTile& tile = UnitList::GetUnit(avatar.GetId())->GetPosition();
+                        AddShowTile(response, tile.GetTileId());
+                        for (size_t n = 0; n < tile.GetNeighbourCount(); ++n)
+                        {
+                            AddShowTile(response, tile.GetNeighbour(n).GetTileId());
+                        }
+                        network.WriteMessage(response);
+                        // set time
+                        ResponseMsg emptyMsg;
+                        emptyMsg.set_type(RESPONSE_OK);
+                        emptyMsg.set_time(ServerGame::GetTime());
+                        emptyMsg.set_update_length(aGame.GetUpdateLength());
+                        network.WriteMessage(emptyMsg);
+
+                        //ChangeList::Write(network, req.time(), aGame.GetUpdateLength());
                     }
                     else
                     {

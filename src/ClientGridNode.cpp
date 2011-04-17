@@ -14,7 +14,10 @@ ClientGridNode::ClientGridNode(const Ogre::Vector3& aPosition):
 
 void ClientGridNode::CreateTile(bool ground)
 {
-    mTile = new ClientTile(ground, *this);
+    if (!mTile)
+    {
+        mTile = new ClientTile(ground, *this);
+    }
 }
 
 

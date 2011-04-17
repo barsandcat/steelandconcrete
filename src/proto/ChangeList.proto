@@ -19,5 +19,10 @@ message ChangeMsg
     optional UnitMoveMsg unitmove = 1;
     optional CommandDoneMsg commanddone = 2;
     optional RemoveMsg remove = 3;
+    optional ShowTileMsg showtile = 4;
 }
 
+message ShowTileMsg
+{
+    required uint32 tileid = 1;
+}
