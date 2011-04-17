@@ -89,6 +89,11 @@ ClientGame::~ClientGame()
     for (; i != mUnits.end(); ++i)
         delete i->second;
     mUnits.clear();
+    for (size_t i = 0; i < mTiles.size(); ++i)
+    {
+        delete mTiles[i];
+        mTiles[i] = NULL;
+    }
 
     ClientApp::GetSceneMgr().clearScene();
     delete mNetwork;

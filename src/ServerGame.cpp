@@ -27,16 +27,16 @@ GameTime ServerGame::GetTimeStep()
 }
 
 
-ServerGame::ServerGame(int aSize):mSize(aSize), mGrid(NULL),
+ServerGame::ServerGame(int aSize):mSize(aSize),
     mGrass(VC::LIVE | VC::PLANT, 100, 0),
     mZebra(VC::LIVE | VC::ANIMAL | VC::HERBIVORES, 500, 1),
     mAvatar(VC::LIVE | VC::ANIMAL | VC::HUMAN, 999999, 1),
     mTimer(2000)
 {
     // Create map
-    mGrid = new ServerGeodesicGrid(mTiles, aSize);
+    ServerGeodesicGrid grid(mTiles, aSize);
     GetLog() << "Size " << aSize << " Tile count " << mTiles.size();
-    GetLog() << "Tile radius " << mGrid->GetTileRadius();
+    GetLog() << "Tile radius " << grid.GetTileRadius();
     // Populate
     for (size_t i = 0; i < mTiles.size(); ++i)
     {
@@ -56,12 +56,11 @@ ServerGame::ServerGame(int aSize):mSize(aSize), mGrid(NULL),
 ServerGame::~ServerGame()
 {
     UnitList::Clear();
-    delete mGrid;
-}
-
-ServerGeodesicGrid& ServerGame::GetGrid()
-{
-    return *mGrid;
+    for (size_t i = 0; i < mTiles.size(); ++i)
+    {
+        delete mTiles[i];
+        mTiles[i] = NULL;
+    }
 }
 
 void ServerGame::MainLoop(Ogre::String aAddress, int32 aPort)
