@@ -6,7 +6,7 @@
 class ServerTile: public boost::noncopyable
 {
 public:
-    explicit ServerTile(const Ogre::Vector3& aPosition, int32 aHeight);
+    explicit ServerTile(const Ogre::Vector3& aPosition);
     ~ServerTile();
     void AddNeighbour(ServerTile& aTile) { mNeighbourhood.push_back(&aTile); }
     void RemoveNeighbour(ServerTile& aTile);
@@ -20,12 +20,10 @@ public:
 
     TileId GetTileId() const { return mTileId; }
     void SetTileId(TileId aTileId) { mTileId = aTileId; }
-    int32 GetHeight() const { return mHeight; }
 
 private:
     std::vector< ServerTile* > mNeighbourhood;
     const Ogre::Vector3 mPosition;
-    const int32 mHeight;
     TileId mTileId;
     UnitId mUnit;
 };

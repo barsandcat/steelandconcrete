@@ -11,7 +11,6 @@
 #include <ClientTile.h>
 
 ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
-    mGrid(NULL),
     mTileUnderCursor(NULL),
     mAvatar(NULL),
     mTime(0),
@@ -19,7 +18,11 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
     mNetwork(aNetwork)
 {
     mLoadingSheet.Activate();
-    mGrid = new ClientGeodesicGrid(*mNetwork, mLoadingSheet);
+    GeodesicGridSizeMsg gridInfo;
+    aNetwork->ReadMessage(gridInfo);
+    GetLog() << "Grid info recived" << gridInfo.ShortDebugString();
+
+    ClientGeodesicGrid grid(mTiles, gridInfo.size());
 
     UnitCountMsg unitCount;
     mNetwork->ReadMessage(unitCount);
@@ -36,11 +39,11 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
         if (unit.tag() == aAvatarId)
         {
             mAvatar = clientUnit;
-            ClientGridNode& gridNode = mGrid->GetGridNode(unit.tile());
+            ClientGridNode& gridNode = *mTiles.at(unit.tile());
             gridNode.CreateTile(true);
             for (size_t j = 0; j < gridNode.GetNeighbourCount(); ++j)
             {
-                gridNode.GetNeighbour(j)->CreateTile(true);
+                gridNode.GetNeighbour(j).CreateTile(true);
             }
             clientUnit->SetTile(gridNode.GetTile());
         }
@@ -52,11 +55,6 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
     Ogre::Vector3 avatarPosition = mAvatar->GetTile()->GetGridNode().GetPosition();
     ClientApp::GetCamera().Goto(avatarPosition);
     ClientApp::GetCamera().SetDistance(avatarPosition.length() + 50.0f);
-
-    // Planet
-    //mGrid->ConstructStaticGeometry();
-    //ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode()->attachObject(mGrid->ConstructDebugMesh());
-
 
     // Units
     CreateUnitEntities();
@@ -70,7 +68,7 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
     myLight->setDiffuseColour(1, 1, 1);
     myLight->setSpecularColour(1, 1, 1);
 
-    mTileUnderCursor = &mGrid->GetGridNode(0);
+    mTileUnderCursor = mTiles.at(0);
     mSelectionMarker = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
     mSelectionMarker->setScale(Ogre::Vector3(0.01));
     mSelectionMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Marker", Ogre::SceneManager::PT_SPHERE));
@@ -87,12 +85,15 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
 
 ClientGame::~ClientGame()
 {
-    delete mGrid;
-
     std::map< UnitId, ClientUnit* >::iterator i = mUnits.begin();
     for (; i != mUnits.end(); ++i)
         delete i->second;
     mUnits.clear();
+    for (size_t i = 0; i < mTiles.size(); ++i)
+    {
+        delete mTiles[i];
+        mTiles[i] = NULL;
+    }
 
     ClientApp::GetSceneMgr().clearScene();
     delete mNetwork;
@@ -178,7 +179,7 @@ void ClientGame::LoadEvents(const ResponseMsg& changes)
         if (change.has_unitmove())
         {
             const UnitMoveMsg& move = change.unitmove();
-            GetUnit(move.unitid()).SetTile(mGrid->GetGridNode(move.position()).GetTile());
+            GetUnit(move.unitid()).SetTile(mTiles.at(move.position())->GetTile());
         }
         else if (change.has_commanddone())
         {
