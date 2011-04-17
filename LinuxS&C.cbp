@@ -95,7 +95,6 @@
 		<Unit filename="src/ClientEdge.h" />
 		<Unit filename="src/ClientGame.cpp" />
 		<Unit filename="src/ClientGame.h" />
-		<Unit filename="src/ClientGeodesicGrid.cpp" />
 		<Unit filename="src/ClientGeodesicGrid.h" />
 		<Unit filename="src/ClientGridNode.cpp" />
 		<Unit filename="src/ClientGridNode.h" />

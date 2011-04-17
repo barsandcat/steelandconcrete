@@ -18,7 +18,11 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
     mNetwork(aNetwork)
 {
     mLoadingSheet.Activate();
-    ClientGeodesicGrid grid(mTiles, *mNetwork);
+    GeodesicGridSizeMsg gridInfo;
+    aNetwork->ReadMessage(gridInfo);
+    GetLog() << "Grid info recived" << gridInfo.ShortDebugString();
+
+    ClientGeodesicGrid grid(mTiles, gridInfo.size());
 
     UnitCountMsg unitCount;
     mNetwork->ReadMessage(unitCount);
@@ -39,7 +43,7 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
             gridNode.CreateTile(true);
             for (size_t j = 0; j < gridNode.GetNeighbourCount(); ++j)
             {
-                gridNode.GetNeighbour(j)->CreateTile(true);
+                gridNode.GetNeighbour(j).CreateTile(true);
             }
             clientUnit->SetTile(gridNode.GetTile());
         }

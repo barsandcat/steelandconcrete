@@ -11,8 +11,6 @@ class GeodesicGrid: public boost::noncopyable
 public:
     typedef std::vector<T*> Tiles;
     GeodesicGrid(Tiles& aTiles, int32 aSize);
-    GeodesicGrid(Tiles& aTiles, Network& aNetwork);
-    void Send(Network& aNetwokr) const;
 
     Ogre::Real GetTileRadius() const;
     ~GeodesicGrid();
@@ -22,10 +20,6 @@ private:
     void Subdivide(const Ogre::Real aSphereRadius);
     void InitTiles();
 };
-
-
-
-const int32 SEA_LEVEL_MAX = 10000;
 
 template <typename T>
 GeodesicGrid<T>::GeodesicGrid(Tiles& aTiles, int aSize): mTiles(aTiles)
@@ -49,20 +43,20 @@ GeodesicGrid<T>::GeodesicGrid(Tiles& aTiles, int aSize): mTiles(aTiles)
 
     // Vertices of icoshaedron
 
-    mTiles.push_back(new T(Ogre::Vector3(0.0f, 1.0f, phi).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
-    mTiles.push_back(new T(Ogre::Vector3(0.0f, 1.0f, -phi).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
-    mTiles.push_back(new T(Ogre::Vector3(0.0f, -1.0f, phi).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
-    mTiles.push_back(new T(Ogre::Vector3(0.0f, -1.0f, -phi).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new T(Ogre::Vector3(0.0f, 1.0f, phi).normalisedCopy() * sphereRadius));
+    mTiles.push_back(new T(Ogre::Vector3(0.0f, 1.0f, -phi).normalisedCopy() * sphereRadius));
+    mTiles.push_back(new T(Ogre::Vector3(0.0f, -1.0f, phi).normalisedCopy() * sphereRadius));
+    mTiles.push_back(new T(Ogre::Vector3(0.0f, -1.0f, -phi).normalisedCopy() * sphereRadius));
 
-    mTiles.push_back(new T(Ogre::Vector3(1.0f, phi, 0.0f).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
-    mTiles.push_back(new T(Ogre::Vector3(1.0f, -phi, 0.0f).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
-    mTiles.push_back(new T(Ogre::Vector3(-1.0f, phi, 0.0f).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
-    mTiles.push_back(new T(Ogre::Vector3(-1.0f, -phi, 0.0f).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new T(Ogre::Vector3(1.0f, phi, 0.0f).normalisedCopy() * sphereRadius));
+    mTiles.push_back(new T(Ogre::Vector3(1.0f, -phi, 0.0f).normalisedCopy() * sphereRadius));
+    mTiles.push_back(new T(Ogre::Vector3(-1.0f, phi, 0.0f).normalisedCopy() * sphereRadius));
+    mTiles.push_back(new T(Ogre::Vector3(-1.0f, -phi, 0.0f).normalisedCopy() * sphereRadius));
 
-    mTiles.push_back(new T(Ogre::Vector3(phi, 0.0f, 1.0f).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
-    mTiles.push_back(new T(Ogre::Vector3(phi, 0.0f, -1.0f).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
-    mTiles.push_back(new T(Ogre::Vector3(-phi, 0.0f, 1.0f).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
-    mTiles.push_back(new T(Ogre::Vector3(-phi, 0.0f, -1.0f).normalisedCopy() * sphereRadius, rand() % SEA_LEVEL_MAX));
+    mTiles.push_back(new T(Ogre::Vector3(phi, 0.0f, 1.0f).normalisedCopy() * sphereRadius));
+    mTiles.push_back(new T(Ogre::Vector3(phi, 0.0f, -1.0f).normalisedCopy() * sphereRadius));
+    mTiles.push_back(new T(Ogre::Vector3(-phi, 0.0f, 1.0f).normalisedCopy() * sphereRadius));
+    mTiles.push_back(new T(Ogre::Vector3(-phi, 0.0f, -1.0f).normalisedCopy() * sphereRadius));
 
     // Link icoshaedron
 
@@ -127,11 +121,6 @@ GeodesicGrid<T>::~GeodesicGrid()
         delete mEdges[i];
         mEdges[i] = NULL;
     }
-    for (size_t i = 0; i < mTiles.size(); ++i)
-    {
-        delete mTiles[i];
-        mTiles[i] = NULL;
-    }
 }
 
 template <typename T>
@@ -148,11 +137,7 @@ void GeodesicGrid<T>::Subdivide(const Ogre::Real aSphereRadius)
         const Ogre::Vector3& a = edge->GetTileA().GetPosition();
         const Ogre::Vector3& b = edge->GetTileB().GetPosition();
 
-        int32 err = a.distance(b) * SEA_LEVEL_MAX;
-        float rnd = (rand() % 100 + 1) / 100.0f - 0.5f;
-        int32 height = (edge->GetTileA().GetHeight() + edge->GetTileB().GetHeight()) / 2 + rnd * err;
-
-        T* tile = new T((a + b).normalisedCopy() * aSphereRadius, height);
+        T* tile = new T((a + b).normalisedCopy() * aSphereRadius);
         newEdges.push_back(new Edge<T>(*tile, edge->GetTileA()));
         newEdges.push_back(new Edge<T>(*tile, edge->GetTileB()));
         newTiles.push_back(tile);
@@ -210,93 +195,6 @@ Ogre::Real GeodesicGrid<T>::GetTileRadius() const
     }
     return sqrt(sum / mEdges.size() / 2.0f);
 }
-
-template <typename T>
-void GeodesicGrid<T>::Send(Network& aNetwork) const
-{
-    GeodesicGridSizeMsg gridInfo;
-    gridInfo.set_tilecount(mTiles.size());
-    gridInfo.set_edgecount(mEdges.size());
-    aNetwork.WriteMessage(gridInfo);
-    //GetLog() << "Grid info send " << gridInfo.ShortDebugString();
-    const size_t tilesPerMessage = 100;
-    for (size_t i = 0; i < mTiles.size();)
-    {
-        TileListMsg tiles;
-        for (size_t j = 0; j < tilesPerMessage && i < mTiles.size(); ++j)
-        {
-            TileMsg* tile = tiles.add_tiles();
-            Ogre::Vector3 pos = mTiles[i]->GetPosition();
-            tile->set_tag(i);
-            tile->set_height(mTiles[i]->GetHeight());
-            tile->mutable_position()->set_x(pos.x);
-            tile->mutable_position()->set_y(pos.y);
-            tile->mutable_position()->set_z(pos.z);
-            ++i;
-        }
-        aNetwork.WriteMessage(tiles);
-    }
-
-    //GetLog() << "Send all tiles";
-
-    const size_t edgesPerMessage = 100;
-    for (size_t i = 0; i < mEdges.size();)
-    {
-        EdgeListMsg edges;
-        for (size_t j = 0; j < edgesPerMessage && i < mEdges.size(); ++j)
-        {
-            EdgeMsg* edge = edges.add_edges();
-            edge->set_tilea(mEdges[i]->GetTileA().GetTileId());
-            edge->set_tileb(mEdges[i]->GetTileB().GetTileId());
-            ++i;
-        }
-        aNetwork.WriteMessage(edges);
-    }
-    //GetLog() << "Send all edges";
-}
-
-template <typename T>
-GeodesicGrid<T>::GeodesicGrid(Tiles& aTiles, Network& aNetwork): mTiles(aTiles)
-{
-    GeodesicGridSizeMsg gridInfo;
-    aNetwork.ReadMessage(gridInfo);
-    //GetLog() << "Recived grid info " << gridInfo.ShortDebugString();
-    mTiles.resize(gridInfo.tilecount());
-    mEdges.resize(gridInfo.edgecount());
-
-    for (size_t i = 0; i < gridInfo.tilecount();)
-    {
-        TileListMsg tiles;
-        aNetwork.ReadMessage(tiles);
-        for (int j = 0; j < tiles.tiles_size(); ++j)
-        {
-            TileMsg tile = tiles.tiles(j);
-            Ogre::Vector3 pos(tile.position().x(), tile.position().y(), tile.position().z());
-            T* node = new T(tile.tag(), pos);
-            mTiles[tile.tag()] = node;
-
-            ++i;
-        }
-    }
-    //GetLog() << "Recived all tiles";
-
-    for (size_t i = 0; i < gridInfo.edgecount();)
-    {
-        EdgeListMsg edges;
-        aNetwork.ReadMessage(edges);
-        for (int j = 0; j < edges.edges_size(); ++j)
-        {
-            EdgeMsg edge = edges.edges(j);
-            mEdges[i] = new Edge<T>(*mTiles[edge.tilea()], *mTiles[edge.tileb()]);
-            ++i;
-        }
-    }
-    //GetLog() << "Recived all edges ";
-
-    InitTiles();
-}
-
-
 
 
 #endif // SERVERGEODESICGRID_H

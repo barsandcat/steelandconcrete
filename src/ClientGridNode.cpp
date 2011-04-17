@@ -5,9 +5,8 @@
 #include <ClientApp.h>
 #include <ClientTile.h>
 
-ClientGridNode::ClientGridNode(TileId aId, const Ogre::Vector3& aPosition):
+ClientGridNode::ClientGridNode(const Ogre::Vector3& aPosition):
         mPosition(aPosition),
-        mTileId(aId),
         mTile(NULL)
 {
     mNeighbourhood.reserve(6);
@@ -58,11 +57,11 @@ ClientGridNode* ClientGridNode::GetTileAtPosition(const Ogre::Vector3& aPosistio
 
     while (CalcDistance2(currentTile->GetPosition(), aPosistion) > min && counter < 1000)
     {
-        ClientGridNode* bestNeighbour = currentTile->GetNeighbour(0);
+        ClientGridNode* bestNeighbour = &currentTile->GetNeighbour(0);
         Ogre::Real bestDistance = CalcDistance2(bestNeighbour->GetPosition(), aPosistion);
         for (size_t i = 1; i < currentTile->GetNeighbourCount(); ++i)
         {
-            ClientGridNode* neighbour = currentTile->GetNeighbour(i);
+            ClientGridNode* neighbour = &currentTile->GetNeighbour(i);
             Ogre::Real distance = CalcDistance2(neighbour->GetPosition(), aPosistion);
             if (distance < bestDistance)
             {

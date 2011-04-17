@@ -16,7 +16,7 @@ public:
     void TestBase()
     {
         UnitList::Clear();
-        ServerTile tile(Ogre::Vector3::UNIT_X, 0);
+        ServerTile tile(Ogre::Vector3::UNIT_X);
         UnitClass unitClass(0, 0 ,0);
 
         ServerUnit& unit = UnitList::NewUnit(tile, unitClass);
@@ -32,7 +32,7 @@ public:
     void TestReuse()
     {
         UnitList::Clear();
-        ServerTile tile(Ogre::Vector3::UNIT_X, 0);
+        ServerTile tile(Ogre::Vector3::UNIT_X);
         UnitClass unitClass(0, 0 ,0);
 
         ServerUnit& unit = UnitList::NewUnit(tile, unitClass);
@@ -44,7 +44,7 @@ public:
     void TestUnic()
     {
         UnitList::Clear();
-        ServerTile tile(Ogre::Vector3::UNIT_X, 0);
+        ServerTile tile(Ogre::Vector3::UNIT_X);
         UnitClass unitClass(0, 0 ,0);
 
         UnitId unitId = UnitList::NewUnit(tile, unitClass).GetUnitId();
@@ -57,7 +57,7 @@ public:
     void TestNonZero()
     {
         UnitList::Clear();
-        ServerTile tile(Ogre::Vector3::UNIT_X, 0);
+        ServerTile tile(Ogre::Vector3::UNIT_X);
         UnitClass unitClass(0, 0 ,0);
         TS_ASSERT_DIFFERS(0, UnitList::NewUnit(tile, unitClass).GetUnitId());
     }
@@ -65,7 +65,7 @@ public:
     void TestIteratorBase()
     {
         UnitList::Clear();
-        ServerTile tile(Ogre::Vector3::UNIT_X, 0);
+        ServerTile tile(Ogre::Vector3::UNIT_X);
         UnitClass unitClass(0, 0 ,0);
 
         UnitList::NewUnit(tile, unitClass);
@@ -84,7 +84,7 @@ public:
     void TestIteratorSkip()
     {
         UnitList::Clear();
-        ServerTile tile(Ogre::Vector3::UNIT_X, 0);
+        ServerTile tile(Ogre::Vector3::UNIT_X);
         UnitClass unitClass(0, 0 ,0);
 
         UnitList::NewUnit(tile, unitClass);
@@ -118,7 +118,7 @@ public:
     void TestIteratorEdge()
     {
         UnitList::Clear();
-        ServerTile tile(Ogre::Vector3::UNIT_X, 0);
+        ServerTile tile(Ogre::Vector3::UNIT_X);
         UnitClass unitClass(0, 0 ,0);
 
         UnitId id1 = UnitList::NewUnit(tile, unitClass).GetUnitId();
