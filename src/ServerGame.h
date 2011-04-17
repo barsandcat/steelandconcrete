@@ -14,7 +14,6 @@ public:
     ServerGame(int32 aSize);
     ~ServerGame();
     void MainLoop(Ogre::String aAddress, int32 aPort);
-    ServerGeodesicGrid& GetGrid();
     void Send(Network& aNetwork);
     static GameTime GetTime();
     static GameTime GetTimeStep();
@@ -24,7 +23,6 @@ protected:
 private:
     void UpdateGame();
     ServerGeodesicGrid::Tiles mTiles;
-    ServerGeodesicGrid* mGrid;
     int32 mSize;
     static GameTime mTime;
     static GameTime mTimeStep;
