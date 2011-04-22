@@ -22,7 +22,17 @@ void AddShowTile(ResponseMsg& aResponse, TileId aTileId)
     showTile->set_tileid(aTileId);
 }
 
-
+std::set<TileId> GetVisibleTiles(UnitId aUnit)
+{
+    std::set<TileId> result;
+    ServerTile& tile = UnitList::GetUnit(aUnit)->GetPosition();
+    result.insert(tile.GetTileId());
+    for (size_t n = 0; n < tile.GetNeighbourCount(); ++n)
+    {
+        result.insert(tile.GetNeighbour(n).GetTileId());
+    }
+    return result;
+}
 
 void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
 {
@@ -48,6 +58,7 @@ void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
         res.set_result(CONNECTION_ALLOWED);
         res.set_avatar(avatar.GetId());
         network.WriteMessage(res);
+        std::set<TileId> visibleTiles;
         GetLog() << "Client response " << res.ShortDebugString();
 
         aGame.Send(network);
@@ -68,13 +79,17 @@ void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
                     {
                         aGame.LoadCommands(req);
                         // show tiles
+                        std::set<TileId> currentVisibleTiles = GetVisibleTiles(avatar.GetId());
+                        std::vector<TileId> newVisibleTiles(currentVisibleTiles.size());
+                        std::vector<TileId>::iterator end = std::set_difference(
+                            currentVisibleTiles.begin(), currentVisibleTiles.end(),
+                            visibleTiles.begin(), visibleTiles.end(), newVisibleTiles.begin());
+
                         ResponseMsg response;
                         response.set_type(RESPONSE_PART);
-                        ServerTile& tile = UnitList::GetUnit(avatar.GetId())->GetPosition();
-                        AddShowTile(response, tile.GetTileId());
-                        for (size_t n = 0; n < tile.GetNeighbourCount(); ++n)
+                        for (std::vector<TileId>::iterator n = newVisibleTiles.begin(); n != end; ++n)
                         {
-                            AddShowTile(response, tile.GetNeighbour(n).GetTileId());
+                            AddShowTile(response, *n);
                         }
                         network.WriteMessage(response);
                         // set time
