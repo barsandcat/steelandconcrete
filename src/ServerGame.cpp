@@ -124,7 +124,7 @@ void ServerGame::UpdateGame()
     }
 
     mTime += mTimeStep;
-    ChangeList::Commit(mTime);
+    //ChangeList::Commit(mTime);
 
     GetLog() << "Time: " << mTime;
 }

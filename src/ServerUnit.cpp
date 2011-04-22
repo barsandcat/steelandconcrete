@@ -19,7 +19,7 @@ ServerUnit::ServerUnit(ServerTile& aTile, const UnitClass& aClass, UnitId aUnitI
 
 ServerUnit::~ServerUnit()
 {
-    ChangeList::AddRemove(mUnitId);
+    //ChangeList::AddRemove(mUnitId);
     //dtor
 }
 
@@ -28,7 +28,7 @@ void ServerUnit::Move(ServerTile& aNewPosition)
     mPosition->SetUnitId(0);
     mPosition = &aNewPosition;
     mPosition->SetUnitId(mUnitId);
-    ChangeList::AddMove(mUnitId, mPosition->GetTileId());
+    //ChangeList::AddMove(mUnitId, mPosition->GetTileId());
 }
 
 void ServerUnit::ExecuteCommand()
@@ -39,7 +39,7 @@ void ServerUnit::ExecuteCommand()
         {
             Move(*mTarget);
             mTarget = NULL;
-            ChangeList::AddCommandDone(mUnitId);
+            //ChangeList::AddCommandDone(mUnitId);
         }
     }
 }

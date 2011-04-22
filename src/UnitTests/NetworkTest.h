@@ -17,14 +17,16 @@ class MyTestSuite : public CxxTest::TestSuite
 public:
     void setUp()
     {
-        ChangeList::Commit(0);
-        ChangeList::Clear();
         mNetwork = new DummyNetwork();
+        mChangeList = new ChangeList();
+        mChangeList->Commit(0);
+        mChangeList->Clear();
     }
 
     void tearDown()
     {
         delete mNetwork;
+        delete mChangeList;
     }
 
     void TestChangeListOneBlock()
@@ -33,10 +35,10 @@ public:
         const int count = 50;
         for (int i = 0; i < count; ++i)
         {
-            ChangeList::AddRemove(i);
+            mChangeList->AddRemove(i);
         }
-        ChangeList::Commit(time);
-        ChangeList::Write(*mNetwork, time - 1, 1000);
+        mChangeList->Commit(time);
+        mChangeList->Write(*mNetwork, time - 1, 1000);
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count);
         TS_ASSERT_EQUALS(mNetwork->GetWrites(), 2);
@@ -49,10 +51,10 @@ public:
         const int count = 400;
         for (int i = 0; i < count; ++i)
         {
-            ChangeList::AddRemove(i);
+            mChangeList->AddRemove(i);
         }
-        ChangeList::Commit(time);
-        ChangeList::Write(*mNetwork, time - 1, 1000);
+        mChangeList->Commit(time);
+        mChangeList->Write(*mNetwork, time - 1, 1000);
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count);
         TS_ASSERT_EQUALS(mNetwork->GetWrites(), 3);
@@ -61,13 +63,13 @@ public:
 
     void TestChangeListTwoTimes()
     {
-        ChangeList::AddRemove(0);
-        ChangeList::Commit(0);
-        ChangeList::AddRemove(1);
-        ChangeList::Commit(1);
-        ChangeList::AddRemove(2);
-        ChangeList::Commit(2);
-        ChangeList::Write(*mNetwork, 0, 1000);
+        mChangeList->AddRemove(0);
+        mChangeList->Commit(0);
+        mChangeList->AddRemove(1);
+        mChangeList->Commit(1);
+        mChangeList->AddRemove(2);
+        mChangeList->Commit(2);
+        mChangeList->Write(*mNetwork, 0, 1000);
 
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 2);
@@ -77,11 +79,11 @@ public:
 
     void TestChangeListUsualCase()
     {
-        ChangeList::AddRemove(0);
-        ChangeList::Commit(0);
-        ChangeList::AddRemove(1);
-        ChangeList::Commit(1);
-        ChangeList::Write(*mNetwork, 0, 1000);
+        mChangeList->AddRemove(0);
+        mChangeList->Commit(0);
+        mChangeList->AddRemove(1);
+        mChangeList->Commit(1);
+        mChangeList->Write(*mNetwork, 0, 1000);
 
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 1);
@@ -91,11 +93,11 @@ public:
 
     void TestChangeListClientWrong()
     {
-        ChangeList::AddRemove(0);
-        ChangeList::Commit(0);
-        ChangeList::AddRemove(1);
-        ChangeList::Commit(1);
-        ChangeList::Write(*mNetwork, 2, 1000);
+        mChangeList->AddRemove(0);
+        mChangeList->Commit(0);
+        mChangeList->AddRemove(1);
+        mChangeList->Commit(1);
+        mChangeList->Write(*mNetwork, 2, 1000);
 
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 0);
@@ -105,14 +107,14 @@ public:
 
     void TestChangeListClientLate()
     {
-        ChangeList::AddRemove(10);
-        ChangeList::Commit(10);
-        ChangeList::AddRemove(11);
-        ChangeList::Commit(11);
-        ChangeList::AddRemove(12);
-        ChangeList::Commit(12);
+        mChangeList->AddRemove(10);
+        mChangeList->Commit(10);
+        mChangeList->AddRemove(11);
+        mChangeList->Commit(11);
+        mChangeList->AddRemove(12);
+        mChangeList->Commit(12);
 
-        TS_ASSERT_THROWS(ChangeList::Write(*mNetwork, 2, 1000), ClientBehind);
+        TS_ASSERT_THROWS(mChangeList->Write(*mNetwork, 2, 1000), ClientBehind);
 
         TS_ASSERT(!mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 0);
@@ -121,11 +123,11 @@ public:
 
     void TestChangeListClientSameTime()
     {
-        ChangeList::AddRemove(0);
-        ChangeList::Commit(0);
-        ChangeList::AddRemove(1);
-        ChangeList::Commit(1);
-        ChangeList::Write(*mNetwork, 1, 1000);
+        mChangeList->AddRemove(0);
+        mChangeList->Commit(0);
+        mChangeList->AddRemove(1);
+        mChangeList->Commit(1);
+        mChangeList->Write(*mNetwork, 1, 1000);
 
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 0);
@@ -140,23 +142,23 @@ public:
 
         for (int i = 0; i < count; ++i)
         {
-            ChangeList::AddRemove(i);
+            mChangeList->AddRemove(i);
         }
-        ChangeList::Commit(0);
+        mChangeList->Commit(0);
 
         for (int i = 0; i < count; ++i)
         {
-            ChangeList::AddRemove(i);
+            mChangeList->AddRemove(i);
         }
-        ChangeList::Commit(1);
+        mChangeList->Commit(1);
 
         for (int i = 0; i < count; ++i)
         {
-            ChangeList::AddRemove(i);
+            mChangeList->AddRemove(i);
         }
-        ChangeList::Commit(2);
+        mChangeList->Commit(2);
 
-        ChangeList::Write(*mNetwork, 0, 1000);
+        mChangeList->Write(*mNetwork, 0, 1000);
 
         TS_ASSERT(mNetwork->IsLastWrited());
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count * 2);
@@ -166,6 +168,7 @@ public:
 
 private:
     DummyNetwork* mNetwork;
+    ChangeList* mChangeList;
 
 };
 
