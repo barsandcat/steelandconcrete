@@ -5,10 +5,6 @@
 #include <Exceptions.h>
 #include <ServerGame.h>
 
-ChangeList::UpdateBlockList ChangeList::mChangeList;
-ChangeList::ResponseList ChangeList::mCurrentChanges;
-boost::shared_mutex ChangeList::mChangeListRWL;
-
 ChangeMsg& ChangeList::AddChangeMsg()
 {
     ChangeMsg* change = NULL;
