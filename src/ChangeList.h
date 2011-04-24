@@ -3,26 +3,24 @@
 #include <Typedefs.h>
 #include <Response.pb.h>
 #include <INetwork.h>
-#include <boost/thread.hpp>
+#include <boost/circular_buffer.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
+#include <Change.h>
 
-class ChangeList: public boost::noncopyable
+
+class ChangeList
 {
 public:
-    typedef std::vector< ResponseMsg* > ResponseList;
-    typedef std::pair<GameTime, ResponseList> UpdateBlock;
-
+    typedef boost::ptr_vector<IChange> TurnChanges;
+    ChangeList(): mChanges(100) { mChanges.push_front(TurnChanges()); }
     void AddMove(UnitId aUnit, TileId aPosition);
     void AddCommandDone(UnitId aUnit);
-    void Write(INetwork& aNetwork, GameTime aClientTime, int32 aUpdateLength);
-    void Commit(GameTime aTime);
     void AddRemove(UnitId aUnit);
+    void Write(INetwork& aNetwork, size_t aIndex) const;
+    void Commit();
     void Clear();
 private:
-    typedef std::deque< UpdateBlock > UpdateBlockList;
-	ChangeMsg& AddChangeMsg();
-    UpdateBlockList mChangeList;
-    ResponseList mCurrentChanges;
-    boost::shared_mutex mChangeListRWL;
+    boost::circular_buffer<TurnChanges> mChanges;
 };
 
 #endif // CHANGELIST_H
