@@ -19,6 +19,7 @@ public:
     {
         mNetwork = new DummyNetwork();
         mChangeList = new ChangeList();
+        mChangeList->SetTileId(1);
     }
 
     void tearDown()
@@ -34,11 +35,36 @@ public:
         {
             mChangeList->AddRemove(i);
         }
-        mChangeList->Write(*mNetwork, 0);
+        std::set<TileId> visibleTiels;
+        mChangeList->Write(*mNetwork, 0, visibleTiels);
 
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count);
         TS_ASSERT_EQUALS(mNetwork->GetWrites(), 1);
     }
+
+    void TestLeave()
+    {
+        mChangeList->AddLeave(1, 2);
+        std::set<TileId> visibleTiels;
+        visibleTiels.insert(1);
+        mChangeList->Write(*mNetwork, 0, visibleTiels);
+
+        TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 1);
+        TS_ASSERT_EQUALS(mNetwork->GetWrites(), 1);
+    }
+
+    void TestEnter()
+    {
+        mChangeList->AddEnter(1, 1, 2);
+        std::set<TileId> visibleTiels;
+        visibleTiels.insert(1);
+        mChangeList->Write(*mNetwork, 0, visibleTiels);
+
+        TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 1);
+        TS_ASSERT_EQUALS(mNetwork->GetWrites(), 1);
+    }
+
+
 
     void TestChangeListTwoTimes()
     {
@@ -47,7 +73,8 @@ public:
         mChangeList->AddRemove(1);
         mChangeList->Commit();
         mChangeList->AddRemove(2);
-        mChangeList->Write(*mNetwork, 0);
+        std::set<TileId> visibleTiels;
+        mChangeList->Write(*mNetwork, 0, visibleTiels);
 
 
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 1);
@@ -59,7 +86,8 @@ public:
         mChangeList->AddRemove(0);
         mChangeList->Commit();
         mChangeList->AddRemove(1);
-        TS_ASSERT_THROWS_ANYTHING(mChangeList->Write(*mNetwork, 2));
+        std::set<TileId> visibleTiels;
+        TS_ASSERT_THROWS_ANYTHING(mChangeList->Write(*mNetwork, 2, visibleTiels));
 
 
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 0);

@@ -16,8 +16,8 @@ public:
     virtual ~ServerUnit();
     void SetCommand(ServerTile& aTile) { mTarget = &aTile; }
     void ExecuteCommand();
-    void FillUnitMsg(UnitMsg& aUnitMsg) const;
     bool UpdateAgeAndIsTimeToDie(GameTime aPeriod);
+    const UnitClass& GetClass() const { return mClass; }
 protected:
 private:
     void Move(ServerTile& aNewPosition);

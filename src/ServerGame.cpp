@@ -80,26 +80,10 @@ void ServerGame::MainLoop(Ogre::String aAddress, int32 aPort)
 
 void ServerGame::Send(Network& aNetwork)
 {
-    boost::shared_lock<boost::shared_mutex> cs(mGameMutex);
-
     GeodesicGridSizeMsg gridInfo;
     gridInfo.set_size(mSize)    ;
     aNetwork.WriteMessage(gridInfo);
     GetLog() << "Grid info sent; " << gridInfo.ShortDebugString() ;
-
-    UnitCountMsg count;
-    count.set_count(UnitList::GetCount());
-    count.set_time(mTime);
-    aNetwork.WriteMessage(count);
-    GetLog() << "Unit count sent; " << count.ShortDebugString() ;
-
-    for (UnitListIterator i = UnitList::GetIterator(); !i.IsDone(); i.Next())
-    {
-        UnitMsg unit;
-        i.GetUnit()->FillUnitMsg(unit);
-        aNetwork.WriteMessage(unit);
-    }
-    GetLog() << "All units sent";
 }
 
 void ServerGame::UpdateGame()

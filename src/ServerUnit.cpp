@@ -44,13 +44,6 @@ void ServerUnit::ExecuteCommand()
     }
 }
 
-void ServerUnit::FillUnitMsg(UnitMsg& aUnitMsg) const
-{
-    aUnitMsg.set_tag(mUnitId);
-    aUnitMsg.set_tile(mPosition->GetTileId());
-    aUnitMsg.set_visual(mClass.GetVisualCode());
-}
-
 bool ServerUnit::UpdateAgeAndIsTimeToDie(GameTime aPeriod)
 {
     mAge += aPeriod;
