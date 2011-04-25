@@ -67,14 +67,21 @@
 			<Add before="make -C ../../src/proto -f Makefile.proto" />
 			<Add before="make -f Makefile.cxxtest" />
 		</ExtraCommands>
+		<Unit filename="../ChangeEnter.cpp" />
+		<Unit filename="../ChangeEnter.h" />
+		<Unit filename="../ChangeLeave.cpp" />
+		<Unit filename="../ChangeLeave.h" />
 		<Unit filename="../ChangeList.cpp" />
 		<Unit filename="../ChangeList.h" />
+		<Unit filename="../ChangeRemove.cpp" />
+		<Unit filename="../ChangeRemove.h" />
 		<Unit filename="../ClientConnection.cpp" />
 		<Unit filename="../CompareEdgesAngles.h" />
 		<Unit filename="../ConnectionManager.cpp" />
 		<Unit filename="../DummyNetwork.cpp" />
 		<Unit filename="../DummyNetwork.h" />
 		<Unit filename="../Exceptions.h" />
+		<Unit filename="../IChange.h" />
 		<Unit filename="../INetwork.h" />
 		<Unit filename="../LinuxPlatform.cpp" />
 		<Unit filename="../Mind.cpp" />

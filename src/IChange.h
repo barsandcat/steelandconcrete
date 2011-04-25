@@ -1,12 +1,14 @@
-#ifndef CHANGE_H
-#define CHANGE_H
+#ifndef ICHANGE_H
+#define ICHANGE_H
 
 #include <ChangeList.pb.h>
+#include <Typedefs.h>
+#include <set>
 
 class IChange
 {
 public:
-    virtual void FillChangeMsg(ChangeMsg& aChange) const = 0;
+    virtual void FillChangeMsg(ChangeMsg& aChange, std::set<TileId>& aVisibleTiles) const = 0;
 };
 
 inline IChange* new_clone( const IChange& r )
@@ -23,4 +25,4 @@ inline void delete_clone( const IChange* r )
 {
     delete r;
 }
-#endif // CHANGE_H
+#endif // ICHANGE_H

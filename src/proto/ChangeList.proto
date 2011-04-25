@@ -1,8 +1,16 @@
-message UnitMoveMsg
+message UnitEnterMsg
 {
     required int32 unitid = 1;
-    required uint32 position = 2;
+    required uint32 to = 2;
+    optional uint32 visualcode = 3;
 }
+
+message UnitLeaveMsg
+{
+    required int32 unitid = 1;
+    required uint32 to = 2;
+}
+
 
 message CommandDoneMsg
 {
@@ -16,10 +24,11 @@ message RemoveMsg
 
 message ChangeMsg
 {
-    optional UnitMoveMsg unitmove = 1;
-    optional CommandDoneMsg commanddone = 2;
-    optional RemoveMsg remove = 3;
-    optional ShowTileMsg showtile = 4;
+    optional CommandDoneMsg commanddone = 1;
+    optional RemoveMsg remove = 2;
+    optional ShowTileMsg showtile = 3;
+    optional UnitEnterMsg unitenter = 4;
+    optional UnitLeaveMsg unitleave = 5;
 }
 
 message ShowTileMsg
