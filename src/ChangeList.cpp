@@ -1,7 +1,6 @@
 #include <pch.h>
 #include <ChangeList.h>
 
-#include <ServerLog.h>
 #include <Exceptions.h>
 #include <ServerGame.h>
 #include <ChangeRemove.h>
@@ -29,7 +28,7 @@ void ChangeList::Commit()
     mChanges.push_front(TurnChanges());
 }
 
-void ChangeList::Write(INetwork& aNetwork, size_t aIndex, std::set<TileId>& aVisibleTiles) const
+void ChangeList::Write(INetwork& aNetwork, size_t aIndex, VisibleTiles& aVisibleTiles) const
 {
     ResponseMsg msg;
     msg.set_type(RESPONSE_PART);

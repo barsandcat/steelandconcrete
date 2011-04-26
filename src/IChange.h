@@ -5,10 +5,13 @@
 #include <Typedefs.h>
 #include <set>
 
+class ChangeList;
+typedef std::map<TileId, ChangeList*> VisibleTiles;
+
 class IChange
 {
 public:
-    virtual void FillChangeMsg(ChangeMsg& aChange, std::set<TileId>& aVisibleTiles) const = 0;
+    virtual void FillChangeMsg(ChangeMsg& aChange, VisibleTiles& aVisibleTiles) const = 0;
 };
 
 inline IChange* new_clone( const IChange& r )

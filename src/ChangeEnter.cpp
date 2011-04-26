@@ -11,7 +11,7 @@ ChangeEnter::ChangeEnter(UnitId aUnitId, uint32 aVisualCode, TileId aFrom, TileI
 
 }
 
-void ChangeEnter::FillChangeMsg(ChangeMsg& aChange, std::set<TileId>& aVisibleTiles) const
+void ChangeEnter::FillChangeMsg(ChangeMsg& aChange, VisibleTiles& aVisibleTiles) const
 {
     UnitEnterMsg* msg = aChange.mutable_unitenter();
     msg->set_unitid(mUnitId);
