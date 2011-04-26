@@ -8,7 +8,7 @@ class ChangeRemove: public IChange
 {
 public:
     ChangeRemove(TileId aUnit);
-    virtual void FillChangeMsg(ChangeMsg& aChange, std::set<TileId>& aVisibleTiles) const;
+    virtual void FillChangeMsg(ChangeMsg& aChange, VisibleTiles& aVisibleTiles) const;
 private:
     const TileId mUnitId;
 };

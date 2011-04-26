@@ -68,8 +68,14 @@
 			<Mode after="always" />
 		</ExtraCommands>
 		<Unit filename="src/Avatar.h" />
+		<Unit filename="src/ChangeEnter.cpp" />
+		<Unit filename="src/ChangeEnter.h" />
+		<Unit filename="src/ChangeLeave.cpp" />
+		<Unit filename="src/ChangeLeave.h" />
 		<Unit filename="src/ChangeList.cpp" />
 		<Unit filename="src/ChangeList.h" />
+		<Unit filename="src/ChangeRemove.cpp" />
+		<Unit filename="src/ChangeRemove.h" />
 		<Unit filename="src/ClientConnection.cpp" />
 		<Unit filename="src/ClientConnection.h" />
 		<Unit filename="src/ConnectionManager.cpp" />
@@ -77,6 +83,7 @@
 		<Unit filename="src/Edge.h" />
 		<Unit filename="src/Exceptions.h" />
 		<Unit filename="src/GeodesicGrid.h" />
+		<Unit filename="src/IChange.h" />
 		<Unit filename="src/LinuxPlatform.cpp" />
 		<Unit filename="src/LinuxServer.cpp" />
 		<Unit filename="src/Mind.cpp" />

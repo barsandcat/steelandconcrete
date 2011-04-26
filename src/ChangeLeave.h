@@ -8,7 +8,7 @@ class ChangeLeave : public IChange
 {
 public:
     ChangeLeave(UnitId aUnitId, TileId aTo): mUnitId(aUnitId), mTo(aTo) {}
-    virtual void FillChangeMsg(ChangeMsg& aChange, std::set<TileId>& aVisibleTiles) const;
+    virtual void FillChangeMsg(ChangeMsg& aChange, VisibleTiles& aVisibleTiles) const;
 private:
     const UnitId mUnitId;
     const TileId mTo;

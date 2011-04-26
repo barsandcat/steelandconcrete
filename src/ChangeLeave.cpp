@@ -1,6 +1,6 @@
 #include "ChangeLeave.h"
 
-void ChangeLeave::FillChangeMsg(ChangeMsg& aChange, std::set<TileId>& aVisibleTiles) const
+void ChangeLeave::FillChangeMsg(ChangeMsg& aChange, VisibleTiles& aVisibleTiles) const
 {
     if (aVisibleTiles.find(mTo) == aVisibleTiles.end())
     {

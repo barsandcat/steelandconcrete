@@ -35,7 +35,7 @@ public:
         {
             mChangeList->AddRemove(i);
         }
-        std::set<TileId> visibleTiels;
+        VisibleTiles visibleTiels;
         mChangeList->Write(*mNetwork, 0, visibleTiels);
 
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), count);
@@ -45,8 +45,8 @@ public:
     void TestLeave()
     {
         mChangeList->AddLeave(1, 2);
-        std::set<TileId> visibleTiels;
-        visibleTiels.insert(1);
+        VisibleTiles visibleTiels;
+        visibleTiels.insert(std::make_pair(1, mChangeList));
         mChangeList->Write(*mNetwork, 0, visibleTiels);
 
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 1);
@@ -56,8 +56,8 @@ public:
     void TestEnter()
     {
         mChangeList->AddEnter(1, 1, 2);
-        std::set<TileId> visibleTiels;
-        visibleTiels.insert(1);
+        VisibleTiles visibleTiels;
+        visibleTiels.insert(std::make_pair(1, mChangeList));
         mChangeList->Write(*mNetwork, 0, visibleTiels);
 
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 1);
@@ -73,7 +73,7 @@ public:
         mChangeList->AddRemove(1);
         mChangeList->Commit();
         mChangeList->AddRemove(2);
-        std::set<TileId> visibleTiels;
+        VisibleTiles visibleTiels;
         mChangeList->Write(*mNetwork, 0, visibleTiels);
 
 
@@ -86,7 +86,7 @@ public:
         mChangeList->AddRemove(0);
         mChangeList->Commit();
         mChangeList->AddRemove(1);
-        std::set<TileId> visibleTiels;
+        VisibleTiles visibleTiels;
         TS_ASSERT_THROWS_ANYTHING(mChangeList->Write(*mNetwork, 2, visibleTiels));
 
 
