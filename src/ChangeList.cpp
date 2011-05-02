@@ -8,6 +8,19 @@
 #include <ChangeEnter.h>
 #include <ChangeList.pb.h>
 
+
+void SendChanges(INetwork& aNetwork, VisibleTiles& aVisibleTiles, const GameTime aClientTime, const GameTime aTopTime, const GameTime aTimeStep)
+{
+    const int32 toSend = (aTopTime - aClientTime) / aTimeStep;
+    for (int32 t = toSend - 1; t >= 0; --t)
+    {
+        for (VisibleTiles::const_iterator i = aVisibleTiles.begin(); i != aVisibleTiles.end(); ++i)
+        {
+            i->second->Write(aNetwork, t, aVisibleTiles);
+        }
+    }
+}
+
 void ChangeList::AddEnter(UnitId aUnit, uint32 aVisualCode, TileId aFrom)
 {
     mChanges.front().push_back(new ChangeEnter(aUnit, aVisualCode, aFrom, mTileId));
