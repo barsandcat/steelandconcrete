@@ -114,6 +114,59 @@ public:
         TS_ASSERT_EQUALS(mNetwork->GetWrites(), 4);
     }
 
+    void TestClientEventsSendNothing()
+    {
+        mChangeList1->AddRemove(3);
+        mChangeList2->AddRemove(2);
+        mChangeList1->Commit();
+        mChangeList2->Commit();
+        mChangeList1->AddEnter(1, 1, 2);
+        mChangeList2->AddLeave(1, 1);
+
+        VisibleTiles visibleTiles;
+        visibleTiles.insert(std::make_pair(1, mChangeList1));
+        visibleTiles.insert(std::make_pair(2, mChangeList2));
+        SendChanges(*mNetwork, visibleTiles, 10, 10, 1);
+        TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 0);
+        TS_ASSERT_EQUALS(mNetwork->GetWrites(), 0);
+    }
+
+    void TestClientEventsSendOne()
+    {
+        mChangeList1->AddRemove(3);
+        mChangeList2->AddRemove(2);
+        mChangeList1->Commit();
+        mChangeList2->Commit();
+        mChangeList1->AddEnter(1, 1, 2);
+        mChangeList2->AddLeave(1, 1);
+
+        VisibleTiles visibleTiles;
+        visibleTiles.insert(std::make_pair(1, mChangeList1));
+        visibleTiles.insert(std::make_pair(2, mChangeList2));
+        SendChanges(*mNetwork, visibleTiles, 9, 10, 1);
+        TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 2);
+        TS_ASSERT_EQUALS(mNetwork->GetWrites(), 2);
+    }
+
+    void TestClientEventsOutOfBounds()
+    {
+        mChangeList1->AddRemove(3);
+        mChangeList2->AddRemove(2);
+        mChangeList1->Commit();
+        mChangeList2->Commit();
+        mChangeList1->AddEnter(1, 1, 2);
+        mChangeList2->AddLeave(1, 1);
+
+        VisibleTiles visibleTiles;
+        visibleTiles.insert(std::make_pair(1, mChangeList1));
+        visibleTiles.insert(std::make_pair(2, mChangeList2));
+        SendChanges(*mNetwork, visibleTiles, 11, 10, 1);
+        TS_ASSERT_THROWS_ANYTHING(SendChanges(*mNetwork, visibleTiles, 7, 10, 1));
+        TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 0);
+        TS_ASSERT_EQUALS(mNetwork->GetWrites(), 0);
+    }
+
+
 private:
     DummyNetwork* mNetwork;
     ChangeList* mChangeList1;
