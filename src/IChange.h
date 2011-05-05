@@ -6,7 +6,7 @@
 #include <set>
 
 class ChangeList;
-typedef std::map<TileId, ChangeList*> VisibleTiles;
+typedef std::map<TileId, const ChangeList*> VisibleTiles;
 
 class IChange
 {
