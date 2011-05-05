@@ -8,7 +8,7 @@
 ServerTile::ServerTile(const Ogre::Vector3& aPosition):
         mPosition(aPosition),
         mTileId(0),
-		mUnit(NULL)
+		mUnit(0)
 {
     mNeighbourhood.reserve(6);
 }
