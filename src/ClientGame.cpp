@@ -172,10 +172,10 @@ void ClientGame::LoadEvents(const ResponseMsg& changes)
     for (int i = 0; i < changes.changes_size(); ++i)
     {
         const ChangeMsg& change = changes.changes(i);
-        if (change.has_unitmove())
+        if (change.has_unitenter())
         {
-            const UnitMoveMsg& move = change.unitmove();
-            GetUnit(move.unitid()).SetTile(mTiles.at(move.position())->GetTile());
+            const UnitEnterMsg& move = change.unitenter();
+            GetUnit(move.unitid()).SetTile(mTiles.at(move.to())->GetTile());
         }
         else if (change.has_commanddone())
         {
