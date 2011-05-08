@@ -19,8 +19,16 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
     mLoadingSheet.Activate();
 
     ClientGeodesicGrid grid(mTiles, aGridSize);
+    mLoadingSheet.SetProgress(50);
 
+    ReadResponseMessage();
     mLoadingSheet.SetProgress(90);
+
+    mAvatar = &GetUnit(aAvatarId);
+    if (!mAvatar)
+    {
+        throw std::runtime_error("No avatar!");
+    }
 
     Ogre::Vector3 avatarPosition = mAvatar->GetTile()->GetGridNode().GetPosition();
     ClientApp::GetCamera().Goto(avatarPosition);
@@ -145,7 +153,16 @@ void ClientGame::LoadEvents(const ResponseMsg& changes)
         if (change.has_unitenter())
         {
             const UnitEnterMsg& move = change.unitenter();
-            GetUnit(move.unitid()).SetTile(mTiles.at(move.to())->GetTile());
+            if (move.has_visualcode())
+            {
+                ClientUnit* unit = new ClientUnit(move.unitid(), move.visualcode());
+                mUnits.insert(std::make_pair(move.unitid(), unit));
+                unit->SetTile(mTiles.at(move.to())->GetTile());
+            }
+            else
+            {
+                GetUnit(move.unitid()).SetTile(mTiles.at(move.to())->GetTile());
+            }
         }
         else if (change.has_commanddone())
         {
