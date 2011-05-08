@@ -6,7 +6,6 @@
 #include <ServerLog.h>
 #include <Handshake.pb.h>
 #include <ProtocolVersion.h>
-#include <GeodesicGrid.pb.h>
 #include <Request.pb.h>
 #include <Response.pb.h>
 
@@ -33,12 +32,7 @@ int main()
         net->ReadMessage(res);
         if(res.result() == CONNECTION_ALLOWED)
         {
-            GeodesicGridSizeMsg gridInfo;
-            net->ReadMessage(gridInfo);
-
-            GetLog() << "Recived grid info " << gridInfo.ShortDebugString();
-
-            int mTime = gridInfo.time();
+            int mTime = 0;
 
             int32 updateLength = 1000;
             while(true)

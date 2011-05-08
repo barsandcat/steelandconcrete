@@ -77,15 +77,6 @@ void ServerGame::MainLoop(Ogre::String aAddress, int32 aPort)
     GetLog() << "Game over";
 }
 
-void ServerGame::Send(Network& aNetwork)
-{
-    GeodesicGridSizeMsg gridInfo;
-    gridInfo.set_size(mSize);
-    gridInfo.set_time(mTime);
-    aNetwork.WriteMessage(gridInfo);
-    GetLog() << "Grid info sent; " << gridInfo.ShortDebugString() ;
-}
-
 void ServerGame::UpdateGame()
 {
     boost::lock_guard<boost::shared_mutex> cs(mGameMutex);

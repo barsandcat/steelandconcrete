@@ -139,9 +139,6 @@
 		<Unit filename="../proto/CommandList.pb.cc" />
 		<Unit filename="../proto/CommandList.pb.h" />
 		<Unit filename="../proto/CommandList.proto" />
-		<Unit filename="../proto/GeodesicGrid.pb.cc" />
-		<Unit filename="../proto/GeodesicGrid.pb.h" />
-		<Unit filename="../proto/GeodesicGrid.proto" />
 		<Unit filename="../proto/Handshake.pb.cc" />
 		<Unit filename="../proto/Handshake.pb.h" />
 		<Unit filename="../proto/Handshake.proto" />
@@ -157,9 +154,6 @@
 		<Unit filename="../proto/Response.pb.cc" />
 		<Unit filename="../proto/Response.pb.h" />
 		<Unit filename="../proto/Response.proto" />
-		<Unit filename="../proto/Vector.pb.cc" />
-		<Unit filename="../proto/Vector.pb.h" />
-		<Unit filename="../proto/Vector.proto" />
 		<Extensions>
 			<code_completion />
 			<envvars />

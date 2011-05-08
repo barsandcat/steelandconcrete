@@ -15,4 +15,5 @@ message ConnectionResponseMsg
   optional ConnectionResponseType result = 1 [default = CONNECTION_ALLOWED];
   optional uint32 protocolVersion = 2 [default = 0];
   optional int32 avatar = 3;
+  optional int32 size = 4;
 }

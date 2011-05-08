@@ -4,7 +4,6 @@
 #include <OgreOctreePlugin.h>
 #include <OgreGLPlugin.h>
 #include <Header.pb.h>
-#include <Vector.pb.h>
 #include <Handshake.pb.h>
 #include <Network.h>
 #include <ClientLog.h>
@@ -323,7 +322,7 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
             net->ReadMessage(res);
             if (res.result() == CONNECTION_ALLOWED)
             {
-                mGame = new ClientGame(net, res.avatar());
+                mGame = new ClientGame(net, res.avatar(), res.size());
             }
             else
             {

@@ -14,12 +14,12 @@ public:
     ServerGame(int32 aSize);
     ~ServerGame();
     void MainLoop(Ogre::String aAddress, int32 aPort);
-    void Send(Network& aNetwork);
     static GameTime GetTime();
     static GameTime GetTimeStep();
     void LoadCommands(const RequestMsg& commands);
 	int32 GetUpdateLength() { return mTimer.GetLeft(); }
 	const ServerGeodesicGrid::Tiles& GetTiles() const { return mTiles; }
+	int32 GetSize() const { return mSize; }
 protected:
 private:
     void UpdateGame();
