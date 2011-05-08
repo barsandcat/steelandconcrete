@@ -2,7 +2,6 @@
 #include <ServerGame.h>
 
 #include <Network.h>
-#include <Unit.pb.h>
 #include <ServerLog.h>
 #include <ConnectionManager.h>
 #include <ChangeList.h>
@@ -81,7 +80,8 @@ void ServerGame::MainLoop(Ogre::String aAddress, int32 aPort)
 void ServerGame::Send(Network& aNetwork)
 {
     GeodesicGridSizeMsg gridInfo;
-    gridInfo.set_size(mSize)    ;
+    gridInfo.set_size(mSize);
+    gridInfo.set_time(mTime);
     aNetwork.WriteMessage(gridInfo);
     GetLog() << "Grid info sent; " << gridInfo.ShortDebugString() ;
 }

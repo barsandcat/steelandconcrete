@@ -1,7 +1,6 @@
 #include <pch.h>
 #include <ClientGame.h>
 #include <ClientApp.h>
-#include <Unit.pb.h>
 #include <Network.h>
 #include <ClientLog.h>
 #include <Request.pb.h>
@@ -23,37 +22,15 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
     GetLog() << "Grid info recived" << gridInfo.ShortDebugString();
 
     ClientGeodesicGrid grid(mTiles, gridInfo.size());
+    mTime = gridInfo.time();
 
-    UnitCountMsg unitCount;
-    mNetwork->ReadMessage(unitCount);
-    GetLog() << "Recived unit count " << unitCount.ShortDebugString();
-    mTime = unitCount.time();
-
-    for (size_t i = 0; i < unitCount.count(); ++i)
-    {
-        UnitMsg unit;
-        mNetwork->ReadMessage(unit);
-        ClientUnit* clientUnit = new ClientUnit(unit);
-        mUnits.insert(std::make_pair(unit.tag(), clientUnit));
-
-        if (unit.tag() == aAvatarId)
-        {
-            mAvatar = clientUnit;
-            ClientGridNode& gridNode = *mTiles.at(unit.tile());
-            gridNode.CreateTile(true);
-            clientUnit->SetTile(gridNode.GetTile());
-        }
-    }
-    assert(mAvatar);
     mLoadingSheet.SetProgress(90);
-    GetLog() << "Recived all units";
 
     Ogre::Vector3 avatarPosition = mAvatar->GetTile()->GetGridNode().GetPosition();
     ClientApp::GetCamera().Goto(avatarPosition);
     ClientApp::GetCamera().SetDistance(avatarPosition.length() + 50.0f);
 
     // Units
-    CreateUnitEntities();
     mLoadingSheet.SetProgress(100);
 
     // Create a light

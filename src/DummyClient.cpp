@@ -7,7 +7,6 @@
 #include <Handshake.pb.h>
 #include <ProtocolVersion.h>
 #include <GeodesicGrid.pb.h>
-#include <Unit.pb.h>
 #include <Request.pb.h>
 #include <Response.pb.h>
 
@@ -39,16 +38,7 @@ int main()
 
             GetLog() << "Recived grid info " << gridInfo.ShortDebugString();
 
-            UnitCountMsg unitCount;
-            net->ReadMessage(unitCount);
-            int mTime = unitCount.time();
-            GetLog() << "Recived unit count " << unitCount.ShortDebugString();
-
-            for(size_t i = 0; i < unitCount.count(); ++i)
-            {
-                UnitMsg unit;
-                net->ReadMessage(unit);
-            }
+            int mTime = gridInfo.time();
 
             int32 updateLength = 1000;
             while(true)

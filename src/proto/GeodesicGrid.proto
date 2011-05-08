@@ -1,17 +1,5 @@
-import "Tile.proto";
-import "Edge.proto";
-
-message TileListMsg
-{
-  repeated TileMsg tiles = 1;
-}
-
-message EdgeListMsg
-{
-  repeated EdgeMsg edges = 1;
-}
-
 message GeodesicGridSizeMsg
 {
   required uint32 size = 1;
+  required int32 time = 2;
 }

@@ -137,9 +137,6 @@
 		<Unit filename="../proto/CommandList.pb.cc" />
 		<Unit filename="../proto/CommandList.pb.h" />
 		<Unit filename="../proto/CommandList.proto" />
-		<Unit filename="../proto/Edge.pb.cc" />
-		<Unit filename="../proto/Edge.pb.h" />
-		<Unit filename="../proto/Edge.proto" />
 		<Unit filename="../proto/GeodesicGrid.pb.cc" />
 		<Unit filename="../proto/GeodesicGrid.pb.h" />
 		<Unit filename="../proto/GeodesicGrid.proto" />
@@ -158,12 +155,6 @@
 		<Unit filename="../proto/Response.pb.cc" />
 		<Unit filename="../proto/Response.pb.h" />
 		<Unit filename="../proto/Response.proto" />
-		<Unit filename="../proto/Tile.pb.cc" />
-		<Unit filename="../proto/Tile.pb.h" />
-		<Unit filename="../proto/Tile.proto" />
-		<Unit filename="../proto/Unit.pb.cc" />
-		<Unit filename="../proto/Unit.pb.h" />
-		<Unit filename="../proto/Unit.proto" />
 		<Unit filename="../proto/Vector.pb.cc" />
 		<Unit filename="../proto/Vector.pb.h" />
 		<Unit filename="../proto/Vector.proto" />
