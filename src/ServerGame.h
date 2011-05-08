@@ -19,6 +19,7 @@ public:
     static GameTime GetTimeStep();
     void LoadCommands(const RequestMsg& commands);
 	int32 GetUpdateLength() { return mTimer.GetLeft(); }
+	const ServerGeodesicGrid::Tiles& GetTiles() const { return mTiles; }
 protected:
 private:
     void UpdateGame();

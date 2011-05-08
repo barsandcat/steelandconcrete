@@ -2,6 +2,7 @@
 #define SERVERTILE_H
 #include <Typedefs.h>
 #include <OgreVector3.h>
+#include <ChangeList.h>
 
 class ServerTile: public boost::noncopyable
 {
@@ -19,13 +20,15 @@ public:
     void SetUnitId(UnitId aUnit) { mUnit = aUnit; }
 
     TileId GetTileId() const { return mTileId; }
-    void SetTileId(TileId aTileId) { mTileId = aTileId; }
+    void SetTileId(TileId aTileId) { mTileId = aTileId; mChangeList.SetTileId(aTileId); }
+    const ChangeList* GetChangeList() const { return &mChangeList; }
 
 private:
     std::vector< ServerTile* > mNeighbourhood;
     const Ogre::Vector3 mPosition;
     TileId mTileId;
     UnitId mUnit;
+    ChangeList mChangeList;
 };
 
 #endif // SERVERTILE_H

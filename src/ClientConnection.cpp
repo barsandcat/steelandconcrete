@@ -14,25 +14,7 @@
 #include <ProtocolVersion.h>
 #include <Avatar.h>
 #include <UnitList.h>
-
-void AddShowTile(ResponseMsg& aResponse, TileId aTileId)
-{
-    ChangeMsg* change = aResponse.add_changes();
-    ShowTileMsg* showTile = change->mutable_showtile();
-    showTile->set_tileid(aTileId);
-}
-
-std::set<TileId> GetVisibleTiles(UnitId aUnit)
-{
-    std::set<TileId> result;
-    ServerTile& tile = UnitList::GetUnit(aUnit)->GetPosition();
-    result.insert(tile.GetTileId());
-    for (size_t n = 0; n < tile.GetNeighbourCount(); ++n)
-    {
-        result.insert(tile.GetNeighbour(n).GetTileId());
-    }
-    return result;
-}
+#include <ClientFOV.h>
 
 void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
 {
@@ -58,11 +40,11 @@ void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
         res.set_result(CONNECTION_ALLOWED);
         res.set_avatar(avatar.GetId());
         network.WriteMessage(res);
-        std::set<TileId> visibleTiles;
         GetLog() << "Client response " << res.ShortDebugString();
 
         aGame.Send(network);
 
+        ClientFOV fov(network, aGame, avatar.GetId());
 
         while (true)
         {
@@ -78,28 +60,7 @@ void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
                     if (req.has_time())
                     {
                         aGame.LoadCommands(req);
-                        // show tiles
-                        std::set<TileId> currentVisibleTiles = GetVisibleTiles(avatar.GetId());
-                        std::vector<TileId> newVisibleTiles(currentVisibleTiles.size());
-                        std::vector<TileId>::iterator end = std::set_difference(
-                            currentVisibleTiles.begin(), currentVisibleTiles.end(),
-                            visibleTiles.begin(), visibleTiles.end(), newVisibleTiles.begin());
-
-                        ResponseMsg response;
-                        response.set_type(RESPONSE_PART);
-                        for (std::vector<TileId>::iterator n = newVisibleTiles.begin(); n != end; ++n)
-                        {
-                            AddShowTile(response, *n);
-                        }
-                        network.WriteMessage(response);
-                        // set time
-                        ResponseMsg emptyMsg;
-                        emptyMsg.set_type(RESPONSE_OK);
-                        emptyMsg.set_time(ServerGame::GetTime());
-                        emptyMsg.set_update_length(aGame.GetUpdateLength());
-                        network.WriteMessage(emptyMsg);
-
-                        //ChangeList::Write(network, req.time(), aGame.GetUpdateLength());
+                        fov.SendUpdate(req.time());
                     }
                     else
                     {
