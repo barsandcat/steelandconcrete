@@ -23,7 +23,7 @@ void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
     {
         ConnectionRequestMsg req;
         network.ReadMessage(req);
-        GetLog() << "Client request " << req.ShortDebugString();
+        GetLog() << "Request " << req.ShortDebugString();
 
         ConnectionResponseMsg res;
         res.set_protocolversion(ProtocolVersion);
@@ -39,10 +39,9 @@ void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
 
         res.set_result(CONNECTION_ALLOWED);
         res.set_avatar(avatar.GetId());
+        res.set_size(aGame.GetSize());
         network.WriteMessage(res);
-        GetLog() << "Client response " << res.ShortDebugString();
-
-        aGame.Send(network);
+        GetLog() << "Response " << res.ShortDebugString();
 
         ClientFOV fov(network, aGame, avatar.GetId());
 

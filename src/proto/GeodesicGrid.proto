@@ -1,5 +1,0 @@
-message GeodesicGridSizeMsg
-{
-  required uint32 size = 1;
-  required int32 time = 2;
-}

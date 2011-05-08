@@ -1,12 +1,6 @@
 PROTOC=../../bin/protoc
 
-all : GeodesicGrid.pb.h Vector.pb.h Header.pb.h Request.pb.h Response.pb.h ChangeList.pb.h CommandList.pb.h Handshake.pb.h
-
-GeodesicGrid.pb.h : GeodesicGrid.proto
-	$(PROTOC) --cpp_out=. GeodesicGrid.proto
-
-Vector.pb.h : Vector.proto
-	$(PROTOC) --cpp_out=. Vector.proto
+all : Header.pb.h Request.pb.h Response.pb.h ChangeList.pb.h CommandList.pb.h Handshake.pb.h
 
 Header.pb.h : Header.proto
 	$(PROTOC) --cpp_out=. Header.proto

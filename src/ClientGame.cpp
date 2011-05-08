@@ -9,7 +9,7 @@
 #include <ClientApp.h>
 #include <ClientTile.h>
 
-ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
+ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
     mTileUnderCursor(NULL),
     mAvatar(NULL),
     mTime(0),
@@ -17,12 +17,8 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
     mNetwork(aNetwork)
 {
     mLoadingSheet.Activate();
-    GeodesicGridSizeMsg gridInfo;
-    aNetwork->ReadMessage(gridInfo);
-    GetLog() << "Grid info recived" << gridInfo.ShortDebugString();
 
-    ClientGeodesicGrid grid(mTiles, gridInfo.size());
-    mTime = gridInfo.time();
+    ClientGeodesicGrid grid(mTiles, aGridSize);
 
     mLoadingSheet.SetProgress(90);
 

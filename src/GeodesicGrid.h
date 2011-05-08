@@ -2,7 +2,6 @@
 #define GEODESICGRID_H
 
 #include <Edge.h>
-#include <GeodesicGrid.pb.h>
 #include <Network.h>
 
 template <typename T>
