@@ -1,5 +1,0 @@
-message EdgeMsg
-{
-    required int32 tilea = 1;
-    required int32 tileb = 2;
-}

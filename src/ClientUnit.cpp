@@ -6,12 +6,12 @@
 #include <VisualCodes.h>
 #include <ClientTile.h>
 
-ClientUnit::ClientUnit(UnitMsg& aUnitMsg):
+ClientUnit::ClientUnit(UnitId aUnitId, uint32 aVisual):
     mTile(NULL),
     mTarget(NULL),
     mEntity(NULL),
-    mUnitId(aUnitMsg.tag()),
-    mVisualCode(aUnitMsg.visual())
+    mUnitId(aUnitId),
+    mVisualCode(aVisual)
 {
     mNode = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
 }

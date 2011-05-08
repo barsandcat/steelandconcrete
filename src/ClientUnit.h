@@ -2,14 +2,13 @@
 #define CLIENTUNIT_H
 #include <Ogre.h>
 #include <Typedefs.h>
-#include <Unit.pb.h>
 
 class ClientTile;
 
 class ClientUnit: public boost::noncopyable
 {
 public:
-    ClientUnit(UnitMsg& aUnitMsg);
+    ClientUnit(UnitId aUnitId, uint32 aVisual);
     void SetTile(ClientTile* aTile);
     ClientTile* GetTile() const { return mTile; }
     void SetTarget(ClientTile* aTile);

@@ -2,7 +2,6 @@
 #define SERVERUNIT_H
 
 #include <Typedefs.h>
-#include <Unit.pb.h>
 #include <UnitClass.h>
 
 class ServerTile;
