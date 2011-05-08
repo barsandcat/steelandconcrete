@@ -78,6 +78,8 @@
 		<Unit filename="src/ChangeRemove.h" />
 		<Unit filename="src/ClientConnection.cpp" />
 		<Unit filename="src/ClientConnection.h" />
+		<Unit filename="src/ClientFOV.cpp" />
+		<Unit filename="src/ClientFOV.h" />
 		<Unit filename="src/ConnectionManager.cpp" />
 		<Unit filename="src/ConnectionManager.h" />
 		<Unit filename="src/Edge.h" />

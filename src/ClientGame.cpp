@@ -30,9 +30,6 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId):
     ClientApp::GetCamera().Goto(avatarPosition);
     ClientApp::GetCamera().SetDistance(avatarPosition.length() + 50.0f);
 
-    // Units
-    mLoadingSheet.SetProgress(100);
-
     // Create a light
     Ogre::Light* myLight = ClientApp::GetSceneMgr().createLight("Light0");
     myLight->setType(Ogre::Light::LT_DIRECTIONAL);
