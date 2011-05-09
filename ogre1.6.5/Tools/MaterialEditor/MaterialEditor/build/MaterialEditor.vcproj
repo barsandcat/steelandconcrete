@@ -271,10 +271,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\ResourcePanel.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\ScintillaEditor.cpp"
 				>
 			</File>
