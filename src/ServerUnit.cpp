@@ -19,16 +19,16 @@ ServerUnit::ServerUnit(ServerTile& aTile, const UnitClass& aClass, UnitId aUnitI
 
 ServerUnit::~ServerUnit()
 {
-    //ChangeList::AddRemove(mUnitId);
-    //dtor
+    mPosition->GetChangeList()->AddRemove(mUnitId);
 }
 
 void ServerUnit::Move(ServerTile& aNewPosition)
 {
+    mPosition->GetChangeList()->AddLeave(mUnitId, aNewPosition.GetTileId());
+    aNewPosition.GetChangeList()->AddEnter(mUnitId, mClass.GetVisualCode(), mPosition->GetTileId());
     mPosition->SetUnitId(0);
     mPosition = &aNewPosition;
     mPosition->SetUnitId(mUnitId);
-    //ChangeList::AddMove(mUnitId, mPosition->GetTileId());
 }
 
 void ServerUnit::ExecuteCommand()
