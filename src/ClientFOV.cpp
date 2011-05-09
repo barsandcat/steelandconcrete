@@ -54,32 +54,37 @@ void ClientFOV::SendUpdate(GameTime aClientTime)
 
     // send events
     const int32 toSend = (mGame.GetTime() - aClientTime) / mGame.GetTimeStep();
-    const bool outOfBounds = aClientTime > 0 && toSend < ChangeList::mSize;
-    for (int32 t = toSend - 1; t >= 0; --t)
+    const bool outOfBounds = aClientTime <= 0 || toSend >= ChangeList::mSize;
+    if (!outOfBounds)
+    {
+        for (int32 t = toSend - 1; t >= 0; --t)
+        {
+            for (std::set<TileId>::iterator n = mVisibleTiles.begin(); n != mVisibleTiles.end(); ++n)
+            {
+                const TileId id = *n;
+                ServerTile* tile = mGame.GetTiles().at(id);
+                tile->GetChangeList()->Write(mNetwork, t, mVisibleTiles);
+            }
+        }
+    }
+    else
     {
         for (std::set<TileId>::iterator n = mVisibleTiles.begin(); n != mVisibleTiles.end(); ++n)
         {
             const TileId id = *n;
             ServerTile* tile = mGame.GetTiles().at(id);
-            if (!outOfBounds)
+            if (const UnitId unitId = tile->GetUnitId())
             {
-                tile->GetChangeList()->Write(mNetwork, t, mVisibleTiles);
-            }
-            else
-            {
-                if (const UnitId unitId = tile->GetUnitId())
-                {
-                    const ServerUnit* unit = UnitList::GetUnit(unitId);
+                const ServerUnit* unit = UnitList::GetUnit(unitId);
 
-                    ResponseMsg msg;
-                    msg.set_type(RESPONSE_PART);
-                    ChangeMsg* change = msg.add_changes();
-                    UnitEnterMsg* unitEnter = change->mutable_unitenter();
-                    unitEnter->set_unitid(unitId);
-                    unitEnter->set_to(id);
-                    unitEnter->set_visualcode(unit->GetClass().GetVisualCode());
-                    mNetwork.WriteMessage(msg);
-                }
+                ResponseMsg msg;
+                msg.set_type(RESPONSE_PART);
+                ChangeMsg* change = msg.add_changes();
+                UnitEnterMsg* unitEnter = change->mutable_unitenter();
+                unitEnter->set_unitid(unitId);
+                unitEnter->set_to(id);
+                unitEnter->set_visualcode(unit->GetClass().GetVisualCode());
+                mNetwork.WriteMessage(msg);
             }
         }
     }
