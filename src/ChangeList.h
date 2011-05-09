@@ -25,6 +25,4 @@ private:
     TileId mTileId;
 };
 
-void SendChanges(INetwork& aNetwork, VisibleTiles& aVisibleTiles, const GameTime aClientTime, const GameTime aTopTime, const GameTime aTimeStep);
-
 #endif // CHANGELIST_H

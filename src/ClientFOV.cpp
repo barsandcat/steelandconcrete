@@ -55,14 +55,17 @@ void ClientFOV::SendUpdate(GameTime aClientTime)
     mVisibleTiles = currentVisibleTiles;
 
     // send events
-    VisibleTiles visibleTiles;
-    for (std::set<TileId>::iterator n = mVisibleTiles.begin(); n != mVisibleTiles.end(); ++n)
+    const int32 toSend = (mGame.GetTime() - aClientTime) / mGame.GetTimeStep();
+    for (int32 t = toSend - 1; t >= 0; --t)
     {
-        const TileId id = *n;
-        const ServerTile* tile = mGame.GetTiles().at(id);
-        visibleTiles.insert(std::make_pair(id, tile->GetChangeList()));
+        for (std::set<TileId>::iterator n = mVisibleTiles.begin(); n != mVisibleTiles.end(); ++n)
+        {
+            const TileId id = *n;
+            const ServerTile* tile = mGame.GetTiles().at(id);
+            tile->GetChangeList()->Write(mNetwork, t, mVisibleTiles);
+        }
     }
-    SendChanges(mNetwork, visibleTiles, aClientTime, mGame.GetTime(), mGame.GetTimeStep());
+
     // set time
     ResponseMsg emptyMsg;
     emptyMsg.set_type(RESPONSE_OK);
