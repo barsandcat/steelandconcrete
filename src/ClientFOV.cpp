@@ -7,8 +7,6 @@
 ClientFOV::ClientFOV(INetwork& aNetwork, ServerGame& aGame, UnitId aAvatarId):
     mAvatarId(aAvatarId), mNetwork(aNetwork), mGame(aGame)
 {
-    mVisibleTiles = GetVisibleTiles();
-    SendUpdate(0);
 }
 
 ClientFOV::~ClientFOV()
@@ -61,7 +59,7 @@ void ClientFOV::SendUpdate(GameTime aClientTime)
         for (std::set<TileId>::iterator n = mVisibleTiles.begin(); n != mVisibleTiles.end(); ++n)
         {
             const TileId id = *n;
-            const ServerTile* tile = mGame.GetTiles().at(id);
+            ServerTile* tile = mGame.GetTiles().at(id);
             tile->GetChangeList()->Write(mNetwork, t, mVisibleTiles);
         }
     }

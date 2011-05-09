@@ -99,7 +99,10 @@ void ServerGame::UpdateGame()
     }
 
     mTime += mTimeStep;
-    //ChangeList::Commit(mTime);
+    for (ServerGeodesicGrid::Tiles::const_iterator i = mTiles.begin(); i != mTiles.end(); ++i)
+    {
+        (*i)->GetChangeList()->Commit();
+    }
 
     GetLog() << "Time: " << mTime;
 }

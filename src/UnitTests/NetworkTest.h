@@ -36,6 +36,7 @@ public:
         {
             mChangeList1->AddRemove(i);
         }
+        mChangeList1->Commit();
         VisibleTiles visibleTiels;
         mChangeList1->Write(*mNetwork, 0, visibleTiels);
 
@@ -46,6 +47,7 @@ public:
     void TestLeave()
     {
         mChangeList1->AddLeave(1, 2);
+        mChangeList1->Commit();
         VisibleTiles visibleTiels;
         visibleTiels.insert(1);
         mChangeList1->Write(*mNetwork, 0, visibleTiels);
@@ -57,6 +59,7 @@ public:
     void TestEnter()
     {
         mChangeList1->AddEnter(1, 1, 2);
+        mChangeList1->Commit();
         VisibleTiles visibleTiels;
         visibleTiels.insert(1);
         mChangeList1->Write(*mNetwork, 0, visibleTiels);
@@ -74,6 +77,7 @@ public:
         mChangeList1->AddRemove(1);
         mChangeList1->Commit();
         mChangeList1->AddRemove(2);
+        mChangeList1->Commit();
         VisibleTiles visibleTiels;
         mChangeList1->Write(*mNetwork, 0, visibleTiels);
 
@@ -87,6 +91,7 @@ public:
         mChangeList1->AddRemove(0);
         mChangeList1->Commit();
         mChangeList1->AddRemove(1);
+        mChangeList1->Commit();
         VisibleTiles visibleTiels;
         TS_ASSERT_THROWS_ANYTHING(mChangeList1->Write(*mNetwork, 2, visibleTiels));
 

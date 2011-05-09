@@ -8,19 +8,18 @@
 #include <ChangeEnter.h>
 #include <ChangeList.pb.h>
 
-
+const int32 ChangeList::mSize = 100;
 
 
 void ChangeList::AddEnter(UnitId aUnit, uint32 aVisualCode, TileId aFrom)
 {
-    mChanges.front().push_back(new ChangeEnter(aUnit, aVisualCode, aFrom, mTileId));
+    mCurrentChanges.push_back(new ChangeEnter(aUnit, aVisualCode, aFrom, mTileId));
 }
 
 void ChangeList::AddLeave(UnitId aUnit, TileId aTo)
 {
-    mChanges.front().push_back(new ChangeLeave(aUnit, aTo));
+    mCurrentChanges.push_back(new ChangeLeave(aUnit, aTo));
 }
-
 
 void ChangeList::Clear()
 {
@@ -29,6 +28,8 @@ void ChangeList::Clear()
 void ChangeList::Commit()
 {
     mChanges.push_front(TurnChanges());
+    TurnChanges& front = mChanges.front();
+    front.transfer(front.end(), mCurrentChanges.begin(), mCurrentChanges.end(), mCurrentChanges);
 }
 
 void ChangeList::Write(INetwork& aNetwork, size_t aIndex, VisibleTiles& aVisibleTiles) const
@@ -51,5 +52,5 @@ void ChangeList::AddCommandDone(UnitId aUnit)
 
 void ChangeList::AddRemove(UnitId aUnit)
 {
-    mChanges.front().push_back(new ChangeRemove(aUnit));
+    mCurrentChanges.push_back(new ChangeRemove(aUnit));
 }
