@@ -162,6 +162,7 @@ void ClientGame::LoadEvents(const ResponseMsg& changes)
             if (move.has_visualcode())
             {
                 ClientUnit* unit = new ClientUnit(move.unitid(), move.visualcode());
+                unit->CreateEntity();
                 mUnits.insert(std::make_pair(move.unitid(), unit));
                 unit->SetTile(mTiles.at(move.to())->GetTile());
             }
@@ -169,6 +170,17 @@ void ClientGame::LoadEvents(const ResponseMsg& changes)
             {
                 GetUnit(move.unitid()).SetTile(mTiles.at(move.to())->GetTile());
             }
+        }
+        else if (change.has_unitleave())
+        {
+            const UnitLeaveMsg& leave = change.unitleave();
+            ClientUnits::iterator i = mUnits.find(leave.unitid());
+            if (mUnits.end() == i)
+            {
+                throw std::out_of_range("Leave for non existing unit " + leave.ShortDebugString());
+            }
+            delete i->second;
+            mUnits.erase(i);
         }
         else if (change.has_commanddone())
         {
