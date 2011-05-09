@@ -34,16 +34,19 @@ void ChangeList::Commit()
 
 void ChangeList::Write(INetwork& aNetwork, size_t aIndex, VisibleTiles& aVisibleTiles) const
 {
-    ResponseMsg msg;
-    msg.set_type(RESPONSE_PART);
     const TurnChanges& turnChanges = mChanges.at(aIndex);
-    TurnChanges::const_iterator i = turnChanges.begin();
-    for (;i != turnChanges.end(); ++i)
+    if (!turnChanges.empty())
     {
-        ChangeMsg* change = msg.add_changes();
-        i->FillChangeMsg(*change, aVisibleTiles);
+        ResponseMsg msg;
+        msg.set_type(RESPONSE_PART);
+        TurnChanges::const_iterator i = turnChanges.begin();
+        for (;i != turnChanges.end(); ++i)
+        {
+            ChangeMsg* change = msg.add_changes();
+            i->FillChangeMsg(*change, aVisibleTiles);
+        }
+        aNetwork.WriteMessage(msg);
     }
-    aNetwork.WriteMessage(msg);
 }
 
 void ChangeList::AddCommandDone(UnitId aUnit)
