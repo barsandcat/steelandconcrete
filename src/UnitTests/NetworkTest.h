@@ -3,8 +3,6 @@
 
 // MyTestSuite.h
 #include <cxxtest/TestSuite.h>
-#include <proto/Tile.pb.h>
-#include <proto/Vector.pb.h>
 
 #include <iostream>
 #include <cstdlib>
@@ -49,7 +47,7 @@ public:
     {
         mChangeList1->AddLeave(1, 2);
         VisibleTiles visibleTiels;
-        visibleTiels.insert(std::make_pair(1, mChangeList1));
+        visibleTiels.insert(1);
         mChangeList1->Write(*mNetwork, 0, visibleTiels);
 
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 1);
@@ -60,7 +58,7 @@ public:
     {
         mChangeList1->AddEnter(1, 1, 2);
         VisibleTiles visibleTiels;
-        visibleTiels.insert(std::make_pair(1, mChangeList1));
+        visibleTiels.insert(1);
         mChangeList1->Write(*mNetwork, 0, visibleTiels);
 
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 1);
@@ -93,75 +91,6 @@ public:
         TS_ASSERT_THROWS_ANYTHING(mChangeList1->Write(*mNetwork, 2, visibleTiels));
 
 
-        TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 0);
-        TS_ASSERT_EQUALS(mNetwork->GetWrites(), 0);
-    }
-
-    void TestClientEvents()
-    {
-        mChangeList1->AddRemove(3);
-        mChangeList2->AddRemove(2);
-        mChangeList1->Commit();
-        mChangeList2->Commit();
-        mChangeList1->AddEnter(1, 1, 2);
-        mChangeList2->AddLeave(1, 1);
-
-        VisibleTiles visibleTiles;
-        visibleTiles.insert(std::make_pair(1, mChangeList1));
-        visibleTiles.insert(std::make_pair(2, mChangeList2));
-        SendChanges(*mNetwork, visibleTiles, 8, 10, 1);
-        TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 4);
-        TS_ASSERT_EQUALS(mNetwork->GetWrites(), 4);
-    }
-
-    void TestClientEventsSendNothing()
-    {
-        mChangeList1->AddRemove(3);
-        mChangeList2->AddRemove(2);
-        mChangeList1->Commit();
-        mChangeList2->Commit();
-        mChangeList1->AddEnter(1, 1, 2);
-        mChangeList2->AddLeave(1, 1);
-
-        VisibleTiles visibleTiles;
-        visibleTiles.insert(std::make_pair(1, mChangeList1));
-        visibleTiles.insert(std::make_pair(2, mChangeList2));
-        SendChanges(*mNetwork, visibleTiles, 10, 10, 1);
-        TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 0);
-        TS_ASSERT_EQUALS(mNetwork->GetWrites(), 0);
-    }
-
-    void TestClientEventsSendOne()
-    {
-        mChangeList1->AddRemove(3);
-        mChangeList2->AddRemove(2);
-        mChangeList1->Commit();
-        mChangeList2->Commit();
-        mChangeList1->AddEnter(1, 1, 2);
-        mChangeList2->AddLeave(1, 1);
-
-        VisibleTiles visibleTiles;
-        visibleTiles.insert(std::make_pair(1, mChangeList1));
-        visibleTiles.insert(std::make_pair(2, mChangeList2));
-        SendChanges(*mNetwork, visibleTiles, 9, 10, 1);
-        TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 2);
-        TS_ASSERT_EQUALS(mNetwork->GetWrites(), 2);
-    }
-
-    void TestClientEventsOutOfBounds()
-    {
-        mChangeList1->AddRemove(3);
-        mChangeList2->AddRemove(2);
-        mChangeList1->Commit();
-        mChangeList2->Commit();
-        mChangeList1->AddEnter(1, 1, 2);
-        mChangeList2->AddLeave(1, 1);
-
-        VisibleTiles visibleTiles;
-        visibleTiles.insert(std::make_pair(1, mChangeList1));
-        visibleTiles.insert(std::make_pair(2, mChangeList2));
-        SendChanges(*mNetwork, visibleTiles, 11, 10, 1);
-        TS_ASSERT_THROWS_ANYTHING(SendChanges(*mNetwork, visibleTiles, 7, 10, 1));
         TS_ASSERT_EQUALS(mNetwork->GetChangesWrited(), 0);
         TS_ASSERT_EQUALS(mNetwork->GetWrites(), 0);
     }
