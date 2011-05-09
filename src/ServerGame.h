@@ -20,7 +20,6 @@ public:
 	int32 GetUpdateLength() { return mTimer.GetLeft(); }
 	const ServerGeodesicGrid::Tiles& GetTiles() const { return mTiles; }
 	int32 GetSize() const { return mSize; }
-protected:
 private:
     void UpdateGame();
     ServerGeodesicGrid::Tiles mTiles;

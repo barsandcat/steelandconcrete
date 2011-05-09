@@ -21,7 +21,7 @@ public:
 
     TileId GetTileId() const { return mTileId; }
     void SetTileId(TileId aTileId) { mTileId = aTileId; mChangeList.SetTileId(aTileId); }
-    const ChangeList* GetChangeList() const { return &mChangeList; }
+    ChangeList* GetChangeList() { return &mChangeList; }
 
 private:
     std::vector< ServerTile* > mNeighbourhood;

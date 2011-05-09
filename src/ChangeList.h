@@ -10,8 +10,9 @@
 class ChangeList
 {
 public:
+    static const int32 mSize;
     typedef boost::ptr_vector<IChange> TurnChanges;
-    ChangeList(): mChanges(100) { mChanges.push_front(TurnChanges()); }
+    ChangeList(): mChanges(mSize) { }
     void AddEnter(UnitId aUnit, uint32 aVisualCode, TileId aFrom);
     void AddLeave(UnitId aUnit, TileId aTo);
     void AddCommandDone(UnitId aUnit);
@@ -22,6 +23,7 @@ public:
     void SetTileId(TileId aTileId) { mTileId = aTileId; }
 private:
     boost::circular_buffer<TurnChanges> mChanges;
+    TurnChanges mCurrentChanges;
     TileId mTileId;
 };
 

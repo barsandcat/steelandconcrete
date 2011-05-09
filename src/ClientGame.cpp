@@ -21,7 +21,13 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
     ClientGeodesicGrid grid(mTiles, aGridSize);
     mLoadingSheet.SetProgress(50);
 
+    RequestMsg req;
+    req.set_type(REQUEST_GET_TIME);
+    req.set_time(0);
+    req.set_last(true);
+    mNetwork->WriteMessage(req);
     ReadResponseMessage();
+
     mLoadingSheet.SetProgress(90);
 
     mAvatar = &GetUnit(aAvatarId);
