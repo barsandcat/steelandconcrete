@@ -225,11 +225,27 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\ChangeEnter.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\ChangeLeave.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\ChangeList.cpp"
 				>
 			</File>
 			<File
+				RelativePath="..\ChangeRemove.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\ClientConnection.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\ClientFOV.cpp"
 				>
 			</File>
 			<File
@@ -273,15 +289,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\ServerEdge.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\ServerGame.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\ServerGeodesicGrid.cpp"
 				>
 			</File>
 			<File
@@ -323,7 +331,23 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\ChangeEnter.h"
+				>
+			</File>
+			<File
+				RelativePath="..\ChangeLeave.h"
+				>
+			</File>
+			<File
 				RelativePath="..\ChangeList.h"
+				>
+			</File>
+			<File
+				RelativePath="..\ChangeRemove.h"
+				>
+			</File>
+			<File
+				RelativePath="..\ClientFOV.h"
 				>
 			</File>
 			<File
@@ -344,10 +368,6 @@
 			</File>
 			<File
 				RelativePath="..\pch.h"
-				>
-			</File>
-			<File
-				RelativePath="..\ServerEdge.h"
 				>
 			</File>
 			<File
@@ -442,62 +462,6 @@
 			</File>
 			<File
 				RelativePath="..\proto\CommandList.proto"
-				>
-			</File>
-			<File
-				RelativePath="..\proto\Edge.pb.cc"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\proto\Edge.pb.h"
-				>
-			</File>
-			<File
-				RelativePath="..\proto\Edge.proto"
-				>
-			</File>
-			<File
-				RelativePath="..\proto\GeodesicGrid.pb.cc"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\proto\GeodesicGrid.pb.h"
-				>
-			</File>
-			<File
-				RelativePath="..\proto\GeodesicGrid.proto"
 				>
 			</File>
 			<File
@@ -610,90 +574,6 @@
 			</File>
 			<File
 				RelativePath="..\proto\Response.proto"
-				>
-			</File>
-			<File
-				RelativePath="..\proto\Tile.pb.cc"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\proto\Tile.pb.h"
-				>
-			</File>
-			<File
-				RelativePath="..\proto\Tile.proto"
-				>
-			</File>
-			<File
-				RelativePath="..\proto\Unit.pb.cc"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\proto\Unit.pb.h"
-				>
-			</File>
-			<File
-				RelativePath="..\proto\Unit.proto"
-				>
-			</File>
-			<File
-				RelativePath="..\proto\Vector.pb.cc"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\proto\Vector.pb.h"
-				>
-			</File>
-			<File
-				RelativePath="..\proto\Vector.proto"
 				>
 			</File>
 		</Filter>

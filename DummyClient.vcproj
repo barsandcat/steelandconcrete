@@ -252,30 +252,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\proto\Edge.pb.cc"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Edge.pb.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Edge.proto"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\GeodesicGrid.pb.cc"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\GeodesicGrid.pb.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\GeodesicGrid.proto"
-				>
-			</File>
-			<File
 				RelativePath=".\src\proto\Handshake.pb.cc"
 				>
 			</File>
@@ -321,42 +297,6 @@
 			</File>
 			<File
 				RelativePath=".\src\proto\Response.proto"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Tile.pb.cc"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Tile.pb.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Tile.proto"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Unit.pb.cc"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Unit.pb.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Unit.proto"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Vector.pb.cc"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Vector.pb.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Vector.proto"
 				>
 			</File>
 		</Filter>
