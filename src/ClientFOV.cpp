@@ -36,57 +36,61 @@ std::set<TileId> ClientFOV::GetVisibleTiles()
 
 void ClientFOV::SendUpdate(GameTime aClientTime)
 {
-    // show tiles
     std::set<TileId> currentVisibleTiles = GetVisibleTiles();
-    std::vector<TileId> newVisibleTiles(currentVisibleTiles.size());
-    std::vector<TileId>::iterator end = std::set_difference(
-                                            currentVisibleTiles.begin(), currentVisibleTiles.end(),
-                                            mVisibleTiles.begin(), mVisibleTiles.end(), newVisibleTiles.begin());
 
-    ResponseMsg response;
-    response.set_type(RESPONSE_PART);
-    for (std::vector<TileId>::iterator n = newVisibleTiles.begin(); n != end; ++n)
-    {
-        AddShowTile(response, *n);
-    }
-    mNetwork.WriteMessage(response);
-    mVisibleTiles = currentVisibleTiles;
-
-    // send events
     const GameTime serverTime = mGame.GetTime();
     const int32 toSend = (serverTime - aClientTime) / mGame.GetTimeStep();
     const bool outOfBounds = aClientTime <= 0 || toSend >= ChangeList::mSize;
     if (!outOfBounds)
     {
+        // show new tiles
+        std::vector<TileId> newVisibleTiles(currentVisibleTiles.size());
+        std::vector<TileId>::iterator end = std::set_difference(
+            currentVisibleTiles.begin(), currentVisibleTiles.end(),
+            mVisibleTiles.begin(), mVisibleTiles.end(), newVisibleTiles.begin());
+
+        ResponseMsg response;
+        response.set_type(RESPONSE_PART);
+        for (std::vector<TileId>::iterator n = newVisibleTiles.begin(); n != end; ++n)
+        {
+            AddShowTile(response, *n);
+        }
+        mNetwork.WriteMessage(response);
+
+        // send events
         for (int32 t = toSend - 1; t >= 0; --t)
         {
-            for (std::set<TileId>::iterator n = mVisibleTiles.begin(); n != mVisibleTiles.end(); ++n)
+            for (std::set<TileId>::iterator n = currentVisibleTiles.begin(); n != currentVisibleTiles.end(); ++n)
             {
                 const TileId id = *n;
                 ServerTile* tile = mGame.GetTiles().at(id);
-                tile->GetChangeList()->Write(mNetwork, t, mVisibleTiles);
+                tile->GetChangeList()->Write(mNetwork, t, currentVisibleTiles);
             }
         }
     }
     else
     {
-        for (std::set<TileId>::iterator n = mVisibleTiles.begin(); n != mVisibleTiles.end(); ++n)
+        // send everything in view
+        for (std::set<TileId>::iterator n = currentVisibleTiles.begin(); n != currentVisibleTiles.end(); ++n)
         {
             const TileId id = *n;
             ServerTile* tile = mGame.GetTiles().at(id);
+
+            ResponseMsg msg;
+            msg.set_type(RESPONSE_PART);
+            AddShowTile(msg, id);
+
             if (const UnitId unitId = tile->GetUnitId())
             {
                 const ServerUnit* unit = UnitList::GetUnit(unitId);
-
-                ResponseMsg msg;
-                msg.set_type(RESPONSE_PART);
                 ChangeMsg* change = msg.add_changes();
                 UnitEnterMsg* unitEnter = change->mutable_unitenter();
                 unitEnter->set_unitid(unitId);
                 unitEnter->set_to(id);
                 unitEnter->set_visualcode(unit->GetClass().GetVisualCode());
-                mNetwork.WriteMessage(msg);
             }
+
+            mNetwork.WriteMessage(msg);
         }
     }
 
@@ -96,4 +100,6 @@ void ClientFOV::SendUpdate(GameTime aClientTime)
     emptyMsg.set_time(serverTime);
     emptyMsg.set_update_length(mGame.GetUpdateLength());
     mNetwork.WriteMessage(emptyMsg);
+
+    mVisibleTiles = currentVisibleTiles;
 }
