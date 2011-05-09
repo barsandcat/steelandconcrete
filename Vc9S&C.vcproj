@@ -248,15 +248,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\ClientEdge.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\ClientGame.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\ClientGeodesicGrid.cpp"
 				>
 			</File>
 			<File
@@ -511,62 +503,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\proto\Edge.pb.cc"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\proto\Edge.pb.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Edge.proto"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\GeodesicGrid.pb.cc"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\proto\GeodesicGrid.pb.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\GeodesicGrid.proto"
-				>
-			</File>
-			<File
 				RelativePath=".\src\proto\Handshake.pb.cc"
 				>
 				<FileConfiguration
@@ -678,99 +614,11 @@
 				RelativePath=".\src\proto\Response.proto"
 				>
 			</File>
-			<File
-				RelativePath=".\src\proto\Tile.pb.cc"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\proto\Tile.pb.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Tile.proto"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Unit.pb.cc"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\proto\Unit.pb.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Unit.proto"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Vector.pb.cc"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\proto\Vector.pb.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Vector.proto"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="po"
 			Filter="po"
 			>
-			<File
-				RelativePath=".\bin\lang\ja\LC_MESSAGES\steelandconcrete.po"
-				>
-			</File>
 			<File
 				RelativePath=".\bin\lang\ru\LC_MESSAGES\steelandconcrete.po"
 				>
@@ -781,6 +629,10 @@
 			</File>
 			<File
 				RelativePath=".\bin\lang\en\LC_MESSAGES\steelandconcrete.po"
+				>
+			</File>
+			<File
+				RelativePath=".\bin\lang\ja\LC_MESSAGES\steelandconcrete.po"
 				>
 			</File>
 		</Filter>

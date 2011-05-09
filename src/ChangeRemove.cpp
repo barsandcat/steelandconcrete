@@ -1,4 +1,6 @@
-#include "ChangeRemove.h"
+#include <pch.h>
+
+#include <ChangeRemove.h>
 
 ChangeRemove::ChangeRemove(TileId aUnit): mUnitId(aUnit)
 {

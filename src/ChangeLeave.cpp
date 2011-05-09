@@ -1,4 +1,6 @@
-#include "ChangeLeave.h"
+#include <pch.h>
+
+#include <ChangeLeave.h>
 
 void ChangeLeave::FillChangeMsg(ChangeMsg& aChange, VisibleTiles& aVisibleTiles) const
 {
