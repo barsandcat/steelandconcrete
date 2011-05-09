@@ -53,7 +53,8 @@ void ClientFOV::SendUpdate(GameTime aClientTime)
     mVisibleTiles = currentVisibleTiles;
 
     // send events
-    const int32 toSend = (mGame.GetTime() - aClientTime) / mGame.GetTimeStep();
+    const GameTime serverTime = mGame.GetTime();
+    const int32 toSend = (serverTime - aClientTime) / mGame.GetTimeStep();
     const bool outOfBounds = aClientTime <= 0 || toSend >= ChangeList::mSize;
     if (!outOfBounds)
     {
@@ -92,7 +93,7 @@ void ClientFOV::SendUpdate(GameTime aClientTime)
     // set time
     ResponseMsg emptyMsg;
     emptyMsg.set_type(RESPONSE_OK);
-    emptyMsg.set_time(ServerGame::GetTime());
+    emptyMsg.set_time(serverTime);
     emptyMsg.set_update_length(mGame.GetUpdateLength());
     mNetwork.WriteMessage(emptyMsg);
 }
