@@ -39,7 +39,7 @@ Section "Files (required)"
   ; Put file there
   File "bin\steelandconcrete.exe"
   File "bin\steelandconcrete_server.exe"      
-
+  File "bin\ToolMaterialEditor.exe"      
   
   File /r "bin\*.mesh"
   File /r "bin\*.material"
@@ -75,6 +75,7 @@ Section "Start Menu Shortcuts"
 
   CreateDirectory "$SMPROGRAMS\steelandconcrete"
   CreateShortCut "$SMPROGRAMS\steelandconcrete\steelandconcrete.lnk" "$INSTDIR\steelandconcrete.exe" "" "$INSTDIR\steelandconcrete.exe" 0  
+	CreateShortCut "$SMPROGRAMS\steelandconcrete\ToolMaterialEditor.lnk" "$INSTDIR\ToolMaterialEditor.exe" "" "$INSTDIR\ToolMaterialEditor.exe" 0  
   CreateShortCut "$SMPROGRAMS\steelandconcrete\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
   
 SectionEnd
