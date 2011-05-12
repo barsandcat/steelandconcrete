@@ -110,7 +110,13 @@ void ServerGame::UpdateGame()
 
 void ServerGame::LoadCommands(const RequestMsg& commands)
 {
+    if (commands.commands_size() == 0)
+    {
+        return;
+    }
+
     boost::lock_guard<boost::shared_mutex> cs(mGameMutex);
+
     for (int i = 0; i < commands.commands_size(); ++i)
     {
         const CommandMsg& command = commands.commands(i);

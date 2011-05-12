@@ -36,6 +36,8 @@ std::set<TileId> ClientFOV::GetVisibleTiles()
 
 void ClientFOV::SendUpdate(GameTime aClientTime)
 {
+    boost::shared_lock<boost::shared_mutex> rl(mGame.GetGameMutex());
+
     std::set<TileId> currentVisibleTiles = GetVisibleTiles();
 
     const GameTime serverTime = mGame.GetTime();
