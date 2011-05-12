@@ -1,0 +1,8 @@
+SET(TARGET terrain)
+
+ADD_EXECUTABLE(${TARGET}
+	WIN32
+    Terrain.cpp
+) 
+
+TARGET_LINK_LIBRARIES(${TARGET} wx_ogre)
