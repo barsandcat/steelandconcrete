@@ -68,7 +68,7 @@
 			<Add directory="ogre1.6.5/RenderSystems/GL/include" />
 			<Add directory="ogre1.6.5/RenderSystems/GL/src/GLX" />
 			<Add directory="ogre1.6.5/RenderSystems/GL/src/GLSL/include" />
-			<Add directory="protobuf-2.0.3/src" />
+			<Add directory="protobuf-2.4.1/src" />
 			<Add directory="src/proto" />
 			<Add directory="SAL" />
 			<Add directory="QuickGUI_10_1/QuickGUI/include" />
