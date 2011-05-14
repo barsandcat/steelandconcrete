@@ -23,7 +23,6 @@
 					<Add library="OgreMain_d" />
 					<Add library="wxpropgrid_d" />
 					<Add library="wxscintilla_d" />
-					<Add library="boost_signalsDebug" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -43,7 +42,6 @@
 					<Add library="OgreMain" />
 					<Add library="wxpropgrid" />
 					<Add library="wxscintilla" />
-					<Add library="boost_signalsRelease" />
 				</Linker>
 			</Target>
 		</Build>
@@ -59,12 +57,14 @@
 			<Add directory="../../../../RenderSystems/GL/include" />
 			<Add directory="../../../../RenderSystems/GL/src/GLSL/include" />
 			<Add directory="../../../../../wxogre-svn312/include" />
+			<Add directory="../../../../../boost/boost_1_46_1" />
 		</Compiler>
 		<Linker>
 			<Add option="`wx-config --libs`" />
 			<Add library="freeimage" />
 			<Add library="GL" />
 			<Add library="GLU" />
+			<Add library="boost_signals$(TARGET_NAME)" />
 			<Add directory="../../../../../lib" />
 		</Linker>
 		<Unit filename="../include/CallTipManager.h" />
