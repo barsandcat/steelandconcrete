@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding = "Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="9.00"
+	Name="OgreXMLConverter"
+	ProjectGUID="{EA355D15-E687-438E-917E-8C6A557BAB4D}"
+	Keyword="Win32Proj">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory="Debug"
+			IntermediateDirectory="OgreXMLConverter.dir\Debug"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions=" /Zm1000 /fp:fast"
+				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\Tools\XMLConverter\include;"
+				BasicRuntimeChecks="3"
+				CompileAs="2"
+				DebugInformationFormat="3"
+				EnableIntrinsicFunctions="TRUE"
+				ExceptionHandling="1"
+				InlineFunctionExpansion="0"
+				Optimization="0"
+				RuntimeLibrary="3"
+				RuntimeTypeInfo="TRUE"
+				WarningLevel="3"
+				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;TIXML_USE_STL;CMAKE_INTDIR=\&quot;Debug\&quot;"
+				AssemblerListingLocation="Debug"
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="..\..\bin\Debug/OgreXMLConverter_d.pdb"
+/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\Tools\XMLConverter\include;"
+				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;TIXML_USE_STL;CMAKE_INTDIR=\&quot;Debug\&quot;"/>
+			<Tool
+				Name="VCMIDLTool"
+				MkTypLibCompatible="FALSE"
+				TargetEnvironment="1"
+				GenerateStublessProxies="TRUE"
+				TypeLibraryName="$(InputName).tlb"
+				OutputDirectory="$(IntDir)"
+				HeaderFileName="$(InputName).h"
+				DLLDataFileName=""
+				InterfaceIdentifierFileName="$(InputName)_i.c"
+				ProxyFileName="$(InputName)_p.c"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"
+CommandLine="&quot;C:\Program Files (x86)\CMake 2.8\bin\cmake.exe&quot; -E make_directory C:/steelandconcrete/ogre/build/lib/Debug&#x0D;&#x0A;if errorlevel 1 goto :VCReportError"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				LinkLibraryDependencies="false"
+				AdditionalOptions=" /STACK:10000000 /machine:X86 /debug"
+				AdditionalDependencies="$(NOINHERIT) kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib  ..\..\lib\Debug\OgreMainStatic_d.lib C:\steelandconcrete\ogre\Dependencies\lib\debug\freetype2311_D.lib C:\steelandconcrete\ogre\Dependencies\lib\debug\FreeImaged.lib C:\steelandconcrete\ogre\Dependencies\lib\debug\zziplibd.lib C:\steelandconcrete\ogre\Dependencies\lib\debug\zlibd.lib "
+				OutputFile="..\..\bin\Debug\OgreXMLConverter_d.exe"
+				Version="0.0"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories=""
+				ProgramDatabaseFile="..\..\bin\Debug/OgreXMLConverter_d.pdb"
+				GenerateDebugInformation="TRUE"
+				SubSystem="1"
+				ImportLibrary="..\..\lib\Debug\OgreXMLConverter_d.lib"/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="Release"
+			IntermediateDirectory="OgreXMLConverter.dir\Release"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions=" /Zm1000 /fp:fast"
+				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\Tools\XMLConverter\include;"
+				CompileAs="2"
+				ExceptionHandling="1"
+				InlineFunctionExpansion="2"
+				Optimization="2"
+				RuntimeLibrary="2"
+				RuntimeTypeInfo="TRUE"
+				WarningLevel="3"
+				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;TIXML_USE_STL;CMAKE_INTDIR=\&quot;Release\&quot;"
+				AssemblerListingLocation="Release"
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="..\..\bin\Release/OgreXMLConverter.pdb"
+/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\Tools\XMLConverter\include;"
+				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;TIXML_USE_STL;CMAKE_INTDIR=\&quot;Release\&quot;"/>
+			<Tool
+				Name="VCMIDLTool"
+				MkTypLibCompatible="FALSE"
+				TargetEnvironment="1"
+				GenerateStublessProxies="TRUE"
+				TypeLibraryName="$(InputName).tlb"
+				OutputDirectory="$(IntDir)"
+				HeaderFileName="$(InputName).h"
+				DLLDataFileName=""
+				InterfaceIdentifierFileName="$(InputName)_i.c"
+				ProxyFileName="$(InputName)_p.c"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"
+CommandLine="&quot;C:\Program Files (x86)\CMake 2.8\bin\cmake.exe&quot; -E make_directory C:/steelandconcrete/ogre/build/lib/Release&#x0D;&#x0A;if errorlevel 1 goto :VCReportError"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				LinkLibraryDependencies="false"
+				AdditionalOptions=" /STACK:10000000 /machine:X86"
+				AdditionalDependencies="$(NOINHERIT) kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib  ..\..\lib\Release\OgreMainStatic.lib C:\steelandconcrete\ogre\Dependencies\lib\release\freetype2311.lib C:\steelandconcrete\ogre\Dependencies\lib\release\FreeImage.lib C:\steelandconcrete\ogre\Dependencies\lib\release\zziplib.lib C:\steelandconcrete\ogre\Dependencies\lib\release\zlib.lib "
+				OutputFile="..\..\bin\Release\OgreXMLConverter.exe"
+				Version="0.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories=""
+				ProgramDatabaseFile="..\..\bin\Release/OgreXMLConverter.pdb"
+				SubSystem="1"
+				ImportLibrary="..\..\lib\Release\OgreXMLConverter.lib"/>
+		</Configuration>
+		<Configuration
+			Name="MinSizeRel|Win32"
+			OutputDirectory="MinSizeRel"
+			IntermediateDirectory="OgreXMLConverter.dir\MinSizeRel"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions=" /Zm1000 /fp:fast"
+				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\Tools\XMLConverter\include;"
+				CompileAs="2"
+				ExceptionHandling="1"
+				InlineFunctionExpansion="1"
+				Optimization="1"
+				RuntimeLibrary="2"
+				RuntimeTypeInfo="TRUE"
+				WarningLevel="3"
+				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;TIXML_USE_STL;CMAKE_INTDIR=\&quot;MinSizeRel\&quot;"
+				AssemblerListingLocation="MinSizeRel"
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="..\..\bin\MinSizeRel/OgreXMLConverter.pdb"
+/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\Tools\XMLConverter\include;"
+				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;TIXML_USE_STL;CMAKE_INTDIR=\&quot;MinSizeRel\&quot;"/>
+			<Tool
+				Name="VCMIDLTool"
+				MkTypLibCompatible="FALSE"
+				TargetEnvironment="1"
+				GenerateStublessProxies="TRUE"
+				TypeLibraryName="$(InputName).tlb"
+				OutputDirectory="$(IntDir)"
+				HeaderFileName="$(InputName).h"
+				DLLDataFileName=""
+				InterfaceIdentifierFileName="$(InputName)_i.c"
+				ProxyFileName="$(InputName)_p.c"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"
+CommandLine="&quot;C:\Program Files (x86)\CMake 2.8\bin\cmake.exe&quot; -E make_directory C:/steelandconcrete/ogre/build/lib/MinSizeRel&#x0D;&#x0A;if errorlevel 1 goto :VCReportError"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				LinkLibraryDependencies="false"
+				AdditionalOptions=" /STACK:10000000 /machine:X86"
+				AdditionalDependencies="$(NOINHERIT) kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib  ..\..\lib\MinSizeRel\OgreMainStatic.lib C:\steelandconcrete\ogre\Dependencies\lib\release\freetype2311.lib C:\steelandconcrete\ogre\Dependencies\lib\release\FreeImage.lib C:\steelandconcrete\ogre\Dependencies\lib\release\zziplib.lib C:\steelandconcrete\ogre\Dependencies\lib\release\zlib.lib "
+				OutputFile="..\..\bin\MinSizeRel\OgreXMLConverter.exe"
+				Version="0.0"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories=""
+				ProgramDatabaseFile="..\..\bin\MinSizeRel/OgreXMLConverter.pdb"
+				SubSystem="1"
+				ImportLibrary="..\..\lib\MinSizeRel\OgreXMLConverter.lib"/>
+		</Configuration>
+		<Configuration
+			Name="RelWithDebInfo|Win32"
+			OutputDirectory="RelWithDebInfo"
+			IntermediateDirectory="OgreXMLConverter.dir\RelWithDebInfo"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions=" /Zm1000 /fp:fast"
+				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\Tools\XMLConverter\include;"
+				CompileAs="2"
+				DebugInformationFormat="3"
+				ExceptionHandling="1"
+				InlineFunctionExpansion="1"
+				Optimization="2"
+				RuntimeLibrary="2"
+				RuntimeTypeInfo="TRUE"
+				WarningLevel="3"
+				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;TIXML_USE_STL;CMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"
+				AssemblerListingLocation="RelWithDebInfo"
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="..\..\bin\RelWithDebInfo/OgreXMLConverter.pdb"
+/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\Tools\XMLConverter\include;"
+				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;TIXML_USE_STL;CMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"/>
+			<Tool
+				Name="VCMIDLTool"
+				MkTypLibCompatible="FALSE"
+				TargetEnvironment="1"
+				GenerateStublessProxies="TRUE"
+				TypeLibraryName="$(InputName).tlb"
+				OutputDirectory="$(IntDir)"
+				HeaderFileName="$(InputName).h"
+				DLLDataFileName=""
+				InterfaceIdentifierFileName="$(InputName)_i.c"
+				ProxyFileName="$(InputName)_p.c"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"
+CommandLine="&quot;C:\Program Files (x86)\CMake 2.8\bin\cmake.exe&quot; -E make_directory C:/steelandconcrete/ogre/build/lib/RelWithDebInfo&#x0D;&#x0A;if errorlevel 1 goto :VCReportError"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				LinkLibraryDependencies="false"
+				AdditionalOptions=" /STACK:10000000 /machine:X86 /debug"
+				AdditionalDependencies="$(NOINHERIT) kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib  ..\..\lib\RelWithDebInfo\OgreMainStatic.lib C:\steelandconcrete\ogre\Dependencies\lib\release\freetype2311.lib C:\steelandconcrete\ogre\Dependencies\lib\release\FreeImage.lib C:\steelandconcrete\ogre\Dependencies\lib\release\zziplib.lib C:\steelandconcrete\ogre\Dependencies\lib\release\zlib.lib "
+				OutputFile="..\..\bin\RelWithDebInfo\OgreXMLConverter.exe"
+				Version="0.0"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories=""
+				ProgramDatabaseFile="..\..\bin\RelWithDebInfo/OgreXMLConverter.pdb"
+				GenerateDebugInformation="TRUE"
+				SubSystem="1"
+				ImportLibrary="..\..\lib\RelWithDebInfo\OgreXMLConverter.lib"/>
+		</Configuration>
+	</Configurations>
+	<Files>
+		<Filter
+			Name="Source Files"
+			Filter="">
+			<File
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Tools\XMLConverter\src\main.cpp">
+			</File>
+			<File
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Tools\XMLConverter\src\OgreXMLMeshSerializer.cpp">
+			</File>
+			<File
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Tools\XMLConverter\src\OgreXMLSkeletonSerializer.cpp">
+			</File>
+			<File
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Tools\XMLConverter\src\tinystr.cpp">
+			</File>
+			<File
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Tools\XMLConverter\src\tinyxml.cpp">
+			</File>
+			<File
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Tools\XMLConverter\src\tinyxmlerror.cpp">
+			</File>
+			<File
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Tools\XMLConverter\src\tinyxmlparser.cpp">
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="">
+			<File
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Tools\XMLConverter\include\OgreXMLMeshSerializer.h">
+			</File>
+			<File
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Tools\XMLConverter\include\OgreXMLPrerequisites.h">
+			</File>
+			<File
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Tools\XMLConverter\include\OgreXMLSkeletonSerializer.h">
+			</File>
+			<File
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Tools\XMLConverter\include\tinystr.h">
+			</File>
+			<File
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Tools\XMLConverter\include\tinyxml.h">
+			</File>
+		</Filter>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>
