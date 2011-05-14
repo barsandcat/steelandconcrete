@@ -36,7 +36,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameClient", "Vc9S&C.vcproj
 		{7D0A20FE-40A6-4E64-AD26-5E34AE391DF4} = {7D0A20FE-40A6-4E64-AD26-5E34AE391DF4}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OgreAL", "ogreal\ogreal\OgreAL\OgreAL_VC2003.vcproj", "{58FB35C4-5DC6-4890-81E8-D4E06E4A460D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OgreAL", "ogreal\ogreal_r137\OgreAL\OgreAL_VC2003.vcproj", "{58FB35C4-5DC6-4890-81E8-D4E06E4A460D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ogg_static", "ogreal\ogg\win32\ogg_static.vcproj", "{70A51CDE-83A3-44AB-8B77-642B39760F5C}"
 EndProject
@@ -44,7 +44,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ogg_vorbis_static", "ogreal
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ogg_vorbisfile_static", "ogreal\vorbis\win32\vorbisfile_static.vcproj", "{A23AF67E-5D92-4B94-A1BD-CEECAA98FA6A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OIS", "ois\Win32\OIS_vc8.vcproj", "{9CC704CB-4956-4479-BDEC-57CBC03F700E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OIS", "ois-v1-3\Win32\OIS_vc8.vcproj", "{9CC704CB-4956-4479-BDEC-57CBC03F700E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "freetype", "freetype-2.3.8\builds\win32\visualc\freetype.vcproj", "{78B079BD-9FC7-4B9E-B4A6-96DA0F00248B}"
 EndProject
@@ -78,11 +78,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ToolUnitTests", "src\UnitTe
 		{437D55FC-33F4-4FF2-91ED-9C616AFEAD4C} = {437D55FC-33F4-4FF2-91ED-9C616AFEAD4C}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf_libprotobuf", "protobuf-2.0.3\vsprojects\libprotobuf.vcproj", "{3E283F37-A4ED-41B7-A3E6-A2D89D131A30}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf_libprotobuf", "protobuf-2.4.1\vsprojects\libprotobuf.vcproj", "{3E283F37-A4ED-41B7-A3E6-A2D89D131A30}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf_libprotoc", "protobuf-2.0.3\vsprojects\libprotoc.vcproj", "{B84FF31A-5F9A-46F8-AB22-DBFC9BECE3BE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf_libprotoc", "protobuf-2.4.1\vsprojects\libprotoc.vcproj", "{B84FF31A-5F9A-46F8-AB22-DBFC9BECE3BE}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf_protoc", "protobuf-2.0.3\vsprojects\protoc.vcproj", "{1738D5F6-ED1E-47E0-B2F0-456864B93C1E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf_protoc", "protobuf-2.4.1\vsprojects\protoc.vcproj", "{1738D5F6-ED1E-47E0-B2F0-456864B93C1E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B84FF31A-5F9A-46F8-AB22-DBFC9BECE3BE} = {B84FF31A-5F9A-46F8-AB22-DBFC9BECE3BE}
 		{3E283F37-A4ED-41B7-A3E6-A2D89D131A30} = {3E283F37-A4ED-41B7-A3E6-A2D89D131A30}
