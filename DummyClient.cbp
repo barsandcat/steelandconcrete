@@ -42,7 +42,7 @@
 			<Add option="-Wunused-variable" />
 			<Add option="-DBOOST_ALL_NO_LIB=1" />
 			<Add directory="src" />
-			<Add directory="ois/includes" />
+			<Add directory="ois-v1-3/includes" />
 			<Add directory="ogre1.6.5/OgreMain/include" />
 			<Add directory="ogreal/ogreal/include" />
 			<Add directory="SAL" />
