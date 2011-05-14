@@ -62,6 +62,7 @@
 		<Unit filename="../includes/OISObject.h" />
 		<Unit filename="../includes/OISPrereqs.h" />
 		<Unit filename="../src/OISEffect.cpp" />
+		<Unit filename="../src/OISException.cpp" />
 		<Unit filename="../src/OISForceFeedback.cpp" />
 		<Unit filename="../src/OISInputManager.cpp" />
 		<Unit filename="../src/OISJoyStick.cpp" />
