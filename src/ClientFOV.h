@@ -15,7 +15,7 @@ public:
     void SendUpdate(GameTime aClientTime);
 private:
     void AddShowTile(ResponseMsg& aResponse, TileId aTileId);
-    std::set<TileId> GetVisibleTiles();
+    std::set<TileId> GetVisibleTiles(int aDepth);
     const UnitId mAvatarId;
     INetwork& mNetwork;
     ServerGame& mGame;
