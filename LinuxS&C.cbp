@@ -62,7 +62,7 @@
 			<Add directory="src" />
 			<Add directory="betagui2" />
 			<Add directory="ogre1.6.5/OgreMain/include" />
-			<Add directory="ogreal/ogreal/include" />
+			<Add directory="ogreal/ogreal_r137/include" />
 			<Add directory="ois-v1-3/includes" />
 			<Add directory="ogre1.6.5/PlugIns/OctreeSceneManager/include" />
 			<Add directory="ogre1.6.5/RenderSystems/GL/include" />
