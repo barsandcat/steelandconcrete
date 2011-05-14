@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="libprotoc" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../lib/libprotoc_d" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../obj/ProtocDebugLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-pg" />
+					<Add option="-g" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../src" />
+					<Add directory="." />
+				</ResourceCompiler>
+				<Linker>
+					<Add option="-pg" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../lib/libprotoc" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../obj/ProtocReleaseLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../src" />
+					<Add directory="." />
+				</ResourceCompiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-w" />
+			<Add option="-DLIBPROTOC_EXPORTS" />
+			<Add directory="../src" />
+			<Add directory=".." />
+		</Compiler>
+		<Unit filename="../src/google/protobuf/compiler/code_generator.cc" />
+		<Unit filename="../src/google/protobuf/compiler/code_generator.h" />
+		<Unit filename="../src/google/protobuf/compiler/command_line_interface.cc" />
+		<Unit filename="../src/google/protobuf/compiler/command_line_interface.h" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_enum.cc" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_enum.h" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_enum_field.cc" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_enum_field.h" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_extension.cc" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_extension.h" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_field.cc" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_field.h" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_file.cc" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_file.h" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_generator.cc" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_generator.h" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_helpers.cc" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_helpers.h" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_message.cc" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_message.h" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_message_field.cc" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_message_field.h" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_primitive_field.cc" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_primitive_field.h" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_service.cc" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_service.h" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_string_field.cc" />
+		<Unit filename="../src/google/protobuf/compiler/cpp/cpp_string_field.h" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_enum.cc" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_enum.h" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_enum_field.cc" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_enum_field.h" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_extension.cc" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_extension.h" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_field.cc" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_field.h" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_file.cc" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_file.h" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_generator.cc" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_generator.h" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_helpers.cc" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_helpers.h" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_message.cc" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_message.h" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_message_field.cc" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_message_field.h" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_primitive_field.cc" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_primitive_field.h" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_service.cc" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_service.h" />
+		<Unit filename="../src/google/protobuf/compiler/java/java_string_field.cc" />
+		<Unit filename="../src/google/protobuf/compiler/plugin.cc" />
+		<Unit filename="../src/google/protobuf/compiler/plugin.pb.cc" />
+		<Unit filename="../src/google/protobuf/compiler/python/python_generator.cc" />
+		<Unit filename="../src/google/protobuf/compiler/python/python_generator.h" />
+		<Unit filename="../src/google/protobuf/compiler/subprocess.cc" />
+		<Unit filename="../src/google/protobuf/compiler/zip_writer.cc" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

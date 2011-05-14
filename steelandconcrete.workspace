@@ -15,11 +15,11 @@
 		<Project filename="ogreal/ogreal/OgreAL/OgreAL.cbp">
 			<Depends filename="ogre1.6.5/OgreMain/scripts/OgreMain_linux.cbp" />
 		</Project>
-		<Project filename="protobuf-2.0.3/vsprojects/libprotobuf.cbp" />
-		<Project filename="protobuf-2.0.3/vsprojects/libprotoc.cbp" />
-		<Project filename="protobuf-2.0.3/vsprojects/protoc.cbp">
-			<Depends filename="protobuf-2.0.3/vsprojects/libprotobuf.cbp" />
-			<Depends filename="protobuf-2.0.3/vsprojects/libprotoc.cbp" />
+		<Project filename="protobuf-2.4.1/vsprojects/libprotobuf.cbp" active="1" />
+		<Project filename="protobuf-2.4.1/vsprojects/libprotoc.cbp" />
+		<Project filename="protobuf-2.4.1/vsprojects/protoc.cbp">
+			<Depends filename="protobuf-2.4.1/vsprojects/libprotobuf.cbp" />
+			<Depends filename="protobuf-2.4.1/vsprojects/libprotoc.cbp" />
 		</Project>
 		<Project filename="ogre1.6.5/Tools/XMLConverter/scripts/XMLConverter.cbp">
 			<Depends filename="ogre1.6.5/OgreMain/scripts/OgreMain_linux.cbp" />
@@ -34,12 +34,12 @@
 			<Depends filename="ogre1.6.5/PlugIns/OctreeSceneManager/scripts/Plugin_OctreeSceneManager_linux.cbp" />
 			<Depends filename="ogre1.6.5/RenderSystems/GL/scripts/RenderSystem_GL_linux.cbp" />
 			<Depends filename="ogreal/ogreal/OgreAL/OgreAL.cbp" />
-			<Depends filename="protobuf-2.0.3/vsprojects/libprotobuf.cbp" />
-			<Depends filename="protobuf-2.0.3/vsprojects/libprotoc.cbp" />
-			<Depends filename="protobuf-2.0.3/vsprojects/protoc.cbp" />
+			<Depends filename="protobuf-2.4.1/vsprojects/libprotobuf.cbp" />
+			<Depends filename="protobuf-2.4.1/vsprojects/protoc.cbp" />
 			<Depends filename="boost/build/libs/system/src/boost_system-mt-static-staticrt.cbp" />
 			<Depends filename="boost/build/libs/thread/src/boost_thread-mt-static-staticrt.cbp" />
 			<Depends filename="src/UnitTests/UnitTests.cbp" />
+			<Depends filename="protobuf-2.4.1/vsprojects/libprotoc.cbp" />
 		</Project>
 		<Project filename="LinuxS&amp;C.cbp">
 			<Depends filename="ois-v1-3/LinuxCB/OIS.cbp" />
@@ -48,36 +48,36 @@
 			<Depends filename="ogre1.6.5/PlugIns/OctreeSceneManager/scripts/Plugin_OctreeSceneManager_linux.cbp" />
 			<Depends filename="ogre1.6.5/RenderSystems/GL/scripts/RenderSystem_GL_linux.cbp" />
 			<Depends filename="ogreal/ogreal/OgreAL/OgreAL.cbp" />
-			<Depends filename="protobuf-2.0.3/vsprojects/libprotobuf.cbp" />
-			<Depends filename="protobuf-2.0.3/vsprojects/libprotoc.cbp" />
-			<Depends filename="protobuf-2.0.3/vsprojects/protoc.cbp" />
+			<Depends filename="protobuf-2.4.1/vsprojects/libprotobuf.cbp" />
+			<Depends filename="protobuf-2.4.1/vsprojects/protoc.cbp" />
 			<Depends filename="ogre1.6.5/Tools/XMLConverter/scripts/XMLConverter.cbp" />
 			<Depends filename="boost/build/libs/system/src/boost_system-mt-static-staticrt.cbp" />
 			<Depends filename="boost/build/libs/thread/src/boost_thread-mt-static-staticrt.cbp" />
 			<Depends filename="Server.cbp" />
 			<Depends filename="src/UnitTests/UnitTests.cbp" />
+			<Depends filename="protobuf-2.4.1/vsprojects/libprotoc.cbp" />
 		</Project>
 		<Project filename="DummyClient.cbp">
 			<Depends filename="ois-v1-3/LinuxCB/OIS.cbp" />
 			<Depends filename="ogre1.6.5/OgreMain/scripts/OgreMain_linux.cbp" />
-			<Depends filename="protobuf-2.0.3/vsprojects/libprotobuf.cbp" />
-			<Depends filename="protobuf-2.0.3/vsprojects/libprotoc.cbp" />
-			<Depends filename="protobuf-2.0.3/vsprojects/protoc.cbp" />
+			<Depends filename="protobuf-2.4.1/vsprojects/libprotobuf.cbp" />
+			<Depends filename="protobuf-2.4.1/vsprojects/protoc.cbp" />
 			<Depends filename="boost/build/libs/system/src/boost_system-mt-static-staticrt.cbp" />
 			<Depends filename="boost/build/libs/thread/src/boost_thread-mt-static-staticrt.cbp" />
 			<Depends filename="Server.cbp" />
 			<Depends filename="src/UnitTests/UnitTests.cbp" />
+			<Depends filename="protobuf-2.4.1/vsprojects/libprotoc.cbp" />
 		</Project>
 		<Project filename="src/UnitTests/UnitTests.cbp">
 			<Depends filename="ois-v1-3/LinuxCB/OIS.cbp" />
 			<Depends filename="ogre1.6.5/OgreMain/scripts/OgreMain_linux.cbp" />
-			<Depends filename="protobuf-2.0.3/vsprojects/libprotobuf.cbp" />
-			<Depends filename="protobuf-2.0.3/vsprojects/libprotoc.cbp" />
-			<Depends filename="protobuf-2.0.3/vsprojects/protoc.cbp" />
+			<Depends filename="protobuf-2.4.1/vsprojects/libprotobuf.cbp" />
+			<Depends filename="protobuf-2.4.1/vsprojects/protoc.cbp" />
 			<Depends filename="boost/build/libs/system/src/boost_system-mt-static-staticrt.cbp" />
 			<Depends filename="boost/build/libs/thread/src/boost_thread-mt-static-staticrt.cbp" />
+			<Depends filename="protobuf-2.4.1/vsprojects/libprotoc.cbp" />
 		</Project>
-		<Project filename="ogre1.6.5/Tools/MaterialEditor/MaterialEditor/build/MaterialEditor.cbp" active="1">
+		<Project filename="ogre1.6.5/Tools/MaterialEditor/MaterialEditor/build/MaterialEditor.cbp">
 			<Depends filename="ogre1.6.5/OgreMain/scripts/OgreMain_linux.cbp" />
 			<Depends filename="ogre1.6.5/RenderSystems/GL/scripts/RenderSystem_GL_linux.cbp" />
 			<Depends filename="boost/build/libs/system/src/boost_system-mt-static-staticrt.cbp" />
