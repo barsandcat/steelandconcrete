@@ -11,12 +11,14 @@
 #include <OgreFontManager.h>
 #include <OgreFont.h>
 #include <OgreTextAreaOverlayElement.h>
-#include <OgreAL.h>
-#include <QuickGUI.h>
 #include <Typedefs.h>
+#include <algorithm>
+#include <string>
+#include <stdexcept>
+#include <google/protobuf/stubs/common.h>
 #include <boost/thread.hpp>
 #include <boost/exception/diagnostic_information.hpp>
-#include <stdexcept>
+
 
 #ifdef MVC
 #pragma warning(pop)
