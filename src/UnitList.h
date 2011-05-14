@@ -2,6 +2,7 @@
 #define UNITLIST_H
 
 #include <Typedefs.h>
+#include <list>
 
 class ServerUnit;
 class ServerTile;

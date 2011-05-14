@@ -54,7 +54,7 @@
 			<Add directory="../proto" />
 			<Add directory="../../SAL" />
 			<Add directory="../../QuickGUI_10_1/QuickGUI/include" />
-			<Add directory="../../boost/boost_1_43_0" />
+			<Add directory="../../boost/boost_1_46_1" />
 		</Compiler>
 		<Linker>
 			<Add library="freeimage" />

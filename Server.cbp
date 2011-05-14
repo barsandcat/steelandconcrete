@@ -53,7 +53,7 @@
 			<Add directory="ogreal/ogreal/include" />
 			<Add directory="ois-v1-3/includes" />
 			<Add directory="tclap-1.2.1/include" />
-			<Add directory="boost/boost_1_43_0" />
+			<Add directory="boost/boost_1_46_1" />
 		</Compiler>
 		<Linker>
 			<Add library="pthread" />
