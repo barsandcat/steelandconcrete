@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_workspace_file>
 	<Workspace title="Workspace">
-		<Project filename="ois/LinuxCB/OIS.cbp" />
+		<Project filename="ois-v1-3/LinuxCB/OIS.cbp" />
 		<Project filename="ogre1.6.5/OgreMain/scripts/OgreMain_linux.cbp" />
 		<Project filename="QuickGUI_10_1/QuickGUI/QuickGUI.cbp">
 			<Depends filename="ogre1.6.5/OgreMain/scripts/OgreMain_linux.cbp" />
@@ -29,7 +29,7 @@
 		<Project filename="boost/build/libs/signals/src/boost_signals-mt-static-staticrt.cbp" />
 		<Project filename="boost/build/libs/filesystem/src/boost_filesystem-mt-static-staticrt.cbp" />
 		<Project filename="Server.cbp">
-			<Depends filename="ois/LinuxCB/OIS.cbp" />
+			<Depends filename="ois-v1-3/LinuxCB/OIS.cbp" />
 			<Depends filename="ogre1.6.5/OgreMain/scripts/OgreMain_linux.cbp" />
 			<Depends filename="ogre1.6.5/PlugIns/OctreeSceneManager/scripts/Plugin_OctreeSceneManager_linux.cbp" />
 			<Depends filename="ogre1.6.5/RenderSystems/GL/scripts/RenderSystem_GL_linux.cbp" />
@@ -42,7 +42,7 @@
 			<Depends filename="src/UnitTests/UnitTests.cbp" />
 		</Project>
 		<Project filename="LinuxS&amp;C.cbp" active="1">
-			<Depends filename="ois/LinuxCB/OIS.cbp" />
+			<Depends filename="ois-v1-3/LinuxCB/OIS.cbp" />
 			<Depends filename="ogre1.6.5/OgreMain/scripts/OgreMain_linux.cbp" />
 			<Depends filename="QuickGUI_10_1/QuickGUI/QuickGUI.cbp" />
 			<Depends filename="ogre1.6.5/PlugIns/OctreeSceneManager/scripts/Plugin_OctreeSceneManager_linux.cbp" />
