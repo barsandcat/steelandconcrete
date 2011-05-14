@@ -16,10 +16,10 @@
 				<Compiler>
 					<Add option="-pg" />
 					<Add option="-g" />
-					<Add directory="$(SolutionDir)boost/boost_1_43_0" />
+					<Add directory="$(SolutionDir)boost/boost_1_46_1" />
 				</Compiler>
 				<ResourceCompiler>
-					<Add directory="$(SolutionDir)boost/boost_1_43_0" />
+					<Add directory="$(SolutionDir)boost/boost_1_46_1" />
 				</ResourceCompiler>
 				<Linker>
 					<Add option="-pg" />
@@ -35,10 +35,10 @@
 				<Compiler>
 					<Add option="-O3" />
 					<Add option="-DNDEBUG" />
-					<Add directory="$(SolutionDir)boost/boost_1_43_0" />
+					<Add directory="$(SolutionDir)boost/boost_1_46_1" />
 				</Compiler>
 				<ResourceCompiler>
-					<Add directory="$(SolutionDir)boost/boost_1_43_0" />
+					<Add directory="$(SolutionDir)boost/boost_1_46_1" />
 				</ResourceCompiler>
 				<Linker>
 					<Add option="-s" />
@@ -49,11 +49,11 @@
 			<Add option="-DBOOST_ALL_NO_LIB=1" />
 			<Add option="-DBOOST_SIGNALS_NO_LIB=1" />
 		</Compiler>
-		<Unit filename="../../../../boost_1_43_0/libs/signals/src/connection.cpp" />
-		<Unit filename="../../../../boost_1_43_0/libs/signals/src/named_slot_map.cpp" />
-		<Unit filename="../../../../boost_1_43_0/libs/signals/src/signal_base.cpp" />
-		<Unit filename="../../../../boost_1_43_0/libs/signals/src/slot.cpp" />
-		<Unit filename="../../../../boost_1_43_0/libs/signals/src/trackable.cpp" />
+		<Unit filename="../../../../boost_1_46_1/libs/signals/src/connection.cpp" />
+		<Unit filename="../../../../boost_1_46_1/libs/signals/src/named_slot_map.cpp" />
+		<Unit filename="../../../../boost_1_46_1/libs/signals/src/signal_base.cpp" />
+		<Unit filename="../../../../boost_1_46_1/libs/signals/src/slot.cpp" />
+		<Unit filename="../../../../boost_1_46_1/libs/signals/src/trackable.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

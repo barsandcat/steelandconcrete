@@ -17,11 +17,7 @@
 					<Add option="-pg" />
 					<Add option="-g" />
 					<Add option="-DDEBUG" />
-					<Add directory="Z:/boost/boost-1.41.0.cmake0" />
 				</Compiler>
-				<ResourceCompiler>
-					<Add directory="Z:/boost/boost-1.41.0.cmake0" />
-				</ResourceCompiler>
 				<Linker>
 					<Add option="-pg" />
 				</Linker>
@@ -36,11 +32,7 @@
 				<Compiler>
 					<Add option="-O3" />
 					<Add option="-DNDEBUG" />
-					<Add directory="Z:/boost/boost-1.41.0.cmake0" />
 				</Compiler>
-				<ResourceCompiler>
-					<Add directory="Z:/boost/boost-1.41.0.cmake0" />
-				</ResourceCompiler>
 				<Linker>
 					<Add option="-s" />
 				</Linker>
@@ -49,12 +41,20 @@
 		<Compiler>
 			<Add option="-DBOOST_FILESYSTEM_STATIC_LINK=1" />
 			<Add option="-DBOOST_ALL_NO_LIB=1" />
-			<Add directory="../../../../boost_1_43_0" />
+			<Add directory="../../../../boost_1_46_1" />
 		</Compiler>
-		<Unit filename="../../../../boost_1_43_0/libs/filesystem/src/operations.cpp" />
-		<Unit filename="../../../../boost_1_43_0/libs/filesystem/src/path.cpp" />
-		<Unit filename="../../../../boost_1_43_0/libs/filesystem/src/portability.cpp" />
-		<Unit filename="../../../../boost_1_43_0/libs/filesystem/src/utf8_codecvt_facet.cpp" />
+		<Unit filename="../../../../boost_1_46_1/libs/filesystem/v2/src/v2_operations.cpp" />
+		<Unit filename="../../../../boost_1_46_1/libs/filesystem/v2/src/v2_path.cpp" />
+		<Unit filename="../../../../boost_1_46_1/libs/filesystem/v2/src/v2_portability.cpp" />
+		<Unit filename="../../../../boost_1_46_1/libs/filesystem/v3/src/codecvt_error_category.cpp" />
+		<Unit filename="../../../../boost_1_46_1/libs/filesystem/v3/src/operations.cpp" />
+		<Unit filename="../../../../boost_1_46_1/libs/filesystem/v3/src/path.cpp" />
+		<Unit filename="../../../../boost_1_46_1/libs/filesystem/v3/src/path_traits.cpp" />
+		<Unit filename="../../../../boost_1_46_1/libs/filesystem/v3/src/portability.cpp" />
+		<Unit filename="../../../../boost_1_46_1/libs/filesystem/v3/src/unique_path.cpp" />
+		<Unit filename="../../../../boost_1_46_1/libs/filesystem/v3/src/utf8_codecvt_facet.cpp" />
+		<Unit filename="../../../../boost_1_46_1/libs/filesystem/v3/src/windows_file_codecvt.cpp" />
+		<Unit filename="../../../../boost_1_46_1/libs/filesystem/v3/src/windows_file_codecvt.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

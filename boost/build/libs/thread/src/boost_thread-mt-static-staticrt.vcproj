@@ -54,7 +54,7 @@
 				AdditionalOptions=" /Zm1000"
 				Optimization="0"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="..\..\..\..\boost_1_43_0"
+				AdditionalIncludeDirectories="..\..\..\..\boost_1_46_1"
 				PreprocessorDefinitions="WIN32,_WINDOWS,BOOST_THREAD_BUILD_LIB=1,BOOST_ALL_NO_LIB=1"
 				ExceptionHandling="1"
 				RuntimeLibrary="1"
@@ -135,7 +135,7 @@
 				AdditionalOptions=" /Zm1000"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="..\..\..\..\boost_1_43_0"
+				AdditionalIncludeDirectories="..\..\..\..\boost_1_46_1"
 				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,BOOST_THREAD_BUILD_LIB=1,BOOST_ALL_NO_LIB=1"
 				ExceptionHandling="1"
 				RuntimeLibrary="0"
@@ -152,7 +152,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,BOOST_THREAD_BUILD_LIB=1,BOOST_ALL_NO_LIB=1"
-				AdditionalIncludeDirectories="..\..\..\..\boost_1_43_0"
+				AdditionalIncludeDirectories="..\..\..\..\boost_1_46_1"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -185,15 +185,15 @@
 			Name="Source Files"
 			>
 			<File
-				RelativePath="..\..\..\..\boost_1_43_0\libs\thread\src\win32\thread.cpp"
+				RelativePath="..\..\..\..\boost_1_46_1\libs\thread\src\win32\thread.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\boost_1_43_0\libs\thread\src\win32\tss_dll.cpp"
+				RelativePath="..\..\..\..\boost_1_46_1\libs\thread\src\win32\tss_dll.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\boost_1_43_0\libs\thread\src\win32\tss_pe.cpp"
+				RelativePath="..\..\..\..\boost_1_46_1\libs\thread\src\win32\tss_pe.cpp"
 				>
 			</File>
 		</Filter>

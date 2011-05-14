@@ -18,7 +18,7 @@
 					<Add option="-g" />
 				</Compiler>
 				<ResourceCompiler>
-					<Add directory="../../../../boost_1_43_0" />
+					<Add directory="../../../../boost_1_46_1" />
 				</ResourceCompiler>
 				<Linker>
 					<Add option="-pg" />
@@ -36,7 +36,7 @@
 					<Add option="-DNDEBUG" />
 				</Compiler>
 				<ResourceCompiler>
-					<Add directory="../../../../boost_1_43_0" />
+					<Add directory="../../../../boost_1_46_1" />
 				</ResourceCompiler>
 				<Linker>
 					<Add option="-s" />
@@ -46,11 +46,11 @@
 		<Compiler>
 			<Add option="-DBOOST_THREAD_BUILD_LIB=1" />
 			<Add option="-DBOOST_ALL_NO_LIB=1" />
-			<Add directory="../../../../boost_1_43_0" />
+			<Add directory="../../../../boost_1_46_1" />
 		</Compiler>
-		<Unit filename="../../../../boost_1_43_0/libs/thread/src/pthread/once.cpp" />
-		<Unit filename="../../../../boost_1_43_0/libs/thread/src/pthread/thread.cpp" />
-		<Unit filename="../../../../boost_1_43_0/libs/thread/src/pthread/timeconv.inl" />
+		<Unit filename="../../../../boost_1_46_1/libs/thread/src/pthread/once.cpp" />
+		<Unit filename="../../../../boost_1_46_1/libs/thread/src/pthread/thread.cpp" />
+		<Unit filename="../../../../boost_1_46_1/libs/thread/src/pthread/timeconv.inl" />
 		<Extensions>
 			<code_completion />
 			<envvars />
