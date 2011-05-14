@@ -49,7 +49,7 @@
 			<Add directory="../../ogre1.6.5/OgreMain/include" />
 			<Add directory="../../protobuf-2.4.1/src" />
 			<Add directory="../../ois-v1-3/includes" />
-			<Add directory="../../ogreal/ogreal/include" />
+			<Add directory="../../ogreal/ogreal_r137/include" />
 			<Add directory="../../betagui2" />
 			<Add directory="../proto" />
 			<Add directory="../../SAL" />
