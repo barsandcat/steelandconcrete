@@ -21,15 +21,33 @@ void ClientFOV::AddShowTile(ResponseMsg& aResponse, TileId aTileId)
     showTile->set_tileid(aTileId);
 }
 
-std::set<TileId> ClientFOV::GetVisibleTiles()
+std::set<TileId> ClientFOV::GetVisibleTiles(int aDepth)
 {
     std::set<TileId> result;
+    std::set<TileId> toIterate;
     ServerTile& tile = UnitList::GetUnit(mAvatarId)->GetPosition();
+    toIterate.insert(tile.GetTileId());
     result.insert(tile.GetTileId());
-    for (size_t n = 0; n < tile.GetNeighbourCount(); ++n)
+
+    for (int d = 0; d < aDepth; ++d)
     {
-        result.insert(tile.GetNeighbour(n).GetTileId());
+        std::set<TileId> newTiles;
+        for (std::set<TileId>::iterator i = toIterate.begin(); i != toIterate.end(); ++i)
+        {
+            ServerTile* tile = mGame.GetTiles().at(*i);
+            for (size_t n = 0; n < tile->GetNeighbourCount(); ++n)
+            {
+                const TileId tileId = tile->GetNeighbour(n).GetTileId();
+                if (result.find(tileId) == result.end())
+                {
+                    newTiles.insert(tileId);
+                }
+            }
+        }
+        toIterate = newTiles;
+        result.insert(newTiles.begin(), newTiles.end());
     }
+
     return result;
 }
 
@@ -38,7 +56,7 @@ void ClientFOV::SendUpdate(GameTime aClientTime)
 {
     boost::shared_lock<boost::shared_mutex> rl(mGame.GetGameMutex());
 
-    std::set<TileId> currentVisibleTiles = GetVisibleTiles();
+    std::set<TileId> currentVisibleTiles = GetVisibleTiles(4);
 
     const GameTime serverTime = mGame.GetTime();
     const int32 toSend = (serverTime - aClientTime) / mGame.GetTimeStep();
