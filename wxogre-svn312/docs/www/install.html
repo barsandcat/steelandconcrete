@@ -1,0 +1,119 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>wxOgre - FAQ</title>
+  <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
+</head>
+
+<body>
+<div id="page">
+<h1 class="front">wxOgre</h1>
+
+<ul id="menu">
+  <li><a href="index.html">Index</a></li>
+  <li><a href="install.html">Install</a></li>
+  <li><a href="faq.html">FAQ</a></li>
+  <li><a href="api/index.html">API</a></li>
+  <!--  <li><a href="tutorial/introduction.html">Tutorials</a></li> -->
+</ul>
+
+<h2 class="front">How to install it?</h2>
+
+<h3>Introduction</h3>
+<p>
+<b>wxOgre 0.2</b> is a development version, so for the moment there is no SDK
+available, you must compile it by yourself.
+</p>
+
+<p>
+Be sure to have a working Ogre and wxWidgets installation before starting. You
+must be able to compile &amp; run Ogre's demos and wxWidgets's examples.
+</p>
+
+<h3>Build system</h3>
+
+<p>To generate <i>Makefiles</i> and others dependents build solutions, wxOgre
+use <a href="">CMake</a>. If you don't have installed it already, be sure to do
+so before following. You may find it packaged for your GNU/Linux distribution
+or you can download the last version for Microsoft Windows <a href="">here</a>.
+</p>
+
+<h3>Platform dependent steps</h3>
+
+<h4>GNU/Linux</h4>
+
+<p>Just jump into the wxOgre's folder and type:</p>
+<pre>$ cd build/ &amp;&amp; ./configure &amp;&amp; make</pre>
+
+<p>
+This will compile a <i>release</i> build with <i>/usr/</i> as base folder for
+the installation. To install it, type the usual:
+</p>
+
+<pre>$ sudo make install</pre>
+
+<p>If you want to compile a <i>debug</i> build or install it in an other place
+you need to pass different arguments do cmake like:
+</p>
+
+<pre>$ cd build/ &amp;&amp; cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/home/john/sandbox</pre>
+
+<h4>MS Windows</h4>
+<p>
+The first step is to run <b>CMake</b> to create the scripts for your preferred
+IDE. To avoid troubles, be sure to have both the <i>$(WXWIN)</i> and
+<i>$(OGRE_HOME)</i> path variables defined and pointing to each base library
+folder.
+</p>
+
+<p>Then execute CMake. I usually use the <i>wxogre/build</i> folder to put the
+generated scripts, but you can select the one you want.
+If you plan to compile both <i>release</i> and <i>debug</i> builds, don't forget
+to set the variable wxWidgets_USE_REL_AND_DBG to ON otherwise your debug
+configuration will try to link against wxWidgets' release libraries and this will not work ,)
+</p>
+
+
+<h4>Mac OSX</h4>
+
+<p>If you are interested to port wxOgre to Mac OSX, please
+<a href="faq.html#maintainer">contact me</a>.</p>
+
+<h3>Run the examples</h3>
+
+<p>
+The examples use Ogre's resources, in order to launch them you have to copy the
+<i>resources.cfg</i> file in the <b>release</b> or <b>debug</b> folder where are
+situated the examples. Don't forget to adapt the path to the media directory.
+</p>
+
+<p>Under Microsoft Windows you also must copy the <i>OgreMain</i>,
+<i>RenderSystem_GL</i>, <i>Pugin_ParticleFX</i> and
+<i>Plugin_OctreeSceneManager</i> DLLs to the examples' folder.
+</p>
+
+
+<div id="footer">
+  <p>
+  <a href="http://www.sourceforge.net"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=195097&amp;type=1" alt="Hosted by SourceForce" /></a>
+  <a href="http://www.ogre3d.org"><img src="http://ogre3d.org/images/stories/linkto.gif" alt="Ogre Powered" /></a>
+  <a href="http://www.wxwidgets.org/"><img src="img/wxWidgets.png" alt="wxWidgets Powered"/></a>
+  </p>
+
+  <div id="license">
+    <p>
+    <a href="http://creativecommons.org/licenses/by/3.0/"><img src="http://i.creativecommons.org/l/by/3.0/80x15.png" alt="Creative Commons Attribution 3.0 License" /></a>
+    Except where otherwise <a href="http://creativecommons.org/privacy">noted</a>,
+    content on this site is licensed under a
+    <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>.
+    wxOgre <a href="http://owlet.svn.sf.net/viewvc/owlet/wxogre/">code</a> is
+    available under the <a href="http://www.gnu.org/licenses/lgpl-2.1.html">GNU LGPL 2.1</a>
+    license.
+    </p>
+  </div>
+</div>
+
+</div>
+
+</body>
+</head>

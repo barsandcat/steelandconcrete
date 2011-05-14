@@ -1,0 +1,101 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "DejaVu Sans", "Bitstream Vera Sans", Arial, sans-serif;
+  font-size: 85%;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4 {
+  color: #527bbd;
+}
+
+img {
+  border: 0; 
+  margin: 10px;
+}
+
+a:link {color:#104E8B; text-decoration:none; }
+a:visited {color:#104E8B; text-decoration:none; }
+a:hover {color: #eba31f; text-decoration:none; }
+
+pre {
+  margin: 0;
+  padding: 1mm 15px;
+	font-size: 12px;
+  font: monospace;
+  background-color: #eef;
+  border: solid 1px #aaf;
+}
+
+p {
+  text-indent: 15px;
+}
+
+h1.front {
+  font-size: 3em;
+  margin-bottom: 0;
+  width: 192px;
+  height: 142px;
+  text-indent: 500px;
+  background: url(img/wxOgre.png) no-repeat left; 
+}
+
+h2.front { font-size: 1.8em; }
+
+#page {
+  padding: 0;
+  margin: 0 auto;
+  width: 700px;
+}
+
+#menu {
+  float: right;
+}
+
+#menu li {
+  padding-left: 3em;
+  display: block;
+  float: left;
+}
+
+#tutorial {
+  float: right;
+  padding: 0 1em;
+  margin: 1em 1em 2em 1em;
+  background: #eee;
+  border: 1px solid #d4d4d4;
+}
+
+#screenshots li {
+  display: block;
+  float: left;
+}
+
+#screenshots img {width: 200px;}
+
+#footer {
+  padding: 2em 0;
+  font-size: .8em;
+  text-align: center;
+  clear: both;
+}
+
+#footer p { text-indent: 0;}
+#license img {float: left; padding-right: 10px; }
+
+.center {
+  text-align: center;
+}
+
+.clear {
+  clear:both;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}

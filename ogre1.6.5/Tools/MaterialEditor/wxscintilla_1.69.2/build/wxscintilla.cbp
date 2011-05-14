@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="wxscintilla" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../../../../lib/libwxscintilla_d" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../../../obj/scintillaLinuxDebug" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-pg" />
+					<Add option="-g" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../include" />
+					<Add directory="../src/scintilla/include" />
+					<Add directory="../src/scintilla/src" />
+					<Add directory="$(WXSTABLE)/include" />
+					<Add directory="$(WXSTABLE)/lib/vc_lib/mswud" />
+				</ResourceCompiler>
+				<Linker>
+					<Add option="-pg" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../../../../lib/libwxscintilla" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../../../obj/scintillaLinuxDebug" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../include" />
+					<Add directory="../src/scintilla/include" />
+					<Add directory="../src/scintilla/src" />
+					<Add directory="$(WXSTABLE)/include" />
+					<Add directory="$(WXSTABLE)/lib/vc_lib/mswu" />
+				</ResourceCompiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-w" />
+			<Add option="`wx-config --cflags`" />
+			<Add option="-D_LIB" />
+			<Add option="-DGTK" />
+			<Add option="-DSCI_LEXER" />
+			<Add option="-DLINK_LEXERS" />
+			<Add directory="../include" />
+			<Add directory="../src/scintilla/include" />
+			<Add directory="../src/scintilla/src" />
+		</Compiler>
+		<Unit filename="../include/wx/wxscintilla.h" />
+		<Unit filename="../src/PlatWX.cpp" />
+		<Unit filename="../src/PlatWX.h" />
+		<Unit filename="../src/ScintillaWX.cpp" />
+		<Unit filename="../src/ScintillaWX.h" />
+		<Unit filename="../src/scintilla/include/Accessor.h" />
+		<Unit filename="../src/scintilla/include/KeyWords.h" />
+		<Unit filename="../src/scintilla/include/Platform.h" />
+		<Unit filename="../src/scintilla/include/PropSet.h" />
+		<Unit filename="../src/scintilla/include/SString.h" />
+		<Unit filename="../src/scintilla/include/SciLexer.h" />
+		<Unit filename="../src/scintilla/include/Scintilla.h" />
+		<Unit filename="../src/scintilla/include/ScintillaWidget.h" />
+		<Unit filename="../src/scintilla/include/WindowAccessor.h" />
+		<Unit filename="../src/scintilla/src/AutoComplete.cxx" />
+		<Unit filename="../src/scintilla/src/AutoComplete.h" />
+		<Unit filename="../src/scintilla/src/CallTip.cxx" />
+		<Unit filename="../src/scintilla/src/CallTip.h" />
+		<Unit filename="../src/scintilla/src/CellBuffer.cxx" />
+		<Unit filename="../src/scintilla/src/CellBuffer.h" />
+		<Unit filename="../src/scintilla/src/CharClassify.cxx" />
+		<Unit filename="../src/scintilla/src/CharClassify.h" />
+		<Unit filename="../src/scintilla/src/ContractionState.cxx" />
+		<Unit filename="../src/scintilla/src/ContractionState.h" />
+		<Unit filename="../src/scintilla/src/Document.cxx" />
+		<Unit filename="../src/scintilla/src/Document.h" />
+		<Unit filename="../src/scintilla/src/DocumentAccessor.cxx" />
+		<Unit filename="../src/scintilla/src/DocumentAccessor.h" />
+		<Unit filename="../src/scintilla/src/Editor.cxx" />
+		<Unit filename="../src/scintilla/src/Editor.h" />
+		<Unit filename="../src/scintilla/src/Indicator.cxx" />
+		<Unit filename="../src/scintilla/src/Indicator.h" />
+		<Unit filename="../src/scintilla/src/KeyMap.cxx" />
+		<Unit filename="../src/scintilla/src/KeyMap.h" />
+		<Unit filename="../src/scintilla/src/KeyWords.cxx" />
+		<Unit filename="../src/scintilla/src/LexAPDL.cxx" />
+		<Unit filename="../src/scintilla/src/LexAU3.cxx" />
+		<Unit filename="../src/scintilla/src/LexAVE.cxx" />
+		<Unit filename="../src/scintilla/src/LexAda.cxx" />
+		<Unit filename="../src/scintilla/src/LexAsm.cxx" />
+		<Unit filename="../src/scintilla/src/LexAsn1.cxx" />
+		<Unit filename="../src/scintilla/src/LexBaan.cxx" />
+		<Unit filename="../src/scintilla/src/LexBash.cxx" />
+		<Unit filename="../src/scintilla/src/LexBasic.cxx" />
+		<Unit filename="../src/scintilla/src/LexBullant.cxx" />
+		<Unit filename="../src/scintilla/src/LexCLW.cxx" />
+		<Unit filename="../src/scintilla/src/LexCPP.cxx" />
+		<Unit filename="../src/scintilla/src/LexCSS.cxx" />
+		<Unit filename="../src/scintilla/src/LexCaml.cxx" />
+		<Unit filename="../src/scintilla/src/LexConf.cxx" />
+		<Unit filename="../src/scintilla/src/LexCrontab.cxx" />
+		<Unit filename="../src/scintilla/src/LexCsound.cxx" />
+		<Unit filename="../src/scintilla/src/LexEScript.cxx" />
+		<Unit filename="../src/scintilla/src/LexEiffel.cxx" />
+		<Unit filename="../src/scintilla/src/LexErlang.cxx" />
+		<Unit filename="../src/scintilla/src/LexFlagship.cxx" />
+		<Unit filename="../src/scintilla/src/LexForth.cxx" />
+		<Unit filename="../src/scintilla/src/LexFortran.cxx" />
+		<Unit filename="../src/scintilla/src/LexGui4Cli.cxx" />
+		<Unit filename="../src/scintilla/src/LexHTML.cxx" />
+		<Unit filename="../src/scintilla/src/LexHaskell.cxx" />
+		<Unit filename="../src/scintilla/src/LexInno.cxx" />
+		<Unit filename="../src/scintilla/src/LexKix.cxx" />
+		<Unit filename="../src/scintilla/src/LexLisp.cxx" />
+		<Unit filename="../src/scintilla/src/LexLout.cxx" />
+		<Unit filename="../src/scintilla/src/LexLua.cxx" />
+		<Unit filename="../src/scintilla/src/LexMMIXAL.cxx" />
+		<Unit filename="../src/scintilla/src/LexMPT.cxx" />
+		<Unit filename="../src/scintilla/src/LexMSSQL.cxx" />
+		<Unit filename="../src/scintilla/src/LexMatlab.cxx" />
+		<Unit filename="../src/scintilla/src/LexMetapost.cxx" />
+		<Unit filename="../src/scintilla/src/LexNsis.cxx" />
+		<Unit filename="../src/scintilla/src/LexOMS.cxx" />
+		<Unit filename="../src/scintilla/src/LexOpal.cxx" />
+		<Unit filename="../src/scintilla/src/LexOthers.cxx" />
+		<Unit filename="../src/scintilla/src/LexPB.cxx" />
+		<Unit filename="../src/scintilla/src/LexPOV.cxx" />
+		<Unit filename="../src/scintilla/src/LexPS.cxx" />
+		<Unit filename="../src/scintilla/src/LexPascal.cxx" />
+		<Unit filename="../src/scintilla/src/LexPerl.cxx" />
+		<Unit filename="../src/scintilla/src/LexPython.cxx" />
+		<Unit filename="../src/scintilla/src/LexRebol.cxx" />
+		<Unit filename="../src/scintilla/src/LexRuby.cxx" />
+		<Unit filename="../src/scintilla/src/LexSQL.cxx" />
+		<Unit filename="../src/scintilla/src/LexScriptol.cxx" />
+		<Unit filename="../src/scintilla/src/LexSmalltalk.cxx" />
+		<Unit filename="../src/scintilla/src/LexSpecman.cxx" />
+		<Unit filename="../src/scintilla/src/LexSpice.cxx" />
+		<Unit filename="../src/scintilla/src/LexTADS3.cxx" />
+		<Unit filename="../src/scintilla/src/LexTCL.cxx" />
+		<Unit filename="../src/scintilla/src/LexTeX.cxx" />
+		<Unit filename="../src/scintilla/src/LexVB.cxx" />
+		<Unit filename="../src/scintilla/src/LexVHDL.cxx" />
+		<Unit filename="../src/scintilla/src/LexVerilog.cxx" />
+		<Unit filename="../src/scintilla/src/LexYAML.cxx" />
+		<Unit filename="../src/scintilla/src/LineMarker.cxx" />
+		<Unit filename="../src/scintilla/src/LineMarker.h" />
+		<Unit filename="../src/scintilla/src/PropSet.cxx" />
+		<Unit filename="../src/scintilla/src/RESearch.cxx" />
+		<Unit filename="../src/scintilla/src/RESearch.h" />
+		<Unit filename="../src/scintilla/src/SVector.h" />
+		<Unit filename="../src/scintilla/src/ScintillaBase.cxx" />
+		<Unit filename="../src/scintilla/src/ScintillaBase.h" />
+		<Unit filename="../src/scintilla/src/Style.cxx" />
+		<Unit filename="../src/scintilla/src/Style.h" />
+		<Unit filename="../src/scintilla/src/StyleContext.cxx" />
+		<Unit filename="../src/scintilla/src/StyleContext.h" />
+		<Unit filename="../src/scintilla/src/UniConversion.cxx" />
+		<Unit filename="../src/scintilla/src/UniConversion.h" />
+		<Unit filename="../src/scintilla/src/ViewStyle.cxx" />
+		<Unit filename="../src/scintilla/src/ViewStyle.h" />
+		<Unit filename="../src/scintilla/src/WindowAccessor.cxx" />
+		<Unit filename="../src/scintilla/src/XPM.cxx" />
+		<Unit filename="../src/scintilla/src/XPM.h" />
+		<Unit filename="../src/wxscintilla.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
