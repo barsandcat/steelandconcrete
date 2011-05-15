@@ -62,7 +62,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\..\gettext-0.13.1\gettext-runtime\intl&quot;;..\..\boost\boost_1_46_1;&quot;..\..\protobuf-2.4.1\src&quot;;..\proto;..\..\ogre\ogre_1.7.3\OgreMain\include;..\..\QuickGUI_10_1\QuickGUI\include;&quot;..\..\ois-v1-3\includes&quot;;../../src;../../cxxtest"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)gettext-0.13.1\gettext-runtime\intl&quot;;&quot;$(SolutionDir)boost\boost_1_46_1&quot;;&quot;$(SolutionDir)protobuf-2.4.1\src&quot;;..\proto;&quot;$(SolutionDir)ogre\build\include&quot;;&quot;$(SolutionDir)ogre\ogre_1.7.3\OgreMain\include&quot;;&quot;$(SolutionDir)QuickGUI_10_1\QuickGUI\include&quot;;&quot;$(SolutionDir)ois-v1-3\includes&quot;;&quot;$(SolutionDir)src&quot;;&quot;$(SolutionDir)cxxtest&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;_QuickGUIExport="
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
