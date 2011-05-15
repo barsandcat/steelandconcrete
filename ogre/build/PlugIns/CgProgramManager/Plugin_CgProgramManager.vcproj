@@ -54,7 +54,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\CgProgramManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\CgProgramManager\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -73,7 +73,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\CgProgramManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\CgProgramManager\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -136,7 +136,7 @@
 				AdditionalOptions=" /Zm1000 /fp:fast"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\CgProgramManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\CgProgramManager\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -153,7 +153,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\CgProgramManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\CgProgramManager\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -186,23 +186,23 @@
 			Name="Source Files"
 			>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\CgProgramManager\src\OgreCgFxScriptLoader.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\CgProgramManager\src\OgreCgFxScriptLoader.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\CgProgramManager\src\OgreCgPlugin.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\CgProgramManager\src\OgreCgPlugin.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\CgProgramManager\src\OgreCgProgram.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\CgProgramManager\src\OgreCgProgram.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\CgProgramManager\src\OgreCgProgramFactory.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\CgProgramManager\src\OgreCgProgramFactory.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\CgProgramManager\src\OgreCgProgramManagerDll.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\CgProgramManager\src\OgreCgProgramManagerDll.cpp"
 				>
 			</File>
 		</Filter>
@@ -210,23 +210,23 @@
 			Name="Header Files"
 			>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\CgProgramManager\include\OgreCgFxScriptLoader.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\CgProgramManager\include\OgreCgFxScriptLoader.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\CgProgramManager\include\OgreCgPlugin.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\CgProgramManager\include\OgreCgPlugin.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\CgProgramManager\include\OgreCgPrerequisites.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\CgProgramManager\include\OgreCgPrerequisites.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\CgProgramManager\include\OgreCgProgram.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\CgProgramManager\include\OgreCgProgram.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\CgProgramManager\include\OgreCgProgramFactory.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\CgProgramManager\include\OgreCgProgramFactory.h"
 				>
 			</File>
 		</Filter>

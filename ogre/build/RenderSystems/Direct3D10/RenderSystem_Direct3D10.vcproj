@@ -54,7 +54,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -73,7 +73,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -136,7 +136,7 @@
 				AdditionalOptions=" /Zm1000 /fp:fast"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -153,7 +153,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -216,7 +216,7 @@
 				AdditionalOptions=" /Zm1000 /fp:fast"
 				Optimization="1"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;MinSizeRel\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -233,7 +233,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;MinSizeRel\&quot;"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -296,7 +296,7 @@
 				AdditionalOptions=" /Zm1000 /fp:fast"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -314,7 +314,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -347,119 +347,119 @@
 			Name="Source Files"
 			>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10Device.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10Device.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10Driver.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10Driver.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10DriverList.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10DriverList.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10EngineDll.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10EngineDll.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10GpuProgram.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10GpuProgram.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10GpuProgramManager.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10GpuProgramManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10HardwareBuffer.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10HardwareBuffer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10HardwareBufferManager.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10HardwareBufferManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10HardwareIndexBuffer.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10HardwareIndexBuffer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10HardwareOcclusionQuery.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10HardwareOcclusionQuery.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10HardwarePixelBuffer.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10HardwarePixelBuffer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10HardwareVertexBuffer.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10HardwareVertexBuffer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10HLSLProgram.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10HLSLProgram.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10HLSLProgramFactory.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10HLSLProgramFactory.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10Mappings.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10Mappings.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10MultiRenderTarget.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10MultiRenderTarget.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10Plugin.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10Plugin.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10RenderSystem.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10RenderSystem.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10RenderToVertexBuffer.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10RenderToVertexBuffer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10RenderWindow.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10RenderWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10Texture.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10Texture.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10TextureManager.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10TextureManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10VertexDeclaration.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10VertexDeclaration.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10VideoMode.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10VideoMode.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10VideoModeList.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreD3D10VideoModeList.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreFixedFuncEmuShaderGenerator.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreFixedFuncEmuShaderGenerator.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreFixedFuncEmuShaderManager.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreFixedFuncEmuShaderManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreFixedFuncState.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreFixedFuncState.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreHlslFixedFuncEmuShaderGenerator.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\src\OgreHlslFixedFuncEmuShaderGenerator.cpp"
 				>
 			</File>
 		</Filter>
@@ -467,119 +467,119 @@
 			Name="Header Files"
 			>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10Device.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10Device.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10Driver.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10Driver.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10DriverList.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10DriverList.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10GpuProgram.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10GpuProgram.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10GpuProgramManager.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10GpuProgramManager.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10HardwareBuffer.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10HardwareBuffer.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10HardwareBufferManager.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10HardwareBufferManager.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10HardwareIndexBuffer.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10HardwareIndexBuffer.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10HardwareOcclusionQuery.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10HardwareOcclusionQuery.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10HardwarePixelBuffer.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10HardwarePixelBuffer.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10HardwareVertexBuffer.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10HardwareVertexBuffer.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10HLSLProgram.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10HLSLProgram.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10HLSLProgramFactory.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10HLSLProgramFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10Mappings.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10Mappings.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10MultiRenderTarget.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10MultiRenderTarget.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10Plugin.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10Plugin.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10Prerequisites.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10Prerequisites.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10RenderSystem.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10RenderSystem.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10RenderToVertexBuffer.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10RenderToVertexBuffer.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10RenderWindow.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10RenderWindow.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10Texture.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10Texture.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10TextureManager.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10TextureManager.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10VertexDeclaration.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10VertexDeclaration.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10VideoMode.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10VideoMode.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10VideoModeList.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreD3D10VideoModeList.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreFixedFuncEmuShaderGenerator.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreFixedFuncEmuShaderGenerator.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreFixedFuncEmuShaderManager.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreFixedFuncEmuShaderManager.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreFixedFuncState.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreFixedFuncState.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreHlslFixedFuncEmuShaderGenerator.h"
+				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\Direct3D10\include\OgreHlslFixedFuncEmuShaderGenerator.h"
 				>
 			</File>
 		</Filter>
