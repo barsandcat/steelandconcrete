@@ -21,7 +21,7 @@
 #include "wx/ogre/rendersystem.h"
 #include "wx/ogre/utils.h"
 
-#if OGRE_STATIC_LIB
+#ifdef OGRE_STATIC_LIB
 #include "OgreGLPlugin.h"
 #endif
 
@@ -62,7 +62,7 @@ wxOgreRenderSystem::~wxOgreRenderSystem()
 void wxOgreRenderSystem::LoadPlugin(const Ogre::String& plugin)
 {
     try {
-#if OGRE_STATIC_LIB
+#ifdef OGRE_STATIC_LIB
 	// Gl renedr system
     Ogre::Plugin* mGLPlugin = new Ogre::GLPlugin();
     m_root->installPlugin(mGLPlugin);
@@ -80,13 +80,10 @@ void wxOgreRenderSystem::LoadPlugin(const Ogre::String& plugin)
 //------------------------------------------------------------------------------
 void wxOgreRenderSystem::SelectOgreRenderSystem(const Ogre::String& render)
 {
-    Ogre::RenderSystemList* renderList = 0;
-    Ogre::RenderSystemList::iterator it;
-
-    renderList = m_root->getAvailableRenderers();
+    const Ogre::RenderSystemList& renderList = m_root->getAvailableRenderers();
     // check through all available renderers, if there is one the
     // string is "render"
-    for (it = renderList->begin(); it != renderList->end(); ++it) {
+    for (Ogre::RenderSystemList::const_iterator it = renderList.begin(); it != renderList.end(); ++it) {
         Ogre::RenderSystem* renderSys = *it;
         if (std::string (renderSys->getName()) == render) {
             m_root->setRenderSystem(renderSys);
