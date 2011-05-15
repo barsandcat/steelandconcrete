@@ -1,14 +1,19 @@
-<?xml version="1.0" encoding = "Windows-1252"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="Plugin_ParticleFX"
 	ProjectGUID="{4B851EC5-9EE0-40C5-B7A2-68EDFC549BF1}"
-	Keyword="Win32Proj">
+	Keyword="Win32Proj"
+	TargetFrameworkVersion="0"
+	>
 	<Platforms>
 		<Platform
-			Name="Win32"/>
+			Name="Win32"
+		/>
 	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
@@ -16,53 +21,82 @@
 			IntermediateDirectory="Plugin_ParticleFX.dir\Debug"
 			ConfigurationType="4"
 			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
 			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions=" /Zm1000 /fp:fast"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include;"
-				BasicRuntimeChecks="3"
-				CompileAs="2"
-				DebugInformationFormat="3"
-				EnableIntrinsicFunctions="TRUE"
-				ExceptionHandling="1"
-				InlineFunctionExpansion="0"
-				Optimization="0"
-				RuntimeLibrary="3"
-				RuntimeTypeInfo="TRUE"
-				WarningLevel="3"
-				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
-				AssemblerListingLocation="Debug"
-				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="..\..\lib\Debug/Plugin_ParticleFXStatic_d.pdb"
-/>
+				Name="VCPreBuildEventTool"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCCustomBuildTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include;"
-				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"/>
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
-				MkTypLibCompatible="FALSE"
+				MkTypLibCompatible="false"
 				TargetEnvironment="1"
-				GenerateStublessProxies="TRUE"
+				GenerateStublessProxies="true"
 				TypeLibraryName="$(InputName).tlb"
 				OutputDirectory="$(IntDir)"
 				HeaderFileName="$(InputName).h"
 				DLLDataFileName=""
 				InterfaceIdentifierFileName="$(InputName)_i.c"
-				ProxyFileName="$(InputName)_p.c"/>
+				ProxyFileName="$(InputName)_p.c"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCCLCompilerTool"
+				AdditionalOptions=" /Zm1000 /fp:fast"
+				Optimization="0"
+				InlineFunctionExpansion="0"
+				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include;"
+				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
+				ExceptionHandling="1"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				RuntimeTypeInfo="true"
+				AssemblerListingLocation="Debug"
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="..\..\lib\Debug/Plugin_ParticleFXStatic_d.pdb"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+				CompileAs="2"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
+				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include;"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\..\lib\Debug\Plugin_ParticleFXStatic_d.lib"/>
+				OutputFile="..\..\lib\Debug\Plugin_ParticleFXStatic_d.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
@@ -70,315 +104,294 @@
 			IntermediateDirectory="Plugin_ParticleFX.dir\Release"
 			ConfigurationType="4"
 			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				MkTypLibCompatible="false"
+				TargetEnvironment="1"
+				GenerateStublessProxies="true"
+				TypeLibraryName="$(InputName).tlb"
+				OutputDirectory="$(IntDir)"
+				HeaderFileName="$(InputName).h"
+				DLLDataFileName=""
+				InterfaceIdentifierFileName="$(InputName)_i.c"
+				ProxyFileName="$(InputName)_p.c"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions=" /Zm1000 /fp:fast"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include;"
-				CompileAs="2"
-				ExceptionHandling="1"
-				InlineFunctionExpansion="2"
 				Optimization="2"
-				RuntimeLibrary="2"
-				RuntimeTypeInfo="TRUE"
-				WarningLevel="3"
+				InlineFunctionExpansion="2"
+				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
+				ExceptionHandling="1"
+				RuntimeLibrary="2"
+				RuntimeTypeInfo="true"
 				AssemblerListingLocation="Release"
 				ObjectFile="$(IntDir)\"
 				ProgramDataBaseFileName="..\..\lib\Release/Plugin_ParticleFXStatic.pdb"
-/>
-			<Tool
-				Name="VCCustomBuildTool"/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include;"
-				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"/>
-			<Tool
-				Name="VCMIDLTool"
-				MkTypLibCompatible="FALSE"
-				TargetEnvironment="1"
-				GenerateStublessProxies="TRUE"
-				TypeLibraryName="$(InputName).tlb"
-				OutputDirectory="$(IntDir)"
-				HeaderFileName="$(InputName).h"
-				DLLDataFileName=""
-				InterfaceIdentifierFileName="$(InputName)_i.c"
-				ProxyFileName="$(InputName)_p.c"/>
-			<Tool
-				Name="VCPreBuildEventTool"/>
-			<Tool
-				Name="VCPreLinkEventTool"/>
-			<Tool
-				Name="VCPostBuildEventTool"/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="..\..\lib\Release\Plugin_ParticleFXStatic.lib"/>
-		</Configuration>
-		<Configuration
-			Name="MinSizeRel|Win32"
-			OutputDirectory="MinSizeRel"
-			IntermediateDirectory="Plugin_ParticleFX.dir\MinSizeRel"
-			ConfigurationType="4"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions=" /Zm1000 /fp:fast"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include;"
-				CompileAs="2"
-				ExceptionHandling="1"
-				InlineFunctionExpansion="1"
-				Optimization="1"
-				RuntimeLibrary="2"
-				RuntimeTypeInfo="TRUE"
 				WarningLevel="3"
-				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;MinSizeRel\&quot;"
-				AssemblerListingLocation="MinSizeRel"
-				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="..\..\lib\MinSizeRel/Plugin_ParticleFXStatic.pdb"
-/>
-			<Tool
-				Name="VCCustomBuildTool"/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include;"
-				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;MinSizeRel\&quot;"/>
-			<Tool
-				Name="VCMIDLTool"
-				MkTypLibCompatible="FALSE"
-				TargetEnvironment="1"
-				GenerateStublessProxies="TRUE"
-				TypeLibraryName="$(InputName).tlb"
-				OutputDirectory="$(IntDir)"
-				HeaderFileName="$(InputName).h"
-				DLLDataFileName=""
-				InterfaceIdentifierFileName="$(InputName)_i.c"
-				ProxyFileName="$(InputName)_p.c"/>
-			<Tool
-				Name="VCPreBuildEventTool"/>
-			<Tool
-				Name="VCPreLinkEventTool"/>
-			<Tool
-				Name="VCPostBuildEventTool"/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="..\..\lib\MinSizeRel\Plugin_ParticleFXStatic.lib"/>
-		</Configuration>
-		<Configuration
-			Name="RelWithDebInfo|Win32"
-			OutputDirectory="RelWithDebInfo"
-			IntermediateDirectory="Plugin_ParticleFX.dir\RelWithDebInfo"
-			ConfigurationType="4"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions=" /Zm1000 /fp:fast"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include;"
 				CompileAs="2"
-				DebugInformationFormat="3"
-				ExceptionHandling="1"
-				InlineFunctionExpansion="1"
-				Optimization="2"
-				RuntimeLibrary="2"
-				RuntimeTypeInfo="TRUE"
-				WarningLevel="3"
-				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"
-				AssemblerListingLocation="RelWithDebInfo"
-				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="..\..\lib\RelWithDebInfo/Plugin_ParticleFXStatic.pdb"
-/>
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
 			<Tool
 				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
 				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include;"
-				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"/>
+			/>
 			<Tool
-				Name="VCMIDLTool"
-				MkTypLibCompatible="FALSE"
-				TargetEnvironment="1"
-				GenerateStublessProxies="TRUE"
-				TypeLibraryName="$(InputName).tlb"
-				OutputDirectory="$(IntDir)"
-				HeaderFileName="$(InputName).h"
-				DLLDataFileName=""
-				InterfaceIdentifierFileName="$(InputName)_i.c"
-				ProxyFileName="$(InputName)_p.c"/>
-			<Tool
-				Name="VCPreBuildEventTool"/>
-			<Tool
-				Name="VCPreLinkEventTool"/>
-			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\..\lib\RelWithDebInfo\Plugin_ParticleFXStatic.lib"/>
+				OutputFile="..\..\lib\Release\Plugin_ParticleFXStatic.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
+	<References>
+	</References>
 	<Files>
 		<Filter
 			Name="Source Files"
-			Filter="">
+			>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreAreaEmitter.cpp">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreAreaEmitter.cpp"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreBoxEmitter.cpp">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreBoxEmitter.cpp"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreColourFaderAffector2.cpp">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreColourFaderAffector.cpp"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreColourFaderAffector.cpp">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreColourFaderAffector2.cpp"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreColourImageAffector.cpp">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreColourImageAffector.cpp"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreColourInterpolatorAffector.cpp">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreColourInterpolatorAffector.cpp"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreCylinderEmitter.cpp">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreCylinderEmitter.cpp"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreDeflectorPlaneAffector.cpp">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreDeflectorPlaneAffector.cpp"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreDirectionRandomiserAffector.cpp">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreDirectionRandomiserAffector.cpp"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreEllipsoidEmitter.cpp">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreEllipsoidEmitter.cpp"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreHollowEllipsoidEmitter.cpp">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreHollowEllipsoidEmitter.cpp"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreLinearForceAffector.cpp">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreLinearForceAffector.cpp"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreParticleFX.cpp">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreParticleFX.cpp"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreParticleFXPlugin.cpp">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreParticleFXPlugin.cpp"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgrePointEmitter.cpp">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgrePointEmitter.cpp"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreRingEmitter.cpp">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreRingEmitter.cpp"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreRotationAffector.cpp">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreRotationAffector.cpp"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreScaleAffector.cpp">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\src\OgreScaleAffector.cpp"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
-			Filter="">
+			>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreAreaEmitter.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreAreaEmitter.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreBoxEmitterFactory.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreBoxEmitter.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreBoxEmitter.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreBoxEmitterFactory.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourFaderAffector2.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourFaderAffector.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourFaderAffectorFactory2.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourFaderAffector2.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourFaderAffectorFactory.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourFaderAffectorFactory.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourFaderAffector.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourFaderAffectorFactory2.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourImageAffectorFactory.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourImageAffector.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourImageAffector.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourImageAffectorFactory.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourInterpolatorAffectorFactory.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourInterpolatorAffector.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourInterpolatorAffector.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourInterpolatorAffectorFactory.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreCylinderEmitterFactory.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreCylinderEmitter.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreCylinderEmitter.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreCylinderEmitterFactory.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreDeflectorPlaneAffectorFactory.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreDeflectorPlaneAffector.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreDeflectorPlaneAffector.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreDeflectorPlaneAffectorFactory.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreDirectionRandomiserAffectorFactory.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreDirectionRandomiserAffector.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreDirectionRandomiserAffector.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreDirectionRandomiserAffectorFactory.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreEllipsoidEmitterFactory.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreEllipsoidEmitter.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreEllipsoidEmitter.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreEllipsoidEmitterFactory.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreHollowEllipsoidEmitterFactory.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreHollowEllipsoidEmitter.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreHollowEllipsoidEmitter.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreHollowEllipsoidEmitterFactory.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreLinearForceAffectorFactory.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreLinearForceAffector.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreLinearForceAffector.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreLinearForceAffectorFactory.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreParticleFXPlugin.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreParticleFXPlugin.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreParticleFXPrerequisites.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreParticleFXPrerequisites.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgrePointEmitterFactory.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgrePointEmitter.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgrePointEmitter.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgrePointEmitterFactory.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreRingEmitterFactory.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreRingEmitter.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreRingEmitter.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreRingEmitterFactory.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreRotationAffectorFactory.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreRotationAffector.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreRotationAffector.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreRotationAffectorFactory.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreScaleAffectorFactory.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreScaleAffector.h"
+				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreScaleAffector.h">
+				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\ParticleFX\include\OgreScaleAffectorFactory.h"
+				>
 			</File>
 		</Filter>
 	</Files>
