@@ -1,5 +1,0 @@
-<area shape="rect" href="$classOgre_1_1ImageCodec.html" title="Codec specialized in images." alt="" coords="172,161,311,188">
-<area shape="rect" href="$classOgre_1_1AllocatedObject.html" title="Superclass for all objects that wish to use custom memory allocators when their new..." alt="" coords="196,7,287,33">
-<area shape="rect" href="$classOgre_1_1DDSCodec.html" title="Codec specialized in loading DDS (Direct Draw Surface) images." alt="" coords="5,239,133,265">
-<area shape="rect" href="$classOgre_1_1FreeImageCodec.html" title="Codec specialized in images loaded using FreeImage." alt="" coords="157,239,325,265">
-<area shape="rect" href="$classOgre_1_1ILImageCodec.html" title="Codec specialized in images loaded using DevIL." alt="" coords="349,239,499,265">

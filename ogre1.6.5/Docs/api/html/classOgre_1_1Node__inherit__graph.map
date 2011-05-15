@@ -1,5 +1,0 @@
-<area shape="rect" href="$classOgre_1_1Bone.html" title="A bone in a skeleton." alt="" coords="21,161,115,188">
-<area shape="rect" href="$classOgre_1_1SceneNode.html" title="Class representing a node in the scene graph." alt="" coords="139,161,272,188">
-<area shape="rect" href="$classOgre_1_1Renderable.html" title="Abstract class defining the interface all renderable objects must implement." alt="" coords="5,7,136,33">
-<area shape="rect" href="$classOgre_1_1AllocatedObject.html" title="Superclass for all objects that wish to use custom memory allocators when their new..." alt="" coords="160,7,245,33">
-<area shape="rect" href="$classOgre_1_1TagPoint.html" title="A tagged point on a skeleton, which can be used to attach entities to on specific..." alt="" coords="12,239,124,265">
