@@ -66,7 +66,7 @@
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
 				ProgramDataBaseFileName="$(IntDir)\OgreMainStatic_d.pdb"
-				WarningLevel="3"
+				WarningLevel="0"
 				DebugInformationFormat="3"
 				CompileAs="2"
 			/>
@@ -149,7 +149,7 @@
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
 				ProgramDataBaseFileName="$(IntDir)\OgreMainStatic.pdb"
-				WarningLevel="3"
+				WarningLevel="0"
 				CompileAs="2"
 			/>
 			<Tool

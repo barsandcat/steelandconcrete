@@ -215,6 +215,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wxogre", "wxogre-svn312\wxo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OgreMain 1.7.3", "ogre\build\OgreMain\OgreMain.vcproj", "{9CAE2D34-579A-40DC-B1C8-66FFF446C5AA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OgreRenderSystem_GL 1.7.3", "ogre\build\RenderSystems\GL\RenderSystem_GL.vcproj", "{5941A752-C5C1-46D3-A340-3674A93C5F18}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OgrePlugin_OctreeSceneManager 1.7.3", "ogre\build\PlugIns\OctreeSceneManager\Plugin_OctreeSceneManager.vcproj", "{828EF642-BDC1-4FBC-A504-8649728425C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -409,6 +413,14 @@ Global
 		{9CAE2D34-579A-40DC-B1C8-66FFF446C5AA}.Debug|Win32.Build.0 = Debug|Win32
 		{9CAE2D34-579A-40DC-B1C8-66FFF446C5AA}.Release|Win32.ActiveCfg = Release|Win32
 		{9CAE2D34-579A-40DC-B1C8-66FFF446C5AA}.Release|Win32.Build.0 = Release|Win32
+		{5941A752-C5C1-46D3-A340-3674A93C5F18}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5941A752-C5C1-46D3-A340-3674A93C5F18}.Debug|Win32.Build.0 = Debug|Win32
+		{5941A752-C5C1-46D3-A340-3674A93C5F18}.Release|Win32.ActiveCfg = Release|Win32
+		{5941A752-C5C1-46D3-A340-3674A93C5F18}.Release|Win32.Build.0 = Release|Win32
+		{828EF642-BDC1-4FBC-A504-8649728425C4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{828EF642-BDC1-4FBC-A504-8649728425C4}.Debug|Win32.Build.0 = Debug|Win32
+		{828EF642-BDC1-4FBC-A504-8649728425C4}.Release|Win32.ActiveCfg = Release|Win32
+		{828EF642-BDC1-4FBC-A504-8649728425C4}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
