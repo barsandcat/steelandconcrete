@@ -60,8 +60,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;gettext-0.13.1\gettext-runtime\intl&quot;;boost\boost_1_46_1;QuickGUI_10_1\QuickGUI\include;&quot;protobuf-2.4.1\src&quot;;&quot;ois-v1-3\includes&quot;;src;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre1.6.5\OgreMain\include;ogre1.6.5\RenderSystems\GL\src\GLSL\include;ogre1.6.5\RenderSystems\GL\include;ogre1.6.5\PlugIns\OctreeSceneManager\include;ogreal\ogreal_r137\include;src\proto"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MVC;OGRE_STATIC_LIB;OGREAL_EXPORT;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;_QuickGUIExport=;_CRT_SECURE_NO_WARNINGS"
+				AdditionalIncludeDirectories="&quot;gettext-0.13.1\gettext-runtime\intl&quot;;boost\boost_1_46_1;QuickGUI_10_1\QuickGUI\include;&quot;protobuf-2.4.1\src&quot;;&quot;ois-v1-3\includes&quot;;src;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre\build\include;ogre\ogre_1.7.3\OgreMain\include;ogre\ogre_1.7.3\RenderSystems\GL\src\GLSL\include;ogre\ogre_1.7.3\RenderSystems\GL\include;ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include;ogreal\ogreal_r137\include;src\proto"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MVC;OGREAL_EXPORT;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;_QuickGUIExport=;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -86,7 +86,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OpenAL32.lib wsock32.lib"
+				AdditionalDependencies="OpenAL32.lib wsock32.lib OPENGL32.lib GLU32.lib"
 				ShowProgress="2"
 				OutputFile="$(OutDir)/steelandconcrete_d.exe"
 				LinkIncremental="2"
@@ -167,8 +167,8 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="&quot;gettext-0.13.1\gettext-runtime\intl&quot;;boost\boost_1_46_1;QuickGUI_10_1\QuickGUI\include;&quot;protobuf-2.4.1\src&quot;;&quot;ois-v1-3\includes&quot;;src;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre1.6.5\OgreMain\include;ogre1.6.5\RenderSystems\GL\src\GLSL\include;ogre1.6.5\RenderSystems\GL\include;ogre1.6.5\PlugIns\OctreeSceneManager\include;ogreal\ogreal_r137\include;src\proto"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;MVC;OGRE_STATIC_LIB;OGREAL_EXPORT;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;_QuickGUIExport=;_CRT_SECURE_NO_WARNINGS"
+				AdditionalIncludeDirectories="&quot;gettext-0.13.1\gettext-runtime\intl&quot;;boost\boost_1_46_1;QuickGUI_10_1\QuickGUI\include;&quot;protobuf-2.4.1\src&quot;;&quot;ois-v1-3\includes&quot;;src;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre\build\include;ogre\ogre_1.7.3\OgreMain\include;ogre\ogre_1.7.3\RenderSystems\GL\src\GLSL\include;ogre\ogre_1.7.3\RenderSystems\GL\include;ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include;ogreal\ogreal_r137\include;src\proto"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;MVC;OGREAL_EXPORT;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;_QuickGUIExport=;_CRT_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				MinimalRebuild="true"
 				RuntimeLibrary="0"
@@ -194,7 +194,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OpenAL32.lib wsock32.lib"
+				AdditionalDependencies="OpenAL32.lib wsock32.lib OPENGL32.lib GLU32.lib"
 				OutputFile="$(OutDir)/steelandconcrete.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;C:\Program Files\OpenAL 1.1 SDK\libs\Win32&quot;;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32&quot;;lib"
@@ -620,10 +620,6 @@
 			Filter="po"
 			>
 			<File
-				RelativePath=".\bin\lang\uk\LC_MESSAGES\steelandconcrete.po"
-				>
-			</File>
-			<File
 				RelativePath=".\bin\lang\en\LC_MESSAGES\steelandconcrete.po"
 				>
 			</File>
@@ -633,6 +629,10 @@
 			</File>
 			<File
 				RelativePath=".\bin\lang\ru\LC_MESSAGES\steelandconcrete.po"
+				>
+			</File>
+			<File
+				RelativePath=".\bin\lang\uk\LC_MESSAGES\steelandconcrete.po"
 				>
 			</File>
 		</Filter>
