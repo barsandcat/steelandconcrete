@@ -41,8 +41,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\ogre1.6.5\OgreMain\include;.\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;OGRE_STATIC_LIB;_QuickGUIExport="
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)ogre\build\include&quot;;&quot;$(SolutionDir)ogre\ogre_1.7.3\OgreMain\include&quot;;.\include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;_QuickGUIExport="
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -106,8 +106,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\ogre1.6.5\OgreMain\include;.\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;OGRE_STATIC_LIB;_QuickGUIExport="
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)ogre\build\include&quot;;&quot;$(SolutionDir)ogre\ogre_1.7.3\OgreMain\include&quot;;.\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;_QuickGUIExport="
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="0"
