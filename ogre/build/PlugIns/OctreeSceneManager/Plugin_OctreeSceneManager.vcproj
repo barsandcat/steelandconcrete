@@ -54,7 +54,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -73,7 +73,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -136,7 +136,7 @@
 				AdditionalOptions=" /Zm1000 /fp:fast"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -153,7 +153,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -186,55 +186,55 @@
 			Name="Source Files"
 			>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreHeightmapTerrainPageSource.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreHeightmapTerrainPageSource.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctree.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctree.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctreeCamera.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctreeCamera.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctreeNode.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctreeNode.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctreePlugin.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctreePlugin.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctreeSceneManager.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctreeSceneManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctreeSceneManagerDll.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctreeSceneManagerDll.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctreeSceneQuery.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctreeSceneQuery.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreTerrainPage.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreTerrainPage.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreTerrainPageSource.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreTerrainPageSource.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreTerrainRenderable.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreTerrainRenderable.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreTerrainSceneManager.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreTerrainSceneManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreTerrainVertexProgram.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreTerrainVertexProgram.cpp"
 				>
 			</File>
 		</Filter>
@@ -242,55 +242,55 @@
 			Name="Header Files"
 			>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreHeightmapTerrainPageSource.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreHeightmapTerrainPageSource.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreOctree.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreOctree.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreOctreeCamera.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreOctreeCamera.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreOctreeNode.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreOctreeNode.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreOctreePlugin.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreOctreePlugin.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreOctreeSceneManager.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreOctreeSceneManager.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreOctreeSceneQuery.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreOctreeSceneQuery.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreTerrainPage.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreTerrainPage.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreTerrainPageSource.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreTerrainPageSource.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreTerrainPrerequisites.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreTerrainPrerequisites.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreTerrainRenderable.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreTerrainRenderable.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreTerrainSceneManager.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreTerrainSceneManager.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreTerrainVertexProgram.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreTerrainVertexProgram.h"
 				>
 			</File>
 		</Filter>
