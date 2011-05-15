@@ -54,7 +54,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\..\Paging\include;C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\Components\Terrain\..\Paging\include;..\..\..\ogre_1.7.3\Components\Terrain\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;OGRE_TERRAIN_EXPORTS;_MT;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -73,7 +73,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;OGRE_TERRAIN_EXPORTS;_MT;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\..\Paging\include;C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\Components\Terrain\..\Paging\include;..\..\..\ogre_1.7.3\Components\Terrain\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -136,7 +136,7 @@
 				AdditionalOptions=" /Zm1000 /fp:fast"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\..\Paging\include;C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\Components\Terrain\..\Paging\include;..\..\..\ogre_1.7.3\Components\Terrain\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;OGRE_TERRAIN_EXPORTS;_MT;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -153,7 +153,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;OGRE_TERRAIN_EXPORTS;_MT;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\..\Paging\include;C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\Components\Terrain\..\Paging\include;..\..\..\ogre_1.7.3\Components\Terrain\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -186,35 +186,35 @@
 			Name="Source Files"
 			>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\src\OgreTerrain.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\Components\Terrain\src\OgreTerrain.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\src\OgreTerrainGroup.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\Components\Terrain\src\OgreTerrainGroup.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\src\OgreTerrainLayerBlendMap.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\Components\Terrain\src\OgreTerrainLayerBlendMap.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\src\OgreTerrainMaterialGenerator.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\Components\Terrain\src\OgreTerrainMaterialGenerator.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\src\OgreTerrainMaterialGeneratorA.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\Components\Terrain\src\OgreTerrainMaterialGeneratorA.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\src\OgreTerrainPagedWorldSection.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\Components\Terrain\src\OgreTerrainPagedWorldSection.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\src\OgreTerrainPaging.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\Components\Terrain\src\OgreTerrainPaging.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\src\OgreTerrainQuadTreeNode.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\Components\Terrain\src\OgreTerrainQuadTreeNode.cpp"
 				>
 			</File>
 		</Filter>
@@ -222,39 +222,39 @@
 			Name="Header Files"
 			>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\include\OgreTerrain.h"
+				RelativePath="..\..\..\ogre_1.7.3\Components\Terrain\include\OgreTerrain.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\include\OgreTerrainGroup.h"
+				RelativePath="..\..\..\ogre_1.7.3\Components\Terrain\include\OgreTerrainGroup.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\include\OgreTerrainLayerBlendMap.h"
+				RelativePath="..\..\..\ogre_1.7.3\Components\Terrain\include\OgreTerrainLayerBlendMap.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\include\OgreTerrainMaterialGenerator.h"
+				RelativePath="..\..\..\ogre_1.7.3\Components\Terrain\include\OgreTerrainMaterialGenerator.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\include\OgreTerrainMaterialGeneratorA.h"
+				RelativePath="..\..\..\ogre_1.7.3\Components\Terrain\include\OgreTerrainMaterialGeneratorA.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\include\OgreTerrainPagedWorldSection.h"
+				RelativePath="..\..\..\ogre_1.7.3\Components\Terrain\include\OgreTerrainPagedWorldSection.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\include\OgreTerrainPaging.h"
+				RelativePath="..\..\..\ogre_1.7.3\Components\Terrain\include\OgreTerrainPaging.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\include\OgreTerrainPrerequisites.h"
+				RelativePath="..\..\..\ogre_1.7.3\Components\Terrain\include\OgreTerrainPrerequisites.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\Components\Terrain\include\OgreTerrainQuadTreeNode.h"
+				RelativePath="..\..\..\ogre_1.7.3\Components\Terrain\include\OgreTerrainQuadTreeNode.h"
 				>
 			</File>
 		</Filter>

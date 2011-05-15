@@ -54,7 +54,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -73,7 +73,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -136,7 +136,7 @@
 				AdditionalOptions=" /Zm1000 /fp:fast"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -153,7 +153,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
-				AdditionalIncludeDirectories="C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include;..\..\include;C:\steelandconcrete\ogre\Dependencies\include;C:\steelandconcrete\ogre\Dependencies\include\OIS;C:\steelandconcrete\ogre\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;C:\steelandconcrete\ogre\ogre_1.7.3\OgreMain\include\Threading;C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -186,71 +186,71 @@
 			Name="Source Files"
 			>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgreAntiPortal.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgreAntiPortal.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgreCapsule.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgreCapsule.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgreDefaultZone.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgreDefaultZone.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCPlane.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCPlane.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCZCamera.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCZCamera.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCZFrustum.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCZFrustum.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCZLight.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCZLight.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCZone.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCZone.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCZoneFactory.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCZoneFactory.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCZPlugin.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCZPlugin.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCZSceneManager.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCZSceneManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCZSceneManagerDll.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCZSceneManagerDll.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCZSceneNode.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCZSceneNode.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCZSceneQuery.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePCZSceneQuery.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePortal.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePortal.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePortalBase.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgrePortalBase.cpp"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgreSegment.cpp"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\src\OgreSegment.cpp"
 				>
 			</File>
 		</Filter>
@@ -258,71 +258,71 @@
 			Name="Header Files"
 			>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgreAntiPortal.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgreAntiPortal.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgreCapsule.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgreCapsule.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgreDefaultZone.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgreDefaultZone.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCPlane.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCPlane.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCZCamera.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCZCamera.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCZFrustum.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCZFrustum.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCZLight.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCZLight.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCZone.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCZone.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCZoneFactory.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCZoneFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCZPlugin.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCZPlugin.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCZPrerequisites.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCZPrerequisites.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCZSceneManager.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCZSceneManager.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCZSceneNode.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCZSceneNode.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCZSceneQuery.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePCZSceneQuery.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePortal.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePortal.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePortalBase.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgrePortalBase.h"
 				>
 			</File>
 			<File
-				RelativePath="C:\steelandconcrete\ogre\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgreSegment.h"
+				RelativePath="..\..\..\ogre_1.7.3\PlugIns\PCZSceneManager\include\OgreSegment.h"
 				>
 			</File>
 		</Filter>
