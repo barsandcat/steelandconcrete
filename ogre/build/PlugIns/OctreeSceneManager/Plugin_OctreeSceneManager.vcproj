@@ -2,8 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="Plugin_OctreeSceneManager"
+	Name="OgrePlugin_OctreeSceneManager 1.7.3"
 	ProjectGUID="{828EF642-BDC1-4FBC-A504-8649728425C4}"
+	RootNamespace="OgrePlugin_OctreeSceneManager 1.7.3"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
 	>
@@ -17,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
-			IntermediateDirectory="Plugin_OctreeSceneManager.dir\Debug"
+			OutputDirectory="$(SolutionDir)lib"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -54,16 +55,16 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="0"
 				RuntimeTypeInfo="true"
-				AssemblerListingLocation="Debug"
+				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="..\..\lib\Debug/Plugin_OctreeSceneManagerStatic_d.pdb"
-				WarningLevel="3"
+				ProgramDataBaseFileName="$(IntDir)\Plugin_OctreeSceneManagerStatic_d.pdb"
+				WarningLevel="0"
 				DebugInformationFormat="3"
 				CompileAs="2"
 			/>
@@ -80,7 +81,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\..\lib\Debug\Plugin_OctreeSceneManagerStatic_d.lib"
+				OutputFile="$(OutDir)\$(ProjectName)$(ConfigurationName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -100,8 +101,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
-			IntermediateDirectory="Plugin_OctreeSceneManager.dir\Release"
+			OutputDirectory="$(SolutionDir)lib"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -136,15 +137,15 @@
 				AdditionalOptions=" /Zm1000 /fp:fast"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
 				ExceptionHandling="1"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				RuntimeTypeInfo="true"
-				AssemblerListingLocation="Release"
+				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="..\..\lib\Release/Plugin_OctreeSceneManagerStatic.pdb"
-				WarningLevel="3"
+				ProgramDataBaseFileName="$(IntDir)\Plugin_OctreeSceneManagerStatic.pdb"
+				WarningLevel="0"
 				CompileAs="2"
 			/>
 			<Tool
@@ -160,7 +161,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\..\lib\Release\Plugin_OctreeSceneManagerStatic.lib"
+				OutputFile="$(OutDir)\$(ProjectName)$(ConfigurationName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"

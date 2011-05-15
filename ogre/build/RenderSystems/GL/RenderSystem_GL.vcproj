@@ -2,8 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="RenderSystem_GL"
+	Name="OgreRenderSystem_GL 1.7.3"
 	ProjectGUID="{5941A752-C5C1-46D3-A340-3674A93C5F18}"
+	RootNamespace="OgreRenderSystem_GL 1.7.3"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
 	>
@@ -17,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
-			IntermediateDirectory="RenderSystem_GL.dir\Debug"
+			OutputDirectory="$(SolutionDir)lib"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -54,15 +55,15 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\RenderSystems\GL\include;..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\winheaders;..\..\..\ogre_1.7.3\RenderSystems\GL\src\win32;..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\include;..\..\..\ogre_1.7.3\RenderSystems\GL\src\atifs\include;..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\RenderSystems\GL\include;..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\winheaders;..\..\..\ogre_1.7.3\RenderSystems\GL\src\win32;..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\include;..\..\..\ogre_1.7.3\RenderSystems\GL\src\atifs\include;..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;CMAKE_INTDIR=\&quot;Debug\&quot;"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				RuntimeTypeInfo="true"
-				AssemblerListingLocation="Debug"
+				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="..\..\lib\Debug/RenderSystem_GLStatic_d.pdb"
+				ProgramDataBaseFileName="$(IntDir)\RenderSystem_GLStatic_d.pdb"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 				CompileAs="2"
@@ -80,7 +81,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\..\lib\Debug\RenderSystem_GLStatic_d.lib"
+				OutputFile="$(OutDir)\$(ProjectName)$(ConfigurationName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -100,8 +101,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
-			IntermediateDirectory="RenderSystem_GL.dir\Release"
+			OutputDirectory="$(SolutionDir)lib"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -136,15 +137,15 @@
 				AdditionalOptions=" /Zm1000 /fp:fast"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\RenderSystems\GL\include;..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\winheaders;..\..\..\ogre_1.7.3\RenderSystems\GL\src\win32;..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\include;..\..\..\ogre_1.7.3\RenderSystems\GL\src\atifs\include;..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse;"
+				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\RenderSystems\GL\include;..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\winheaders;..\..\..\ogre_1.7.3\RenderSystems\GL\src\win32;..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\include;..\..\..\ogre_1.7.3\RenderSystems\GL\src\atifs\include;..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\&quot;Release\&quot;"
 				ExceptionHandling="1"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				RuntimeTypeInfo="true"
-				AssemblerListingLocation="Release"
+				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="..\..\lib\Release/RenderSystem_GLStatic.pdb"
-				WarningLevel="3"
+				ProgramDataBaseFileName="$(IntDir)\RenderSystem_GLStatic.pdb"
+				WarningLevel="0"
 				CompileAs="2"
 			/>
 			<Tool
@@ -160,7 +161,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\..\lib\Release\RenderSystem_GLStatic.lib"
+				OutputFile="$(OutDir)\$(ProjectName)$(ConfigurationName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
