@@ -213,6 +213,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wxogre", "wxogre-svn312\wxo
 		{D215484E-F216-434B-ADCE-5AF22F448D4C} = {D215484E-F216-434B-ADCE-5AF22F448D4C}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OgreMain 1.7.3", "ogre\build\OgreMain\OgreMain.vcproj", "{9CAE2D34-579A-40DC-B1C8-66FFF446C5AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -403,6 +405,10 @@ Global
 		{1BF6EC53-9E57-4FB3-ABE9-E749625B7FB9}.Debug|Win32.Build.0 = Debug|Win32
 		{1BF6EC53-9E57-4FB3-ABE9-E749625B7FB9}.Release|Win32.ActiveCfg = Release|Win32
 		{1BF6EC53-9E57-4FB3-ABE9-E749625B7FB9}.Release|Win32.Build.0 = Release|Win32
+		{9CAE2D34-579A-40DC-B1C8-66FFF446C5AA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9CAE2D34-579A-40DC-B1C8-66FFF446C5AA}.Debug|Win32.Build.0 = Debug|Win32
+		{9CAE2D34-579A-40DC-B1C8-66FFF446C5AA}.Release|Win32.ActiveCfg = Release|Win32
+		{9CAE2D34-579A-40DC-B1C8-66FFF446C5AA}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
