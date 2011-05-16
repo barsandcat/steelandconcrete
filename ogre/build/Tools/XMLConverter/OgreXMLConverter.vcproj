@@ -77,7 +77,7 @@
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
-				CommandLine="&quot;C:\Program Files (x86)\CMake 2.8\bin\cmake.exe&quot; -E make_directory C:/steelandconcrete/ogre/build/lib/Debug&#x0D;&#x0A;if errorlevel 1 goto :VCReportError&#x0D;&#x0A;"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCLinkerTool"
@@ -173,7 +173,7 @@
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
-				CommandLine="&quot;C:\Program Files (x86)\CMake 2.8\bin\cmake.exe&quot; -E make_directory C:/steelandconcrete/ogre/build/lib/Release&#x0D;&#x0A;if errorlevel 1 goto :VCReportError&#x0D;&#x0A;"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCLinkerTool"
