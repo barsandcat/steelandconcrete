@@ -65,6 +65,9 @@
 		<Project filename="wxpropgrid/build/propgrid_propgrid_vc9.cbp" />
 		<Project filename="ogre1.6.5/Tools/MaterialEditor/wxscintilla_1.69.2/build/wxscintilla.cbp" />
 		<Project filename="wxogre-svn312/wxogre.cbp" />
-		<Project filename="ogre/build/OgreMain/OgreMain.cbp" active="1" />
+		<Project filename="ogre/build/OgreMain/OgreMain.cbp" />
+		<Project filename="ogre/build/RenderSystems/GL/RenderSystem_GL.cbp" />
+		<Project filename="ogre/build/PlugIns/OctreeSceneManager/Plugin_OctreeSceneManager.cbp" />
+		<Project filename="ogre/build/Tools/XMLConverter/OgreXMLConverter.cbp" active="1" />
 	</Workspace>
 </CodeBlocks_workspace_file>
