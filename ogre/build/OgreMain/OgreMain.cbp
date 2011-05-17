@@ -287,10 +287,6 @@
 		<Unit filename="../../ogre_1.7.3/OgreMain/include/Threading/OgreThreadDefines.h" />
 		<Unit filename="../../ogre_1.7.3/OgreMain/include/Threading/OgreThreadDefinesNone.h" />
 		<Unit filename="../../ogre_1.7.3/OgreMain/include/Threading/OgreThreadHeaders.h" />
-		<Unit filename="../../ogre_1.7.3/OgreMain/include/WIN32/OgreConfigDialogImp.h" />
-		<Unit filename="../../ogre_1.7.3/OgreMain/include/WIN32/OgreErrorDialogImp.h" />
-		<Unit filename="../../ogre_1.7.3/OgreMain/include/WIN32/OgreMinGWSupport.h" />
-		<Unit filename="../../ogre_1.7.3/OgreMain/include/WIN32/OgreTimerImp.h" />
 		<Unit filename="../../ogre_1.7.3/OgreMain/include/asm_math.h" />
 		<Unit filename="../../ogre_1.7.3/OgreMain/src/GLX/GLX_backdrop.h" />
 		<Unit filename="../../ogre_1.7.3/OgreMain/src/GLX/OgreConfigDialog.cpp" />
@@ -441,6 +437,7 @@
 		<Unit filename="../../ogre_1.7.3/OgreMain/src/OgreScriptLexer.cpp" />
 		<Unit filename="../../ogre_1.7.3/OgreMain/src/OgreScriptParser.cpp" />
 		<Unit filename="../../ogre_1.7.3/OgreMain/src/OgreScriptTranslator.cpp" />
+		<Unit filename="../../ogre_1.7.3/OgreMain/src/OgreSearchOps.cpp" />
 		<Unit filename="../../ogre_1.7.3/OgreMain/src/OgreSerializer.cpp" />
 		<Unit filename="../../ogre_1.7.3/OgreMain/src/OgreShadowCameraSetup.cpp" />
 		<Unit filename="../../ogre_1.7.3/OgreMain/src/OgreShadowCameraSetupFocused.cpp" />
