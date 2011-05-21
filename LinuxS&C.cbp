@@ -61,13 +61,14 @@
 			<Add option="-DBOOST_ALL_NO_LIB=1" />
 			<Add directory="src" />
 			<Add directory="betagui2" />
-			<Add directory="ogre1.6.5/OgreMain/include" />
+			<Add directory="ogre/build/include" />
+			<Add directory="ogre/ogre_1.7.3/OgreMain/include" />
 			<Add directory="ogreal/ogreal_r137/include" />
 			<Add directory="ois-v1-3/includes" />
-			<Add directory="ogre1.6.5/PlugIns/OctreeSceneManager/include" />
-			<Add directory="ogre1.6.5/RenderSystems/GL/include" />
-			<Add directory="ogre1.6.5/RenderSystems/GL/src/GLX" />
-			<Add directory="ogre1.6.5/RenderSystems/GL/src/GLSL/include" />
+			<Add directory="ogre/ogre_1.7.3/PlugIns/OctreeSceneManager/include" />
+			<Add directory="ogre/ogre_1.7.3/RenderSystems/GL/include" />
+			<Add directory="ogre/ogre_1.7.3/RenderSystems/GL/src/GLX" />
+			<Add directory="ogre/ogre_1.7.3/RenderSystems/GL/src/GLSL/include" />
 			<Add directory="protobuf-2.4.1/src" />
 			<Add directory="src/proto" />
 			<Add directory="SAL" />
