@@ -49,13 +49,13 @@
 			<Add option="`wx-config --cxxflags`" />
 			<Add option="-Wno-write-strings" />
 			<Add option="-DNOPCH" />
-			<Add option="-DOGRE_STATIC_LIB" />
 			<Add directory="../include" />
 			<Add directory="../../wxscintilla_1.69.2/include" />
-			<Add directory="../../../../OgreMain/include" />
+			<Add directory="../../../../../ogre/build/include" />
+			<Add directory="../../../../../ogre/ogre_1.7.3/OgreMain/include" />
+			<Add directory="../../../../../ogre/ogre_1.7.3/RenderSystems/GL/include" />
+			<Add directory="../../../../../ogre/ogre_1.7.3/RenderSystems/GL/src/GLSL/include" />
 			<Add directory="../../../../../wxpropgrid/include" />
-			<Add directory="../../../../RenderSystems/GL/include" />
-			<Add directory="../../../../RenderSystems/GL/src/GLSL/include" />
 			<Add directory="../../../../../wxogre-svn312/include" />
 			<Add directory="../../../../../boost/boost_1_46_1" />
 		</Compiler>
