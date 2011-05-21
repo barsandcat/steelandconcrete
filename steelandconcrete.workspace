@@ -2,7 +2,9 @@
 <CodeBlocks_workspace_file>
 	<Workspace title="Workspace">
 		<Project filename="ois-v1-3/LinuxCB/OIS.cbp" />
-		<Project filename="QuickGUI_10_1/QuickGUI/QuickGUI.cbp" />
+		<Project filename="QuickGUI_10_1/QuickGUI/QuickGUI.cbp">
+			<Depends filename="ogre/build/OgreMain/OgreMain.cbp" />
+		</Project>
 		<Project filename="ogreal/ogreal_r137/OgreAL/OgreAL.cbp">
 			<Depends filename="ogre/build/OgreMain/OgreMain.cbp" />
 		</Project>
