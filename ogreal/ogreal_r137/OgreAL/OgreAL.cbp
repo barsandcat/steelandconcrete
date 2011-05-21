@@ -43,7 +43,8 @@
 			<Add option="-w" />
 			<Add option="-DOGRE_AL_EXPORT" />
 			<Add directory="../include" />
-			<Add directory="../../../ogre1.6.5/OgreMain/include" />
+			<Add directory="../../../ogre/build/include" />
+			<Add directory="../../../ogre/ogre_1.7.3/OgreMain/include" />
 		</Compiler>
 		<Linker>
 			<Add directory="../../../lib" />

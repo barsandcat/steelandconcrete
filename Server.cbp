@@ -46,7 +46,8 @@
 			<Add option="-DBOOST_ALL_NO_LIB=1" />
 			<Add directory="src" />
 			<Add directory="src/proto" />
-			<Add directory="ogre1.6.5/OgreMain/include" />
+			<Add directory="ogre/build/include" />
+			<Add directory="ogre/ogre_1.7.3/OgreMain/include" />
 			<Add directory="protobuf-2.4.1/src" />
 			<Add directory="SAL" />
 			<Add directory="QuickGUI_10_1/QuickGUI/include" />
