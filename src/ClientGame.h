@@ -42,6 +42,7 @@ private:
     GameTime mTime;
     SyncTimer mSyncTimer;
     Network* mNetwork;
+    std::list< boost::shared_ptr<ResponseMsg> > mMessages;
 };
 
 #endif // CLIENTGAME_H

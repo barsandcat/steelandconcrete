@@ -234,27 +234,41 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
 
 int32 ClientGame::ReadResponseMessage()
 {
-    boost::shared_ptr<ResponseMsg> rsp(new ResponseMsg());
-    mNetwork->ReadMessage(*rsp);
+    boost::shared_ptr<ResponseMsg> rsp;
+    do
+    {
+        rsp.reset(new ResponseMsg());
+        mNetwork->ReadMessage(*rsp);
+        mMessages.push_back(rsp);
+    }
+    while (rsp->type() == RESPONSE_PART);
 
     int32 nextUpdate = 1000;
 
-    switch (rsp->type())
+    std::list< boost::shared_ptr< ResponseMsg > >::iterator i;
+
+    for (i = mMessages.begin(); i != mMessages.end(); ++i)
     {
-    case RESPONSE_OK:
-        mTime = rsp->time();
-        mIngameSheet.SetTime(mTime);
-        nextUpdate = rsp->update_length();
-        break;
-    case RESPONSE_PART:
-        LoadEvents(*rsp);
-        nextUpdate = ReadResponseMessage();
-        break;
-    case RESPONSE_NOK:
-    default:
-        GetLog() << rsp->ShortDebugString();
-        break;
+        boost::shared_ptr<ResponseMsg> rsp = *i;
+        switch (rsp->type())
+        {
+        case RESPONSE_OK:
+            mTime = rsp->time();
+            mIngameSheet.SetTime(mTime);
+            nextUpdate = rsp->update_length();
+            break;
+        case RESPONSE_PART:
+            LoadEvents(*rsp);
+            break;
+        case RESPONSE_NOK:
+        default:
+            GetLog() << rsp->ShortDebugString();
+            break;
+        }
     }
+
+    mMessages.clear();
+
     return nextUpdate;
 }
 
