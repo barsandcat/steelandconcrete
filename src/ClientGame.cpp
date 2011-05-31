@@ -234,25 +234,25 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
 
 int32 ClientGame::ReadResponseMessage()
 {
-    ResponseMsg rsp;
-    mNetwork->ReadMessage(rsp);
+    boost::shared_ptr<ResponseMsg> rsp(new ResponseMsg());
+    mNetwork->ReadMessage(*rsp);
 
     int32 nextUpdate = 1000;
 
-    switch (rsp.type())
+    switch (rsp->type())
     {
     case RESPONSE_OK:
-        mTime = rsp.time();
+        mTime = rsp->time();
         mIngameSheet.SetTime(mTime);
-        nextUpdate = rsp.update_length();
+        nextUpdate = rsp->update_length();
         break;
     case RESPONSE_PART:
-        LoadEvents(rsp);
+        LoadEvents(*rsp);
         nextUpdate = ReadResponseMessage();
         break;
     case RESPONSE_NOK:
     default:
-        GetLog() << rsp.ShortDebugString();
+        GetLog() << rsp->ShortDebugString();
         break;
     }
     return nextUpdate;
