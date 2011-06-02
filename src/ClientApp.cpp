@@ -5,7 +5,7 @@
 #include <OgreGLPlugin.h>
 #include <Header.pb.h>
 #include <Handshake.pb.h>
-#include <AsyncNetwork.h>
+#include <Network.h>
 #include <ClientLog.h>
 #include <ProtocolVersion.h>
 
@@ -312,7 +312,7 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
 
         if (!ec)
         {
-            AsyncNetwork* net = new AsyncNetwork(sock);
+            Network* net = new Network(sock);
             GetLog() << "Connected";
             ConnectionRequestMsg req;
             req.set_protocolversion(ProtocolVersion);
