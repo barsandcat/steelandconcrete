@@ -24,8 +24,8 @@ public:
     void OnExit(const QuickGUI::EventArgs& args);
     void OnEscape();
     void OnAct();
-    void OnResponseMsg(ResponsePtr aResponseMsg);
 private:
+    void OnResponseMsg(ResponsePtr aResponseMsg);
     void CreateUnitEntities() const;
     void LoadAvatar();
     void LoadEvents(ResponsePtr aResponseMsg);

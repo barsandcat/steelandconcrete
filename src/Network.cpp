@@ -80,7 +80,7 @@ void Network::ReadMessage(google::protobuf::Message& aMessage)
 
 void Network::AsynReadMessage(ReadCallBack aCallBack)
 {
-    ResponsePtr msg(new ResponseMsg());
+    boost::shared_ptr<ResponseMsg> msg(new ResponseMsg());
     ReadMessage(*msg);
     aCallBack(msg);
     if (msg->type() == RESPONSE_PART)

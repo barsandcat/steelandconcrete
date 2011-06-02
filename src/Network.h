@@ -7,7 +7,7 @@
 #include <Request.pb.h>
 #include <boost/function.hpp>
 
-typedef boost::shared_ptr< ResponseMsg > ResponsePtr;
+typedef boost::shared_ptr< const ResponseMsg > ResponsePtr;
 typedef boost::function< void (ResponsePtr) > ReadCallBack;
 
 class Network: public INetwork
