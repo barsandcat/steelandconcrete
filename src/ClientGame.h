@@ -24,10 +24,11 @@ public:
     void OnExit(const QuickGUI::EventArgs& args);
     void OnEscape();
     void OnAct();
+    void OnResponseMsg(ResponsePtr aResponseMsg);
 private:
     void CreateUnitEntities() const;
-    int32 ReadResponseMessage();
-    void LoadEvents(const ResponseMsg& changes);
+    void LoadAvatar();
+    void LoadEvents(ResponsePtr aResponseMsg);
     ClientUnit& GetUnit(UnitId aUnitId);
 private:
     ClientGeodesicGrid::Tiles mTiles;
