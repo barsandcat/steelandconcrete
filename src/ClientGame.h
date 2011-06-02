@@ -7,7 +7,7 @@
 #include <InGameSheet.h>
 #include <Response.pb.h>
 #include <Typedefs.h>
-#include <Network.h>
+#include <AsyncNetwork.h>
 #include <SyncTimer.h>
 #include <SystemMenuSheet.h>
 
@@ -17,7 +17,7 @@ class ClientGame
 {
 public:
     typedef std::map< UnitId, ClientUnit* > ClientUnits;
-    ClientGame(Network* aNetwork, UnitId aAvatar, int32 aGridSize);
+    ClientGame(AsyncNetwork* aNetwork, UnitId aAvatar, int32 aGridSize);
     virtual ~ClientGame(); // Для QuicGUI
     void UpdateTileUnderCursor(Ogre::Ray& aRay);
     void Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats);
@@ -41,7 +41,7 @@ private:
     SystemMenuSheet mSystemMenuSheet;
     GameTime mTime;
     SyncTimer mSyncTimer;
-    Network* mNetwork;
+    AsyncNetwork* mNetwork;
     std::list< boost::shared_ptr<ResponseMsg> > mMessages;
 };
 
