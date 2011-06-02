@@ -21,12 +21,7 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
     ClientGeodesicGrid grid(mTiles, aGridSize);
     mLoadingSheet.SetProgress(50);
 
-    RequestMsg req;
-    req.set_type(REQUEST_GET_TIME);
-    req.set_time(0);
-    req.set_last(true);
-    mNetwork->WriteMessage(req);
-    ReadResponseMessage();
+    LoadAvatar();
 
     mLoadingSheet.SetProgress(90);
 
@@ -151,11 +146,11 @@ ClientUnit& ClientGame::GetUnit(UnitId aUnitId)
     }
 }
 
-void ClientGame::LoadEvents(const ResponseMsg& changes)
+void ClientGame::LoadEvents(ResponsePtr aResponseMsg)
 {
-    for (int i = 0; i < changes.changes_size(); ++i)
+    for (int i = 0; i < aResponseMsg->changes_size(); ++i)
     {
-        const ChangeMsg& change = changes.changes(i);
+        const ChangeMsg& change = aResponseMsg->changes(i);
         if (change.has_unitenter())
         {
             const UnitEnterMsg& move = change.unitenter();
@@ -227,48 +222,43 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
         }
 
         mNetwork->WriteMessage(req);
-
-        mSyncTimer.Reset(ReadResponseMessage());
+        mNetwork->AsynReadMessage(boost::bind(&ClientGame::OnResponseMsg, this, _1));
     }
 }
 
-int32 ClientGame::ReadResponseMessage()
+void ClientGame::LoadAvatar()
 {
-    boost::shared_ptr<ResponseMsg> rsp;
+    RequestMsg req;
+    req.set_type(REQUEST_GET_TIME);
+    req.set_time(0);
+    req.set_last(true);
+    mNetwork->WriteMessage(req);
+
+    ResponsePtr rsp;
     do
     {
         rsp.reset(new ResponseMsg());
         mNetwork->ReadMessage(*rsp);
-        mMessages.push_back(rsp);
+        OnResponseMsg(rsp);
     }
     while (rsp->type() == RESPONSE_PART);
-
-    int32 nextUpdate = 1000;
-
-    std::list< boost::shared_ptr< ResponseMsg > >::iterator i;
-
-    for (i = mMessages.begin(); i != mMessages.end(); ++i)
-    {
-        boost::shared_ptr<ResponseMsg> rsp = *i;
-        switch (rsp->type())
-        {
-        case RESPONSE_OK:
-            mTime = rsp->time();
-            mIngameSheet.SetTime(mTime);
-            nextUpdate = rsp->update_length();
-            break;
-        case RESPONSE_PART:
-            LoadEvents(*rsp);
-            break;
-        case RESPONSE_NOK:
-        default:
-            GetLog() << rsp->ShortDebugString();
-            break;
-        }
-    }
-
-    mMessages.clear();
-
-    return nextUpdate;
 }
 
+void ClientGame::OnResponseMsg(ResponsePtr aResponseMsg)
+{
+    switch (aResponseMsg->type())
+    {
+    case RESPONSE_OK:
+        mTime = aResponseMsg->time();
+        mIngameSheet.SetTime(mTime);
+        mSyncTimer.Reset(aResponseMsg->update_length());
+        break;
+    case RESPONSE_PART:
+        LoadEvents(aResponseMsg);
+        break;
+    case RESPONSE_NOK:
+    default:
+        GetLog() << aResponseMsg->ShortDebugString();
+        break;
+    }
+}

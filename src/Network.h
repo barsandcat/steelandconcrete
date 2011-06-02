@@ -17,7 +17,7 @@ public:
     ~Network();
     virtual void WriteMessage(const google::protobuf::Message& aMessage);
     virtual void ReadMessage(google::protobuf::Message& aMessage);
-    void AsynReadMessage(ReadCallBack aCallBack) {}
+    void AsynReadMessage(ReadCallBack aCallBack);
 private:
     void AllocBuffer(int aSize);
     SocketSharedPtr mSocket;

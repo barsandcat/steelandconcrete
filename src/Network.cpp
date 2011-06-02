@@ -76,3 +76,15 @@ void Network::ReadMessage(google::protobuf::Message& aMessage)
         boost::throw_exception(std::runtime_error("Не удалось разобрать сообщение!"));
     }
 }
+
+
+void Network::AsynReadMessage(ReadCallBack aCallBack)
+{
+    ResponsePtr msg(new ResponseMsg());
+    ReadMessage(*msg);
+    aCallBack(msg);
+    if (msg->type() == RESPONSE_PART)
+    {
+        AsynReadMessage(aCallBack);
+    }
+}
