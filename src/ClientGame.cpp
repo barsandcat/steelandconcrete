@@ -1,7 +1,7 @@
 #include <pch.h>
 #include <ClientGame.h>
 #include <ClientApp.h>
-#include <AsyncNetwork.h>
+#include <Network.h>
 #include <ClientLog.h>
 #include <Request.pb.h>
 #include <Response.pb.h>
@@ -9,7 +9,7 @@
 #include <ClientApp.h>
 #include <ClientTile.h>
 
-ClientGame::ClientGame(AsyncNetwork* aNetwork, UnitId aAvatarId, int32 aGridSize):
+ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
     mTileUnderCursor(NULL),
     mAvatar(NULL),
     mTime(0),

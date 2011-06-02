@@ -89,8 +89,6 @@
 			<Add after="make -w -C bin/lang -f Makefile.lang" />
 			<Mode after="always" />
 		</ExtraCommands>
-		<Unit filename="src/AsyncNetwork.cpp" />
-		<Unit filename="src/AsyncNetwork.h" />
 		<Unit filename="src/BirdCamera.cpp" />
 		<Unit filename="src/BirdCamera.h" />
 		<Unit filename="src/ClientApp.cpp" />
