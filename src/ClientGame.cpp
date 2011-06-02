@@ -234,7 +234,7 @@ void ClientGame::LoadAvatar()
     req.set_last(true);
     mNetwork->WriteMessage(req);
 
-    ResponsePtr rsp;
+    boost::shared_ptr< ResponseMsg > rsp;
     do
     {
         rsp.reset(new ResponseMsg());
