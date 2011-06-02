@@ -101,8 +101,6 @@
 		<Unit filename="src/ClientGridNode.h" />
 		<Unit filename="src/ClientLog.cpp" />
 		<Unit filename="src/ClientLog.h" />
-		<Unit filename="src/ClientNetworkThread.cpp" />
-		<Unit filename="src/ClientNetworkThread.h" />
 		<Unit filename="src/ClientTile.cpp" />
 		<Unit filename="src/ClientTile.h" />
 		<Unit filename="src/ClientUnit.cpp" />
