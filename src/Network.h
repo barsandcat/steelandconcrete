@@ -20,6 +20,9 @@ public:
     void AsynReadMessage(ReadCallBack aCallBack);
 private:
     void AllocBuffer(int aSize);
+    void ParseMessage(ReadCallBack aCallBack,
+                      const boost::system::error_code& aError,
+                      std::size_t aBytesTransferred);
     SocketSharedPtr mSocket;
     char* mMessageBuffer;
     int mBufferSize;
