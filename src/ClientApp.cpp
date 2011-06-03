@@ -416,6 +416,7 @@ void ClientApp::MainLoop()
             mQuit = true;
             GetLog() << "Window is closed";
         }
+        mIOService.run();
 
         frameTime = mRoot->getTimer()->getMicroseconds() - frameStart;
     }
