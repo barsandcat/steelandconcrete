@@ -3,12 +3,13 @@
 
 #include <Header.pb.h>
 
-const int HEADER_BUFFER_SIZE = 8;
-
 
 Network::Network(SocketSharedPtr aSocket): mSocket(aSocket), mMessageBuffer(NULL), mBufferSize(0)
 {
     assert(aSocket);
+    HeaderMsg header;
+    header.set_size(0);
+    mHeaderSize = header.ByteSize();
 }
 
 Network::~Network()
@@ -37,10 +38,9 @@ void Network::WriteMessage(const google::protobuf::Message& aMessage)
     HeaderMsg header;
     header.set_size(messageSize);
     size_t headerSize = header.ByteSize();
-    char headerBuffer[HEADER_BUFFER_SIZE];
-    header.SerializeToArray(headerBuffer, headerSize);
+    header.SerializeToArray(mHeaderBuffer, headerSize);
 
-    if (boost::asio::write(*mSocket, boost::asio::buffer(headerBuffer, headerSize)) != headerSize)
+    if (boost::asio::write(*mSocket, boost::asio::buffer(mHeaderBuffer, headerSize)) != headerSize)
     {
         boost::throw_exception(std::runtime_error("Неудалось записать в сокет загловок!"));
     }
@@ -52,15 +52,12 @@ void Network::WriteMessage(const google::protobuf::Message& aMessage)
 
 void Network::ReadMessage(google::protobuf::Message& aMessage)
 {
-    HeaderMsg header;
-    header.set_size(0);
-    size_t headerSize = header.ByteSize();
-    char headerBuffer[HEADER_BUFFER_SIZE];
-    if (boost::asio::read(*mSocket, boost::asio::buffer(headerBuffer, headerSize)) != headerSize)
+    if (boost::asio::read(*mSocket, boost::asio::buffer(mHeaderBuffer, mHeaderSize)) != mHeaderSize)
     {
         boost::throw_exception(std::runtime_error("Не удалось прочитать из сокета заголовок!"));
     }
-    if (!header.ParseFromArray(headerBuffer, headerSize))
+    HeaderMsg header;
+    if (!header.ParseFromArray(mHeaderBuffer, mHeaderSize))
     {
         boost::throw_exception(std::runtime_error("Не удалось разобрать заголовок!"));
     }
@@ -81,15 +78,24 @@ void Network::ReadMessage(google::protobuf::Message& aMessage)
 
 void Network::AsynReadMessage(ReadCallBack aCallBack)
 {
-    HeaderMsg header;
-    header.set_size(0);
-    size_t headerSize = header.ByteSize();
-    char headerBuffer[HEADER_BUFFER_SIZE];
-    if (boost::asio::read(*mSocket, boost::asio::buffer(headerBuffer, headerSize)) != headerSize)
+    boost::asio::async_read(*mSocket, boost::asio::buffer(mHeaderBuffer, mHeaderSize),
+                            boost::bind(&Network::ParseHeader,
+                                        this, aCallBack,
+                                        boost::asio::placeholders::error,
+                                        boost::asio::placeholders::bytes_transferred));
+}
+
+void Network::ParseHeader(ReadCallBack aCallBack,
+                          const boost::system::error_code& aError,
+                          std::size_t aBytesTransferred)
+{
+    if (aError)
     {
         boost::throw_exception(std::runtime_error("Не удалось прочитать из сокета заголовок!"));
     }
-    if (!header.ParseFromArray(headerBuffer, headerSize))
+
+    HeaderMsg header;
+    if (!header.ParseFromArray(mHeaderBuffer, mHeaderSize))
     {
         boost::throw_exception(std::runtime_error("Не удалось разобрать заголовок!"));
     }
@@ -103,6 +109,7 @@ void Network::AsynReadMessage(ReadCallBack aCallBack)
                                         boost::asio::placeholders::error,
                                         boost::asio::placeholders::bytes_transferred));
 }
+
 
 void Network::ParseMessage(ReadCallBack aCallBack,
                            const boost::system::error_code& aError,
