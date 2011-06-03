@@ -9,6 +9,7 @@
 
 typedef boost::shared_ptr< const ResponseMsg > ResponsePtr;
 typedef boost::function< void (ResponsePtr) > ReadCallBack;
+const size_t HEADER_BUFFER_SIZE = 8;
 
 class Network: public INetwork
 {
@@ -23,8 +24,13 @@ private:
     void ParseMessage(ReadCallBack aCallBack,
                       const boost::system::error_code& aError,
                       std::size_t aBytesTransferred);
+    void ParseHeader(ReadCallBack aCallBack,
+                     const boost::system::error_code& aError,
+                     std::size_t aBytesTransferred);
     SocketSharedPtr mSocket;
     char* mMessageBuffer;
+    char mHeaderBuffer[HEADER_BUFFER_SIZE];
+    size_t mHeaderSize;
     int mBufferSize;
 };
 
