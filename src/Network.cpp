@@ -76,7 +76,7 @@ void Network::ReadMessage(google::protobuf::Message& aMessage)
 }
 
 
-void Network::AsynReadMessage(ReadCallBack aCallBack)
+void Network::AsyncReadMessage(ResponseCallBack aCallBack)
 {
     boost::asio::async_read(*mSocket, boost::asio::buffer(mHeaderBuffer, mHeaderSize),
                             boost::bind(&Network::ParseHeader,
@@ -85,7 +85,7 @@ void Network::AsynReadMessage(ReadCallBack aCallBack)
                                         boost::asio::placeholders::bytes_transferred));
 }
 
-void Network::ParseHeader(ReadCallBack aCallBack,
+void Network::ParseHeader(ResponseCallBack aCallBack,
                           const boost::system::error_code& aError,
                           std::size_t aBytesTransferred)
 {
@@ -111,7 +111,7 @@ void Network::ParseHeader(ReadCallBack aCallBack,
 }
 
 
-void Network::ParseMessage(ReadCallBack aCallBack,
+void Network::ParseMessage(ResponseCallBack aCallBack,
                            const boost::system::error_code& aError,
                            std::size_t aBytesTransferred)
 {
@@ -129,6 +129,29 @@ void Network::ParseMessage(ReadCallBack aCallBack,
     aCallBack(msg);
     if (msg->type() == RESPONSE_PART)
     {
-        AsynReadMessage(aCallBack);
+        AsyncReadMessage(aCallBack);
     }
+}
+
+void Network::Request(ResponseCallBack aCallBack, RequestPtr aRequestMsg)
+{
+    size_t messageSize = aRequestMsg->ByteSize();
+    AllocBuffer(messageSize);
+    aRequestMsg->SerializeToArray(mMessageBuffer, messageSize);
+
+    HeaderMsg header;
+    header.set_size(messageSize);
+    size_t headerSize = header.ByteSize();
+    header.SerializeToArray(mHeaderBuffer, headerSize);
+
+    if (boost::asio::write(*mSocket, boost::asio::buffer(mHeaderBuffer, headerSize)) != headerSize)
+    {
+        boost::throw_exception(std::runtime_error("Неудалось записать в сокет загловок!"));
+    }
+    if (boost::asio::write(*mSocket, boost::asio::buffer(mMessageBuffer, messageSize)) != messageSize)
+    {
+        boost::throw_exception(std::runtime_error("Неудалось записать в сокет сообщение!"));
+    }
+
+    AsyncReadMessage(aCallBack);
 }

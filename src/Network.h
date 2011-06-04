@@ -8,7 +8,10 @@
 #include <boost/function.hpp>
 
 typedef boost::shared_ptr< const ResponseMsg > ResponsePtr;
-typedef boost::function< void (ResponsePtr) > ReadCallBack;
+typedef boost::function< void (ResponsePtr) > ResponseCallBack;
+
+typedef boost::shared_ptr< const RequestMsg > RequestPtr;
+typedef boost::function< void () > WriteCallBack;
 const size_t HEADER_BUFFER_SIZE = 8;
 
 class Network: public INetwork
@@ -18,13 +21,14 @@ public:
     ~Network();
     virtual void WriteMessage(const google::protobuf::Message& aMessage);
     virtual void ReadMessage(google::protobuf::Message& aMessage);
-    void AsynReadMessage(ReadCallBack aCallBack);
+    void Request(ResponseCallBack aCallBack, RequestPtr aRequestMsg);
 private:
+    void AsyncReadMessage(ResponseCallBack aCallBack);
     void AllocBuffer(int aSize);
-    void ParseMessage(ReadCallBack aCallBack,
+    void ParseMessage(ResponseCallBack aCallBack,
                       const boost::system::error_code& aError,
                       std::size_t aBytesTransferred);
-    void ParseHeader(ReadCallBack aCallBack,
+    void ParseHeader(ResponseCallBack aCallBack,
                      const boost::system::error_code& aError,
                      std::size_t aBytesTransferred);
     SocketSharedPtr mSocket;

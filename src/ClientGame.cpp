@@ -208,21 +208,20 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
 
     if (mSyncTimer.IsTime())
     {
-        RequestMsg req;
-        req.set_type(REQUEST_GET_TIME);
-        req.set_time(mTime);
-        req.set_last(true);
+        boost::shared_ptr<RequestMsg> req(new RequestMsg());
+        req->set_type(REQUEST_GET_TIME);
+        req->set_time(mTime);
+        req->set_last(true);
 
         if (mAvatar->GetTarget())
         {
-            CommandMsg* command = req.add_commands();
+            CommandMsg* command = req->add_commands();
             CommandMoveMsg* move = command->mutable_commandmove();
             move->set_unitid(mAvatar->GetUnitId());
             move->set_position(mAvatar->GetTarget()->GetGridNode().GetTileId());
         }
 
-        mNetwork->WriteMessage(req);
-        mNetwork->AsynReadMessage(boost::bind(&ClientGame::OnResponseMsg, this, _1));
+        mNetwork->Request(boost::bind(&ClientGame::OnResponseMsg, this, _1), req);
     }
 }
 
