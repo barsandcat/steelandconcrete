@@ -36,6 +36,7 @@ private:
     char mHeaderBuffer[HEADER_BUFFER_SIZE];
     size_t mHeaderSize;
     int mBufferSize;
+    bool mAsync;
 };
 
 #endif // NETWORK_H_INCLUDED

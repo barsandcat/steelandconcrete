@@ -82,6 +82,7 @@ private:
     MainMenuSheet* mMainMenu;
     ServerBrowserSheet* mServerBrowserSheet;
     boost::asio::io_service mIOService;
+    boost::shared_ptr< boost::asio::io_service::work > mWork;
 };
 
 #endif // APP_H

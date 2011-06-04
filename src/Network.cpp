@@ -2,9 +2,10 @@
 #include <Network.h>
 
 #include <Header.pb.h>
+#include <ServerLog.h>
 
-
-Network::Network(SocketSharedPtr aSocket): mSocket(aSocket), mMessageBuffer(NULL), mBufferSize(0)
+Network::Network(SocketSharedPtr aSocket): mSocket(aSocket), mMessageBuffer(NULL),
+mBufferSize(0), mAsync(false)
 {
     assert(aSocket);
     HeaderMsg header;
@@ -31,6 +32,11 @@ void Network::AllocBuffer(int aSize)
 
 void Network::WriteMessage(const google::protobuf::Message& aMessage)
 {
+    std::cout << "NET:WriteMessage " << aMessage.ShortDebugString() << std::endl;
+    if (mAsync)
+    {
+        boost::throw_exception(std::runtime_error("Async op in progress"));
+    }
     size_t messageSize = aMessage.ByteSize();
     AllocBuffer(messageSize);
     aMessage.SerializeToArray(mMessageBuffer, messageSize);
@@ -52,6 +58,11 @@ void Network::WriteMessage(const google::protobuf::Message& aMessage)
 
 void Network::ReadMessage(google::protobuf::Message& aMessage)
 {
+    std::cout << "NET:ReadMessage " << aMessage.ShortDebugString() << std::endl;
+    if (mAsync)
+    {
+        boost::throw_exception(std::runtime_error("Async op in progress"));
+    }
     if (boost::asio::read(*mSocket, boost::asio::buffer(mHeaderBuffer, mHeaderSize)) != mHeaderSize)
     {
         boost::throw_exception(std::runtime_error("Не удалось прочитать из сокета заголовок!"));
@@ -89,6 +100,7 @@ void Network::ParseHeader(ResponseCallBack aCallBack,
                           const boost::system::error_code& aError,
                           std::size_t aBytesTransferred)
 {
+    std::cout << "NET:ParseHeader " << aError << " " << aBytesTransferred << std::endl;
     if (aError)
     {
         boost::throw_exception(std::runtime_error("Не удалось прочитать из сокета заголовок!"));
@@ -115,6 +127,7 @@ void Network::ParseMessage(ResponseCallBack aCallBack,
                            const boost::system::error_code& aError,
                            std::size_t aBytesTransferred)
 {
+    std::cout << "NET:ParseMessage " << aError << " " << aBytesTransferred << std::endl;
     if (aError)
     {
         boost::throw_exception(std::runtime_error("Не удалось прочитать из сокета сообщение!"));
@@ -126,15 +139,28 @@ void Network::ParseMessage(ResponseCallBack aCallBack,
         boost::throw_exception(std::runtime_error("Не удалось разобрать сообщение!"));
     }
 
-    aCallBack(msg);
+
     if (msg->type() == RESPONSE_PART)
     {
+        aCallBack(msg);
         AsyncReadMessage(aCallBack);
+    }
+    else
+    {
+        mAsync = false;
+        aCallBack(msg);
     }
 }
 
 void Network::Request(ResponseCallBack aCallBack, RequestPtr aRequestMsg)
 {
+    std::cout << "NET:Request " << aRequestMsg->ShortDebugString() << std::endl;
+    if (mAsync)
+    {
+        boost::throw_exception(std::runtime_error("Async op in progress"));
+    }
+
+    mAsync = true;
     size_t messageSize = aRequestMsg->ByteSize();
     AllocBuffer(messageSize);
     aRequestMsg->SerializeToArray(mMessageBuffer, messageSize);
