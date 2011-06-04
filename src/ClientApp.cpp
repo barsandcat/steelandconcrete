@@ -70,6 +70,8 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     // Ни каких вызовов других функий этого класа, что бы небыло необходимости
     // проверять поля на то что они инициализированы.
     {
+        mWork.reset(new boost::asio::io_service::work(mIOService));
+
         mRoot = new Ogre::Root("", "", "Ogre.log");
         GetLog() << "Init OGRE";
 
@@ -416,7 +418,7 @@ void ClientApp::MainLoop()
             mQuit = true;
             GetLog() << "Window is closed";
         }
-        mIOService.run();
+        mIOService.poll();
 
         frameTime = mRoot->getTimer()->getMicroseconds() - frameStart;
     }
