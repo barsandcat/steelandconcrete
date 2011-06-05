@@ -23,14 +23,16 @@ public:
     virtual void ReadMessage(google::protobuf::Message& aMessage);
     void Request(ResponseCallBack aCallBack, RequestPtr aRequestMsg);
 private:
-    void AsyncReadMessage(ResponseCallBack aCallBack);
     void AllocBuffer(int aSize);
-    void ParseMessage(ResponseCallBack aCallBack,
+    void ReadResponse(ResponseCallBack aCallBack,
                       const boost::system::error_code& aError,
                       std::size_t aBytesTransferred);
     void ParseHeader(ResponseCallBack aCallBack,
                      const boost::system::error_code& aError,
                      std::size_t aBytesTransferred);
+    void ParseMessage(ResponseCallBack aCallBack,
+                      const boost::system::error_code& aError,
+                      std::size_t aBytesTransferred);
     SocketSharedPtr mSocket;
     char* mMessageBuffer;
     char mHeaderBuffer[HEADER_BUFFER_SIZE];

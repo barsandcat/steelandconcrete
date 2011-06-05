@@ -87,8 +87,45 @@ void Network::ReadMessage(google::protobuf::Message& aMessage)
 }
 
 
-void Network::AsyncReadMessage(ResponseCallBack aCallBack)
+void Network::Request(ResponseCallBack aCallBack, RequestPtr aRequestMsg)
 {
+    std::cout << "NET:Request " << aRequestMsg->ShortDebugString() << std::endl;
+    if (mAsync)
+    {
+        boost::throw_exception(std::runtime_error("Async op in progress"));
+    }
+
+    mAsync = true;
+
+    size_t messageSize = aRequestMsg->ByteSize();
+    HeaderMsg header;
+    header.set_size(messageSize);
+    size_t headerSize = header.ByteSize();
+    header.SerializeToArray(mHeaderBuffer, headerSize);
+    AllocBuffer(messageSize);
+    aRequestMsg->SerializeToArray(mMessageBuffer, messageSize);
+
+
+    boost::array<boost::asio::mutable_buffer, 2> bufs = {
+    boost::asio::buffer(mHeaderBuffer, headerSize),
+    boost::asio::buffer(mMessageBuffer, messageSize)};
+
+    boost::asio::async_write(*mSocket, bufs,
+                             boost::bind(&Network::ReadResponse,
+                                         this, aCallBack,
+                                         boost::asio::placeholders::error,
+                                         boost::asio::placeholders::bytes_transferred));
+}
+
+void Network::ReadResponse(ResponseCallBack aCallBack,
+                           const boost::system::error_code& aError,
+                           std::size_t aBytesTransferred)
+{
+    if (aError)
+    {
+        boost::throw_exception(std::runtime_error("Не удалось отправить сообщение!"));
+    }
+
     boost::asio::async_read(*mSocket, boost::asio::buffer(mHeaderBuffer, mHeaderSize),
                             boost::bind(&Network::ParseHeader,
                                         this, aCallBack,
@@ -143,41 +180,11 @@ void Network::ParseMessage(ResponseCallBack aCallBack,
     if (msg->type() == RESPONSE_PART)
     {
         aCallBack(msg);
-        AsyncReadMessage(aCallBack);
+        ReadResponse(aCallBack, aError, aBytesTransferred);
     }
     else
     {
         mAsync = false;
         aCallBack(msg);
     }
-}
-
-void Network::Request(ResponseCallBack aCallBack, RequestPtr aRequestMsg)
-{
-    std::cout << "NET:Request " << aRequestMsg->ShortDebugString() << std::endl;
-    if (mAsync)
-    {
-        boost::throw_exception(std::runtime_error("Async op in progress"));
-    }
-
-    mAsync = true;
-    size_t messageSize = aRequestMsg->ByteSize();
-    AllocBuffer(messageSize);
-    aRequestMsg->SerializeToArray(mMessageBuffer, messageSize);
-
-    HeaderMsg header;
-    header.set_size(messageSize);
-    size_t headerSize = header.ByteSize();
-    header.SerializeToArray(mHeaderBuffer, headerSize);
-
-    if (boost::asio::write(*mSocket, boost::asio::buffer(mHeaderBuffer, headerSize)) != headerSize)
-    {
-        boost::throw_exception(std::runtime_error("Неудалось записать в сокет загловок!"));
-    }
-    if (boost::asio::write(*mSocket, boost::asio::buffer(mMessageBuffer, messageSize)) != messageSize)
-    {
-        boost::throw_exception(std::runtime_error("Неудалось записать в сокет сообщение!"));
-    }
-
-    AsyncReadMessage(aCallBack);
 }
