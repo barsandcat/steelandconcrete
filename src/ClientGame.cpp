@@ -14,8 +14,7 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
     mAvatar(NULL),
     mTime(0),
     mSyncTimer(1000),
-    mNetwork(aNetwork),
-    mReady(false)
+    mNetwork(aNetwork)
 {
     mLoadingSheet.Activate();
 
@@ -207,7 +206,7 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
 {
     mIngameSheet.UpdateStats(aStats);
 
-    if (mReady)
+    if (mSyncTimer.IsTime())
     {
         boost::shared_ptr<RequestMsg> req(new RequestMsg());
         req->set_type(REQUEST_GET_TIME);
@@ -221,7 +220,6 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
             move->set_unitid(mAvatar->GetUnitId());
             move->set_position(mAvatar->GetTarget()->GetGridNode().GetTileId());
         }
-        mReady = false;
         mNetwork->Request(boost::bind(&ClientGame::OnResponseMsg, this, _1), req);
     }
 }
@@ -252,7 +250,6 @@ void ClientGame::OnResponseMsg(ResponsePtr aResponseMsg)
         mTime = aResponseMsg->time();
         mIngameSheet.SetTime(mTime);
         mSyncTimer.Reset(aResponseMsg->update_length());
-        mReady = true;
         break;
     case RESPONSE_PART:
         LoadEvents(aResponseMsg);

@@ -43,7 +43,6 @@ private:
     GameTime mTime;
     SyncTimer mSyncTimer;
     Network* mNetwork;
-    bool mReady;
     std::list< boost::shared_ptr<ResponseMsg> > mMessages;
 };
 
