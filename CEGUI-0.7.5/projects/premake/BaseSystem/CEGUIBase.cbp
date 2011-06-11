@@ -38,10 +38,8 @@
 		</Build>
 		<Compiler>
 			<Add option="-DHAVE_CONFIG_H" />
-			<Add option="-DPCRE_STATIC" />
 			<Add option="-DCEGUIBASE_EXPORTS" />
 			<Add option="-DCEGUI_STATIC" />
-			<Add option="-DTOLUA_STATIC" />
 			<Add directory="../../../cegui/include" />
 		</Compiler>
 		<Linker>

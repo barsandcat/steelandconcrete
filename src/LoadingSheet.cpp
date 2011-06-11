@@ -25,6 +25,4 @@ LoadingSheet::~LoadingSheet()
 
 void LoadingSheet::Activate()
 {
-    ClientApp::GetGuiMgr().setActiveSheet(mSheet);
-    Ogre::Root::getSingleton().renderOneFrame();
 }

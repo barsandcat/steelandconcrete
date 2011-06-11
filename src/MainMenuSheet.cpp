@@ -82,7 +82,6 @@ void MainMenuSheet::BuildSheet()
 
 void MainMenuSheet::Activate()
 {
-    ClientApp::GetGuiMgr().setActiveSheet(mSheet);
 }
 
 MainMenuSheet::~MainMenuSheet()

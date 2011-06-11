@@ -21,13 +21,6 @@ char ClientApp::UK[] = "LANGUAGE=uk";
 char ClientApp::JA[] = "LANGUAGE=ja";
 
 
-QuickGUI::GUIManager& ClientApp::GetGuiMgr()
-{
-    assert(ClientApp::mGUIManager && "ClientApp::GetGuiMgr() \
-        нельзя вызывать в конструктори и деструкторе ClientApp!");
-    return *ClientApp::mGUIManager;
-}
-
 Ogre::SceneManager& ClientApp::GetSceneMgr()
 {
     assert(ClientApp::mSceneMgr && "ClientApp::GetSceneMgr() \
@@ -54,13 +47,13 @@ void ClientApp::Quit()
     mQuit = true;
 }
 
-QuickGUI::GUIManager* ClientApp::mGUIManager = NULL;
 Ogre::SceneManager* ClientApp::mSceneMgr = NULL;
 OgreAL::SoundManager* ClientApp::mSoundManager = NULL;
 BirdCamera* ClientApp::mBirdCamera = NULL;
 bool ClientApp::mQuit = false;
 
 ClientApp::ClientApp(const Ogre::String aConfigFile):
+    mCEGUIRenderer(NULL),
     mMouse(NULL),
     mKeyboard(NULL),
     mJoy(NULL),
@@ -202,32 +195,8 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     }
 
     {
-        GetLog() << "Init QuickGUI";
-
-        new QuickGUI::Root();
-        QuickGUI::SkinTypeManager::getSingleton().loadTypes();
-
-        QuickGUI::GUIManagerDesc d;
-        d.sceneManager = mSceneMgr;
-        d.viewport = mBirdCamera->GetViewPort();
-        d.queueID = Ogre::RENDER_QUEUE_OVERLAY;
-        mGUIManager = QuickGUI::Root::getSingletonPtr()->createGUIManager(d);
-    }
-
-    {
-        GetLog() << "Init app UI";
-        mMainMenu = new MainMenuSheet();
-        mServerBrowserSheet = new ServerBrowserSheet();
-        mGUIManager->notifyViewportDimensionsChanged();
-        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnBrowse", &ClientApp::OnBrowse, this);
-        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnConnect", &ClientApp::OnConnect, this);
-        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnCreate", &ClientApp::OnCreate, this);
-        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnMainMenu", &ClientApp::OnMainMenu, this);
-        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnClick", &ClientApp::OnClick, this);
-        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnEnglish", &ClientApp::OnEnglish, this);
-        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnRussian", &ClientApp::OnRussian, this);
-        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnUkranian", &ClientApp::OnUkranian, this);
-        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnJapanese", &ClientApp::OnJapanese, this);
+        GetLog() << "Init CEGUI";
+        mCEGUIRenderer = &CEGUI::OgreRenderer::bootstrapSystem();
     }
 #if OGRE_PROFILING
     Ogre::Profiler::getSingleton().setEnabled(true);
@@ -442,15 +411,6 @@ void ClientApp::UpdateOISMouseClipping(Ogre::RenderWindow* rw)
 
 void ClientApp::UpdateSheetSize(Ogre::RenderWindow* rw)
 {
-    mGUIManager->notifyViewportDimensionsChanged();
-    unsigned int width, height, depth;
-    int left, top;
-    rw->getMetrics(width, height, depth, left, top);
-    QuickGUI::Sheet* sheet = mGUIManager->getActiveSheet();
-    if (sheet)
-    {
-        sheet->setDimensions(QuickGUI::Rect(0, 0, width, height));
-    }
 }
 
 
@@ -505,9 +465,6 @@ bool ClientApp::keyPressed(const OIS::KeyEvent &arg)
 
     }
 
-    mGUIManager->injectChar(static_cast<Ogre::UTFString::unicode_char>(arg.text));
-    mGUIManager->injectKeyDown(static_cast<QuickGUI::KeyCode>(arg.key));
-
     return true;
 }
 
@@ -537,26 +494,17 @@ bool ClientApp::keyReleased(const OIS::KeyEvent &arg)
         ;
     }
 
-    mGUIManager->injectKeyUp(static_cast<QuickGUI::KeyCode>(arg.key));
-
     return true;
 }
 
 bool ClientApp::mouseMoved(const OIS::MouseEvent &arg)
 {
-    mGUIManager->injectMousePosition(arg.state.X.abs, arg.state.Y.abs);
-
-    float z = arg.state.Z.rel;
-    if (z != 0)
-        mGUIManager->injectMouseWheelChange(z);
-
     return true;
 }
 
 bool ClientApp::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
-    bool res = mGUIManager->injectMouseButtonDown(static_cast<QuickGUI::MouseButtonID>(id));
-    if (!res && mGame)
+   if (mGame)
     {
         switch (id)
         {
@@ -575,8 +523,6 @@ bool ClientApp::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 
 bool ClientApp::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
-    mGUIManager->injectMouseButtonUp(static_cast<QuickGUI::MouseButtonID>(id));
-
     return true;
 }
 

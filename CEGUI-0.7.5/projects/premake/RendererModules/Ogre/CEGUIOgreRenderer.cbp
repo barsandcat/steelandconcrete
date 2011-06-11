@@ -40,7 +40,6 @@
 			<Add option="-DHAVE_CONFIG_H" />
 			<Add option="-DOGRE_GUIRENDERER_EXPORTS" />
 			<Add option="-DCEGUI_STATIC" />
-			<Add option="-DTOLUA_STATIC" />
 			<Add directory="../../../../cegui/include" />
 			<Add directory="../../../../cegui/include/RendererModules/Ogre/" />
 			<Add directory="../../../../../ogre/ogre_1.7.3/OgreMain/include" />
