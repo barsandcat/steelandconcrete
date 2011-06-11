@@ -1,7 +1,6 @@
 #ifndef APP_H
 #define APP_H
 
-#include <OgreWindowCallback.h>
 #include <ClientGeodesicGrid.h>
 #include <ClientGame.h>
 
@@ -11,20 +10,16 @@
 
 #include <QuickGUI.h>
 #include <BirdCamera.h>
-#include <MainMenuSheet.h>
-#include <ServerBrowserSheet.h>
 
 void LaunchServer();
 
-class ClientApp: public OIS::KeyListener, public OIS::MouseListener, public OIS::JoyStickListener
+class ClientApp: public OIS::KeyListener, public OIS::MouseListener, public OIS::JoyStickListener,
+                 public Ogre::WindowEventListener
 {
 public:
     ClientApp(const Ogre::String aConfigFile);
     virtual ~ClientApp();
     void MainLoop();
-    void UpdateOISMouseClipping(Ogre::RenderWindow* rw);
-    void UpdateSheetSize(Ogre::RenderWindow* rw);
-    void DestroyOIS(Ogre::RenderWindow* rw);
 
     void OnClick(const QuickGUI::EventArgs& args);
     void OnConnect(const QuickGUI::EventArgs& args);
@@ -36,6 +31,12 @@ public:
     void OnJapanese(const QuickGUI::EventArgs& args);
     void OnMainMenu(const QuickGUI::EventArgs& args);
 
+    static Ogre::SceneManager& GetSceneMgr();
+    static OgreAL::SoundManager& GetSoundMgr();
+    static void Quit();
+    static BirdCamera& GetCamera();
+public:
+    // OIS callbacks
     virtual bool buttonPressed(const OIS::JoyStickEvent &arg, int button)
     {
         return true;
@@ -53,11 +54,9 @@ public:
     virtual bool mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
     virtual bool keyPressed(const OIS::KeyEvent& arg);
     virtual bool keyReleased(const OIS::KeyEvent& arg);
-
-    static Ogre::SceneManager& GetSceneMgr();
-    static OgreAL::SoundManager& GetSoundMgr();
-    static void Quit();
-    static BirdCamera& GetCamera();
+    // Ogre call backs
+    virtual void windowResized(Ogre::RenderWindow* rw);
+    virtual void windowClosed(Ogre::RenderWindow* rw);
 private:
     static Ogre::SceneManager* mSceneMgr;
     static OgreAL::SoundManager* mSoundManager;
@@ -73,7 +72,6 @@ private:
     Ogre::Root* mRoot;
     Ogre::Plugin* mOctreePlugin;
     Ogre::Plugin* mGLPlugin;
-    OgreWindowCallback* mWindowEventListener;
     Ogre::RenderWindow* mWindow;
     //OIS Input devices
     OIS::InputManager* mInputManager;
@@ -82,8 +80,6 @@ private:
     OIS::JoyStick* mJoy;
 
     ClientGame* mGame;
-    MainMenuSheet* mMainMenu;
-    ServerBrowserSheet* mServerBrowserSheet;
     boost::asio::io_service mIOService;
     boost::shared_ptr< boost::asio::io_service::work > mWork;
 };
