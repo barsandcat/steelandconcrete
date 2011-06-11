@@ -6,57 +6,9 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Debug">
-				<Option output="../../../../bin/libCEGUIFreeImageImageCodec_d.so" prefix_auto="0" extension_auto="0" />
-				<Option object_output="obj/Debug" />
-				<Option type="3" />
-				<Option compiler="gcc" />
-				<Option createDefFile="0" />
-				<Option createStaticLib="1" />
-				<Compiler>
-					<Add option="-g" />
-					<Add option="-D_CRT_SECURE_NO_DEPRECATE" />
-					<Add option="-DHAVE_CONFIG_H" />
-					<Add option="-DCEGUIFREEIMAGEIMAGECODEC_EXPORTS" />
-					<Add option="-D_DEBUG" />
-					<Add directory="../../../../cegui/include" />
-					<Add directory="../../../../dependencies/include" />
-					<Add directory="../../../../cegui/include/ImageCodecModules/FreeImageImageCodec/" />
-				</Compiler>
-				<Linker>
-					<Add directory="../../../../bin" />
-					<Add directory="../../../../dependencies/lib/dynamic" />
-					<Add library="CEGUIBase_d" />
-					<Add library="FreeImaged" />
-				</Linker>
-			</Target>
-			<Target title="Release">
-				<Option output="../../../../bin/libCEGUIFreeImageImageCodec.so" prefix_auto="0" extension_auto="0" />
-				<Option object_output="obj/Release" />
-				<Option type="3" />
-				<Option compiler="gcc" />
-				<Option createDefFile="0" />
-				<Option createStaticLib="1" />
-				<Compiler>
-					<Add option="-fomit-frame-pointer" />
-					<Add option="-O3" />
-					<Add option="-D_CRT_SECURE_NO_DEPRECATE" />
-					<Add option="-DHAVE_CONFIG_H" />
-					<Add option="-DCEGUIFREEIMAGEIMAGECODEC_EXPORTS" />
-					<Add directory="../../../../cegui/include" />
-					<Add directory="../../../../dependencies/include" />
-					<Add directory="../../../../cegui/include/ImageCodecModules/FreeImageImageCodec/" />
-				</Compiler>
-				<Linker>
-					<Add option="-s" />
-					<Add directory="../../../../bin" />
-					<Add directory="../../../../dependencies/lib/dynamic" />
-					<Add library="CEGUIBase" />
-					<Add library="FreeImage" />
-				</Linker>
-			</Target>
 			<Target title="Debug_Static">
 				<Option output="../../../../lib/libCEGUIFreeImageImageCodec_Static_d.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
 				<Option object_output="obj/Debug_Static" />
 				<Option type="2" />
 				<Option compiler="gcc" />
@@ -74,13 +26,14 @@
 					<Add directory="../../../../cegui/include/ImageCodecModules/FreeImageImageCodec/" />
 				</Compiler>
 				<Linker>
+					<Add library="CEGUIBase_Static_d" />
 					<Add directory="../../../../bin" />
 					<Add directory="../../../../dependencies/lib/static" />
-					<Add library="CEGUIBase_Static_d" />
 				</Linker>
 			</Target>
 			<Target title="Release_Static">
 				<Option output="../../../../lib/libCEGUIFreeImageImageCodec_Static.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
 				<Option object_output="obj/Release_Static" />
 				<Option type="2" />
 				<Option compiler="gcc" />
@@ -99,40 +52,20 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="CEGUIBase_Static" />
 					<Add directory="../../../../bin" />
 					<Add directory="../../../../dependencies/lib/static" />
-					<Add library="CEGUIBase_Static" />
 				</Linker>
 			</Target>
 		</Build>
-		<Unit filename="../../../../cegui/src/ImageCodecModules/FreeImageImageCodec/CEGUIFreeImageImageCodec.cpp">
-			<Option compilerVar="CPP" />
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="Debug_Static" />
-			<Option target="Release_Static" />
-		</Unit>
-		<Unit filename="../../../../cegui/src/ImageCodecModules/FreeImageImageCodec/CEGUIFreeImageImageCodecModule.cpp">
-			<Option compilerVar="CPP" />
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="Debug_Static" />
-			<Option target="Release_Static" />
-		</Unit>
-		<Unit filename="../../../../cegui/include/ImageCodecModules/FreeImageImageCodec/CEGUIFreeImageImageCodec.h">
-			<Option compilerVar="CPP" />
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="Debug_Static" />
-			<Option target="Release_Static" />
-		</Unit>
-		<Unit filename="../../../../cegui/include/ImageCodecModules/FreeImageImageCodec/CEGUIFreeImageImageCodecModule.h">
-			<Option compilerVar="CPP" />
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="Debug_Static" />
-			<Option target="Release_Static" />
-		</Unit>
-		<Extensions />
+		<Unit filename="../../../../cegui/include/ImageCodecModules/FreeImageImageCodec/CEGUIFreeImageImageCodec.h" />
+		<Unit filename="../../../../cegui/include/ImageCodecModules/FreeImageImageCodec/CEGUIFreeImageImageCodecModule.h" />
+		<Unit filename="../../../../cegui/src/ImageCodecModules/FreeImageImageCodec/CEGUIFreeImageImageCodec.cpp" />
+		<Unit filename="../../../../cegui/src/ImageCodecModules/FreeImageImageCodec/CEGUIFreeImageImageCodecModule.cpp" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<debugger />
+		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
