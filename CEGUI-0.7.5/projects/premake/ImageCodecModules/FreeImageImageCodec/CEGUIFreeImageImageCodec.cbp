@@ -7,9 +7,9 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="../../../../lib/libCEGUIFreeImageImageCodec_d.a" prefix_auto="0" extension_auto="0" />
+				<Option output="../../../../../lib/libCEGUIFreeImageImageCodec_d.a" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="" />
-				<Option object_output="../../../../obj/CEGUIFreeImageCodecDebugLinux" />
+				<Option object_output="../../../../../obj/CEGUIFreeImageCodecDebugLinux" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -18,14 +18,12 @@
 				</Compiler>
 				<Linker>
 					<Add option="-pg" />
-					<Add directory="../../../../bin" />
-					<Add directory="../../../../dependencies/lib/static" />
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="../../../../lib/libCEGUIFreeImageImageCodec.a" prefix_auto="0" extension_auto="0" />
+				<Option output="../../../../../lib/libCEGUIFreeImageImageCodec.a" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="" />
-				<Option object_output="../../../../obj/CEGUIFreeImageCodecReleaseLinux" />
+				<Option object_output="../../../../../obj/CEGUIFreeImageCodecReleaseLinux" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -35,8 +33,6 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add directory="../../../../bin" />
-					<Add directory="../../../../dependencies/lib/static" />
 				</Linker>
 			</Target>
 		</Build>
