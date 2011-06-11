@@ -27,6 +27,11 @@
 					<Add library="protobuf_d" />
 					<Add library="QuickGUI_d" />
 					<Add library="boost_filesystemDebug" />
+					<Add library="CEGUIOgreRenderer_d" />
+					<Add library="CEGUITinyXMLParser_d" />
+					<Add library="CEGUIFalagardWRBase_d" />
+					<Add library="CEGUIFreeImageImageCodec_d" />
+					<Add library="CEGUIBase_d" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -50,6 +55,8 @@
 					<Add library="protobuf" />
 					<Add library="QuickGUI" />
 					<Add library="boost_filesystemRelease" />
+					<Add library="CEGUIBase" />
+					<Add library="CEGUIOgreRenderer" />
 				</Linker>
 			</Target>
 		</Build>
@@ -59,6 +66,7 @@
 			<Add option="-Wsign-compare" />
 			<Add option="-Wunused-variable" />
 			<Add option="-DBOOST_ALL_NO_LIB=1" />
+			<Add option="-DCEGUI_STATIC" />
 			<Add directory="src" />
 			<Add directory="betagui2" />
 			<Add directory="ogre/build/include" />
@@ -74,6 +82,7 @@
 			<Add directory="SAL" />
 			<Add directory="QuickGUI_10_1/QuickGUI/include" />
 			<Add directory="boost/boost_1_46_1" />
+			<Add directory="CEGUI-0.7.5/cegui/include" />
 		</Compiler>
 		<Linker>
 			<Add library="pthread" />
@@ -164,6 +173,7 @@
 				<lib name="vorbisfile" />
 				<lib name="xaw7" />
 				<lib name="xrandr" />
+				<lib name="libpcre" />
 			</lib_finder>
 			<DoxyBlocks>
 				<comment_style block="0" line="0" />

@@ -6,6 +6,9 @@
 #include <ClientGame.h>
 
 #include <OgreAL.h>
+#include <CEGUI.h>
+#include <RendererModules/Ogre/CEGUIOgreRenderer.h>
+
 #include <QuickGUI.h>
 #include <BirdCamera.h>
 #include <MainMenuSheet.h>
@@ -51,13 +54,11 @@ public:
     virtual bool keyPressed(const OIS::KeyEvent& arg);
     virtual bool keyReleased(const OIS::KeyEvent& arg);
 
-    static QuickGUI::GUIManager& GetGuiMgr();
     static Ogre::SceneManager& GetSceneMgr();
     static OgreAL::SoundManager& GetSoundMgr();
     static void Quit();
     static BirdCamera& GetCamera();
 private:
-    static QuickGUI::GUIManager* mGUIManager;
     static Ogre::SceneManager* mSceneMgr;
     static OgreAL::SoundManager* mSoundManager;
     static BirdCamera* mBirdCamera;
@@ -66,6 +67,8 @@ private:
     static char EN[];
     static char UK[];
     static char JA[];
+
+    CEGUI::OgreRenderer* mCEGUIRenderer;
 
     Ogre::Root* mRoot;
     Ogre::Plugin* mOctreePlugin;

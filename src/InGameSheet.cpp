@@ -52,7 +52,5 @@ InGameSheet::~InGameSheet()
 
 void InGameSheet::Activate()
 {
-    ClientApp::GetGuiMgr().setActiveSheet(mSheet);
-    Ogre::Root::getSingleton().renderOneFrame();
 }
 

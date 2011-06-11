@@ -41,7 +41,6 @@
 			<Add option="-DFALAGARDWRBASE_EXPORTS" />
 			<Add option="-DCEGUIWRMODULE_EXPORTS" />
 			<Add option="-DCEGUI_STATIC" />
-			<Add option="-DTOLUA_STATIC" />
 			<Add directory="../../../../cegui/include" />
 			<Add directory="../../../../dependencies/include" />
 			<Add directory="../../../../cegui/include/WindowRendererSets/Falagard/" />

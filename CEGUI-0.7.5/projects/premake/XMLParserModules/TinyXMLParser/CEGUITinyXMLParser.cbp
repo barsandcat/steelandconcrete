@@ -36,7 +36,6 @@
 			<Add option="-DHAVE_CONFIG_H" />
 			<Add option="-DCEGUITINYXMLPARSER_EXPORTS" />
 			<Add option="-DCEGUI_STATIC" />
-			<Add option="-DTOLUA_STATIC" />
 			<Add directory="../../../../cegui/include" />
 			<Add directory="../../../../dependencies/include" />
 			<Add directory="../../../../cegui/include/XMLParserModules/TinyXMLParser/" />
