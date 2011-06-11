@@ -5,7 +5,7 @@
 --- These control whether certain build configurations will be available in the
 --- generated solutions.  You can set to false (or comment) any build configs
 --- you will not be using.
-WANT_RELEASE_WITH_SYMBOLS_BUILD = true
+WANT_RELEASE_WITH_SYMBOLS_BUILD = false
 WANT_STATIC_BUILD = true
 
 --- This controls which version of the C/C++ runtime and which version of the
@@ -32,8 +32,8 @@ FULLY_CHECKED_DEBUG_ITERATORS = true
 -- { base, include_suffix, library_suffix }
 -- base can be absolute or relative to the root cegui_mk2 dir
 IRRLICHT_PATHS = { "irrlicht-1.7.1", "include", "lib/Win32-visualstudio" }
-OGRE_PATHS = { "C:/OgreSDK", "include", "lib" }
-OIS_PATHS = { "C:/OgreSDK", "include/OIS", "lib" }
+OGRE_PATHS = { "../ogre/ogre_1.7.3/OgreMain", "include", "lib" }
+OIS_PATHS = { "../ois-v1-3", "includes", "lib" }
 -- Set this to where your RapidXML package headers are to be found
 RAPIDXML_PATHS = { "rapidxml-1.13", "", "" }
 
@@ -105,7 +105,7 @@ CEGUI_USE_DEFAULT_LOGGER = true
 --- With bidirectional support enabled, CEGUI_USE_MINIBIDI then controls whether
 --- that support is provided viaan embedded copy of minibidi (true) or an
 --- external copy of the fribidi library (false).
-CEGUI_BIDI_SUPPORT = false;
+CEGUI_BIDI_SUPPORT = true;
 CEGUI_USE_MINIBIDI = true;
 
 --- MinizipResourceProvider
@@ -119,28 +119,28 @@ MINIZIP_RESOURCE_PROVIDER = true
 -------------
 -- Renderers
 -- this controls which renderer modules are built
-OPENGL_RENDERER = true
-DIRECT3D9_RENDERER = true
+OPENGL_RENDERER = false
+DIRECT3D9_RENDERER = false
 DIRECT3D10_RENDERER = false
 DIRECT3D11_RENDERER = false
 IRRLICHT_RENDERER = false
-OGRE_RENDERER = false
+OGRE_RENDERER = true
 NULL_RENDERER = false
 
 ----------------
 -- Image Codecs
 -- this controls which image codecs are built
-TGA_IMAGE_CODEC = true
-SILLY_IMAGE_CODEC = true
-DEVIL_IMAGE_CODEC = true
+TGA_IMAGE_CODEC = false
+SILLY_IMAGE_CODEC = false
+DEVIL_IMAGE_CODEC = false
 FREEIMAGE_IMAGE_CODEC = true
-CORONA_IMAGE_CODEC = true
-STB_IMAGE_CODEC = true
+CORONA_IMAGE_CODEC = false
+STB_IMAGE_CODEC = false
 
 -- this setting selects the default image codec module
 -- can be either "tga", "silly", "devil", "freeimage", "stb" or "corona"
 -- SILLY was written for CEGUI
-DEFAULT_IMAGE_CODEC = "silly"
+DEFAULT_IMAGE_CODEC = "freeimage"
 
 ---------------
 -- Window Renderers
@@ -157,21 +157,21 @@ DEFAULT_WINDOW_RENDERER = "falagard"
 ---------------
 -- XML parsers
 -- this controls which xml parser modules are built
-EXPAT_PARSER = true
+EXPAT_PARSER = false
 XERCES_PARSER = false
-TINYXML_PARSER = false
+TINYXML_PARSER = true
 RAPIDXML_PARSER = false
 LIBXML_PARSER = false
 
 -- this selects the default XML parser module
 -- can be either "expat", "xerces", "tinyxml", "rapidxml" or "libxml"
-DEFAULT_XML_PARSER = "expat"
+DEFAULT_XML_PARSER = "tinyxml"
 
 
 -------
 -- Lua
 -- this controls whether CEGUILua is enabled
-LUA_SCRIPT_MODULE = true
+LUA_SCRIPT_MODULE = false
 
 -- disable this for a smaller and faster, but less safe Lua module
 -- only affects Release builds. Debug and ReleaseWithSymbols always
@@ -192,8 +192,8 @@ PYTHON_EXTENSION_MODULE = false
 -- Samples
 -- remember you have to edit CEGUISamplesConfig.h as well this just controls
 -- dependencies etc. if the renderer is disabled this has no effect
-SAMPLES_GL = true
-SAMPLES_DX9 = true
+SAMPLES_GL = false
+SAMPLES_DX9 = false
 SAMPLES_DX10 = false
 SAMPLES_IRRLICHT = false
 SAMPLES_OGRE = false

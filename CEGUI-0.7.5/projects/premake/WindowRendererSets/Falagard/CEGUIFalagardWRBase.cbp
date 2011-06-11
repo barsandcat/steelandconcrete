@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="CEGUIFalagardWRBase" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../../../bin/libCEGUIFalagardWRBase_d.so" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj/Debug" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="0" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_CRT_SECURE_NO_DEPRECATE" />
+					<Add option="-DHAVE_CONFIG_H" />
+					<Add option="-DFALAGARDWRBASE_EXPORTS" />
+					<Add option="-DCEGUIWRMODULE_EXPORTS" />
+					<Add option="-D_DEBUG" />
+					<Add directory="../../../../cegui/include" />
+					<Add directory="../../../../dependencies/include" />
+					<Add directory="../../../../cegui/include/WindowRendererSets/Falagard/" />
+				</Compiler>
+				<Linker>
+					<Add directory="../../../../bin" />
+					<Add directory="../../../../dependencies/lib/dynamic" />
+					<Add library="CEGUIBase_d" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../../../bin/libCEGUIFalagardWRBase.so" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj/Release" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="0" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-O3" />
+					<Add option="-D_CRT_SECURE_NO_DEPRECATE" />
+					<Add option="-DHAVE_CONFIG_H" />
+					<Add option="-DFALAGARDWRBASE_EXPORTS" />
+					<Add option="-DCEGUIWRMODULE_EXPORTS" />
+					<Add directory="../../../../cegui/include" />
+					<Add directory="../../../../dependencies/include" />
+					<Add directory="../../../../cegui/include/WindowRendererSets/Falagard/" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add directory="../../../../bin" />
+					<Add directory="../../../../dependencies/lib/dynamic" />
+					<Add library="CEGUIBase" />
+				</Linker>
+			</Target>
+			<Target title="Debug_Static">
+				<Option output="../../../../lib/libCEGUIFalagardWRBase_Static_d.a" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj/Debug_Static" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_CRT_SECURE_NO_DEPRECATE" />
+					<Add option="-DHAVE_CONFIG_H" />
+					<Add option="-DFALAGARDWRBASE_EXPORTS" />
+					<Add option="-DCEGUIWRMODULE_EXPORTS" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DCEGUI_STATIC" />
+					<Add option="-DTOLUA_STATIC" />
+					<Add directory="../../../../cegui/include" />
+					<Add directory="../../../../dependencies/include" />
+					<Add directory="../../../../cegui/include/WindowRendererSets/Falagard/" />
+				</Compiler>
+				<Linker>
+					<Add directory="../../../../bin" />
+					<Add directory="../../../../dependencies/lib/static" />
+					<Add library="CEGUIBase_Static_d" />
+				</Linker>
+			</Target>
+			<Target title="Release_Static">
+				<Option output="../../../../lib/libCEGUIFalagardWRBase_Static.a" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj/Release_Static" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-O3" />
+					<Add option="-D_CRT_SECURE_NO_DEPRECATE" />
+					<Add option="-DHAVE_CONFIG_H" />
+					<Add option="-DFALAGARDWRBASE_EXPORTS" />
+					<Add option="-DCEGUIWRMODULE_EXPORTS" />
+					<Add option="-DCEGUI_STATIC" />
+					<Add option="-DTOLUA_STATIC" />
+					<Add directory="../../../../cegui/include" />
+					<Add directory="../../../../dependencies/include" />
+					<Add directory="../../../../cegui/include/WindowRendererSets/Falagard/" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add directory="../../../../bin" />
+					<Add directory="../../../../dependencies/lib/static" />
+					<Add library="CEGUIBase_Static" />
+				</Linker>
+			</Target>
+		</Build>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalStaticTextProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalMultiLineEditboxProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalTree.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalMultiLineEditbox.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalListHeaderSegment.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalListbox.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalEditboxProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalItemListbox.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalPopupMenu.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalFrameWindow.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalButton.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalScrollbar.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalMenubar.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalSystemButton.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalProgressBar.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalTabButton.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalTabControlProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalStaticText.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalScrollbarProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalScrollablePane.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalTitlebar.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalListHeaderProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalItemEntry.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalToggleButton.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalSlider.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalTabControl.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalMultiColumnList.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalModule.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalTooltip.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalStaticImage.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalMenuItem.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalStaticImageProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalProgressBarProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalDefault.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalEditbox.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalStaticProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalStatic.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalListHeader.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalSliderProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalScrollablePane.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalMultiLineEditboxProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalButton.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalTitlebar.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalStaticImage.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalTabButton.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalModule.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalTabControl.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalTabControlProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalStaticTextProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalItemListbox.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalEditbox.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalMenuItem.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalSlider.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalScrollbar.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalPopupMenu.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalScrollbarProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalToggleButton.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalListHeaderProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalEditboxProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalTooltip.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalStaticImageProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalProgressBarProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalSliderProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalStatic.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalDefault.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalSystemButton.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalProgressBar.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalTree.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalFrameWindow.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalMultiColumnList.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalListbox.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalMenubar.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalListHeader.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalItemEntry.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalStaticProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalMultiLineEditbox.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalListHeaderSegment.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalStaticText.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,2973 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="CEGUIBase" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../../bin/libCEGUIBase_d.so" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj/Debug" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="0" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_CRT_SECURE_NO_DEPRECATE" />
+					<Add option="-DHAVE_CONFIG_H" />
+					<Add option="-DPCRE_STATIC" />
+					<Add option="-DCEGUIBASE_EXPORTS" />
+					<Add option="-D_DEBUG" />
+					<Add directory="../../../cegui/include" />
+					<Add directory="../../../dependencies/include" />
+				</Compiler>
+				<Linker>
+					<Add directory="../../../bin" />
+					<Add directory="../../../dependencies/lib/dynamic" />
+					<Add library="freetype_D" />
+					<Add library="pcre_d" />
+					<Add library="zlib_d" />
+					<Add library="Winmm" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../../bin/libCEGUIBase.so" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj/Release" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="0" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-O3" />
+					<Add option="-D_CRT_SECURE_NO_DEPRECATE" />
+					<Add option="-DHAVE_CONFIG_H" />
+					<Add option="-DPCRE_STATIC" />
+					<Add option="-DCEGUIBASE_EXPORTS" />
+					<Add directory="../../../cegui/include" />
+					<Add directory="../../../dependencies/include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add directory="../../../bin" />
+					<Add directory="../../../dependencies/lib/dynamic" />
+					<Add library="freetype" />
+					<Add library="pcre" />
+					<Add library="zlib" />
+					<Add library="Winmm" />
+				</Linker>
+			</Target>
+			<Target title="Debug_Static">
+				<Option output="../../../lib/libCEGUIBase_Static_d.a" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj/Debug_Static" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_CRT_SECURE_NO_DEPRECATE" />
+					<Add option="-DHAVE_CONFIG_H" />
+					<Add option="-DPCRE_STATIC" />
+					<Add option="-DCEGUIBASE_EXPORTS" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DCEGUI_STATIC" />
+					<Add option="-DTOLUA_STATIC" />
+					<Add directory="../../../cegui/include" />
+					<Add directory="../../../dependencies/include" />
+				</Compiler>
+				<Linker>
+					<Add directory="../../../bin" />
+					<Add directory="../../../dependencies/lib/static" />
+				</Linker>
+			</Target>
+			<Target title="Release_Static">
+				<Option output="../../../lib/libCEGUIBase_Static.a" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj/Release_Static" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-O3" />
+					<Add option="-D_CRT_SECURE_NO_DEPRECATE" />
+					<Add option="-DHAVE_CONFIG_H" />
+					<Add option="-DPCRE_STATIC" />
+					<Add option="-DCEGUIBASE_EXPORTS" />
+					<Add option="-DCEGUI_STATIC" />
+					<Add option="-DTOLUA_STATIC" />
+					<Add directory="../../../cegui/include" />
+					<Add directory="../../../dependencies/include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add directory="../../../bin" />
+					<Add directory="../../../dependencies/lib/static" />
+				</Linker>
+			</Target>
+		</Build>
+		<Unit filename="../../../cegui/src/CEGUIAffector.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIString.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIEventSet.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIWindowFactory.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIChainedXMLHandler.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUISize.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIPixmapFont.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIProperty.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUITextUtils.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIRenderedStringWidgetComponent.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIWindowRendererManager.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIRenderedStringTextComponent.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIAnimationManager.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIBiDiVisualMapping.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIRenderingWindow.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIBase.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIFontProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIPropertyHelper.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIcolour.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIImageCodec.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIRenderedString.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIWindowRendererModule.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIBasicInterpolators.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIJustifiedRenderedString.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIPCRERegexMatcher.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIMouseCursor.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIWindow.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUICoordConverter.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIAnimation_xmlHandler.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIXMLHandler.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIDataContainer.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIJustifiedRenderedStringWordWrapper.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUISubscriberSlot.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIBoundSlot.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIMinizipResourceProvider.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIPropertySet.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIMinibidiVisualMapping.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIKeyFrame.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIRect.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIEventSignal.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIRenderedStringImageComponent.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIEventSignalSet.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIFont_xmlHandler.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIScheme.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIColourRect.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIImage.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIXMLAttributes.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIGlobalEventSet.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIDefaultResourceProvider.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIRenderingRoot.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIWindowManager.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIRenderEffectManager.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIWindowFactoryManager.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUILeftAlignedRenderedString.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIScheme_xmlHandler.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUINamedXMLResourceManager.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIXMLSerializer.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIFormattedRenderedString.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUISystem.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIConfig_xmlHandler.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIExceptions.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIDefaultLogger.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIXMLParser.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIWRFactoryRegisterer.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIGeometryBuffer.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIRenderedStringComponent.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIBasicRenderedStringParser.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUISchemeManager.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIFont.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIDefaultRenderedStringParser.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIImageset.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIRightAlignedRenderedString.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUILogger.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIDynamicModule.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIWindowProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUICentredRenderedString.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIRenderQueue.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIFontManager.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIImageset_xmlHandler.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIWindowRenderer.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIRenderingSurface.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIFactoryModule.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIGUILayout_xmlHandler.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIImagesetManager.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIEventArgs.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIAnimation.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIEvent.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIScriptModule.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIFreeTypeFont.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/CEGUIAnimationInstance.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRenderingWindow.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUISchemeManager.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIForwardRefs.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/config.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIKeyFrame.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIAnimationManager.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIPropertySet.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIInputEvent.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIDefaultLogger.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIWindowManager.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUITextureTarget.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIWindowFactory.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRenderedStringParser.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIBoundSlot.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIFreeFunctionSlot.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUITextUtils.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIScheme_xmlHandler.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIWindowRendererModule.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIDefaultResourceProvider.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIGUILayout_xmlHandler.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIVersion.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRenderTarget.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIAnimation.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIResourceProvider.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIWRFactoryRegisterer.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIBasicInterpolators.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIBiDiVisualMapping.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIPCRERegexMatcher.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIEventArgs.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUISingleton.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIWidgetModule.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIVector.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIFactoryModule.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIImageCodec.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIExceptions.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIString.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRenderedString.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIColourRect.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIImageset.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIConfig_xmlHandler.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRefCounted.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRenderQueue.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIFunctorReferenceBinder.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUISubscriberSlot.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIEventSet.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUICentredRenderedString.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRenderedStringTextComponent.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUITplWindowFactory.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIBase.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIAnimation_xmlHandler.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUISystem.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIWindowProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUICoordConverter.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIDefaultRenderedStringParser.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIMemberFunctionSlot.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIDynamicModule.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIFunctorPointerSlot.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRenderEffectFactory.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUINamedXMLResourceManager.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRegexMatcher.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIDataContainer.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIFont.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIImageset_xmlHandler.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIFontManager.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIAnimationInstance.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRenderer.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIFreeTypeFont.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIFunctorCopySlot.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRightAlignedRenderedString.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUILeftAlignedRenderedString.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIWindowRendererManager.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUISize.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRenderingSurface.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIEvent.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRenderingRoot.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIImagesetManager.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIImage.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIXMLSerializer.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUITexture.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUILogger.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIFribidiVisualMapping.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIXMLAttributes.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRenderedStringWordWrapper.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIUDim.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIPropertyHelper.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRenderedStringWidgetComponent.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRenderEffect.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIFunctorReferenceSlot.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUISlotFunctorBase.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIFont_xmlHandler.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUITplWRFactoryRegisterer.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIProperty.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIScriptModule.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIChainedXMLHandler.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRenderedStringImageComponent.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIFontGlyph.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIMouseCursor.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIMinizipResourceProvider.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIcolour.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIWindowFactoryManager.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIGlobalEventSet.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIConfig.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRenderEffectManager.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIBasicRenderedStringParser.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIIteratorBase.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIMinibidiVisualMapping.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIPixmapFont.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIVertex.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRenderingContext.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIWindow.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRect.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIAffector.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIXMLHandler.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUITplWindowRendererFactory.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIJustifiedRenderedString.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIRenderedStringComponent.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIXMLParser.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIFormattedRenderedString.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIWindowRenderer.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIGeometryBuffer.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIScheme.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUIInterpolator.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/CEGUI.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIEditboxProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUISpinnerProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUISliderProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIItemListboxProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIProgressBarProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUICheckbox.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIScrolledContainer.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIGridLayoutContainer.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIMenuBase.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIListHeaderSegmentProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIComboboxProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIDragContainerProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIDragContainer.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIFrameWindowProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIComboDropList.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIMultiColumnList.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIScrolledItemListBaseProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIHorizontalLayoutContainer.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIItemListBaseProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUITitlebarProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIRadioButtonProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIListHeaderSegment.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIProgressBar.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUITabButton.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIItemListBase.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIButtonBase.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUITooltip.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIPopupMenu.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIClippedContainer.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUITreeItem.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIPushButton.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIMenuBaseProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUITabControl.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUICheckboxProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUISlider.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUITree.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIListboxItem.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIScrollbar.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIEditbox.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUILayoutContainer.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIMenubar.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIVerticalLayoutContainer.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIListbox.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIScrollablePane.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIScrolledContainerProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIListboxTextItem.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIListHeader.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUICombobox.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIPopupMenuProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIScrollablePaneProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIRadioButton.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUITreeProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIGUISheet.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIListHeaderProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIMultiLineEditbox.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIMenuItem.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUITooltipProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIItemListbox.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIItemEntryProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUISequentialLayoutContainer.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIListboxProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIMenuItemProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIThumbProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIMultiLineEditboxProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUISpinner.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUITabControlProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIGroupBox.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUITitlebar.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIGridLayoutContainerProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIScrollbarProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIItemEntry.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIThumb.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIScrolledItemListBase.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIFrameWindow.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/elements/CEGUIMultiColumnListProperties.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUITabControl.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIScrolledItemListBase.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIScrolledContainer.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIScrollbarProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUITooltipProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUITabControlProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIScrollablePane.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIHorizontalLayoutContainer.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIItemListBase.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUISpinnerProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIEditbox.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIGUISheet.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIFrameWindow.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIMenubar.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUISequentialLayoutContainer.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUILayoutContainer.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIScrollbar.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIPopupMenu.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIMultiColumnList.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUICombobox.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUITitlebar.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUITreeItem.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIMultiLineEditboxProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIMenuBaseProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUITabButton.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIScrollablePaneProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIListbox.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIPushButton.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIMenuBase.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUISpinner.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIItemEntry.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUICheckbox.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIThumbProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUITreeProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUISliderProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIMenuItemProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUITitlebarProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIPopupMenuProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIComboDropList.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIListboxTextItem.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIItemListboxProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIGroupBox.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIEditboxProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIMultiColumnListProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUITooltip.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIListHeader.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIGridLayoutContainerProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIScrolledItemListBaseProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIFrameWindowProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIProgressBar.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIListHeaderSegment.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIListHeaderSegmentProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIVerticalLayoutContainer.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIMultiLineEditbox.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIMenuItem.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIRadioButton.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIListHeaderProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIRadioButtonProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIComboboxProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIItemEntryProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIThumb.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIListboxItem.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIItemListbox.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUICheckboxProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIDragContainer.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUITree.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIDragContainerProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIProgressBarProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIItemListBaseProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIButtonBase.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUISlider.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIListboxProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIClippedContainer.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIScrolledContainerProperties.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIGridLayoutContainer.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/elements/CEGUIAll.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/falagard/CEGUIFalPropertyDefinition.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/falagard/CEGUIFalDimensions.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/falagard/CEGUIFalSectionSpecification.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/falagard/CEGUIFalWidgetLookFeel.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/falagard/CEGUIFalXMLEnumHelper.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/falagard/CEGUIFalFrameComponent.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/falagard/CEGUIFalImageryComponent.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/falagard/CEGUIFalNamedArea.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/falagard/CEGUIFalPropertyDefinitionBase.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/falagard/CEGUIFalStateImagery.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/falagard/CEGUIFalTextComponent.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/falagard/CEGUIFalWidgetLookManager.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/falagard/CEGUIFalagard_xmlHandler.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/falagard/CEGUIFalPropertyLinkDefinition.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/falagard/CEGUIFalComponentBase.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/falagard/CEGUIFalPropertyInitialiser.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/falagard/CEGUIFalImagerySection.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/falagard/CEGUIFalWidgetComponent.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/falagard/CEGUIFalLayerSpecification.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/falagard/CEGUIFalWidgetComponent.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/falagard/CEGUIFalNamedArea.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/falagard/CEGUIFalDimensions.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/falagard/CEGUIFalagard_xmlHandler.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/falagard/CEGUIFalStateImagery.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/falagard/CEGUIFalEnums.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/falagard/CEGUIFalFrameComponent.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/falagard/CEGUIFalWidgetLookManager.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/falagard/CEGUIFalLayerSpecification.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/falagard/CEGUIFalImagerySection.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/falagard/CEGUIFalPropertyDefinition.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/falagard/CEGUIFalWidgetLookFeel.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/falagard/CEGUIFalImageryComponent.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/falagard/CEGUIFalPropertyLinkDefinition.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/falagard/CEGUIFalComponentBase.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/falagard/CEGUIFalXMLEnumHelper.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/falagard/CEGUIFalPropertyInitialiser.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/falagard/CEGUIFalSectionSpecification.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/falagard/CEGUIFalTextComponent.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/include/falagard/CEGUIFalPropertyDefinitionBase.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/minizip/unzip.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/minizip/ioapi.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/minizip/iowin32.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/minizip/iowin32.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/minizip/unzip.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Unit filename="../../../cegui/src/minizip/ioapi.h">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="Debug_Static" />
+			<Option target="Release_Static" />
+		</Unit>
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>
