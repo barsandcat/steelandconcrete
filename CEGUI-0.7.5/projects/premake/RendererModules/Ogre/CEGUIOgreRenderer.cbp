@@ -21,7 +21,7 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="../../../../../ib/libCEGUIOgreRenderer.a" prefix_auto="0" extension_auto="0" />
+				<Option output="../../../../../lib/libCEGUIOgreRenderer.a" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="" />
 				<Option object_output="../../../../../obj/CEGUIOgreRendererReleaseLinux" />
 				<Option type="2" />
