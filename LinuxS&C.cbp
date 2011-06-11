@@ -28,10 +28,10 @@
 					<Add library="QuickGUI_d" />
 					<Add library="boost_filesystemDebug" />
 					<Add library="CEGUIOgreRenderer_d" />
-					<Add library="CEGUITinyXMLParser_d" />
-					<Add library="CEGUIFalagardWRBase_d" />
-					<Add library="CEGUIFreeImageImageCodec_d" />
 					<Add library="CEGUIBase_d" />
+					<Add library="CEGUIFalagardWRBase_d" />
+					<Add library="CEGUITinyXMLParser_d" />
+					<Add library="CEGUIFreeImageImageCodec_d" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -55,8 +55,11 @@
 					<Add library="protobuf" />
 					<Add library="QuickGUI" />
 					<Add library="boost_filesystemRelease" />
-					<Add library="CEGUIBase" />
 					<Add library="CEGUIOgreRenderer" />
+					<Add library="CEGUIBase" />
+					<Add library="CEGUIFalagardWRBase" />
+					<Add library="CEGUITinyXMLParser" />
+					<Add library="CEGUIFreeImageImageCodec" />
 				</Linker>
 			</Target>
 		</Build>
