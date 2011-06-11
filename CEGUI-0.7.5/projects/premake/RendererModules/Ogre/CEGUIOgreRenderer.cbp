@@ -6,62 +6,46 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Debug_Static">
-				<Option output="../../../../lib/libCEGUIOgreRenderer_Static_d.a" prefix_auto="0" extension_auto="0" />
+			<Target title="Debug">
+				<Option output="../../../../../lib/libCEGUIOgreRenderer_d.a" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="" />
-				<Option object_output="obj/Debug_Static" />
+				<Option object_output="../../../../../obj/CEGUIOgreRendererDebugLinux" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-pg" />
 					<Add option="-g" />
-					<Add option="-D_CRT_SECURE_NO_DEPRECATE" />
-					<Add option="-DHAVE_CONFIG_H" />
-					<Add option="-DOGRE_GUIRENDERER_EXPORTS" />
-					<Add option="-D_DEBUG" />
-					<Add option="-DCEGUI_STATIC" />
-					<Add option="-DTOLUA_STATIC" />
-					<Add directory="../../../../cegui/include" />
-					<Add directory="../../../../dependencies/include" />
-					<Add directory="../../../../cegui/include/RendererModules/Ogre/" />
-					<Add directory="../../../../" />
-					<Add directory="../../../../../ogre/ogre_1.7.3/OgreMain/include" />
 				</Compiler>
 				<Linker>
-					<Add library="CEGUIBase_Static_d" />
-					<Add directory="../../../../bin" />
-					<Add directory="../../../../../ogre/ogre_1.7.3/OgreMain/lib" />
-					<Add directory="../../../../dependencies/lib/static" />
+					<Add option="-pg" />
 				</Linker>
 			</Target>
-			<Target title="Release_Static">
-				<Option output="../../../../lib/libCEGUIOgreRenderer_Static.a" prefix_auto="0" extension_auto="0" />
+			<Target title="Release">
+				<Option output="../../../../../ib/libCEGUIOgreRenderer.a" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="" />
-				<Option object_output="obj/Release_Static" />
+				<Option object_output="../../../../../obj/CEGUIOgreRendererReleaseLinux" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
 					<Add option="-O3" />
-					<Add option="-D_CRT_SECURE_NO_DEPRECATE" />
-					<Add option="-DHAVE_CONFIG_H" />
-					<Add option="-DOGRE_GUIRENDERER_EXPORTS" />
-					<Add option="-DCEGUI_STATIC" />
-					<Add option="-DTOLUA_STATIC" />
-					<Add directory="../../../../cegui/include" />
-					<Add directory="../../../../dependencies/include" />
-					<Add directory="../../../../cegui/include/RendererModules/Ogre/" />
-					<Add directory="../../../../" />
-					<Add directory="../../../../../ogre/ogre_1.7.3/OgreMain/include" />
+					<Add option="-DNDEBUG" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="CEGUIBase_Static" />
-					<Add directory="../../../../bin" />
-					<Add directory="../../../../../ogre/ogre_1.7.3/OgreMain/lib" />
-					<Add directory="../../../../dependencies/lib/static" />
 				</Linker>
 			</Target>
 		</Build>
+		<Compiler>
+			<Add option="-DHAVE_CONFIG_H" />
+			<Add option="-DOGRE_GUIRENDERER_EXPORTS" />
+			<Add option="-DCEGUI_STATIC" />
+			<Add option="-DTOLUA_STATIC" />
+			<Add directory="../../../../cegui/include" />
+			<Add directory="../../../../cegui/include/RendererModules/Ogre/" />
+			<Add directory="../../../../../ogre/ogre_1.7.3/OgreMain/include" />
+			<Add directory="../../../../../ogre/build/include" />
+		</Compiler>
 		<Unit filename="../../../../cegui/include/RendererModules/Ogre/CEGUIOgreGeometryBuffer.h" />
 		<Unit filename="../../../../cegui/include/RendererModules/Ogre/CEGUIOgreImageCodec.h" />
 		<Unit filename="../../../../cegui/include/RendererModules/Ogre/CEGUIOgreRenderTarget.h" />

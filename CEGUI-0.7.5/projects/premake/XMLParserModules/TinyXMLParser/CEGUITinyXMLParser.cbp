@@ -6,56 +6,41 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Debug_Static">
-				<Option output="../../../../lib/libCEGUITinyXMLParser_Static_d.a" prefix_auto="0" extension_auto="0" />
+			<Target title="Debug">
+				<Option output="../../../../../lib/libCEGUITinyXMLParser_d.a" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="" />
-				<Option object_output="obj/Debug_Static" />
+				<Option object_output="../../../../../obj/CEGUITinyXMLParserDebugLinux" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add option="-D_CRT_SECURE_NO_DEPRECATE" />
-					<Add option="-DHAVE_CONFIG_H" />
-					<Add option="-DCEGUITINYXMLPARSER_EXPORTS" />
-					<Add option="-D_DEBUG" />
-					<Add option="-DCEGUI_STATIC" />
-					<Add option="-DTOLUA_STATIC" />
-					<Add directory="../../../../cegui/include" />
-					<Add directory="../../../../dependencies/include" />
-					<Add directory="../../../../cegui/include/XMLParserModules/TinyXMLParser/" />
 				</Compiler>
-				<Linker>
-					<Add library="CEGUIBase_Static_d" />
-					<Add directory="../../../../bin" />
-					<Add directory="../../../../dependencies/lib/static" />
-				</Linker>
 			</Target>
-			<Target title="Release_Static">
-				<Option output="../../../../lib/libCEGUITinyXMLParser_Static.a" prefix_auto="0" extension_auto="0" />
+			<Target title="Release">
+				<Option output="../../../../../lib/libCEGUITinyXMLParser.a" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="" />
-				<Option object_output="obj/Release_Static" />
+				<Option object_output="../../../../../obj/CEGUITinyXMLParserobjReleaseLinux" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
 					<Add option="-O3" />
-					<Add option="-D_CRT_SECURE_NO_DEPRECATE" />
-					<Add option="-DHAVE_CONFIG_H" />
-					<Add option="-DCEGUITINYXMLPARSER_EXPORTS" />
-					<Add option="-DCEGUI_STATIC" />
-					<Add option="-DTOLUA_STATIC" />
-					<Add directory="../../../../cegui/include" />
-					<Add directory="../../../../dependencies/include" />
-					<Add directory="../../../../cegui/include/XMLParserModules/TinyXMLParser/" />
+					<Add option="-DNDEBUG" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="CEGUIBase_Static" />
-					<Add directory="../../../../bin" />
-					<Add directory="../../../../dependencies/lib/static" />
 				</Linker>
 			</Target>
 		</Build>
+		<Compiler>
+			<Add option="-DHAVE_CONFIG_H" />
+			<Add option="-DCEGUITINYXMLPARSER_EXPORTS" />
+			<Add option="-DCEGUI_STATIC" />
+			<Add option="-DTOLUA_STATIC" />
+			<Add directory="../../../../cegui/include" />
+			<Add directory="../../../../dependencies/include" />
+			<Add directory="../../../../cegui/include/XMLParserModules/TinyXMLParser/" />
+		</Compiler>
 		<Unit filename="../../../../cegui/include/XMLParserModules/TinyXMLParser/CEGUITinyXMLParser.h" />
 		<Unit filename="../../../../cegui/include/XMLParserModules/TinyXMLParser/CEGUITinyXMLParserModule.h" />
 		<Unit filename="../../../../cegui/src/XMLParserModules/TinyXMLParser/CEGUITinyXMLParser.cpp" />
