@@ -38,8 +38,6 @@
 		</Build>
 		<Compiler>
 			<Add option="-DHAVE_CONFIG_H" />
-			<Add option="-DFALAGARDWRBASE_EXPORTS" />
-			<Add option="-DCEGUIWRMODULE_EXPORTS" />
 			<Add option="-DCEGUI_STATIC" />
 			<Add directory="../../../../cegui/include" />
 			<Add directory="../../../../dependencies/include" />

@@ -38,7 +38,6 @@
 		</Build>
 		<Compiler>
 			<Add option="-DHAVE_CONFIG_H" />
-			<Add option="-DCEGUIFREEIMAGEIMAGECODEC_EXPORTS" />
 			<Add option="-DCEGUI_STATIC" />
 			<Add option="-DFREEIMAGE_LIB" />
 			<Add directory="../../../../cegui/include" />
