@@ -127,8 +127,6 @@
 		<Unit filename="src/MainMenuSheet.h" />
 		<Unit filename="src/Network.cpp" />
 		<Unit filename="src/Network.h" />
-		<Unit filename="src/OgreWindowCallback.cpp" />
-		<Unit filename="src/OgreWindowCallback.h" />
 		<Unit filename="src/ServerBrowserSheet.cpp" />
 		<Unit filename="src/ServerBrowserSheet.h" />
 		<Unit filename="src/SyncTimer.h" />
