@@ -15,6 +15,10 @@
 #include <libintl.h>
 #include <locale.h>
 
+#include <RendererModules/Ogre/CEGUIOgreResourceProvider.h>
+#include <RendererModules/Ogre/CEGUIOgreImageCodec.h>
+
+
 char ClientApp::RU[] = "LANGUAGE=ru";
 char ClientApp::EN[] = "LANGUAGE=en";
 char ClientApp::UK[] = "LANGUAGE=uk";
@@ -82,7 +86,11 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         rgm.addResourceLocation("res/audio", "FileSystem");
         rgm.addResourceLocation("res/textures", "FileSystem");
         rgm.addResourceLocation("res/scripts", "FileSystem");
-        rgm.addResourceLocation("res/quickgui", "FileSystem");
+        rgm.addResourceLocation("res/gui/fonts", "FileSystem");
+        rgm.addResourceLocation("res/gui/imagesets", "FileSystem");
+        rgm.addResourceLocation("res/gui/looknfeel", "FileSystem");
+        rgm.addResourceLocation("res/gui/schemes", "FileSystem");
+        rgm.addResourceLocation("res/gui/layouts", "FileSystem");
 
         boost::filesystem::directory_iterator end;
         boost::filesystem::path path("res/models");
@@ -196,7 +204,23 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
 
     {
         GetLog() << "Init CEGUI";
-        mCEGUIRenderer = &CEGUI::OgreRenderer::bootstrapSystem();
+        CEGUI::OgreRenderer& renderer = CEGUI::OgreRenderer::create(*mWindow);
+        CEGUI::OgreResourceProvider* rp = &CEGUI::OgreRenderer::createOgreResourceProvider();
+        CEGUI::OgreImageCodec* ic = &CEGUI::OgreRenderer::createOgreImageCodec();
+        CEGUI::System::create(renderer, rp, static_cast<CEGUI::XMLParser*>(0), ic);
+        // create (load) the TaharezLook scheme file
+        // (this auto-loads the TaharezLook looknfeel and imageset files)
+        CEGUI::SchemeManager::getSingleton().create( "TaharezLook.scheme" );
+
+        // create (load) a font.
+        // The first font loaded automatically becomes the default font, but note
+        // that the scheme might have already loaded a font, so there may already
+        // be a default set - if we want the "Commonweath-10" font to definitely
+        // be the default, we should set the default explicitly afterwards.
+        CEGUI::FontManager::getSingleton().create( "DejaVuSans-10.font" );
+
+        CEGUI::Window* myRoot = CEGUI::WindowManager::getSingleton().loadWindowLayout( "Main.layout" );
+        CEGUI::System::getSingleton().setGUISheet( myRoot );
     }
 #if OGRE_PROFILING
     Ogre::Profiler::getSingleton().setEnabled(true);
@@ -321,6 +345,8 @@ ClientApp::~ClientApp()
 
     delete mMainMenu;
     mMainMenu = NULL;
+
+    CEGUI::OgreRenderer::destroySystem();
 
     delete mBirdCamera;
     mBirdCamera = NULL;
