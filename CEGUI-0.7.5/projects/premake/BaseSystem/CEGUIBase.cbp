@@ -6,54 +6,47 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Debug_Static">
-				<Option output="../../../lib/libCEGUIBase_Static_d.a" prefix_auto="0" extension_auto="0" />
+			<Target title="Debug">
+				<Option output="../../../../lib/libCEGUIBase_d.a" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="" />
-				<Option object_output="obj/Debug_Static" />
+				<Option object_output="../../../../obj/CEGUIBaseDebugLinux" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-pg" />
 					<Add option="-g" />
-					<Add option="-D_CRT_SECURE_NO_DEPRECATE" />
-					<Add option="-DHAVE_CONFIG_H" />
-					<Add option="-DPCRE_STATIC" />
-					<Add option="-DCEGUIBASE_EXPORTS" />
-					<Add option="-D_DEBUG" />
-					<Add option="-DCEGUI_STATIC" />
-					<Add option="-DTOLUA_STATIC" />
-					<Add directory="../../../cegui/include" />
-					<Add directory="../../../dependencies/include" />
 				</Compiler>
 				<Linker>
-					<Add directory="../../../bin" />
-					<Add directory="../../../dependencies/lib/static" />
+					<Add option="-pg" />
 				</Linker>
 			</Target>
-			<Target title="Release_Static">
-				<Option output="../../../lib/libCEGUIBase_Static.a" prefix_auto="0" extension_auto="0" />
+			<Target title="Release">
+				<Option output="../../../../lib/libCEGUIBase.a" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="" />
-				<Option object_output="obj/Release_Static" />
+				<Option object_output="../../../../obj/CEGUIBaseReleaseLinux" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
 					<Add option="-O3" />
-					<Add option="-D_CRT_SECURE_NO_DEPRECATE" />
-					<Add option="-DHAVE_CONFIG_H" />
-					<Add option="-DPCRE_STATIC" />
-					<Add option="-DCEGUIBASE_EXPORTS" />
-					<Add option="-DCEGUI_STATIC" />
-					<Add option="-DTOLUA_STATIC" />
-					<Add directory="../../../cegui/include" />
-					<Add directory="../../../dependencies/include" />
+					<Add option="-DNDEBUG" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add directory="../../../bin" />
-					<Add directory="../../../dependencies/lib/static" />
 				</Linker>
 			</Target>
 		</Build>
+		<Compiler>
+			<Add option="-DHAVE_CONFIG_H" />
+			<Add option="-DPCRE_STATIC" />
+			<Add option="-DCEGUIBASE_EXPORTS" />
+			<Add option="-DCEGUI_STATIC" />
+			<Add option="-DTOLUA_STATIC" />
+			<Add directory="../../../cegui/include" />
+		</Compiler>
+		<Linker>
+			<Add directory="$(SolutionDir)lib" />
+		</Linker>
 		<Unit filename="../../../cegui/include/CEGUI.h" />
 		<Unit filename="../../../cegui/include/CEGUIAffector.h" />
 		<Unit filename="../../../cegui/include/CEGUIAnimation.h" />
@@ -457,16 +450,14 @@
 		<Unit filename="../../../cegui/src/falagard/CEGUIFalWidgetLookManager.cpp" />
 		<Unit filename="../../../cegui/src/falagard/CEGUIFalXMLEnumHelper.cpp" />
 		<Unit filename="../../../cegui/src/falagard/CEGUIFalagard_xmlHandler.cpp" />
-		<Unit filename="../../../cegui/src/minizip/ioapi.cpp" />
-		<Unit filename="../../../cegui/src/minizip/ioapi.h" />
-		<Unit filename="../../../cegui/src/minizip/iowin32.cpp" />
-		<Unit filename="../../../cegui/src/minizip/iowin32.h" />
-		<Unit filename="../../../cegui/src/minizip/unzip.cpp" />
-		<Unit filename="../../../cegui/src/minizip/unzip.h" />
 		<Extensions>
 			<envvars />
 			<code_completion />
 			<debugger />
+			<lib_finder>
+				<lib name="freetype2" />
+				<lib name="libpcre" />
+			</lib_finder>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
