@@ -207,15 +207,8 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         CEGUI::OgreResourceProvider* rp = &CEGUI::OgreRenderer::createOgreResourceProvider();
         CEGUI::OgreImageCodec* ic = &CEGUI::OgreRenderer::createOgreImageCodec();
         CEGUI::System::create(renderer, rp, static_cast<CEGUI::XMLParser*>(0), ic);
-        // create (load) the TaharezLook scheme file
-        // (this auto-loads the TaharezLook looknfeel and imageset files)
         CEGUI::SchemeManager::getSingleton().create( "TaharezLook.scheme" );
-
-        // create (load) a font.
-        // The first font loaded automatically becomes the default font, but note
-        // that the scheme might have already loaded a font, so there may already
-        // be a default set - if we want the "Commonweath-10" font to definitely
-        // be the default, we should set the default explicitly afterwards.
+        CEGUI::System::getSingleton().setDefaultMouseCursor("TaharezLook", "MouseArrow");
         CEGUI::FontManager::getSingleton().create( "DejaVuSans-10.font" );
 
         CEGUI::Window* myRoot = CEGUI::WindowManager::getSingleton().loadWindowLayout( "Main.layout" );
@@ -449,8 +442,8 @@ bool ClientApp::mouseMoved(const OIS::MouseEvent &arg)
 {
     CEGUI::System& cegui = CEGUI::System::getSingleton();
 
-    cegui.injectMouseMove(arg.state.X.rel, arg.state.Y.rel);
     cegui.injectMouseWheelChange(arg.state.Z.rel / 120.0f);
+    cegui.injectMousePosition(arg.state.X.abs, arg.state.Y.abs);
 
     return true;
 }
@@ -503,17 +496,8 @@ bool ClientApp::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
     return true;
 }
 
-//Adjust mouse clipping area
 void ClientApp::windowResized(Ogre::RenderWindow* rw)
 {
-    unsigned int width, height, depth;
-    int left, top;
-    rw->getMetrics(width, height, depth, left, top);
-
-    const OIS::MouseState &ms = mMouse->getMouseState();
-    ms.width = width;
-    ms.height = height;
-
     CEGUI::System* const sys = CEGUI::System::getSingletonPtr();
     if (sys)
         sys->notifyDisplaySizeChanged(
@@ -521,7 +505,6 @@ void ClientApp::windowResized(Ogre::RenderWindow* rw)
                         static_cast<float>(rw->getHeight())));
 }
 
-//Unattach OIS before window shutdown (very important under Linux)
 void ClientApp::windowClosed(Ogre::RenderWindow* rw)
 {
     mQuit = true;
