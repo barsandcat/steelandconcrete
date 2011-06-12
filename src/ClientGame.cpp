@@ -16,14 +16,10 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
     mSyncTimer(1000),
     mNetwork(aNetwork)
 {
-    mLoadingSheet.Activate();
 
     ClientGeodesicGrid grid(mTiles, aGridSize);
-    mLoadingSheet.SetProgress(50);
 
     LoadAvatar();
-
-    mLoadingSheet.SetProgress(90);
 
     mAvatar = &GetUnit(aAvatarId);
     if (!mAvatar)
@@ -52,10 +48,7 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
     mTargetMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Target", "TargetMarker.mesh"));
     mTargetMarker->setVisible(false);
 
-    QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnExit", &ClientGame::OnExit, this);
 
-    mIngameSheet.SetTime(mTime);
-    mIngameSheet.Activate();
 }
 
 ClientGame::~ClientGame()
@@ -114,22 +107,15 @@ void ClientGame::OnAct()
     mTargetMarker->setVisible(true);
 }
 
-void ClientGame::OnExit(const QuickGUI::EventArgs& args)
+bool ClientGame::OnExit(const CEGUI::EventArgs& args)
 {
     ClientApp::Quit();
     GetLog() << "OnExit";
+    return true;
 }
 
 void ClientGame::OnEscape()
 {
-    if (mSystemMenuSheet.IsActive())
-    {
-        mIngameSheet.Activate();
-    }
-    else
-    {
-        mSystemMenuSheet.Activate();
-    }
 
 }
 
@@ -204,7 +190,6 @@ void ClientGame::LoadEvents(ResponsePtr aResponseMsg)
 
 void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats)
 {
-    mIngameSheet.UpdateStats(aStats);
 
     if (mSyncTimer.IsTime())
     {
@@ -248,7 +233,6 @@ void ClientGame::OnResponseMsg(ResponsePtr aResponseMsg)
     {
     case RESPONSE_OK:
         mTime = aResponseMsg->time();
-        mIngameSheet.SetTime(mTime);
         mSyncTimer.Reset(aResponseMsg->update_length());
         break;
     case RESPONSE_PART:

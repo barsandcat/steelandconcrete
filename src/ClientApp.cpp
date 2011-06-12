@@ -122,7 +122,6 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         mRoot->setRenderSystem(renderSystem);
 
         // Настройки графики
-        QuickGUI::registerScriptReader();
         Ogre::ConfigFile cf;
         cf.load(aConfigFile);
         Ogre::ConfigFile::SettingsIterator j = cf.getSettingsIterator("OpenGL Rendering Subsystem");
