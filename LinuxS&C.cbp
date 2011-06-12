@@ -25,7 +25,6 @@
 					<Add library="OgreAL_d" />
 					<Add library="Plugin_OctreeSceneManager_d" />
 					<Add library="protobuf_d" />
-					<Add library="QuickGUI_d" />
 					<Add library="boost_filesystemDebug" />
 					<Add library="CEGUIOgreRenderer_d" />
 					<Add library="CEGUIBase_d" />
@@ -53,7 +52,6 @@
 					<Add library="OgreAL" />
 					<Add library="Plugin_OctreeSceneManager" />
 					<Add library="protobuf" />
-					<Add library="QuickGUI" />
 					<Add library="boost_filesystemRelease" />
 					<Add library="CEGUIOgreRenderer" />
 					<Add library="CEGUIBase" />
@@ -83,7 +81,6 @@
 			<Add directory="protobuf-2.4.1/src" />
 			<Add directory="src/proto" />
 			<Add directory="SAL" />
-			<Add directory="QuickGUI_10_1/QuickGUI/include" />
 			<Add directory="boost/boost_1_46_1" />
 			<Add directory="CEGUI-0.7.5/cegui/include" />
 		</Compiler>
@@ -123,8 +120,6 @@
 		<Unit filename="src/Network.h" />
 		<Unit filename="src/SyncTimer.h" />
 		<Unit filename="src/Typedefs.h" />
-		<Unit filename="src/ViewPortWidget.cpp" />
-		<Unit filename="src/ViewPortWidget.h" />
 		<Unit filename="src/VisualCodes.cpp" />
 		<Unit filename="src/VisualCodes.h" />
 		<Unit filename="src/pch.cpp" />

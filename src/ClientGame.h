@@ -3,13 +3,11 @@
 
 #include <ClientUnit.h>
 #include <ClientGeodesicGrid.h>
-#include <LoadingSheet.h>
-#include <InGameSheet.h>
 #include <Response.pb.h>
 #include <Typedefs.h>
 #include <Network.h>
 #include <SyncTimer.h>
-#include <SystemMenuSheet.h>
+#include <CEGUI.h>
 
 class ClientApp;
 
@@ -21,7 +19,7 @@ public:
     virtual ~ClientGame(); // Для QuicGUI
     void UpdateTileUnderCursor(Ogre::Ray& aRay);
     void Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats);
-    void OnExit(const QuickGUI::EventArgs& args);
+    bool OnExit(const CEGUI::EventArgs& args);
     void OnEscape();
     void OnAct();
 private:
@@ -37,9 +35,6 @@ private:
     ClientUnit* mAvatar;
     Ogre::SceneNode* mSelectionMarker;
     Ogre::SceneNode* mTargetMarker;
-    LoadingSheet mLoadingSheet;
-    InGameSheet mIngameSheet;
-    SystemMenuSheet mSystemMenuSheet;
     GameTime mTime;
     SyncTimer mSyncTimer;
     Network* mNetwork;
