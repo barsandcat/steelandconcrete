@@ -207,16 +207,16 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         CEGUI::OgreResourceProvider* rp = &CEGUI::OgreRenderer::createOgreResourceProvider();
         CEGUI::OgreImageCodec* ic = &CEGUI::OgreRenderer::createOgreImageCodec();
         CEGUI::System::create(renderer, rp, static_cast<CEGUI::XMLParser*>(0), ic);
-        CEGUI::SchemeManager::getSingleton().create( "TaharezLook.scheme" );
+        CEGUI::FontManager::getSingleton().create("unifont.font");
+        CEGUI::SchemeManager::getSingleton().create("TaharezLook.scheme");
         CEGUI::System::getSingleton().setDefaultMouseCursor("TaharezLook", "MouseArrow");
-        CEGUI::FontManager::getSingleton().create( "DejaVuSans-10.font" );
 
         CEGUI::GlobalEventSet::getSingleton().subscribeEvent("PushButton/Clicked",
                            CEGUI::Event::Subscriber(&ClientApp::OnClick, this));
 
         CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-        CEGUI::Window* myRoot = winMgr.loadWindowLayout( "Main.layout" );
-        CEGUI::System::getSingleton().setGUISheet( myRoot );
+        CEGUI::Window* myRoot = winMgr.loadWindowLayout("Main.layout");
+        CEGUI::System::getSingleton().setGUISheet(myRoot);
 
         winMgr.getWindow("MainMenu/English")->
             subscribeEvent(CEGUI::PushButton::EventClicked,
