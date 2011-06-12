@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<GUILayout>
+    <Window Type="DefaultWindow" Name="Game">
+        <Window Type="TaharezLook/FrameWindow" Name="InGameMenu">
+            <Property Name="UnifiedPosition" Value="{ {0.4, 0}, {0.4, 0} }" />
+            <Property Name="UnifiedSize" Value="{ {0.2, 0}, {0.2, 0} }" />
+            <Property Name="SizingEnabled" Value="False" />
+            <Property Name="CloseButtonEnabled" Value="False" />
+            <Property Name="DragMovingEnabled" Value="False" />            
+            <Property Name="RollUpEnabled" Value="False" />            <Property Name="Visible" Value="False"/>
+
+            <Window Type="TaharezLook/Button" Name="InGameMenu/Exit">
+                <Property Name="UnifiedPosition" Value="{{0.2,0},{0.2,0}}" />
+                <Property Name="UnifiedSize" Value="{{0.6,0},{0,25}}" />
+                <Property Name="Text" Value="Exit" />
+            </Window>
+        </Window>
+        
+        <Window Type="TaharezLook/StaticText" Name="Time">
+            <Property Name="UnifiedPosition" Value="{ {0.05, 0}, {0.05, 0} }" />
+            <Property Name="UnifiedSize" Value="{ {0, 40}, {0, 25} }" />
+        </Window>
+        
+        <Window Type="TaharezLook/StaticText" Name="FPS">
+            <Property Name="UnifiedPosition" Value="{ {0.9, 0}, {0.05, 0} }" />
+            <Property Name="UnifiedSize" Value="{ {0, 40}, {0, 25} }" />
+        </Window>
+
+    </Window>
+</GUILayout>

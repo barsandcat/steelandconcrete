@@ -17,7 +17,7 @@
 
 #include <RendererModules/Ogre/CEGUIOgreResourceProvider.h>
 #include <RendererModules/Ogre/CEGUIOgreImageCodec.h>
-
+#include <CEGUILocalization.h>
 
 char ClientApp::RU[] = "LANGUAGE=ru";
 char ClientApp::EN[] = "LANGUAGE=en";
@@ -49,22 +49,6 @@ BirdCamera& ClientApp::GetCamera()
 void ClientApp::Quit()
 {
     mQuit = true;
-}
-
-bool PropertyCallback(CEGUI::Window* window, CEGUI::String& propname, CEGUI::String& propvalue, void* userdata)
-{
-    if(propname == "Text")
-    {
-        const char* token = propvalue.c_str();
-        CEGUI::utf8* localization = (CEGUI::utf8*)gettext(token);
-        //GetLog() << token << " " << localization;
-        window->setProperty(propname, localization);
-        return false;
-    }
-    else
-    {
-        return true;
-    }
 }
 
 Ogre::SceneManager* ClientApp::mSceneMgr = NULL;
@@ -229,6 +213,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         CEGUI::GlobalEventSet::getSingleton().subscribeEvent("PushButton/Clicked",
                            CEGUI::Event::Subscriber(&ClientApp::OnClick, this));
 
+        //Main layout
         CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
         CEGUI::Window* myRoot = winMgr.loadWindowLayout("Main.layout", "", "", &PropertyCallback);
         CEGUI::System::getSingleton().setGUISheet(myRoot);
@@ -411,6 +396,10 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
             net->ReadMessage(res);
             if (res.result() == CONNECTION_ALLOWED)
             {
+                CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
+                winMgr.getWindow("MainMenu")->setVisible(false);
+                winMgr.getWindow("ServerBrowser")->setVisible(false);
+                winMgr.getWindow("ServerBrowser")->setModalState(false);
                 mGame = new ClientGame(net, res.avatar(), res.size());
             }
             else
