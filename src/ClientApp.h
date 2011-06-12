@@ -8,7 +8,6 @@
 #include <CEGUI.h>
 #include <RendererModules/Ogre/CEGUIOgreRenderer.h>
 
-#include <QuickGUI.h>
 #include <BirdCamera.h>
 
 void LaunchServer();
@@ -21,15 +20,15 @@ public:
     virtual ~ClientApp();
     void MainLoop();
 
-    void OnClick(const QuickGUI::EventArgs& args);
-    void OnConnect(const QuickGUI::EventArgs& args);
-    void OnCreate(const QuickGUI::EventArgs& args);
-    void OnBrowse(const QuickGUI::EventArgs& args);
-    void OnRussian(const QuickGUI::EventArgs& args);
-    void OnUkranian(const QuickGUI::EventArgs& args);
-    void OnEnglish(const QuickGUI::EventArgs& args);
-    void OnJapanese(const QuickGUI::EventArgs& args);
-    void OnMainMenu(const QuickGUI::EventArgs& args);
+    bool OnClick(const CEGUI::EventArgs& args);
+    bool OnConnect(const CEGUI::EventArgs& args);
+    bool OnCreate(const CEGUI::EventArgs& args);
+    bool OnBrowse(const CEGUI::EventArgs& args);
+    bool OnRussian(const CEGUI::EventArgs& args);
+    bool OnUkranian(const CEGUI::EventArgs& args);
+    bool OnEnglish(const CEGUI::EventArgs& args);
+    bool OnJapanese(const CEGUI::EventArgs& args);
+    bool OnMainMenu(const CEGUI::EventArgs& args);
 
     static Ogre::SceneManager& GetSceneMgr();
     static OgreAL::SoundManager& GetSoundMgr();
