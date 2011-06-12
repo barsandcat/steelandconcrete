@@ -51,6 +51,22 @@ void ClientApp::Quit()
     mQuit = true;
 }
 
+bool PropertyCallback(CEGUI::Window* window, CEGUI::String& propname, CEGUI::String& propvalue, void* userdata)
+{
+    if(propname == "Text")
+    {
+        const char* token = propvalue.c_str();
+        CEGUI::utf8* localization = (CEGUI::utf8*)gettext(token);
+        //GetLog() << token << " " << localization;
+        window->setProperty(propname, localization);
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
 Ogre::SceneManager* ClientApp::mSceneMgr = NULL;
 OgreAL::SoundManager* ClientApp::mSoundManager = NULL;
 BirdCamera* ClientApp::mBirdCamera = NULL;
@@ -215,7 +231,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
                            CEGUI::Event::Subscriber(&ClientApp::OnClick, this));
 
         CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-        CEGUI::Window* myRoot = winMgr.loadWindowLayout("Main.layout");
+        CEGUI::Window* myRoot = winMgr.loadWindowLayout("Main.layout", "", "", &PropertyCallback);
         CEGUI::System::getSingleton().setGUISheet(myRoot);
 
         winMgr.getWindow("MainMenu/English")->
