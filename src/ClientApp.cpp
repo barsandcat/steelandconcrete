@@ -233,6 +233,8 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
         CEGUI::Window* myRoot = winMgr.loadWindowLayout("Main.layout", "", "", &PropertyCallback);
         CEGUI::System::getSingleton().setGUISheet(myRoot);
+        winMgr.getWindow("ServerBrowser/Port")->setText("4512");
+        winMgr.getWindow("ServerBrowser/Address")->setText("localhost");
 
         winMgr.getWindow("MainMenu/English")->
             subscribeEvent(CEGUI::PushButton::EventClicked,
@@ -252,7 +254,14 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
                            CEGUI::Event::Subscriber(&ClientApp::OnCreate, this));
         winMgr.getWindow("MainMenu/Connect")->
             subscribeEvent(CEGUI::PushButton::EventClicked,
+                           CEGUI::Event::Subscriber(&ClientApp::OnBrowse, this));
+
+        winMgr.getWindow("ServerBrowser/Connect")->
+            subscribeEvent(CEGUI::PushButton::EventClicked,
                            CEGUI::Event::Subscriber(&ClientApp::OnConnect, this));
+        winMgr.getWindow("ServerBrowser/Cancel")->
+            subscribeEvent(CEGUI::PushButton::EventClicked,
+                           CEGUI::Event::Subscriber(&ClientApp::OnMainMenu, this));
     }
 #if OGRE_PROFILING
     Ogre::Profiler::getSingleton().setEnabled(true);
@@ -317,6 +326,11 @@ bool ClientApp::OnClick(const CEGUI::EventArgs& args)
 
 bool ClientApp::OnBrowse(const CEGUI::EventArgs& args)
 {
+    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
+
+    winMgr.getWindow("ServerBrowser")->setModalState(true);
+    winMgr.getWindow("ServerBrowser")->setVisible(true);
+    winMgr.getWindow("ServerBrowser")->setAlwaysOnTop(true);
     return true;
 }
 
@@ -361,6 +375,10 @@ bool ClientApp::OnJapanese(const CEGUI::EventArgs& args)
 
 bool ClientApp::OnMainMenu(const CEGUI::EventArgs& args)
 {
+    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
+
+    winMgr.getWindow("ServerBrowser")->setModalState(false);
+    winMgr.getWindow("ServerBrowser")->setVisible(false);
     return true;
 }
 
@@ -369,8 +387,13 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
     GetLog() << "On connect";
     if (!mGame)
     {
+
         tcp::resolver resolver(mIOService);
-        tcp::resolver::query query(tcp::v4(), "localhost", "4512");
+        CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
+        CEGUI::String port = winMgr.getWindow("ServerBrowser/Port")->getText();
+        CEGUI::String address = winMgr.getWindow("ServerBrowser/Address")->getText();
+
+        tcp::resolver::query query(tcp::v4(), address.c_str(), port.c_str());
         tcp::resolver::iterator iterator = resolver.resolve(query);
 
         SocketSharedPtr sock(new tcp::socket(mIOService));
