@@ -18,12 +18,12 @@
         
         <Window Type="TaharezLook/StaticText" Name="Time">
             <Property Name="UnifiedPosition" Value="{ {0.05, 0}, {0.05, 0} }" />
-            <Property Name="UnifiedSize" Value="{ {0, 40}, {0, 25} }" />
+            <Property Name="UnifiedSize" Value="{ {0, 50}, {0, 25} }" />
         </Window>
         
         <Window Type="TaharezLook/StaticText" Name="FPS">
             <Property Name="UnifiedPosition" Value="{ {0.9, 0}, {0.05, 0} }" />
-            <Property Name="UnifiedSize" Value="{ {0, 40}, {0, 25} }" />
+            <Property Name="UnifiedSize" Value="{ {0, 50}, {0, 25} }" />
         </Window>
 
     </Window>

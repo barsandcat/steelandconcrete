@@ -19,6 +19,13 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
     mSyncTimer(1000),
     mNetwork(aNetwork)
 {
+    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
+    CEGUI::Window* myRoot = winMgr.loadWindowLayout("Game.layout", "", "", &PropertyCallback);
+    CEGUI::System::getSingleton().setGUISheet(myRoot);
+
+    winMgr.getWindow("InGameMenu/Exit")->
+        subscribeEvent(CEGUI::PushButton::EventClicked,
+                       CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
 
     ClientGeodesicGrid grid(mTiles, aGridSize);
 
@@ -51,13 +58,6 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
     mTargetMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Target", "TargetMarker.mesh"));
     mTargetMarker->setVisible(false);
 
-    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-    CEGUI::Window* myRoot = winMgr.loadWindowLayout("Game.layout", "", "", &PropertyCallback);
-    CEGUI::System::getSingleton().setGUISheet(myRoot);
-
-    winMgr.getWindow("InGameMenu/Exit")->
-        subscribeEvent(CEGUI::PushButton::EventClicked,
-                       CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
 }
 
 ClientGame::~ClientGame()
@@ -200,6 +200,9 @@ void ClientGame::LoadEvents(ResponsePtr aResponseMsg)
 
 void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats)
 {
+    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
+    winMgr.getWindow("FPS")->setText(Ogre::StringConverter::toString(aStats.avgFPS));
+
 
     if (mSyncTimer.IsTime())
     {
@@ -239,10 +242,12 @@ void ClientGame::LoadAvatar()
 
 void ClientGame::OnResponseMsg(ResponsePtr aResponseMsg)
 {
+    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
     switch (aResponseMsg->type())
     {
     case RESPONSE_OK:
         mTime = aResponseMsg->time();
+        winMgr.getWindow("Time")->setText(Ogre::StringConverter::toString(mTime));
         mSyncTimer.Reset(aResponseMsg->update_length());
         break;
     case RESPONSE_PART:
