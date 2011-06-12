@@ -211,8 +211,32 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         CEGUI::System::getSingleton().setDefaultMouseCursor("TaharezLook", "MouseArrow");
         CEGUI::FontManager::getSingleton().create( "DejaVuSans-10.font" );
 
-        CEGUI::Window* myRoot = CEGUI::WindowManager::getSingleton().loadWindowLayout( "Main.layout" );
+        CEGUI::GlobalEventSet::getSingleton().subscribeEvent("PushButton/Clicked",
+                           CEGUI::Event::Subscriber(&ClientApp::OnClick, this));
+
+        CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
+        CEGUI::Window* myRoot = winMgr.loadWindowLayout( "Main.layout" );
         CEGUI::System::getSingleton().setGUISheet( myRoot );
+
+        winMgr.getWindow("MainMenu/English")->
+            subscribeEvent(CEGUI::PushButton::EventClicked,
+                           CEGUI::Event::Subscriber(&ClientApp::OnEnglish, this));
+        winMgr.getWindow("MainMenu/Ukranian")->
+            subscribeEvent(CEGUI::PushButton::EventClicked,
+                           CEGUI::Event::Subscriber(&ClientApp::OnUkranian, this));
+        winMgr.getWindow("MainMenu/Russian")->
+            subscribeEvent(CEGUI::PushButton::EventClicked,
+                           CEGUI::Event::Subscriber(&ClientApp::OnRussian, this));
+        winMgr.getWindow("MainMenu/Japanese")->
+            subscribeEvent(CEGUI::PushButton::EventClicked,
+                           CEGUI::Event::Subscriber(&ClientApp::OnJapanese, this));
+
+        winMgr.getWindow("MainMenu/Create")->
+            subscribeEvent(CEGUI::PushButton::EventClicked,
+                           CEGUI::Event::Subscriber(&ClientApp::OnCreate, this));
+        winMgr.getWindow("MainMenu/Connect")->
+            subscribeEvent(CEGUI::PushButton::EventClicked,
+                           CEGUI::Event::Subscriber(&ClientApp::OnConnect, this));
     }
 #if OGRE_PROFILING
     Ogre::Profiler::getSingleton().setEnabled(true);
@@ -258,7 +282,7 @@ ClientApp::~ClientApp()
     mGLPlugin = NULL;
 }
 
-void ClientApp::OnClick(const QuickGUI::EventArgs& args)
+bool ClientApp::OnClick(const CEGUI::EventArgs& args)
 {
     OgreAL::Sound *sound = NULL;
     if (mSoundManager->hasSound("click"))
@@ -272,10 +296,12 @@ void ClientApp::OnClick(const QuickGUI::EventArgs& args)
         sound->setRelativeToListener(true);
     }
     sound->play();
+    return true;
 }
 
-void ClientApp::OnBrowse(const QuickGUI::EventArgs& args)
+bool ClientApp::OnBrowse(const CEGUI::EventArgs& args)
 {
+    return true;
 }
 
 void TriggerMsgCatalogReload()
@@ -289,35 +315,40 @@ void TriggerMsgCatalogReload()
     textdomain("steelandconcrete");
 }
 
-void ClientApp::OnRussian(const QuickGUI::EventArgs& args)
+bool ClientApp::OnRussian(const CEGUI::EventArgs& args)
 {
     putenv(RU);
     TriggerMsgCatalogReload();
+    return true;
 }
 
-void ClientApp::OnEnglish(const QuickGUI::EventArgs& args)
+bool ClientApp::OnEnglish(const CEGUI::EventArgs& args)
 {
     putenv(EN);
     TriggerMsgCatalogReload();
+    return true;
 }
 
-void ClientApp::OnUkranian(const QuickGUI::EventArgs& args)
+bool ClientApp::OnUkranian(const CEGUI::EventArgs& args)
 {
     putenv(UK);
     TriggerMsgCatalogReload();
+    return true;
 }
 
-void ClientApp::OnJapanese(const QuickGUI::EventArgs& args)
+bool ClientApp::OnJapanese(const CEGUI::EventArgs& args)
 {
     putenv(JA);
     TriggerMsgCatalogReload();
+    return true;
 }
 
-void ClientApp::OnMainMenu(const QuickGUI::EventArgs& args)
+bool ClientApp::OnMainMenu(const CEGUI::EventArgs& args)
 {
+    return true;
 }
 
-void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
+bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
 {
     GetLog() << "On connect";
     if (!mGame)
@@ -350,15 +381,17 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
             }
         }
     }
+    return true;
 }
 
-void ClientApp::OnCreate(const QuickGUI::EventArgs& args)
+bool ClientApp::OnCreate(const CEGUI::EventArgs& args)
 {
     GetLog() << "On create";
     if (!mGame)
     {
         LaunchServer();
     }
+    return true;
 }
 
 bool ClientApp::keyPressed(const OIS::KeyEvent &arg)
