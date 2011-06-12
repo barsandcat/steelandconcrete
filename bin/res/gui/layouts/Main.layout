@@ -26,17 +26,17 @@
             <Window Type="TaharezLook/Button" Name="MainMenu/Ukranian">
                 <Property Name="UnifiedPosition" Value="{{0.25,0},{0.5,0}}" />
                 <Property Name="UnifiedSize" Value="{{0.5,0},{0.06,0}}" />
-                <Property Name="Text" Value="Українська" />
+                <Property Name="Text" Value="Ukranian" />
             </Window>
             <Window Type="TaharezLook/Button" Name="MainMenu/Russian">
                 <Property Name="UnifiedPosition" Value="{{0.25,0},{0.6,0}}" />
                 <Property Name="UnifiedSize" Value="{{0.5,0},{0.06,0}}" />
-                <Property Name="Text" Value="Русский" />
+                <Property Name="Text" Value="Russian" />
             </Window>
             <Window Type="TaharezLook/Button" Name="MainMenu/Japanese">
                 <Property Name="UnifiedPosition" Value="{{0.25,0},{0.7,0}}" />
                 <Property Name="UnifiedSize" Value="{{0.5,0},{0.06,0}}" />
-                <Property Name="Text" Value="日本" />
+                <Property Name="Text" Value="Japanese" />
             </Window>
 
         </Window>
