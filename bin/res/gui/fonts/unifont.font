@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<Font Name="unifont" Filename="unifont-5.1.20080907.ttf" Type="FreeType">
+    <GlyphRange StartCodepoint="33" EndCodepoint="166" />
+    <GlyphRange StartCodepoint="1024" EndCodepoint="1279" />
+    <GlyphRange StartCodepoint="12353" EndCodepoint="12543" />
+    <GlyphRange StartCodepoint="19968" EndCodepoint="40911" />
+</Font>
