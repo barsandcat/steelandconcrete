@@ -15,18 +15,15 @@
 #include <libintl.h>
 #include <locale.h>
 
+#include <RendererModules/Ogre/CEGUIOgreResourceProvider.h>
+#include <RendererModules/Ogre/CEGUIOgreImageCodec.h>
+#include <CEGUILocalization.h>
+
 char ClientApp::RU[] = "LANGUAGE=ru";
 char ClientApp::EN[] = "LANGUAGE=en";
 char ClientApp::UK[] = "LANGUAGE=uk";
 char ClientApp::JA[] = "LANGUAGE=ja";
 
-
-QuickGUI::GUIManager& ClientApp::GetGuiMgr()
-{
-    assert(ClientApp::mGUIManager && "ClientApp::GetGuiMgr() \
-        нельзя вызывать в конструктори и деструкторе ClientApp!");
-    return *ClientApp::mGUIManager;
-}
 
 Ogre::SceneManager& ClientApp::GetSceneMgr()
 {
@@ -54,13 +51,13 @@ void ClientApp::Quit()
     mQuit = true;
 }
 
-QuickGUI::GUIManager* ClientApp::mGUIManager = NULL;
 Ogre::SceneManager* ClientApp::mSceneMgr = NULL;
 OgreAL::SoundManager* ClientApp::mSoundManager = NULL;
 BirdCamera* ClientApp::mBirdCamera = NULL;
 bool ClientApp::mQuit = false;
 
 ClientApp::ClientApp(const Ogre::String aConfigFile):
+    mCEGUIRenderer(NULL),
     mMouse(NULL),
     mKeyboard(NULL),
     mJoy(NULL),
@@ -89,7 +86,11 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         rgm.addResourceLocation("res/audio", "FileSystem");
         rgm.addResourceLocation("res/textures", "FileSystem");
         rgm.addResourceLocation("res/scripts", "FileSystem");
-        rgm.addResourceLocation("res/quickgui", "FileSystem");
+        rgm.addResourceLocation("res/gui/fonts", "FileSystem");
+        rgm.addResourceLocation("res/gui/imagesets", "FileSystem");
+        rgm.addResourceLocation("res/gui/looknfeel", "FileSystem");
+        rgm.addResourceLocation("res/gui/schemes", "FileSystem");
+        rgm.addResourceLocation("res/gui/layouts", "FileSystem");
 
         boost::filesystem::directory_iterator end;
         boost::filesystem::path path("res/models");
@@ -105,7 +106,6 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         mRoot->setRenderSystem(renderSystem);
 
         // Настройки графики
-        QuickGUI::registerScriptReader();
         Ogre::ConfigFile cf;
         cf.load(aConfigFile);
         Ogre::ConfigFile::SettingsIterator j = cf.getSettingsIterator("OpenGL Rendering Subsystem");
@@ -126,8 +126,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
 
         Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
-        mWindowEventListener = new OgreWindowCallback(*this);
-        Ogre::WindowEventUtilities::addWindowEventListener(mWindow, mWindowEventListener);
+        Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 
         // Scene manager
         mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC, "EgoView");
@@ -202,39 +201,97 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     }
 
     {
-        GetLog() << "Init QuickGUI";
+        GetLog() << "Init CEGUI";
+        CEGUI::OgreRenderer& renderer = CEGUI::OgreRenderer::create(*mWindow);
+        CEGUI::OgreResourceProvider* rp = &CEGUI::OgreRenderer::createOgreResourceProvider();
+        CEGUI::OgreImageCodec* ic = &CEGUI::OgreRenderer::createOgreImageCodec();
+        CEGUI::System::create(renderer, rp, static_cast<CEGUI::XMLParser*>(0), ic);
+        CEGUI::FontManager::getSingleton().create("unifont.font");
+        CEGUI::SchemeManager::getSingleton().create("TaharezLook.scheme");
+        CEGUI::System::getSingleton().setDefaultMouseCursor("TaharezLook", "MouseArrow");
 
-        new QuickGUI::Root();
-        QuickGUI::SkinTypeManager::getSingleton().loadTypes();
+        CEGUI::GlobalEventSet::getSingleton().subscribeEvent("PushButton/Clicked",
+                           CEGUI::Event::Subscriber(&ClientApp::OnClick, this));
 
-        QuickGUI::GUIManagerDesc d;
-        d.sceneManager = mSceneMgr;
-        d.viewport = mBirdCamera->GetViewPort();
-        d.queueID = Ogre::RENDER_QUEUE_OVERLAY;
-        mGUIManager = QuickGUI::Root::getSingletonPtr()->createGUIManager(d);
-    }
+        //Main layout
+        CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
+        CEGUI::Window* myRoot = winMgr.loadWindowLayout("Main.layout", "", "", &PropertyCallback);
+        CEGUI::System::getSingleton().setGUISheet(myRoot);
+        winMgr.getWindow("ServerBrowser/Port")->setText("4512");
+        winMgr.getWindow("ServerBrowser/Address")->setText("localhost");
 
-    {
-        GetLog() << "Init app UI";
-        mMainMenu = new MainMenuSheet();
-        mServerBrowserSheet = new ServerBrowserSheet();
-        mGUIManager->notifyViewportDimensionsChanged();
-        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnBrowse", &ClientApp::OnBrowse, this);
-        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnConnect", &ClientApp::OnConnect, this);
-        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnCreate", &ClientApp::OnCreate, this);
-        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnMainMenu", &ClientApp::OnMainMenu, this);
-        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnClick", &ClientApp::OnClick, this);
-        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnEnglish", &ClientApp::OnEnglish, this);
-        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnRussian", &ClientApp::OnRussian, this);
-        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnUkranian", &ClientApp::OnUkranian, this);
-        QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnJapanese", &ClientApp::OnJapanese, this);
+        winMgr.getWindow("MainMenu/English")->
+            subscribeEvent(CEGUI::PushButton::EventClicked,
+                           CEGUI::Event::Subscriber(&ClientApp::OnEnglish, this));
+        winMgr.getWindow("MainMenu/Ukranian")->
+            subscribeEvent(CEGUI::PushButton::EventClicked,
+                           CEGUI::Event::Subscriber(&ClientApp::OnUkranian, this));
+        winMgr.getWindow("MainMenu/Russian")->
+            subscribeEvent(CEGUI::PushButton::EventClicked,
+                           CEGUI::Event::Subscriber(&ClientApp::OnRussian, this));
+        winMgr.getWindow("MainMenu/Japanese")->
+            subscribeEvent(CEGUI::PushButton::EventClicked,
+                           CEGUI::Event::Subscriber(&ClientApp::OnJapanese, this));
+
+        winMgr.getWindow("MainMenu/Create")->
+            subscribeEvent(CEGUI::PushButton::EventClicked,
+                           CEGUI::Event::Subscriber(&ClientApp::OnCreate, this));
+        winMgr.getWindow("MainMenu/Connect")->
+            subscribeEvent(CEGUI::PushButton::EventClicked,
+                           CEGUI::Event::Subscriber(&ClientApp::OnBrowse, this));
+
+        winMgr.getWindow("ServerBrowser/Connect")->
+            subscribeEvent(CEGUI::PushButton::EventClicked,
+                           CEGUI::Event::Subscriber(&ClientApp::OnConnect, this));
+        winMgr.getWindow("ServerBrowser/Cancel")->
+            subscribeEvent(CEGUI::PushButton::EventClicked,
+                           CEGUI::Event::Subscriber(&ClientApp::OnMainMenu, this));
     }
 #if OGRE_PROFILING
     Ogre::Profiler::getSingleton().setEnabled(true);
 #endif
 }
 
-void ClientApp::OnClick(const QuickGUI::EventArgs& args)
+ClientApp::~ClientApp()
+{
+    // Зачистка системных библиотек.
+    // ТОЛЬКО ДЛЯ ТОГО ЧТО БЫЛО ИНИЦИАЛИЗОРВАНО В КОНСТРУКТОЕ
+    // все остальное должно быть уже почищено!
+    GetLog() << "App destructor";
+
+    CEGUI::OgreRenderer::destroySystem();
+
+    delete mBirdCamera;
+    mBirdCamera = NULL;
+
+    mSoundManager->destroyAllSounds();
+    delete mSoundManager;
+    mSoundManager = NULL;
+
+    mRoot->destroySceneManager(mSceneMgr);
+    mSceneMgr = NULL;
+
+    mInputManager->destroyInputObject(mMouse);
+    mInputManager->destroyInputObject(mKeyboard);
+    mInputManager->destroyInputObject(mJoy);
+
+    OIS::InputManager::destroyInputSystem(mInputManager);
+    mInputManager = 0;
+
+    delete mRoot;
+    mRoot = NULL;
+
+    //Remove ourself as a Window listener
+    Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
+
+    delete mOctreePlugin;
+    mOctreePlugin = NULL;
+
+    delete mGLPlugin;
+    mGLPlugin = NULL;
+}
+
+bool ClientApp::OnClick(const CEGUI::EventArgs& args)
 {
     OgreAL::Sound *sound = NULL;
     if (mSoundManager->hasSound("click"))
@@ -248,11 +305,17 @@ void ClientApp::OnClick(const QuickGUI::EventArgs& args)
         sound->setRelativeToListener(true);
     }
     sound->play();
+    return true;
 }
 
-void ClientApp::OnBrowse(const QuickGUI::EventArgs& args)
+bool ClientApp::OnBrowse(const CEGUI::EventArgs& args)
 {
-    mServerBrowserSheet->Activate();
+    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
+
+    winMgr.getWindow("ServerBrowser")->setModalState(true);
+    winMgr.getWindow("ServerBrowser")->setVisible(true);
+    winMgr.getWindow("ServerBrowser")->setAlwaysOnTop(true);
+    return true;
 }
 
 void TriggerMsgCatalogReload()
@@ -266,46 +329,55 @@ void TriggerMsgCatalogReload()
     textdomain("steelandconcrete");
 }
 
-void ClientApp::OnRussian(const QuickGUI::EventArgs& args)
+bool ClientApp::OnRussian(const CEGUI::EventArgs& args)
 {
     putenv(RU);
     TriggerMsgCatalogReload();
-    mMainMenu->BuildSheet();
+    return true;
 }
 
-void ClientApp::OnEnglish(const QuickGUI::EventArgs& args)
+bool ClientApp::OnEnglish(const CEGUI::EventArgs& args)
 {
     putenv(EN);
     TriggerMsgCatalogReload();
-    mMainMenu->BuildSheet();
+    return true;
 }
 
-void ClientApp::OnUkranian(const QuickGUI::EventArgs& args)
+bool ClientApp::OnUkranian(const CEGUI::EventArgs& args)
 {
     putenv(UK);
     TriggerMsgCatalogReload();
-    mMainMenu->BuildSheet();
+    return true;
 }
 
-void ClientApp::OnJapanese(const QuickGUI::EventArgs& args)
+bool ClientApp::OnJapanese(const CEGUI::EventArgs& args)
 {
     putenv(JA);
     TriggerMsgCatalogReload();
-    mMainMenu->BuildSheet();
+    return true;
 }
 
-void ClientApp::OnMainMenu(const QuickGUI::EventArgs& args)
+bool ClientApp::OnMainMenu(const CEGUI::EventArgs& args)
 {
-    mMainMenu->Activate();
+    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
+
+    winMgr.getWindow("ServerBrowser")->setModalState(false);
+    winMgr.getWindow("ServerBrowser")->setVisible(false);
+    return true;
 }
 
-void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
+bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
 {
     GetLog() << "On connect";
     if (!mGame)
     {
+
         tcp::resolver resolver(mIOService);
-        tcp::resolver::query query(tcp::v4(), mServerBrowserSheet->GetAddress(), mServerBrowserSheet->GetPort());
+        CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
+        CEGUI::String port = winMgr.getWindow("ServerBrowser/Port")->getText();
+        CEGUI::String address = winMgr.getWindow("ServerBrowser/Address")->getText();
+
+        tcp::resolver::query query(tcp::v4(), address.c_str(), port.c_str());
         tcp::resolver::iterator iterator = resolver.resolve(query);
 
         SocketSharedPtr sock(new tcp::socket(mIOService));
@@ -324,6 +396,10 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
             net->ReadMessage(res);
             if (res.result() == CONNECTION_ALLOWED)
             {
+                CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
+                winMgr.getWindow("MainMenu")->setVisible(false);
+                winMgr.getWindow("ServerBrowser")->setVisible(false);
+                winMgr.getWindow("ServerBrowser")->setModalState(false);
                 mGame = new ClientGame(net, res.avatar(), res.size());
             }
             else
@@ -332,187 +408,69 @@ void ClientApp::OnConnect(const QuickGUI::EventArgs& args)
             }
         }
     }
+    return true;
 }
 
-void ClientApp::OnCreate(const QuickGUI::EventArgs& args)
+bool ClientApp::OnCreate(const CEGUI::EventArgs& args)
 {
     GetLog() << "On create";
     if (!mGame)
     {
         LaunchServer();
     }
-}
-
-ClientApp::~ClientApp()
-{
-    // Зачистка системных библиотек.
-    // ТОЛЬКО ДЛЯ ТОГО ЧТО БЫЛО ИНИЦИАЛИЗОРВАНО В КОНСТРУКТОЕ
-    // все остальное должно быть уже почищено!
-    GetLog() << "App destructor";
-
-    delete mMainMenu;
-    mMainMenu = NULL;
-
-    delete mBirdCamera;
-    mBirdCamera = NULL;
-
-    mSoundManager->destroyAllSounds();
-    delete mSoundManager;
-    mSoundManager = NULL;
-
-    mRoot->destroySceneManager(mSceneMgr);
-    mSceneMgr = NULL;
-
-    DestroyOIS(mWindow);
-
-    delete QuickGUI::Root::getSingletonPtr();
-
-    delete mRoot;
-    mRoot = NULL;
-
-    //Remove ourself as a Window listener
-    Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, mWindowEventListener);
-    delete mWindowEventListener;
-    mWindowEventListener = NULL;
-
-    delete mOctreePlugin;
-    mOctreePlugin = NULL;
-
-    delete mGLPlugin;
-    mGLPlugin = NULL;
-}
-
-void ClientApp::MainLoop()
-{
-    unsigned long frameTime = 1;
-
-    GetLog() << "*** The Start ***";
-    while (!mQuit)
-    {
-        OgreProfile("Ogre Main Loop");
-        unsigned long frameStart = mRoot->getTimer()->getMicroseconds();
-
-        Ogre::WindowEventUtilities::messagePump();
-
-        if (!mWindow->isClosed())
-        {
-            {
-                OgreProfile("Update");
-                mKeyboard->capture();
-                mMouse->capture();
-                if (mJoy)
-                    mJoy->capture();
-                // Camera movement
-                mBirdCamera->UpdatePosition(frameTime);
-                if (mGame)
-                {
-                    Ogre::Ray ray = mBirdCamera->MouseToRay(mMouse->getMouseState());
-                    mGame->UpdateTileUnderCursor(ray);
-                    mGame->Update(frameTime, mWindow->getStatistics());
-                }
-            }
-            mRoot->renderOneFrame();
-        }
-        else
-        {
-            mQuit = true;
-            GetLog() << "Window is closed";
-        }
-        mIOService.poll();
-
-        frameTime = mRoot->getTimer()->getMicroseconds() - frameStart;
-    }
-    GetLog() << "*** The End ***";
-
-    // Подчищаем игру
-    delete mGame;
-    mGame = NULL;
-}
-
-void ClientApp::UpdateOISMouseClipping(Ogre::RenderWindow* rw)
-{
-    unsigned int width, height, depth;
-    int left, top;
-    rw->getMetrics(width, height, depth, left, top);
-
-    const OIS::MouseState &ms = mMouse->getMouseState();
-    ms.width = width;
-    ms.height = height;
-}
-
-void ClientApp::UpdateSheetSize(Ogre::RenderWindow* rw)
-{
-    mGUIManager->notifyViewportDimensionsChanged();
-    unsigned int width, height, depth;
-    int left, top;
-    rw->getMetrics(width, height, depth, left, top);
-    QuickGUI::Sheet* sheet = mGUIManager->getActiveSheet();
-    if (sheet)
-    {
-        sheet->setDimensions(QuickGUI::Rect(0, 0, width, height));
-    }
-}
-
-
-//Unattach OIS before window shutdown (very important under Linux)
-void ClientApp::DestroyOIS(Ogre::RenderWindow* rw)
-{
-    //Only close for window that created OIS (the main window in these demos)
-    if (rw == mWindow)
-    {
-        if (mInputManager)
-        {
-            mInputManager->destroyInputObject(mMouse);
-            mInputManager->destroyInputObject(mKeyboard);
-            mInputManager->destroyInputObject(mJoy);
-
-            OIS::InputManager::destroyInputSystem(mInputManager);
-            mInputManager = 0;
-            GetLog() << "OIS destroyed";
-        }
-    }
+    return true;
 }
 
 bool ClientApp::keyPressed(const OIS::KeyEvent &arg)
 {
-    switch (arg.key)
+    // do event injection
+    CEGUI::System& cegui = CEGUI::System::getSingleton();
+    bool processed = cegui.injectKeyDown(arg.key);
+    processed |= cegui.injectChar(arg.text);
+
+    if (!processed)
     {
-    case OIS::KC_W:
-        mBirdCamera->Up();
-        break;
-    case OIS::KC_S:
-        mBirdCamera->Down();
-        break;
-    case OIS::KC_A:
-        mBirdCamera->Left();
-        break;
-    case OIS::KC_D:
-        mBirdCamera->Right();
-        break;
-    case OIS::KC_SUBTRACT:
-        mBirdCamera->ZoomOut();
-        break;
-    case OIS::KC_ADD:
-        mBirdCamera->ZoomIn();
-        break;
-    case OIS::KC_ESCAPE:
-        if (mGame)
+        switch (arg.key)
         {
-            mGame->OnEscape();
+        case OIS::KC_W:
+            mBirdCamera->Up();
+            break;
+        case OIS::KC_S:
+            mBirdCamera->Down();
+            break;
+        case OIS::KC_A:
+            mBirdCamera->Left();
+            break;
+        case OIS::KC_D:
+            mBirdCamera->Right();
+            break;
+        case OIS::KC_SUBTRACT:
+            mBirdCamera->ZoomOut();
+            break;
+        case OIS::KC_ADD:
+            mBirdCamera->ZoomIn();
+            break;
+        case OIS::KC_ESCAPE:
+            if (mGame)
+            {
+                mGame->OnEscape();
+            }
+        default:
+            ;
+
         }
-    default:
-        ;
-
     }
-
-    mGUIManager->injectChar(static_cast<Ogre::UTFString::unicode_char>(arg.text));
-    mGUIManager->injectKeyDown(static_cast<QuickGUI::KeyCode>(arg.key));
 
     return true;
 }
 
 bool ClientApp::keyReleased(const OIS::KeyEvent &arg)
 {
+    if (CEGUI::System::getSingleton().injectKeyUp(arg.key))
+    {
+        return true;
+    }
+
     switch (arg.key)
     {
     case OIS::KC_W:
@@ -537,26 +495,45 @@ bool ClientApp::keyReleased(const OIS::KeyEvent &arg)
         ;
     }
 
-    mGUIManager->injectKeyUp(static_cast<QuickGUI::KeyCode>(arg.key));
-
     return true;
 }
 
 bool ClientApp::mouseMoved(const OIS::MouseEvent &arg)
 {
-    mGUIManager->injectMousePosition(arg.state.X.abs, arg.state.Y.abs);
+    CEGUI::System& cegui = CEGUI::System::getSingleton();
 
-    float z = arg.state.Z.rel;
-    if (z != 0)
-        mGUIManager->injectMouseWheelChange(z);
+    cegui.injectMouseWheelChange(arg.state.Z.rel / 120.0f);
+    cegui.injectMousePosition(arg.state.X.abs, arg.state.Y.abs);
 
     return true;
 }
 
+CEGUI::MouseButton convertOISButtonToCegui(int buttonID)
+{
+   using namespace OIS;
+
+   switch (buttonID)
+    {
+   case OIS::MB_Left:
+        return CEGUI::LeftButton;
+   case OIS::MB_Right:
+        return CEGUI::RightButton;
+   case OIS::MB_Middle:
+        return CEGUI::MiddleButton;
+    default:
+        return CEGUI::LeftButton;
+    }
+}
+
+
 bool ClientApp::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
-    bool res = mGUIManager->injectMouseButtonDown(static_cast<QuickGUI::MouseButtonID>(id));
-    if (!res && mGame)
+    if (CEGUI::System::getSingleton().injectMouseButtonDown(convertOISButtonToCegui(id)))
+    {
+        return true;
+    }
+
+    if (mGame)
     {
         switch (id)
         {
@@ -575,8 +552,63 @@ bool ClientApp::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 
 bool ClientApp::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
-    mGUIManager->injectMouseButtonUp(static_cast<QuickGUI::MouseButtonID>(id));
-
+    CEGUI::System::getSingleton().injectMouseButtonUp(convertOISButtonToCegui(id));
     return true;
 }
 
+void ClientApp::windowResized(Ogre::RenderWindow* rw)
+{
+    CEGUI::System* const sys = CEGUI::System::getSingletonPtr();
+    if (sys)
+        sys->notifyDisplaySizeChanged(
+            CEGUI::Size(static_cast<float>(rw->getWidth()),
+                        static_cast<float>(rw->getHeight())));
+}
+
+void ClientApp::windowClosed(Ogre::RenderWindow* rw)
+{
+    mQuit = true;
+    GetLog() << "Window is closed";
+}
+
+
+void ClientApp::MainLoop()
+{
+    unsigned long frameTime = 1;
+
+    GetLog() << "*** The Start ***";
+    while (!mQuit)
+    {
+        OgreProfile("Ogre Main Loop");
+        unsigned long frameStart = mRoot->getTimer()->getMicroseconds();
+
+        {
+            OgreProfile("Update");
+            Ogre::WindowEventUtilities::messagePump();
+            CEGUI::System::getSingleton().injectTimePulse(frameTime / 1000000);
+
+            mKeyboard->capture();
+            mMouse->capture();
+            if (mJoy)
+                mJoy->capture();
+
+            if (mGame)
+            {
+                mBirdCamera->UpdatePosition(frameTime);
+                Ogre::Ray ray = mBirdCamera->MouseToRay(mMouse->getMouseState());
+                mGame->UpdateTileUnderCursor(ray);
+                mGame->Update(frameTime, mWindow->getStatistics());
+            }
+
+            mIOService.poll();
+        }
+        mRoot->renderOneFrame();
+
+        frameTime = mRoot->getTimer()->getMicroseconds() - frameStart;
+    }
+    GetLog() << "*** The End ***";
+
+    // Подчищаем игру
+    delete mGame;
+    mGame = NULL;
+}

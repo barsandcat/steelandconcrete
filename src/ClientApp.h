@@ -1,38 +1,41 @@
 #ifndef APP_H
 #define APP_H
 
-#include <OgreWindowCallback.h>
 #include <ClientGeodesicGrid.h>
 #include <ClientGame.h>
 
 #include <OgreAL.h>
-#include <QuickGUI.h>
+#include <CEGUI.h>
+#include <RendererModules/Ogre/CEGUIOgreRenderer.h>
+
 #include <BirdCamera.h>
-#include <MainMenuSheet.h>
-#include <ServerBrowserSheet.h>
 
 void LaunchServer();
 
-class ClientApp: public OIS::KeyListener, public OIS::MouseListener, public OIS::JoyStickListener
+class ClientApp: public OIS::KeyListener, public OIS::MouseListener, public OIS::JoyStickListener,
+                 public Ogre::WindowEventListener
 {
 public:
     ClientApp(const Ogre::String aConfigFile);
     virtual ~ClientApp();
     void MainLoop();
-    void UpdateOISMouseClipping(Ogre::RenderWindow* rw);
-    void UpdateSheetSize(Ogre::RenderWindow* rw);
-    void DestroyOIS(Ogre::RenderWindow* rw);
 
-    void OnClick(const QuickGUI::EventArgs& args);
-    void OnConnect(const QuickGUI::EventArgs& args);
-    void OnCreate(const QuickGUI::EventArgs& args);
-    void OnBrowse(const QuickGUI::EventArgs& args);
-    void OnRussian(const QuickGUI::EventArgs& args);
-    void OnUkranian(const QuickGUI::EventArgs& args);
-    void OnEnglish(const QuickGUI::EventArgs& args);
-    void OnJapanese(const QuickGUI::EventArgs& args);
-    void OnMainMenu(const QuickGUI::EventArgs& args);
+    bool OnClick(const CEGUI::EventArgs& args);
+    bool OnConnect(const CEGUI::EventArgs& args);
+    bool OnCreate(const CEGUI::EventArgs& args);
+    bool OnBrowse(const CEGUI::EventArgs& args);
+    bool OnRussian(const CEGUI::EventArgs& args);
+    bool OnUkranian(const CEGUI::EventArgs& args);
+    bool OnEnglish(const CEGUI::EventArgs& args);
+    bool OnJapanese(const CEGUI::EventArgs& args);
+    bool OnMainMenu(const CEGUI::EventArgs& args);
 
+    static Ogre::SceneManager& GetSceneMgr();
+    static OgreAL::SoundManager& GetSoundMgr();
+    static void Quit();
+    static BirdCamera& GetCamera();
+public:
+    // OIS callbacks
     virtual bool buttonPressed(const OIS::JoyStickEvent &arg, int button)
     {
         return true;
@@ -50,14 +53,10 @@ public:
     virtual bool mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
     virtual bool keyPressed(const OIS::KeyEvent& arg);
     virtual bool keyReleased(const OIS::KeyEvent& arg);
-
-    static QuickGUI::GUIManager& GetGuiMgr();
-    static Ogre::SceneManager& GetSceneMgr();
-    static OgreAL::SoundManager& GetSoundMgr();
-    static void Quit();
-    static BirdCamera& GetCamera();
+    // Ogre call backs
+    virtual void windowResized(Ogre::RenderWindow* rw);
+    virtual void windowClosed(Ogre::RenderWindow* rw);
 private:
-    static QuickGUI::GUIManager* mGUIManager;
     static Ogre::SceneManager* mSceneMgr;
     static OgreAL::SoundManager* mSoundManager;
     static BirdCamera* mBirdCamera;
@@ -67,10 +66,11 @@ private:
     static char UK[];
     static char JA[];
 
+    CEGUI::OgreRenderer* mCEGUIRenderer;
+
     Ogre::Root* mRoot;
     Ogre::Plugin* mOctreePlugin;
     Ogre::Plugin* mGLPlugin;
-    OgreWindowCallback* mWindowEventListener;
     Ogre::RenderWindow* mWindow;
     //OIS Input devices
     OIS::InputManager* mInputManager;
@@ -79,8 +79,6 @@ private:
     OIS::JoyStick* mJoy;
 
     ClientGame* mGame;
-    MainMenuSheet* mMainMenu;
-    ServerBrowserSheet* mServerBrowserSheet;
     boost::asio::io_service mIOService;
     boost::shared_ptr< boost::asio::io_service::work > mWork;
 };

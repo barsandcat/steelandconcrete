@@ -100,11 +100,6 @@ void ServerBrowserSheet::BuildSheet()
 
 void ServerBrowserSheet::Activate()
 {
-    if (!mSheet)
-    {
-        BuildSheet();
-    }
-    ClientApp::GetGuiMgr().setActiveSheet(mSheet);
 }
 
 ServerBrowserSheet::~ServerBrowserSheet()

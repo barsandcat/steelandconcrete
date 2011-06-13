@@ -25,8 +25,12 @@
 					<Add library="OgreAL_d" />
 					<Add library="Plugin_OctreeSceneManager_d" />
 					<Add library="protobuf_d" />
-					<Add library="QuickGUI_d" />
 					<Add library="boost_filesystemDebug" />
+					<Add library="CEGUIOgreRenderer_d" />
+					<Add library="CEGUIBase_d" />
+					<Add library="CEGUIFalagardWRBase_d" />
+					<Add library="CEGUITinyXMLParser_d" />
+					<Add library="CEGUIFreeImageImageCodec_d" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -48,8 +52,12 @@
 					<Add library="OgreAL" />
 					<Add library="Plugin_OctreeSceneManager" />
 					<Add library="protobuf" />
-					<Add library="QuickGUI" />
 					<Add library="boost_filesystemRelease" />
+					<Add library="CEGUIOgreRenderer" />
+					<Add library="CEGUIBase" />
+					<Add library="CEGUIFalagardWRBase" />
+					<Add library="CEGUITinyXMLParser" />
+					<Add library="CEGUIFreeImageImageCodec" />
 				</Linker>
 			</Target>
 		</Build>
@@ -59,6 +67,7 @@
 			<Add option="-Wsign-compare" />
 			<Add option="-Wunused-variable" />
 			<Add option="-DBOOST_ALL_NO_LIB=1" />
+			<Add option="-DCEGUI_STATIC" />
 			<Add directory="src" />
 			<Add directory="betagui2" />
 			<Add directory="ogre/build/include" />
@@ -72,8 +81,8 @@
 			<Add directory="protobuf-2.4.1/src" />
 			<Add directory="src/proto" />
 			<Add directory="SAL" />
-			<Add directory="QuickGUI_10_1/QuickGUI/include" />
 			<Add directory="boost/boost_1_46_1" />
+			<Add directory="CEGUI-0.7.5/cegui/include" />
 		</Compiler>
 		<Linker>
 			<Add library="pthread" />
@@ -91,6 +100,8 @@
 		</ExtraCommands>
 		<Unit filename="src/BirdCamera.cpp" />
 		<Unit filename="src/BirdCamera.h" />
+		<Unit filename="src/CEGUILocalization.cpp" />
+		<Unit filename="src/CEGUILocalization.h" />
 		<Unit filename="src/ClientApp.cpp" />
 		<Unit filename="src/ClientApp.h" />
 		<Unit filename="src/ClientEdge.h" />
@@ -105,26 +116,12 @@
 		<Unit filename="src/ClientTile.h" />
 		<Unit filename="src/ClientUnit.cpp" />
 		<Unit filename="src/ClientUnit.h" />
-		<Unit filename="src/InGameSheet.cpp" />
-		<Unit filename="src/InGameSheet.h" />
 		<Unit filename="src/Linux.cpp" />
 		<Unit filename="src/LinuxPlatform.cpp" />
-		<Unit filename="src/LoadingSheet.cpp" />
-		<Unit filename="src/LoadingSheet.h" />
-		<Unit filename="src/MainMenuSheet.cpp" />
-		<Unit filename="src/MainMenuSheet.h" />
 		<Unit filename="src/Network.cpp" />
 		<Unit filename="src/Network.h" />
-		<Unit filename="src/OgreWindowCallback.cpp" />
-		<Unit filename="src/OgreWindowCallback.h" />
-		<Unit filename="src/ServerBrowserSheet.cpp" />
-		<Unit filename="src/ServerBrowserSheet.h" />
 		<Unit filename="src/SyncTimer.h" />
-		<Unit filename="src/SystemMenuSheet.cpp" />
-		<Unit filename="src/SystemMenuSheet.h" />
 		<Unit filename="src/Typedefs.h" />
-		<Unit filename="src/ViewPortWidget.cpp" />
-		<Unit filename="src/ViewPortWidget.h" />
 		<Unit filename="src/VisualCodes.cpp" />
 		<Unit filename="src/VisualCodes.h" />
 		<Unit filename="src/pch.cpp" />
@@ -164,6 +161,7 @@
 				<lib name="vorbisfile" />
 				<lib name="xaw7" />
 				<lib name="xrandr" />
+				<lib name="libpcre" />
 			</lib_finder>
 			<DoxyBlocks>
 				<comment_style block="0" line="0" />

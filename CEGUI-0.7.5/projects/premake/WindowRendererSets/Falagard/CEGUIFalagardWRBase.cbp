@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="CEGUIFalagardWRBase" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../../../../lib/libCEGUIFalagardWRBase_d.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../../obj/CEGUIFalagardWRBaseDebugLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-pg" />
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-pg" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../../../../lib/libCEGUIFalagardWRBase.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../../obj/CEGUIFalagardWRBaseReleaseLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-DHAVE_CONFIG_H" />
+			<Add option="-DCEGUI_STATIC" />
+			<Add directory="../../../../cegui/include" />
+			<Add directory="../../../../dependencies/include" />
+			<Add directory="../../../../cegui/include/WindowRendererSets/Falagard/" />
+		</Compiler>
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalButton.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalDefault.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalEditbox.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalEditboxProperties.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalFrameWindow.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalItemEntry.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalItemListbox.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalListHeader.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalListHeaderProperties.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalListHeaderSegment.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalListbox.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalMenuItem.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalMenubar.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalModule.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalMultiColumnList.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalMultiLineEditbox.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalMultiLineEditboxProperties.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalPopupMenu.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalProgressBar.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalProgressBarProperties.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalScrollablePane.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalScrollbar.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalScrollbarProperties.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalSlider.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalSliderProperties.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalStatic.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalStaticImage.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalStaticImageProperties.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalStaticProperties.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalStaticText.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalStaticTextProperties.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalSystemButton.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalTabButton.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalTabControl.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalTabControlProperties.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalTitlebar.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalToggleButton.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalTooltip.h" />
+		<Unit filename="../../../../cegui/include/WindowRendererSets/Falagard/FalTree.h" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalButton.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalDefault.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalEditbox.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalEditboxProperties.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalFrameWindow.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalItemEntry.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalItemListbox.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalListHeader.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalListHeaderProperties.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalListHeaderSegment.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalListbox.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalMenuItem.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalMenubar.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalModule.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalMultiColumnList.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalMultiLineEditbox.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalMultiLineEditboxProperties.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalPopupMenu.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalProgressBar.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalProgressBarProperties.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalScrollablePane.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalScrollbar.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalScrollbarProperties.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalSlider.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalSliderProperties.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalStatic.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalStaticImage.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalStaticImageProperties.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalStaticProperties.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalStaticText.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalStaticTextProperties.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalSystemButton.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalTabButton.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalTabControl.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalTabControlProperties.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalTitlebar.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalToggleButton.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalTooltip.cpp" />
+		<Unit filename="../../../../cegui/src/WindowRendererSets/Falagard/FalTree.cpp" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
