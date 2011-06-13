@@ -47,25 +47,34 @@ void ClientGridNode::RemoveNeighbour(ClientGridNode& aTile)
     mNeighbourhood.erase(i);
 }
 
-Ogre::Real CalcDistance2(const Ogre::Vector3& a, const Ogre::Vector3& b)
+Ogre::Radian CalcDistance2(const Ogre::Vector3& a, const Ogre::Vector3& b)
 {
-    return acos(a.dotProduct(b));
+    Ogre::Real lenProduct = a.length() * b.length();
+
+    // Divide by zero check
+    if(lenProduct < 1e-6f)
+        lenProduct = 1e-6f;
+
+    Ogre::Real f = a.dotProduct(b) / lenProduct;
+
+    f = Ogre::Math::Clamp(f, (Ogre::Real)-1.0, (Ogre::Real)1.0);
+    return Ogre::Math::ACos(f);
 }
 
 ClientGridNode* ClientGridNode::GetTileAtPosition(const Ogre::Vector3& aPosistion)
 {
-    Ogre::Real min = CalcDistance2(mNeighbourhood[0]->GetPosition(), GetPosition());
+    Ogre::Radian min = CalcDistance2(mNeighbourhood[0]->GetPosition(), GetPosition());
     ClientGridNode* currentTile = this;
     int counter = 0;
 
     while (CalcDistance2(currentTile->GetPosition(), aPosistion) > min && counter < 1000)
     {
         ClientGridNode* bestNeighbour = &currentTile->GetNeighbour(0);
-        Ogre::Real bestDistance = CalcDistance2(bestNeighbour->GetPosition(), aPosistion);
+        Ogre::Radian bestDistance = CalcDistance2(bestNeighbour->GetPosition(), aPosistion);
         for (size_t i = 1; i < currentTile->GetNeighbourCount(); ++i)
         {
             ClientGridNode* neighbour = &currentTile->GetNeighbour(i);
-            Ogre::Real distance = CalcDistance2(neighbour->GetPosition(), aPosistion);
+            Ogre::Radian distance = CalcDistance2(neighbour->GetPosition(), aPosistion);
             if (distance < bestDistance)
             {
                 bestDistance = distance;

@@ -51,7 +51,7 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
 
     mTileUnderCursor = mTiles.at(0);
     mSelectionMarker = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
-    mSelectionMarker->setScale(Ogre::Vector3(0.01));
+    mSelectionMarker->setScale(Ogre::Vector3(0.1));
     mSelectionMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Marker", Ogre::SceneManager::PT_SPHERE));
 
     mTargetMarker = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
@@ -87,7 +87,8 @@ void ClientGame::CreateUnitEntities() const
 
 void ClientGame::UpdateTileUnderCursor(Ogre::Ray& aRay)
 {
-    Ogre::Sphere sphere(Ogre::Vector3::ZERO, 1.0f);
+    Ogre::Real radius = mTiles[0]->GetPosition().length();
+    Ogre::Sphere sphere(Ogre::Vector3::ZERO, radius);
     std::pair<bool, Ogre::Real> res = aRay.intersects(sphere);
     if (res.first)
     {
