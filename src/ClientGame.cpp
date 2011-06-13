@@ -247,7 +247,7 @@ void ClientGame::OnResponseMsg(ResponsePtr aResponseMsg)
     {
     case RESPONSE_OK:
         mTime = aResponseMsg->time();
-        winMgr.getWindow("Time")->setText(Ogre::StringConverter::toString(mTime));
+        winMgr.getWindow("Time")->setText(Ogre::StringConverter::toString(static_cast<long>(mTime)));
         mSyncTimer.Reset(aResponseMsg->update_length());
         break;
     case RESPONSE_PART:

@@ -89,7 +89,7 @@ CEGUI_USE_FREETYPE = true
 --- validation as used in the Editbox (and derived classes, such as Spinner).
 --- To disable the use of PCRE (and therefore the validation factilities), set
 --- this to false.  (Attempts to set validation string will throw).
-CEGUI_USE_PCRE_REGEX = true
+CEGUI_USE_PCRE_REGEX = false
 
 --- CEGUI::DefaultLogger
 --- To disable compilation and use of the CEGUI::DefaultLogger, set this to
@@ -114,7 +114,7 @@ CEGUI_USE_MINIBIDI = true;
 ---
 --- The MinizipResourceProvider enables resources to be loaded from a zip compressed
 --- archive.
-MINIZIP_RESOURCE_PROVIDER = true
+MINIZIP_RESOURCE_PROVIDER = false
 
 -------------
 -- Renderers
