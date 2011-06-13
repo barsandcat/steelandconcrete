@@ -1,0 +1,94 @@
+<?xml version="1.0" ?>
+<GUILayout>
+    <Window Type="DefaultWindow" Name="root">
+        <Window Type="TaharezLook/FrameWindow" Name="MainMenu">
+            <Property Name="UnifiedPosition" Value="{ {0.2, 0}, {0.1, 0} }" />
+            <Property Name="UnifiedSize" Value="{ {0.6, 0}, {0.8, 0} }" />
+            <Property Name="Text" Value="Steel and Concrete" />
+            <Property Name="SizingEnabled" Value="False" />
+            <Property Name="CloseButtonEnabled" Value="False" />
+            <Property Name="DragMovingEnabled" Value="False" />            
+            <Property Name="RollUpEnabled" Value="False" />
+            
+            <Window Type="TaharezLook/Button" Name="MainMenu/Create">
+                <Property Name="UnifiedPosition" Value="{{0.25,0},{0.1,0}}" />
+                <Property Name="UnifiedSize" Value="{{0.5,0},{0,25}}" />
+                <Property Name="Text" Value="Create server" />
+            </Window>
+            
+            <Window Type="TaharezLook/Button" Name="MainMenu/Connect">
+                <Property Name="UnifiedPosition" Value="{{0.25,0},{0.2,0}}" />
+                <Property Name="UnifiedSize" Value="{{0.5,0},{0,25}}" />
+                <Property Name="Text" Value="Connect" />
+            </Window>
+            
+            <Window Type="TaharezLook/Button" Name="MainMenu/English">
+                <Property Name="UnifiedPosition" Value="{{0.25,0},{0.4,0}}" />
+                <Property Name="UnifiedSize" Value="{{0.5,0},{0,25}}" />
+                <Property Name="Text" Value="English" />
+            </Window>
+            <Window Type="TaharezLook/Button" Name="MainMenu/Ukranian">
+                <Property Name="UnifiedPosition" Value="{{0.25,0},{0.5,0}}" />
+                <Property Name="UnifiedSize" Value="{{0.5,0},{0,25}}" />
+                <Property Name="Text" Value="Ukranian" />
+            </Window>
+            <Window Type="TaharezLook/Button" Name="MainMenu/Russian">
+                <Property Name="UnifiedPosition" Value="{{0.25,0},{0.6,0}}" />
+                <Property Name="UnifiedSize" Value="{{0.5,0},{0,25}}" />
+                <Property Name="Text" Value="Russian" />
+            </Window>
+            <Window Type="TaharezLook/Button" Name="MainMenu/Japanese">
+                <Property Name="UnifiedPosition" Value="{{0.25,0},{0.7,0}}" />
+                <Property Name="UnifiedSize" Value="{{0.5,0},{0,25}}" />
+                <Property Name="Text" Value="Japanese" />
+            </Window>
+
+        </Window>
+        
+        <Window Type="TaharezLook/FrameWindow" Name="ServerBrowser">
+            <Property Name="UnifiedPosition" Value="{ {0.15, 0}, {0.2, 0} }" />
+            <Property Name="UnifiedSize" Value="{ {0.7, 0}, {0.6, 0} }" />
+            <Property Name="Text" Value="Server browser" />
+            <Property Name="SizingEnabled" Value="False" />
+            <Property Name="CloseButtonEnabled" Value="False" />
+            <Property Name="DragMovingEnabled" Value="False" />            
+            <Property Name="RollUpEnabled" Value="False" />
+            <Property Name="Visible" Value="False"/>
+
+            <Window Type="TaharezLook/StaticText" Name="ServerBrowser/AddressLabel">
+                <Property Name="UnifiedPosition" Value="{{0.1,0},{0.1,0}}" />
+                <Property Name="UnifiedSize" Value="{{0.2,0},{0,25}}" />
+                <Property Name="Text" Value="Address" />
+            </Window>
+            
+            <Window Type="TaharezLook/Editbox" Name="ServerBrowser/Address">
+                <Property Name="UnifiedPosition" Value="{{0.4,0},{0.1,0}}" />
+                <Property Name="UnifiedSize" Value="{{0.5,0},{0,25}}" />
+            </Window>
+
+            <Window Type="TaharezLook/StaticText" Name="ServerBrowser/PortLabel">
+                <Property Name="UnifiedPosition" Value="{{0.1,0},{0.2,0}}" />
+                <Property Name="UnifiedSize" Value="{{0.2,0},{0,25}}" />
+                <Property Name="Text" Value="Port" />
+            </Window>
+            
+            <Window Type="TaharezLook/Editbox" Name="ServerBrowser/Port">
+                <Property Name="UnifiedPosition" Value="{{0.4,0},{0.2,0}}" />
+                <Property Name="UnifiedSize" Value="{{0.5,0},{0,25}}" />
+            </Window>
+            
+            <Window Type="TaharezLook/Button" Name="ServerBrowser/Connect">
+                <Property Name="UnifiedPosition" Value="{{0.55,0},{0.8,0}}" />
+                <Property Name="UnifiedSize" Value="{{0.35,0},{0,25}}" />
+                <Property Name="Text" Value="Connect" />
+            </Window>
+            
+            <Window Type="TaharezLook/Button" Name="ServerBrowser/Cancel">
+                <Property Name="UnifiedPosition" Value="{{0.1,0},{0.8,0}}" />
+                <Property Name="UnifiedSize" Value="{{0.35,0},{0,25}}" />
+                <Property Name="Text" Value="Cancel" />
+            </Window>
+            
+        </Window>
+    </Window>
+</GUILayout>

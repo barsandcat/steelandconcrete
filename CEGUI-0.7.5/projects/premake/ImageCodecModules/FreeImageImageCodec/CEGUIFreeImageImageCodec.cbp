@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="CEGUIFreeImageImageCodec" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../../../../lib/libCEGUIFreeImageImageCodec_d.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../../obj/CEGUIFreeImageCodecDebugLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-pg" />
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-pg" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../../../../lib/libCEGUIFreeImageImageCodec.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../../obj/CEGUIFreeImageCodecReleaseLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-DHAVE_CONFIG_H" />
+			<Add option="-DCEGUI_STATIC" />
+			<Add option="-DFREEIMAGE_LIB" />
+			<Add directory="../../../../cegui/include" />
+			<Add directory="../../../../cegui/include/ImageCodecModules/FreeImageImageCodec" />
+		</Compiler>
+		<Unit filename="../../../../cegui/include/ImageCodecModules/FreeImageImageCodec/CEGUIFreeImageImageCodec.h" />
+		<Unit filename="../../../../cegui/include/ImageCodecModules/FreeImageImageCodec/CEGUIFreeImageImageCodecModule.h" />
+		<Unit filename="../../../../cegui/src/ImageCodecModules/FreeImageImageCodec/CEGUIFreeImageImageCodec.cpp" />
+		<Unit filename="../../../../cegui/src/ImageCodecModules/FreeImageImageCodec/CEGUIFreeImageImageCodecModule.cpp" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

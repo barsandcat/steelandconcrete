@@ -1,5 +1,6 @@
 #include <pch.h>
 #include <ClientGame.h>
+
 #include <ClientApp.h>
 #include <Network.h>
 #include <ClientLog.h>
@@ -9,6 +10,8 @@
 #include <ClientApp.h>
 #include <ClientTile.h>
 
+#include <CEGUILocalization.h>
+
 ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
     mTileUnderCursor(NULL),
     mAvatar(NULL),
@@ -16,14 +19,17 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
     mSyncTimer(1000),
     mNetwork(aNetwork)
 {
-    mLoadingSheet.Activate();
+    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
+    CEGUI::Window* myRoot = winMgr.loadWindowLayout("Game.layout", "", "", &PropertyCallback);
+    CEGUI::System::getSingleton().setGUISheet(myRoot);
+
+    winMgr.getWindow("InGameMenu/Exit")->
+        subscribeEvent(CEGUI::PushButton::EventClicked,
+                       CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
 
     ClientGeodesicGrid grid(mTiles, aGridSize);
-    mLoadingSheet.SetProgress(50);
 
     LoadAvatar();
-
-    mLoadingSheet.SetProgress(90);
 
     mAvatar = &GetUnit(aAvatarId);
     if (!mAvatar)
@@ -52,10 +58,6 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
     mTargetMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Target", "TargetMarker.mesh"));
     mTargetMarker->setVisible(false);
 
-    QuickGUI::EventHandlerManager::getSingleton().registerEventHandler("OnExit", &ClientGame::OnExit, this);
-
-    mIngameSheet.SetTime(mTime);
-    mIngameSheet.Activate();
 }
 
 ClientGame::~ClientGame()
@@ -114,23 +116,17 @@ void ClientGame::OnAct()
     mTargetMarker->setVisible(true);
 }
 
-void ClientGame::OnExit(const QuickGUI::EventArgs& args)
+bool ClientGame::OnExit(const CEGUI::EventArgs& args)
 {
     ClientApp::Quit();
     GetLog() << "OnExit";
+    return true;
 }
 
 void ClientGame::OnEscape()
 {
-    if (mSystemMenuSheet.IsActive())
-    {
-        mIngameSheet.Activate();
-    }
-    else
-    {
-        mSystemMenuSheet.Activate();
-    }
-
+    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
+    winMgr.getWindow("InGameMenu")->setVisible(true);
 }
 
 ClientUnit& ClientGame::GetUnit(UnitId aUnitId)
@@ -204,7 +200,9 @@ void ClientGame::LoadEvents(ResponsePtr aResponseMsg)
 
 void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats)
 {
-    mIngameSheet.UpdateStats(aStats);
+    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
+    winMgr.getWindow("FPS")->setText(Ogre::StringConverter::toString(aStats.avgFPS));
+
 
     if (mSyncTimer.IsTime())
     {
@@ -244,11 +242,12 @@ void ClientGame::LoadAvatar()
 
 void ClientGame::OnResponseMsg(ResponsePtr aResponseMsg)
 {
+    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
     switch (aResponseMsg->type())
     {
     case RESPONSE_OK:
         mTime = aResponseMsg->time();
-        mIngameSheet.SetTime(mTime);
+        winMgr.getWindow("Time")->setText(Ogre::StringConverter::toString(static_cast<long>(mTime)));
         mSyncTimer.Reset(aResponseMsg->update_length());
         break;
     case RESPONSE_PART:
