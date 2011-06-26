@@ -57,6 +57,7 @@ public:
     virtual void windowResized(Ogre::RenderWindow* rw);
     virtual void windowClosed(Ogre::RenderWindow* rw);
 private:
+    void BuildMainGUILayout();
     static Ogre::SceneManager* mSceneMgr;
     static OgreAL::SoundManager* mSoundManager;
     static BirdCamera* mBirdCamera;

@@ -211,41 +211,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         CEGUI::System::getSingleton().setDefaultMouseCursor("TaharezLook", "MouseArrow");
 
         CEGUI::GlobalEventSet::getSingleton().subscribeEvent("PushButton/Clicked",
-                           CEGUI::Event::Subscriber(&ClientApp::OnClick, this));
-
-        //Main layout
-        CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-        CEGUI::Window* myRoot = winMgr.loadWindowLayout("Main.layout", "", "", &PropertyCallback);
-        CEGUI::System::getSingleton().setGUISheet(myRoot);
-        winMgr.getWindow("ServerBrowser/Port")->setText("4512");
-        winMgr.getWindow("ServerBrowser/Address")->setText("localhost");
-
-        winMgr.getWindow("MainMenu/English")->
-            subscribeEvent(CEGUI::PushButton::EventClicked,
-                           CEGUI::Event::Subscriber(&ClientApp::OnEnglish, this));
-        winMgr.getWindow("MainMenu/Ukranian")->
-            subscribeEvent(CEGUI::PushButton::EventClicked,
-                           CEGUI::Event::Subscriber(&ClientApp::OnUkranian, this));
-        winMgr.getWindow("MainMenu/Russian")->
-            subscribeEvent(CEGUI::PushButton::EventClicked,
-                           CEGUI::Event::Subscriber(&ClientApp::OnRussian, this));
-        winMgr.getWindow("MainMenu/Japanese")->
-            subscribeEvent(CEGUI::PushButton::EventClicked,
-                           CEGUI::Event::Subscriber(&ClientApp::OnJapanese, this));
-
-        winMgr.getWindow("MainMenu/Create")->
-            subscribeEvent(CEGUI::PushButton::EventClicked,
-                           CEGUI::Event::Subscriber(&ClientApp::OnCreate, this));
-        winMgr.getWindow("MainMenu/Connect")->
-            subscribeEvent(CEGUI::PushButton::EventClicked,
-                           CEGUI::Event::Subscriber(&ClientApp::OnBrowse, this));
-
-        winMgr.getWindow("ServerBrowser/Connect")->
-            subscribeEvent(CEGUI::PushButton::EventClicked,
-                           CEGUI::Event::Subscriber(&ClientApp::OnConnect, this));
-        winMgr.getWindow("ServerBrowser/Cancel")->
-            subscribeEvent(CEGUI::PushButton::EventClicked,
-                           CEGUI::Event::Subscriber(&ClientApp::OnMainMenu, this));
+                CEGUI::Event::Subscriber(&ClientApp::OnClick, this));
     }
 #if OGRE_PROFILING
     Ogre::Profiler::getSingleton().setEnabled(true);
@@ -291,6 +257,43 @@ ClientApp::~ClientApp()
     mGLPlugin = NULL;
 }
 
+void ClientApp::BuildMainGUILayout()
+{
+    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
+    winMgr.destroyAllWindows();
+    CEGUI::Window* myRoot = winMgr.loadWindowLayout("Main.layout", "", "", &PropertyCallback);
+    CEGUI::System::getSingleton().setGUISheet(myRoot);
+    winMgr.getWindow("ServerBrowser/Port")->setText("4512");
+    winMgr.getWindow("ServerBrowser/Address")->setText("localhost");
+
+    winMgr.getWindow("MainMenu/English")->
+    subscribeEvent(CEGUI::PushButton::EventClicked,
+                   CEGUI::Event::Subscriber(&ClientApp::OnEnglish, this));
+    winMgr.getWindow("MainMenu/Ukranian")->
+    subscribeEvent(CEGUI::PushButton::EventClicked,
+                   CEGUI::Event::Subscriber(&ClientApp::OnUkranian, this));
+    winMgr.getWindow("MainMenu/Russian")->
+    subscribeEvent(CEGUI::PushButton::EventClicked,
+                   CEGUI::Event::Subscriber(&ClientApp::OnRussian, this));
+    winMgr.getWindow("MainMenu/Japanese")->
+    subscribeEvent(CEGUI::PushButton::EventClicked,
+                   CEGUI::Event::Subscriber(&ClientApp::OnJapanese, this));
+
+    winMgr.getWindow("MainMenu/Create")->
+    subscribeEvent(CEGUI::PushButton::EventClicked,
+                   CEGUI::Event::Subscriber(&ClientApp::OnCreate, this));
+    winMgr.getWindow("MainMenu/Connect")->
+    subscribeEvent(CEGUI::PushButton::EventClicked,
+                   CEGUI::Event::Subscriber(&ClientApp::OnBrowse, this));
+
+    winMgr.getWindow("ServerBrowser/Connect")->
+    subscribeEvent(CEGUI::PushButton::EventClicked,
+                   CEGUI::Event::Subscriber(&ClientApp::OnConnect, this));
+    winMgr.getWindow("ServerBrowser/Cancel")->
+    subscribeEvent(CEGUI::PushButton::EventClicked,
+                   CEGUI::Event::Subscriber(&ClientApp::OnMainMenu, this));
+}
+
 bool ClientApp::OnClick(const CEGUI::EventArgs& args)
 {
     OgreAL::Sound *sound = NULL;
@@ -333,6 +336,7 @@ bool ClientApp::OnRussian(const CEGUI::EventArgs& args)
 {
     putenv(RU);
     TriggerMsgCatalogReload();
+    BuildMainGUILayout();
     return true;
 }
 
@@ -340,6 +344,7 @@ bool ClientApp::OnEnglish(const CEGUI::EventArgs& args)
 {
     putenv(EN);
     TriggerMsgCatalogReload();
+    BuildMainGUILayout();
     return true;
 }
 
@@ -347,6 +352,7 @@ bool ClientApp::OnUkranian(const CEGUI::EventArgs& args)
 {
     putenv(UK);
     TriggerMsgCatalogReload();
+    BuildMainGUILayout();
     return true;
 }
 
@@ -354,6 +360,7 @@ bool ClientApp::OnJapanese(const CEGUI::EventArgs& args)
 {
     putenv(JA);
     TriggerMsgCatalogReload();
+    BuildMainGUILayout();
     return true;
 }
 
@@ -510,15 +517,15 @@ bool ClientApp::mouseMoved(const OIS::MouseEvent &arg)
 
 CEGUI::MouseButton convertOISButtonToCegui(int buttonID)
 {
-   using namespace OIS;
+    using namespace OIS;
 
-   switch (buttonID)
+    switch (buttonID)
     {
-   case OIS::MB_Left:
+    case OIS::MB_Left:
         return CEGUI::LeftButton;
-   case OIS::MB_Right:
+    case OIS::MB_Right:
         return CEGUI::RightButton;
-   case OIS::MB_Middle:
+    case OIS::MB_Middle:
         return CEGUI::MiddleButton;
     default:
         return CEGUI::LeftButton;
@@ -574,6 +581,8 @@ void ClientApp::windowClosed(Ogre::RenderWindow* rw)
 
 void ClientApp::MainLoop()
 {
+    BuildMainGUILayout();
+
     unsigned long frameTime = 1;
 
     GetLog() << "*** The Start ***";
