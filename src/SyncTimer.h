@@ -11,14 +11,10 @@ public:
     void Reset(int64 aPeriod)
     {
         mEnd = aPeriod + GetMiliseconds();
-        mActive = true;
     }
     bool IsTime()
     {
-        bool isTime = GetMiliseconds() >= mEnd;
-        bool result = mActive && isTime;
-        mActive = mActive && !isTime;
-        return result;
+        return GetMiliseconds() >= mEnd;
     }
     ~SyncTimer() {}
 private:
@@ -29,7 +25,6 @@ private:
     }
 private:
     int64 mEnd;
-    bool mActive;
 };
 
 #endif // SYNCTIMER_H

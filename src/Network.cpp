@@ -5,7 +5,7 @@
 #include <ServerLog.h>
 
 Network::Network(SocketSharedPtr aSocket): mSocket(aSocket), mMessageBuffer(NULL),
-mBufferSize(0), mAsync(false)
+mBufferSize(0), mAsync(false), mRequests(100)
 {
     assert(aSocket);
     HeaderMsg header;
@@ -92,11 +92,17 @@ void Network::Request(ResponseCallBack aCallBack, RequestPtr aRequestMsg)
     //std::cout << "NET:Request " << aRequestMsg->ShortDebugString() << std::endl;
     if (mAsync)
     {
-        boost::throw_exception(std::runtime_error("Async op in progress"));
+        mRequests.push_back(std::make_pair(aCallBack, aRequestMsg));
     }
+    else
+    {
+        mAsync = true;
+        WriteRequest(aCallBack, aRequestMsg);
+    }
+}
 
-    mAsync = true;
-
+void Network::WriteRequest(ResponseCallBack aCallBack, RequestPtr aRequestMsg)
+{
     size_t messageSize = aRequestMsg->ByteSize();
     HeaderMsg header;
     header.set_size(messageSize);
@@ -176,15 +182,24 @@ void Network::ParseMessage(ResponseCallBack aCallBack,
         boost::throw_exception(std::runtime_error("Не удалось разобрать сообщение!"));
     }
 
+    aCallBack(msg);
 
     if (msg->type() == RESPONSE_PART)
     {
-        aCallBack(msg);
         ReadResponse(aCallBack, aError, aBytesTransferred);
     }
     else
     {
-        mAsync = false;
-        aCallBack(msg);
+        if (!mRequests.empty())
+        {
+            std::pair<ResponseCallBack, RequestPtr> nextRequest = mRequests.front();
+            mRequests.pop_front();
+            WriteRequest(nextRequest.first, nextRequest.second);
+        }
+        else
+        {
+            mAsync = false;
+        }
+
     }
 }
