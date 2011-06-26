@@ -565,11 +565,16 @@ bool ClientApp::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 
 void ClientApp::windowResized(Ogre::RenderWindow* rw)
 {
-    CEGUI::System* const sys = CEGUI::System::getSingletonPtr();
-    if (sys)
-        sys->notifyDisplaySizeChanged(
-            CEGUI::Size(static_cast<float>(rw->getWidth()),
-                        static_cast<float>(rw->getHeight())));
+    unsigned int width, height, depth;
+    int left, top;
+    rw->getMetrics(width, height, depth, left, top);
+
+    const OIS::MouseState &ms = mMouse->getMouseState();
+    ms.width = width;
+    ms.height = height;
+
+    CEGUI::Size size(static_cast<float>(width), static_cast<float>(height));
+    CEGUI::System::getSingleton().notifyDisplaySizeChanged(size);
 }
 
 void ClientApp::windowClosed(Ogre::RenderWindow* rw)
