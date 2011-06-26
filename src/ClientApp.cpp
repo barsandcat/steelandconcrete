@@ -163,8 +163,8 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         pl.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_NONEXCLUSIVE")));
         pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_FOREGROUND")));
         pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_NONEXCLUSIVE")));
-        pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
-        pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("false")));
+        pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("true")));
+        pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("true")));
         pl.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
         pl.insert(std::make_pair(std::string("XAutoRepeatOn"), std::string("true")));
 
@@ -440,21 +440,19 @@ bool ClientApp::keyPressed(const OIS::KeyEvent &arg)
         switch (arg.key)
         {
         case OIS::KC_W:
-            mBirdCamera->Up();
             break;
         case OIS::KC_S:
-            mBirdCamera->Down();
             break;
         case OIS::KC_A:
-            mBirdCamera->Left();
             break;
         case OIS::KC_D:
-            mBirdCamera->Right();
             break;
         case OIS::KC_SUBTRACT:
+        case OIS::KC_MINUS:
             mBirdCamera->ZoomOut();
             break;
         case OIS::KC_ADD:
+        case OIS::KC_EQUALS:
             mBirdCamera->ZoomIn();
             break;
         case OIS::KC_ESCAPE:
@@ -481,21 +479,19 @@ bool ClientApp::keyReleased(const OIS::KeyEvent &arg)
     switch (arg.key)
     {
     case OIS::KC_W:
-        mBirdCamera->Down();
         break;
     case OIS::KC_S:
-        mBirdCamera->Up();
         break;
     case OIS::KC_A:
-        mBirdCamera->Right();
         break;
     case OIS::KC_D:
-        mBirdCamera->Left();
         break;
     case OIS::KC_SUBTRACT:
+    case OIS::KC_MINUS:
         mBirdCamera->ZoomIn();
         break;
     case OIS::KC_ADD:
+    case OIS::KC_EQUALS:
         mBirdCamera->ZoomOut();
         break;
     default:
@@ -511,6 +507,10 @@ bool ClientApp::mouseMoved(const OIS::MouseEvent &arg)
 
     cegui.injectMouseWheelChange(arg.state.Z.rel / 120.0f);
     cegui.injectMousePosition(arg.state.X.abs, arg.state.Y.abs);
+
+    GetLog() << "abs " << arg.state.X.abs << ":" << arg.state.Y.abs <<
+            " rel " << arg.state.X.rel << ":" << arg.state.X.rel <<
+            " dim " << arg.state.width << ":" << arg.state.height;
 
     return true;
 }
