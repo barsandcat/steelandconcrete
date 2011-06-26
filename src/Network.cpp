@@ -32,7 +32,7 @@ void Network::AllocBuffer(int aSize)
 
 void Network::WriteMessage(const google::protobuf::Message& aMessage)
 {
-    std::cout << "NET:WriteMessage " << aMessage.ShortDebugString() << std::endl;
+    //std::cout << "NET:WriteMessage " << aMessage.ShortDebugString() << std::endl;
     if (mAsync)
     {
         boost::throw_exception(std::runtime_error("Async op in progress"));
@@ -58,7 +58,7 @@ void Network::WriteMessage(const google::protobuf::Message& aMessage)
 
 void Network::ReadMessage(google::protobuf::Message& aMessage)
 {
-    std::cout << "NET:ReadMessage " << aMessage.ShortDebugString() << std::endl;
+    //std::cout << "NET:ReadMessage " << aMessage.ShortDebugString() << std::endl;
     if (mAsync)
     {
         boost::throw_exception(std::runtime_error("Async op in progress"));
@@ -89,7 +89,7 @@ void Network::ReadMessage(google::protobuf::Message& aMessage)
 
 void Network::Request(ResponseCallBack aCallBack, RequestPtr aRequestMsg)
 {
-    std::cout << "NET:Request " << aRequestMsg->ShortDebugString() << std::endl;
+    //std::cout << "NET:Request " << aRequestMsg->ShortDebugString() << std::endl;
     if (mAsync)
     {
         boost::throw_exception(std::runtime_error("Async op in progress"));
@@ -137,7 +137,7 @@ void Network::ParseHeader(ResponseCallBack aCallBack,
                           const boost::system::error_code& aError,
                           std::size_t aBytesTransferred)
 {
-    std::cout << "NET:ParseHeader " << aError << " " << aBytesTransferred << std::endl;
+    //std::cout << "NET:ParseHeader " << aError << " " << aBytesTransferred << std::endl;
     if (aError)
     {
         boost::throw_exception(std::runtime_error("Не удалось прочитать из сокета заголовок!"));
@@ -164,7 +164,7 @@ void Network::ParseMessage(ResponseCallBack aCallBack,
                            const boost::system::error_code& aError,
                            std::size_t aBytesTransferred)
 {
-    std::cout << "NET:ParseMessage " << aError << " " << aBytesTransferred << std::endl;
+    //std::cout << "NET:ParseMessage " << aError << " " << aBytesTransferred << std::endl;
     if (aError)
     {
         boost::throw_exception(std::runtime_error("Не удалось прочитать из сокета сообщение!"));
