@@ -6,12 +6,13 @@
 #include <Response.pb.h>
 #include <Request.pb.h>
 #include <boost/function.hpp>
+#include <boost/circular_buffer.hpp>
 
 typedef boost::shared_ptr< const ResponseMsg > ResponsePtr;
 typedef boost::function< void (ResponsePtr) > ResponseCallBack;
 
 typedef boost::shared_ptr< const RequestMsg > RequestPtr;
-typedef boost::function< void () > WriteCallBack;
+typedef boost::circular_buffer< std::pair<ResponseCallBack, RequestPtr> > Requests;
 const size_t HEADER_BUFFER_SIZE = 8;
 
 class Network: public INetwork
@@ -24,6 +25,7 @@ public:
     void Request(ResponseCallBack aCallBack, RequestPtr aRequestMsg);
 private:
     void AllocBuffer(int aSize);
+    void WriteRequest(ResponseCallBack aCallBack, RequestPtr aRequestMsg);
     void ReadResponse(ResponseCallBack aCallBack,
                       const boost::system::error_code& aError,
                       std::size_t aBytesTransferred);
@@ -39,6 +41,7 @@ private:
     size_t mHeaderSize;
     int mBufferSize;
     bool mAsync;
+    Requests mRequests;
 };
 
 #endif // NETWORK_H_INCLUDED

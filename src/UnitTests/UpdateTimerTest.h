@@ -30,7 +30,7 @@ public:
         TS_ASSERT(!timer.IsTime());
         boost::this_thread::sleep(boost::posix_time::milliseconds(100));
         TS_ASSERT(timer.IsTime());
-        TS_ASSERT(!timer.IsTime());
+        TS_ASSERT(timer.IsTime());
         timer.Reset(0);
         TS_ASSERT(timer.IsTime());
     }
