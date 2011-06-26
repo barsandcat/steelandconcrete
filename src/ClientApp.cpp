@@ -508,16 +508,14 @@ bool ClientApp::mouseMoved(const OIS::MouseEvent &arg)
     cegui.injectMouseWheelChange(arg.state.Z.rel / 120.0f);
     cegui.injectMousePosition(arg.state.X.abs, arg.state.Y.abs);
 
-    GetLog() << "abs " << arg.state.X.abs << ":" << arg.state.Y.abs <<
-            " rel " << arg.state.X.rel << ":" << arg.state.X.rel <<
-            " dim " << arg.state.width << ":" << arg.state.height;
-
-    if (arg.state.X.abs >= arg.state.width || arg.state.X.abs <= 0)
+    if (arg.state.X.abs >= arg.state.width && arg.state.X.rel > 0 || 
+        arg.state.X.abs <= 0 && arg.state.X.rel < 0)
     {
         mBirdCamera->SetHorizontalSpeed(arg.state.X.rel);
     }
 
-    if (arg.state.Y.abs >= arg.state.height || arg.state.Y.abs <= 0)
+    if (arg.state.Y.abs >= arg.state.height && arg.state.Y.rel > 0 ||
+        arg.state.Y.abs <= 0 && arg.state.Y.rel < 0 )
     {
         mBirdCamera->SetVerticalSpeed(arg.state.Y.rel);
     }
