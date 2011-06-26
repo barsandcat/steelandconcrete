@@ -512,6 +512,16 @@ bool ClientApp::mouseMoved(const OIS::MouseEvent &arg)
             " rel " << arg.state.X.rel << ":" << arg.state.X.rel <<
             " dim " << arg.state.width << ":" << arg.state.height;
 
+    if (arg.state.X.abs >= arg.state.width || arg.state.X.abs <= 0)
+    {
+        mBirdCamera->SetHorizontalSpeed(arg.state.X.rel);
+    }
+
+    if (arg.state.Y.abs >= arg.state.height || arg.state.Y.abs <= 0)
+    {
+        mBirdCamera->SetVerticalSpeed(arg.state.Y.rel);
+    }
+
     return true;
 }
 
@@ -600,6 +610,9 @@ void ClientApp::MainLoop()
             OgreProfile("Update");
             Ogre::WindowEventUtilities::messagePump();
             CEGUI::System::getSingleton().injectTimePulse(frameTime / 1000000);
+
+            mBirdCamera->SetHorizontalSpeed(0);
+            mBirdCamera->SetVerticalSpeed(0);
 
             mKeyboard->capture();
             mMouse->capture();
