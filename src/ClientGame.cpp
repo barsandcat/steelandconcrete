@@ -4,8 +4,7 @@
 #include <ClientApp.h>
 #include <Network.h>
 #include <ClientLog.h>
-#include <Request.pb.h>
-#include <Response.pb.h>
+#include <Payload.pb.h>
 #include <ChangeList.pb.h>
 #include <ClientApp.h>
 #include <ClientTile.h>
@@ -143,20 +142,24 @@ ClientUnit& ClientGame::GetUnit(UnitId aUnitId)
     }
 }
 
-void ClientGame::LoadEvents(ResponsePtr aResponseMsg)
+void ClientGame::LoadEvents(PayloadPtr aPayloadMsg)
 {
-    for (int i = 0; i < aResponseMsg->changes_size(); ++i)
+    for (int i = 0; i < aPayloadMsg->changes_size(); ++i)
     {
-        const ChangeMsg& change = aResponseMsg->changes(i);
+        const ChangeMsg& change = aPayloadMsg->changes(i);
         if (change.has_unitenter())
         {
             const UnitEnterMsg& move = change.unitenter();
-            if (move.has_visualcode())
+            ClientUnits::iterator i = mUnits.find(move.unitid());
+            if (mUnits.end() == i)
             {
-                ClientUnit* unit = new ClientUnit(move.unitid(), move.visualcode());
-                unit->CreateEntity();
-                mUnits.insert(std::make_pair(move.unitid(), unit));
-                unit->SetTile(mTiles.at(move.to())->GetTile());
+                if (move.has_visualcode())
+                {
+                    ClientUnit* unit = new ClientUnit(move.unitid(), move.visualcode());
+                    unit->CreateEntity();
+                    mUnits.insert(std::make_pair(move.unitid(), unit));
+                    unit->SetTile(mTiles.at(move.to())->GetTile());
+                }
             }
             else
             {
@@ -167,12 +170,15 @@ void ClientGame::LoadEvents(ResponsePtr aResponseMsg)
         {
             const UnitLeaveMsg& leave = change.unitleave();
             ClientUnits::iterator i = mUnits.find(leave.unitid());
-            if (mUnits.end() == i)
+            if (mUnits.end() != i)
             {
-                throw std::out_of_range("Leave for non existing unit " + leave.ShortDebugString());
+                GetLog() << "Leave for non existing unit " << leave.ShortDebugString();
             }
-            delete i->second;
-            mUnits.erase(i);
+            else
+            {
+                delete i->second;
+                mUnits.erase(i);
+            }
         }
         else if (change.has_commanddone())
         {
@@ -185,10 +191,13 @@ void ClientGame::LoadEvents(ResponsePtr aResponseMsg)
             ClientUnits::iterator i = mUnits.find(command.unitid());
             if (mUnits.end() == i)
             {
-                throw std::out_of_range("Server requested removal of non existing unit " + command.ShortDebugString());
+                GetLog() << "Server requested removal of non existing unit " << command.ShortDebugString();
             }
-            delete i->second;
-            mUnits.erase(i);
+            else
+            {
+                delete i->second;
+                mUnits.erase(i);
+            }
         }
         else if (change.has_showtile())
         {
@@ -207,8 +216,7 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
 
     if (mSyncTimer.IsTime())
     {
-        boost::shared_ptr<RequestMsg> req(new RequestMsg());
-        req->set_type(REQUEST_GET_TIME);
+        boost::shared_ptr<PayloadMsg> req(new PayloadMsg());
         req->set_time(mTime);
         req->set_last(true);
 
@@ -219,44 +227,42 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
             move->set_unitid(mAvatar->GetUnitId());
             move->set_position(mAvatar->GetTarget()->GetGridNode().GetTileId());
         }
-        mNetwork->Request(boost::bind(&ClientGame::OnResponseMsg, this, _1), req);
+        mNetwork->Request(boost::bind(&ClientGame::OnPayloadMsg, this, _1), req);
     }
 }
 
 void ClientGame::LoadAvatar()
 {
-    RequestMsg req;
-    req.set_type(REQUEST_GET_TIME);
+    PayloadMsg req;
     req.set_time(0);
     req.set_last(true);
     mNetwork->WriteMessage(req);
 
-    boost::shared_ptr< ResponseMsg > rsp;
+    boost::shared_ptr< PayloadMsg > rsp;
     do
     {
-        rsp.reset(new ResponseMsg());
+        rsp.reset(new PayloadMsg());
         mNetwork->ReadMessage(*rsp);
-        OnResponseMsg(rsp);
+        OnPayloadMsg(rsp);
     }
-    while (rsp->type() == RESPONSE_PART);
+    while (!rsp->last());
 }
 
-void ClientGame::OnResponseMsg(ResponsePtr aResponseMsg)
+void ClientGame::OnPayloadMsg(PayloadPtr aPayloadMsg)
 {
-    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-    switch (aResponseMsg->type())
+    if (aPayloadMsg->has_time())
     {
-    case RESPONSE_OK:
-        mTime = aResponseMsg->time();
+        mTime = aPayloadMsg->time();
+        CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
         winMgr.getWindow("Time")->setText(Ogre::StringConverter::toString(static_cast<long>(mTime)));
-        mSyncTimer.Reset(aResponseMsg->update_length());
-        break;
-    case RESPONSE_PART:
-        LoadEvents(aResponseMsg);
-        break;
-    case RESPONSE_NOK:
-    default:
-        GetLog() << aResponseMsg->ShortDebugString();
-        break;
+    }
+    if (aPayloadMsg->has_update_length())
+    {
+        mSyncTimer.Reset(aPayloadMsg->update_length());
+    }
+    LoadEvents(aPayloadMsg);
+    if (aPayloadMsg->has_reason())
+    {
+        GetLog() << aPayloadMsg->ShortDebugString();
     }
 }

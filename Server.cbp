@@ -127,20 +127,14 @@
 		<Unit filename="src/proto/CommandList.pb.cc" />
 		<Unit filename="src/proto/CommandList.pb.h" />
 		<Unit filename="src/proto/CommandList.proto" />
-		<Unit filename="src/proto/Handshake.pb.cc" />
-		<Unit filename="src/proto/Handshake.pb.h" />
-		<Unit filename="src/proto/Handshake.proto" />
 		<Unit filename="src/proto/Header.pb.cc" />
 		<Unit filename="src/proto/Header.pb.h" />
 		<Unit filename="src/proto/Header.proto" />
 		<Unit filename="src/proto/Makefile.proto" />
+		<Unit filename="src/proto/Payload.pb.cc" />
+		<Unit filename="src/proto/Payload.pb.h" />
+		<Unit filename="src/proto/Payload.proto" />
 		<Unit filename="src/proto/ProtocolVersion.h" />
-		<Unit filename="src/proto/Request.pb.cc" />
-		<Unit filename="src/proto/Request.pb.h" />
-		<Unit filename="src/proto/Request.proto" />
-		<Unit filename="src/proto/Response.pb.cc" />
-		<Unit filename="src/proto/Response.pb.h" />
-		<Unit filename="src/proto/Response.proto" />
 		<Extensions>
 			<code_completion />
 			<envvars />

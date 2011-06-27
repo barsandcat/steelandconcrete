@@ -14,7 +14,7 @@ ClientFOV::~ClientFOV()
     //dtor
 }
 
-void ClientFOV::AddShowTile(ResponseMsg& aResponse, TileId aTileId)
+void ClientFOV::AddShowTile(PayloadMsg& aResponse, TileId aTileId)
 {
     ChangeMsg* change = aResponse.add_changes();
     ShowTileMsg* showTile = change->mutable_showtile();
@@ -63,14 +63,14 @@ void ClientFOV::SendUpdate(GameTime aClientTime)
     const bool outOfBounds = aClientTime <= 0 || toSend >= ChangeList::mSize;
     if (!outOfBounds)
     {
-        // show new tiles
+        GetLog() << "Show new tiles";
         std::vector<TileId> newVisibleTiles(currentVisibleTiles.size());
         std::vector<TileId>::iterator end = std::set_difference(
             currentVisibleTiles.begin(), currentVisibleTiles.end(),
             mVisibleTiles.begin(), mVisibleTiles.end(), newVisibleTiles.begin());
 
-        ResponseMsg response;
-        response.set_type(RESPONSE_PART);
+        PayloadMsg response;
+        response.set_last(false);
         for (std::vector<TileId>::iterator n = newVisibleTiles.begin(); n != end; ++n)
         {
             AddShowTile(response, *n);
@@ -90,14 +90,14 @@ void ClientFOV::SendUpdate(GameTime aClientTime)
     }
     else
     {
-        // send everything in view
+        GetLog() << "Send everything in view";
         for (std::set<TileId>::iterator n = currentVisibleTiles.begin(); n != currentVisibleTiles.end(); ++n)
         {
             const TileId id = *n;
             ServerTile* tile = mGame.GetTiles().at(id);
 
-            ResponseMsg msg;
-            msg.set_type(RESPONSE_PART);
+            PayloadMsg msg;
+            msg.set_last(false);
             AddShowTile(msg, id);
 
             if (const UnitId unitId = tile->GetUnitId())
@@ -115,8 +115,8 @@ void ClientFOV::SendUpdate(GameTime aClientTime)
     }
 
     // set time
-    ResponseMsg emptyMsg;
-    emptyMsg.set_type(RESPONSE_OK);
+    PayloadMsg emptyMsg;
+    emptyMsg.set_last(true);
     emptyMsg.set_time(serverTime);
     emptyMsg.set_update_length(mGame.GetUpdateLength());
     mNetwork.WriteMessage(emptyMsg);

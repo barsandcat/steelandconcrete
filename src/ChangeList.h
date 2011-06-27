@@ -1,7 +1,6 @@
 #ifndef CHANGELIST_H
 #define CHANGELIST_H
 #include <Typedefs.h>
-#include <Response.pb.h>
 #include <INetwork.h>
 #include <boost/circular_buffer.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>

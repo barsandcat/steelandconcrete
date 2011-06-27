@@ -4,7 +4,7 @@
 #include <Typedefs.h>
 #include <ServerGeodesicGrid.h>
 #include <ServerUnit.h>
-#include <Request.pb.h>
+#include <Payload.pb.h>
 #include <boost/thread.hpp>
 #include <UpdateTimer.h>
 
@@ -16,7 +16,7 @@ public:
     void MainLoop(Ogre::String aAddress, int32 aPort);
     static GameTime GetTime();
     static GameTime GetTimeStep();
-    void LoadCommands(const RequestMsg& commands);
+    void LoadCommands(const PayloadMsg& commands);
 	int32 GetUpdateLength() { return mTimer.GetLeft(); }
 	const ServerGeodesicGrid::Tiles& GetTiles() const { return mTiles; }
 	int32 GetSize() const { return mSize; }

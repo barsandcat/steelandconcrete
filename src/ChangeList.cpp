@@ -37,8 +37,8 @@ void ChangeList::Write(INetwork& aNetwork, size_t aIndex, VisibleTiles& aVisible
     const TurnChanges& turnChanges = mChanges.at(aIndex);
     if (!turnChanges.empty())
     {
-        ResponseMsg msg;
-        msg.set_type(RESPONSE_PART);
+        PayloadMsg msg;
+        msg.set_last(false);
         TurnChanges::const_iterator i = turnChanges.begin();
         for (;i != turnChanges.end(); ++i)
         {

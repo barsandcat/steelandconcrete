@@ -3,7 +3,7 @@
 
 #include <ClientUnit.h>
 #include <ClientGeodesicGrid.h>
-#include <Response.pb.h>
+#include <Payload.pb.h>
 #include <Typedefs.h>
 #include <Network.h>
 #include <SyncTimer.h>
@@ -23,10 +23,10 @@ public:
     void OnEscape();
     void OnAct();
 private:
-    void OnResponseMsg(ResponsePtr aResponseMsg);
+    void OnPayloadMsg(PayloadPtr aPayloadMsg);
     void CreateUnitEntities() const;
     void LoadAvatar();
-    void LoadEvents(ResponsePtr aResponseMsg);
+    void LoadEvents(PayloadPtr aPayloadMsg);
     ClientUnit& GetUnit(UnitId aUnitId);
 private:
     ClientGeodesicGrid::Tiles mTiles;
@@ -38,7 +38,7 @@ private:
     GameTime mTime;
     SyncTimer mSyncTimer;
     Network* mNetwork;
-    std::list< boost::shared_ptr<ResponseMsg> > mMessages;
+    std::list< boost::shared_ptr<PayloadMsg> > mMessages;
 };
 
 #endif // CLIENTGAME_H
