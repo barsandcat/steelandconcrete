@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <GUILayout>
     <Window Type="DefaultWindow" Name="Game">
+        <Property Name="MousePassThroughEnabled" Value="True"/>    
         <Window Type="TaharezLook/FrameWindow" Name="InGameMenu">
             <Property Name="UnifiedPosition" Value="{ {0.4, 0}, {0.4, 0} }" />
             <Property Name="UnifiedSize" Value="{ {0.2, 0}, {0.2, 0} }" />
