@@ -8,7 +8,6 @@
 
 ClientUnit::ClientUnit(UnitId aUnitId, uint32 aVisual):
     mTile(NULL),
-    mTarget(NULL),
     mEntity(NULL),
     mUnitId(aUnitId),
     mVisualCode(aVisual)
@@ -53,9 +52,4 @@ void ClientUnit::SetTile(ClientTile* aTile)
         aTile->GetNode().addChild(mNode);
         mTile = aTile;
     }
-}
-
-void ClientUnit::SetTarget(ClientTile* aTile)
-{
-    mTarget = aTile;
 }

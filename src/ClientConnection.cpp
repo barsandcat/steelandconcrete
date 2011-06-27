@@ -45,7 +45,10 @@ void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
         {
             PayloadMsg req;
             network.ReadMessage(req);
-            aGame.LoadCommands(req);
+            if (req.has_commandmove())
+            {
+                aGame.LoadCommand(avatar.GetId(), req);
+            }
             if (req.has_time())
             {
                 fov.SendUpdate(req.time());
