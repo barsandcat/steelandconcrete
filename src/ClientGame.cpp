@@ -57,7 +57,6 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
     mTargetMarker = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
     mTargetMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Target", "TargetMarker.mesh"));
     mTargetMarker->setVisible(false);
-
 }
 
 ClientGame::~ClientGame()
@@ -111,10 +110,14 @@ void ClientGame::UpdateTileUnderCursor(Ogre::Ray& aRay)
 void ClientGame::OnAct()
 {
     assert(mTileUnderCursor && "Тайл под курсором должен быть!");
-    mAvatar->SetTarget(mTileUnderCursor->GetTile());
     mTargetMarker->getParent()->removeChild(mTargetMarker);
     mTileUnderCursor->GetTile()->GetNode().addChild(mTargetMarker);
     mTargetMarker->setVisible(true);
+
+    boost::shared_ptr<PayloadMsg> req(new PayloadMsg());
+    CommandMoveMsg* move = req->mutable_commandmove();
+    move->set_position(mTileUnderCursor->GetTileId());
+    mNetwork->Request(boost::bind(&ClientGame::OnPayloadMsg, this, _1), req);
 }
 
 bool ClientGame::OnExit(const CEGUI::EventArgs& args)
@@ -185,8 +188,7 @@ void ClientGame::LoadEvents(PayloadPtr aPayloadMsg)
 
         if (change.has_commanddone())
         {
-            const CommandDoneMsg& command = change.commanddone();
-            GetUnit(command.unitid()).SetTarget(NULL);
+            mTargetMarker->setVisible(false);
         }
 
         if (change.has_remove())
@@ -223,15 +225,6 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
     {
         boost::shared_ptr<PayloadMsg> req(new PayloadMsg());
         req->set_time(mTime);
-        req->set_last(true);
-
-        if (mAvatar->GetTarget())
-        {
-            CommandMsg* command = req->add_commands();
-            CommandMoveMsg* move = command->mutable_commandmove();
-            move->set_unitid(mAvatar->GetUnitId());
-            move->set_position(mAvatar->GetTarget()->GetGridNode().GetTileId());
-        }
         mNetwork->Request(boost::bind(&ClientGame::OnPayloadMsg, this, _1), req);
         mSyncTimer.Reset(mServerUpdateLength);
     }

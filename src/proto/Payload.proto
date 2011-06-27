@@ -9,7 +9,7 @@ message PayloadMsg
     optional uint64 time = 4;
     optional int32 update_length = 5;
     optional string reason = 6;
-    repeated CommandMsg commands = 7;
+    optional CommandMoveMsg commandmove = 7;
     repeated ChangeMsg changes = 8;
     optional bool last = 9 [default = true];
 }
