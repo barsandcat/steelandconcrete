@@ -108,7 +108,7 @@ void ServerGame::UpdateGame()
 }
 
 
-void ServerGame::LoadCommands(const RequestMsg& commands)
+void ServerGame::LoadCommands(const PayloadMsg& commands)
 {
     if (commands.commands_size() == 0)
     {

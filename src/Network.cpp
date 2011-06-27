@@ -32,7 +32,7 @@ void Network::AllocBuffer(int aSize)
 
 void Network::WriteMessage(const google::protobuf::Message& aMessage)
 {
-    //std::cout << "NET:WriteMessage " << aMessage.ShortDebugString() << std::endl;
+    std::cout << "NET:WriteMessage " << aMessage.ShortDebugString() << std::endl;
     if (mAsync)
     {
         boost::throw_exception(std::runtime_error("Async op in progress"));
@@ -58,7 +58,6 @@ void Network::WriteMessage(const google::protobuf::Message& aMessage)
 
 void Network::ReadMessage(google::protobuf::Message& aMessage)
 {
-    //std::cout << "NET:ReadMessage " << aMessage.ShortDebugString() << std::endl;
     if (mAsync)
     {
         boost::throw_exception(std::runtime_error("Async op in progress"));
@@ -84,32 +83,34 @@ void Network::ReadMessage(google::protobuf::Message& aMessage)
     {
         boost::throw_exception(std::runtime_error("Не удалось разобрать сообщение!"));
     }
+
+    std::cout << "NET:ReadMessage " << aMessage.ShortDebugString() << std::endl;
 }
 
 
-void Network::Request(ResponseCallBack aCallBack, RequestPtr aRequestMsg)
+void Network::Request(ResponseCallBack aCallBack, PayloadPtr aPayloadMsg)
 {
-    //std::cout << "NET:Request " << aRequestMsg->ShortDebugString() << std::endl;
     if (mAsync)
     {
-        mRequests.push_back(std::make_pair(aCallBack, aRequestMsg));
+        mRequests.push_back(std::make_pair(aCallBack, aPayloadMsg));
     }
     else
     {
         mAsync = true;
-        WriteRequest(aCallBack, aRequestMsg);
+        WriteRequest(aCallBack, aPayloadMsg);
     }
 }
 
-void Network::WriteRequest(ResponseCallBack aCallBack, RequestPtr aRequestMsg)
+void Network::WriteRequest(ResponseCallBack aCallBack, PayloadPtr aPayloadMsg)
 {
-    size_t messageSize = aRequestMsg->ByteSize();
+    std::cout << "NET:WriteRequest " << aPayloadMsg->ShortDebugString() << std::endl;
+    size_t messageSize = aPayloadMsg->ByteSize();
     HeaderMsg header;
     header.set_size(messageSize);
     size_t headerSize = header.ByteSize();
     header.SerializeToArray(mHeaderBuffer, headerSize);
     AllocBuffer(messageSize);
-    aRequestMsg->SerializeToArray(mMessageBuffer, messageSize);
+    aPayloadMsg->SerializeToArray(mMessageBuffer, messageSize);
 
 
     boost::array<boost::asio::mutable_buffer, 2> bufs = {
@@ -176,15 +177,16 @@ void Network::ParseMessage(ResponseCallBack aCallBack,
         boost::throw_exception(std::runtime_error("Не удалось прочитать из сокета сообщение!"));
     }
 
-    boost::shared_ptr<ResponseMsg> msg(new ResponseMsg());
+    boost::shared_ptr<PayloadMsg> msg(new PayloadMsg());
     if (!msg->ParseFromArray(mMessageBuffer, aBytesTransferred))
     {
         boost::throw_exception(std::runtime_error("Не удалось разобрать сообщение!"));
     }
 
+    std::cout << "NET:ParseMessage " << msg->ShortDebugString() << std::endl;
     aCallBack(msg);
 
-    if (msg->type() == RESPONSE_PART)
+    if (!msg->last())
     {
         ReadResponse(aCallBack, aError, aBytesTransferred);
     }
@@ -192,7 +194,7 @@ void Network::ParseMessage(ResponseCallBack aCallBack,
     {
         if (!mRequests.empty())
         {
-            std::pair<ResponseCallBack, RequestPtr> nextRequest = mRequests.front();
+            std::pair<ResponseCallBack, PayloadPtr> nextRequest = mRequests.front();
             mRequests.pop_front();
             WriteRequest(nextRequest.first, nextRequest.second);
         }

@@ -3,8 +3,6 @@
 
 #include <OgreOctreePlugin.h>
 #include <OgreGLPlugin.h>
-#include <Header.pb.h>
-#include <Handshake.pb.h>
 #include <Network.h>
 #include <ClientLog.h>
 #include <ProtocolVersion.h>
@@ -163,7 +161,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         pl.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_NONEXCLUSIVE")));
         pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_FOREGROUND")));
         pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_NONEXCLUSIVE")));
-        pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("true")));
+        pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
         pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("true")));
         pl.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
         pl.insert(std::make_pair(std::string("XAutoRepeatOn"), std::string("true")));
@@ -395,13 +393,13 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
         {
             Network* net = new Network(sock);
             GetLog() << "Connected";
-            ConnectionRequestMsg req;
+            PayloadMsg req;
             req.set_protocolversion(ProtocolVersion);
             net->WriteMessage(req);
 
-            ConnectionResponseMsg res;
+            PayloadMsg res;
             net->ReadMessage(res);
-            if (res.result() == CONNECTION_ALLOWED)
+            if (res.has_avatar() && res.has_size())
             {
                 CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
                 winMgr.getWindow("MainMenu")->setVisible(false);
@@ -508,7 +506,7 @@ bool ClientApp::mouseMoved(const OIS::MouseEvent &arg)
     cegui.injectMouseWheelChange(arg.state.Z.rel / 120.0f);
     cegui.injectMousePosition(arg.state.X.abs, arg.state.Y.abs);
 
-    if (arg.state.X.abs >= arg.state.width && arg.state.X.rel > 0 || 
+    if (arg.state.X.abs >= arg.state.width && arg.state.X.rel > 0 ||
         arg.state.X.abs <= 0 && arg.state.X.rel < 0)
     {
         mBirdCamera->SetHorizontalSpeed(arg.state.X.rel);

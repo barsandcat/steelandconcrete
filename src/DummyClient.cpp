@@ -4,10 +4,8 @@
 
 #include <Network.h>
 #include <ServerLog.h>
-#include <Handshake.pb.h>
+#include <Payload.pb.h>
 #include <ProtocolVersion.h>
-#include <Request.pb.h>
-#include <Response.pb.h>
 
 int main()
 {
@@ -24,13 +22,13 @@ int main()
 
         Network* net = new Network(sock);
         GetLog() << "Connected";
-        ConnectionRequestMsg req;
+        PayloadMsg req;
         req.set_protocolversion(ProtocolVersion);
         net->WriteMessage(req);
 
-        ConnectionResponseMsg res;
+        PayloadMsg res;
         net->ReadMessage(res);
-        if(res.result() == CONNECTION_ALLOWED)
+        if(res.has_avatar() && res.has_size())
         {
             int mTime = 0;
 
@@ -40,32 +38,23 @@ int main()
                 boost::this_thread::sleep(boost::posix_time::milliseconds(updateLength));
                 try
                 {
-                    RequestMsg req;
-                    ResponseMsg rsp;
-                    req.set_type(REQUEST_GET_TIME);
+                    PayloadMsg req;
+                    PayloadMsg rsp;
                     req.set_time(mTime);
                     req.set_last(true);
                     net->WriteMessage(req);
                     GetLog() << "REQUEST_GET_TIME";
 
                     net->ReadMessage(rsp);
-                    switch(rsp.type())
+                    while(!rsp.last())
                     {
-                    case RESPONSE_PART:
-                    case RESPONSE_OK:
-                        while(rsp.type() != RESPONSE_OK)
-                        {
-                            GetLog() << "Changes " << rsp.changes_size();
-                            rsp.Clear();
-                            net->ReadMessage(rsp);
-                        }
-                        mTime = rsp.time();
-                        updateLength = rsp.update_length();
-                        GetLog() << "New time " << mTime << " next update in " << updateLength;
-                        break;
-                    default:
-                        break;
+                        GetLog() << "Changes " << rsp.changes_size();
+                        rsp.Clear();
+                        net->ReadMessage(rsp);
                     }
+                    mTime = rsp.time();
+                    updateLength = rsp.update_length();
+                    GetLog() << "New time " << mTime << " next update in " << updateLength;
                 }
                 catch(std::exception& e)
                 {

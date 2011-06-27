@@ -14,7 +14,7 @@ public:
     ~ClientFOV();
     void SendUpdate(GameTime aClientTime);
 private:
-    void AddShowTile(ResponseMsg& aResponse, TileId aTileId);
+    void AddShowTile(PayloadMsg& aResponse, TileId aTileId);
     std::set<TileId> GetVisibleTiles(int aDepth);
     const UnitId mAvatarId;
     INetwork& mNetwork;
