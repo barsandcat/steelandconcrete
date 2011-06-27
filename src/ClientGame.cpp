@@ -16,6 +16,7 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
     mAvatar(NULL),
     mTime(0),
     mSyncTimer(1000),
+    mServerUpdateLength(1000),
     mNetwork(aNetwork)
 {
     CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
@@ -166,11 +167,12 @@ void ClientGame::LoadEvents(PayloadPtr aPayloadMsg)
                 GetUnit(move.unitid()).SetTile(mTiles.at(move.to())->GetTile());
             }
         }
-        else if (change.has_unitleave())
+
+        if (change.has_unitleave())
         {
             const UnitLeaveMsg& leave = change.unitleave();
             ClientUnits::iterator i = mUnits.find(leave.unitid());
-            if (mUnits.end() != i)
+            if (mUnits.end() == i)
             {
                 GetLog() << "Leave for non existing unit " << leave.ShortDebugString();
             }
@@ -180,12 +182,14 @@ void ClientGame::LoadEvents(PayloadPtr aPayloadMsg)
                 mUnits.erase(i);
             }
         }
-        else if (change.has_commanddone())
+
+        if (change.has_commanddone())
         {
             const CommandDoneMsg& command = change.commanddone();
             GetUnit(command.unitid()).SetTarget(NULL);
         }
-        else if (change.has_remove())
+
+        if (change.has_remove())
         {
             const RemoveMsg& command = change.remove();
             ClientUnits::iterator i = mUnits.find(command.unitid());
@@ -199,7 +203,8 @@ void ClientGame::LoadEvents(PayloadPtr aPayloadMsg)
                 mUnits.erase(i);
             }
         }
-        else if (change.has_showtile())
+
+        if (change.has_showtile())
         {
             TileId tileId = change.showtile().tileid();
             ClientGridNode* node = mTiles.at(tileId);
@@ -228,6 +233,7 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
             move->set_position(mAvatar->GetTarget()->GetGridNode().GetTileId());
         }
         mNetwork->Request(boost::bind(&ClientGame::OnPayloadMsg, this, _1), req);
+        mSyncTimer.Reset(mServerUpdateLength);
     }
 }
 
@@ -258,7 +264,8 @@ void ClientGame::OnPayloadMsg(PayloadPtr aPayloadMsg)
     }
     if (aPayloadMsg->has_update_length())
     {
-        mSyncTimer.Reset(aPayloadMsg->update_length());
+        mServerUpdateLength = aPayloadMsg->update_length();
+        mSyncTimer.Reset(mServerUpdateLength);
     }
     LoadEvents(aPayloadMsg);
     if (aPayloadMsg->has_reason())
