@@ -63,7 +63,7 @@ void ClientFOV::SendUpdate(GameTime aClientTime)
     const bool outOfBounds = aClientTime <= 0 || toSend >= ChangeList::mSize;
     if (!outOfBounds)
     {
-        GetLog() << "Show new tiles";
+        //GetLog() << "Show new tiles";
         std::vector<TileId> newVisibleTiles(currentVisibleTiles.size());
         std::vector<TileId>::iterator end = std::set_difference(
             currentVisibleTiles.begin(), currentVisibleTiles.end(),
@@ -90,7 +90,7 @@ void ClientFOV::SendUpdate(GameTime aClientTime)
     }
     else
     {
-        GetLog() << "Send everything in view";
+        //GetLog() << "Send everything in view";
         for (std::set<TileId>::iterator n = currentVisibleTiles.begin(); n != currentVisibleTiles.end(); ++n)
         {
             const TileId id = *n;

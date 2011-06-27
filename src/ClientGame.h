@@ -37,6 +37,7 @@ private:
     Ogre::SceneNode* mTargetMarker;
     GameTime mTime;
     SyncTimer mSyncTimer;
+    int32 mServerUpdateLength;
     Network* mNetwork;
     std::list< boost::shared_ptr<PayloadMsg> > mMessages;
 };

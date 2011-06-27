@@ -32,7 +32,7 @@ void Network::AllocBuffer(int aSize)
 
 void Network::WriteMessage(const google::protobuf::Message& aMessage)
 {
-    std::cout << "NET:WriteMessage " << aMessage.ShortDebugString() << std::endl;
+    //std::cout << "NET:WriteMessage " << aMessage.ShortDebugString() << std::endl;
     if (mAsync)
     {
         boost::throw_exception(std::runtime_error("Async op in progress"));
@@ -84,7 +84,7 @@ void Network::ReadMessage(google::protobuf::Message& aMessage)
         boost::throw_exception(std::runtime_error("Не удалось разобрать сообщение!"));
     }
 
-    std::cout << "NET:ReadMessage " << aMessage.ShortDebugString() << std::endl;
+    //std::cout << "NET:ReadMessage " << aMessage.ShortDebugString() << std::endl;
 }
 
 
@@ -103,7 +103,7 @@ void Network::Request(ResponseCallBack aCallBack, PayloadPtr aPayloadMsg)
 
 void Network::WriteRequest(ResponseCallBack aCallBack, PayloadPtr aPayloadMsg)
 {
-    std::cout << "NET:WriteRequest " << aPayloadMsg->ShortDebugString() << std::endl;
+    //std::cout << "NET:WriteRequest " << aPayloadMsg->ShortDebugString() << std::endl;
     size_t messageSize = aPayloadMsg->ByteSize();
     HeaderMsg header;
     header.set_size(messageSize);
@@ -183,7 +183,7 @@ void Network::ParseMessage(ResponseCallBack aCallBack,
         boost::throw_exception(std::runtime_error("Не удалось разобрать сообщение!"));
     }
 
-    std::cout << "NET:ParseMessage " << msg->ShortDebugString() << std::endl;
+    //std::cout << "NET:ParseMessage " << msg->ShortDebugString() << std::endl;
     aCallBack(msg);
 
     if (!msg->last())
