@@ -17,8 +17,13 @@ ClientUnit::ClientUnit(UnitId aUnitId, uint32 aVisual):
 
 ClientUnit::~ClientUnit()
 {
+    ClientGame::EraseUnitId(mUnitId);
     ClientApp::GetSceneMgr().destroyEntity(mEntity);
     ClientApp::GetSceneMgr().destroySceneNode(mNode);
+    if (mTile)
+    {
+        mTile->SetUnit(NULL);
+    }
     mEntity = NULL;
     mNode = NULL;
 }

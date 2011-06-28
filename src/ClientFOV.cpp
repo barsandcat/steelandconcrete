@@ -14,11 +14,18 @@ ClientFOV::~ClientFOV()
     //dtor
 }
 
-void ClientFOV::AddShowTile(PayloadMsg& aResponse, TileId aTileId)
+void AddShowTile(PayloadMsg& aResponse, TileId aTileId)
 {
     ChangeMsg* change = aResponse.add_changes();
     ShowTileMsg* showTile = change->mutable_showtile();
     showTile->set_tileid(aTileId);
+}
+
+void AddHideTile(PayloadMsg& aResponse, TileId aTileId)
+{
+    ChangeMsg* change = aResponse.add_changes();
+    HideTileMsg* hideTile = change->mutable_hidetile();
+    hideTile->set_tileid(aTileId);
 }
 
 std::set<TileId> ClientFOV::GetVisibleTiles(int aDepth)
@@ -65,17 +72,33 @@ void ClientFOV::SendUpdate(GameTime aClientTime)
     {
         //GetLog() << "Show new tiles";
         std::vector<TileId> newVisibleTiles(currentVisibleTiles.size());
-        std::vector<TileId>::iterator end = std::set_difference(
+        std::vector<TileId>::iterator newVisibleEnd = std::set_difference(
             currentVisibleTiles.begin(), currentVisibleTiles.end(),
             mVisibleTiles.begin(), mVisibleTiles.end(), newVisibleTiles.begin());
 
-        PayloadMsg response;
-        response.set_last(false);
-        for (std::vector<TileId>::iterator n = newVisibleTiles.begin(); n != end; ++n)
+        std::vector<TileId> newHiddenTiles(mVisibleTiles.size());
+        std::vector<TileId>::iterator newHiddenEnd = std::set_difference(
+            mVisibleTiles.begin(), mVisibleTiles.end(),
+            currentVisibleTiles.begin(), currentVisibleTiles.end(), newHiddenTiles.begin());
+
+        if (newVisibleTiles.begin() != newVisibleEnd || newHiddenTiles.begin() != newHiddenEnd)
         {
-            AddShowTile(response, *n);
+            PayloadMsg response;
+            response.set_last(false);
+
+            std::vector<TileId>::iterator n;
+            for (n = newVisibleTiles.begin(); n != newVisibleEnd; ++n)
+            {
+                AddShowTile(response, *n);
+            }
+
+            for (n = newHiddenTiles.begin(); n != newHiddenEnd; ++n)
+            {
+                AddHideTile(response, *n);
+            }
+
+            mNetwork.WriteMessage(response);
         }
-        mNetwork.WriteMessage(response);
 
         // send events
         for (int32 t = toSend - 1; t >= 0; --t)

@@ -5,26 +5,37 @@
 #include <CompareEdgesAngles.h>
 
 ClientTile::ClientTile(bool ground, ClientGridNode& aGridNode):
-        mNode(*ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode(aGridNode.GetPosition())),
+        mNode(NULL),
         mGridNode(aGridNode),
         mGround(ground),
-        mUnit(NULL)
+        mUnit(NULL),
+        mEntity(NULL)
 {
     Ogre::SceneManager& aSceneManager = ClientApp::GetSceneMgr();
     Ogre::SceneNode* root = aSceneManager.getRootSceneNode();
+    mNode = root->createChildSceneNode(aGridNode.GetPosition());
+    mNode->setDirection(aGridNode.GetPosition().normalisedCopy(), Ogre::Node::TS_LOCAL, Ogre::Vector3::UNIT_Z);
+
     Ogre::String indexName = Ogre::StringConverter::toString(mGridNode.GetTileId());
     Ogre::String meshName = indexName + "ClientTile.mesh";
     // Create entity
     Ogre::MeshPtr tileMesh = ConstructMesh(meshName);
-    Ogre::Entity* tileEntity = aSceneManager.createEntity(indexName + "ClientTile.entity", meshName);
-    root->attachObject(tileEntity);
-
-    mNode.setDirection(aGridNode.GetPosition().normalisedCopy(), Ogre::Node::TS_LOCAL, Ogre::Vector3::UNIT_Z);
+    mEntity = aSceneManager.createEntity(indexName + "ClientTile.entity", meshName);
+    root->attachObject(mEntity);
 }
 
 ClientTile::~ClientTile()
 {
-    //dtor
+    Ogre::SceneManager& aSceneManager = ClientApp::GetSceneMgr();
+    aSceneManager.getRootSceneNode()->detachObject(mEntity);
+    aSceneManager.destroyEntity(mEntity);
+    aSceneManager.destroySceneNode(mNode);
+
+    if (mUnit)
+    {
+        mUnit->SetTile(NULL);
+        delete mUnit;
+    }
 }
 
 Ogre::MeshPtr ClientTile::ConstructMesh(const Ogre::String& aMeshName) const

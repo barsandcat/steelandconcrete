@@ -22,16 +22,22 @@ message RemoveMsg
     required int32 unitid = 1;
 }
 
+message ShowTileMsg
+{
+    required uint32 tileid = 1;
+}
+
+message HideTileMsg
+{
+    required uint32 tileid = 1;
+}
+
 message ChangeMsg
 {
     optional CommandDoneMsg commanddone = 1;
     optional RemoveMsg remove = 2;
     optional ShowTileMsg showtile = 3;
-    optional UnitEnterMsg unitenter = 4;
-    optional UnitLeaveMsg unitleave = 5;
-}
-
-message ShowTileMsg
-{
-    required uint32 tileid = 1;
+    optional HideTileMsg hidetile = 4;
+    optional UnitEnterMsg unitenter = 5;
+    optional UnitLeaveMsg unitleave = 6;
 }

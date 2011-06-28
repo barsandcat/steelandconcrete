@@ -20,6 +20,12 @@ void ClientGridNode::CreateTile(bool ground)
     }
 }
 
+void ClientGridNode::DestroyTile()
+{
+    delete mTile;
+    mTile = NULL;
+}
+
 
 ClientGridNode::~ClientGridNode()
 {
