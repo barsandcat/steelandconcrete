@@ -53,6 +53,11 @@ void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
             {
                 fov.SendUpdate(req.time());
             }
+            else
+            {
+                PayloadMsg res;
+                network.WriteMessage(res);
+            }
         }
     }
     catch (...)
