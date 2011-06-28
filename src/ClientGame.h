@@ -22,15 +22,16 @@ public:
     bool OnExit(const CEGUI::EventArgs& args);
     void OnEscape();
     void OnAct();
+    static ClientUnit* GetUnit(UnitId aUnitId);
+    static void EraseUnitId(UnitId aUnitId);
 private:
     void OnPayloadMsg(PayloadPtr aPayloadMsg);
     void CreateUnitEntities() const;
     void LoadAvatar();
     void LoadEvents(PayloadPtr aPayloadMsg);
-    ClientUnit& GetUnit(UnitId aUnitId);
 private:
+    static ClientUnits mUnits;
     ClientGeodesicGrid::Tiles mTiles;
-    ClientUnits mUnits;
     ClientGridNode* mTileUnderCursor;
     ClientUnit* mAvatar;
     Ogre::SceneNode* mSelectionMarker;
@@ -39,7 +40,6 @@ private:
     SyncTimer mSyncTimer;
     int32 mServerUpdateLength;
     Network* mNetwork;
-    std::list< boost::shared_ptr<PayloadMsg> > mMessages;
 };
 
 #endif // CLIENTGAME_H

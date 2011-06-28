@@ -11,6 +11,13 @@
 
 #include <CEGUILocalization.h>
 
+ClientGame::ClientUnits ClientGame::mUnits;
+
+void ClientGame::EraseUnitId(UnitId aUnitId)
+{
+    mUnits.erase(aUnitId);
+}
+
 ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
     mTileUnderCursor(NULL),
     mAvatar(NULL),
@@ -31,7 +38,7 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
 
     LoadAvatar();
 
-    mAvatar = &GetUnit(aAvatarId);
+    mAvatar = GetUnit(aAvatarId);
     if (!mAvatar)
     {
         throw std::runtime_error("No avatar!");
@@ -133,17 +140,14 @@ void ClientGame::OnEscape()
     winMgr.getWindow("InGameMenu")->setVisible(true);
 }
 
-ClientUnit& ClientGame::GetUnit(UnitId aUnitId)
+ClientUnit* ClientGame::GetUnit(UnitId aUnitId)
 {
     ClientUnits::iterator i = mUnits.find(aUnitId);
     if(mUnits.end() != i)
     {
-        return *(i->second);
+        return i->second;
     }
-    else
-    {
-        boost::throw_exception(std::out_of_range("No such unit " + Ogre::StringConverter::toString(aUnitId)));
-    }
+    return NULL;
 }
 
 void ClientGame::LoadEvents(PayloadPtr aPayloadMsg)
@@ -154,8 +158,8 @@ void ClientGame::LoadEvents(PayloadPtr aPayloadMsg)
         if (change.has_unitenter())
         {
             const UnitEnterMsg& move = change.unitenter();
-            ClientUnits::iterator i = mUnits.find(move.unitid());
-            if (mUnits.end() == i)
+            ClientUnit* unit = GetUnit(move.unitid());
+            if (!unit)
             {
                 if (move.has_visualcode())
                 {
@@ -167,23 +171,14 @@ void ClientGame::LoadEvents(PayloadPtr aPayloadMsg)
             }
             else
             {
-                GetUnit(move.unitid()).SetTile(mTiles.at(move.to())->GetTile());
+                unit->SetTile(mTiles.at(move.to())->GetTile());
             }
         }
 
         if (change.has_unitleave())
         {
             const UnitLeaveMsg& leave = change.unitleave();
-            ClientUnits::iterator i = mUnits.find(leave.unitid());
-            if (mUnits.end() == i)
-            {
-                GetLog() << "Leave for non existing unit " << leave.ShortDebugString();
-            }
-            else
-            {
-                delete i->second;
-                mUnits.erase(i);
-            }
+            delete GetUnit(leave.unitid());
         }
 
         if (change.has_commanddone())
@@ -194,16 +189,7 @@ void ClientGame::LoadEvents(PayloadPtr aPayloadMsg)
         if (change.has_remove())
         {
             const RemoveMsg& command = change.remove();
-            ClientUnits::iterator i = mUnits.find(command.unitid());
-            if (mUnits.end() == i)
-            {
-                GetLog() << "Server requested removal of non existing unit " << command.ShortDebugString();
-            }
-            else
-            {
-                delete i->second;
-                mUnits.erase(i);
-            }
+            delete GetUnit(command.unitid());
         }
 
         if (change.has_showtile())
@@ -211,6 +197,13 @@ void ClientGame::LoadEvents(PayloadPtr aPayloadMsg)
             TileId tileId = change.showtile().tileid();
             ClientGridNode* node = mTiles.at(tileId);
             node->CreateTile(true);
+        }
+
+        if (change.has_hidetile())
+        {
+            TileId tileId = change.hidetile().tileid();
+            ClientGridNode* node = mTiles.at(tileId);
+            node->DestroyTile();
         }
     }
 }
