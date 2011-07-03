@@ -17,9 +17,9 @@ public:
     void ExecuteCommand();
     bool UpdateAgeAndIsTimeToDie(GameTime aPeriod);
     const UnitClass& GetClass() const { return mClass; }
+    void Move(ServerTile& aNewPosition);
 protected:
 private:
-    void Move(ServerTile& aNewPosition);
     const UnitId mUnitId;
     const UnitClass& mClass;
     ServerTile* mPosition;

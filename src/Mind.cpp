@@ -17,6 +17,6 @@ void Mind::Update(GameTime aPeriod)
     ServerTile& randomTile = position.GetNeighbour(rand() % position.GetNeighbourCount());
     if(!UnitList::GetUnit(randomTile.GetUnitId()))
     {
-        unit->SetCommand(randomTile);
+        unit->Move(randomTile);
     }
 }
