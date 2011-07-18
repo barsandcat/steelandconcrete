@@ -92,10 +92,6 @@ void ServerGame::UpdateGame()
         {
             UnitList::DeleteUnit(unit->GetUnitId());
         }
-        else
-        {
-            unit->ExecuteCommand();
-        }
     }
 
     mTime += mTimeStep;
@@ -108,10 +104,3 @@ void ServerGame::UpdateGame()
 }
 
 
-void ServerGame::LoadCommand(UnitId aAvatar, const PayloadMsg& commands)
-{
-    boost::lock_guard<boost::shared_mutex> cs(mGameMutex);
-    const CommandMoveMsg& move = commands.commandmove();
-    ServerUnit* unit = UnitList::GetUnit(aAvatar);
-    unit->SetCommand(*mTiles.at(move.position()));
-}

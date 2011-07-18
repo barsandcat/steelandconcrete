@@ -11,7 +11,7 @@ public:
     static void NewMind(UnitId aUnitId);
     static void UpdateMinds(GameTime aPeriod);
     static size_t GetSize() {  return mMinds.size(); }
-    static UnitId GetAvatar();
+    static Mind* GetFreeMind();
     static void Clear();
 private:
     typedef boost::ptr_unordered_map<UnitId, Mind> MindListMap;

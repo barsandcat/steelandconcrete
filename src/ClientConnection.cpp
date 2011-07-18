@@ -9,9 +9,10 @@
 #include <ChangeList.h>
 #include <boost/thread.hpp>
 #include <ProtocolVersion.h>
-#include <Avatar.h>
 #include <UnitList.h>
 #include <ClientFOV.h>
+#include <MindList.h>
+#include <Mind.h>
 
 void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
 {
@@ -32,14 +33,21 @@ void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
             return;
         }
 
-        Avatar avatar(aGame);
+        Mind* const avatar = MindList::GetFreeMind();
+        if (!avatar)
+        {
+            res.set_reason("No free mind");
+            network.WriteMessage(res);
+            return;
+        }
+        avatar->SetFree(false);
 
-        res.set_avatar(avatar.GetId());
+        res.set_avatar(avatar->GetUnitId());
         res.set_size(aGame.GetSize());
         network.WriteMessage(res);
         GetLog() << "Response " << res.ShortDebugString();
 
-        ClientFOV fov(network, aGame, avatar.GetId());
+        ClientFOV fov(network, aGame, avatar->GetUnitId());
 
         while (true)
         {
@@ -47,7 +55,8 @@ void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
             network.ReadMessage(req);
             if (req.has_commandmove())
             {
-                aGame.LoadCommand(avatar.GetId(), req);
+                const CommandMoveMsg& move = req.commandmove();
+                avatar->SetCommand(*aGame.GetTiles().at(move.position()));
             }
             if (req.has_time())
             {

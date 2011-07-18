@@ -13,8 +13,6 @@ public:
     ServerTile& GetPosition() const { return *mPosition; }
     UnitId GetUnitId() const { return mUnitId; }
     virtual ~ServerUnit();
-    void SetCommand(ServerTile& aTile) { mTarget = &aTile; }
-    void ExecuteCommand();
     bool UpdateAgeAndIsTimeToDie(GameTime aPeriod);
     const UnitClass& GetClass() const { return mClass; }
     void Move(ServerTile& aNewPosition);
