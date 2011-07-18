@@ -31,19 +31,6 @@ void ServerUnit::Move(ServerTile& aNewPosition)
     mPosition->SetUnitId(mUnitId);
 }
 
-void ServerUnit::ExecuteCommand()
-{
-    if(mClass.GetMaxSpeed() > 0)
-    {
-        if(mTarget && !UnitList::GetUnit(mTarget->GetUnitId()))
-        {
-            Move(*mTarget);
-            mTarget = NULL;
-            //ChangeList::AddCommandDone(mUnitId);
-        }
-    }
-}
-
 bool ServerUnit::UpdateAgeAndIsTimeToDie(GameTime aPeriod)
 {
     mAge += aPeriod;

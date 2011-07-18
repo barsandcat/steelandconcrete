@@ -5,7 +5,7 @@
 #include <ServerTile.h>
 #include <UnitList.h>
 
-Mind::Mind(UnitId aUnitId): mUnitId(aUnitId)
+Mind::Mind(UnitId aUnitId): mUnitId(aUnitId), mIsFree(true)
 {
     //ctor
 }
@@ -13,10 +13,19 @@ Mind::Mind(UnitId aUnitId): mUnitId(aUnitId)
 void Mind::Update(GameTime aPeriod)
 {
     ServerUnit* unit = UnitList::GetUnit(mUnitId);
-    ServerTile& position = unit->GetPosition();
-    ServerTile& randomTile = position.GetNeighbour(rand() % position.GetNeighbourCount());
-    if(!UnitList::GetUnit(randomTile.GetUnitId()))
+    if(mTarget && !UnitList::GetUnit(mTarget->GetUnitId()))
     {
-        unit->Move(randomTile);
+        unit->Move(*mTarget);
+        mTarget = NULL;
+        //ChangeList::AddCommandDone(mUnitId);
+    }
+    else
+    {
+        ServerTile& position = unit->GetPosition();
+        ServerTile& randomTile = position.GetNeighbour(rand() % position.GetNeighbourCount());
+        if(!UnitList::GetUnit(randomTile.GetUnitId()))
+        {
+            unit->Move(randomTile);
+        }
     }
 }

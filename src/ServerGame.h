@@ -16,7 +16,6 @@ public:
     void MainLoop(Ogre::String aAddress, int32 aPort);
     static GameTime GetTime();
     static GameTime GetTimeStep();
-    void LoadCommand(UnitId aAvatar, const PayloadMsg& commands);
 	int32 GetUpdateLength() { return mTimer.GetLeft(); }
 	const ServerGeodesicGrid::Tiles& GetTiles() const { return mTiles; }
 	int32 GetSize() const { return mSize; }

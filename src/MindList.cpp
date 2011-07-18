@@ -4,7 +4,6 @@
 #include <Mind.h>
 #include <ServerUnit.h>
 #include <UnitList.h>
-#include <Exceptions.h>
 
 MindList::MindListMap MindList::mMinds;
 
@@ -36,19 +35,18 @@ void MindList::UpdateMinds(GameTime aPeriod)
     }
 }
 
-UnitId MindList::GetAvatar()
+Mind* MindList::GetFreeMind()
 {
-    if (mMinds.empty())
+    MindListMap::iterator i = mMinds.begin();
+    Mind* freeMind = NULL;
+    while (i != mMinds.end() && freeMind == NULL)
     {
-        boost::throw_exception(NoAvatar());
+        Mind* mind = i->second;
+        if (mind->IsFree())
+            freeMind = mind;
+        ++i;
     }
-    else
-    {
-        MindListMap::iterator i = mMinds.begin();
-        UnitId id = i->first;
-        mMinds.erase(i);
-        return id;
-    }
+    return freeMind;
 }
 
 void MindList::Clear()
