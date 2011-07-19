@@ -5,7 +5,7 @@
 #include <ServerTile.h>
 #include <UnitList.h>
 
-Mind::Mind(UnitId aUnitId): mUnitId(aUnitId), mIsFree(true)
+Mind::Mind(UnitId aUnitId):mTarget(NULL), mUnitId(aUnitId), mIsFree(true)
 {
     //ctor
 }
