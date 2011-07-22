@@ -1,0 +1,43 @@
+message UnitEnterMsg
+{
+    required int32 unitid = 1;
+    required uint32 to = 2;
+    optional uint32 visualcode = 3;
+}
+
+message UnitLeaveMsg
+{
+    required int32 unitid = 1;
+    required uint32 to = 2;
+}
+
+
+message CommandDoneMsg
+{
+    required int32 unitid = 1;
+}
+
+message RemoveMsg
+{
+    required int32 unitid = 1;
+}
+
+message ShowTileMsg
+{
+    required uint32 tileid = 1;
+}
+
+message HideTileMsg
+{
+    required uint32 tileid = 1;
+}
+
+message ChangeMsg
+{
+    optional CommandDoneMsg commanddone = 1;
+    optional RemoveMsg remove = 2;
+    optional ShowTileMsg showtile = 3;
+    optional HideTileMsg hidetile = 4;
+    optional UnitEnterMsg unitenter = 5;
+    optional UnitLeaveMsg unitleave = 6;
+}

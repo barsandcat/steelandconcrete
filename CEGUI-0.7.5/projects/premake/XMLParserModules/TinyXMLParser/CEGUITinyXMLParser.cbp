@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="CEGUITinyXMLParser" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../../../../lib/libCEGUITinyXMLParser_d.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../../obj/CEGUITinyXMLParserDebugLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="../../../../../lib/libCEGUITinyXMLParser.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../../obj/CEGUITinyXMLParserobjReleaseLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-DHAVE_CONFIG_H" />
+			<Add option="-DCEGUI_STATIC" />
+			<Add directory="../../../../cegui/include" />
+			<Add directory="../../../../dependencies/include" />
+			<Add directory="../../../../cegui/include/XMLParserModules/TinyXMLParser/" />
+		</Compiler>
+		<Unit filename="../../../../cegui/include/XMLParserModules/TinyXMLParser/CEGUITinyXMLParser.h" />
+		<Unit filename="../../../../cegui/include/XMLParserModules/TinyXMLParser/CEGUITinyXMLParserModule.h" />
+		<Unit filename="../../../../cegui/src/XMLParserModules/TinyXMLParser/CEGUITinyXMLParser.cpp" />
+		<Unit filename="../../../../cegui/src/XMLParserModules/TinyXMLParser/CEGUITinyXMLParserModule.cpp" />
+		<Unit filename="../../../../cegui/src/XMLParserModules/TinyXMLParser/ceguitinyxml/tinystr.cpp" />
+		<Unit filename="../../../../cegui/src/XMLParserModules/TinyXMLParser/ceguitinyxml/tinystr.h" />
+		<Unit filename="../../../../cegui/src/XMLParserModules/TinyXMLParser/ceguitinyxml/tinyxml.cpp" />
+		<Unit filename="../../../../cegui/src/XMLParserModules/TinyXMLParser/ceguitinyxml/tinyxml.h" />
+		<Unit filename="../../../../cegui/src/XMLParserModules/TinyXMLParser/ceguitinyxml/tinyxmlerror.cpp" />
+		<Unit filename="../../../../cegui/src/XMLParserModules/TinyXMLParser/ceguitinyxml/tinyxmlparser.cpp" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
