@@ -465,34 +465,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\proto\Handshake.pb.cc"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\proto\Handshake.pb.h"
-				>
-			</File>
-			<File
-				RelativePath="..\proto\Handshake.proto"
-				>
-			</File>
-			<File
 				RelativePath="..\proto\Header.pb.cc"
 				>
 				<FileConfiguration
@@ -521,7 +493,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\proto\Request.pb.cc"
+				RelativePath="..\proto\Payload.pb.cc"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -531,49 +503,13 @@
 						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\proto\Request.pb.h"
+				RelativePath="..\proto\Payload.pb.h"
 				>
 			</File>
 			<File
-				RelativePath="..\proto\Request.proto"
-				>
-			</File>
-			<File
-				RelativePath="..\proto\Response.pb.cc"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\proto\Response.pb.h"
-				>
-			</File>
-			<File
-				RelativePath="..\proto\Response.proto"
+				RelativePath="..\proto\Payload.proto"
 				>
 			</File>
 		</Filter>
