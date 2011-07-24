@@ -25,6 +25,8 @@ message RemoveMsg
 message ShowTileMsg
 {
     required uint32 tileid = 1;
+    required int32 height = 2;
+    required int32 whater = 3;
 }
 
 message HideTileMsg

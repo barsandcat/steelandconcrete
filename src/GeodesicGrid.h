@@ -14,14 +14,13 @@ public:
     Ogre::Real GetTileRadius() const;
     ~GeodesicGrid();
 private:
-    Tiles& mTiles;
     std::vector< Edge<T>* > mEdges;
-    void Subdivide(const Ogre::Real aSphereRadius);
-    void InitTiles();
+    void Subdivide(const Ogre::Real aSphereRadius, Tiles& aTiles);
+    void InitTiles(Tiles& aTiles);
 };
 
 template <typename T>
-GeodesicGrid<T>::GeodesicGrid(Tiles& aTiles, int aSize): mTiles(aTiles)
+GeodesicGrid<T>::GeodesicGrid(Tiles& aTiles, int aSize)
 {
     // 2    600
     // 3   2000
@@ -37,25 +36,25 @@ GeodesicGrid<T>::GeodesicGrid(Tiles& aTiles, int aSize): mTiles(aTiles)
 
     int edgeCount = tileCount * 3;
 
-    mTiles.reserve(tileCount);
+    aTiles.reserve(tileCount);
     mEdges.reserve(edgeCount);
 
     // Vertices of icoshaedron
 
-    mTiles.push_back(new T(Ogre::Vector3(0.0f, 1.0f, phi).normalisedCopy() * sphereRadius));
-    mTiles.push_back(new T(Ogre::Vector3(0.0f, 1.0f, -phi).normalisedCopy() * sphereRadius));
-    mTiles.push_back(new T(Ogre::Vector3(0.0f, -1.0f, phi).normalisedCopy() * sphereRadius));
-    mTiles.push_back(new T(Ogre::Vector3(0.0f, -1.0f, -phi).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T(Ogre::Vector3(0.0f, 1.0f, phi).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T(Ogre::Vector3(0.0f, 1.0f, -phi).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T(Ogre::Vector3(0.0f, -1.0f, phi).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T(Ogre::Vector3(0.0f, -1.0f, -phi).normalisedCopy() * sphereRadius));
 
-    mTiles.push_back(new T(Ogre::Vector3(1.0f, phi, 0.0f).normalisedCopy() * sphereRadius));
-    mTiles.push_back(new T(Ogre::Vector3(1.0f, -phi, 0.0f).normalisedCopy() * sphereRadius));
-    mTiles.push_back(new T(Ogre::Vector3(-1.0f, phi, 0.0f).normalisedCopy() * sphereRadius));
-    mTiles.push_back(new T(Ogre::Vector3(-1.0f, -phi, 0.0f).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T(Ogre::Vector3(1.0f, phi, 0.0f).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T(Ogre::Vector3(1.0f, -phi, 0.0f).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T(Ogre::Vector3(-1.0f, phi, 0.0f).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T(Ogre::Vector3(-1.0f, -phi, 0.0f).normalisedCopy() * sphereRadius));
 
-    mTiles.push_back(new T(Ogre::Vector3(phi, 0.0f, 1.0f).normalisedCopy() * sphereRadius));
-    mTiles.push_back(new T(Ogre::Vector3(phi, 0.0f, -1.0f).normalisedCopy() * sphereRadius));
-    mTiles.push_back(new T(Ogre::Vector3(-phi, 0.0f, 1.0f).normalisedCopy() * sphereRadius));
-    mTiles.push_back(new T(Ogre::Vector3(-phi, 0.0f, -1.0f).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T(Ogre::Vector3(phi, 0.0f, 1.0f).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T(Ogre::Vector3(phi, 0.0f, -1.0f).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T(Ogre::Vector3(-phi, 0.0f, 1.0f).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T(Ogre::Vector3(-phi, 0.0f, -1.0f).normalisedCopy() * sphereRadius));
 
     // Link icoshaedron
 
@@ -64,52 +63,52 @@ GeodesicGrid<T>::GeodesicGrid(Tiles& aTiles, int aSize): mTiles(aTiles)
     //    9 - 5 - 7 -11 - 1 - 9
     //      3   3   3   3   3
 
-    mEdges.push_back(new Edge<T>(*mTiles[0], *mTiles[2]));
-    mEdges.push_back(new Edge<T>(*mTiles[0], *mTiles[4]));
-    mEdges.push_back(new Edge<T>(*mTiles[0], *mTiles[6]));
-    mEdges.push_back(new Edge<T>(*mTiles[0], *mTiles[8]));
-    mEdges.push_back(new Edge<T>(*mTiles[0], *mTiles[10]));
+    mEdges.push_back(new Edge<T>(*aTiles[0], *aTiles[2]));
+    mEdges.push_back(new Edge<T>(*aTiles[0], *aTiles[4]));
+    mEdges.push_back(new Edge<T>(*aTiles[0], *aTiles[6]));
+    mEdges.push_back(new Edge<T>(*aTiles[0], *aTiles[8]));
+    mEdges.push_back(new Edge<T>(*aTiles[0], *aTiles[10]));
 
-    mEdges.push_back(new Edge<T>(*mTiles[1], *mTiles[3]));
-    mEdges.push_back(new Edge<T>(*mTiles[1], *mTiles[4]));
-    mEdges.push_back(new Edge<T>(*mTiles[1], *mTiles[6]));
-    mEdges.push_back(new Edge<T>(*mTiles[1], *mTiles[9]));
-    mEdges.push_back(new Edge<T>(*mTiles[1], *mTiles[11]));
+    mEdges.push_back(new Edge<T>(*aTiles[1], *aTiles[3]));
+    mEdges.push_back(new Edge<T>(*aTiles[1], *aTiles[4]));
+    mEdges.push_back(new Edge<T>(*aTiles[1], *aTiles[6]));
+    mEdges.push_back(new Edge<T>(*aTiles[1], *aTiles[9]));
+    mEdges.push_back(new Edge<T>(*aTiles[1], *aTiles[11]));
 
-    mEdges.push_back(new Edge<T>(*mTiles[2], *mTiles[5]));
-    mEdges.push_back(new Edge<T>(*mTiles[2], *mTiles[7]));
-    mEdges.push_back(new Edge<T>(*mTiles[2], *mTiles[8]));
-    mEdges.push_back(new Edge<T>(*mTiles[2], *mTiles[10]));
+    mEdges.push_back(new Edge<T>(*aTiles[2], *aTiles[5]));
+    mEdges.push_back(new Edge<T>(*aTiles[2], *aTiles[7]));
+    mEdges.push_back(new Edge<T>(*aTiles[2], *aTiles[8]));
+    mEdges.push_back(new Edge<T>(*aTiles[2], *aTiles[10]));
 
-    mEdges.push_back(new Edge<T>(*mTiles[3], *mTiles[5]));
-    mEdges.push_back(new Edge<T>(*mTiles[3], *mTiles[7]));
-    mEdges.push_back(new Edge<T>(*mTiles[3], *mTiles[9]));
-    mEdges.push_back(new Edge<T>(*mTiles[3], *mTiles[11]));
+    mEdges.push_back(new Edge<T>(*aTiles[3], *aTiles[5]));
+    mEdges.push_back(new Edge<T>(*aTiles[3], *aTiles[7]));
+    mEdges.push_back(new Edge<T>(*aTiles[3], *aTiles[9]));
+    mEdges.push_back(new Edge<T>(*aTiles[3], *aTiles[11]));
 
-    mEdges.push_back(new Edge<T>(*mTiles[4], *mTiles[6]));
-    mEdges.push_back(new Edge<T>(*mTiles[4], *mTiles[8]));
-    mEdges.push_back(new Edge<T>(*mTiles[4], *mTiles[9]));
+    mEdges.push_back(new Edge<T>(*aTiles[4], *aTiles[6]));
+    mEdges.push_back(new Edge<T>(*aTiles[4], *aTiles[8]));
+    mEdges.push_back(new Edge<T>(*aTiles[4], *aTiles[9]));
 
-    mEdges.push_back(new Edge<T>(*mTiles[5], *mTiles[7]));
-    mEdges.push_back(new Edge<T>(*mTiles[5], *mTiles[8]));
-    mEdges.push_back(new Edge<T>(*mTiles[5], *mTiles[9]));
+    mEdges.push_back(new Edge<T>(*aTiles[5], *aTiles[7]));
+    mEdges.push_back(new Edge<T>(*aTiles[5], *aTiles[8]));
+    mEdges.push_back(new Edge<T>(*aTiles[5], *aTiles[9]));
 
-    mEdges.push_back(new Edge<T>(*mTiles[6], *mTiles[10]));
-    mEdges.push_back(new Edge<T>(*mTiles[6], *mTiles[11]));
+    mEdges.push_back(new Edge<T>(*aTiles[6], *aTiles[10]));
+    mEdges.push_back(new Edge<T>(*aTiles[6], *aTiles[11]));
 
-    mEdges.push_back(new Edge<T>(*mTiles[7], *mTiles[10]));
-    mEdges.push_back(new Edge<T>(*mTiles[7], *mTiles[11]));
+    mEdges.push_back(new Edge<T>(*aTiles[7], *aTiles[10]));
+    mEdges.push_back(new Edge<T>(*aTiles[7], *aTiles[11]));
 
-    mEdges.push_back(new Edge<T>(*mTiles[8], *mTiles[9]));
+    mEdges.push_back(new Edge<T>(*aTiles[8], *aTiles[9]));
 
-    mEdges.push_back(new Edge<T>(*mTiles[10], *mTiles[11]));
+    mEdges.push_back(new Edge<T>(*aTiles[10], *aTiles[11]));
 
     for (int i = 0; i <= aSize; ++i)
     {
-        Subdivide(sphereRadius);
+        Subdivide(sphereRadius, aTiles);
     }
 
-    InitTiles();
+    InitTiles(aTiles);
 }
 
 template <typename T>
@@ -123,7 +122,7 @@ GeodesicGrid<T>::~GeodesicGrid()
 }
 
 template <typename T>
-void GeodesicGrid<T>::Subdivide(const Ogre::Real aSphereRadius)
+void GeodesicGrid<T>::Subdivide(const Ogre::Real aSphereRadius, Tiles& aTiles)
 {
     Tiles newTiles;
     newTiles.reserve(mEdges.size());
@@ -152,9 +151,9 @@ void GeodesicGrid<T>::Subdivide(const Ogre::Real aSphereRadius)
 
 
     // Linking new tiles (mTiles holds only old tiles)
-    for (size_t i = 0; i < mTiles.size(); ++i)
+    for (size_t i = 0; i < aTiles.size(); ++i)
     {
-        T* tile = mTiles[i];
+        T* tile = aTiles[i];
         tile->SortNeighbourhood();
         for (size_t i = 0; i < tile->GetNeighbourCount(); ++i)
         {
@@ -168,18 +167,18 @@ void GeodesicGrid<T>::Subdivide(const Ogre::Real aSphereRadius)
     }
 
     // Appending tiles
-    mTiles.insert(mTiles.end(), newTiles.begin(), newTiles.end());
+    aTiles.insert(aTiles.end(), newTiles.begin(), newTiles.end());
 
 }
 
 
 template <typename T>
-void GeodesicGrid<T>::InitTiles()
+void GeodesicGrid<T>::InitTiles(Tiles& aTiles)
 {
-    for (TileId i = 0; i < mTiles.size(); ++i)
+    for (TileId i = 0; i < aTiles.size(); ++i)
     {
-        mTiles[i]->SortNeighbourhood();
-        mTiles[i]->SetTileId(i);
+        aTiles[i]->SortNeighbourhood();
+        aTiles[i]->SetTileId(i);
     }
 }
 

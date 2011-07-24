@@ -31,7 +31,7 @@ void Mind::Update(GameTime aPeriod)
     {
         ServerTile& position = unit->GetPosition();
         ServerTile& randomTile = position.GetNeighbour(rand() % position.GetNeighbourCount());
-        if(!UnitList::GetUnit(randomTile.GetUnitId()))
+        if(!UnitList::GetUnit(randomTile.GetUnitId()) && randomTile.GetWater() <= 0)
         {
             unit->Move(randomTile);
         }
@@ -53,7 +53,7 @@ void Mind::Update(GameTime aPeriod)
                 }
             }
 
-            if (!UnitList::GetUnit(currentTarget->GetUnitId()))
+            if (!UnitList::GetUnit(currentTarget->GetUnitId()) && currentTarget->GetWater() <= 0)
             {
                 unit->Move(*currentTarget);
                 if (mTarget == currentTarget)

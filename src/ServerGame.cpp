@@ -25,6 +25,21 @@ GameTime ServerGame::GetTimeStep()
     return mTimeStep;
 }
 
+void SpreadHeight(ServerTile& aTile, int32 aHeight)
+{
+    if (aTile.GetHeight() > 0 || aHeight <= 1)
+    {
+        return;
+    }
+
+    aTile.SetHeight(rand() % aHeight);
+
+    for (size_t i = 0; i < aTile.GetNeighbourCount(); ++i)
+    {
+        SpreadHeight(aTile.GetNeighbour(i), aHeight * 0.5);
+    }
+}
+
 
 ServerGame::ServerGame(int aSize):mSize(aSize),
     mGrass(VC::LIVE | VC::PLANT, 100, 0),
@@ -36,17 +51,26 @@ ServerGame::ServerGame(int aSize):mSize(aSize),
     ServerGeodesicGrid grid(mTiles, aSize);
     GetLog() << "Size " << aSize << " Tile count " << mTiles.size();
     GetLog() << "Tile radius " << grid.GetTileRadius();
+
+    // Generate height
+    SpreadHeight(*mTiles.at(2), 10000);
+    SpreadHeight(*mTiles.at(4), 5000);
+
     // Populate
     for (size_t i = 0; i < mTiles.size(); ++i)
     {
-        switch (rand() % 10)
+        ServerTile& tile = *mTiles.at(i);
+        if (tile.GetWater() <= 0)
         {
-        case 1:
-            UnitList::NewUnit(*mTiles.at(i), mZebra);
-            break;
-        case 6:
-            UnitList::NewUnit(*mTiles.at(i), mGrass);
-            break;
+            switch (rand() % 10)
+            {
+            case 1:
+                UnitList::NewUnit(tile, mZebra);
+                break;
+            case 6:
+                UnitList::NewUnit(tile, mGrass);
+                break;
+            }
         }
     }
 
