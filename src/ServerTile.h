@@ -22,10 +22,13 @@ public:
     TileId GetTileId() const { return mTileId; }
     void SetTileId(TileId aTileId) { mTileId = aTileId; mChangeList.SetTileId(aTileId); }
     ChangeList* GetChangeList() { return &mChangeList; }
+    void SetHeight(int32 aHeight) { mHeight = aHeight; }
+    int32 GetHeight() const { return mHeight; }
 
 private:
     std::vector< ServerTile* > mNeighbourhood;
     const Ogre::Vector3 mPosition;
+    int32 mHeight;
     TileId mTileId;
     UnitId mUnit;
     ChangeList mChangeList;

@@ -196,7 +196,7 @@ void ClientGame::LoadEvents(PayloadPtr aPayloadMsg)
         {
             TileId tileId = change.showtile().tileid();
             ClientGridNode* node = mTiles.at(tileId);
-            node->CreateTile(true);
+            node->CreateTile(change.showtile().height() > 400);
         }
 
         if (change.has_hidetile())
