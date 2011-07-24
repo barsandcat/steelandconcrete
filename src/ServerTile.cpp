@@ -8,7 +8,9 @@
 ServerTile::ServerTile(const Ogre::Vector3& aPosition):
         mPosition(aPosition),
         mTileId(0),
-		mUnit(0)
+		mUnit(0),
+		mHeight(0),
+		mWater(1111)
 {
     mNeighbourhood.reserve(6);
 }
