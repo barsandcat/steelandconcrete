@@ -14,11 +14,12 @@ ClientFOV::~ClientFOV()
     //dtor
 }
 
-void AddShowTile(PayloadMsg& aResponse, TileId aTileId)
+void ClientFOV::AddShowTile(PayloadMsg& aResponse, TileId aTileId)
 {
     ChangeMsg* change = aResponse.add_changes();
     ShowTileMsg* showTile = change->mutable_showtile();
     showTile->set_tileid(aTileId);
+    showTile->set_height(mGame.GetTiles().at(aTileId)->GetHeight());
 }
 
 void AddHideTile(PayloadMsg& aResponse, TileId aTileId)

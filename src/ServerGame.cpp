@@ -36,6 +36,11 @@ ServerGame::ServerGame(int aSize):mSize(aSize),
     ServerGeodesicGrid grid(mTiles, aSize);
     GetLog() << "Size " << aSize << " Tile count " << mTiles.size();
     GetLog() << "Tile radius " << grid.GetTileRadius();
+    // Generate height
+    for (size_t i = 0; i < mTiles.size(); ++i)
+    {
+        mTiles.at(i)->SetHeight(rand() % 1000);
+    }
     // Populate
     for (size_t i = 0; i < mTiles.size(); ++i)
     {
