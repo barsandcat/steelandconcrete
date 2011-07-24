@@ -19,7 +19,9 @@ void ClientFOV::AddShowTile(PayloadMsg& aResponse, TileId aTileId)
     ChangeMsg* change = aResponse.add_changes();
     ShowTileMsg* showTile = change->mutable_showtile();
     showTile->set_tileid(aTileId);
-    showTile->set_height(mGame.GetTiles().at(aTileId)->GetHeight());
+    const ServerTile& tile = *mGame.GetTiles().at(aTileId);
+    showTile->set_height(tile.GetHeight());
+    showTile->set_whater(tile.GetWater());
 }
 
 void AddHideTile(PayloadMsg& aResponse, TileId aTileId)
