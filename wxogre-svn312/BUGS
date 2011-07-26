@@ -1,0 +1,9 @@
+- BUG #2:
+  Calling wxOgreResources::InitialiseAllResourceGoupes before creating a render-  window create a segfault. The Ogre documentation explains that a render-window
+  *must* be created before initialisating resources... Is it possible to fix
+  this?
+
+- BUG #3:
+  Spotted on GNU/Linux with wxGTK, when atl-tab is pressed, or when the window
+  is reduced, the render-window isn't updated and part of it is left unpainted
+  (ie black).

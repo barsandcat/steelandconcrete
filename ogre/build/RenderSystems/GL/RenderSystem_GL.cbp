@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="OgreRenderSystem_GL 1.7.3" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../../../lib/libRenderSystem_GL_d.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../obj/RenderSystemGLDebugLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-pg" />
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-pg" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../../../lib/libRenderSystem_GL.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../obj/RenderSystemGLReleaseLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-w" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add directory="../../../ogre_1.7.3/RenderSystems/GL/include" />
+			<Add directory="../../../ogre_1.7.3/RenderSystems/GL/include/GLX" />
+			<Add directory="../../../ogre_1.7.3/OgreMain/include" />
+			<Add directory="../../include" />
+			<Add directory="../../../ogre_1.7.3/OgreMain/include/Threading" />
+			<Add directory="../../../ogre_1.7.3/RenderSystems/GL/src/GLX" />
+			<Add directory="../../../ogre_1.7.3/RenderSystems/GL/src/GLSL/include" />
+			<Add directory="../../../ogre_1.7.3/RenderSystems/GL/src/atifs/include" />
+			<Add directory="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse" />
+		</Compiler>
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLATIFSInit.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLContext.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLDefaultHardwareBufferManager.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLFBOMultiRenderTarget.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLFBORenderTexture.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLFrameBufferObject.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLGpuNvparseProgram.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLGpuProgram.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLGpuProgramManager.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLHardwareBufferManager.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLHardwareIndexBuffer.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLHardwareOcclusionQuery.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLHardwarePixelBuffer.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLHardwareVertexBuffer.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLPBRenderTexture.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLPBuffer.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLPixelFormat.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLPlugin.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLPrerequisites.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLRenderSystem.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLRenderTexture.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLRenderToVertexBuffer.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLSupport.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLTexture.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreGLTextureManager.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreWin32Context.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreWin32GLSupport.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreWin32Prerequisites.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreWin32RenderTexture.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/include/OgreWin32Window.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/GLSL/include/OgreGLSLExtSupport.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/GLSL/include/OgreGLSLGpuProgram.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/GLSL/include/OgreGLSLLinkProgram.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/GLSL/include/OgreGLSLLinkProgramManager.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/GLSL/include/OgreGLSLPreprocessor.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/GLSL/include/OgreGLSLProgram.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/GLSL/include/OgreGLSLProgramFactory.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/GLSL/src/OgreGLSLExtSupport.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/GLSL/src/OgreGLSLGpuProgram.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/GLSL/src/OgreGLSLLinkProgram.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/GLSL/src/OgreGLSLLinkProgramManager.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/GLSL/src/OgreGLSLPreprocessor.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/GLSL/src/OgreGLSLProgram.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/GLSL/src/OgreGLSLProgramFactory.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/GLX/OgreGLUtil.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/GLX/OgreGLXContext.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/GLX/OgreGLXGLSupport.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/GLX/OgreGLXRenderTexture.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/GLX/OgreGLXWindow.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLATIFSInit.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLContext.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLDefaultHardwareBufferManager.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLEngineDll.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLFBOMultiRenderTarget.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLFBORenderTexture.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLFrameBufferObject.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLGpuNvparseProgram.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLGpuProgram.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLGpuProgramManager.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLHardwareBufferManager.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLHardwareIndexBuffer.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLHardwareOcclusionQuery.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLHardwarePixelBuffer.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLHardwareVertexBuffer.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLPBRenderTexture.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLPixelFormat.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLPlugin.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLRenderSystem.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLRenderTexture.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLRenderToVertexBuffer.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLSupport.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLTexture.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/OgreGLTextureManager.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/atifs/include/ATI_FS_GLGpuProgram.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/atifs/include/Compiler2Pass.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/atifs/include/ps_1_4.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/atifs/src/ATI_FS_GLGpuProgram.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/atifs/src/Compiler2Pass.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/atifs/src/ps_1_4.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/glew.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/_ps1.0_lexer.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/_ps1.0_parser.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/_ps1.0_parser.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/_rc1.0_lexer.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/_rc1.0_parser.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/_rc1.0_parser.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/_ts1.0_lexer.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/_ts1.0_parser.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/_ts1.0_parser.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/_vs1.0_lexer.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/_vs1.0_parser.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/_vs1.0_parser.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/avp1.0_impl.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/macro.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/nvparse.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/nvparse.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/nvparse_errors.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/nvparse_errors.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/nvparse_externs.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/ps1.0_program.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/ps1.0_program.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/rc1.0_combiners.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/rc1.0_combiners.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/rc1.0_final.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/rc1.0_final.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/rc1.0_general.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/rc1.0_general.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/rc1.0_register.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/ts1.0_inst.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/ts1.0_inst.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/ts1.0_inst_list.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/ts1.0_inst_list.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/vcp1.0_impl.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/vp1.0_impl.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/vs1.0_inst.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/vs1.0_inst.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/vs1.0_inst_list.cpp" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/vs1.0_inst_list.h" />
+		<Unit filename="../../../ogre_1.7.3/RenderSystems/GL/src/nvparse/vsp1.0_impl.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<lib_finder disable_auto="1" />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
