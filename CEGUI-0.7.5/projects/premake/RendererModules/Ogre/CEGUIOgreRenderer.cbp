@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="CEGUIOgreRenderer" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../../../../lib/libCEGUIOgreRenderer_d.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../../obj/CEGUIOgreRendererDebugLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-pg" />
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-pg" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../../../../lib/libCEGUIOgreRenderer.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../../obj/CEGUIOgreRendererReleaseLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-DHAVE_CONFIG_H" />
+			<Add option="-DCEGUI_STATIC" />
+			<Add directory="../../../../cegui/include" />
+			<Add directory="../../../../cegui/include/RendererModules/Ogre/" />
+			<Add directory="../../../../../ogre/ogre_1.7.3/OgreMain/include" />
+			<Add directory="../../../../../ogre/build/include" />
+		</Compiler>
+		<Unit filename="../../../../cegui/include/RendererModules/Ogre/CEGUIOgreGeometryBuffer.h" />
+		<Unit filename="../../../../cegui/include/RendererModules/Ogre/CEGUIOgreImageCodec.h" />
+		<Unit filename="../../../../cegui/include/RendererModules/Ogre/CEGUIOgreRenderTarget.h" />
+		<Unit filename="../../../../cegui/include/RendererModules/Ogre/CEGUIOgreRenderer.h" />
+		<Unit filename="../../../../cegui/include/RendererModules/Ogre/CEGUIOgreResourceProvider.h" />
+		<Unit filename="../../../../cegui/include/RendererModules/Ogre/CEGUIOgreTexture.h" />
+		<Unit filename="../../../../cegui/include/RendererModules/Ogre/CEGUIOgreTextureTarget.h" />
+		<Unit filename="../../../../cegui/include/RendererModules/Ogre/CEGUIOgreWindowTarget.h" />
+		<Unit filename="../../../../cegui/src/RendererModules/Ogre/CEGUIOgreGeometryBuffer.cpp" />
+		<Unit filename="../../../../cegui/src/RendererModules/Ogre/CEGUIOgreImageCodec.cpp" />
+		<Unit filename="../../../../cegui/src/RendererModules/Ogre/CEGUIOgreRenderTarget.cpp" />
+		<Unit filename="../../../../cegui/src/RendererModules/Ogre/CEGUIOgreRenderer.cpp" />
+		<Unit filename="../../../../cegui/src/RendererModules/Ogre/CEGUIOgreResourceProvider.cpp" />
+		<Unit filename="../../../../cegui/src/RendererModules/Ogre/CEGUIOgreTexture.cpp" />
+		<Unit filename="../../../../cegui/src/RendererModules/Ogre/CEGUIOgreTextureTarget.cpp" />
+		<Unit filename="../../../../cegui/src/RendererModules/Ogre/CEGUIOgreWindowTarget.cpp" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
