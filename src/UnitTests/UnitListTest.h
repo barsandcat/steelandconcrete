@@ -14,7 +14,7 @@ class UnitListTest: public CxxTest::TestSuite
 public:
     void setUp()
     {
-        mTile = new ServerTile(Ogre::Vector3::UNIT_X);
+        mTile = new ServerTile(0, Ogre::Vector3::UNIT_X);
     }
 
     void tearDown()

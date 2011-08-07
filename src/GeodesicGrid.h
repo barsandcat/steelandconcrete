@@ -17,6 +17,7 @@ private:
     std::vector< Edge<T>* > mEdges;
     void Subdivide(const Ogre::Real aSphereRadius, Tiles& aTiles);
     void InitTiles(Tiles& aTiles);
+    TileId mIdCounter;
 };
 
 template <typename T>
@@ -41,20 +42,21 @@ GeodesicGrid<T>::GeodesicGrid(Tiles& aTiles, int aSize)
 
     // Vertices of icoshaedron
 
-    aTiles.push_back(new T(Ogre::Vector3(0.0f, 1.0f, phi).normalisedCopy() * sphereRadius));
-    aTiles.push_back(new T(Ogre::Vector3(0.0f, 1.0f, -phi).normalisedCopy() * sphereRadius));
-    aTiles.push_back(new T(Ogre::Vector3(0.0f, -1.0f, phi).normalisedCopy() * sphereRadius));
-    aTiles.push_back(new T(Ogre::Vector3(0.0f, -1.0f, -phi).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T( 0, Ogre::Vector3(0.0f, 1.0f, phi).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T( 1, Ogre::Vector3(0.0f, 1.0f, -phi).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T( 2, Ogre::Vector3(0.0f, -1.0f, phi).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T( 3, Ogre::Vector3(0.0f, -1.0f, -phi).normalisedCopy() * sphereRadius));
 
-    aTiles.push_back(new T(Ogre::Vector3(1.0f, phi, 0.0f).normalisedCopy() * sphereRadius));
-    aTiles.push_back(new T(Ogre::Vector3(1.0f, -phi, 0.0f).normalisedCopy() * sphereRadius));
-    aTiles.push_back(new T(Ogre::Vector3(-1.0f, phi, 0.0f).normalisedCopy() * sphereRadius));
-    aTiles.push_back(new T(Ogre::Vector3(-1.0f, -phi, 0.0f).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T( 4, Ogre::Vector3(1.0f, phi, 0.0f).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T( 5, Ogre::Vector3(1.0f, -phi, 0.0f).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T( 6, Ogre::Vector3(-1.0f, phi, 0.0f).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T( 7, Ogre::Vector3(-1.0f, -phi, 0.0f).normalisedCopy() * sphereRadius));
 
-    aTiles.push_back(new T(Ogre::Vector3(phi, 0.0f, 1.0f).normalisedCopy() * sphereRadius));
-    aTiles.push_back(new T(Ogre::Vector3(phi, 0.0f, -1.0f).normalisedCopy() * sphereRadius));
-    aTiles.push_back(new T(Ogre::Vector3(-phi, 0.0f, 1.0f).normalisedCopy() * sphereRadius));
-    aTiles.push_back(new T(Ogre::Vector3(-phi, 0.0f, -1.0f).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T( 8, Ogre::Vector3(phi, 0.0f, 1.0f).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T( 9, Ogre::Vector3(phi, 0.0f, -1.0f).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T(10, Ogre::Vector3(-phi, 0.0f, 1.0f).normalisedCopy() * sphereRadius));
+    aTiles.push_back(new T(11, Ogre::Vector3(-phi, 0.0f, -1.0f).normalisedCopy() * sphereRadius));
+    mIdCounter = 12;
 
     // Link icoshaedron
 
@@ -135,7 +137,9 @@ void GeodesicGrid<T>::Subdivide(const Ogre::Real aSphereRadius, Tiles& aTiles)
         const Ogre::Vector3& a = edge->GetTileA().GetPosition();
         const Ogre::Vector3& b = edge->GetTileB().GetPosition();
 
-        T* tile = new T((a + b).normalisedCopy() * aSphereRadius);
+        T* tile = new T(mIdCounter, (a + b).normalisedCopy() * aSphereRadius);
+        mIdCounter += 1;
+
         newEdges.push_back(new Edge<T>(*tile, edge->GetTileA()));
         newEdges.push_back(new Edge<T>(*tile, edge->GetTileB()));
         newTiles.push_back(tile);
@@ -178,7 +182,7 @@ void GeodesicGrid<T>::InitTiles(Tiles& aTiles)
     for (TileId i = 0; i < aTiles.size(); ++i)
     {
         aTiles[i]->SortNeighbourhood();
-        aTiles[i]->SetTileId(i);
+        assert(aTiles[i]->GetTileId() == i);
     }
 }
 

@@ -51,16 +51,11 @@ public:
     void TestCompareAngles2()
     {
         std::vector<ServerTile*> m;
-        m.push_back(new ServerTile(Ogre::Vector3( 09.11,  23.83,  14.73)));
-        m.push_back(new ServerTile(Ogre::Vector3(-09.11,  23.83,  14.73)));
-        m.push_back(new ServerTile(Ogre::Vector3( 14.73,  09.11,  23.84)));
-        m.push_back(new ServerTile(Ogre::Vector3(-14.73,  09.11,  23.84)));
-        m.push_back(new ServerTile(Ogre::Vector3( 00.00,  15.49,  25.07)));
-        m[0]->SetTileId(0);
-        m[1]->SetTileId(1);
-        m[2]->SetTileId(2);
-        m[3]->SetTileId(3);
-        m[4]->SetTileId(4);
+        m.push_back(new ServerTile(0, Ogre::Vector3( 09.11,  23.83,  14.73)));
+        m.push_back(new ServerTile(1, Ogre::Vector3(-09.11,  23.83,  14.73)));
+        m.push_back(new ServerTile(2, Ogre::Vector3( 14.73,  09.11,  23.84)));
+        m.push_back(new ServerTile(3, Ogre::Vector3(-14.73,  09.11,  23.84)));
+        m.push_back(new ServerTile(4, Ogre::Vector3( 00.00,  15.49,  25.07)));
 
         Ogre::Vector3 root(00.00,  15.49,  25.07);
 

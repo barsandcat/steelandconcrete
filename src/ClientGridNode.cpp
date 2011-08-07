@@ -5,9 +5,10 @@
 #include <ClientApp.h>
 #include <ClientTile.h>
 
-ClientGridNode::ClientGridNode(const Ogre::Vector3& aPosition):
+ClientGridNode::ClientGridNode(TileId aId, const Ogre::Vector3& aPosition):
         mPosition(aPosition),
-        mTile(NULL)
+        mTile(NULL),
+        mTileId(aId)
 {
     mNeighbourhood.reserve(6);
 }
