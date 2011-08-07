@@ -45,16 +45,13 @@ void ClientUnit::SetTile(ClientTile* aTile)
         mTile = NULL;
     }
 
-    Ogre::SceneNode* parent = mNode->getParentSceneNode();
-    if (parent)
-    {
-        parent->removeChild(mNode);
-    }
-
     if (aTile)
     {
         aTile->SetUnit(this);
-        aTile->GetNode().addChild(mNode);
         mTile = aTile;
+        const Ogre::Vector3 pos = aTile->GetGridNode().GetPosition();
+        mNode->setDirection(pos.normalisedCopy(), Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_Z);
+        mNode->setPosition(pos);
     }
+
 }
