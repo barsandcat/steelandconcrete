@@ -29,6 +29,7 @@ public:
     bool OnEnglish(const CEGUI::EventArgs& args);
     bool OnJapanese(const CEGUI::EventArgs& args);
     bool OnMainMenu(const CEGUI::EventArgs& args);
+    bool OnCloseMessageBox(const CEGUI::EventArgs& args);
 
     static Ogre::SceneManager& GetSceneMgr();
     static OgreAL::SoundManager& GetSoundMgr();
