@@ -13,6 +13,10 @@ ClientUnit::ClientUnit(UnitId aUnitId, uint32 aVisual):
     mVisualCode(aVisual)
 {
     mNode = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
+    Ogre::String indexName = Ogre::StringConverter::toString(mUnitId);
+    mEntity = ClientApp::GetSceneMgr().createEntity(indexName + "Unit.entity", GetMesh(mVisualCode));
+    mNode->attachObject(mEntity);
+    mNode->setVisible(true);
 }
 
 ClientUnit::~ClientUnit()
@@ -26,15 +30,6 @@ ClientUnit::~ClientUnit()
     }
     mEntity = NULL;
     mNode = NULL;
-}
-
-Ogre::Entity* ClientUnit::CreateEntity()
-{
-    Ogre::String indexName = Ogre::StringConverter::toString(mUnitId);
-    mEntity = ClientApp::GetSceneMgr().createEntity(indexName + "Unit.entity", GetMesh(mVisualCode));
-    mNode->attachObject(mEntity);
-    mNode->setVisible(true);
-    return mEntity;
 }
 
 void ClientUnit::SetTile(ClientTile* aTile)

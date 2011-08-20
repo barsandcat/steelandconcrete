@@ -82,15 +82,6 @@ ClientGame::~ClientGame()
     delete mNetwork;
 }
 
-void ClientGame::CreateUnitEntities() const
-{
-    std::map< int, ClientUnit* >::const_iterator i = mUnits.begin();
-    for (; i != mUnits.end(); ++i)
-    {
-        i->second->CreateEntity();
-    }
-}
-
 void ClientGame::UpdateTileUnderCursor(Ogre::Ray& aRay)
 {
     Ogre::Real radius = mTiles[0]->GetPosition().length();
@@ -164,7 +155,6 @@ void ClientGame::LoadEvents(PayloadPtr aPayloadMsg)
                 if (move.has_visualcode())
                 {
                     ClientUnit* unit = new ClientUnit(move.unitid(), move.visualcode());
-                    unit->CreateEntity();
                     mUnits.insert(std::make_pair(move.unitid(), unit));
                     unit->SetTile(mTiles.at(move.to())->GetTile());
                 }

@@ -9,11 +9,9 @@ class ClientUnit: public boost::noncopyable
 {
 public:
     ClientUnit(UnitId aUnitId, uint32 aVisual);
+    ~ClientUnit();
     void SetTile(ClientTile* aTile);
     ClientTile* GetTile() const { return mTile; }
-    ~ClientUnit();
-    Ogre::Entity* CreateEntity();
-    Ogre::SceneNode& GetNode() { return *mNode; }
 	UnitId GetUnitId() const { return mUnitId; }
 private:
     ClientTile* mTile;
