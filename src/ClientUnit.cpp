@@ -26,7 +26,7 @@ ClientUnit::~ClientUnit()
     ClientApp::GetSceneMgr().destroySceneNode(mNode);
     if (mTile)
     {
-        mTile->SetUnit(NULL);
+        mTile->RemoveUnit();
     }
     mEntity = NULL;
     mNode = NULL;
@@ -36,7 +36,7 @@ void ClientUnit::SetTile(ClientTile* aTile)
 {
     if (mTile)
     {
-        mTile->SetUnit(NULL);
+        mTile->RemoveUnit();
         mTile = NULL;
     }
 
