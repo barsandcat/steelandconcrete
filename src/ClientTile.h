@@ -15,7 +15,8 @@ public:
     ClientGridNode& GetGridNode() { return mGridNode; }
 
     ClientUnit* GetUnit() const { return mUnit; }
-    void SetUnit(ClientUnit* aUnit) { mUnit = aUnit; }
+    void SetUnit(ClientUnit* aUnit) { assert(aUnit); mUnit = aUnit; }
+    void RemoveUnit() { mUnit = NULL; }
 private:
     Ogre::MeshPtr ConstructMesh(const Ogre::String& aMeshName) const;
     Ogre::SceneNode* mNode;
