@@ -18,7 +18,7 @@ void ClientGame::EraseUnitId(UnitId aUnitId)
     mUnits.erase(aUnitId);
 }
 
-ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
+ClientGame::ClientGame(NetworkPtr aNetwork, UnitId aAvatarId, int32 aGridSize):
     mTileUnderCursor(NULL),
     mAvatar(NULL),
     mTime(0),
@@ -79,7 +79,6 @@ ClientGame::~ClientGame()
     }
 
     ClientApp::GetSceneMgr().clearScene();
-    delete mNetwork;
 }
 
 void ClientGame::UpdateTileUnderCursor(Ogre::Ray& aRay)

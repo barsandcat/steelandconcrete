@@ -15,7 +15,7 @@ class ClientGame
 {
 public:
     typedef std::map< UnitId, ClientUnit* > ClientUnits;
-    ClientGame(Network* aNetwork, UnitId aAvatar, int32 aGridSize);
+    ClientGame(NetworkPtr aNetwork, UnitId aAvatar, int32 aGridSize);
     virtual ~ClientGame(); // Для QuicGUI
     void UpdateTileUnderCursor(Ogre::Ray& aRay);
     void Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats);
@@ -38,7 +38,7 @@ private:
     GameTime mTime;
     SyncTimer mSyncTimer;
     int32 mServerUpdateLength;
-    Network* mNetwork;
+    NetworkPtr mNetwork;
 };
 
 #endif // CLIENTGAME_H

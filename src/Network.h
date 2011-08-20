@@ -3,12 +3,7 @@
 
 #include <INetwork.h>
 #include <google/protobuf/message.h>
-#include <Payload.pb.h>
-#include <boost/function.hpp>
 #include <boost/circular_buffer.hpp>
-
-typedef boost::shared_ptr< const PayloadMsg > PayloadPtr;
-typedef boost::function< void (PayloadPtr) > ResponseCallBack;
 
 typedef boost::circular_buffer< std::pair<ResponseCallBack, PayloadPtr> > Requests;
 const size_t HEADER_BUFFER_SIZE = 8;
@@ -20,7 +15,7 @@ public:
     ~Network();
     virtual void WriteMessage(const google::protobuf::Message& aMessage);
     virtual void ReadMessage(google::protobuf::Message& aMessage);
-    void Request(ResponseCallBack aCallBack, PayloadPtr aPayloadMsg);
+    virtual void Request(ResponseCallBack aCallBack, PayloadPtr aPayloadMsg);
 private:
     void AllocBuffer(int aSize);
     void WriteRequest(ResponseCallBack aCallBack, PayloadPtr aPayloadMsg);

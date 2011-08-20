@@ -22,6 +22,26 @@ char ClientApp::EN[] = "LANGUAGE=en";
 char ClientApp::UK[] = "LANGUAGE=uk";
 char ClientApp::JA[] = "LANGUAGE=ja";
 
+CEGUI::Window* GetWindow(CEGUI::String aWindowName)
+{
+    return CEGUI::WindowManager::getSingleton().getWindow(aWindowName);
+}
+
+void ShowModal(CEGUI::String aWindowName)
+{
+    CEGUI::Window* window = GetWindow(aWindowName);
+    window->setModalState(true);
+    window->setVisible(true);
+    window->setAlwaysOnTop(true);
+}
+
+void HideModal(CEGUI::String aWindowName)
+{
+    CEGUI::Window* window = GetWindow(aWindowName);
+    window->setModalState(false);
+    window->setVisible(false);
+    window->setAlwaysOnTop(false);
+}
 
 Ogre::SceneManager& ClientApp::GetSceneMgr()
 {
@@ -161,11 +181,11 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         pl.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_NONEXCLUSIVE")));
         pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_FOREGROUND")));
         pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_NONEXCLUSIVE")));
-        #ifdef MOUSE_GRAB
+#ifdef MOUSE_GRAB
         pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("true")));
-        #else
+#else
         pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
-        #endif
+#endif
         pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("true")));
         pl.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
         pl.insert(std::make_pair(std::string("XAutoRepeatOn"), std::string("true")));
@@ -265,35 +285,38 @@ void ClientApp::BuildMainGUILayout()
     winMgr.destroyAllWindows();
     CEGUI::Window* myRoot = winMgr.loadWindowLayout("Main.layout", "", "", &PropertyCallback);
     CEGUI::System::getSingleton().setGUISheet(myRoot);
-    winMgr.getWindow("ServerBrowser/Port")->setText("4512");
-    winMgr.getWindow("ServerBrowser/Address")->setText("localhost");
+    GetWindow("ServerBrowser/Port")->setText("4512");
+    GetWindow("ServerBrowser/Address")->setText("localhost");
 
-    winMgr.getWindow("MainMenu/English")->
+    GetWindow("MainMenu/English")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnEnglish, this));
-    winMgr.getWindow("MainMenu/Ukranian")->
+    GetWindow("MainMenu/Ukranian")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnUkranian, this));
-    winMgr.getWindow("MainMenu/Russian")->
+    GetWindow("MainMenu/Russian")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnRussian, this));
-    winMgr.getWindow("MainMenu/Japanese")->
+    GetWindow("MainMenu/Japanese")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnJapanese, this));
 
-    winMgr.getWindow("MainMenu/Create")->
+    GetWindow("MainMenu/Create")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnCreate, this));
-    winMgr.getWindow("MainMenu/Connect")->
+    GetWindow("MainMenu/Connect")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnBrowse, this));
 
-    winMgr.getWindow("ServerBrowser/Connect")->
+    GetWindow("ServerBrowser/Connect")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnConnect, this));
-    winMgr.getWindow("ServerBrowser/Cancel")->
+    GetWindow("ServerBrowser/Cancel")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnMainMenu, this));
+    GetWindow("MessageBox/Close")->
+    subscribeEvent(CEGUI::PushButton::EventClicked,
+                   CEGUI::Event::Subscriber(&ClientApp::OnCloseMessageBox, this));
 }
 
 bool ClientApp::OnClick(const CEGUI::EventArgs& args)
@@ -315,11 +338,7 @@ bool ClientApp::OnClick(const CEGUI::EventArgs& args)
 
 bool ClientApp::OnBrowse(const CEGUI::EventArgs& args)
 {
-    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-
-    winMgr.getWindow("ServerBrowser")->setModalState(true);
-    winMgr.getWindow("ServerBrowser")->setVisible(true);
-    winMgr.getWindow("ServerBrowser")->setAlwaysOnTop(true);
+    ShowModal("ServerBrowser");
     return true;
 }
 
@@ -368,54 +387,53 @@ bool ClientApp::OnJapanese(const CEGUI::EventArgs& args)
 
 bool ClientApp::OnMainMenu(const CEGUI::EventArgs& args)
 {
-    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-
-    winMgr.getWindow("ServerBrowser")->setModalState(false);
-    winMgr.getWindow("ServerBrowser")->setVisible(false);
+    HideModal("ServerBrowser");
     return true;
 }
+
+bool ClientApp::OnCloseMessageBox(const CEGUI::EventArgs& args)
+{
+    HideModal("MessageBox");
+    return true;
+}
+
 
 bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
 {
     GetLog() << "On connect";
-    if (!mGame)
+    assert(!mGame);
+
+    try
     {
+        CEGUI::String port = GetWindow("ServerBrowser/Port")->getText();
+        CEGUI::String address = GetWindow("ServerBrowser/Address")->getText();
 
         tcp::resolver resolver(mIOService);
-        CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-        CEGUI::String port = winMgr.getWindow("ServerBrowser/Port")->getText();
-        CEGUI::String address = winMgr.getWindow("ServerBrowser/Address")->getText();
-
         tcp::resolver::query query(tcp::v4(), address.c_str(), port.c_str());
         tcp::resolver::iterator iterator = resolver.resolve(query);
 
         SocketSharedPtr sock(new tcp::socket(mIOService));
-        boost::system::error_code ec;
-        sock->connect(*iterator, ec);
+        sock->connect(*iterator);
 
-        if (!ec)
-        {
-            Network* net = new Network(sock);
-            GetLog() << "Connected";
-            PayloadMsg req;
-            req.set_protocolversion(ProtocolVersion);
-            net->WriteMessage(req);
+        NetworkPtr net(new Network(sock));
+        GetLog() << "Connected";
 
-            PayloadMsg res;
-            net->ReadMessage(res);
-            if (res.has_avatar() && res.has_size())
-            {
-                CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-                winMgr.getWindow("MainMenu")->setVisible(false);
-                winMgr.getWindow("ServerBrowser")->setVisible(false);
-                winMgr.getWindow("ServerBrowser")->setModalState(false);
-                mGame = new ClientGame(net, res.avatar(), res.size());
-            }
-            else
-            {
-                delete net;
-            }
-        }
+        PayloadMsg req;
+        req.set_protocolversion(ProtocolVersion);
+        net->WriteMessage(req);
+
+        PayloadMsg res;
+        net->ReadMessage(res);
+        GetWindow("MainMenu")->setVisible(false);
+        HideModal("ServerBrowser");
+        mGame = new ClientGame(net, res.avatar(), res.size());
+
+    }
+    catch (std::exception& e)
+    {
+        GetWindow("MessageBox/Message")->setText(e.what());
+        ShowModal("MessageBox");
+        std::cerr << "An exception has occurred: " << e.what();
     }
     return true;
 }
@@ -511,13 +529,13 @@ bool ClientApp::mouseMoved(const OIS::MouseEvent &arg)
     cegui.injectMousePosition(arg.state.X.abs, arg.state.Y.abs);
 
     if (arg.state.X.abs >= arg.state.width && arg.state.X.rel > 0 ||
-        arg.state.X.abs <= 0 && arg.state.X.rel < 0)
+            arg.state.X.abs <= 0 && arg.state.X.rel < 0)
     {
         mBirdCamera->SetHorizontalSpeed(arg.state.X.rel);
     }
 
     if (arg.state.Y.abs >= arg.state.height && arg.state.Y.rel > 0 ||
-        arg.state.Y.abs <= 0 && arg.state.Y.rel < 0 )
+            arg.state.Y.abs <= 0 && arg.state.Y.rel < 0 )
     {
         mBirdCamera->SetVerticalSpeed(arg.state.Y.rel);
     }
