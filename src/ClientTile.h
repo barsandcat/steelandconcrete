@@ -11,13 +11,13 @@ public:
     explicit ClientTile(bool ground, ClientGridNode& aGridNode);
     ~ClientTile();
 
-    Ogre::MeshPtr ConstructMesh(const Ogre::String& aMeshName) const;
     Ogre::SceneNode& GetNode() { return *mNode; }
     ClientGridNode& GetGridNode() { return mGridNode; }
 
     ClientUnit* GetUnit() const { return mUnit; }
     void SetUnit(ClientUnit* aUnit) { mUnit = aUnit; }
 private:
+    Ogre::MeshPtr ConstructMesh(const Ogre::String& aMeshName) const;
     Ogre::SceneNode* mNode;
     Ogre::Entity* mEntity;
     const bool mGround;

@@ -26,7 +26,6 @@ public:
     static void EraseUnitId(UnitId aUnitId);
 private:
     void OnPayloadMsg(PayloadPtr aPayloadMsg);
-    void CreateUnitEntities() const;
     void LoadAvatar();
     void LoadEvents(PayloadPtr aPayloadMsg);
 private:
