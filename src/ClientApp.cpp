@@ -409,7 +409,7 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
         CEGUI::String address = GetWindow("ServerBrowser/Address")->getText();
 
         tcp::resolver resolver(mIOService);
-        tcp::resolver::query query(tcp::v4(), address.c_str(), port.c_str());
+        tcp::resolver::query query(address.c_str(), port.c_str(), boost::asio::ip::resolver_query_base::numeric_service);
         tcp::resolver::iterator iterator = resolver.resolve(query);
 
         SocketSharedPtr sock(new tcp::socket(mIOService));
