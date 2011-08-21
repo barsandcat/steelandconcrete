@@ -201,6 +201,9 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
     CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
     winMgr.getWindow("FPS")->setText(Ogre::StringConverter::toString(aStats.avgFPS));
 
+    std::for_each(mUnits.begin(), mUnits.end(),
+                  boost::bind(&ClientUnit::UpdateMovementAnimation,
+                              boost::bind(&ClientUnits::value_type::second, _1), aFrameTime));
 
     if (mSyncTimer.IsTime())
     {
