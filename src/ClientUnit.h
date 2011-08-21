@@ -12,6 +12,7 @@ class ClientUnit: public boost::noncopyable
 public:
     ClientUnit(UnitId aUnitId, uint32 aVisual, ClientTile* aTile);
     ~ClientUnit();
+    void UpdateMovementAnimation(FrameTime aFrameTime);
     void SetTile(ClientTile* aTile);
     ClientTile* GetTile() const { return mTile; }
 	UnitId GetUnitId() const { return mUnitId; }
