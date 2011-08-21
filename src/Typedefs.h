@@ -17,5 +17,6 @@ typedef boost::shared_ptr< tcp::socket > SocketSharedPtr;
 typedef uint32 TileId;
 typedef int32 UnitId;
 typedef uint64 GameTime;
+typedef uint64 FrameTime;
 
 #endif // TYPEDEFS_H_INCLUDED

@@ -1,7 +1,9 @@
 #ifndef CLIENTUNIT_H
 #define CLIENTUNIT_H
+
 #include <Ogre.h>
 #include <Typedefs.h>
+#include <MovementAnimation.h>
 
 class ClientTile;
 
@@ -14,6 +16,7 @@ public:
     ClientTile* GetTile() const { return mTile; }
 	UnitId GetUnitId() const { return mUnitId; }
 private:
+    MovementAnimationPtr mMoveAnim;
     ClientTile* mTile;
     Ogre::SceneNode* mNode;
     Ogre::Entity* mEntity;
