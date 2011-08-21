@@ -12,7 +12,7 @@ public:
     ~ClientTile();
 
     Ogre::SceneNode& GetNode() { return *mNode; }
-    ClientGridNode& GetGridNode() { return mGridNode; }
+    Ogre::Vector3 GetPosition() const;
 
     ClientUnit* GetUnit() const { return mUnit; }
     void SetUnit(ClientUnit* aUnit) { assert(aUnit); mUnit = aUnit; }

@@ -44,7 +44,7 @@ ClientGame::ClientGame(NetworkPtr aNetwork, UnitId aAvatarId, int32 aGridSize):
         throw std::runtime_error("No avatar!");
     }
 
-    Ogre::Vector3 avatarPosition = mAvatar->GetTile()->GetGridNode().GetPosition();
+    Ogre::Vector3 avatarPosition = mAvatar->GetTile()->GetPosition();
     ClientApp::GetCamera().Goto(avatarPosition);
     ClientApp::GetCamera().SetDistance(avatarPosition.length() + 50.0f);
 

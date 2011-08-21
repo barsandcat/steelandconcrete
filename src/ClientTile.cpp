@@ -38,6 +38,12 @@ ClientTile::~ClientTile()
     }
 }
 
+Ogre::Vector3 ClientTile::GetPosition() const
+{
+    return mGridNode.GetPosition();
+}
+
+
 Ogre::MeshPtr ClientTile::ConstructMesh(const Ogre::String& aMeshName) const
 {
     const Ogre::Real pentagonHorizont = 0.5f / tan(Ogre::Math::DegreesToRadians(108.0f / 2.0f));
