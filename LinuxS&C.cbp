@@ -119,6 +119,8 @@
 		<Unit filename="src/ClientUnit.h" />
 		<Unit filename="src/Linux.cpp" />
 		<Unit filename="src/LinuxPlatform.cpp" />
+		<Unit filename="src/MovementAnimation.cpp" />
+		<Unit filename="src/MovementAnimation.h" />
 		<Unit filename="src/Network.cpp" />
 		<Unit filename="src/Network.h" />
 		<Unit filename="src/SyncTimer.h" />
