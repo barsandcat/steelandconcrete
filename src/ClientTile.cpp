@@ -33,7 +33,6 @@ ClientTile::~ClientTile()
 
     if (mUnit)
     {
-        mUnit->SetTile(NULL);
         delete mUnit;
     }
 }
