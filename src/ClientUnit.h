@@ -10,7 +10,7 @@ class ClientTile;
 class ClientUnit: public boost::noncopyable
 {
 public:
-    ClientUnit(UnitId aUnitId, uint32 aVisual);
+    ClientUnit(UnitId aUnitId, uint32 aVisual, ClientTile* aTile);
     ~ClientUnit();
     void SetTile(ClientTile* aTile);
     ClientTile* GetTile() const { return mTile; }
