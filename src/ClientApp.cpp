@@ -622,7 +622,7 @@ void ClientApp::MainLoop()
     while (!mQuit)
     {
         OgreProfile("Ogre Main Loop");
-        unsigned long frameStart = mRoot->getTimer()->getMicroseconds();
+        FrameTime frameStart = mRoot->getTimer()->getMicroseconds();
 
         {
             OgreProfile("Update");
