@@ -16,9 +16,9 @@ ClientUnit::ClientUnit(UnitId aUnitId, uint32 aVisual, ClientTile* aTile):
     const Ogre::Vector3 pos = mTile->GetPosition();
 
     mNode = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
-    //const Ogre::Quaternion orientation = pos.getRotationTo(Ogre::Vector3::UNIT_Z);
-    //mNode->setOrientation(orientation);
-    mNode->setDirection(pos.normalisedCopy(), Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_Z);
+    const Ogre::Quaternion orientation = Ogre::Vector3::UNIT_Z.getRotationTo(pos);
+    mNode->setOrientation(orientation);
+    //mNode->setDirection(pos.normalisedCopy(), Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_Z);
     Ogre::SceneNode* unitNode = mNode->createChildSceneNode();
     unitNode->translate(pos, Ogre::Node::TS_WORLD);
 
@@ -55,10 +55,11 @@ void ClientUnit::UpdateMovementAnimation(FrameTime aFrameTime)
 void ClientUnit::SetTile(ClientTile* aTile)
 {
     assert(aTile);
-    //mMoveAnim.reset(new MovementAnimation(mTile->GetPosition(), aTile->GetPosition()));
+    mMoveAnim.reset(new MovementAnimation(mTile->GetPosition(), aTile->GetPosition()));
     mTile->RemoveUnit();
     aTile->SetUnit(this);
     mTile = aTile;
     const Ogre::Vector3 pos = mTile->GetPosition();
-    mNode->setDirection(pos.normalisedCopy(), Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_Z);
+    const Ogre::Quaternion orientation = Ogre::Vector3::UNIT_Z.getRotationTo(pos);
+    mNode->setOrientation(orientation);
 }
