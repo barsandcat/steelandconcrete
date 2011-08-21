@@ -71,6 +71,6 @@ void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
     }
     catch (...)
     {
-        GetLog() << boost::current_exception_diagnostic_information();
+        GetLog() << "ClientConnection exception: " << boost::current_exception_diagnostic_information();
     }
 }
