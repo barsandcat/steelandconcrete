@@ -12,7 +12,11 @@ MovementAnimation::MovementAnimation(const Ogre::Vector3& aOrigin, const Ogre::V
 
 void MovementAnimation::Update(FrameTime aFrameTime)
 {
-    const Ogre::Real speed = 1.0f / 50000.0f;
+    const Ogre::Real speed = 1.0f / 500000.0f;
     mProgress += aFrameTime * speed;
+    if (mProgress > 1.0f)
+    {
+        mProgress = 1.0f;
+    }
 }
 

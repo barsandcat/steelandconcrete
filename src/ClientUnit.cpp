@@ -59,7 +59,4 @@ void ClientUnit::SetTile(ClientTile* aTile)
     mTile->RemoveUnit();
     aTile->SetUnit(this);
     mTile = aTile;
-    const Ogre::Vector3 pos = mTile->GetPosition();
-    const Ogre::Quaternion orientation = Ogre::Vector3::UNIT_Z.getRotationTo(pos);
-    mNode->setOrientation(orientation);
 }
