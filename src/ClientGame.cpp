@@ -195,6 +195,8 @@ void ClientGame::LoadEvents(PayloadPtr aPayloadMsg)
             TileId tileId = change.hidetile().tileid();
             ClientGridNode* node = mTiles.at(tileId);
             node->DestroyTile();
+            delete node->GetUnit();
+            node->RemoveUnit();
         }
     }
 }
