@@ -195,14 +195,6 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         //Create all devices (We only catch joystick exceptions here, as, most people have Key/Mouse)
         mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject(OIS::OISKeyboard, true));
         mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject(OIS::OISMouse, true));
-        try
-        {
-            mJoy = static_cast<OIS::JoyStick*>(mInputManager->createInputObject(OIS::OISJoyStick, true));
-        }
-        catch (...)
-        {
-            mJoy = NULL;
-        }
 
         //Set initial mouse clipping size
         unsigned int width, height, depth;
