@@ -6,7 +6,7 @@
 #include <VisualCodes.h>
 #include <ClientTile.h>
 
-ClientUnit::ClientUnit(UnitId aUnitId, uint32 aVisual, ClientTile* aTile):
+ClientUnit::ClientUnit(UnitId aUnitId, uint32 aVisual, ClientGridNode* aTile):
     mTile(aTile),
     mEntity(NULL),
     mUnitId(aUnitId),
@@ -52,7 +52,7 @@ void ClientUnit::UpdateMovementAnimation(FrameTime aFrameTime)
     }
 }
 
-void ClientUnit::SetTile(ClientTile* aTile)
+void ClientUnit::SetTile(ClientGridNode* aTile)
 {
     assert(aTile);
     mMoveAnim.reset(new MovementAnimation(mTile->GetPosition(), aTile->GetPosition()));

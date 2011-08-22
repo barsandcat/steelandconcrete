@@ -156,13 +156,13 @@ void ClientGame::LoadEvents(PayloadPtr aPayloadMsg)
             {
                 if (move.has_visualcode())
                 {
-                    ClientUnit* unit = new ClientUnit(move.unitid(), move.visualcode(), mTiles.at(move.to())->GetTile());
+                    ClientUnit* unit = new ClientUnit(move.unitid(), move.visualcode(), mTiles.at(move.to()));
                     mUnits.insert(std::make_pair(move.unitid(), unit));
                 }
             }
             else
             {
-                unit->SetTile(mTiles.at(move.to())->GetTile());
+                unit->SetTile(mTiles.at(move.to()));
             }
         }
 
