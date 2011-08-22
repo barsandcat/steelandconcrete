@@ -107,14 +107,17 @@ void ClientGame::UpdateTileUnderCursor(Ogre::Ray& aRay)
 void ClientGame::OnAct()
 {
     assert(mTileUnderCursor && "Тайл под курсором должен быть!");
-    mTargetMarker->getParent()->removeChild(mTargetMarker);
-    mTileUnderCursor->GetTile()->GetNode().addChild(mTargetMarker);
-    mTargetMarker->setVisible(true);
-
-    boost::shared_ptr<PayloadMsg> req(new PayloadMsg());
-    CommandMoveMsg* move = req->mutable_commandmove();
-    move->set_position(mTileUnderCursor->GetTileId());
-    mNetwork->Request(boost::bind(&ClientGame::OnPayloadMsg, this, _1), req);
+    ClientTile* tile = mTileUnderCursor->GetTile();
+    if (tile)
+    {
+        mTargetMarker->getParent()->removeChild(mTargetMarker);
+        tile->GetNode().addChild(mTargetMarker);
+        mTargetMarker->setVisible(true);
+        boost::shared_ptr<PayloadMsg> req(new PayloadMsg());
+        CommandMoveMsg* move = req->mutable_commandmove();
+        move->set_position(mTileUnderCursor->GetTileId());
+        mNetwork->Request(boost::bind(&ClientGame::OnPayloadMsg, this, _1), req);
+    }
 }
 
 bool ClientGame::OnExit(const CEGUI::EventArgs& args)
