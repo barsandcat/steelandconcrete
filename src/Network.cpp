@@ -23,7 +23,7 @@ Network::~Network()
     }
     catch(std::exception& e)
     {
-        GetLog() << "~Network exception: " << e.what();
+        std::cerr << "~Network exception: " << e.what();
     }
 }
 
