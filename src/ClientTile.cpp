@@ -8,7 +8,6 @@ ClientTile::ClientTile(bool ground, ClientGridNode& aGridNode):
         mNode(NULL),
         mGridNode(aGridNode),
         mGround(ground),
-        mUnit(NULL),
         mEntity(NULL)
 {
     Ogre::SceneManager& aSceneManager = ClientApp::GetSceneMgr();
@@ -30,11 +29,6 @@ ClientTile::~ClientTile()
     aSceneManager.getRootSceneNode()->detachObject(mEntity);
     aSceneManager.destroyEntity(mEntity);
     aSceneManager.destroySceneNode(mNode);
-
-    if (mUnit)
-    {
-        delete mUnit;
-    }
 }
 
 Ogre::Vector3 ClientTile::GetPosition() const
