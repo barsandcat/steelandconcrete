@@ -416,6 +416,11 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
 
         PayloadMsg res;
         net->ReadMessage(res);
+        if (!res.has_avatar() || !res.has_size())
+        {
+            throw std::runtime_error(res.reason());
+        }
+
         mGame = new ClientGame(net, res.avatar(), res.size());
 
         CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
