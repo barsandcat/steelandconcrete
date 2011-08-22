@@ -416,16 +416,20 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
 
         PayloadMsg res;
         net->ReadMessage(res);
-        GetWindow("MainMenu")->setVisible(false);
-        HideModal("ServerBrowser");
         mGame = new ClientGame(net, res.avatar(), res.size());
 
+        CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
+        CEGUI::Window* myRoot = winMgr.loadWindowLayout("Game.layout", "", "", &PropertyCallback);
+        CEGUI::System::getSingleton().setGUISheet(myRoot);
+
+        winMgr.getWindow("InGameMenu/Exit")->
+            subscribeEvent(CEGUI::PushButton::EventClicked,
+                       CEGUI::Event::Subscriber(&ClientGame::OnExit, mGame));
     }
     catch (std::exception& e)
     {
         GetWindow("MessageBox/Message")->setText(e.what());
         ShowModal("MessageBox");
-        std::cerr << "An exception has occurred: " << e.what();
     }
     return true;
 }
