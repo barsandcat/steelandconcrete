@@ -28,6 +28,9 @@ ClientGame::ClientGame(NetworkPtr aNetwork, UnitId aAvatarId, int32 aGridSize):
 {
     ClientGeodesicGrid grid(mTiles, aGridSize);
 
+    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
+    CEGUI::Window* guiRoot = winMgr.loadWindowLayout("Game.layout", "", "", &PropertyCallback);
+
     LoadAvatar();
 
     mAvatar = GetUnit(aAvatarId);
@@ -56,6 +59,11 @@ ClientGame::ClientGame(NetworkPtr aNetwork, UnitId aAvatarId, int32 aGridSize):
     mTargetMarker = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
     mTargetMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Target", "TargetMarker.mesh"));
     mTargetMarker->setVisible(false);
+
+    CEGUI::System::getSingleton().setGUISheet(guiRoot);
+    winMgr.getWindow("InGameMenu/Exit")->
+        subscribeEvent(CEGUI::PushButton::EventClicked,
+                CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
 }
 
 ClientGame::~ClientGame()
@@ -197,6 +205,7 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
 {
     CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
     winMgr.getWindow("FPS")->setText(Ogre::StringConverter::toString(aStats.avgFPS));
+    winMgr.getWindow("Time")->setText(Ogre::StringConverter::toString(static_cast<long>(mTime)));
 
     std::for_each(mUnits.begin(), mUnits.end(),
                   boost::bind(&ClientUnit::UpdateMovementAnimation,
@@ -233,8 +242,6 @@ void ClientGame::OnPayloadMsg(PayloadPtr aPayloadMsg)
     if (aPayloadMsg->has_time())
     {
         mTime = aPayloadMsg->time();
-        CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-        winMgr.getWindow("Time")->setText(Ogre::StringConverter::toString(static_cast<long>(mTime)));
     }
     if (aPayloadMsg->has_update_length())
     {
