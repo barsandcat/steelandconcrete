@@ -422,14 +422,6 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
         }
 
         mGame = new ClientGame(net, res.avatar(), res.size());
-
-        CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-        CEGUI::Window* myRoot = winMgr.loadWindowLayout("Game.layout", "", "", &PropertyCallback);
-        CEGUI::System::getSingleton().setGUISheet(myRoot);
-
-        winMgr.getWindow("InGameMenu/Exit")->
-            subscribeEvent(CEGUI::PushButton::EventClicked,
-                       CEGUI::Event::Subscriber(&ClientGame::OnExit, mGame));
     }
     catch (std::exception& e)
     {
