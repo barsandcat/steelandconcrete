@@ -420,6 +420,8 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
         }
 
         mGame = new ClientGame(net, res.avatar(), res.size());
+        GetWindow("MainMenu")->setVisible(false);
+        HideModal("ServerBrowser");
     }
     catch (std::exception& e)
     {
