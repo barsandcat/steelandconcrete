@@ -78,7 +78,6 @@ private:
     OIS::InputManager* mInputManager;
     OIS::Mouse* mMouse;
     OIS::Keyboard* mKeyboard;
-    OIS::JoyStick* mJoy;
 
     ClientGame* mGame;
     boost::asio::io_service mIOService;

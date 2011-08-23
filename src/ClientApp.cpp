@@ -78,7 +78,6 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     mCEGUIRenderer(NULL),
     mMouse(NULL),
     mKeyboard(NULL),
-    mJoy(NULL),
     mGame(NULL)
 {
     // Только для инициализации!
@@ -253,7 +252,6 @@ ClientApp::~ClientApp()
 
     mInputManager->destroyInputObject(mMouse);
     mInputManager->destroyInputObject(mKeyboard);
-    mInputManager->destroyInputObject(mJoy);
 
     OIS::InputManager::destroyInputSystem(mInputManager);
     mInputManager = 0;
@@ -627,8 +625,6 @@ void ClientApp::MainLoop()
 
             mKeyboard->capture();
             mMouse->capture();
-            if (mJoy)
-                mJoy->capture();
 
             if (mGame)
             {
