@@ -30,7 +30,9 @@ ClientGame::ClientGame(NetworkPtr aNetwork, UnitId aAvatarId, int32 aGridSize):
 
     CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
     CEGUI::Window* guiRoot = winMgr.loadWindowLayout("Game.layout", "", "", &PropertyCallback);
-
+    winMgr.getWindow("InGameMenu/Exit")->
+        subscribeEvent(CEGUI::PushButton::EventClicked,
+                CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
     LoadAvatar();
 
     mAvatar = GetUnit(aAvatarId);
@@ -61,9 +63,6 @@ ClientGame::ClientGame(NetworkPtr aNetwork, UnitId aAvatarId, int32 aGridSize):
     mTargetMarker->setVisible(false);
 
     CEGUI::System::getSingleton().setGUISheet(guiRoot);
-    winMgr.getWindow("InGameMenu/Exit")->
-        subscribeEvent(CEGUI::PushButton::EventClicked,
-                CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
 }
 
 ClientGame::~ClientGame()
