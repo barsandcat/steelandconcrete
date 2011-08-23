@@ -28,11 +28,6 @@ ClientGame::ClientGame(NetworkPtr aNetwork, UnitId aAvatarId, int32 aGridSize):
 {
     ClientGeodesicGrid grid(mTiles, aGridSize);
 
-    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-    CEGUI::Window* guiRoot = winMgr.loadWindowLayout("Game.layout", "", "", &PropertyCallback);
-    winMgr.getWindow("InGameMenu/Exit")->
-        subscribeEvent(CEGUI::PushButton::EventClicked,
-                CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
     LoadAvatar();
 
     mAvatar = GetUnit(aAvatarId);
@@ -61,6 +56,12 @@ ClientGame::ClientGame(NetworkPtr aNetwork, UnitId aAvatarId, int32 aGridSize):
     mTargetMarker = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
     mTargetMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Target", "TargetMarker.mesh"));
     mTargetMarker->setVisible(false);
+
+    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
+    CEGUI::Window* guiRoot = winMgr.loadWindowLayout("Game.layout", "", "", &PropertyCallback);
+    winMgr.getWindow("InGameMenu/Exit")->
+        subscribeEvent(CEGUI::PushButton::EventClicked,
+                CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
 
     CEGUI::System::getSingleton().setGUISheet(guiRoot);
 }
@@ -195,7 +196,6 @@ void ClientGame::LoadEvents(PayloadPtr aPayloadMsg)
             ClientGridNode* node = mTiles.at(tileId);
             node->DestroyTile();
             delete node->GetUnit();
-            node->RemoveUnit();
         }
     }
 }

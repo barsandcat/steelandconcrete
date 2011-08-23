@@ -13,6 +13,7 @@ ClientUnit::ClientUnit(UnitId aUnitId, uint32 aVisual, ClientGridNode* aTile):
     mVisualCode(aVisual)
 {
     assert(mTile);
+    mTile->SetUnit(this);
     const Ogre::Vector3 pos = mTile->GetPosition();
 
     mNode = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
