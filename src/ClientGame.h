@@ -8,6 +8,7 @@
 #include <Network.h>
 #include <SyncTimer.h>
 #include <CEGUI.h>
+#include <BirdCamera.h>
 
 class ClientApp;
 
@@ -17,9 +18,16 @@ public:
     typedef std::map< UnitId, ClientUnit* > ClientUnits;
     ClientGame(NetworkPtr aNetwork, UnitId aAvatar, int32 aGridSize);
     virtual ~ClientGame(); // Для QuicGUI
-    void UpdateTileUnderCursor(Ogre::Ray& aRay);
+    void UpdateTileUnderCursor(Ogre::Ray aRay);
     void Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats);
     bool OnExit(const CEGUI::EventArgs& args);
+
+    void mouseMoved(const OIS::MouseEvent& arg);
+    void mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
+    void mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
+    void keyPressed(const OIS::KeyEvent& arg);
+    void keyReleased(const OIS::KeyEvent& arg);
+
     void OnEscape();
     void OnAct();
     static ClientUnit* GetUnit(UnitId aUnitId);
@@ -30,6 +38,7 @@ private:
     void LoadEvents(PayloadPtr aPayloadMsg);
 private:
     static ClientUnits mUnits;
+    BirdCamera mBirdCamera;
     ClientGeodesicGrid::Tiles mTiles;
     ClientGridNode* mTileUnderCursor;
     ClientUnit* mAvatar;

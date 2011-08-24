@@ -57,11 +57,11 @@ OgreAL::SoundManager& ClientApp::GetSoundMgr()
     return *ClientApp::mSoundManager;
 }
 
-BirdCamera& ClientApp::GetCamera()
+Ogre::Camera* ClientApp::GetCamera()
 {
-    assert(mBirdCamera && "ClientApp::GetCamera() \
+    assert(mCamera && "ClientApp::GetCamera() \
         нельзя вызывать в конструкторе и деструкторе ClientApp!");
-    return *mBirdCamera;
+    return mCamera;
 }
 
 void ClientApp::Quit()
@@ -71,7 +71,8 @@ void ClientApp::Quit()
 
 Ogre::SceneManager* ClientApp::mSceneMgr = NULL;
 OgreAL::SoundManager* ClientApp::mSoundManager = NULL;
-BirdCamera* ClientApp::mBirdCamera = NULL;
+Ogre::Camera* ClientApp::mCamera = NULL;
+
 bool ClientApp::mQuit = false;
 
 ClientApp::ClientApp(const Ogre::String aConfigFile):
@@ -151,16 +152,21 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         mSceneMgr->setAmbientLight(Ogre::ColourValue::White);
         GetLog() << "=== Scene manager: " << mSceneMgr->getTypeName() << "===";
 
+        // Create the camera
+        mCamera = ClientApp::GetSceneMgr().createCamera("PlayerCam");
+        mCamera->lookAt(Ogre::Vector3(0, 0, -300));
+        mCamera->setNearClipDistance(0.01);
+        // Create one viewport, entire window
+        mWindow->removeAllViewports();
+        mViewPort = mWindow->addViewport(mCamera);
+        mViewPort->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
+        // Alter the camera aspect ratio to match the viewport
+        mCamera->setAspectRatio(Ogre::Real(mViewPort->getActualWidth()) / Ogre::Real(mViewPort->getActualHeight()));
     }
 
     {
         GetLog() << "Init OgreAL";
         mSoundManager = new OgreAL::SoundManager();
-    }
-
-    {
-        GetLog() << "Create the camera";
-        mBirdCamera = new BirdCamera(*mWindow);
     }
 
     {
@@ -241,9 +247,6 @@ ClientApp::~ClientApp()
     GetLog() << "App destructor";
 
     CEGUI::OgreRenderer::destroySystem();
-
-    delete mBirdCamera;
-    mBirdCamera = NULL;
 
     mSoundManager->destroyAllSounds();
     delete mSoundManager;
@@ -447,38 +450,14 @@ bool ClientApp::keyPressed(const OIS::KeyEvent &arg)
 {
     // do event injection
     CEGUI::System& cegui = CEGUI::System::getSingleton();
-    bool processed = cegui.injectKeyDown(arg.key);
-    processed |= cegui.injectChar(arg.text);
-
-    if (!processed)
+    if(cegui.injectKeyDown(arg.key) || cegui.injectChar(arg.text))
     {
-        switch (arg.key)
-        {
-        case OIS::KC_W:
-            break;
-        case OIS::KC_S:
-            break;
-        case OIS::KC_A:
-            break;
-        case OIS::KC_D:
-            break;
-        case OIS::KC_SUBTRACT:
-        case OIS::KC_MINUS:
-            mBirdCamera->ZoomOut();
-            break;
-        case OIS::KC_ADD:
-        case OIS::KC_EQUALS:
-            mBirdCamera->ZoomIn();
-            break;
-        case OIS::KC_ESCAPE:
-            if (mGame)
-            {
-                mGame->OnEscape();
-            }
-        default:
-            ;
+        return true;
+    }
 
-        }
+    if (mGame)
+    {
+        mGame->keyPressed(arg);
     }
 
     return true;
@@ -491,26 +470,9 @@ bool ClientApp::keyReleased(const OIS::KeyEvent &arg)
         return true;
     }
 
-    switch (arg.key)
+    if (mGame)
     {
-    case OIS::KC_W:
-        break;
-    case OIS::KC_S:
-        break;
-    case OIS::KC_A:
-        break;
-    case OIS::KC_D:
-        break;
-    case OIS::KC_SUBTRACT:
-    case OIS::KC_MINUS:
-        mBirdCamera->ZoomIn();
-        break;
-    case OIS::KC_ADD:
-    case OIS::KC_EQUALS:
-        mBirdCamera->ZoomOut();
-        break;
-    default:
-        ;
+        mGame->keyReleased(arg);
     }
 
     return true;
@@ -523,19 +485,22 @@ bool ClientApp::mouseMoved(const OIS::MouseEvent &arg)
     cegui.injectMouseWheelChange(arg.state.Z.rel / 120.0f);
     cegui.injectMousePosition(arg.state.X.abs, arg.state.Y.abs);
 
-    if (arg.state.X.abs >= arg.state.width && arg.state.X.rel > 0 ||
-            arg.state.X.abs <= 0 && arg.state.X.rel < 0)
+    if (mGame)
     {
-        mBirdCamera->SetHorizontalSpeed(arg.state.X.rel);
-    }
-
-    if (arg.state.Y.abs >= arg.state.height && arg.state.Y.rel > 0 ||
-            arg.state.Y.abs <= 0 && arg.state.Y.rel < 0 )
-    {
-        mBirdCamera->SetVerticalSpeed(arg.state.Y.rel);
+        mGame->mouseMoved(arg);
     }
 
     return true;
+}
+
+Ogre::Ray ClientApp::GetMouseRay() const
+{
+    const OIS::MouseState mouseState = mMouse->getMouseState();
+    Ogre::Real aMouseX = Ogre::Real(mouseState.X.abs) / mouseState.width;
+    Ogre::Real aMouseY = Ogre::Real(mouseState.Y.abs) / mouseState.height;
+    Ogre::Ray ray;
+    mCamera->getCameraToViewportRay(aMouseX, aMouseY, &ray);
+    return ray;
 }
 
 CEGUI::MouseButton convertOISButtonToCegui(int buttonID)
@@ -565,16 +530,7 @@ bool ClientApp::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 
     if (mGame)
     {
-        switch (id)
-        {
-        case OIS::MB_Left:
-            break;
-        case OIS::MB_Right:
-            mGame->OnAct();
-            break;
-        default:
-            ;
-        }
+        mGame->mousePressed(arg, id);
     }
 
     return true;
@@ -583,6 +539,10 @@ bool ClientApp::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 bool ClientApp::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
     CEGUI::System::getSingleton().injectMouseButtonUp(convertOISButtonToCegui(id));
+    if (mGame)
+    {
+        mGame->mouseReleased(arg, id);
+    }
     return true;
 }
 
@@ -624,17 +584,13 @@ void ClientApp::MainLoop()
             Ogre::WindowEventUtilities::messagePump();
             CEGUI::System::getSingleton().injectTimePulse(frameTime / 1000000);
 
-            mBirdCamera->SetHorizontalSpeed(0);
-            mBirdCamera->SetVerticalSpeed(0);
 
             mKeyboard->capture();
             mMouse->capture();
 
             if (mGame)
             {
-                mBirdCamera->UpdatePosition(frameTime);
-                Ogre::Ray ray = mBirdCamera->MouseToRay(mMouse->getMouseState());
-                mGame->UpdateTileUnderCursor(ray);
+                mGame->UpdateTileUnderCursor(GetMouseRay());
                 mGame->Update(frameTime, mWindow->getStatistics());
             }
 

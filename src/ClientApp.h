@@ -8,8 +8,6 @@
 #include <CEGUI.h>
 #include <RendererModules/Ogre/CEGUIOgreRenderer.h>
 
-#include <BirdCamera.h>
-
 void LaunchServer();
 
 class ClientApp: public OIS::KeyListener, public OIS::MouseListener, public OIS::JoyStickListener,
@@ -34,7 +32,7 @@ public:
     static Ogre::SceneManager& GetSceneMgr();
     static OgreAL::SoundManager& GetSoundMgr();
     static void Quit();
-    static BirdCamera& GetCamera();
+    static Ogre::Camera* GetCamera();
 public:
     // OIS callbacks
     virtual bool buttonPressed(const OIS::JoyStickEvent &arg, int button)
@@ -59,9 +57,10 @@ public:
     virtual void windowClosed(Ogre::RenderWindow* rw);
 private:
     void BuildMainGUILayout();
+    Ogre::Ray GetMouseRay() const;
     static Ogre::SceneManager* mSceneMgr;
     static OgreAL::SoundManager* mSoundManager;
-    static BirdCamera* mBirdCamera;
+    static Ogre::Camera* mCamera;
     static bool mQuit;
     static char RU[];
     static char EN[];
@@ -74,6 +73,8 @@ private:
     Ogre::Plugin* mOctreePlugin;
     Ogre::Plugin* mGLPlugin;
     Ogre::RenderWindow* mWindow;
+    Ogre::Viewport* mViewPort;
+
     //OIS Input devices
     OIS::InputManager* mInputManager;
     OIS::Mouse* mMouse;
