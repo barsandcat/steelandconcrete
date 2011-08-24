@@ -151,8 +151,16 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         mSceneMgr->setAmbientLight(Ogre::ColourValue::White);
         GetLog() << "=== Scene manager: " << mSceneMgr->getTypeName() << "===";
 
-        // Create the camera
-        mBirdCamera = new BirdCamera(mSceneMgr, *mWindow);
+    }
+
+    {
+        GetLog() << "Init OgreAL";
+        mSoundManager = new OgreAL::SoundManager();
+    }
+
+    {
+        GetLog() << "Create the camera";
+        mBirdCamera = new BirdCamera(*mWindow);
     }
 
     {
@@ -205,12 +213,6 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
 
         mMouse->setEventCallback(this);
         mKeyboard->setEventCallback(this);
-    }
-
-    {
-        GetLog() << "Init OgreAL";
-        mSoundManager = new OgreAL::SoundManager();
-        mBirdCamera->AttachListener(mSoundManager->getListener());
     }
 
     {
