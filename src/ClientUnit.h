@@ -19,7 +19,8 @@ public:
 private:
     MovementAnimationPtr mMoveAnim;
     ClientGridNode* mTile;
-    Ogre::SceneNode* mNode;
+    Ogre::SceneNode* mPositionNode;
+    Ogre::SceneNode* mDirectonNode;
     Ogre::Entity* mEntity;
     const UnitId mUnitId;
     const uint32 mVisualCode;

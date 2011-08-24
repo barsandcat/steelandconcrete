@@ -10,33 +10,34 @@ ClientUnit::ClientUnit(UnitId aUnitId, uint32 aVisual, ClientGridNode* aTile):
     mTile(aTile),
     mEntity(NULL),
     mUnitId(aUnitId),
-    mVisualCode(aVisual)
+    mVisualCode(aVisual),
+    mPositionNode(NULL),
+    mDirectonNode(NULL)
 {
     assert(mTile);
     mTile->SetUnit(this);
     const Ogre::Vector3 pos = mTile->GetPosition();
 
-    mNode = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
+    mPositionNode = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
     const Ogre::Quaternion orientation = Ogre::Vector3::UNIT_Z.getRotationTo(pos);
-    mNode->setOrientation(orientation);
-    //mNode->setDirection(pos.normalisedCopy(), Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_Z);
-    Ogre::SceneNode* unitNode = mNode->createChildSceneNode();
-    unitNode->translate(pos, Ogre::Node::TS_WORLD);
+    mPositionNode->setOrientation(orientation);
+    mDirectonNode = mPositionNode->createChildSceneNode();
+    mDirectonNode->translate(pos, Ogre::Node::TS_WORLD);
+    mDirectonNode->setFixedYawAxis(true, pos);
 
     Ogre::String indexName = Ogre::StringConverter::toString(mUnitId);
     mEntity = ClientApp::GetSceneMgr().createEntity(indexName + "Unit.entity", GetMesh(mVisualCode));
-    unitNode->attachObject(mEntity);
-    unitNode->setVisible(true);
+    mDirectonNode->attachObject(mEntity);
+    mDirectonNode->setVisible(true);
 }
 
 ClientUnit::~ClientUnit()
 {
     ClientGame::EraseUnitId(mUnitId);
     ClientApp::GetSceneMgr().destroyEntity(mEntity);
-    ClientApp::GetSceneMgr().destroySceneNode(mNode);
+    ClientApp::GetSceneMgr().destroySceneNode(mPositionNode);
+    ClientApp::GetSceneMgr().destroySceneNode(mDirectonNode);
     mTile->RemoveUnit();
-    mEntity = NULL;
-    mNode = NULL;
 }
 
 void ClientUnit::UpdateMovementAnimation(FrameTime aFrameTime)
@@ -45,7 +46,7 @@ void ClientUnit::UpdateMovementAnimation(FrameTime aFrameTime)
     {
         mMoveAnim->Update(aFrameTime);
         const Ogre::Quaternion orientation = mMoveAnim->GetPosition();
-        mNode->setOrientation(orientation);
+        mPositionNode->setOrientation(orientation);
         if (mMoveAnim->IsDone())
         {
             mMoveAnim.reset();
@@ -56,7 +57,13 @@ void ClientUnit::UpdateMovementAnimation(FrameTime aFrameTime)
 void ClientUnit::SetTile(ClientGridNode* aTile)
 {
     assert(aTile);
-    mMoveAnim.reset(new MovementAnimation(mTile->GetPosition(), aTile->GetPosition()));
+    const Ogre::Vector3 origin = mTile->GetPosition();
+    const Ogre::Vector3 destin = aTile->GetPosition();
+    mMoveAnim.reset(new MovementAnimation(origin, destin));
+
+    const Ogre::Vector3 dir = destin - origin;
+    mDirectonNode->setDirection(dir, Ogre::Node::TS_WORLD, Ogre::Vector3::NEGATIVE_UNIT_Y);
+
     mTile->RemoveUnit();
     aTile->SetUnit(this);
     mTile = aTile;
