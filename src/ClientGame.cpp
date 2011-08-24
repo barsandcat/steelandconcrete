@@ -37,8 +37,8 @@ ClientGame::ClientGame(NetworkPtr aNetwork, UnitId aAvatarId, int32 aGridSize):
     }
 
     Ogre::Vector3 avatarPosition = mAvatar->GetTile()->GetPosition();
-    ClientApp::GetCamera().Goto(avatarPosition);
-    ClientApp::GetCamera().SetDistance(avatarPosition.length() + 50.0f);
+    mBirdCamera.Goto(avatarPosition);
+    mBirdCamera.SetDistance(avatarPosition.length() + 50.0f);
 
     // Create a light
     Ogre::Light* myLight = ClientApp::GetSceneMgr().createLight("Light0");
@@ -60,8 +60,8 @@ ClientGame::ClientGame(NetworkPtr aNetwork, UnitId aAvatarId, int32 aGridSize):
     CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
     CEGUI::Window* guiRoot = winMgr.loadWindowLayout("Game.layout", "", "", &PropertyCallback);
     winMgr.getWindow("InGameMenu/Exit")->
-        subscribeEvent(CEGUI::PushButton::EventClicked,
-                CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
+    subscribeEvent(CEGUI::PushButton::EventClicked,
+                   CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
 
     CEGUI::System::getSingleton().setGUISheet(guiRoot);
 }
@@ -81,7 +81,7 @@ ClientGame::~ClientGame()
     ClientApp::GetSceneMgr().clearScene();
 }
 
-void ClientGame::UpdateTileUnderCursor(Ogre::Ray& aRay)
+void ClientGame::UpdateTileUnderCursor(Ogre::Ray aRay)
 {
     Ogre::Real radius = mTiles[0]->GetPosition().length();
     Ogre::Sphere sphere(Ogre::Vector3::ZERO, radius);
@@ -103,6 +103,95 @@ void ClientGame::UpdateTileUnderCursor(Ogre::Ray& aRay)
     }
     mSelectionMarker->setVisible(res.first);
 }
+
+void ClientGame::mouseMoved(const OIS::MouseEvent& arg)
+{
+    if (arg.state.X.abs >= arg.state.width && arg.state.X.rel > 0 ||
+            arg.state.X.abs <= 0 && arg.state.X.rel < 0)
+    {
+        mBirdCamera.SetHorizontalSpeed(arg.state.X.rel);
+    }
+
+    if (arg.state.Y.abs >= arg.state.height && arg.state.Y.rel > 0 ||
+            arg.state.Y.abs <= 0 && arg.state.Y.rel < 0 )
+    {
+        mBirdCamera.SetVerticalSpeed(arg.state.Y.rel);
+    }
+
+
+}
+void ClientGame::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
+{
+    switch (id)
+    {
+    case OIS::MB_Left:
+        break;
+    case OIS::MB_Right:
+        OnAct();
+        break;
+    default:
+        ;
+    }
+
+}
+void ClientGame::mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
+{
+
+}
+void ClientGame::keyPressed(const OIS::KeyEvent& arg)
+{
+    switch (arg.key)
+    {
+    case OIS::KC_W:
+        break;
+    case OIS::KC_S:
+        break;
+    case OIS::KC_A:
+        break;
+    case OIS::KC_D:
+        break;
+    case OIS::KC_SUBTRACT:
+    case OIS::KC_MINUS:
+        mBirdCamera.ZoomOut();
+        break;
+    case OIS::KC_ADD:
+    case OIS::KC_EQUALS:
+        mBirdCamera.ZoomIn();
+        break;
+    case OIS::KC_ESCAPE:
+        OnEscape();
+        break;
+    default:
+        ;
+    }
+}
+void ClientGame::keyReleased(const OIS::KeyEvent& arg)
+{
+    switch (arg.key)
+    {
+    case OIS::KC_W:
+        break;
+    case OIS::KC_S:
+        break;
+    case OIS::KC_A:
+        break;
+    case OIS::KC_D:
+        break;
+    case OIS::KC_SUBTRACT:
+    case OIS::KC_MINUS:
+        mBirdCamera.ZoomIn();
+        break;
+    case OIS::KC_ADD:
+    case OIS::KC_EQUALS:
+        mBirdCamera.ZoomOut();
+        break;
+    default:
+        ;
+    }
+
+
+}
+
 
 void ClientGame::OnAct()
 {
@@ -202,6 +291,8 @@ void ClientGame::LoadEvents(PayloadPtr aPayloadMsg)
 
 void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats)
 {
+    mBirdCamera.UpdatePosition(aFrameTime);
+
     CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
     winMgr.getWindow("FPS")->setText(Ogre::StringConverter::toString(aStats.avgFPS));
     winMgr.getWindow("Time")->setText(Ogre::StringConverter::toString(static_cast<long>(mTime)));
