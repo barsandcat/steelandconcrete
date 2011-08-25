@@ -37,8 +37,9 @@ ClientGame::ClientGame(NetworkPtr aNetwork, UnitId aAvatarId, int32 aGridSize):
     }
 
     Ogre::Vector3 avatarPosition = mAvatar->GetTile()->GetPosition();
-    mBirdCamera.Goto(avatarPosition);
-    mBirdCamera.SetDistance(avatarPosition.length() + 50.0f);
+    mBirdCamera = new BirdCamera();
+    mBirdCamera->Goto(avatarPosition);
+    mBirdCamera->SetDistance(avatarPosition.length() + 50.0f);
 
     // Create a light
     Ogre::Light* myLight = ClientApp::GetSceneMgr().createLight("Light0");
@@ -109,13 +110,13 @@ void ClientGame::mouseMoved(const OIS::MouseEvent& arg)
     if (arg.state.X.abs >= arg.state.width && arg.state.X.rel > 0 ||
             arg.state.X.abs <= 0 && arg.state.X.rel < 0)
     {
-        mBirdCamera.SetHorizontalSpeed(arg.state.X.rel);
+        mBirdCamera->SetHorizontalSpeed(arg.state.X.rel);
     }
 
     if (arg.state.Y.abs >= arg.state.height && arg.state.Y.rel > 0 ||
             arg.state.Y.abs <= 0 && arg.state.Y.rel < 0 )
     {
-        mBirdCamera.SetVerticalSpeed(arg.state.Y.rel);
+        mBirdCamera->SetVerticalSpeed(arg.state.Y.rel);
     }
 
 
@@ -152,11 +153,11 @@ void ClientGame::keyPressed(const OIS::KeyEvent& arg)
         break;
     case OIS::KC_SUBTRACT:
     case OIS::KC_MINUS:
-        mBirdCamera.ZoomOut();
+        mBirdCamera->ZoomOut();
         break;
     case OIS::KC_ADD:
     case OIS::KC_EQUALS:
-        mBirdCamera.ZoomIn();
+        mBirdCamera->ZoomIn();
         break;
     case OIS::KC_ESCAPE:
         OnEscape();
@@ -179,11 +180,11 @@ void ClientGame::keyReleased(const OIS::KeyEvent& arg)
         break;
     case OIS::KC_SUBTRACT:
     case OIS::KC_MINUS:
-        mBirdCamera.ZoomIn();
+        mBirdCamera->ZoomIn();
         break;
     case OIS::KC_ADD:
     case OIS::KC_EQUALS:
-        mBirdCamera.ZoomOut();
+        mBirdCamera->ZoomOut();
         break;
     default:
         ;
@@ -291,7 +292,7 @@ void ClientGame::LoadEvents(PayloadPtr aPayloadMsg)
 
 void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats)
 {
-    mBirdCamera.UpdatePosition(aFrameTime);
+    mBirdCamera->UpdatePosition(aFrameTime);
 
     CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
     winMgr.getWindow("FPS")->setText(Ogre::StringConverter::toString(aStats.avgFPS));
