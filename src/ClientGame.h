@@ -20,7 +20,6 @@ public:
     virtual ~ClientGame(); // Для QuicGUI
     void UpdateTileUnderCursor(Ogre::Ray aRay);
     void Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats);
-    bool OnExit(const CEGUI::EventArgs& args);
 
     void mouseMoved(const OIS::MouseEvent& arg);
     void mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
@@ -28,17 +27,18 @@ public:
     void keyPressed(const OIS::KeyEvent& arg);
     void keyReleased(const OIS::KeyEvent& arg);
 
-    void OnEscape();
-    void OnAct();
     static ClientUnit* GetUnit(UnitId aUnitId);
     static void EraseUnitId(UnitId aUnitId);
 private:
+    bool OnExit(const CEGUI::EventArgs& args);
+    void OnEscape();
+    void OnAct();
     void OnPayloadMsg(PayloadPtr aPayloadMsg);
     void LoadAvatar();
     void LoadEvents(PayloadPtr aPayloadMsg);
 private:
     static ClientUnits mUnits;
-    BirdCamera mBirdCamera;
+    BirdCamera* mBirdCamera;
     ClientGeodesicGrid::Tiles mTiles;
     ClientGridNode* mTileUnderCursor;
     ClientUnit* mAvatar;
