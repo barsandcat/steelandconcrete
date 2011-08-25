@@ -37,9 +37,7 @@ ClientGame::ClientGame(NetworkPtr aNetwork, UnitId aAvatarId, int32 aGridSize):
     }
 
     Ogre::Vector3 avatarPosition = mAvatar->GetTile()->GetPosition();
-    mBirdCamera = new BirdCamera();
-    mBirdCamera->Goto(avatarPosition);
-    mBirdCamera->SetDistance(avatarPosition.length() + 50.0f);
+    mBirdCamera = new BirdCamera(avatarPosition, avatarPosition.length(), avatarPosition.length() + 200.0f);
 
     // Create a light
     Ogre::Light* myLight = ClientApp::GetSceneMgr().createLight("Light0");
