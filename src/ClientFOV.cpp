@@ -76,7 +76,7 @@ void ClientFOV::SendUpdate(GameTime aClientTime)
 {
     boost::shared_lock<boost::shared_mutex> rl(mGame.GetGameMutex());
 
-    std::set<TileId> currentVisibleTiles = GetVisibleTiles(4);
+    std::set<TileId> currentVisibleTiles = GetVisibleTiles(6);
 
     const GameTime serverTime = mGame.GetTime();
     const int32 toSend = (serverTime - aClientTime) / mGame.GetTimeStep();
