@@ -6,10 +6,10 @@ class OMEFileSystemArchive : public Ogre::FileSystemArchive
 {
 public:
     OMEFileSystemArchive(const Ogre::String& name, const Ogre::String& archType ): Ogre::FileSystemArchive(name, archType){}
-    virtual Ogre::DataStreamPtr open(const Ogre::String& filename) const;
+    Ogre::DataStreamPtr open(const Ogre::String& filename, bool readOnly = true) const;
 };
 
-class  OMEFileSystemArchiveFactory : public Ogre::FileSystemArchiveFactory
+class OMEFileSystemArchiveFactory : public Ogre::FileSystemArchiveFactory
 {
 public:
     const Ogre::String& getType() const;

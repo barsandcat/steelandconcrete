@@ -599,18 +599,13 @@ void MaterialEditorFrame::FillResourceTree()
     {
         wxTreeItemId groupId = mFileTree->AppendItem(mRootId, wxString(groupIt->c_str(), wxConvUTF8), GROUP_IMAGE);
         mFileTree->SelectItem(groupId, true); //This is some kind of hack for windows
-        Ogre::FileInfoListPtr fileInfoList = rgm.listResourceFileInfo(*groupIt, false);
 
-        // Collect archives. In Ogre 1.7, this will be removed, and archives queried directly
-        std::set< Ogre::Archive* > archives;
-        for (Ogre::FileInfoList::iterator fileIt = fileInfoList->begin(); fileIt != fileInfoList->end(); ++fileIt)
+        const Ogre::ResourceGroupManager::LocationList& locations = rgm.getResourceLocationList(*groupIt);
+        Ogre::ResourceGroupManager::LocationList::const_iterator archiveIt = locations.begin();
+        for (; archiveIt != locations.end(); ++archiveIt)
         {
-            archives.insert(fileIt->archive);
-        }
-
-        for (std::set< Ogre::Archive* >::iterator archiveIt = archives.begin(); archiveIt != archives.end(); ++archiveIt)
-        {
-            Ogre::Archive* archive = *archiveIt;
+            Ogre::ResourceGroupManager::ResourceLocation* location = *archiveIt;
+            Ogre::Archive* archive = location->archive;
             wxTreeItemId archiveId = mFileTree->AppendItem(groupId, wxString(archive->getName().c_str(), wxConvUTF8), FILE_SYSTEM_IMAGE);
 
             Ogre::StringVectorPtr fileList;
