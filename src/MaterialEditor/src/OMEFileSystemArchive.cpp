@@ -20,7 +20,7 @@ static Ogre::String concatenate_path(const Ogre::String& base, const Ogre::Strin
         return base + '/' + name;
 }
 
-Ogre::DataStreamPtr OMEFileSystemArchive::open(const Ogre::String& filename) const
+Ogre::DataStreamPtr OMEFileSystemArchive::open(const Ogre::String& filename, bool readOnly) const
 {
     Ogre::String full_path = concatenate_path(mName, filename);
 
@@ -29,23 +29,55 @@ Ogre::DataStreamPtr OMEFileSystemArchive::open(const Ogre::String& filename) con
     struct stat tagStat;
     int ret = stat(full_path.c_str(), &tagStat);
     assert(ret == 0 && "Problem getting file size" );
+    (void)ret;  // Silence warning
 
     // Always open in binary mode
-    std::ifstream *origStream = OGRE_NEW_T(std::ifstream, Ogre::MEMCATEGORY_GENERAL)();
-    origStream->open(full_path.c_str(), std::ios::in | std::ios::binary);
+    // Also, always include reading
+    std::ios::openmode mode = std::ios::in | std::ios::binary;
+    std::istream* baseStream = 0;
+    std::ifstream* roStream = 0;
+    std::fstream* rwStream = 0;
+
+    if (!readOnly && isReadOnly())
+    {
+        mode |= std::ios::out;
+        rwStream = OGRE_NEW_T(std::fstream, Ogre::MEMCATEGORY_GENERAL)();
+        rwStream->open(full_path.c_str(), mode);
+        baseStream = rwStream;
+    }
+    else
+    {
+        roStream = OGRE_NEW_T(std::ifstream, Ogre::MEMCATEGORY_GENERAL)();
+        roStream->open(full_path.c_str(), mode);
+        baseStream = roStream;
+    }
+
 
     // Should check ensure open succeeded, in case fail for some reason.
-    if (origStream->fail())
+    if (baseStream->fail())
     {
-        OGRE_DELETE_T(origStream, basic_ifstream, Ogre::MEMCATEGORY_GENERAL);
+        OGRE_DELETE_T(roStream, basic_ifstream, Ogre::MEMCATEGORY_GENERAL);
+        OGRE_DELETE_T(rwStream, basic_fstream, Ogre::MEMCATEGORY_GENERAL);
         OGRE_EXCEPT(Ogre::Exception::ERR_FILE_NOT_FOUND,
                     "Cannot open file: " + filename,
                     "FileSystemArchive::open");
     }
 
     /// Construct return stream, tell it to delete on destroy
-    Ogre::FileStreamDataStream* stream = OGRE_NEW Ogre::FileStreamDataStream(mName + ":" + filename,
-                                         origStream, tagStat.st_size, true);
+    Ogre::FileStreamDataStream* stream = 0;
+    if (rwStream)
+    {
+        // use the writeable stream
+        stream = OGRE_NEW Ogre::FileStreamDataStream(filename,
+                                               rwStream, (size_t)tagStat.st_size, true);
+    }
+    else
+    {
+        // read-only stream
+        Ogre::String newName = mName + ":" + filename;
+        stream = OGRE_NEW Ogre::FileStreamDataStream(newName,
+                                               roStream, (size_t)tagStat.st_size, true);
+    }
     return Ogre::DataStreamPtr(stream);
 }
 
