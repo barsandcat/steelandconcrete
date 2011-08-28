@@ -100,6 +100,7 @@ protected:
 private:
     void FillMaterialMap();
     void FillResourceTree();
+    void AddArchiveToResourceTree(wxTreeItemId aGroupId, Ogre::String aGroupName, Ogre::Archive* aArchive);
     void GetTuPassTecMatNames(const wxTreeItemId aSelectedItemId,
                                                Ogre::String &aTuName,
                                                Ogre::String &aPassName,
