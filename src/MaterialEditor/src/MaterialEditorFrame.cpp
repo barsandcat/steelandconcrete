@@ -82,33 +82,33 @@ const long ID_RENDER_TIMER = wxNewId();
 enum ResourceBrowserImages
 {
 // Image list
-WORKSPACE,
-RESOURCE_GROUP,
-UNKNOWN_ARCHIVE,
-FILE_SYSTEM_ARCHIVE,
-ZIP_ARCHIVE,
-UNKNOWN_RESOURCE,
-COMPOSITE_RESOURCE,
-MATERIAL_SCRIPT_RESOURCE,
-MATERIAL_RESOURCE,
-MESH_RESOURCE,
-ASM_RESOURCE,
-HL_RESOURCE,
-TEXTURE_RESOURCE,
-SKELETON_RESOURCE,
-FONT_RESOURCE,
-RESOURCE_BROWSER_IMAGES_COUNT
+    WORKSPACE,
+    RESOURCE_GROUP,
+    UNKNOWN_ARCHIVE,
+    FILE_SYSTEM_ARCHIVE,
+    ZIP_ARCHIVE,
+    UNKNOWN_RESOURCE,
+    COMPOSITE_RESOURCE,
+    MATERIAL_SCRIPT_RESOURCE,
+    MATERIAL_RESOURCE,
+    MESH_RESOURCE,
+    ASM_RESOURCE,
+    HL_RESOURCE,
+    TEXTURE_RESOURCE,
+    SKELETON_RESOURCE,
+    FONT_RESOURCE,
+    RESOURCE_BROWSER_IMAGES_COUNT
 };
 
 // Materials script
 enum ObjectViewImages
 {
-MATERIAL,
-TECHNIQUE,
-PASS,
-TEXTURE,
-MESH,
-OBJECT_VIEW_IMAGES_COUNT
+    MATERIAL,
+    TECHNIQUE,
+    PASS,
+    TEXTURE,
+    MESH,
+    OBJECT_VIEW_IMAGES_COUNT
 };
 
 const char* DISPLAY_NAME = "Display";
@@ -357,7 +357,7 @@ void MaterialEditorFrame::FillObjectTree(Ogre::Entity* aEntity)
     mObjectTree->SelectItem(root, true);
 }
 
-void MaterialEditorFrame::AddSubEntityToObjectTree(wxTreeItemId aParentNodeId, Ogre::SubEntity* aSubEntity)
+void MaterialEditorFrame::AddSubEntityToObjectTree(const wxTreeItemId aParentNodeId, Ogre::SubEntity* aSubEntity)
 {
     Ogre::SubMesh* subMesh = aSubEntity->getSubMesh();
     Ogre::String matName = subMesh->getMaterialName();
@@ -369,7 +369,7 @@ void MaterialEditorFrame::AddSubEntityToObjectTree(wxTreeItemId aParentNodeId, O
     AddMaterialToObjectTree(aParentNodeId, material);
 }
 
-void MaterialEditorFrame::AddMaterialToObjectTree(wxTreeItemId aParentNodeId, Ogre::MaterialPtr aMaterial)
+void MaterialEditorFrame::AddMaterialToObjectTree(const wxTreeItemId aParentNodeId, Ogre::MaterialPtr aMaterial)
 {
     wxString wxMatName(aMaterial->getName().c_str(), wxConvUTF8);
     const wxTreeItemId materialId = mObjectTree->AppendItem(aParentNodeId, wxMatName, MATERIAL);
@@ -382,24 +382,34 @@ void MaterialEditorFrame::AddMaterialToObjectTree(wxTreeItemId aParentNodeId, Og
     }
 }
 
-void MaterialEditorFrame::AddTechiqueToObjectTree(wxTreeItemId aParentNodeId, Ogre::Technique* aTechnique)
+void MaterialEditorFrame::AddTechiqueToObjectTree(const wxTreeItemId aParentNodeId, Ogre::Technique* aTechnique)
 {
-        wxString techniqueName(aTechnique->getName().c_str(), wxConvUTF8);
-        const wxTreeItemId techiqueId = mObjectTree->AppendItem(aParentNodeId, techniqueName, TECHNIQUE);
-        Ogre::Technique::PassIterator passIt = aTechnique->getPassIterator();
-        while (passIt.hasMoreElements())
-        {
-            Ogre::Pass* pass = passIt.getNext();
-            wxString passName(pass->getName().c_str(), wxConvUTF8);
-            const wxTreeItemId passId = mObjectTree->AppendItem(techiqueId, passName, PASS);
-            Ogre::Pass::TextureUnitStateIterator texIt = pass->getTextureUnitStateIterator();
-            while (texIt.hasMoreElements())
-            {
-                Ogre::TextureUnitState* tu = texIt.getNext();
-                wxString tuName(tu->getName().c_str(), wxConvUTF8);
-                const wxTreeItemId texId = mObjectTree->AppendItem(passId, tuName, TEXTURE);
-            }
-        }
+    wxString techniqueName(aTechnique->getName().c_str(), wxConvUTF8);
+    const wxTreeItemId techniqueId = mObjectTree->AppendItem(aParentNodeId, techniqueName, TECHNIQUE);
+    Ogre::Technique::PassIterator passIt = aTechnique->getPassIterator();
+    while (passIt.hasMoreElements())
+    {
+        Ogre::Pass* pass = passIt.getNext();
+        AddPassToObjectTree(techniqueId, pass);
+    }
+}
+
+void MaterialEditorFrame::AddPassToObjectTree(const wxTreeItemId aParentNodeId, Ogre::Pass* aPass)
+{
+    wxString passName(aPass->getName().c_str(), wxConvUTF8);
+    const wxTreeItemId passId = mObjectTree->AppendItem(aParentNodeId, passName, PASS);
+    Ogre::Pass::TextureUnitStateIterator texIt = aPass->getTextureUnitStateIterator();
+    while (texIt.hasMoreElements())
+    {
+        Ogre::TextureUnitState* tu = texIt.getNext();
+        AddTextrueUnitToObjectTree(passId, tu);
+    }
+}
+
+void MaterialEditorFrame::AddTextrueUnitToObjectTree(const wxTreeItemId aParentNodeId, Ogre::TextureUnitState* aTU)
+{
+    wxString tuName(aTU->getName().c_str(), wxConvUTF8);
+    mObjectTree->AppendItem(aParentNodeId, tuName, TEXTURE);
 }
 
 wxImageList* CreateResourceBrowserImageList()
@@ -458,7 +468,7 @@ void MaterialEditorFrame::createManagementPane()
     {
 
         mResourceTree = new wxTreeCtrl(this, ID_FILE_TREE, wxDefaultPosition, wxDefaultSize,
-                                   wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT | wxTR_HAS_BUTTONS | wxTR_SINGLE);
+                                       wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT | wxTR_HAS_BUTTONS | wxTR_SINGLE);
 
         mResourceTree->AssignImageList(CreateResourceBrowserImageList());
 

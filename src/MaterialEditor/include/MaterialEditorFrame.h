@@ -99,9 +99,11 @@ protected:
     void OnRenderTimer(wxTimerEvent& event);
 private:
     void FillObjectTree(Ogre::Entity* aEntity);
-    void AddSubEntityToObjectTree(wxTreeItemId aParentNodeId, Ogre::SubEntity* aSubEntity);
-    void AddMaterialToObjectTree(wxTreeItemId aParentNodeId, Ogre::MaterialPtr aMaterial);
-    void AddTechiqueToObjectTree(wxTreeItemId aParentNodeId, Ogre::Technique* aTechnique);
+    void AddSubEntityToObjectTree(const wxTreeItemId aParentNodeId, Ogre::SubEntity* aSubEntity);
+    void AddMaterialToObjectTree(const wxTreeItemId aParentNodeId, Ogre::MaterialPtr aMaterial);
+    void AddTechiqueToObjectTree(const wxTreeItemId aParentNodeId, Ogre::Technique* aTechnique);
+    void AddPassToObjectTree(const wxTreeItemId aParentNodeId, Ogre::Pass* aPass);
+    void AddTextrueUnitToObjectTree(const wxTreeItemId aParentNodeId, Ogre::TextureUnitState* aTU);
     void FillMaterialMap();
     void FillResourceTree();
     void AddArchiveToResourceTree(wxTreeItemId aGroupId, Ogre::String aGroupName, Ogre::Archive* aArchive);
