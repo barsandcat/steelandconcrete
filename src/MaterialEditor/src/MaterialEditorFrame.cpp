@@ -509,6 +509,7 @@ void MaterialEditorFrame::CreateScene()
     if (!stat(resources, &stFileInfo))
     {
         Workspace::OpenConfigFile(resources);
+        FillMaterialMap();
         FillResourceTree();
     }
 }
@@ -589,7 +590,7 @@ void MaterialEditorFrame::createHelpMenu()
     mMenuBar->Append(mHelpMenu, wxT("&Help"));
 }
 
-void MaterialEditorFrame::FillResourceTree()
+void MaterialEditorFrame::FillMaterialMap()
 {
     // Now get materials
     Ogre::ResourceManager::ResourceMapIterator it = Ogre::MaterialManager::getSingleton().getResourceIterator();
@@ -608,7 +609,10 @@ void MaterialEditorFrame::FillResourceTree()
             mMaterialMap[group][archive][file][material->getName()] = material;
         }
     }
+}
 
+void MaterialEditorFrame::FillResourceTree()
+{
     mResourceTree->DeleteAllItems();
     wxString workspaceName(Workspace::GetFileName().c_str(), wxConvUTF8);
     wxTreeItemId mRootId = mResourceTree->AddRoot(workspaceName, WORKSPACE);
@@ -697,6 +701,7 @@ void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
     {
         wxString path = openDialog->GetPath();
         Workspace::OpenConfigFile(Ogre::String(path.mb_str()));
+        FillMaterialMap();
         FillResourceTree();
     }
 }
