@@ -79,29 +79,37 @@ const long ID_RESOURCE_TREE = wxNewId();
 const long ID_FILE_TREE = wxNewId();
 const long ID_RENDER_TIMER = wxNewId();
 
+enum ResourceBrowserImages
+{
 // Image list
-const int WORKSPACE_IMAGE = 0;
-const int GROUP_IMAGE = 1;
-// Archive types
-const int UNKNOWN_ARCHIVE_IMAGE = 2;
-const int FILE_SYSTEM_IMAGE = 3;
-const int ZIP_IMAGE = 4;
-// Resource types
-const int UNKNOWN_RESOURCE_IMAGE = 5;
-const int COMPOSITE_IMAGE = 6;
-const int MATERIAL_SCRIPT_IMAGE = 7;
-const int MESH_FILE_IMAGE = 8;
-const int ASM_PROGRAMM_IMAGE = 9;
-const int HL_PROGRAMM_IMAGE = 10;
-const int TEXTURE_IMAGE = 11;
-const int SKELETON_IMAGE = 12;
-const int FONT_IMAGE = 13;
+WORKSPACE,
+RESOURCE_GROUP,
+UNKNOWN_ARCHIVE,
+FILE_SYSTEM_ARCHIVE,
+ZIP_ARCHIVE,
+UNKNOWN_RESOURCE,
+COMPOSITE_RESOURCE,
+MATERIAL_SCRIPT_RESOURCE,
+MATERIAL_RESOURCE,
+MESH_RESOURCE,
+ASM_RESOURCE,
+HL_RESOURCE,
+TEXTURE_RESOURCE,
+SKELETON_RESOURCE,
+FONT_RESOURCE,
+RESOURCE_BROWSER_IMAGES_COUNT
+};
+
 // Materials script
-const int MATERIAL_IMAGE = 14;
-const int TECHNIQUE_IMAGE = 15;
-const int PASS_IMAGE = 16;
-const int TEXTURE_UNIT_IMAGE = 17;
-const int MESH_IMAGE = 18;
+enum ObjectViewImages
+{
+MATERIAL,
+TECHNIQUE,
+PASS,
+TEXTURE,
+MESH,
+OBJECT_VIEW_IMAGES_COUNT
+};
 
 const char* DISPLAY_NAME = "Display";
 
@@ -240,16 +248,16 @@ void MaterialEditorFrame::GetTuPassTecMatNames(const wxTreeItemId aSelectedItemI
     const int image = mScriptTree->GetItemImage(curr);
     switch (image)
     {
-    case TEXTURE_UNIT_IMAGE:
+    case TEXTURE:
         aTuName = Ogre::String(mScriptTree->GetItemText(curr).mb_str());
         curr = mScriptTree->GetItemParent(curr);
-    case PASS_IMAGE:
+    case PASS:
         aPassName = Ogre::String(mScriptTree->GetItemText(curr).mb_str());
         curr = mScriptTree->GetItemParent(curr);
-    case TECHNIQUE_IMAGE:
+    case TECHNIQUE:
         aTecName = Ogre::String(mScriptTree->GetItemText(curr).mb_str());
         curr = mScriptTree->GetItemParent(curr);
-    case MATERIAL_IMAGE:
+    case MATERIAL:
         aMatName = Ogre::String(mScriptTree->GetItemText(curr).mb_str());
         break;
     default:
@@ -277,19 +285,19 @@ void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
 
     switch (image)
     {
-    case MATERIAL_IMAGE:
+    case MATERIAL:
         mPropertiesPanel->MaterialSelected(mat);
         break;
-    case TECHNIQUE_IMAGE:
+    case TECHNIQUE:
         tec = mat->getTechnique(tecName);
         mPropertiesPanel->TechniqueSelected(tec);
         break;
-    case PASS_IMAGE:
+    case PASS:
         tec = mat->getTechnique(tecName);
         pass = tec->getPass(passName);
         mPropertiesPanel->PassSelected(pass);
         break;
-    case TEXTURE_UNIT_IMAGE:
+    case TEXTURE:
         tec = mat->getTechnique(tecName);
         pass = tec->getPass(passName);
         tu = pass->getTextureUnitState(tuName);
@@ -315,14 +323,14 @@ void MaterialEditorFrame::OnFileSelected(wxTreeEvent& event)
 
     switch (mFileTree->GetItemImage(event.GetItem()))
     {
-    case MATERIAL_IMAGE:
+    case MATERIAL_RESOURCE:
     {
         newEntity = m_sm->createEntity(DISPLAY_NAME, Ogre::SceneManager::PT_CUBE);
         Ogre::String matName(selectedNodeName.mb_str());
         newEntity->setMaterialName(matName);
         break;
     }
-    case MESH_FILE_IMAGE:
+    case MESH_RESOURCE:
         newEntity = m_sm->createEntity(DISPLAY_NAME, Ogre::String(selectedNodeName.mb_str()));
         break;
     default:
@@ -334,7 +342,7 @@ void MaterialEditorFrame::OnFileSelected(wxTreeEvent& event)
     mScriptTree->DeleteAllItems();
 
     Ogre::MeshPtr mesh = newEntity->getMesh();
-    wxTreeItemId root = mScriptTree->AddRoot(wxString(mesh->getName().c_str(), wxConvUTF8), MESH_IMAGE);
+    wxTreeItemId root = mScriptTree->AddRoot(wxString(mesh->getName().c_str(), wxConvUTF8), MESH);
     for (int i = 0; i < newEntity->getNumSubEntities(); ++i)
     {
         Ogre::SubEntity* subEntity = newEntity->getSubEntity(i);
@@ -346,23 +354,27 @@ void MaterialEditorFrame::OnFileSelected(wxTreeEvent& event)
         }
 
         Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName(matName);
-        const wxTreeItemId materialId = mScriptTree->AppendItem(root, wxString(matName.c_str(), wxConvUTF8), MATERIAL_IMAGE);
+        wxString wxMatName(matName.c_str(), wxConvUTF8);
+        const wxTreeItemId materialId = mScriptTree->AppendItem(root, wxMatName, MATERIAL);
 
         Ogre::Material::TechniqueIterator matIt = material->getTechniqueIterator();
         while (matIt.hasMoreElements())
         {
             Ogre::Technique* techique = matIt.getNext();
-            const wxTreeItemId techiqueId = mScriptTree->AppendItem(materialId, wxString(techique->getName().c_str(), wxConvUTF8), TECHNIQUE_IMAGE);
+            wxString techniqueName(techique->getName().c_str(), wxConvUTF8);
+            const wxTreeItemId techiqueId = mScriptTree->AppendItem(materialId, techniqueName, TECHNIQUE);
             Ogre::Technique::PassIterator passIt = techique->getPassIterator();
             while (passIt.hasMoreElements())
             {
                 Ogre::Pass* pass = passIt.getNext();
-                const wxTreeItemId passId = mScriptTree->AppendItem(techiqueId, wxString(pass->getName().c_str(), wxConvUTF8), PASS_IMAGE);
+                wxString passName(pass->getName().c_str(), wxConvUTF8);
+                const wxTreeItemId passId = mScriptTree->AppendItem(techiqueId, passName, PASS);
                 Ogre::Pass::TextureUnitStateIterator texIt = pass->getTextureUnitStateIterator();
                 while (texIt.hasMoreElements())
                 {
                     Ogre::TextureUnitState* tu = texIt.getNext();
-                    const wxTreeItemId texId = mScriptTree->AppendItem(passId, wxString(tu->getName().c_str(), wxConvUTF8), TEXTURE_UNIT_IMAGE);
+                    wxString tuName(tu->getName().c_str(), wxConvUTF8);
+                    const wxTreeItemId texId = mScriptTree->AppendItem(passId, tuName, TEXTURE);
                 }
             }
         }
@@ -372,9 +384,9 @@ void MaterialEditorFrame::OnFileSelected(wxTreeEvent& event)
 }
 
 
-wxImageList* CreateImageList()
+wxImageList* CreateResourceBrowserImageList()
 {
-    wxImageList* mImageList = new wxImageList(16, 16, true, 17);
+    wxImageList* mImageList = new wxImageList(16, 16, true, RESOURCE_BROWSER_IMAGES_COUNT);
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::WORKSPACE));// WORKSPACE_IMAGE = 0;
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROJECT));// GROUP
     // Archive types
@@ -385,13 +397,19 @@ wxImageList* CreateImageList()
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::UNKNOWN));// UNKNOW_RESOURCE_IMAGE = 4;
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROJECT));// COMPOSITE_IMAGE = 5;
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MATERIAL_SCRIPT));// MATERIAL_IMAGE = 6;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MATERIAL));// MATERIAL_IMAGE = 6;
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MESH));// MESH_IMAGE = 7;
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROGRAM_SCRIPT));// ASM_PROGRAMM_IMAGE = 8;
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROGRAM_SCRIPT));// HL_PROGRAMM_IMAGE = 9;
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TEXTURE));// TEXTURE_IMAGE = 10;
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TECHNIQUE));// SKELETON_IMAGE = 11;
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::FONT));// FONT_IMAGE = 12;
+    return mImageList;
+}
 
+wxImageList* CreateObjectViewImageList()
+{
+    wxImageList* mImageList = new wxImageList(16, 16, true, OBJECT_VIEW_IMAGES_COUNT);
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MATERIAL));
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TECHNIQUE));
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PASS));
@@ -406,10 +424,10 @@ void MaterialEditorFrame::createManagementPane()
         mScriptTree = new wxTreeCtrl(this, ID_RESOURCE_TREE, wxDefaultPosition, wxDefaultSize,
                                      wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT |
                                      wxTR_HAS_BUTTONS | wxTR_SINGLE);
-        mScriptTree->AssignImageList(CreateImageList());
+        mScriptTree->AssignImageList(CreateObjectViewImageList());
 
         wxAuiPaneInfo info;
-        info.Caption(wxT("Script browser"));
+        info.Caption(wxT("Object view"));
         info.MaximizeButton(true);
         info.CloseButton(false);
         info.BestSize(256, 512);
@@ -424,7 +442,7 @@ void MaterialEditorFrame::createManagementPane()
         mFileTree = new wxTreeCtrl(this, ID_FILE_TREE, wxDefaultPosition, wxDefaultSize,
                                    wxNO_BORDER | wxTR_EDIT_LABELS | wxTR_FULL_ROW_HIGHLIGHT | wxTR_HAS_BUTTONS | wxTR_SINGLE);
 
-        mFileTree->AssignImageList(CreateImageList());
+        mFileTree->AssignImageList(CreateResourceBrowserImageList());
 
         wxAuiPaneInfo info;
         info.Caption(wxT("Resource browser"));
@@ -592,12 +610,14 @@ void MaterialEditorFrame::FillResourceTree()
     }
 
     mFileTree->DeleteAllItems();
-    wxTreeItemId mRootId = mFileTree->AddRoot(wxString(Workspace::GetFileName().c_str(), wxConvUTF8), WORKSPACE_IMAGE);
+    wxString workspaceName(Workspace::GetFileName().c_str(), wxConvUTF8);
+    wxTreeItemId mRootId = mFileTree->AddRoot(workspaceName, WORKSPACE);
     Ogre::ResourceGroupManager& rgm = Ogre::ResourceGroupManager::getSingleton();
     Ogre::StringVector groups = rgm.getResourceGroups();
     for (Ogre::StringVector::iterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt)
     {
-        wxTreeItemId groupId = mFileTree->AppendItem(mRootId, wxString(groupIt->c_str(), wxConvUTF8), GROUP_IMAGE);
+        wxString groupName(groupIt->c_str(), wxConvUTF8);
+        wxTreeItemId groupId = mFileTree->AppendItem(mRootId, groupName, RESOURCE_GROUP);
         mFileTree->SelectItem(groupId, true); //This is some kind of hack for windows
 
         const Ogre::ResourceGroupManager::LocationList& locations = rgm.getResourceLocationList(*groupIt);
@@ -606,51 +626,63 @@ void MaterialEditorFrame::FillResourceTree()
         {
             Ogre::ResourceGroupManager::ResourceLocation* location = *archiveIt;
             Ogre::Archive* archive = location->archive;
-            wxTreeItemId archiveId = mFileTree->AppendItem(groupId, wxString(archive->getName().c_str(), wxConvUTF8), FILE_SYSTEM_IMAGE);
+            wxString archiveName(archive->getName().c_str(), wxConvUTF8);
+            wxTreeItemId archiveId = mFileTree->AppendItem(groupId, archiveName, FILE_SYSTEM_ARCHIVE);
 
             Ogre::StringVectorPtr fileList;
-            // Materials
+
             fileList = archive->find("*.material");
             for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
             {
-                wxTreeItemId materialScriptId = mFileTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MATERIAL_SCRIPT_IMAGE);
+                wxString materialScriptName(fileNameIt->c_str(), wxConvUTF8);
+                wxTreeItemId materialScriptId = mFileTree->AppendItem(archiveId, materialScriptName, MATERIAL_SCRIPT_RESOURCE);
                 const MaterialMap &materials = mGroupMap.find(*groupIt)->second.find(archive->getName())->second.find(fileNameIt->c_str())->second;
                 for (MaterialMap::const_iterator it = materials.begin(); it != materials.end(); ++it)
                 {
-                    mFileTree->AppendItem(materialScriptId, wxString(it->first.c_str(), wxConvUTF8), MATERIAL_IMAGE);
+                    mFileTree->AppendItem(materialScriptId, wxString(it->first.c_str(), wxConvUTF8), MATERIAL_RESOURCE);
                 }
             }
 
             fileList = archive->find("*.png");
             for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
             {
-                mFileTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), TEXTURE_IMAGE);
+                wxString name(fileNameIt->c_str(), wxConvUTF8);
+                mFileTree->AppendItem(archiveId, name, TEXTURE_RESOURCE);
             }
 
             fileList = archive->find("*.jpg");
             for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
             {
-                mFileTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), TEXTURE_IMAGE);
+                wxString name(fileNameIt->c_str(), wxConvUTF8);
+                mFileTree->AppendItem(archiveId, name, TEXTURE_RESOURCE);
             }
 
             fileList = archive->find("*.bmp");
             for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
             {
-                mFileTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), TEXTURE_IMAGE);
+                wxString name(fileNameIt->c_str(), wxConvUTF8);
+                mFileTree->AppendItem(archiveId, name, TEXTURE_RESOURCE);
             }
 
-            // Meshes
             fileList = archive->find("*.mesh");
             for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
             {
-                mFileTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), MESH_FILE_IMAGE);
+                wxString name(fileNameIt->c_str(), wxConvUTF8);
+                mFileTree->AppendItem(archiveId, name, MESH_RESOURCE);
             }
 
-            // Programs
+            fileList = archive->find("*.skeleton");
+            for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
+            {
+                wxString name(fileNameIt->c_str(), wxConvUTF8);
+                mFileTree->AppendItem(archiveId, name, SKELETON_RESOURCE);
+            }
+
             fileList = archive->find("*.program");
             for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
             {
-                mFileTree->AppendItem(archiveId, wxString(fileNameIt->c_str(), wxConvUTF8), HL_PROGRAMM_IMAGE);
+                wxString name(fileNameIt->c_str(), wxConvUTF8);
+                mFileTree->AppendItem(archiveId, name, HL_RESOURCE);
             }
         }
     }
