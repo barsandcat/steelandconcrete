@@ -98,6 +98,7 @@ protected:
     void OnFileSelected(wxTreeEvent& event);
     void OnRenderTimer(wxTimerEvent& event);
 private:
+    void FillObjectTree(Ogre::Entity* aEntity);
     void FillMaterialMap();
     void FillResourceTree();
     void AddArchiveToResourceTree(wxTreeItemId aGroupId, Ogre::String aGroupName, Ogre::Archive* aArchive);
