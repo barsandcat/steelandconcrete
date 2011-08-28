@@ -630,65 +630,70 @@ void MaterialEditorFrame::FillResourceTree()
         {
             Ogre::ResourceGroupManager::ResourceLocation* location = *archiveIt;
             Ogre::Archive* archive = location->archive;
-            wxString archiveName(archive->getName().c_str(), wxConvUTF8);
-            wxTreeItemId archiveId = mResourceTree->AppendItem(groupId, archiveName, FILE_SYSTEM_ARCHIVE);
-
-            Ogre::StringVectorPtr fileList;
-
-            fileList = archive->find("*.material");
-            for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
-            {
-                wxString materialScriptName(fileNameIt->c_str(), wxConvUTF8);
-                wxTreeItemId materialScriptId = mResourceTree->AppendItem(archiveId, materialScriptName, MATERIAL_SCRIPT_RESOURCE);
-                const MaterialMap &materials = mMaterialMap.find(*groupIt)->second.find(archive->getName())->second.find(fileNameIt->c_str())->second;
-                for (MaterialMap::const_iterator it = materials.begin(); it != materials.end(); ++it)
-                {
-                    mResourceTree->AppendItem(materialScriptId, wxString(it->first.c_str(), wxConvUTF8), MATERIAL_RESOURCE);
-                }
-            }
-
-            fileList = archive->find("*.png");
-            for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
-            {
-                wxString name(fileNameIt->c_str(), wxConvUTF8);
-                mResourceTree->AppendItem(archiveId, name, TEXTURE_RESOURCE);
-            }
-
-            fileList = archive->find("*.jpg");
-            for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
-            {
-                wxString name(fileNameIt->c_str(), wxConvUTF8);
-                mResourceTree->AppendItem(archiveId, name, TEXTURE_RESOURCE);
-            }
-
-            fileList = archive->find("*.bmp");
-            for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
-            {
-                wxString name(fileNameIt->c_str(), wxConvUTF8);
-                mResourceTree->AppendItem(archiveId, name, TEXTURE_RESOURCE);
-            }
-
-            fileList = archive->find("*.mesh");
-            for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
-            {
-                wxString name(fileNameIt->c_str(), wxConvUTF8);
-                mResourceTree->AppendItem(archiveId, name, MESH_RESOURCE);
-            }
-
-            fileList = archive->find("*.skeleton");
-            for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
-            {
-                wxString name(fileNameIt->c_str(), wxConvUTF8);
-                mResourceTree->AppendItem(archiveId, name, SKELETON_RESOURCE);
-            }
-
-            fileList = archive->find("*.program");
-            for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
-            {
-                wxString name(fileNameIt->c_str(), wxConvUTF8);
-                mResourceTree->AppendItem(archiveId, name, HL_RESOURCE);
-            }
+            AddArchiveToResourceTree(groupId, *groupIt, archive);
         }
+    }
+}
+
+void MaterialEditorFrame::AddArchiveToResourceTree(wxTreeItemId aGroupId, Ogre::String aGroupName, Ogre::Archive* aArchive)
+{
+    wxString archiveName(aArchive->getName().c_str(), wxConvUTF8);
+    wxTreeItemId archiveId = mResourceTree->AppendItem(aGroupId, archiveName, FILE_SYSTEM_ARCHIVE);
+
+    Ogre::StringVectorPtr fileList;
+
+    fileList = aArchive->find("*.material");
+    for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
+    {
+        wxString materialScriptName(fileNameIt->c_str(), wxConvUTF8);
+        wxTreeItemId materialScriptId = mResourceTree->AppendItem(archiveId, materialScriptName, MATERIAL_SCRIPT_RESOURCE);
+        const MaterialMap &materials = mMaterialMap.find(aGroupName)->second.find(aArchive->getName())->second.find(fileNameIt->c_str())->second;
+        for (MaterialMap::const_iterator it = materials.begin(); it != materials.end(); ++it)
+        {
+            mResourceTree->AppendItem(materialScriptId, wxString(it->first.c_str(), wxConvUTF8), MATERIAL_RESOURCE);
+        }
+    }
+
+    fileList = aArchive->find("*.png");
+    for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
+    {
+        wxString name(fileNameIt->c_str(), wxConvUTF8);
+        mResourceTree->AppendItem(archiveId, name, TEXTURE_RESOURCE);
+    }
+
+    fileList = aArchive->find("*.jpg");
+    for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
+    {
+        wxString name(fileNameIt->c_str(), wxConvUTF8);
+        mResourceTree->AppendItem(archiveId, name, TEXTURE_RESOURCE);
+    }
+
+    fileList = aArchive->find("*.bmp");
+    for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
+    {
+        wxString name(fileNameIt->c_str(), wxConvUTF8);
+        mResourceTree->AppendItem(archiveId, name, TEXTURE_RESOURCE);
+    }
+
+    fileList = aArchive->find("*.mesh");
+    for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
+    {
+        wxString name(fileNameIt->c_str(), wxConvUTF8);
+        mResourceTree->AppendItem(archiveId, name, MESH_RESOURCE);
+    }
+
+    fileList = aArchive->find("*.skeleton");
+    for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
+    {
+        wxString name(fileNameIt->c_str(), wxConvUTF8);
+        mResourceTree->AppendItem(archiveId, name, SKELETON_RESOURCE);
+    }
+
+    fileList = aArchive->find("*.program");
+    for (Ogre::StringVector::iterator fileNameIt = fileList->begin(); fileNameIt != fileList->end(); ++fileNameIt)
+    {
+        wxString name(fileNameIt->c_str(), wxConvUTF8);
+        mResourceTree->AppendItem(archiveId, name, HL_RESOURCE);
     }
 }
 
