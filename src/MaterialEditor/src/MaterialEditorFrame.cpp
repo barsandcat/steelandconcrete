@@ -378,9 +378,15 @@ void MaterialEditorFrame::AddMaterialToObjectTree(wxTreeItemId aParentNodeId, Og
     while (matIt.hasMoreElements())
     {
         Ogre::Technique* techique = matIt.getNext();
-        wxString techniqueName(techique->getName().c_str(), wxConvUTF8);
-        const wxTreeItemId techiqueId = mObjectTree->AppendItem(materialId, techniqueName, TECHNIQUE);
-        Ogre::Technique::PassIterator passIt = techique->getPassIterator();
+        AddTechiqueToObjectTree(materialId, techique);
+    }
+}
+
+void MaterialEditorFrame::AddTechiqueToObjectTree(wxTreeItemId aParentNodeId, Ogre::Technique* aTechnique)
+{
+        wxString techniqueName(aTechnique->getName().c_str(), wxConvUTF8);
+        const wxTreeItemId techiqueId = mObjectTree->AppendItem(aParentNodeId, techniqueName, TECHNIQUE);
+        Ogre::Technique::PassIterator passIt = aTechnique->getPassIterator();
         while (passIt.hasMoreElements())
         {
             Ogre::Pass* pass = passIt.getNext();
@@ -394,7 +400,6 @@ void MaterialEditorFrame::AddMaterialToObjectTree(wxTreeItemId aParentNodeId, Og
                 const wxTreeItemId texId = mObjectTree->AppendItem(passId, tuName, TEXTURE);
             }
         }
-    }
 }
 
 wxImageList* CreateResourceBrowserImageList()
