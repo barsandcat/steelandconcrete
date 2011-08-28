@@ -338,14 +338,19 @@ void MaterialEditorFrame::OnFileSelected(wxTreeEvent& event)
     }
     node->attachObject(newEntity);
 
+    FillObjectTree(newEntity);
+}
+
+void MaterialEditorFrame::FillObjectTree(Ogre::Entity* aEntity)
+{
     // Build inspector tree
     mObjectTree->DeleteAllItems();
 
-    Ogre::MeshPtr mesh = newEntity->getMesh();
+    Ogre::MeshPtr mesh = aEntity->getMesh();
     wxTreeItemId root = mObjectTree->AddRoot(wxString(mesh->getName().c_str(), wxConvUTF8), MESH);
-    for (int i = 0; i < newEntity->getNumSubEntities(); ++i)
+    for (int i = 0; i < aEntity->getNumSubEntities(); ++i)
     {
-        Ogre::SubEntity* subEntity = newEntity->getSubEntity(i);
+        Ogre::SubEntity* subEntity = aEntity->getSubEntity(i);
         Ogre::SubMesh* subMesh = subEntity->getSubMesh();
         Ogre::String matName = subMesh->getMaterialName();
         if (matName.empty())
@@ -382,7 +387,6 @@ void MaterialEditorFrame::OnFileSelected(wxTreeEvent& event)
 
     mObjectTree->SelectItem(root, true);
 }
-
 
 wxImageList* CreateResourceBrowserImageList()
 {
