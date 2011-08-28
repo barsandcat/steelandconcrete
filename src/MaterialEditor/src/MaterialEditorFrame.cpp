@@ -605,7 +605,7 @@ void MaterialEditorFrame::FillResourceTree()
 
             Ogre::String file = origin.substr(pos + 1, origin.size() - pos);
             GetLog() << group + ":" + archive + ":" + file + ":" + material->getName();
-            mGroupMap[group][archive][file][material->getName()] = material;
+            mMaterialMap[group][archive][file][material->getName()] = material;
         }
     }
 
@@ -636,7 +636,7 @@ void MaterialEditorFrame::FillResourceTree()
             {
                 wxString materialScriptName(fileNameIt->c_str(), wxConvUTF8);
                 wxTreeItemId materialScriptId = mResourceTree->AppendItem(archiveId, materialScriptName, MATERIAL_SCRIPT_RESOURCE);
-                const MaterialMap &materials = mGroupMap.find(*groupIt)->second.find(archive->getName())->second.find(fileNameIt->c_str())->second;
+                const MaterialMap &materials = mMaterialMap.find(*groupIt)->second.find(archive->getName())->second.find(fileNameIt->c_str())->second;
                 for (MaterialMap::const_iterator it = materials.begin(); it != materials.end(); ++it)
                 {
                     mResourceTree->AppendItem(materialScriptId, wxString(it->first.c_str(), wxConvUTF8), MATERIAL_RESOURCE);
