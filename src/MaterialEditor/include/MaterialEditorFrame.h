@@ -98,6 +98,7 @@ protected:
     void OnFileSelected(wxTreeEvent& event);
     void OnRenderTimer(wxTimerEvent& event);
 private:
+    void FillMaterialMap();
     void FillResourceTree();
     void GetTuPassTecMatNames(const wxTreeItemId aSelectedItemId,
                                                Ogre::String &aTuName,
