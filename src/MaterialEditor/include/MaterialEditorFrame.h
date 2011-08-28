@@ -99,6 +99,7 @@ protected:
     void OnRenderTimer(wxTimerEvent& event);
 private:
     void FillObjectTree(Ogre::Entity* aEntity);
+    void AddSubEntityToObjectTree(wxTreeItemId aParentNodeId, Ogre::SubEntity* aSubEntity);
     void FillMaterialMap();
     void FillResourceTree();
     void AddArchiveToResourceTree(wxTreeItemId aGroupId, Ogre::String aGroupName, Ogre::Archive* aArchive);
