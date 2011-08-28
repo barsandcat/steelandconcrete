@@ -351,41 +351,46 @@ void MaterialEditorFrame::FillObjectTree(Ogre::Entity* aEntity)
     for (int i = 0; i < aEntity->getNumSubEntities(); ++i)
     {
         Ogre::SubEntity* subEntity = aEntity->getSubEntity(i);
-        Ogre::SubMesh* subMesh = subEntity->getSubMesh();
-        Ogre::String matName = subMesh->getMaterialName();
-        if (matName.empty())
-        {
-            matName = subEntity->getMaterialName();
-        }
-
-        Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName(matName);
-        wxString wxMatName(matName.c_str(), wxConvUTF8);
-        const wxTreeItemId materialId = mObjectTree->AppendItem(root, wxMatName, MATERIAL);
-
-        Ogre::Material::TechniqueIterator matIt = material->getTechniqueIterator();
-        while (matIt.hasMoreElements())
-        {
-            Ogre::Technique* techique = matIt.getNext();
-            wxString techniqueName(techique->getName().c_str(), wxConvUTF8);
-            const wxTreeItemId techiqueId = mObjectTree->AppendItem(materialId, techniqueName, TECHNIQUE);
-            Ogre::Technique::PassIterator passIt = techique->getPassIterator();
-            while (passIt.hasMoreElements())
-            {
-                Ogre::Pass* pass = passIt.getNext();
-                wxString passName(pass->getName().c_str(), wxConvUTF8);
-                const wxTreeItemId passId = mObjectTree->AppendItem(techiqueId, passName, PASS);
-                Ogre::Pass::TextureUnitStateIterator texIt = pass->getTextureUnitStateIterator();
-                while (texIt.hasMoreElements())
-                {
-                    Ogre::TextureUnitState* tu = texIt.getNext();
-                    wxString tuName(tu->getName().c_str(), wxConvUTF8);
-                    const wxTreeItemId texId = mObjectTree->AppendItem(passId, tuName, TEXTURE);
-                }
-            }
-        }
+        AddSubEntityToObjectTree(root, subEntity);
     }
 
     mObjectTree->SelectItem(root, true);
+}
+
+void MaterialEditorFrame::AddSubEntityToObjectTree(wxTreeItemId aParentNodeId, Ogre::SubEntity* aSubEntity)
+{
+    Ogre::SubMesh* subMesh = aSubEntity->getSubMesh();
+    Ogre::String matName = subMesh->getMaterialName();
+    if (matName.empty())
+    {
+        matName = aSubEntity->getMaterialName();
+    }
+
+    Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName(matName);
+    wxString wxMatName(matName.c_str(), wxConvUTF8);
+    const wxTreeItemId materialId = mObjectTree->AppendItem(aParentNodeId, wxMatName, MATERIAL);
+
+    Ogre::Material::TechniqueIterator matIt = material->getTechniqueIterator();
+    while (matIt.hasMoreElements())
+    {
+        Ogre::Technique* techique = matIt.getNext();
+        wxString techniqueName(techique->getName().c_str(), wxConvUTF8);
+        const wxTreeItemId techiqueId = mObjectTree->AppendItem(materialId, techniqueName, TECHNIQUE);
+        Ogre::Technique::PassIterator passIt = techique->getPassIterator();
+        while (passIt.hasMoreElements())
+        {
+            Ogre::Pass* pass = passIt.getNext();
+            wxString passName(pass->getName().c_str(), wxConvUTF8);
+            const wxTreeItemId passId = mObjectTree->AppendItem(techiqueId, passName, PASS);
+            Ogre::Pass::TextureUnitStateIterator texIt = pass->getTextureUnitStateIterator();
+            while (texIt.hasMoreElements())
+            {
+                Ogre::TextureUnitState* tu = texIt.getNext();
+                wxString tuName(tu->getName().c_str(), wxConvUTF8);
+                const wxTreeItemId texId = mObjectTree->AppendItem(passId, tuName, TEXTURE);
+            }
+        }
+    }
 }
 
 wxImageList* CreateResourceBrowserImageList()
