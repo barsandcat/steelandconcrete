@@ -100,6 +100,29 @@ enum ResourceBrowserImages
     RESOURCE_BROWSER_IMAGES_COUNT
 };
 
+wxImageList* CreateResourceBrowserImageList()
+{
+    wxImageList* mImageList = new wxImageList(16, 16, true, RESOURCE_BROWSER_IMAGES_COUNT);
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::WORKSPACE));// WORKSPACE_IMAGE = 0;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROJECT));// GROUP
+    // Archive types
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::UNKNOWN));// UNKNOW_ARCHIVE_IMAGE = 1;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::FILE_SYSTEM));// FILESYTEM_IMAGE = 2;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::ZIP));// ZIP_IMAGE = 3;
+    // Resource types
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::UNKNOWN));// UNKNOW_RESOURCE_IMAGE = 4;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROJECT));// COMPOSITE_IMAGE = 5;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MATERIAL_SCRIPT));// MATERIAL_IMAGE = 6;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MATERIAL));// MATERIAL_IMAGE = 6;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MESH));// MESH_IMAGE = 7;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROGRAM_SCRIPT));// ASM_PROGRAMM_IMAGE = 8;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROGRAM_SCRIPT));// HL_PROGRAMM_IMAGE = 9;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TEXTURE));// TEXTURE_IMAGE = 10;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TECHNIQUE));// SKELETON_IMAGE = 11;
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::FONT));// FONT_IMAGE = 12;
+    return mImageList;
+}
+
 // Materials script
 enum ObjectViewImages
 {
@@ -111,8 +134,26 @@ enum ObjectViewImages
     SUB_ENTITY,
     MESH,
     SUB_MESH,
+    SKELETON,
+    ANIMATION,
     OBJECT_VIEW_IMAGES_COUNT
 };
+
+wxImageList* CreateObjectViewImageList()
+{
+    wxImageList* mImageList = new wxImageList(16, 16, true, OBJECT_VIEW_IMAGES_COUNT);
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MATERIAL));
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TECHNIQUE));
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PASS));
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TEXTURE));
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MESH));
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MESH));
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MESH));
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MESH));
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TECHNIQUE));
+    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TEXTURE));
+    return mImageList;
+}
 
 const char* DISPLAY_NAME = "Display";
 
@@ -271,7 +312,7 @@ void MaterialEditorFrame::GetTuPassTecMatNames(const wxTreeItemId aSelectedItemI
 void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
 {
     const int image = mObjectTree->GetItemImage(event.GetItem());
-    if (image == ENTITY || image == SUB_ENTITY || image == MESH || image == SUB_MESH)
+    if (image != TEXTURE && image != PASS && image != TECHNIQUE && image != MATERIAL)
         return;
     Ogre::String tuName;
     Ogre::String passName;
@@ -372,6 +413,28 @@ void MaterialEditorFrame::AddMeshToObjectTree(const wxTreeItemId aParentNodeId, 
         Ogre::SubMesh* subMesh = aMesh->getSubMesh(i);
         AddSubMeshToObjectTree(id, subMesh);
     }
+    Ogre::SkeletonPtr skeleton = aMesh->getSkeleton();
+    if (!skeleton.isNull())
+    {
+        AddSkeletonToObjectTree(id, skeleton);
+    }
+}
+
+void MaterialEditorFrame::AddSkeletonToObjectTree(const wxTreeItemId aParentNodeId, Ogre::SkeletonPtr aSkeleton)
+{
+    wxString name(aSkeleton->getName().c_str(), wxConvUTF8);
+    const wxTreeItemId id = mObjectTree->AppendItem(aParentNodeId, name, SKELETON);
+    for (int i = 0; i < aSkeleton->getNumAnimations(); ++i)
+    {
+        Ogre::Animation* animation = aSkeleton->getAnimation(i);
+        AddAnimationToObjectTree(id, animation);
+    }
+}
+
+void MaterialEditorFrame::AddAnimationToObjectTree(const wxTreeItemId aParentNodeId, Ogre::Animation* aAnimation)
+{
+    wxString name(aAnimation->getName().c_str(), wxConvUTF8);
+    const wxTreeItemId id = mObjectTree->AppendItem(aParentNodeId, name, ANIMATION);
 }
 
 void MaterialEditorFrame::AddSubMeshToObjectTree(const wxTreeItemId aParentNodeId, Ogre::SubMesh* aSubMesh)
@@ -439,43 +502,6 @@ void MaterialEditorFrame::AddTextrueUnitToObjectTree(const wxTreeItemId aParentN
 {
     wxString tuName(aTU->getName().c_str(), wxConvUTF8);
     mObjectTree->AppendItem(aParentNodeId, tuName, TEXTURE);
-}
-
-wxImageList* CreateResourceBrowserImageList()
-{
-    wxImageList* mImageList = new wxImageList(16, 16, true, RESOURCE_BROWSER_IMAGES_COUNT);
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::WORKSPACE));// WORKSPACE_IMAGE = 0;
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROJECT));// GROUP
-    // Archive types
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::UNKNOWN));// UNKNOW_ARCHIVE_IMAGE = 1;
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::FILE_SYSTEM));// FILESYTEM_IMAGE = 2;
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::ZIP));// ZIP_IMAGE = 3;
-    // Resource types
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::UNKNOWN));// UNKNOW_RESOURCE_IMAGE = 4;
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROJECT));// COMPOSITE_IMAGE = 5;
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MATERIAL_SCRIPT));// MATERIAL_IMAGE = 6;
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MATERIAL));// MATERIAL_IMAGE = 6;
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MESH));// MESH_IMAGE = 7;
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROGRAM_SCRIPT));// ASM_PROGRAMM_IMAGE = 8;
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PROGRAM_SCRIPT));// HL_PROGRAMM_IMAGE = 9;
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TEXTURE));// TEXTURE_IMAGE = 10;
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TECHNIQUE));// SKELETON_IMAGE = 11;
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::FONT));// FONT_IMAGE = 12;
-    return mImageList;
-}
-
-wxImageList* CreateObjectViewImageList()
-{
-    wxImageList* mImageList = new wxImageList(16, 16, true, OBJECT_VIEW_IMAGES_COUNT);
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MATERIAL));
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TECHNIQUE));
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PASS));
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TEXTURE));
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MESH));
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MESH));
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MESH));
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MESH));
-    return mImageList;
 }
 
 void MaterialEditorFrame::createManagementPane()
