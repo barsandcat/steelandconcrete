@@ -365,12 +365,16 @@ void MaterialEditorFrame::AddSubEntityToObjectTree(wxTreeItemId aParentNodeId, O
     {
         matName = aSubEntity->getMaterialName();
     }
-
     Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName(matName);
-    wxString wxMatName(matName.c_str(), wxConvUTF8);
+    AddMaterialToObjectTree(aParentNodeId, material);
+}
+
+void MaterialEditorFrame::AddMaterialToObjectTree(wxTreeItemId aParentNodeId, Ogre::MaterialPtr aMaterial)
+{
+    wxString wxMatName(aMaterial->getName().c_str(), wxConvUTF8);
     const wxTreeItemId materialId = mObjectTree->AppendItem(aParentNodeId, wxMatName, MATERIAL);
 
-    Ogre::Material::TechniqueIterator matIt = material->getTechniqueIterator();
+    Ogre::Material::TechniqueIterator matIt = aMaterial->getTechniqueIterator();
     while (matIt.hasMoreElements())
     {
         Ogre::Technique* techique = matIt.getNext();

@@ -100,6 +100,7 @@ protected:
 private:
     void FillObjectTree(Ogre::Entity* aEntity);
     void AddSubEntityToObjectTree(wxTreeItemId aParentNodeId, Ogre::SubEntity* aSubEntity);
+    void AddMaterialToObjectTree(wxTreeItemId aParentNodeId, Ogre::MaterialPtr aMaterial);
     void FillMaterialMap();
     void FillResourceTree();
     void AddArchiveToResourceTree(wxTreeItemId aGroupId, Ogre::String aGroupName, Ogre::Archive* aArchive);
