@@ -126,7 +126,7 @@ private:
     DocPanel* mDocPanel;
     OgreControl* mOgreControl;
 
-    GroupMap mGroupMap;
+    GroupMap mMaterialMap;
 
     wxTimer* mRenderTimer;
 
