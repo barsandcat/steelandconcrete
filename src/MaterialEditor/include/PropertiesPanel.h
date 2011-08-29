@@ -37,6 +37,7 @@ namespace Ogre
 class Pass;
 class Technique;
 class MaterialPtr;
+class Entity;
 }
 class wxGridSizer;
 class wxPropertyGridManager;
@@ -56,6 +57,7 @@ public:
                     const wxString& name = wxT("Properties Panel"));
 
     virtual ~PropertiesPanel();
+    void EntitySelected(Ogre::Entity* aEntity);
 
     void MaterialSelected(Ogre::MaterialPtr material);
     void TechniqueSelected(Ogre::Technique* tc);

@@ -24,29 +24,28 @@ Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA or go to
 http://www.gnu.org/copyleft/lesser.txt
 -------------------------------------------------------------------------
 */
-#ifndef _MATERIALPROPERTYGRIDPAGE_H_
-#define _MATERIALPROPERTYGRIDPAGE_H_
+#ifndef _ENTITYPROPERTYGRIDPAGE_H_
+#define _ENTITYPROPERTYGRIDPAGE_H_
 
 #include <wx/wx.h>
 #include <wx/propgrid/manager.h>
-#include <OgreMaterial.h>
+#include <OgreEntity.h>
 
-class MaterialPropertyGridPage : public wxPropertyGridPage
+class EntityPropertyGridPage : public wxPropertyGridPage
 {
 public:
-	MaterialPropertyGridPage(Ogre::MaterialPtr aMaterial);
-	virtual ~MaterialPropertyGridPage();
+	EntityPropertyGridPage(Ogre::Entity* aEntity);
+	virtual ~EntityPropertyGridPage();
 	virtual void populate();
 
 protected:
 	virtual void propertyChange(wxPropertyGridEvent& event);
 
-	Ogre::MaterialPtr mMaterial;
+	Ogre::Entity* mEntity;
 
-	wxPGId mReceiveShadowsId;
-	wxPGId mTransparencyShadowsId;
+	wxPGId mDisplaySkeleton;
 
 	DECLARE_EVENT_TABLE();
 };
 
-#endif // _MATERIALPROPERTYGRIDPAGE_H_
+#endif

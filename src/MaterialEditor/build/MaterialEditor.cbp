@@ -73,6 +73,7 @@
 		<Unit filename="../include/DocPanel.h" />
 		<Unit filename="../include/Editor.h" />
 		<Unit filename="../include/EditorManager.h" />
+		<Unit filename="../include/EntityPropertyGridPage.h" />
 		<Unit filename="../include/EventArgs.h" />
 		<Unit filename="../include/EventContainer.h" />
 		<Unit filename="../include/GLSLEditor.h" />
@@ -100,6 +101,7 @@
 		<Unit filename="../src/DocPanel.cpp" />
 		<Unit filename="../src/Editor.cpp" />
 		<Unit filename="../src/EditorManager.cpp" />
+		<Unit filename="../src/EntityPropertyGridPage.cpp" />
 		<Unit filename="../src/EventContainer.cpp" />
 		<Unit filename="../src/GLSLEditor.cpp" />
 		<Unit filename="../src/HLSLEditor.cpp" />

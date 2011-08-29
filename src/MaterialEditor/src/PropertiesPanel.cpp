@@ -40,15 +40,15 @@ Torus Knot Software Ltd.
 #include <wx/propgrid/manager.h>
 #include <wx/propgrid/advprops.h>
 
-#include "OgreMaterial.h"
-#include "OgreMaterialManager.h"
-#include "OgrePass.h"
-#include "OgreTechnique.h"
+#include <OgreMaterial.h>
+#include <OgreMaterialManager.h>
+#include <OgrePass.h>
+#include <OgreTechnique.h>
 
-#include "MaterialPropertyGridPage.h"
-#include "PassPropertyGridPage.h"
-#include "PassPropertyGridPage.h"
-#include "TechniquePropertyGridPage.h"
+#include <MaterialPropertyGridPage.h>
+#include <PassPropertyGridPage.h>
+#include <EntityPropertyGridPage.h>
+#include <TechniquePropertyGridPage.h>
 #include "Workspace.h"
 
 BEGIN_EVENT_TABLE(PropertiesPanel, wxPanel)
@@ -81,6 +81,18 @@ PropertiesPanel::~PropertiesPanel()
 void PropertiesPanel::Clear()
 {
     mPropertyGrid->Clear();
+}
+
+void PropertiesPanel::EntitySelected(Ogre::Entity* aEntity)
+{
+    mPropertyGrid->Clear();
+    EntityPropertyGridPage* page = new EntityPropertyGridPage(aEntity);
+
+    int index = mPropertyGrid->AddPage(wxEmptyString, wxPG_NULL_BITMAP, page);
+    page->populate();
+
+    mPropertyGrid->SelectPage(index);
+    mPropertyGrid->Refresh();
 }
 
 void PropertiesPanel::MaterialSelected(Ogre::MaterialPtr material)
