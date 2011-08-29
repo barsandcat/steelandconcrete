@@ -245,6 +245,21 @@ MaterialEditorFrame::~MaterialEditorFrame()
 
 void MaterialEditorFrame::OnRenderTimer(wxTimerEvent& event)
 {
+    if (m_sm->hasEntity(DISPLAY_NAME))
+    {
+        Ogre::Entity* ent = m_sm->getEntity(DISPLAY_NAME);
+        if (ent->hasSkeleton())
+        {
+            ent->setDisplaySkeleton(true);
+            Ogre::AnimationStateSet* anims = ent->getAllAnimationStates();
+            Ogre::ConstEnabledAnimationStateIterator it = anims->getEnabledAnimationStateIterator();
+            while (it.hasMoreElements())
+            {
+                Ogre::AnimationState* anim = it.getNext();
+                anim->addTime(0.1f);
+            }
+        }
+    }
     mOgreControl->Update();
 }
 
@@ -282,6 +297,65 @@ void MaterialEditorFrame::createAuiNotebookPane()
     mAuiManager.AddPane(mAuiNotebook, info);
 }
 
+
+void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
+{
+    const int image = mObjectTree->GetItemImage(event.GetItem());
+    if (image == ANIMATION)
+    {
+        Ogre::String animName(mObjectTree->GetItemText(event.GetItem()).mb_str());
+
+        if (m_sm->hasEntity(DISPLAY_NAME))
+        {
+            Ogre::Entity* ent = m_sm->getEntity(DISPLAY_NAME);
+            Ogre::AnimationState* state = ent->getAnimationState(animName);
+            state->setLoop(true);
+            state->setEnabled(true);
+        }
+        return;
+    }
+
+    if (image == TEXTURE || image == PASS || image == TECHNIQUE || image == MATERIAL)
+    {
+        Ogre::String tuName;
+        Ogre::String passName;
+        Ogre::String tecName;
+        Ogre::String matName;
+
+        GetTuPassTecMatNames(event.GetItem(), tuName, passName, tecName, matName);
+
+        Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().getByName(matName);
+        Ogre::Technique* tec = NULL;
+        Ogre::Pass* pass = NULL;
+        Ogre::TextureUnitState* tu = NULL;
+
+        switch (image)
+        {
+        case MATERIAL:
+            mPropertiesPanel->MaterialSelected(mat);
+            break;
+        case TECHNIQUE:
+            tec = mat->getTechnique(tecName);
+            mPropertiesPanel->TechniqueSelected(tec);
+            break;
+        case PASS:
+            tec = mat->getTechnique(tecName);
+            pass = tec->getPass(passName);
+            mPropertiesPanel->PassSelected(pass);
+            break;
+        case TEXTURE:
+            tec = mat->getTechnique(tecName);
+            pass = tec->getPass(passName);
+            tu = pass->getTextureUnitState(tuName);
+            //mPropertiesPanel->TextureUnitStateSelected(tu);
+            break;
+        }
+        return;
+    }
+
+    mPropertiesPanel->Clear();
+}
+
 void MaterialEditorFrame::GetTuPassTecMatNames(const wxTreeItemId aSelectedItemId,
         Ogre::String &aTuName,
         Ogre::String &aPassName,
@@ -307,47 +381,6 @@ void MaterialEditorFrame::GetTuPassTecMatNames(const wxTreeItemId aSelectedItemI
     default:
         assert(0 && "GetTuPassTecMatNames can handle only materials!");
     }
-}
-
-void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
-{
-    const int image = mObjectTree->GetItemImage(event.GetItem());
-    if (image != TEXTURE && image != PASS && image != TECHNIQUE && image != MATERIAL)
-        return;
-    Ogre::String tuName;
-    Ogre::String passName;
-    Ogre::String tecName;
-    Ogre::String matName;
-
-    GetTuPassTecMatNames(event.GetItem(), tuName, passName, tecName, matName);
-
-    Ogre::MaterialPtr mat = Ogre::MaterialManager::getSingleton().getByName(matName);
-    Ogre::Technique* tec = NULL;
-    Ogre::Pass* pass = NULL;
-    Ogre::TextureUnitState* tu = NULL;
-
-    switch (image)
-    {
-    case MATERIAL:
-        mPropertiesPanel->MaterialSelected(mat);
-        break;
-    case TECHNIQUE:
-        tec = mat->getTechnique(tecName);
-        mPropertiesPanel->TechniqueSelected(tec);
-        break;
-    case PASS:
-        tec = mat->getTechnique(tecName);
-        pass = tec->getPass(passName);
-        mPropertiesPanel->PassSelected(pass);
-        break;
-    case TEXTURE:
-        tec = mat->getTechnique(tecName);
-        pass = tec->getPass(passName);
-        tu = pass->getTextureUnitState(tuName);
-        //mPropertiesPanel->TextureUnitStateSelected(tu);
-        break;
-    }
-
 }
 
 void MaterialEditorFrame::OnFileSelected(wxTreeEvent& event)
