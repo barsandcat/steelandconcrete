@@ -78,70 +78,45 @@ PropertiesPanel::~PropertiesPanel()
 {
 }
 
+void PropertiesPanel::Clear()
+{
+    mPropertyGrid->Clear();
+}
+
 void PropertiesPanel::MaterialSelected(Ogre::MaterialPtr material)
 {
-    MaterialPageIndexMap::iterator it = mMaterialPageIndexMap.find(material);
-    if(it != mMaterialPageIndexMap.end())
-    {
-        int index = mMaterialPageIndexMap[material];
-        mPropertyGrid->SelectPage(index);
-    }
-    else
-    {
-        MaterialPropertyGridPage* page = new MaterialPropertyGridPage(material);
+    mPropertyGrid->Clear();
+    MaterialPropertyGridPage* page = new MaterialPropertyGridPage(material);
 
-        int index = mPropertyGrid->AddPage(wxEmptyString, wxPG_NULL_BITMAP, page);
-        page->populate();
+    int index = mPropertyGrid->AddPage(wxEmptyString, wxPG_NULL_BITMAP, page);
+    page->populate();
 
-        mMaterialPageIndexMap[material] = index;
-
-        mPropertyGrid->SelectPage(index);
-    }
+    mPropertyGrid->SelectPage(index);
     mPropertyGrid->Refresh();
 }
 
 void PropertiesPanel::TechniqueSelected(Ogre::Technique* tc)
 {
-    TechniquePageIndexMap::iterator it = mTechniquePageIndexMap.find(tc);
-    if(it != mTechniquePageIndexMap.end())
-    {
-        int index = mTechniquePageIndexMap[tc];
-        mPropertyGrid->SelectPage(index);
-    }
-    else
-    {
-        TechniquePropertyGridPage* page = new TechniquePropertyGridPage(tc);
+    mPropertyGrid->Clear();
+    TechniquePropertyGridPage* page = new TechniquePropertyGridPage(tc);
 
-        int index = mPropertyGrid->AddPage(wxEmptyString, wxPG_NULL_BITMAP, page);
-        page->populate();
+    int index = mPropertyGrid->AddPage(wxEmptyString, wxPG_NULL_BITMAP, page);
+    page->populate();
 
-        mTechniquePageIndexMap[tc] = index;
 
-        mPropertyGrid->SelectPage(index);
-    }
+    mPropertyGrid->SelectPage(index);
     mPropertyGrid->Refresh();
 }
 
 void PropertiesPanel::PassSelected(Ogre::Pass* pc)
 {
-    PassPageIndexMap::iterator it = mPassPageIndexMap.find(pc);
-    if(it != mPassPageIndexMap.end())
-    {
-        int index = mPassPageIndexMap[pc];
-        mPropertyGrid->SelectPage(index);
-    }
-    else
-    {
-        PassPropertyGridPage* page = new PassPropertyGridPage(pc);
+    mPropertyGrid->Clear();
+    PassPropertyGridPage* page = new PassPropertyGridPage(pc);
 
-        int index = mPropertyGrid->AddPage(wxEmptyString, wxPG_NULL_BITMAP, page);
-        page->populate();
+    int index = mPropertyGrid->AddPage(wxEmptyString, wxPG_NULL_BITMAP, page);
+    page->populate();
 
-        mPassPageIndexMap[pc] = index;
-
-        mPropertyGrid->SelectPage(index);
-    }
-
+    mPropertyGrid->SelectPage(index);
     mPropertyGrid->Refresh();
 }
 
