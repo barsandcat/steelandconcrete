@@ -32,8 +32,8 @@ BEGIN_EVENT_TABLE(MaterialPropertyGridPage, wxPropertyGridPage)
 	EVT_PG_CHANGED(-1, MaterialPropertyGridPage::propertyChange)
 END_EVENT_TABLE()
 
-MaterialPropertyGridPage::MaterialPropertyGridPage(Ogre::MaterialPtr controller)
-: mController(controller)
+MaterialPropertyGridPage::MaterialPropertyGridPage(Ogre::MaterialPtr aMaterial)
+: mMaterial(aMaterial)
 {
 
 }
@@ -44,19 +44,19 @@ MaterialPropertyGridPage::~MaterialPropertyGridPage()
 
 void MaterialPropertyGridPage::populate()
 {
-	mPropertyReceiveShadowsId = Append(new wxBoolProperty(wxT("Receive Shadows"), wxPG_LABEL, mController->getReceiveShadows()));
-	mPropertyTransparencyCastsShadowsId = Append(new wxBoolProperty(wxT("Transparency Casts Shadows"), wxPG_LABEL, mController->getTransparencyCastsShadows()));
+	mReceiveShadowsId = Append(new wxBoolProperty(wxT("Receive Shadows"), wxPG_LABEL, mMaterial->getReceiveShadows()));
+	mTransparencyShadowsId = Append(new wxBoolProperty(wxT("Transparency Casts Shadows"), wxPG_LABEL, mMaterial->getTransparencyCastsShadows()));
 }
 
 void MaterialPropertyGridPage::propertyChange(wxPropertyGridEvent& event)
 {
 	wxPGId id = event.GetProperty();
-	if(id == mPropertyReceiveShadowsId)
+	if(id == mReceiveShadowsId)
 	{
-		mController->setReceiveShadows(event.GetPropertyValueAsBool());
+		mMaterial->setReceiveShadows(event.GetPropertyValueAsBool());
 	}
-	else if(id == mPropertyTransparencyCastsShadowsId)
+	else if(id == mTransparencyShadowsId)
 	{
-		mController->setTransparencyCastsShadows(event.GetPropertyValueAsBool());
+		mMaterial->setTransparencyCastsShadows(event.GetPropertyValueAsBool());
 	}
 }

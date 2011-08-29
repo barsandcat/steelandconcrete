@@ -34,17 +34,17 @@ http://www.gnu.org/copyleft/lesser.txt
 class MaterialPropertyGridPage : public wxPropertyGridPage
 {
 public:
-	MaterialPropertyGridPage(Ogre::MaterialPtr controller);
+	MaterialPropertyGridPage(Ogre::MaterialPtr aMaterial);
 	virtual ~MaterialPropertyGridPage();
 	virtual void populate();
 
 protected:
 	virtual void propertyChange(wxPropertyGridEvent& event);
 
-	Ogre::MaterialPtr mController;
+	Ogre::MaterialPtr mMaterial;
 
-	wxPGId mPropertyReceiveShadowsId;
-	wxPGId mPropertyTransparencyCastsShadowsId;
+	wxPGId mReceiveShadowsId;
+	wxPGId mTransparencyShadowsId;
 
 	DECLARE_EVENT_TABLE();
 };
