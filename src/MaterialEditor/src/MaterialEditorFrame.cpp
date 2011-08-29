@@ -250,7 +250,6 @@ void MaterialEditorFrame::OnRenderTimer(wxTimerEvent& event)
         Ogre::Entity* ent = m_sm->getEntity(DISPLAY_NAME);
         if (ent->hasSkeleton())
         {
-            ent->setDisplaySkeleton(true);
             Ogre::AnimationStateSet* anims = ent->getAllAnimationStates();
             Ogre::ConstEnabledAnimationStateIterator it = anims->getEnabledAnimationStateIterator();
             while (it.hasMoreElements())
@@ -301,6 +300,18 @@ void MaterialEditorFrame::createAuiNotebookPane()
 void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
 {
     const int image = mObjectTree->GetItemImage(event.GetItem());
+    if (image == ENTITY)
+    {
+        Ogre::String entityName(mObjectTree->GetItemText(event.GetItem()).mb_str());
+
+        if (m_sm->hasEntity(entityName))
+        {
+            Ogre::Entity* ent = m_sm->getEntity(entityName);
+            mPropertiesPanel->EntitySelected(ent);
+        }
+        return;
+    }
+
     if (image == ANIMATION)
     {
         Ogre::String animName(mObjectTree->GetItemText(event.GetItem()).mb_str());

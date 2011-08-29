@@ -26,37 +26,34 @@ http://www.gnu.org/copyleft/lesser.txt
 */
 #pragma warning(disable:4800)
 
-#include "MaterialPropertyGridPage.h"
+#include <EntityPropertyGridPage.h>
 
-BEGIN_EVENT_TABLE(MaterialPropertyGridPage, wxPropertyGridPage)
-	EVT_PG_CHANGED(-1, MaterialPropertyGridPage::propertyChange)
+BEGIN_EVENT_TABLE(EntityPropertyGridPage, wxPropertyGridPage)
+	EVT_PG_CHANGED(-1, EntityPropertyGridPage::propertyChange)
 END_EVENT_TABLE()
 
-MaterialPropertyGridPage::MaterialPropertyGridPage(Ogre::MaterialPtr aMaterial)
-: mMaterial(aMaterial)
+EntityPropertyGridPage::EntityPropertyGridPage(Ogre::Entity* aEntity)
+: mEntity(aEntity)
 {
 
 }
 
-MaterialPropertyGridPage::~MaterialPropertyGridPage()
+EntityPropertyGridPage::~EntityPropertyGridPage()
 {
 }
 
-void MaterialPropertyGridPage::populate()
+void EntityPropertyGridPage::populate()
 {
-	mReceiveShadowsId = Append(new wxBoolProperty(wxT("Receive Shadows"), wxPG_LABEL, mMaterial->getReceiveShadows()));
-	mTransparencyShadowsId = Append(new wxBoolProperty(wxT("Transparency Casts Shadows"), wxPG_LABEL, mMaterial->getTransparencyCastsShadows()));
+	mDisplaySkeleton = Append(new wxBoolProperty(wxT("Display skeleton"), wxPG_LABEL, mEntity->getDisplaySkeleton()));
+	SetPropertyReadOnly(Append(new wxBoolProperty(wxT("Hardware animation enabled"), wxPG_LABEL, mEntity->isHardwareAnimationEnabled())));
+	SetPropertyReadOnly(Append(new wxBoolProperty(wxT("Has vertex animation"), wxPG_LABEL, mEntity->hasVertexAnimation())));
 }
 
-void MaterialPropertyGridPage::propertyChange(wxPropertyGridEvent& event)
+void EntityPropertyGridPage::propertyChange(wxPropertyGridEvent& event)
 {
 	wxPGId id = event.GetProperty();
-	if(id == mReceiveShadowsId)
+	if(id == mDisplaySkeleton)
 	{
-		mMaterial->setReceiveShadows(event.GetPropertyValueAsBool());
-	}
-	else if(id == mTransparencyShadowsId)
-	{
-		mMaterial->setTransparencyCastsShadows(event.GetPropertyValueAsBool());
+		mEntity->setDisplaySkeleton(event.GetPropertyValueAsBool());
 	}
 }
