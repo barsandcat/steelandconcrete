@@ -245,6 +245,7 @@ MaterialEditorFrame::~MaterialEditorFrame()
 
 void MaterialEditorFrame::OnRenderTimer(wxTimerEvent& event)
 {
+    const Ogre::Real frameTimeInSeconds = event.GetInterval() / 1000.0f;
     if (m_sm->hasEntity(DISPLAY_NAME))
     {
         Ogre::Entity* ent = m_sm->getEntity(DISPLAY_NAME);
@@ -255,7 +256,7 @@ void MaterialEditorFrame::OnRenderTimer(wxTimerEvent& event)
             while (it.hasMoreElements())
             {
                 Ogre::AnimationState* anim = it.getNext();
-                anim->addTime(0.1f);
+                anim->addTime(frameTimeInSeconds);
             }
         }
     }
