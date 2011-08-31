@@ -320,9 +320,17 @@ void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
         if (m_sm->hasEntity(DISPLAY_NAME))
         {
             Ogre::Entity* ent = m_sm->getEntity(DISPLAY_NAME);
-            Ogre::AnimationState* state = ent->getAnimationState(animName);
-            state->setLoop(true);
-            state->setEnabled(true);
+            Ogre::AnimationStateSet* anims = ent->getAllAnimationStates();
+            anims->getEnabledAnimationStateIterator();
+            Ogre::ConstEnabledAnimationStateIterator it = anims->getEnabledAnimationStateIterator();
+            while (it.hasMoreElements())
+            {
+                Ogre::AnimationState* anim = it.getNext();
+                anim->setEnabled(false);
+            }
+            Ogre::AnimationState* anim = anims->getAnimationState(animName);
+            anim->setLoop(true);
+            anim->setEnabled(true);
         }
         return;
     }
