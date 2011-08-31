@@ -582,7 +582,7 @@ void ClientApp::MainLoop()
         {
             OgreProfile("Update");
             Ogre::WindowEventUtilities::messagePump();
-            CEGUI::System::getSingleton().injectTimePulse(frameTime / 1000000);
+            CEGUI::System::getSingleton().injectTimePulse(frameTime / 1000000.0f);
 
 
             mKeyboard->capture();
