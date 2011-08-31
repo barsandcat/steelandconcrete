@@ -48,7 +48,4 @@ void OgreControl::OnMouseMove(wxMouseEvent& event)
         float z = -event.GetWheelRotation() * 0.05;
         TranslateCamera(0, 0, z);
     }
-
-    Refresh();
-
 }
