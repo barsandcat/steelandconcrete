@@ -114,6 +114,7 @@ void wxOgreControl::Update()
 {
     m_root->_fireFrameStarted();
 
+    m_root->_fireFrameRenderingQueued();
     if (m_rwin)
         m_rwin->update();
 
