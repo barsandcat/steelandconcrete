@@ -130,8 +130,6 @@ enum ObjectViewImages
     TECHNIQUE,
     PASS,
     TEXTURE,
-    ENTITY,
-    SUB_ENTITY,
     MESH,
     SUB_MESH,
     SKELETON,
@@ -146,8 +144,6 @@ wxImageList* CreateObjectViewImageList()
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TECHNIQUE));
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::PASS));
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TEXTURE));
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MESH));
-    mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MESH));
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MESH));
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::MESH));
     mImageList->Add(IconManager::getSingleton().getIcon(IconManager::TECHNIQUE));
@@ -301,17 +297,6 @@ void MaterialEditorFrame::createAuiNotebookPane()
 void MaterialEditorFrame::OnResourceSelected(wxTreeEvent& event)
 {
     const int image = mObjectTree->GetItemImage(event.GetItem());
-    if (image == ENTITY)
-    {
-        Ogre::String entityName(mObjectTree->GetItemText(event.GetItem()).mb_str());
-
-        if (m_sm->hasEntity(entityName))
-        {
-            Ogre::Entity* ent = m_sm->getEntity(entityName);
-            mPropertiesPanel->EntitySelected(ent);
-        }
-        return;
-    }
 
     if (image == ANIMATION)
     {
@@ -442,24 +427,14 @@ void MaterialEditorFrame::FillObjectTree(Ogre::Entity* aEntity)
     // Build inspector tree
     mObjectTree->DeleteAllItems();
 
-    wxString entityName(aEntity->getName().c_str(), wxConvUTF8);
-    wxTreeItemId rootId = mObjectTree->AddRoot(entityName, ENTITY);
-    for (int i = 0; i < aEntity->getNumSubEntities(); ++i)
-    {
-        Ogre::SubEntity* subEntity = aEntity->getSubEntity(i);
-        AddSubEntityToObjectTree(rootId, subEntity);
-    }
-
     Ogre::MeshPtr mesh = aEntity->getMesh();
-    AddMeshToObjectTree(rootId, mesh);
-
-    mObjectTree->SelectItem(rootId, true);
+    AddMeshToObjectTree(mesh);
 }
 
-void MaterialEditorFrame::AddMeshToObjectTree(const wxTreeItemId aParentNodeId, Ogre::MeshPtr aMesh)
+void MaterialEditorFrame::AddMeshToObjectTree(Ogre::MeshPtr aMesh)
 {
     wxString name(aMesh->getName().c_str(), wxConvUTF8);
-    const wxTreeItemId id = mObjectTree->AppendItem(aParentNodeId, name, MESH);
+    const wxTreeItemId id = mObjectTree->AddRoot(name, MESH);
 
     for (int i = 0; i < aMesh->getNumSubMeshes(); ++i)
     {
@@ -471,6 +446,8 @@ void MaterialEditorFrame::AddMeshToObjectTree(const wxTreeItemId aParentNodeId, 
     {
         AddSkeletonToObjectTree(id, skeleton);
     }
+
+    mObjectTree->SelectItem(id, true);
 }
 
 void MaterialEditorFrame::AddSkeletonToObjectTree(const wxTreeItemId aParentNodeId, Ogre::SkeletonPtr aSkeleton)
@@ -497,18 +474,6 @@ void MaterialEditorFrame::AddSubMeshToObjectTree(const wxTreeItemId aParentNodeI
     Ogre::String matName = aSubMesh->getMaterialName();
     Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName(matName);
     if(!material.isNull())
-    {
-        AddMaterialToObjectTree(id, material);
-    }
-}
-
-void MaterialEditorFrame::AddSubEntityToObjectTree(const wxTreeItemId aParentNodeId, Ogre::SubEntity* aSubEntity)
-{
-    const wxTreeItemId id = mObjectTree->AppendItem(aParentNodeId, wxT("Sub entity"), SUB_ENTITY);
-
-    Ogre::String matName  = aSubEntity->getMaterialName();
-    Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName(matName);
-    if (!material.isNull())
     {
         AddMaterialToObjectTree(id, material);
     }
