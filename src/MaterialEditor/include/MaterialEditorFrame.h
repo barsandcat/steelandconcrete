@@ -116,6 +116,8 @@ private:
                                                Ogre::String &aPassName,
                                                Ogre::String &aTecName,
                                                Ogre::String &aMatName) const;
+    const MaterialMap GetScriptMaterials(Ogre::String aGroup, Ogre::String aArchive,
+                                   Ogre::String aFile) const;
 
     wxMenuBar* mMenuBar;
     wxMenu* mFileMenu;

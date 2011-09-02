@@ -786,17 +786,8 @@ void MaterialEditorFrame::AddArchiveToResourceTree(wxTreeItemId aGroupId, Ogre::
     {
         wxString materialScriptName(fileNameIt->c_str(), wxConvUTF8);
         wxTreeItemId materialScriptId = mResourceTree->AppendItem(archiveId, materialScriptName, MATERIAL_SCRIPT_RESOURCE);
-        GroupMap::const_iterator gropupIt = mMaterialMap.find(aGroupName);
-        if (gropupIt == mMaterialMap.end())
-            continue;
-        ArchiveMap::const_iterator archiveIt = gropupIt->second.find(aArchive->getName());
-        if (archiveIt == gropupIt->second.end())
-            continue;
-        ScriptMap::const_iterator scriptIt = archiveIt->second.find(fileNameIt->c_str());
-        if (scriptIt == archiveIt->second.end())
-            continue;
 
-        const MaterialMap &materials = scriptIt->second;
+        const MaterialMap materials = GetScriptMaterials(aGroupName, aArchive->getName(), *fileNameIt);
 
         for (MaterialMap::const_iterator it = materials.begin(); it != materials.end(); ++it)
         {
@@ -846,6 +837,27 @@ void MaterialEditorFrame::AddArchiveToResourceTree(wxTreeItemId aGroupId, Ogre::
         mResourceTree->AppendItem(archiveId, name, HL_RESOURCE);
     }
 }
+
+const MaterialMap MaterialEditorFrame::GetScriptMaterials(Ogre::String aGroup,
+                                                    Ogre::String aArchive,
+                                                    Ogre::String aFile) const
+{
+    GroupMap::const_iterator gropupIt = mMaterialMap.find(aGroup);
+    if (gropupIt != mMaterialMap.end())
+    {
+        ArchiveMap::const_iterator archiveIt = gropupIt->second.find(aArchive);
+        if (archiveIt != gropupIt->second.end())
+        {
+            ScriptMap::const_iterator scriptIt = archiveIt->second.find(aFile);
+            if (scriptIt != archiveIt->second.end())
+            {
+                return scriptIt->second;
+            }
+        }
+    }
+    return MaterialMap();
+}
+
 
 void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
 {
