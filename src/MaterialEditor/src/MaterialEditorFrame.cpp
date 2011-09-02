@@ -786,7 +786,18 @@ void MaterialEditorFrame::AddArchiveToResourceTree(wxTreeItemId aGroupId, Ogre::
     {
         wxString materialScriptName(fileNameIt->c_str(), wxConvUTF8);
         wxTreeItemId materialScriptId = mResourceTree->AppendItem(archiveId, materialScriptName, MATERIAL_SCRIPT_RESOURCE);
-        const MaterialMap &materials = mMaterialMap.find(aGroupName)->second.find(aArchive->getName())->second.find(fileNameIt->c_str())->second;
+        GroupMap::const_iterator gropupIt = mMaterialMap.find(aGroupName);
+        if (gropupIt == mMaterialMap.end())
+            continue;
+        ArchiveMap::const_iterator archiveIt = gropupIt->second.find(aArchive->getName());
+        if (archiveIt == gropupIt->second.end())
+            continue;
+        ScriptMap::const_iterator scriptIt = archiveIt->second.find(fileNameIt->c_str());
+        if (scriptIt == archiveIt->second.end())
+            continue;
+
+        const MaterialMap &materials = scriptIt->second;
+
         for (MaterialMap::const_iterator it = materials.begin(); it != materials.end(); ++it)
         {
             mResourceTree->AppendItem(materialScriptId, wxString(it->first.c_str(), wxConvUTF8), MATERIAL_RESOURCE);
