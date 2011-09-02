@@ -6,13 +6,16 @@
 #include <VisualCodes.h>
 #include <ClientTile.h>
 
+const char* WALK_ANIMATION_NAME = "walk";
+
 ClientUnit::ClientUnit(UnitId aUnitId, uint32 aVisual, ClientGridNode* aTile):
     mTile(aTile),
     mEntity(NULL),
     mUnitId(aUnitId),
     mVisualCode(aVisual),
     mPositionNode(NULL),
-    mDirectonNode(NULL)
+    mDirectonNode(NULL),
+    mAnimState(NULL)
 {
     assert(mTile);
     mTile->SetUnit(this);
@@ -29,6 +32,11 @@ ClientUnit::ClientUnit(UnitId aUnitId, uint32 aVisual, ClientGridNode* aTile):
     mEntity = ClientApp::GetSceneMgr().createEntity(indexName + "Unit.entity", GetMesh(mVisualCode));
     mDirectonNode->attachObject(mEntity);
     mDirectonNode->setVisible(true);
+    if (mEntity->hasSkeleton())
+    {
+        mAnimState = mEntity->getAnimationState(WALK_ANIMATION_NAME);
+        mAnimState->setLoop(true);
+    }
 }
 
 ClientUnit::~ClientUnit()
@@ -47,9 +55,14 @@ void ClientUnit::UpdateMovementAnimation(FrameTime aFrameTime)
         mMoveAnim->Update(aFrameTime);
         const Ogre::Quaternion orientation = mMoveAnim->GetPosition();
         mPositionNode->setOrientation(orientation);
+        mAnimState->addTime(aFrameTime / 1000000.0f);
         if (mMoveAnim->IsDone())
         {
             mMoveAnim.reset();
+            if (mAnimState)
+            {
+               mAnimState->setEnabled(false);
+            }
         }
     }
 }
@@ -60,6 +73,10 @@ void ClientUnit::SetTile(ClientGridNode* aTile)
     const Ogre::Vector3 origin = mTile->GetPosition();
     const Ogre::Vector3 destin = aTile->GetPosition();
     mMoveAnim.reset(new MovementAnimation(origin, destin));
+    if (mAnimState)
+    {
+        mAnimState->setEnabled(true);
+    }
 
     const Ogre::Vector3 dir = destin - origin;
     mDirectonNode->setDirection(dir, Ogre::Node::TS_WORLD, Ogre::Vector3::NEGATIVE_UNIT_Y);

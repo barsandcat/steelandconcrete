@@ -19,7 +19,7 @@ public:
 
     void TestZebra()
     {
-        TS_ASSERT(GetMesh(VC::LIVE | VC::ANIMAL | VC::HERBIVORES) == "Zebra.mesh");
+        TS_ASSERT(GetMesh(VC::LIVE | VC::ANIMAL | VC::HERBIVORES) == "zebra.mesh");
     }
 
 };

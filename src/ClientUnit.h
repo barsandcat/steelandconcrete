@@ -18,6 +18,7 @@ public:
 	UnitId GetUnitId() const { return mUnitId; }
 private:
     MovementAnimationPtr mMoveAnim;
+    Ogre::AnimationState* mAnimState;
     ClientGridNode* mTile;
     Ogre::SceneNode* mPositionNode;
     Ogre::SceneNode* mDirectonNode;
