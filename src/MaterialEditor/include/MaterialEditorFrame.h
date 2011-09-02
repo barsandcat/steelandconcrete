@@ -99,7 +99,9 @@ protected:
     void OnRenderTimer(wxTimerEvent& event);
 private:
     void FillObjectTree(Ogre::Entity* aEntity);
-    void AddMeshToObjectTree(Ogre::MeshPtr aMesh);
+    void FillMaterialObjectTree(Ogre::MaterialPtr aMaterial);
+
+    void AddMeshToObjectTree(const wxTreeItemId aParentNodeId, Ogre::MeshPtr aMesh);
     void AddSkeletonToObjectTree(const wxTreeItemId aParentNodeId, Ogre::SkeletonPtr aSkeleton);
     void AddAnimationToObjectTree(const wxTreeItemId aParentNodeId, Ogre::Animation* aAnimation);
     void AddSubMeshToObjectTree(const wxTreeItemId aParentNodeId, Ogre::SubMesh* aSubMesh);

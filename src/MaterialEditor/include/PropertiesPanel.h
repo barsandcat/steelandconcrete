@@ -57,7 +57,6 @@ public:
                     const wxString& name = wxT("Properties Panel"));
 
     virtual ~PropertiesPanel();
-    void EntitySelected(Ogre::Entity* aEntity);
 
     void MaterialSelected(Ogre::MaterialPtr material);
     void TechniqueSelected(Ogre::Technique* tc);

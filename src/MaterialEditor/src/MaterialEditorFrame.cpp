@@ -409,17 +409,17 @@ void MaterialEditorFrame::OnFileSelected(wxTreeEvent& event)
         newEntity = m_sm->createEntity(DISPLAY_NAME, Ogre::SceneManager::PT_CUBE);
         Ogre::String matName(selectedNodeName.mb_str());
         newEntity->setMaterialName(matName);
+        FillMaterialObjectTree(Ogre::MaterialManager::getSingleton().getByName(matName));
         break;
     }
     case MESH_RESOURCE:
         newEntity = m_sm->createEntity(DISPLAY_NAME, Ogre::String(selectedNodeName.mb_str()));
+        FillObjectTree(newEntity);
         break;
     default:
         return;
     }
     node->attachObject(newEntity);
-
-    FillObjectTree(newEntity);
 }
 
 void MaterialEditorFrame::FillObjectTree(Ogre::Entity* aEntity)
@@ -427,14 +427,28 @@ void MaterialEditorFrame::FillObjectTree(Ogre::Entity* aEntity)
     // Build inspector tree
     mObjectTree->DeleteAllItems();
 
+    const wxTreeItemId id = mObjectTree->AddRoot(wxT(""), MESH);
     Ogre::MeshPtr mesh = aEntity->getMesh();
-    AddMeshToObjectTree(mesh);
+    AddMeshToObjectTree(id, mesh);
+
+    mObjectTree->SelectItem(id, true);
 }
 
-void MaterialEditorFrame::AddMeshToObjectTree(Ogre::MeshPtr aMesh)
+void MaterialEditorFrame::FillMaterialObjectTree(Ogre::MaterialPtr aMaterial)
+{
+    // Build inspector tree
+    mObjectTree->DeleteAllItems();
+
+    const wxTreeItemId id = mObjectTree->AddRoot(wxT(""), MESH);
+    AddMaterialToObjectTree(id, aMaterial);
+
+    mObjectTree->SelectItem(id, true);
+}
+
+void MaterialEditorFrame::AddMeshToObjectTree(const wxTreeItemId aParentNodeId, Ogre::MeshPtr aMesh)
 {
     wxString name(aMesh->getName().c_str(), wxConvUTF8);
-    const wxTreeItemId id = mObjectTree->AddRoot(name, MESH);
+    const wxTreeItemId id = mObjectTree->AppendItem(aParentNodeId, name, MESH);
 
     for (int i = 0; i < aMesh->getNumSubMeshes(); ++i)
     {
@@ -446,8 +460,6 @@ void MaterialEditorFrame::AddMeshToObjectTree(Ogre::MeshPtr aMesh)
     {
         AddSkeletonToObjectTree(id, skeleton);
     }
-
-    mObjectTree->SelectItem(id, true);
 }
 
 void MaterialEditorFrame::AddSkeletonToObjectTree(const wxTreeItemId aParentNodeId, Ogre::SkeletonPtr aSkeleton)
