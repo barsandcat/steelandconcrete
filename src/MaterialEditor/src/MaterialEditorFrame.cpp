@@ -427,11 +427,8 @@ void MaterialEditorFrame::FillObjectTree(Ogre::Entity* aEntity)
     // Build inspector tree
     mObjectTree->DeleteAllItems();
 
-    const wxTreeItemId id = mObjectTree->AddRoot(wxT(""), MESH);
     Ogre::MeshPtr mesh = aEntity->getMesh();
-    AddMeshToObjectTree(id, mesh);
-
-    mObjectTree->SelectItem(id, true);
+    AddMeshToObjectTree(wxTreeItemId(), mesh);
 }
 
 void MaterialEditorFrame::FillMaterialObjectTree(Ogre::MaterialPtr aMaterial)
@@ -439,16 +436,12 @@ void MaterialEditorFrame::FillMaterialObjectTree(Ogre::MaterialPtr aMaterial)
     // Build inspector tree
     mObjectTree->DeleteAllItems();
 
-    const wxTreeItemId id = mObjectTree->AddRoot(wxT(""), MESH);
-    AddMaterialToObjectTree(id, aMaterial);
-
-    mObjectTree->SelectItem(id, true);
+    AddMaterialToObjectTree(wxTreeItemId(), aMaterial);
 }
 
 void MaterialEditorFrame::AddMeshToObjectTree(const wxTreeItemId aParentNodeId, Ogre::MeshPtr aMesh)
 {
-    wxString name(aMesh->getName().c_str(), wxConvUTF8);
-    const wxTreeItemId id = mObjectTree->AppendItem(aParentNodeId, name, MESH);
+    const wxTreeItemId id = CreateObjectTreeItem(aParentNodeId, aMesh->getName(), MESH);
 
     for (int i = 0; i < aMesh->getNumSubMeshes(); ++i)
     {
@@ -462,26 +455,34 @@ void MaterialEditorFrame::AddMeshToObjectTree(const wxTreeItemId aParentNodeId, 
     }
 }
 
-void MaterialEditorFrame::AddSkeletonToObjectTree(const wxTreeItemId aParentNodeId, Ogre::SkeletonPtr aSkeleton)
+const wxTreeItemId MaterialEditorFrame::CreateObjectTreeItem(const wxTreeItemId aParent,
+                                                              Ogre::String aName,
+                                                              int aImage)
 {
-    wxString name(aSkeleton->getName().c_str(), wxConvUTF8);
-    const wxTreeItemId id = mObjectTree->AppendItem(aParentNodeId, name, SKELETON);
-    for (int i = 0; i < aSkeleton->getNumAnimations(); ++i)
+    wxString name(aName.c_str(), wxConvUTF8);
+    if (aParent.IsOk())
     {
-        Ogre::Animation* animation = aSkeleton->getAnimation(i);
-        AddAnimationToObjectTree(id, animation);
+        return mObjectTree->AppendItem(aParent, name, aImage);
+    }
+    else
+    {
+        return mObjectTree->AddRoot(name, aImage);
     }
 }
 
-void MaterialEditorFrame::AddAnimationToObjectTree(const wxTreeItemId aParentNodeId, Ogre::Animation* aAnimation)
+void MaterialEditorFrame::AddSkeletonToObjectTree(const wxTreeItemId aParentNodeId, Ogre::SkeletonPtr aSkeleton)
 {
-    wxString name(aAnimation->getName().c_str(), wxConvUTF8);
-    const wxTreeItemId id = mObjectTree->AppendItem(aParentNodeId, name, ANIMATION);
+    const wxTreeItemId id = CreateObjectTreeItem(aParentNodeId, aSkeleton->getName(), SKELETON);
+    for (int i = 0; i < aSkeleton->getNumAnimations(); ++i)
+    {
+        Ogre::Animation* animation = aSkeleton->getAnimation(i);
+        CreateObjectTreeItem(id, animation->getName(), ANIMATION);
+    }
 }
 
 void MaterialEditorFrame::AddSubMeshToObjectTree(const wxTreeItemId aParentNodeId, Ogre::SubMesh* aSubMesh)
 {
-    const wxTreeItemId id = mObjectTree->AppendItem(aParentNodeId, wxT("Sub mesh"), SUB_MESH);
+    const wxTreeItemId id = CreateObjectTreeItem(aParentNodeId, "Sub mesh", SUB_MESH);
 
     Ogre::String matName = aSubMesh->getMaterialName();
     Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName(matName);
@@ -506,8 +507,7 @@ void MaterialEditorFrame::AddMaterialToObjectTree(const wxTreeItemId aParentNode
 
 void MaterialEditorFrame::AddTechiqueToObjectTree(const wxTreeItemId aParentNodeId, Ogre::Technique* aTechnique)
 {
-    wxString techniqueName(aTechnique->getName().c_str(), wxConvUTF8);
-    const wxTreeItemId techniqueId = mObjectTree->AppendItem(aParentNodeId, techniqueName, TECHNIQUE);
+    const wxTreeItemId techniqueId = CreateObjectTreeItem(aParentNodeId, aTechnique->getName(), TECHNIQUE);
     Ogre::Technique::PassIterator passIt = aTechnique->getPassIterator();
     while (passIt.hasMoreElements())
     {
@@ -518,20 +518,13 @@ void MaterialEditorFrame::AddTechiqueToObjectTree(const wxTreeItemId aParentNode
 
 void MaterialEditorFrame::AddPassToObjectTree(const wxTreeItemId aParentNodeId, Ogre::Pass* aPass)
 {
-    wxString passName(aPass->getName().c_str(), wxConvUTF8);
-    const wxTreeItemId passId = mObjectTree->AppendItem(aParentNodeId, passName, PASS);
+    const wxTreeItemId passId = CreateObjectTreeItem(aParentNodeId, aPass->getName(), PASS);
     Ogre::Pass::TextureUnitStateIterator texIt = aPass->getTextureUnitStateIterator();
     while (texIt.hasMoreElements())
     {
         Ogre::TextureUnitState* tu = texIt.getNext();
-        AddTextrueUnitToObjectTree(passId, tu);
+        CreateObjectTreeItem(passId, tu->getName(), TEXTURE);
     }
-}
-
-void MaterialEditorFrame::AddTextrueUnitToObjectTree(const wxTreeItemId aParentNodeId, Ogre::TextureUnitState* aTU)
-{
-    wxString tuName(aTU->getName().c_str(), wxConvUTF8);
-    mObjectTree->AppendItem(aParentNodeId, tuName, TEXTURE);
 }
 
 void MaterialEditorFrame::createManagementPane()

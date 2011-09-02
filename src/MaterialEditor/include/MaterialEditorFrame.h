@@ -103,12 +103,10 @@ private:
 
     void AddMeshToObjectTree(const wxTreeItemId aParentNodeId, Ogre::MeshPtr aMesh);
     void AddSkeletonToObjectTree(const wxTreeItemId aParentNodeId, Ogre::SkeletonPtr aSkeleton);
-    void AddAnimationToObjectTree(const wxTreeItemId aParentNodeId, Ogre::Animation* aAnimation);
     void AddSubMeshToObjectTree(const wxTreeItemId aParentNodeId, Ogre::SubMesh* aSubMesh);
     void AddMaterialToObjectTree(const wxTreeItemId aParentNodeId, Ogre::MaterialPtr aMaterial);
     void AddTechiqueToObjectTree(const wxTreeItemId aParentNodeId, Ogre::Technique* aTechnique);
     void AddPassToObjectTree(const wxTreeItemId aParentNodeId, Ogre::Pass* aPass);
-    void AddTextrueUnitToObjectTree(const wxTreeItemId aParentNodeId, Ogre::TextureUnitState* aTU);
     void FillMaterialMap();
     void FillResourceTree();
     void AddArchiveToResourceTree(wxTreeItemId aGroupId, Ogre::String aGroupName, Ogre::Archive* aArchive);
@@ -119,7 +117,9 @@ private:
                                                Ogre::String &aMatName) const;
     const MaterialMap GetScriptMaterials(Ogre::String aGroup, Ogre::String aArchive,
                                    Ogre::String aFile) const;
-
+    const wxTreeItemId CreateObjectTreeItem(const wxTreeItemId aParent,
+                                            Ogre::String aName,
+                                            int aImage);
     wxMenuBar* mMenuBar;
     wxMenu* mFileMenu;
     wxMenu* mEditMenu;

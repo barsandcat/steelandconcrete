@@ -101,7 +101,6 @@
 		<Unit filename="../src/DocPanel.cpp" />
 		<Unit filename="../src/Editor.cpp" />
 		<Unit filename="../src/EditorManager.cpp" />
-		<Unit filename="../src/EntityPropertyGridPage.cpp" />
 		<Unit filename="../src/EventContainer.cpp" />
 		<Unit filename="../src/GLSLEditor.cpp" />
 		<Unit filename="../src/HLSLEditor.cpp" />
