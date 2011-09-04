@@ -281,7 +281,7 @@ void ClientApp::BuildMainGUILayout()
     CEGUI::Window* myRoot = winMgr.loadWindowLayout("Main.layout", "", "", &PropertyCallback);
     CEGUI::System::getSingleton().setGUISheet(myRoot);
     GetWindow("ServerBrowser/Port")->setText("4512");
-    GetWindow("ServerBrowser/Address")->setText("localhost");
+    GetWindow("ServerBrowser/Address")->setText("127.0.0.1");
 
     GetWindow("MainMenu/English")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
@@ -403,10 +403,12 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
         CEGUI::String port = GetWindow("ServerBrowser/Port")->getText();
         CEGUI::String address = GetWindow("ServerBrowser/Address")->getText();
 
+        GetLog() << "Port " << port << "Address " << address;
+
         tcp::resolver resolver(mIOService);
         tcp::resolver::query query(address.c_str(), port.c_str(), boost::asio::ip::resolver_query_base::numeric_service);
         tcp::resolver::iterator iterator = resolver.resolve(query);
-
+        
         SocketSharedPtr sock(new tcp::socket(mIOService));
         sock->connect(*iterator);
 
@@ -430,7 +432,8 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
     }
     catch (std::exception& e)
     {
-        GetWindow("MessageBox/Message")->setText(e.what());
+        const char* what = e.what();
+        GetWindow("MessageBox/Message")->setText(what);
         ShowModal("MessageBox");
     }
     return true;
