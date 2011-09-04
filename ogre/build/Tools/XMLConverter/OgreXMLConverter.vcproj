@@ -88,7 +88,7 @@
 				LinkIncremental="2"
 				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\..\bin\Debug/OgreXMLConverter_d.pdb"
+				ProgramDatabaseFile="$(OutDir)/OgreXMLConverter_d.pdb"
 				SubSystem="1"
 				ImportLibrary="..\..\lib\Debug\OgreXMLConverter_d.lib"
 			/>
@@ -183,7 +183,7 @@
 				Version="0.0"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories=""
-				ProgramDatabaseFile="..\..\bin\Release/OgreXMLConverter.pdb"
+				ProgramDatabaseFile="$(OutDir)/OgreXMLConverter.pdb"
 				SubSystem="1"
 				ImportLibrary="..\..\lib\Release\OgreXMLConverter.lib"
 			/>
