@@ -429,6 +429,7 @@ void MaterialEditorFrame::FillObjectTree(Ogre::Entity* aEntity)
 
     Ogre::MeshPtr mesh = aEntity->getMesh();
     AddMeshToObjectTree(wxTreeItemId(), mesh);
+    mObjectTree->ExpandAll();
 }
 
 void MaterialEditorFrame::FillMaterialObjectTree(Ogre::MaterialPtr aMaterial)
@@ -437,6 +438,7 @@ void MaterialEditorFrame::FillMaterialObjectTree(Ogre::MaterialPtr aMaterial)
     mObjectTree->DeleteAllItems();
 
     AddMaterialToObjectTree(wxTreeItemId(), aMaterial);
+    mObjectTree->ExpandAll();
 }
 
 void MaterialEditorFrame::AddMeshToObjectTree(const wxTreeItemId aParentNodeId, Ogre::MeshPtr aMesh)
@@ -460,14 +462,17 @@ const wxTreeItemId MaterialEditorFrame::CreateObjectTreeItem(const wxTreeItemId 
                                                               int aImage)
 {
     wxString name(aName.c_str(), wxConvUTF8);
+    wxTreeItemId id;
     if (aParent.IsOk())
     {
-        return mObjectTree->AppendItem(aParent, name, aImage);
+        id = mObjectTree->AppendItem(aParent, name, aImage);
     }
     else
     {
-        return mObjectTree->AddRoot(name, aImage);
+        id = mObjectTree->AddRoot(name, aImage);
+        mObjectTree->SelectItem(id, true); // Windows hack again - otherwise only root node is visible
     }
+    return id;
 }
 
 void MaterialEditorFrame::AddSkeletonToObjectTree(const wxTreeItemId aParentNodeId, Ogre::SkeletonPtr aSkeleton)
