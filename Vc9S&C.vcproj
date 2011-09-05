@@ -381,6 +381,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\resource.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\Typedefs.h"
 				>
 			</File>
@@ -401,6 +405,18 @@
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
 			>
+			<File
+				RelativePath=".\App.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\GameClient.rc"
+				>
+			</File>
+			<File
+				RelativePath=".\icon1.ico"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="proto"
