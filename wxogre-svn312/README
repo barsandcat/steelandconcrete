@@ -1,0 +1,10 @@
+wxOgre information
+==================
+
+The following packages are required to compile wxOgre:
+
+CMake 2.6 (or greater)
+Ogre 1.4 (or greater)
+wxWidgets 2.8 (or greater)
+
+Visit http://owlet.sourceforge.net/wxogre/ for more information.

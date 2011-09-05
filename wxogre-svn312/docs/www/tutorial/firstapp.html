@@ -1,0 +1,122 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>wxOgre Tutorial - First Application</title>
+  <link rel="stylesheet" type="text/css" media="screen" href="../styles.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="tutorials.css" />
+</head>
+
+<body>
+<div class="navheader">
+	<h4>First Application</h4>
+	<a accesskey="p" href="introduction.html" class="left">Previous</a>
+	<a accesskey="n" href="" class="right">Next</a>
+  <hr>
+</div>
+
+<h2>2. First Application</h2>
+
+<h3>Objectif</h3>
+
+<p>
+In this tutorial you will learn how to create a simple, but real program using
+<b>wxOgre</b>. I assume that you have already successfully
+<a href="../install.html">installed</a> the library and I will not show you 
+complex code here. Because of two reasons:
+</p>
+<ul>
+<li>It's the first tutorial</li>
+<li>wxOgre itself is simple</li>
+</ul>
+<p>In fact the code of this tutorial is the one you can found in the
+<a href="http://owlet.svn.sf.net/viewvc/owlet/wxogre/trunk/examples/skybox">
+skybox</a> example. The Ogre scene for this example is taken from the
+Ogre's Skybox demo. But I will explain you how everything work. 
+</p>
+
+<div class="screenshot">
+<img src="../img/wxskybox_gtk.png" alt="wxOgre example screenshot" />
+<p>The wxOgre skybox example under GNU/Linux with wxGTK.</p>
+</div>
+
+
+<h3>The Main Class</h3>
+
+<p>
+wxOgre is based on wxWidgets. And when you start a wxWidget application with 
+creating <b>wxApp</b> object, here it's simply a <a href="">wxOgreApp</a> one.
+This class create an Ogre root when it's instantiated and destroy it when it's
+deleted.
+</p>
+
+<h4>Example 2.1</h4>
+<pre class="code">
+#include "wx/ogre/ogre.h"
+
+class Skybox : public wxOgreApp
+{
+public:
+    bool OnInit() { return true; }
+};
+
+IMPLEMENT_APP(Skybox)
+</pre>
+
+
+<h3>The Ogre Scene</h3>
+
+<h4>Example 2.2</h4>
+<pre class="code">
+#include "wx/ogre/ogre.h"
+
+class Skybox : public wxOgreApp
+{
+public:
+
+    bool OnInit()
+    {
+        // Initialize Ogre render system
+        m_rsys->LoadPlugin("RenderSystem_GL");
+        m_rsys->SelectOgreRenderSystem("OpenGL Rendering Subsystem");
+        m_rsys->Initialise();
+
+        m_frame = new wxFrame(0, wxID_ANY, _("wxSkybox"), wxDefaultPosition, wxSize(600,400));
+        m_control = new wxOgreControl(m_frame, wxID_ANY, wxDefaultPosition, m_frame->GetClientSize());
+        m_frame->Show();
+        CreateScene();
+
+        return true;
+    }
+
+private:
+
+    void CreateScene()
+    {
+        Ogre::SceneManager* sm;
+
+        // load resources yeah!
+        m_res->LoadResourceFile("resources.cfg");
+        m_res->InitialiseAllResources();
+
+        // Create a SceneManager
+        sm = m_control->CreateSceneManager(Ogre::ST_GENERIC);
+	    sm->setSkyBox(true, "Examples/StormySkyBox");
+
+        m_control->Refresh();
+    }
+
+    wxFrame* m_frame;
+    wxOgreControl* m_control;
+};
+
+IMPLEMENT_APP(Skybox)
+</pre>
+
+<div class="navfooter">
+  <hr>
+	<a accesskey="p" href="introduction.html" class="left">Previous</a>
+	<a accesskey="n" href="" class="right">Next</a>
+	<a href="../index.html">Home</a>
+</div>
+</body>
+</head>
