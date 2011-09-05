@@ -17,7 +17,7 @@ Ogre::String GetMesh(uint32 aVisualCode)
             case HUMAN:
                 return "robot.mesh";
             case HERBIVORES:
-                return "Zebra.mesh";
+                return "zebra.mesh";
             }
         }
     case NOT_LIVE:

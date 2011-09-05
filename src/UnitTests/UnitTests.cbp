@@ -91,6 +91,8 @@
 		<Unit filename="../Mind.h" />
 		<Unit filename="../MindList.cpp" />
 		<Unit filename="../MindList.h" />
+		<Unit filename="../MovementAnimation.cpp" />
+		<Unit filename="../MovementAnimation.h" />
 		<Unit filename="../Network.cpp" />
 		<Unit filename="../Network.h" />
 		<Unit filename="../Platform.h" />

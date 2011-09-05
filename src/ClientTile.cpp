@@ -8,7 +8,6 @@ ClientTile::ClientTile(bool ground, ClientGridNode& aGridNode):
         mNode(NULL),
         mGridNode(aGridNode),
         mGround(ground),
-        mUnit(NULL),
         mEntity(NULL)
 {
     Ogre::SceneManager& aSceneManager = ClientApp::GetSceneMgr();
@@ -30,13 +29,13 @@ ClientTile::~ClientTile()
     aSceneManager.getRootSceneNode()->detachObject(mEntity);
     aSceneManager.destroyEntity(mEntity);
     aSceneManager.destroySceneNode(mNode);
-
-    if (mUnit)
-    {
-        mUnit->SetTile(NULL);
-        delete mUnit;
-    }
 }
+
+Ogre::Vector3 ClientTile::GetPosition() const
+{
+    return mGridNode.GetPosition();
+}
+
 
 Ogre::MeshPtr ClientTile::ConstructMesh(const Ogre::String& aMeshName) const
 {

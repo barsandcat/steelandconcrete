@@ -22,6 +22,16 @@ void ClientFOV::AddShowTile(PayloadMsg& aResponse, TileId aTileId)
     const ServerTile& tile = *mGame.GetTiles().at(aTileId);
     showTile->set_height(tile.GetHeight());
     showTile->set_whater(tile.GetWater());
+
+    if (const UnitId unitId = tile.GetUnitId())
+    {
+        const ServerUnit* unit = UnitList::GetUnit(unitId);
+        ChangeMsg* change = aResponse.add_changes();
+        UnitEnterMsg* unitEnter = change->mutable_unitenter();
+        unitEnter->set_unitid(unitId);
+        unitEnter->set_to(aTileId);
+        unitEnter->set_visualcode(unit->GetClass().GetVisualCode());
+    }
 }
 
 void AddHideTile(PayloadMsg& aResponse, TileId aTileId)
@@ -66,7 +76,7 @@ void ClientFOV::SendUpdate(GameTime aClientTime)
 {
     boost::shared_lock<boost::shared_mutex> rl(mGame.GetGameMutex());
 
-    std::set<TileId> currentVisibleTiles = GetVisibleTiles(4);
+    std::set<TileId> currentVisibleTiles = GetVisibleTiles(6);
 
     const GameTime serverTime = mGame.GetTime();
     const int32 toSend = (serverTime - aClientTime) / mGame.GetTimeStep();
@@ -117,27 +127,13 @@ void ClientFOV::SendUpdate(GameTime aClientTime)
     else
     {
         //GetLog() << "Send everything in view";
+        PayloadMsg msg;
+        msg.set_last(false);
         for (std::set<TileId>::iterator n = currentVisibleTiles.begin(); n != currentVisibleTiles.end(); ++n)
         {
-            const TileId id = *n;
-            ServerTile* tile = mGame.GetTiles().at(id);
-
-            PayloadMsg msg;
-            msg.set_last(false);
-            AddShowTile(msg, id);
-
-            if (const UnitId unitId = tile->GetUnitId())
-            {
-                const ServerUnit* unit = UnitList::GetUnit(unitId);
-                ChangeMsg* change = msg.add_changes();
-                UnitEnterMsg* unitEnter = change->mutable_unitenter();
-                unitEnter->set_unitid(unitId);
-                unitEnter->set_to(id);
-                unitEnter->set_visualcode(unit->GetClass().GetVisualCode());
-            }
-
-            mNetwork.WriteMessage(msg);
+            AddShowTile(msg, *n);
         }
+        mNetwork.WriteMessage(msg);
     }
 
     // set time

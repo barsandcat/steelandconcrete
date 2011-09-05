@@ -13,7 +13,7 @@ public:
     void setUp()
     {
         mClass = new UnitClass(0, 100, 1);
-        mTile = new ServerTile(Ogre::Vector3::UNIT_X);
+        mTile = new ServerTile(0, Ogre::Vector3::UNIT_X);
         mUnit = new ServerUnit(*mTile, *mClass, 0);
     }
 

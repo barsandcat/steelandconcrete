@@ -11,27 +11,22 @@ static const Ogre::Degree rotationAcceleration(0.000002);
 class BirdCamera
 {
 public:
-    BirdCamera(Ogre::SceneManager* const aSceneManager, Ogre::RenderWindow& aWindow);
+    BirdCamera(Ogre::Vector3 aInitPos, Ogre::Real aMinDist, Ogre::Real aMaxDist);
     void SetHorizontalSpeed(int aSpeed) { mHorizontalSpeed = aSpeed * rotationAcceleration; }
     void SetVerticalSpeed(int aSpeed) { mVerticalSpeed = aSpeed * rotationAcceleration; }
     void ZoomIn() { mZoomSpeed -= zoomAcceleration; }
     void ZoomOut() { mZoomSpeed += zoomAcceleration; }
     void UpdatePosition(unsigned long aTime);
     Ogre::Ray MouseToRay(const OIS::MouseState &aState) const;
-    Ogre::Viewport* GetViewPort() const { return mViewPort; }
-    void Goto(const Ogre::Vector3 &aPosition);
-    void SetDistance(Ogre::Real aDistance);
     ~BirdCamera();
-    void AttachListener(OgreAL::Listener* aListener);
-protected:
 private:
-    Ogre::Camera* mCamera;
+    const Ogre::Real mMaxDist;
+    const Ogre::Real mMinDist;
     Ogre::Radian mVerticalSpeed;
     Ogre::Radian mHorizontalSpeed;
     Ogre::Real mZoomSpeed;
     Ogre::SceneNode* mCameraHolder;
     Ogre::SceneNode* mCameraNode;
-    Ogre::Viewport* mViewPort;
 };
 
 #endif // BIRDCAMERA_H

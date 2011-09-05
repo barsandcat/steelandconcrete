@@ -18,7 +18,7 @@ void ClientGame::EraseUnitId(UnitId aUnitId)
     mUnits.erase(aUnitId);
 }
 
-ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
+ClientGame::ClientGame(NetworkPtr aNetwork, UnitId aAvatarId, int32 aGridSize):
     mTileUnderCursor(NULL),
     mAvatar(NULL),
     mTime(0),
@@ -26,14 +26,6 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
     mServerUpdateLength(1000),
     mNetwork(aNetwork)
 {
-    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-    CEGUI::Window* myRoot = winMgr.loadWindowLayout("Game.layout", "", "", &PropertyCallback);
-    CEGUI::System::getSingleton().setGUISheet(myRoot);
-
-    winMgr.getWindow("InGameMenu/Exit")->
-        subscribeEvent(CEGUI::PushButton::EventClicked,
-                       CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
-
     ClientGeodesicGrid grid(mTiles, aGridSize);
 
     LoadAvatar();
@@ -44,9 +36,8 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
         throw std::runtime_error("No avatar!");
     }
 
-    Ogre::Vector3 avatarPosition = mAvatar->GetTile()->GetGridNode().GetPosition();
-    ClientApp::GetCamera().Goto(avatarPosition);
-    ClientApp::GetCamera().SetDistance(avatarPosition.length() + 50.0f);
+    Ogre::Vector3 avatarPosition = mAvatar->GetTile()->GetPosition();
+    mBirdCamera = new BirdCamera(avatarPosition, avatarPosition.length(), avatarPosition.length() + 200.0f);
 
     // Create a light
     Ogre::Light* myLight = ClientApp::GetSceneMgr().createLight("Light0");
@@ -64,6 +55,14 @@ ClientGame::ClientGame(Network* aNetwork, UnitId aAvatarId, int32 aGridSize):
     mTargetMarker = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
     mTargetMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Target", "TargetMarker.mesh"));
     mTargetMarker->setVisible(false);
+
+    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
+    CEGUI::Window* guiRoot = winMgr.loadWindowLayout("Game.layout", "", "", &PropertyCallback);
+    winMgr.getWindow("InGameMenu/Exit")->
+    subscribeEvent(CEGUI::PushButton::EventClicked,
+                   CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
+
+    CEGUI::System::getSingleton().setGUISheet(guiRoot);
 }
 
 ClientGame::~ClientGame()
@@ -79,19 +78,9 @@ ClientGame::~ClientGame()
     }
 
     ClientApp::GetSceneMgr().clearScene();
-    delete mNetwork;
 }
 
-void ClientGame::CreateUnitEntities() const
-{
-    std::map< int, ClientUnit* >::const_iterator i = mUnits.begin();
-    for (; i != mUnits.end(); ++i)
-    {
-        i->second->CreateEntity();
-    }
-}
-
-void ClientGame::UpdateTileUnderCursor(Ogre::Ray& aRay)
+void ClientGame::UpdateTileUnderCursor(Ogre::Ray aRay)
 {
     Ogre::Real radius = mTiles[0]->GetPosition().length();
     Ogre::Sphere sphere(Ogre::Vector3::ZERO, radius);
@@ -114,17 +103,109 @@ void ClientGame::UpdateTileUnderCursor(Ogre::Ray& aRay)
     mSelectionMarker->setVisible(res.first);
 }
 
+void ClientGame::mouseMoved(const OIS::MouseEvent& arg)
+{
+    if (arg.state.X.abs >= arg.state.width && arg.state.X.rel > 0 ||
+            arg.state.X.abs <= 0 && arg.state.X.rel < 0)
+    {
+        mBirdCamera->SetHorizontalSpeed(arg.state.X.rel);
+    }
+
+    if (arg.state.Y.abs >= arg.state.height && arg.state.Y.rel > 0 ||
+            arg.state.Y.abs <= 0 && arg.state.Y.rel < 0 )
+    {
+        mBirdCamera->SetVerticalSpeed(arg.state.Y.rel);
+    }
+
+
+}
+void ClientGame::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
+{
+    switch (id)
+    {
+    case OIS::MB_Left:
+        break;
+    case OIS::MB_Right:
+        OnAct();
+        break;
+    default:
+        ;
+    }
+
+}
+void ClientGame::mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
+{
+
+}
+void ClientGame::keyPressed(const OIS::KeyEvent& arg)
+{
+    switch (arg.key)
+    {
+    case OIS::KC_W:
+        break;
+    case OIS::KC_S:
+        break;
+    case OIS::KC_A:
+        break;
+    case OIS::KC_D:
+        break;
+    case OIS::KC_SUBTRACT:
+    case OIS::KC_MINUS:
+        mBirdCamera->ZoomOut();
+        break;
+    case OIS::KC_ADD:
+    case OIS::KC_EQUALS:
+        mBirdCamera->ZoomIn();
+        break;
+    case OIS::KC_ESCAPE:
+        OnEscape();
+        break;
+    default:
+        ;
+    }
+}
+void ClientGame::keyReleased(const OIS::KeyEvent& arg)
+{
+    switch (arg.key)
+    {
+    case OIS::KC_W:
+        break;
+    case OIS::KC_S:
+        break;
+    case OIS::KC_A:
+        break;
+    case OIS::KC_D:
+        break;
+    case OIS::KC_SUBTRACT:
+    case OIS::KC_MINUS:
+        mBirdCamera->ZoomIn();
+        break;
+    case OIS::KC_ADD:
+    case OIS::KC_EQUALS:
+        mBirdCamera->ZoomOut();
+        break;
+    default:
+        ;
+    }
+
+
+}
+
+
 void ClientGame::OnAct()
 {
     assert(mTileUnderCursor && "Тайл под курсором должен быть!");
-    mTargetMarker->getParent()->removeChild(mTargetMarker);
-    mTileUnderCursor->GetTile()->GetNode().addChild(mTargetMarker);
-    mTargetMarker->setVisible(true);
-
-    boost::shared_ptr<PayloadMsg> req(new PayloadMsg());
-    CommandMoveMsg* move = req->mutable_commandmove();
-    move->set_position(mTileUnderCursor->GetTileId());
-    mNetwork->Request(boost::bind(&ClientGame::OnPayloadMsg, this, _1), req);
+    ClientTile* tile = mTileUnderCursor->GetTile();
+    if (tile)
+    {
+        mTargetMarker->getParent()->removeChild(mTargetMarker);
+        tile->GetNode().addChild(mTargetMarker);
+        mTargetMarker->setVisible(true);
+        boost::shared_ptr<PayloadMsg> req(new PayloadMsg());
+        CommandMoveMsg* move = req->mutable_commandmove();
+        move->set_position(mTileUnderCursor->GetTileId());
+        mNetwork->Request(boost::bind(&ClientGame::OnPayloadMsg, this, _1), req);
+    }
 }
 
 bool ClientGame::OnExit(const CEGUI::EventArgs& args)
@@ -163,15 +244,13 @@ void ClientGame::LoadEvents(PayloadPtr aPayloadMsg)
             {
                 if (move.has_visualcode())
                 {
-                    ClientUnit* unit = new ClientUnit(move.unitid(), move.visualcode());
-                    unit->CreateEntity();
+                    ClientUnit* unit = new ClientUnit(move.unitid(), move.visualcode(), mTiles.at(move.to()));
                     mUnits.insert(std::make_pair(move.unitid(), unit));
-                    unit->SetTile(mTiles.at(move.to())->GetTile());
                 }
             }
             else
             {
-                unit->SetTile(mTiles.at(move.to())->GetTile());
+                unit->SetTile(mTiles.at(move.to()));
             }
         }
 
@@ -204,15 +283,22 @@ void ClientGame::LoadEvents(PayloadPtr aPayloadMsg)
             TileId tileId = change.hidetile().tileid();
             ClientGridNode* node = mTiles.at(tileId);
             node->DestroyTile();
+            delete node->GetUnit();
         }
     }
 }
 
 void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats)
 {
+    mBirdCamera->UpdatePosition(aFrameTime);
+
     CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
     winMgr.getWindow("FPS")->setText(Ogre::StringConverter::toString(aStats.avgFPS));
+    winMgr.getWindow("Time")->setText(Ogre::StringConverter::toString(static_cast<long>(mTime)));
 
+    std::for_each(mUnits.begin(), mUnits.end(),
+                  boost::bind(&ClientUnit::UpdateMovementAnimation,
+                              boost::bind(&ClientUnits::value_type::second, _1), aFrameTime));
 
     if (mSyncTimer.IsTime())
     {
@@ -245,8 +331,6 @@ void ClientGame::OnPayloadMsg(PayloadPtr aPayloadMsg)
     if (aPayloadMsg->has_time())
     {
         mTime = aPayloadMsg->time();
-        CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-        winMgr.getWindow("Time")->setText(Ogre::StringConverter::toString(static_cast<long>(mTime)));
     }
     if (aPayloadMsg->has_update_length())
     {

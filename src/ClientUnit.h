@@ -1,23 +1,27 @@
 #ifndef CLIENTUNIT_H
 #define CLIENTUNIT_H
+
 #include <Ogre.h>
 #include <Typedefs.h>
+#include <MovementAnimation.h>
 
-class ClientTile;
+class ClientGridNode;
 
 class ClientUnit: public boost::noncopyable
 {
 public:
-    ClientUnit(UnitId aUnitId, uint32 aVisual);
-    void SetTile(ClientTile* aTile);
-    ClientTile* GetTile() const { return mTile; }
+    ClientUnit(UnitId aUnitId, uint32 aVisual, ClientGridNode* aTile);
     ~ClientUnit();
-    Ogre::Entity* CreateEntity();
-    Ogre::SceneNode& GetNode() { return *mNode; }
+    void UpdateMovementAnimation(FrameTime aFrameTime);
+    void SetTile(ClientGridNode* aTile);
+    ClientGridNode* GetTile() const { return mTile; }
 	UnitId GetUnitId() const { return mUnitId; }
 private:
-    ClientTile* mTile;
-    Ogre::SceneNode* mNode;
+    MovementAnimationPtr mMoveAnim;
+    Ogre::AnimationState* mAnimState;
+    ClientGridNode* mTile;
+    Ogre::SceneNode* mPositionNode;
+    Ogre::SceneNode* mDirectonNode;
     Ogre::Entity* mEntity;
     const UnitId mUnitId;
     const uint32 mVisualCode;

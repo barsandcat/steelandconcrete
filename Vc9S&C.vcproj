@@ -272,6 +272,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\MovementAnimation.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\Network.cpp"
 				>
 				<FileConfiguration
@@ -362,6 +366,10 @@
 			</File>
 			<File
 				RelativePath=".\src\ClientUnit.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\MovementAnimation.h"
 				>
 			</File>
 			<File

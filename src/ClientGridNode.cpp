@@ -5,9 +5,11 @@
 #include <ClientApp.h>
 #include <ClientTile.h>
 
-ClientGridNode::ClientGridNode(const Ogre::Vector3& aPosition):
+ClientGridNode::ClientGridNode(TileId aId, const Ogre::Vector3& aPosition):
         mPosition(aPosition),
-        mTile(NULL)
+        mTile(NULL),
+        mUnit(NULL),
+        mTileId(aId)
 {
     mNeighbourhood.reserve(6);
 }
@@ -26,17 +28,16 @@ void ClientGridNode::DestroyTile()
     mTile = NULL;
 }
 
-
 ClientGridNode::~ClientGridNode()
 {
-    delete mTile;    //dtor
+    delete mUnit;
+    delete mTile;
 }
 
 bool CompareEdgesAltitude(ClientGridNode* a, ClientGridNode* b)
 {
     return a->GetPosition().z < b->GetPosition().z;
 };
-
 
 void ClientGridNode::SortNeighbourhood()
 {

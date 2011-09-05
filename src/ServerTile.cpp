@@ -5,14 +5,15 @@
 #include <CompareEdgesAngles.h>
 #include <ServerUnit.h>
 
-ServerTile::ServerTile(const Ogre::Vector3& aPosition):
+ServerTile::ServerTile(TileId aId, const Ogre::Vector3& aPosition):
         mPosition(aPosition),
-        mTileId(0),
+        mTileId(aId),
 		mUnit(0),
 		mHeight(0),
 		mWater(1111)
 {
     mNeighbourhood.reserve(6);
+    mChangeList.SetTileId(aId);
 }
 
 ServerTile::~ServerTile()

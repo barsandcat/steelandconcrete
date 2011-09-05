@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="MaterialEditor" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../../bin/MaterialEditor_d" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../../bin" />
+				<Option object_output="../../../obj/MaterialEditorLinuxDebug" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-pg" />
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-pg" />
+					<Add library="wxogre_d" />
+					<Add library="RenderSystem_GL_d" />
+					<Add library="OgreMain_d" />
+					<Add library="wxpropgrid_d" />
+					<Add library="wxscintilla_d" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../../bin/MaterialEditor" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../../bin" />
+				<Option object_output="../../../obj/MaterialEditorLinuxRelease" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="wxogre" />
+					<Add library="RenderSystem_GL" />
+					<Add library="OgreMain" />
+					<Add library="wxpropgrid" />
+					<Add library="wxscintilla" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="`wx-config --cxxflags`" />
+			<Add option="-Wno-write-strings" />
+			<Add option="-DNOPCH" />
+			<Add directory="../include" />
+			<Add directory="../../../wxscintilla/wxscintilla_1.69.2/include" />
+			<Add directory="../../../ogre/build/include" />
+			<Add directory="../../../ogre/ogre_1.7.3/OgreMain/include" />
+			<Add directory="../../../ogre/ogre_1.7.3/RenderSystems/GL/include" />
+			<Add directory="../../../ogre/ogre_1.7.3/RenderSystems/GL/src/GLSL/include" />
+			<Add directory="../../../wxpropgrid/include" />
+			<Add directory="../../../wxogre-svn312/include" />
+			<Add directory="../../../boost/boost_1_46_1" />
+		</Compiler>
+		<Linker>
+			<Add option="`wx-config --libs`" />
+			<Add library="freeimage" />
+			<Add library="GL" />
+			<Add library="GLU" />
+			<Add library="boost_signals$(TARGET_NAME)" />
+			<Add directory="../../../lib" />
+		</Linker>
+		<Unit filename="../include/CallTipManager.h" />
+		<Unit filename="../include/CgEditor.h" />
+		<Unit filename="../include/DocManager.h" />
+		<Unit filename="../include/DocPanel.h" />
+		<Unit filename="../include/Editor.h" />
+		<Unit filename="../include/EditorManager.h" />
+		<Unit filename="../include/EntityPropertyGridPage.h" />
+		<Unit filename="../include/EventArgs.h" />
+		<Unit filename="../include/EventContainer.h" />
+		<Unit filename="../include/GLSLEditor.h" />
+		<Unit filename="../include/HLSLEditor.h" />
+		<Unit filename="../include/IconManager.h" />
+		<Unit filename="../include/LogPanel.h" />
+		<Unit filename="../include/LogToTextRedirector.h" />
+		<Unit filename="../include/MaterialEditorApp.h" />
+		<Unit filename="../include/MaterialEditorFrame.h" />
+		<Unit filename="../include/MaterialPropertyGridPage.h" />
+		<Unit filename="../include/MaterialScriptEditor.h" />
+		<Unit filename="../include/OMEFileSystemArchive.h" />
+		<Unit filename="../include/OgreControl.h" />
+		<Unit filename="../include/PassPropertyGridPage.h" />
+		<Unit filename="../include/PropertiesPanel.h" />
+		<Unit filename="../include/ScintillaEditor.h" />
+		<Unit filename="../include/SharedDefs.h" />
+		<Unit filename="../include/TechniquePropertyGridPage.h" />
+		<Unit filename="../include/TextureUnitPropertyGridPage.h" />
+		<Unit filename="../include/Workspace.h" />
+		<Unit filename="../include/wxOgreLogControl.h" />
+		<Unit filename="../src/CallTipManager.cpp" />
+		<Unit filename="../src/CgEditor.cpp" />
+		<Unit filename="../src/DocManager.cpp" />
+		<Unit filename="../src/DocPanel.cpp" />
+		<Unit filename="../src/Editor.cpp" />
+		<Unit filename="../src/EditorManager.cpp" />
+		<Unit filename="../src/EventContainer.cpp" />
+		<Unit filename="../src/GLSLEditor.cpp" />
+		<Unit filename="../src/HLSLEditor.cpp" />
+		<Unit filename="../src/IconManager.cpp" />
+		<Unit filename="../src/LogPanel.cpp" />
+		<Unit filename="../src/LogToTextRedirector.cpp" />
+		<Unit filename="../src/MaterialEditorApp.cpp" />
+		<Unit filename="../src/MaterialEditorFrame.cpp" />
+		<Unit filename="../src/MaterialPropertyGridPage.cpp" />
+		<Unit filename="../src/MaterialScriptEditor.cpp" />
+		<Unit filename="../src/OMEFileSystemArchive.cpp" />
+		<Unit filename="../src/OgreControl.cpp" />
+		<Unit filename="../src/PassPropertyGridPage.cpp" />
+		<Unit filename="../src/PropertiesPanel.cpp" />
+		<Unit filename="../src/ScintillaEditor.cpp" />
+		<Unit filename="../src/TechniquePropertyGridPage.cpp" />
+		<Unit filename="../src/TextureUnitPropertyGridPage.cpp" />
+		<Unit filename="../src/Workspace.cpp" />
+		<Unit filename="../xpm/application-x-font-pcf.xpm" />
+		<Unit filename="../xpm/application-x-kpovmodeler.xpm" />
+		<Unit filename="../xpm/close.xpm" />
+		<Unit filename="../xpm/copy.xpm" />
+		<Unit filename="../xpm/cut.xpm" />
+		<Unit filename="../xpm/folder.xpm" />
+		<Unit filename="../xpm/image-x-generic.xpm" />
+		<Unit filename="../xpm/material.xpm" />
+		<Unit filename="../xpm/material_script.xpm" />
+		<Unit filename="../xpm/ogre.xpm" />
+		<Unit filename="../xpm/pass.xpm" />
+		<Unit filename="../xpm/paste.xpm" />
+		<Unit filename="../xpm/program_script.xpm" />
+		<Unit filename="../xpm/project.xpm" />
+		<Unit filename="../xpm/project_new.xpm" />
+		<Unit filename="../xpm/project_save.xpm" />
+		<Unit filename="../xpm/save.xpm" />
+		<Unit filename="../xpm/save_as.xpm" />
+		<Unit filename="../xpm/shader.xpm" />
+		<Unit filename="../xpm/technique.xpm" />
+		<Unit filename="../xpm/unknown.xpm" />
+		<Unit filename="../xpm/utilities-file-archiver-3.xpm" />
+		<Unit filename="../xpm/workspace.xpm" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="0">
+				<lib name="gtk+-2.0" />
+				<lib name="x11" />
+				<lib name="zziplib" />
+				<lib name="xaw7" />
+			</lib_finder>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

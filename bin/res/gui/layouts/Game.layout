@@ -8,7 +8,8 @@
             <Property Name="SizingEnabled" Value="False" />
             <Property Name="CloseButtonEnabled" Value="False" />
             <Property Name="DragMovingEnabled" Value="False" />            
-            <Property Name="RollUpEnabled" Value="False" />            <Property Name="Visible" Value="False"/>
+            <Property Name="RollUpEnabled" Value="False" />            
+            <Property Name="Visible" Value="False"/>
 
             <Window Type="TaharezLook/Button" Name="InGameMenu/Exit">
                 <Property Name="UnifiedPosition" Value="{{0.2,0},{0.2,0}}" />

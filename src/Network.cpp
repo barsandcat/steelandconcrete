@@ -15,9 +15,16 @@ mBufferSize(0), mAsync(false), mRequests(100)
 
 Network::~Network()
 {
-    delete mMessageBuffer;
-    mSocket->shutdown(boost::asio::ip::tcp::socket::shutdown_both);
-    mSocket->close();
+    try
+    {
+        delete mMessageBuffer;
+        mSocket->shutdown(boost::asio::ip::tcp::socket::shutdown_both);
+        mSocket->close();
+    }
+    catch(std::exception& e)
+    {
+        std::cerr << "~Network exception: " << e.what();
+    }
 }
 
 void Network::AllocBuffer(int aSize)

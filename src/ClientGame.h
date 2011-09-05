@@ -8,6 +8,7 @@
 #include <Network.h>
 #include <SyncTimer.h>
 #include <CEGUI.h>
+#include <BirdCamera.h>
 
 class ClientApp;
 
@@ -15,22 +16,29 @@ class ClientGame
 {
 public:
     typedef std::map< UnitId, ClientUnit* > ClientUnits;
-    ClientGame(Network* aNetwork, UnitId aAvatar, int32 aGridSize);
+    ClientGame(NetworkPtr aNetwork, UnitId aAvatar, int32 aGridSize);
     virtual ~ClientGame(); // Для QuicGUI
-    void UpdateTileUnderCursor(Ogre::Ray& aRay);
+    void UpdateTileUnderCursor(Ogre::Ray aRay);
     void Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats);
-    bool OnExit(const CEGUI::EventArgs& args);
-    void OnEscape();
-    void OnAct();
+
+    void mouseMoved(const OIS::MouseEvent& arg);
+    void mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
+    void mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
+    void keyPressed(const OIS::KeyEvent& arg);
+    void keyReleased(const OIS::KeyEvent& arg);
+
     static ClientUnit* GetUnit(UnitId aUnitId);
     static void EraseUnitId(UnitId aUnitId);
 private:
+    bool OnExit(const CEGUI::EventArgs& args);
+    void OnEscape();
+    void OnAct();
     void OnPayloadMsg(PayloadPtr aPayloadMsg);
-    void CreateUnitEntities() const;
     void LoadAvatar();
     void LoadEvents(PayloadPtr aPayloadMsg);
 private:
     static ClientUnits mUnits;
+    BirdCamera* mBirdCamera;
     ClientGeodesicGrid::Tiles mTiles;
     ClientGridNode* mTileUnderCursor;
     ClientUnit* mAvatar;
@@ -39,7 +47,7 @@ private:
     GameTime mTime;
     SyncTimer mSyncTimer;
     int32 mServerUpdateLength;
-    Network* mNetwork;
+    NetworkPtr mNetwork;
 };
 
 #endif // CLIENTGAME_H
