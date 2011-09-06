@@ -517,6 +517,14 @@
 						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\src\proto\Payload.pb.h"
@@ -532,10 +540,6 @@
 			Filter="po"
 			>
 			<File
-				RelativePath=".\bin\lang\ru\LC_MESSAGES\steelandconcrete.po"
-				>
-			</File>
-			<File
 				RelativePath=".\bin\lang\uk\LC_MESSAGES\steelandconcrete.po"
 				>
 			</File>
@@ -545,6 +549,10 @@
 			</File>
 			<File
 				RelativePath=".\bin\lang\ja\LC_MESSAGES\steelandconcrete.po"
+				>
+			</File>
+			<File
+				RelativePath=".\bin\lang\ru\LC_MESSAGES\steelandconcrete.po"
 				>
 			</File>
 		</Filter>
