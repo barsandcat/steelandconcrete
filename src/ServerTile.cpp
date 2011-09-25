@@ -4,6 +4,7 @@
 
 #include <CompareEdgesAngles.h>
 #include <ServerUnit.h>
+#include <UnitList.h>
 
 ServerTile::ServerTile(TileId aId, const Ogre::Vector3& aPosition):
         mPosition(aPosition),
@@ -33,6 +34,10 @@ void ServerTile::SortNeighbourhood()
     std::sort(mNeighbourhood.begin() + 1, mNeighbourhood.end(), CompareEdgesAngles<ServerTile>(mPosition, mNeighbourhood[0]->mPosition));
 }
 
+bool ServerTile::CanEnter() const
+{
+     return !UnitList::GetUnit(mUnit) && mWater <= 0;
+}
 
 void ServerTile::RemoveNeighbour(ServerTile& aTile)
 {

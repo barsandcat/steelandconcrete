@@ -19,6 +19,8 @@ public:
     UnitId GetUnitId() const { return mUnit; }
     void SetUnitId(UnitId aUnit) { mUnit = aUnit; }
 
+    bool CanEnter() const;
+
     TileId GetTileId() const { return mTileId; }
     ChangeList* GetChangeList() { return &mChangeList; }
     void SetHeight(int32 aHeight) { mHeight = aHeight; mWater = std::max(mHeight - 400, 0); }
