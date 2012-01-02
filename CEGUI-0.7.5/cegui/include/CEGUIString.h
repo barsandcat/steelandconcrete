@@ -34,6 +34,7 @@
 #include <string>
 #include <string.h>
 #include <stdexcept>
+#include <cstddef>
 
 // Start of CEGUI namespace section
 namespace CEGUI
@@ -4977,7 +4978,7 @@ private:
 
 			if (len >= size)
 				len -= size;
-			else 
+			else
 				break;
 		}
 
