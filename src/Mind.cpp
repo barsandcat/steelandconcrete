@@ -29,7 +29,7 @@ void Mind::Update(GameTime aPeriod)
     ServerUnit* unit = UnitList::GetUnit(mUnitId);
     if (mIsFree)
     {
-        ServerTile& position = unit->GetPosition();
+        ServerTile& position = unit->GetUnitTile();
         ServerTile& randomTile = position.GetNeighbour(rand() % position.GetNeighbourCount());
         if(randomTile.CanEnter())
         {
@@ -40,7 +40,7 @@ void Mind::Update(GameTime aPeriod)
     {
         if (mTarget)
         {
-            ServerTile& currentTile = unit->GetPosition();
+            ServerTile& currentTile = unit->GetUnitTile();
             ServerTile* currentTarget = &currentTile.GetNeighbour(0);
             Ogre::Radian currentDist = CalcDistance3(currentTarget->GetPosition(), mTarget->GetPosition());
             for (size_t i = 1; i < currentTile.GetNeighbourCount(); ++i)
