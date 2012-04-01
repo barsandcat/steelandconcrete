@@ -24,6 +24,13 @@ public:
         delete mClass;
     }
 
+    void TestDelete()
+    {
+        delete mUnit;
+        mUnit = NULL;
+        TS_ASSERT_EQUALS(mTile->GetUnitId(), 0);
+    }
+
     void TestAgeZero()
     {
         TS_ASSERT(!mUnit->UpdateAgeAndIsTimeToDie(0));
