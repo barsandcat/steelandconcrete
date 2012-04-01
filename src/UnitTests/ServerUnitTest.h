@@ -13,15 +13,25 @@ public:
     void setUp()
     {
         mClass = new UnitClass(0, 100, 1);
-        mTile = new ServerTile(0, Ogre::Vector3::UNIT_X);
-        mUnit = new ServerUnit(*mTile, *mClass, 0);
+        mTile = new ServerTile(1, Ogre::Vector3::UNIT_X);
+        mTile2 = new ServerTile(2, Ogre::Vector3::UNIT_Z);
+        mUnit = new ServerUnit(*mTile, *mClass, 1);
     }
 
     void tearDown()
     {
         delete mUnit;
         delete mTile;
+        delete mTile2;
         delete mClass;
+    }
+
+    void TestMove()
+    {
+        mUnit->Move(*mTile2);
+        TS_ASSERT_EQUALS(mTile->GetUnitId(), 0);
+        TS_ASSERT_EQUALS(mTile2->GetUnitId(), mUnit->GetUnitId());
+        TS_ASSERT_EQUALS(mTile2->GetTileId(), mUnit->GetUnitTile().GetTileId());
     }
 
     void TestDelete()
@@ -43,6 +53,7 @@ public:
 private:
     ServerUnit* mUnit;
     ServerTile* mTile;
+    ServerTile* mTile2;
     UnitClass* mClass;
 };
 
