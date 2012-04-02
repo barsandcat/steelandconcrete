@@ -19,6 +19,7 @@ ServerUnit::ServerUnit(ServerTile& aTile, const UnitClass& aClass, UnitId aUnitI
 
 ServerUnit::~ServerUnit()
 {
+    mPosition->SetUnitId(0);
     mPosition->GetChangeList()->AddRemove(mUnitId);
 }
 
