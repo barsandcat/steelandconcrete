@@ -45,7 +45,7 @@ std::set<TileId> ClientFOV::GetVisibleTiles(int aDepth)
 {
     std::set<TileId> result;
     std::set<TileId> toIterate;
-    ServerTile& tile = UnitList::GetUnit(mAvatarId)->GetPosition();
+    ServerTile& tile = UnitList::GetUnit(mAvatarId)->GetUnitTile();
     toIterate.insert(tile.GetTileId());
     result.insert(tile.GetTileId());
 

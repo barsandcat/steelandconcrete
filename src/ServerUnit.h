@@ -10,7 +10,7 @@ class ServerUnit
 {
 public:
     ServerUnit(ServerTile& aTile, const UnitClass& aClass, UnitId aUnitId);
-    ServerTile& GetPosition() const { return *mPosition; }
+    ServerTile& GetUnitTile() const { return *mPosition; }
     UnitId GetUnitId() const { return mUnitId; }
     virtual ~ServerUnit();
     bool UpdateAgeAndIsTimeToDie(GameTime aPeriod);

@@ -36,7 +36,7 @@ ClientGame::ClientGame(NetworkPtr aNetwork, UnitId aAvatarId, int32 aGridSize):
         throw std::runtime_error("No avatar!");
     }
 
-    Ogre::Vector3 avatarPosition = mAvatar->GetTile()->GetPosition();
+    Ogre::Vector3 avatarPosition = mAvatar->GetUnitTile()->GetPosition();
     mBirdCamera = new BirdCamera(avatarPosition, avatarPosition.length(), avatarPosition.length() + 200.0f);
 
     // Create a light

@@ -14,7 +14,7 @@ public:
     ~ClientUnit();
     void UpdateMovementAnimation(FrameTime aFrameTime);
     void SetTile(ClientGridNode* aTile);
-    ClientGridNode* GetTile() const { return mTile; }
+    ClientGridNode* GetUnitTile() const { return mTile; }
 	UnitId GetUnitId() const { return mUnitId; }
 private:
     MovementAnimationPtr mMoveAnim;
