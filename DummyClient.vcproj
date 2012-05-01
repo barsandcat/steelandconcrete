@@ -34,7 +34,7 @@
 			/>
 			<Tool
 				Name="proto"
-				protocompiler="$(SolutionDir)bin\protoc.exe"
+				protocompiler="$(SolutionDir)bin\protocDebug.exe"
 				protodir="src\proto"
 				outdir="src\proto"
 			/>
@@ -252,18 +252,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\proto\Handshake.pb.cc"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Handshake.pb.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Handshake.proto"
-				>
-			</File>
-			<File
 				RelativePath=".\src\proto\Header.pb.cc"
 				>
 			</File>
@@ -276,27 +264,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\proto\Request.pb.cc"
+				RelativePath=".\src\proto\Payload.pb.cc"
 				>
 			</File>
 			<File
-				RelativePath=".\src\proto\Request.pb.h"
+				RelativePath=".\src\proto\Payload.pb.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\proto\Request.proto"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Response.pb.cc"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Response.pb.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\proto\Response.proto"
+				RelativePath=".\src\proto\Payload.proto"
 				>
 			</File>
 		</Filter>
