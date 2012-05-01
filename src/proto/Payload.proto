@@ -1,0 +1,17 @@
+import "CommandList.proto";
+import "ChangeList.proto";
+
+message PayloadMsg
+{
+    optional uint32 protocolVersion = 1;
+    optional int32 avatar = 2;
+    optional int32 size = 3;
+    optional uint64 time = 4;
+    optional int32 update_length = 5;
+    optional string reason = 6;
+    optional CommandMoveMsg commandmove = 7;
+    repeated ChangeMsg changes = 8;
+    optional bool last = 9 [default = true];
+}
+
+

@@ -1,0 +1,7 @@
+/**
+ * @mainpage wxOgre API
+ *
+ * This is the API reference for the wxOgre library. It is very small and
+ * will certainly change in future versions.
+ *
+ */

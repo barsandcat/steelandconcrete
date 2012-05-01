@@ -1,0 +1,5 @@
+message CommandMoveMsg
+{
+    required uint32 position = 2;
+}
+
