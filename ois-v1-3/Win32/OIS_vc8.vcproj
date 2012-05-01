@@ -71,7 +71,7 @@
 				Name="VCLibrarianTool"
 				AdditionalDependencies="dxguid.lib dinput8.lib"
 				OutputFile="$(OutDir)/OIS_static_d.lib"
-				AdditionalLibraryDirectories="&quot;$(DXSDK_DIR)lib\x86&quot;;..\src\win32\extras\WiiMote"
+				AdditionalLibraryDirectories="D:\Data\MainCode\Code\SDKs\DXSDK\Lib;&quot;$(DXSDK_DIR)lib\x86&quot;;..\src\win32\extras\WiiMote"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -215,7 +215,7 @@
 				Name="VCLibrarianTool"
 				AdditionalDependencies="dxguid.lib dinput8.lib"
 				OutputFile="$(OutDir)/OIS_static.lib"
-				AdditionalLibraryDirectories="&quot;$(DXSDK_DIR)lib\x86&quot;;..\src\win32\extras\WiiMote"
+				AdditionalLibraryDirectories="D:\Data\MainCode\Code\SDKs\DXSDK\Lib;&quot;$(DXSDK_DIR)lib\x86&quot;;..\src\win32\extras\WiiMote"
 			/>
 			<Tool
 				Name="VCALinkTool"

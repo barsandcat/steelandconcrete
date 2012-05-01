@@ -51,3 +51,4 @@ glob:wx*/lib/vc_lib/mswd/wx/setup.h
 glob:*.mesh.xml
 glob:bin/res/gui/layouts/messages.h
 glob:*.skeleton.xml
+glob:*.aps
