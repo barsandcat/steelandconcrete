@@ -39,19 +39,22 @@ Section "Files (required)"
   ; Put file there
   File "bin\steelandconcrete.exe"
   File "bin\steelandconcrete_server.exe"      
-  File "bin\ToolMaterialEditor.exe"      
   
   File /r "bin\*.mesh"
   File /r "bin\*.material"
   File /r "bin\*.skeleton"
-  File /r "bin\*.fontdef"
-  File /nonfatal /r "bin\*.program"
-  File /nonfatal /r "bin\*.cg"
-  File /nonfatal /r "bin\*.skinTypes"
+  File /r "bin\*.program"
+  File /r "bin\*.cg"
+  File /r "bin\*.scheme"
+  File /r "bin\*.font"
+  File /r "bin\*.imageset"
+  File /r "bin\*.layout"
+  File /r "bin\*.looknfeel"
   
   File /r "bin\*.wav"
   File /r "bin\*.ogg"
   File /r "bin\*.png"
+  File /r "bin\*.tga"
   File /r "bin\*.jpg"  
   File /r "bin\*.ttf"
 
@@ -75,7 +78,6 @@ Section "Start Menu Shortcuts"
 
   CreateDirectory "$SMPROGRAMS\steelandconcrete"
   CreateShortCut "$SMPROGRAMS\steelandconcrete\steelandconcrete.lnk" "$INSTDIR\steelandconcrete.exe" "" "$INSTDIR\steelandconcrete.exe" 0  
-	CreateShortCut "$SMPROGRAMS\steelandconcrete\ToolMaterialEditor.lnk" "$INSTDIR\ToolMaterialEditor.exe" "" "$INSTDIR\ToolMaterialEditor.exe" 0  
   CreateShortCut "$SMPROGRAMS\steelandconcrete\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
   
 SectionEnd
