@@ -1,0 +1,14 @@
+Source: testapp
+Section: x11
+Priority: extra
+Maintainer: Jens Lody <jens@codeblocks.org>
+Build-Depends: debhelper (>= 7), codeblocks, libwxgtk2.8-dev, wx-common
+Standards-Version: 3.8.0
+Homepage: http://apt.jenslody.de
+
+Package: testapp
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: test application
+ test application, to show how to build a debian package
+ without automake.
