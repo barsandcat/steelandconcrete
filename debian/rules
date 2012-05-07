@@ -23,36 +23,36 @@ configure-stamp:
 
 build: build-stamp
 
-build-stamp: configure-stamp  
+build-stamp: configure-stamp
 	dh_testdir
 
 	# Add here commands to compile the package.
 	# $(MAKE)
-	codeblocks --build $(CURDIR)/src/testapp.cbp
+	codeblocks --build $(CURDIR)/steelandconcrete.workspace
 	#docbook-to-man debian/testapp.sgml > testapp.1
 
 	touch $@
 
-clean: 
+clean:
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp configure-stamp
 
 	# Add here commands to clean up after the build process.
 	# $(MAKE) clean
-	codeblocks --clean $(CURDIR)/src/testapp.cbp
+	codeblocks --clean $(CURDIR)/steelandconcrete.workspace
 
-	dh_clean 
+	dh_clean
 
 install: build
 	dh_testdir
 	dh_testroot
-	dh_prep  
+	dh_prep
 	dh_installdirs
 
 	# Add here commands to install the package into debian/testapp.
 	# $(MAKE) DESTDIR=$(CURDIR)/debian/testapp install
-	cp $(CURDIR)/src/bin/Release/testapp $(CURDIR)/debian/testapp/usr/bin
+	cp $(CURDIR)/bin/steelandconcrete $(CURDIR)/debian/steelandconcrete/usr/bin
 
 
 
@@ -64,7 +64,7 @@ binary-indep: install
 binary-arch: install
 	dh_testdir
 	dh_testroot
-	dh_installchangelogs 
+	dh_installchangelogs
 	dh_installdocs
 	dh_installexamples
 #	dh_install
