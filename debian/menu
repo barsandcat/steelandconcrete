@@ -1,2 +1,2 @@
 ?package(testapp):needs="X11" section="Applications/Programming"\
-  title="testapp" command="/usr/bin/testapp"
+  title="steelandconcrete" command="/usr/bin/steelandconcrete"
