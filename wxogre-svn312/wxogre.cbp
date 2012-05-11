@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="../lib/libwxogre_d" prefix_auto="1" extension_auto="1" />
+				<Option output="../lib/wxogre_d" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
 				<Option object_output="../obj/wxogreDebugLinux" />
 				<Option type="2" />
@@ -18,7 +18,7 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="../lib/libwxogre" prefix_auto="1" extension_auto="1" />
+				<Option output="../lib/wxogre" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
 				<Option object_output="../obj/wxogreReleaseLinux" />
 				<Option type="2" />
@@ -34,6 +34,7 @@
 		</Build>
 		<Compiler>
 			<Add option="`wx-config --cflags`" />
+			<Add option="`pkg-config --cflags gtk+-2.0`" />
 			<Add directory="include" />
 			<Add directory="../ogre/build/include" />
 			<Add directory="../ogre/ogre_1.7.3/OgreMain/include" />
@@ -58,9 +59,6 @@
 			<code_completion />
 			<envvars />
 			<debugger />
-			<lib_finder>
-				<lib name="gtk+-2.0" />
-			</lib_finder>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
