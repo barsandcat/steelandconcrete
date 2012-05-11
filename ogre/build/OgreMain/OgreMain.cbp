@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="../../../lib/libOgreMain_d" prefix_auto="1" extension_auto="1" />
+				<Option output="../../../lib/OgreMain_d" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
 				<Option object_output="../../../obj/OgreMainDebugLinux" />
 				<Option type="2" />
@@ -24,7 +24,7 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="../../../lib/libOgreMain" prefix_auto="1" extension_auto="1" />
+				<Option output="../../../lib/OgreMain" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
 				<Option object_output="../../../obj/OgreMainReleaseLinux" />
 				<Option type="2" />
@@ -38,13 +38,13 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="`pkg-config --cflags freetype2 zziplib`" />
 			<Add directory="../../ogre_1.7.3/OgreMain/include" />
 			<Add directory="../include" />
 			<Add directory="../../ogre_1.7.3/OgreMain/include/Threading" />
 			<Add directory="../../ogre_1.7.3/OgreMain/include/gtk" />
 			<Add directory="../../ogre_1.7.3/OgreMain/src/nedmalloc" />
 		</Compiler>
-		<Unit filename="../include/OgreBuildSettings.h" />
 		<Unit filename="../../ogre_1.7.3/OgreMain/include/Ogre.h" />
 		<Unit filename="../../ogre_1.7.3/OgreMain/include/OgreAlignedAllocator.h" />
 		<Unit filename="../../ogre_1.7.3/OgreMain/include/OgreAnimable.h" />
@@ -481,13 +481,10 @@
 		<Unit filename="../../ogre_1.7.3/OgreMain/src/OgreZip.cpp" />
 		<Unit filename="../../ogre_1.7.3/OgreMain/src/Threading/OgreDefaultWorkQueueStandard.cpp" />
 		<Unit filename="../../ogre_1.7.3/OgreMain/src/ogremain.map" />
+		<Unit filename="../include/OgreBuildSettings.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
-			<lib_finder>
-				<lib name="freetype2" />
-				<lib name="zziplib" />
-			</lib_finder>
 			<debugger />
 		</Extensions>
 	</Project>

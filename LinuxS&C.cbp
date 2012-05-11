@@ -63,6 +63,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="`pkg-config --cflags zziplib freetype2 openal ogg vorbis vorbisfile xaw7 xrandr libpcre`" />
 			<Add option="-Winvalid-pch" />
 			<Add option="-Wreturn-type" />
 			<Add option="-Wsign-compare" />
@@ -86,6 +87,7 @@
 			<Add directory="CEGUI-0.7.5/cegui/include" />
 		</Compiler>
 		<Linker>
+			<Add option="`pkg-config --libs zziplib freetype2 openal ogg vorbis vorbisfile xaw7 xrandr libpcre`" />
 			<Add library="pthread" />
 			<Add library="freeimage" />
 			<Add library="GL" />
@@ -149,17 +151,6 @@
 			<code_completion />
 			<envvars />
 			<debugger />
-			<lib_finder>
-				<lib name="zziplib" />
-				<lib name="freetype2" />
-				<lib name="openal" />
-				<lib name="ogg" />
-				<lib name="vorbis" />
-				<lib name="vorbisfile" />
-				<lib name="xaw7" />
-				<lib name="xrandr" />
-				<lib name="libpcre" />
-			</lib_finder>
 			<DoxyBlocks>
 				<comment_style block="0" line="0" />
 				<doxyfile_project />

@@ -37,6 +37,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="`pkg-config --cflags freetype2 libpcre`" />
 			<Add option="-DHAVE_CONFIG_H" />
 			<Add option="-DCEGUIBASE_EXPORTS" />
 			<Add option="-DCEGUI_STATIC" />
@@ -452,10 +453,6 @@
 			<envvars />
 			<code_completion />
 			<debugger />
-			<lib_finder>
-				<lib name="freetype2" />
-				<lib name="libpcre" />
-			</lib_finder>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

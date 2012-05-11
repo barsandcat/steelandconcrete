@@ -39,6 +39,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="`pkg-config --cflags zziplib freetype2 x11 xaw7 xt`" />
 			<Add option="-DTIXML_USE_STL" />
 			<Add directory="../../../ogre_1.7.3/OgreMain/include" />
 			<Add directory="../../include" />
@@ -46,6 +47,7 @@
 			<Add directory="../../../ogre_1.7.3/Tools/XMLConverter/include" />
 		</Compiler>
 		<Linker>
+			<Add option="`pkg-config --libs zziplib freetype2 x11 xaw7 xt`" />
 			<Add library="pthread" />
 			<Add library="freeimage" />
 			<Add directory="../../../../lib" />
@@ -65,13 +67,6 @@
 		<Extensions>
 			<code_completion />
 			<envvars />
-			<lib_finder>
-				<lib name="zziplib" />
-				<lib name="freetype2" />
-				<lib name="x11" />
-				<lib name="xaw7" />
-				<lib name="xt" />
-			</lib_finder>
 			<debugger />
 		</Extensions>
 	</Project>
