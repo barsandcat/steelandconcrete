@@ -28,7 +28,7 @@ build-stamp: configure-stamp
 
 	# Add here commands to compile the package.
 	# $(MAKE)
-	codeblocks --build $(CURDIR)/steelandconcrete.workspace
+	codeblocks --build --target="Release" $(CURDIR)/steelandconcrete.workspace
 	#docbook-to-man debian/testapp.sgml > testapp.1
 
 	touch $@
@@ -40,7 +40,7 @@ clean:
 
 	# Add here commands to clean up after the build process.
 	# $(MAKE) clean
-	codeblocks --clean $(CURDIR)/steelandconcrete.workspace
+	codeblocks --clean --target="Release" $(CURDIR)/steelandconcrete.workspace
 
 	dh_clean
 
