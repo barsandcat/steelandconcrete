@@ -3,14 +3,14 @@
 #include <ServerGame.h>
 #include <tclap/CmdLine.h>
 
-#include <scm_revision.h>
+#include <ReleaseVersion.h>
 #include <ProtocolVersion.h>
 
 void RunServer(int argc, char **argv)
 {
 	// Define the command line object.
 	Ogre::String version = Ogre::StringConverter::toString(ProtocolVersion) +
-		"." + SCM_REVISION;
+		"." + Ogre::StringConverter::toString(ReleaseVersion);
 	TCLAP::CmdLine cmd("Steelandconcrete server", ' ', version.c_str());
 
 	TCLAP::ValueArg<Ogre::String> address("a", "address", "Server address", false, "localhost", "string");

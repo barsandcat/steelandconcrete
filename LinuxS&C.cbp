@@ -96,7 +96,6 @@
 			<Add directory="lib" />
 		</Linker>
 		<ExtraCommands>
-			<Add before="python get_revision.py" />
 			<Add before="make -C src/proto -f Makefile.proto" />
 			<Add after="make -w -C bin/lang -f Makefile.lang" />
 			<Mode after="always" />
