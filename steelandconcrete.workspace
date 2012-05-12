@@ -36,7 +36,6 @@
 			<Depends filename="boost/build/libs/filesystem/src/boost_filesystem-mt-static-staticrt.cbp" />
 			<Depends filename="Server.cbp" />
 			<Depends filename="src/UnitTests/UnitTests.cbp" />
-			<Depends filename="ogre/build/OgreMain/OgreMain.cbp" />
 			<Depends filename="ogre/build/RenderSystems/GL/RenderSystem_GL.cbp" />
 			<Depends filename="ogre/build/PlugIns/OctreeSceneManager/Plugin_OctreeSceneManager.cbp" />
 			<Depends filename="CEGUI-0.7.5/projects/premake/BaseSystem/CEGUIBase.cbp" />
@@ -44,6 +43,7 @@
 			<Depends filename="CEGUI-0.7.5/projects/premake/RendererModules/Ogre/CEGUIOgreRenderer.cbp" />
 			<Depends filename="CEGUI-0.7.5/projects/premake/WindowRendererSets/Falagard/CEGUIFalagardWRBase.cbp" />
 			<Depends filename="CEGUI-0.7.5/projects/premake/XMLParserModules/TinyXMLParser/CEGUITinyXMLParser.cbp" />
+			<Depends filename="ogre/build/OgreMain/OgreMain.cbp" />
 		</Project>
 		<Project filename="DummyClient.cbp">
 			<Depends filename="ois-v1-3/LinuxCB/OIS.cbp" />
@@ -64,20 +64,20 @@
 			<Depends filename="boost/build/libs/thread/src/boost_thread-mt-static-staticrt.cbp" />
 			<Depends filename="ogre/build/OgreMain/OgreMain.cbp" />
 		</Project>
-		<Project filename="src/MaterialEditor/build/MaterialEditor.cbp" active="1">
+		<Project filename="src/MaterialEditor/build/MaterialEditor.cbp">
 			<Depends filename="boost/build/libs/system/src/boost_system-mt-static-staticrt.cbp" />
 			<Depends filename="boost/build/libs/signals/src/boost_signals-mt-static-staticrt.cbp" />
 			<Depends filename="wxpropgrid/build/propgrid_propgrid_vc9.cbp" />
 			<Depends filename="wxogre-svn312/wxogre.cbp" />
-			<Depends filename="ogre/build/OgreMain/OgreMain.cbp" />
 			<Depends filename="ogre/build/RenderSystems/GL/RenderSystem_GL.cbp" />
 			<Depends filename="wxscintilla/wxscintilla_1.69.2/build/wxscintilla.cbp" />
+			<Depends filename="ogre/build/OgreMain/OgreMain.cbp" />
 		</Project>
 		<Project filename="wxpropgrid/build/propgrid_propgrid_vc9.cbp" />
 		<Project filename="wxscintilla/wxscintilla_1.69.2/build/wxscintilla.cbp" />
-		<Project filename="wxogre-svn312/wxogre.cbp">
-			<Depends filename="ogre/build/OgreMain/OgreMain.cbp" />
+		<Project filename="wxogre-svn312/wxogre.cbp" active="1">
 			<Depends filename="ogre/build/RenderSystems/GL/RenderSystem_GL.cbp" />
+			<Depends filename="ogre/build/OgreMain/OgreMain.cbp" />
 		</Project>
 		<Project filename="ogre/build/OgreMain/OgreMain.cbp" />
 		<Project filename="ogre/build/RenderSystems/GL/RenderSystem_GL.cbp" />
