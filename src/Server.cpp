@@ -29,8 +29,16 @@ void RunServer(int argc, char **argv)
 		false, 5000, "int");
 	cmd.add(seaLevel);
 
+	TCLAP::SwitchArg shortVersion("v","short_version","Short version to use in build scripts", cmd, false);
+
 	// Parse the args.
 	cmd.parse( argc, argv );
+
+	if (shortVersion.getValue())
+    {
+        std::cout << version;
+        return;
+    }
 
 	ServerGame app(size.getValue());
 	app.MainLoop(address.getValue(), port.getValue());
