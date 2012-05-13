@@ -32,7 +32,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="python.exe get_revision.py"
+				CommandLine=""
 			/>
 			<Tool
 				Name="proto"
@@ -135,7 +135,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="python.exe get_revision.py"
+				CommandLine=""
 			/>
 			<Tool
 				Name="proto"
@@ -540,10 +540,6 @@
 			Filter="po"
 			>
 			<File
-				RelativePath=".\bin\lang\uk\LC_MESSAGES\steelandconcrete.po"
-				>
-			</File>
-			<File
 				RelativePath=".\bin\lang\en\LC_MESSAGES\steelandconcrete.po"
 				>
 			</File>
@@ -553,6 +549,10 @@
 			</File>
 			<File
 				RelativePath=".\bin\lang\ru\LC_MESSAGES\steelandconcrete.po"
+				>
+			</File>
+			<File
+				RelativePath=".\bin\lang\uk\LC_MESSAGES\steelandconcrete.po"
 				>
 			</File>
 		</Filter>
