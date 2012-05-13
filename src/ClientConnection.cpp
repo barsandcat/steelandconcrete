@@ -24,9 +24,9 @@ void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
         GetLog() << "Request " << req.ShortDebugString();
 
         PayloadMsg res;
-        res.set_protocolversion(ProtocolVersion);
+        res.set_protocolversion(PROTOCOL_VERSION);
 
-        if (req.protocolversion() != ProtocolVersion)
+        if (req.protocolversion() != PROTOCOL_VERSION)
         {
             res.set_reason("Wrong protocol version");
             network.WriteMessage(res);
