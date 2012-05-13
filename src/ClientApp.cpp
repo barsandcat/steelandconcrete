@@ -408,7 +408,7 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
         tcp::resolver resolver(mIOService);
         tcp::resolver::query query(address.c_str(), port.c_str(), boost::asio::ip::resolver_query_base::numeric_service);
         tcp::resolver::iterator iterator = resolver.resolve(query);
-        
+
         SocketSharedPtr sock(new tcp::socket(mIOService));
         sock->connect(*iterator);
 
@@ -416,7 +416,7 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
         GetLog() << "Connected";
 
         PayloadMsg req;
-        req.set_protocolversion(ProtocolVersion);
+        req.set_protocolversion(PROTOCOL_VERSION);
         net->WriteMessage(req);
 
         PayloadMsg res;

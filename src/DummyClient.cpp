@@ -23,7 +23,7 @@ int main()
         Network* net = new Network(sock);
         GetLog() << "Connected";
         PayloadMsg req;
-        req.set_protocolversion(ProtocolVersion);
+        req.set_protocolversion(PROTOCOL_VERSION);
         net->WriteMessage(req);
 
         PayloadMsg res;

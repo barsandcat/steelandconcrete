@@ -9,8 +9,8 @@
 void RunServer(int argc, char **argv)
 {
 	// Define the command line object.
-	Ogre::String version = Ogre::StringConverter::toString(ProtocolVersion) +
-		"." + Ogre::StringConverter::toString(ReleaseVersion);
+	Ogre::String version = Ogre::StringConverter::toString(PROTOCOL_VERSION) +
+		"." + Ogre::StringConverter::toString(RELEASE_VERSION);
 	TCLAP::CmdLine cmd("Steelandconcrete server", ' ', version.c_str());
 
 	TCLAP::ValueArg<Ogre::String> address("a", "address", "Server address", false, "localhost", "string");
