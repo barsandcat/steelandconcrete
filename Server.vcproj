@@ -28,8 +28,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Get revision"
-				CommandLine="python.exe get_revision.py"
+				Description=""
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -118,8 +118,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Get revision"
-				CommandLine="python.exe get_revision.py"
+				Description=""
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
