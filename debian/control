@@ -1,7 +1,7 @@
 Source: steelandconcrete
 Section: x11
 Priority: extra
-Maintainer: Цахилов Дмитрий Михайлович (barsandcat) <barsandcat@gmail.com>
+Maintainer: Цахілов Дмитро Михайлович (barsandcat) <barsandcat@gmail.com>
 Build-Depends: debhelper (>= 7), codeblocks, libfreetype6-dev, libfreeimage-dev, libzzip-dev, libvorbis-dev, libwxgtk2.8-dev
 Standards-Version: 3.8.0
 Homepage: http://code.google.com/p/steelandconcrete/
