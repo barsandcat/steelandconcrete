@@ -28,7 +28,6 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description=""
 				CommandLine=""
 			/>
 			<Tool
@@ -37,7 +36,7 @@
 			/>
 			<Tool
 				Name="proto"
-				protocompiler="$(SolutionDir)bin\protoc.exe"
+				protocompiler="$(SolutionDir)bin\protoc$(ConfigurationName).exe"
 				protodir="src\proto"
 				outdir="src\proto"
 			/>
@@ -54,8 +53,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;gettext-0.13.1\gettext-runtime\intl&quot;;boost\boost_1_46_1;&quot;tclap-1.2.1\include&quot;;&quot;protobuf-2.4.1\src&quot;;ogre\build\include;ogre\ogre_1.7.3\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;QuickGUI_10_1\QuickGUI\include;&quot;ois-v1-3\includes&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;_QuickGUIExport="
+				AdditionalIncludeDirectories="&quot;gflags\gflags-2.0\src\windows&quot;;&quot;gettext-0.13.1\gettext-runtime\intl&quot;;boost\boost_1_46_1;&quot;tclap-1.2.1\include&quot;;&quot;protobuf-2.4.1\src&quot;;ogre\build\include;ogre\ogre_1.7.3\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;QuickGUI_10_1\QuickGUI\include;&quot;ois-v1-3\includes&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_WINDOWS;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;_QuickGUIExport=;GFLAGS_DLL_DECL=;GFLAGS_DLL_DECLARE_FLAG=;GFLAGS_DLL_DEFINE_FLAG="
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -78,9 +77,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="wsock32.lib"
+				ShowProgress="0"
 				OutputFile="$(OutDir)\steelandconcrete_d_server.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;C:\Program Files (x86)\boost\boost_1_42\lib&quot;;lib"
+				AdditionalLibraryDirectories="lib"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -118,7 +118,6 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description=""
 				CommandLine=""
 			/>
 			<Tool
@@ -127,7 +126,7 @@
 			/>
 			<Tool
 				Name="proto"
-				protocompiler="$(SolutionDir)bin\protoc.exe"
+				protocompiler="$(SolutionDir)bin\protoc$(ConfigurationName).exe"
 				protodir="src\proto"
 				outdir="src\proto"
 			/>
@@ -145,8 +144,8 @@
 				AdditionalOptions="/Zm200"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;gettext-0.13.1\gettext-runtime\intl&quot;;boost\boost_1_46_1;&quot;tclap-1.2.1\include&quot;;&quot;protobuf-2.4.1\src&quot;;ogre\build\include;ogre\ogre_1.7.3\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;QuickGUI_10_1\QuickGUI\include;&quot;ois-v1-3\includes&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;_QuickGUIExport="
+				AdditionalIncludeDirectories="&quot;gflags\gflags-2.0\src\windows&quot;;&quot;gettext-0.13.1\gettext-runtime\intl&quot;;boost\boost_1_46_1;&quot;tclap-1.2.1\include&quot;;&quot;protobuf-2.4.1\src&quot;;ogre\build\include;ogre\ogre_1.7.3\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;QuickGUI_10_1\QuickGUI\include;&quot;ois-v1-3\includes&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_WINDOWS;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;_QuickGUIExport=;GFLAGS_DLL_DECL=;GFLAGS_DLL_DECLARE_FLAG=;GFLAGS_DLL_DEFINE_FLAG="
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
