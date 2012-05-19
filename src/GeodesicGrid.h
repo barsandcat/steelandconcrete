@@ -28,12 +28,12 @@ GeodesicGrid<T>::GeodesicGrid(Tiles& aTiles, int aSize)
     // 4  10000
     // 5  40000
     // 6 160000
-    const Ogre::Real tileArea = 2.598076211 * 70; // results in approximate radius of a tile 10.3
+    const Ogre::Real tileArea = 2.598076211f * 70; // results in approximate radius of a tile 10.3
     int tileCount = (int)(5.0f * pow(2.0f, 2 * aSize + 3)) + 2;
     const Ogre::Real sphereArea = tileArea * tileCount;
     const Ogre::Real sphereRadius = sqrt(sphereArea / (4 * Ogre::Math::PI));
 
-    const Ogre::Real phi = 1.618033989;
+    const Ogre::Real phi = 1.618033989f;
 
     int edgeCount = tileCount * 3;
 

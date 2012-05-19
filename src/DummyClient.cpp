@@ -30,7 +30,7 @@ int main()
         net->ReadMessage(res);
         if(res.has_avatar() && res.has_size())
         {
-            int mTime = 0;
+            int64 mTime = 0;
 
             int32 updateLength = 1000;
             while(true)
