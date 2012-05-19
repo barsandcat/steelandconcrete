@@ -27,7 +27,6 @@
 			OutputDirectory="bin"
 			IntermediateDirectory="obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)\VCProjectDefaults\UpgradeFromVC70.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
@@ -36,7 +35,7 @@
 			/>
 			<Tool
 				Name="proto"
-				protocompiler="$(SolutionDir)bin\protoc.exe"
+				protocompiler="$(SolutionDir)bin\protoc$(ConfigurationName).exe"
 				protodir="src\proto"
 				outdir="src\proto"
 			/>
@@ -87,7 +86,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="OpenAL32.lib wsock32.lib OPENGL32.lib GLU32.lib winmm.lib"
-				ShowProgress="2"
 				OutputFile="$(OutDir)/steelandconcrete_d.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;C:\Program Files\OpenAL 1.1 SDK\libs\Win32&quot;;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32&quot;;lib"
@@ -129,7 +127,6 @@
 			OutputDirectory="bin"
 			IntermediateDirectory="obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)\VCProjectDefaults\UpgradeFromVC70.vsprops"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
@@ -139,7 +136,7 @@
 			/>
 			<Tool
 				Name="proto"
-				protocompiler="$(SolutionDir)bin\protoc.exe"
+				protocompiler="$(SolutionDir)bin\protoc$(ConfigurationName).exe"
 				protodir="src\proto"
 				outdir="src\proto"
 			/>
@@ -540,19 +537,19 @@
 			Filter="po"
 			>
 			<File
-				RelativePath=".\bin\lang\en\LC_MESSAGES\steelandconcrete.po"
-				>
-			</File>
-			<File
-				RelativePath=".\bin\lang\ja\LC_MESSAGES\steelandconcrete.po"
-				>
-			</File>
-			<File
 				RelativePath=".\bin\lang\ru\LC_MESSAGES\steelandconcrete.po"
 				>
 			</File>
 			<File
 				RelativePath=".\bin\lang\uk\LC_MESSAGES\steelandconcrete.po"
+				>
+			</File>
+			<File
+				RelativePath=".\bin\lang\en\LC_MESSAGES\steelandconcrete.po"
+				>
+			</File>
+			<File
+				RelativePath=".\bin\lang\ja\LC_MESSAGES\steelandconcrete.po"
 				>
 			</File>
 		</Filter>

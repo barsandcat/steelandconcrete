@@ -2,12 +2,17 @@
 
 #include <ServerGame.h>
 #include <tclap/CmdLine.h>
+#include <gflags/gflags.h>
 
 #include <ReleaseVersion.h>
 #include <ProtocolVersion.h>
 
+DEFINE_bool(short_version, false, "Short version to use in build scripts");
+
 void RunServer(int argc, char **argv)
 {
+	google::ParseCommandLineFlags(&argc, &argv, true);
+
 	// Define the command line object.
 	Ogre::String version = Ogre::StringConverter::toString(PROTOCOL_VERSION) +
 		"." + Ogre::StringConverter::toString(RELEASE_VERSION);
@@ -29,12 +34,12 @@ void RunServer(int argc, char **argv)
 		false, 5000, "int");
 	cmd.add(seaLevel);
 
-	TCLAP::SwitchArg shortVersion("v","short_version","Short version to use in build scripts", cmd, false);
+	//TCLAP::SwitchArg shortVersion("v","short_version","Short version to use in build scripts", cmd, false);
 
 	// Parse the args.
 	cmd.parse( argc, argv );
 
-	if (shortVersion.getValue())
+	if (FLAGS_short_version)
     {
         std::cout << version;
         return;
