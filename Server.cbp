@@ -55,11 +55,13 @@
 			<Add directory="ois-v1-3/includes" />
 			<Add directory="tclap-1.2.1/include" />
 			<Add directory="boost/boost_1_46_1" />
+			<Add directory="gflags/gflags-2.0/src" />
 		</Compiler>
 		<Linker>
 			<Add library="pthread" />
 			<Add library="boost_thread$(TARGET_NAME)" />
 			<Add library="boost_system$(TARGET_NAME)" />
+			<Add library="gflags$(TARGET_NAME)" />
 			<Add directory="lib" />
 		</Linker>
 		<ExtraCommands>
