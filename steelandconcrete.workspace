@@ -15,7 +15,7 @@
 		<Project filename="boost/build/libs/thread/src/boost_thread-mt-static-staticrt.cbp" />
 		<Project filename="boost/build/libs/filesystem/src/boost_filesystem-mt-static-staticrt.cbp" />
 		<Project filename="boost/build/libs/signals/src/boost_signals-mt-static-staticrt.cbp" />
-		<Project filename="Server.cbp">
+		<Project filename="Server.cbp" active="1">
 			<Depends filename="ois-v1-3/LinuxCB/OIS.cbp" />
 			<Depends filename="protobuf-2.4.1/vsprojects/libprotobuf.cbp" />
 			<Depends filename="protobuf-2.4.1/vsprojects/libprotoc.cbp" />
@@ -24,6 +24,7 @@
 			<Depends filename="boost/build/libs/thread/src/boost_thread-mt-static-staticrt.cbp" />
 			<Depends filename="src/UnitTests/UnitTests.cbp" />
 			<Depends filename="ogre/build/OgreMain/OgreMain.cbp" />
+			<Depends filename="gflags/gflags-2.0/vsprojects/libgflags/libgflags.cbp" />
 		</Project>
 		<Project filename="LinuxS&amp;C.cbp">
 			<Depends filename="ois-v1-3/LinuxCB/OIS.cbp" />
@@ -75,7 +76,7 @@
 		</Project>
 		<Project filename="wxpropgrid/build/propgrid_propgrid_vc9.cbp" />
 		<Project filename="wxscintilla/wxscintilla_1.69.2/build/wxscintilla.cbp" />
-		<Project filename="wxogre-svn312/wxogre.cbp" active="1">
+		<Project filename="wxogre-svn312/wxogre.cbp">
 			<Depends filename="ogre/build/RenderSystems/GL/RenderSystem_GL.cbp" />
 			<Depends filename="ogre/build/OgreMain/OgreMain.cbp" />
 		</Project>
@@ -88,5 +89,6 @@
 		<Project filename="CEGUI-0.7.5/projects/premake/RendererModules/Ogre/CEGUIOgreRenderer.cbp" />
 		<Project filename="CEGUI-0.7.5/projects/premake/WindowRendererSets/Falagard/CEGUIFalagardWRBase.cbp" />
 		<Project filename="CEGUI-0.7.5/projects/premake/XMLParserModules/TinyXMLParser/CEGUITinyXMLParser.cbp" />
+		<Project filename="gflags/gflags-2.0/vsprojects/libgflags/libgflags.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>
