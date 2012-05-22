@@ -65,7 +65,6 @@
 				Name="VCLinkerTool"
 				LinkLibraryDependencies="true"
 				AdditionalDependencies="winmm.lib comctl32.lib rpcrt4.lib wsock32.lib oleacc.lib OPENGL32.lib GLU32.lib"
-				ShowProgress="2"
 				OutputFile="$(OutDir)\$(ProjectName)_d.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories=""
