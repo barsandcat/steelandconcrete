@@ -86,9 +86,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="OpenAL32.lib wsock32.lib OPENGL32.lib GLU32.lib winmm.lib"
-				ShowProgress="2"
 				OutputFile="$(OutDir)/steelandconcrete_d.exe"
 				AdditionalLibraryDirectories="&quot;C:\Program Files\OpenAL 1.1 SDK\libs\Win32&quot;;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32&quot;;lib"
+				IgnoreDefaultLibraryNames="libcmt"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/steelandconcrete.pdb"
 				SubSystem="2"
