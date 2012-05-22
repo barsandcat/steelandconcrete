@@ -2,7 +2,6 @@
 #define TYPEDEFS_H_INCLUDED
 
 #include <google/protobuf/stubs/common.h>
-#include <vector>
 #include <boost/asio.hpp>
 #include <libintl.h>
 #define _(String) gettext (String)
