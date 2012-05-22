@@ -59,7 +59,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\gflags$(ConfigurationName).lib"
+				OutputFile="$(OutDir)\glog$(ConfigurationName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -122,7 +122,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\gflags$(ConfigurationName).lib"
+				OutputFile="$(OutDir)\glog$(ConfigurationName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
