@@ -49,8 +49,8 @@ ServerGame::ServerGame(int aSize):mSize(aSize),
 {
     // Create map
     ServerGeodesicGrid grid(mTiles, aSize);
-    GetLog() << "Size " << aSize << " Tile count " << mTiles.size();
-    GetLog() << "Tile radius " << grid.GetTileRadius();
+    LOG(INFO) << "Size " << aSize << " Tile count " << mTiles.size();
+    LOG(INFO) << "Tile radius " << grid.GetTileRadius();
 
     // Generate height
     SpreadHeight(*mTiles.at(2), 10000);
