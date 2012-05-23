@@ -1,7 +1,6 @@
 #include <pch.h>
 #include <ConnectionManager.h>
 
-#include <ServerLog.h>
 #include <ServerGame.h>
 #include <ClientConnection.h>
 

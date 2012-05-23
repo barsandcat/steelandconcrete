@@ -57,6 +57,7 @@
 		<Unit filename="../../src/linux/glogconfig.h" />
 		<Unit filename="../../src/logging.cc" />
 		<Unit filename="../../src/raw_logging.cc" />
+		<Unit filename="../../src/signalhandler.cc" />
 		<Unit filename="../../src/symbolize.cc" />
 		<Unit filename="../../src/utilities.cc" />
 		<Unit filename="../../src/utilities.h" />

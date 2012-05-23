@@ -4,7 +4,6 @@
 #include <ServerGame.h>
 #include <ServerUnit.h>
 #include <ServerTile.h>
-#include <ServerLog.h>
 #include <Network.h>
 #include <ChangeList.h>
 #include <boost/thread.hpp>
@@ -21,7 +20,7 @@ void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
     {
         PayloadMsg req;
         network.ReadMessage(req);
-        GetLog() << "Request " << req.ShortDebugString();
+        LOG(INFO) << "Request " << req.ShortDebugString();
 
         PayloadMsg res;
         res.set_protocolversion(PROTOCOL_VERSION);
@@ -45,7 +44,7 @@ void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
         res.set_avatar(avatar->GetUnitId());
         res.set_size(aGame.GetSize());
         network.WriteMessage(res);
-        GetLog() << "Response " << res.ShortDebugString();
+        LOG(INFO) << "Response " << res.ShortDebugString();
 
         ClientFOV fov(network, aGame, avatar->GetUnitId());
 
@@ -71,6 +70,6 @@ void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
     }
     catch (...)
     {
-        GetLog() << "ClientConnection exception: " << boost::current_exception_diagnostic_information();
+        LOG(INFO) << "ClientConnection exception: " << boost::current_exception_diagnostic_information();
     }
 }

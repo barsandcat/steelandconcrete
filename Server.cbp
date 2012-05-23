@@ -106,8 +106,6 @@
 		<Unit filename="src/ServerGame.cpp" />
 		<Unit filename="src/ServerGame.h" />
 		<Unit filename="src/ServerGeodesicGrid.h" />
-		<Unit filename="src/ServerLog.cpp" />
-		<Unit filename="src/ServerLog.h" />
 		<Unit filename="src/ServerTile.cpp" />
 		<Unit filename="src/ServerTile.h" />
 		<Unit filename="src/ServerUnit.cpp" />
