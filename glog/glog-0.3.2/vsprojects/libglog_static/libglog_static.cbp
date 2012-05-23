@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="libglog_static 0.3.2" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="$(WorkspaceDir)lib/glogDebug" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="$(WorkspaceDir)obj/libglog_staticDebugLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-w" />
+					<Add option="-g" />
+					<Add option="-O0" />
+					<Add option="-DGOOGLE_GLOG_DLL_DECL=" />
+					<Add option="-DGFLAGS_DLL_DECL=" />
+					<Add option="-DGFLAGS_DLL_DECLARE_FLAG=" />
+					<Add option="-DGFLAGS_DLL_DEFINE_FLAG=" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="$(WorkspaceDir)lib/glogRelease" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="$(WorkspaceDir)obj/libglog_staticReleaseLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-DGOOGLE_GLOG_DLL_DECL=" />
+					<Add option="-DGFLAGS_DLL_DECL=" />
+					<Add option="-DGFLAGS_DLL_DECLARE_FLAG=" />
+					<Add option="-DGFLAGS_DLL_DEFINE_FLAG=" />
+					<Add option="-w" />
+					<Add option="-O2" />
+				</Compiler>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add directory="$(WorkspaceDir)/gflags/gflags-2.0/src/linux" />
+			<Add directory="$(WorkspaceDir)/gflags/gflags-2.0/src" />
+			<Add directory="../../src/linux" />
+			<Add directory="../../src" />
+		</Compiler>
+		<Unit filename="../../src/base/commandlineflags.h" />
+		<Unit filename="../../src/base/googleinit.h" />
+		<Unit filename="../../src/base/mutex.h" />
+		<Unit filename="../../src/glog/log_severity.h" />
+		<Unit filename="../../src/glog/logging.h" />
+		<Unit filename="../../src/glog/raw_logging.h" />
+		<Unit filename="../../src/glog/stl_logging.h" />
+		<Unit filename="../../src/glog/vlog_is_on.h" />
+		<Unit filename="../../src/linux/glogconfig.h" />
+		<Unit filename="../../src/logging.cc" />
+		<Unit filename="../../src/raw_logging.cc" />
+		<Unit filename="../../src/utilities.cc" />
+		<Unit filename="../../src/utilities.h" />
+		<Unit filename="../../src/vlog_is_on.cc" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

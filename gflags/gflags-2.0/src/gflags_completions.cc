@@ -47,7 +47,7 @@
 //     5b) Trim most flag's descriptions to fit on a single terminal line
 
 
-#include <config.h>
+#include <gflagsconfig.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>   // for strlen

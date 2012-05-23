@@ -52,3 +52,4 @@ glob:*.mesh.xml
 glob:bin/res/gui/layouts/messages.h
 glob:*.skeleton.xml
 glob:*.aps
+glob:*.deps

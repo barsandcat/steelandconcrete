@@ -48,7 +48,7 @@
 // called after all flag-values have been assigned, that is, after
 // parsing the command-line.
 
-#include <config.h>
+#include <gflagsconfig.h>
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
