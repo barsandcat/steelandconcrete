@@ -12,6 +12,9 @@
     #ifndef _WIN32_WINNT
         #define _WIN32_WINNT 0x0500
     #endif
+    #ifndef _WIN32_WINDOWS
+        #define _WIN32_WINDOWS 0x0500
+    #endif
 #endif
 
 #include <OIS.h>
@@ -26,6 +29,7 @@
 #include <OgreFontManager.h>
 #include <google/protobuf/stubs/common.h>
 
+#include <gflags/gflags.h>
 #include <glog/logging.h>
 
 #include <Typedefs.h>
