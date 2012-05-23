@@ -17,7 +17,6 @@
 					<Add option="-pg" />
 					<Add option="-g" />
 					<Add option="-O0" />
-					<Add option="-DNDEBUG" />
 				</Compiler>
 				<Linker>
 					<Add option="-pg" />
@@ -32,6 +31,7 @@
 				<Option createDefFile="1" />
 				<Compiler>
 					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
