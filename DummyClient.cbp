@@ -51,11 +51,17 @@
 			<Add directory="protobuf-2.4.1/src" />
 			<Add directory="src/proto" />
 			<Add directory="boost/boost_1_46_1" />
+			<Add directory="gflags/gflags-2.0/src" />
+			<Add directory="gflags/gflags-2.0/src/linux" />
+			<Add directory="glog/glog-0.3.2/src" />
+			<Add directory="glog/glog-0.3.2/src/linux" />
 		</Compiler>
 		<Linker>
 			<Add library="pthread" />
 			<Add library="boost_thread$(TARGET_NAME)" />
 			<Add library="boost_system$(TARGET_NAME)" />
+			<Add library="gflags$(TARGET_NAME)" />
+			<Add library="glog$(TARGET_NAME)" />
 			<Add directory="lib" />
 		</Linker>
 		<Unit filename="src/DummyClient.cpp" />
