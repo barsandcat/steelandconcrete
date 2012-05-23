@@ -176,7 +176,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\windows\config.h"
+				RelativePath="..\..\src\windows\glogport.h"
 				>
 			</File>
 			<File
@@ -193,10 +193,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\base\mutex.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\windows\port.h"
 				>
 			</File>
 			<File
