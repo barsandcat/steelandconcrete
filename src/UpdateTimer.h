@@ -3,7 +3,6 @@
 
 #include <Typedefs.h>
 #include <Platform.h>
-#include <ServerLog.h>
 #include <boost/thread.hpp>
 
 class UpdateTimer

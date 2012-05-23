@@ -13,6 +13,7 @@ DEFINE_int32(size, 4, "Map size: 1 - 162, 2 - 642, 3 - 2562, 4 - 10242, 5 - 4096
 
 void RunServer(int argc, char **argv)
 {
+    google::InstallFailureSignalHandler();
     google::InitGoogleLogging(argv[0]);
 	google::ParseCommandLineFlags(&argc, &argv, true);
 

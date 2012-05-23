@@ -2,7 +2,6 @@
 #include <ServerGame.h>
 
 #include <Network.h>
-#include <ServerLog.h>
 #include <ConnectionManager.h>
 #include <ChangeList.h>
 #include <VisualCodes.h>
@@ -88,24 +87,24 @@ ServerGame::~ServerGame()
 
 void ServerGame::MainLoop(Ogre::String aAddress, int32 aPort)
 {
-    GetLog() << "Connecting to " << aAddress << ":" << aPort;
+    LOG(INFO) << "Connecting to " << aAddress << ":" << aPort;
 
     boost::thread connectionManager(ConnectionManager, boost::ref(*this), aAddress, aPort);
 
     while (true)
     {
-        GetLog() << "Whait...";
+        LOG(INFO) << "Whait...";
         mTimer.Wait();
         UpdateGame();
     }
-    GetLog() << "Game over";
+    LOG(INFO) << "Game over";
 }
 
 void ServerGame::UpdateGame()
 {
     boost::lock_guard<boost::shared_mutex> cs(mGameMutex);
 
-    GetLog() << "Update Game!";
+    LOG(INFO) << "Update Game!";
 
     MindList::UpdateMinds(mTimeStep);
 
@@ -124,7 +123,7 @@ void ServerGame::UpdateGame()
         (*i)->GetChangeList()->Commit();
     }
 
-    GetLog() << "Time: " << mTime;
+    LOG(INFO) << "Time: " << mTime;
 }
 
 
