@@ -56,6 +56,10 @@
 			<Add directory="../../SAL" />
 			<Add directory="../../QuickGUI_10_1/QuickGUI/include" />
 			<Add directory="../../boost/boost_1_46_1" />
+			<Add directory="../../gflags/gflags-2.0/src/linux" />
+			<Add directory="../../gflags/gflags-2.0/src" />
+			<Add directory="../../glog/glog-0.3.2/src/linux" />
+			<Add directory="../../glog/glog-0.3.2/src" />
 		</Compiler>
 		<Linker>
 			<Add library="freeimage" />
@@ -112,22 +116,6 @@
 		<Unit filename="../UnitList.h" />
 		<Unit filename="../UnitListIterator.cpp" />
 		<Unit filename="../UnitListIterator.h" />
-		<Unit filename="GeodesicGridTest.cpp" />
-		<Unit filename="GeodesicGridTest.h" />
-		<Unit filename="MindListTest.cpp" />
-		<Unit filename="MindListTest.h" />
-		<Unit filename="MindTest.cpp" />
-		<Unit filename="MindTest.h" />
-		<Unit filename="NetworkTest.cpp" />
-		<Unit filename="NetworkTest.h" />
-		<Unit filename="ServerUnitTest.cpp" />
-		<Unit filename="ServerUnitTest.h" />
-		<Unit filename="UnitListTest.cpp" />
-		<Unit filename="UnitListTest.h" />
-		<Unit filename="UpdateTimerTest.cpp" />
-		<Unit filename="UpdateTimerTest.h" />
-		<Unit filename="VisualCodesTest.cpp" />
-		<Unit filename="VisualCodesTest.h" />
 		<Unit filename="../UpdateTimer.h" />
 		<Unit filename="../VisualCodes.cpp" />
 		<Unit filename="../VisualCodes.h" />
@@ -152,6 +140,22 @@
 		<Unit filename="../proto/Payload.pb.h" />
 		<Unit filename="../proto/Payload.proto" />
 		<Unit filename="../proto/ProtocolVersion.h" />
+		<Unit filename="GeodesicGridTest.cpp" />
+		<Unit filename="GeodesicGridTest.h" />
+		<Unit filename="MindListTest.cpp" />
+		<Unit filename="MindListTest.h" />
+		<Unit filename="MindTest.cpp" />
+		<Unit filename="MindTest.h" />
+		<Unit filename="NetworkTest.cpp" />
+		<Unit filename="NetworkTest.h" />
+		<Unit filename="ServerUnitTest.cpp" />
+		<Unit filename="ServerUnitTest.h" />
+		<Unit filename="UnitListTest.cpp" />
+		<Unit filename="UnitListTest.h" />
+		<Unit filename="UpdateTimerTest.cpp" />
+		<Unit filename="UpdateTimerTest.h" />
+		<Unit filename="VisualCodesTest.cpp" />
+		<Unit filename="VisualCodesTest.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

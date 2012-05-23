@@ -78,7 +78,7 @@
 # include "port.h"
 #endif
 
-#include "config.h"
+#include "glogconfig.h"
 #include "glog/logging.h"
 
 // There are three different ways we can try to get the stack trace:

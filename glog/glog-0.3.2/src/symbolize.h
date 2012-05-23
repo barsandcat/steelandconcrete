@@ -55,7 +55,7 @@
 #define BASE_SYMBOLIZE_H_
 
 #include "utilities.h"
-#include "config.h"
+#include "glogconfig.h"
 #include "glog/logging.h"
 
 #ifdef HAVE_SYMBOLIZE

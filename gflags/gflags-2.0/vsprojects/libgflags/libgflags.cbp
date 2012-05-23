@@ -41,14 +41,15 @@
 		<Compiler>
 			<Add option="-w" />
 			<Add directory="../../src" />
+			<Add directory="../../src/linux" />
 		</Compiler>
-		<Unit filename="../../src/config.h" />
 		<Unit filename="../../src/gflags.cc" />
 		<Unit filename="../../src/gflags/gflags.h" />
 		<Unit filename="../../src/gflags/gflags_completions.h" />
 		<Unit filename="../../src/gflags/gflags_declare.h" />
 		<Unit filename="../../src/gflags_completions.cc" />
 		<Unit filename="../../src/gflags_reporting.cc" />
+		<Unit filename="../../src/linux/gflagsconfig.h" />
 		<Unit filename="../../src/mutex.h" />
 		<Extensions>
 			<code_completion />
