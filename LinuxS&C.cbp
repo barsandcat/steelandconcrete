@@ -85,6 +85,10 @@
 			<Add directory="SAL" />
 			<Add directory="boost/boost_1_46_1" />
 			<Add directory="CEGUI-0.7.5/cegui/include" />
+			<Add directory="gflags/gflags-2.0/src" />
+			<Add directory="gflags/gflags-2.0/src/linux" />
+			<Add directory="glog/glog-0.3.2/src" />
+			<Add directory="glog/glog-0.3.2/src/linux" />
 		</Compiler>
 		<Linker>
 			<Add option="`pkg-config --libs zziplib freetype2 openal ogg vorbis vorbisfile xaw7 xrandr libpcre`" />
@@ -93,6 +97,8 @@
 			<Add library="GL" />
 			<Add library="GLU" />
 			<Add library="boost_system$(TARGET_NAME)" />
+			<Add library="gflags$(TARGET_NAME)" />
+			<Add library="glog$(TARGET_NAME)" />
 			<Add directory="lib" />
 		</Linker>
 		<ExtraCommands>
