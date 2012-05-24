@@ -1,11 +1,21 @@
 #ifndef PCH_H
 #define PCH_H
 
-// Отключаем варнинги для MVC++
+// Disable warnings for files icluded here
 #ifdef _MSC_VER
     #pragma warning(push, 3)
 #endif
 
+#if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 5)
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wunused-variable"
+    #pragma GCC diagnostic ignored "-Wreturn-type"
+    #pragma GCC diagnostic ignored "-Wsign-compare"
+    #pragma GCC diagnostic ignored "-Wall"
+#endif
+
+
+// Disable some of windows includes to speedup build and avoid collision with glog ERROR
 #ifdef _WIN32
     #define WIN32_LEAN_AND_MEAN
     #define NOGDI
@@ -38,6 +48,10 @@
 
 #ifdef _MSC_VER
     #pragma warning(pop)
+#endif
+
+#if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 5)
+    #pragma GCC diagnostic pop
 #endif
 
 #endif // PCH_H

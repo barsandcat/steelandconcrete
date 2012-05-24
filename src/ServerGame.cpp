@@ -5,8 +5,6 @@
 #include <ConnectionManager.h>
 #include <ChangeList.h>
 #include <VisualCodes.h>
-#include <UpdateTimer.h>
-#include <boost/thread.hpp>
 #include <UnitList.h>
 #include <UnitListIterator.h>
 #include <MindList.h>
