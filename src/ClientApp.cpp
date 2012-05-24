@@ -84,6 +84,14 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     // Ни каких вызовов других функий этого класа, что бы небыло необходимости
     // проверять поля на то что они инициализированы.
     {
+        LOG(INFO) << "Redirect Ogre log";
+        Ogre::LogManager* logManager = new Ogre::LogManager();
+        Ogre::Log* log = logManager->createLog("default.log", true, true, true);
+        logManager->setDefaultLog(log);
+        log->addListener(&mLogRedirect);
+    }
+
+    {
         mWork.reset(new boost::asio::io_service::work(mIOService));
 
         mRoot = new Ogre::Root("", "", "Ogre.log");
