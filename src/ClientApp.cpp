@@ -86,7 +86,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     {
         LOG(INFO) << "Redirect Ogre log";
         Ogre::LogManager* logManager = new Ogre::LogManager();
-        Ogre::Log* log = logManager->createLog("default.log", true, false, false);
+        Ogre::Log* log = logManager->createLog("default.log", true, false, true);
         log->addListener(&mLogRedirect);
     }
 
