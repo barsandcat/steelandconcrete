@@ -60,7 +60,7 @@
 				AdditionalOptions="/Zm200"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;gflags\gflags-2.0\src\windows&quot;;&quot;glog\glog-0.3.2\src\windows&quot;;&quot;CEGUI-0.7.5\cegui\include&quot;;&quot;gettext-0.13.1\gettext-runtime\intl&quot;;boost\boost_1_46_1;QuickGUI_10_1\QuickGUI\include;&quot;protobuf-2.4.1\src&quot;;&quot;ois-v1-3\includes&quot;;src;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre\build\include;ogre\ogre_1.7.3\OgreMain\include;ogre\ogre_1.7.3\RenderSystems\GL\src\GLSL\include;ogre\ogre_1.7.3\RenderSystems\GL\include;ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include;ogreal\ogreal_r137\include;src\proto"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MVC;OgreAL_Export=;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;_QuickGUIExport=;_CRT_SECURE_NO_WARNINGS;CEGUI_STATIC"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;OgreAL_Export=;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;_QuickGUIExport=;_CRT_SECURE_NO_WARNINGS;CEGUI_STATIC;GFLAGS_DLL_DECL=;GFLAGS_DLL_DECLARE_FLAG=;GFLAGS_DLL_DEFINE_FLAG=;GOOGLE_GLOG_DLL_DECL="
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -72,7 +72,6 @@
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
-				DisableSpecificWarnings="4800;4244;4996"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -164,7 +163,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				AdditionalIncludeDirectories="&quot;gflags\gflags-2.0\src\windows&quot;;&quot;glog\glog-0.3.2\src\windows&quot;;&quot;CEGUI-0.7.5\cegui\include&quot;;&quot;gettext-0.13.1\gettext-runtime\intl&quot;;boost\boost_1_46_1;QuickGUI_10_1\QuickGUI\include;&quot;protobuf-2.4.1\src&quot;;&quot;ois-v1-3\includes&quot;;src;ogreal\vorbis\include;ogreal\ogg\include;&quot;C:\Program Files (x86)\OpenAL 1.1 SDK\include&quot;;&quot;C:\Program Files\OpenAL 1.1 SDK\include&quot;;ogre\build\include;ogre\ogre_1.7.3\OgreMain\include;ogre\ogre_1.7.3\RenderSystems\GL\src\GLSL\include;ogre\ogre_1.7.3\RenderSystems\GL\include;ogre\ogre_1.7.3\PlugIns\OctreeSceneManager\include;ogreal\ogreal_r137\include;src\proto"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;MVC;OgreAL_Export=;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;_QuickGUIExport=;_CRT_SECURE_NO_WARNINGS;CEGUI_STATIC"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;OgreAL_Export=;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;_QuickGUIExport=;_CRT_SECURE_NO_WARNINGS;CEGUI_STATIC;GFLAGS_DLL_DECL=;GFLAGS_DLL_DECLARE_FLAG=;GFLAGS_DLL_DEFINE_FLAG=;GOOGLE_GLOG_DLL_DECL="
 				StringPooling="true"
 				MinimalRebuild="true"
 				RuntimeLibrary="0"
@@ -177,7 +176,6 @@
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
-				DisableSpecificWarnings="4800;4244;4996"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -256,10 +254,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\ClientLog.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\ClientTile.cpp"
 				>
 			</File>
@@ -290,6 +284,10 @@
 						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\OgreLogRedirect.cpp"
+				>
 			</File>
 			<File
 				RelativePath=".\src\pch.cpp"
@@ -353,10 +351,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\ClientLog.h"
-				>
-			</File>
-			<File
 				RelativePath=".\src\ClientTile.h"
 				>
 			</File>
@@ -370,6 +364,10 @@
 			</File>
 			<File
 				RelativePath=".\src\Network.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\OgreLogRedirect.h"
 				>
 			</File>
 			<File
@@ -536,10 +534,6 @@
 			Filter="po"
 			>
 			<File
-				RelativePath=".\bin\lang\uk\LC_MESSAGES\steelandconcrete.po"
-				>
-			</File>
-			<File
 				RelativePath=".\bin\lang\en\LC_MESSAGES\steelandconcrete.po"
 				>
 			</File>
@@ -549,6 +543,10 @@
 			</File>
 			<File
 				RelativePath=".\bin\lang\ru\LC_MESSAGES\steelandconcrete.po"
+				>
+			</File>
+			<File
+				RelativePath=".\bin\lang\uk\LC_MESSAGES\steelandconcrete.po"
 				>
 			</File>
 		</Filter>
