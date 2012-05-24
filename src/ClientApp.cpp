@@ -4,7 +4,6 @@
 #include <OgreOctreePlugin.h>
 #include <OgreGLPlugin.h>
 #include <Network.h>
-#include <ClientLog.h>
 #include <ProtocolVersion.h>
 
 #include <boost/filesystem/operations.hpp>
@@ -88,7 +87,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         mWork.reset(new boost::asio::io_service::work(mIOService));
 
         mRoot = new Ogre::Root("", "", "Ogre.log");
-        GetLog() << "Init OGRE";
+        LOG(INFO) << "Init OGRE";
 
         // Gl renedr system
         mGLPlugin = new Ogre::GLPlugin();
@@ -132,7 +131,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
             Ogre::String name = j.peekNextKey();
             Ogre::String value = j.peekNextValue();
             renderSystem->setConfigOption(name, value);
-            GetLog() << name << " " << value;
+            LOG(INFO) << name << " " << value;
             j.moveNext();
         }
 
@@ -150,7 +149,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC, "EgoView");
         mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_NONE);
         mSceneMgr->setAmbientLight(Ogre::ColourValue::White);
-        GetLog() << "=== Scene manager: " << mSceneMgr->getTypeName() << "===";
+        LOG(INFO) << "=== Scene manager: " << mSceneMgr->getTypeName() << "===";
 
         // Create the camera
         mCamera = ClientApp::GetSceneMgr().createCamera("PlayerCam");
@@ -165,24 +164,24 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     }
 
     {
-        GetLog() << "Init OgreAL";
+        LOG(INFO) << "Init OgreAL";
         mSoundManager = new OgreAL::SoundManager();
     }
 
     {
-        GetLog() << "Init localization";
+        LOG(INFO) << "Init localization";
         if (const char* env = getenv("LANGUAGE"))
         {
-            GetLog() << "LANGUAGE " << env;
+            LOG(INFO) << "LANGUAGE " << env;
         }
-        GetLog() << "locale " << setlocale(LC_ALL, "");
-        GetLog() << "bindtextdomain " << bindtextdomain("steelandconcrete", "lang");
-        GetLog() << "bind_textdomain_codeset " << bind_textdomain_codeset("steelandconcrete", "UTF-8");
-        GetLog() << "textdomain " << textdomain("steelandconcrete");
+        LOG(INFO) << "locale " << setlocale(LC_ALL, "");
+        LOG(INFO) << "bindtextdomain " << bindtextdomain("steelandconcrete", "lang");
+        LOG(INFO) << "bind_textdomain_codeset " << bind_textdomain_codeset("steelandconcrete", "UTF-8");
+        LOG(INFO) << "textdomain " << textdomain("steelandconcrete");
     }
 
     {
-        GetLog() << "Init OIS";
+        LOG(INFO) << "Init OIS";
         OIS::ParamList pl;
         size_t windowHnd = 0;
         std::ostringstream windowHndStr;
@@ -222,7 +221,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     }
 
     {
-        GetLog() << "Init CEGUI";
+        LOG(INFO) << "Init CEGUI";
         CEGUI::OgreRenderer& renderer = CEGUI::OgreRenderer::create(*mWindow);
         CEGUI::OgreResourceProvider* rp = &CEGUI::OgreRenderer::createOgreResourceProvider();
         CEGUI::OgreImageCodec* ic = &CEGUI::OgreRenderer::createOgreImageCodec();
@@ -244,7 +243,7 @@ ClientApp::~ClientApp()
     // Зачистка системных библиотек.
     // ТОЛЬКО ДЛЯ ТОГО ЧТО БЫЛО ИНИЦИАЛИЗОРВАНО В КОНСТРУКТОЕ
     // все остальное должно быть уже почищено!
-    GetLog() << "App destructor";
+    LOG(INFO) << "App destructor";
 
     CEGUI::OgreRenderer::destroySystem();
 
@@ -395,7 +394,7 @@ bool ClientApp::OnCloseMessageBox(const CEGUI::EventArgs& args)
 
 bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
 {
-    GetLog() << "On connect";
+    LOG(INFO) << "On connect";
     assert(!mGame);
 
     try
@@ -403,7 +402,7 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
         CEGUI::String port = GetWindow("ServerBrowser/Port")->getText();
         CEGUI::String address = GetWindow("ServerBrowser/Address")->getText();
 
-        GetLog() << "Port " << port << "Address " << address;
+        LOG(INFO) << "Port " << port << "Address " << address;
 
         tcp::resolver resolver(mIOService);
         tcp::resolver::query query(address.c_str(), port.c_str(), boost::asio::ip::resolver_query_base::numeric_service);
@@ -413,7 +412,7 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
         sock->connect(*iterator);
 
         NetworkPtr net(new Network(sock));
-        GetLog() << "Connected";
+        LOG(INFO) << "Connected";
 
         PayloadMsg req;
         req.set_protocolversion(PROTOCOL_VERSION);
@@ -441,7 +440,7 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
 
 bool ClientApp::OnCreate(const CEGUI::EventArgs& args)
 {
-    GetLog() << "On create";
+    LOG(INFO) << "On create";
     if (!mGame)
     {
         LaunchServer();
@@ -566,7 +565,7 @@ void ClientApp::windowResized(Ogre::RenderWindow* rw)
 void ClientApp::windowClosed(Ogre::RenderWindow* rw)
 {
     mQuit = true;
-    GetLog() << "Window is closed";
+    LOG(INFO) << "Window is closed";
 }
 
 
@@ -576,7 +575,7 @@ void ClientApp::MainLoop()
 
     unsigned long frameTime = 1;
 
-    GetLog() << "*** The Start ***";
+    LOG(INFO) << "*** The Start ***";
     while (!mQuit)
     {
         OgreProfile("Ogre Main Loop");
@@ -603,7 +602,7 @@ void ClientApp::MainLoop()
 
         frameTime = mRoot->getTimer()->getMicroseconds() - frameStart;
     }
-    GetLog() << "*** The End ***";
+    LOG(INFO) << "*** The End ***";
 
     // Подчищаем игру
     delete mGame;

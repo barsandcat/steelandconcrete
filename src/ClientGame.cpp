@@ -3,7 +3,6 @@
 
 #include <ClientApp.h>
 #include <Network.h>
-#include <ClientLog.h>
 #include <Payload.pb.h>
 #include <ChangeList.pb.h>
 #include <ClientApp.h>
@@ -211,7 +210,7 @@ void ClientGame::OnAct()
 bool ClientGame::OnExit(const CEGUI::EventArgs& args)
 {
     ClientApp::Quit();
-    GetLog() << "OnExit";
+    LOG(INFO) << "OnExit";
     return true;
 }
 
@@ -340,6 +339,6 @@ void ClientGame::OnPayloadMsg(PayloadPtr aPayloadMsg)
     LoadEvents(aPayloadMsg);
     if (aPayloadMsg->has_reason())
     {
-        GetLog() << aPayloadMsg->ShortDebugString();
+        LOG(INFO) << aPayloadMsg->ShortDebugString();
     }
 }

@@ -1,6 +1,5 @@
 #include <pch.h>
 #include <ClientApp.h>
-#include <ClientLog.h>
 
 bool FileExists(const Ogre::String aFilename)
 {
@@ -43,11 +42,11 @@ void LaunchServer()
     }
     else if (pID < 0) // failed to fork
     {
-        GetLog() << "Not launced";
+        LOG(ERROR) << "Not launced";
     }
     else // parent
     {
-        GetLog() << "Launched";
+        LOG(INFO) << "Launched";
     }
 }
 
@@ -61,9 +60,9 @@ int main(int argc, char **argv)
         Ogre::String home = getenv("HOME");
         CheckConfigFile(home);
         ClientApp app(home + "/.steelandconcrete/steelandconcrete1.cfg");
-        GetLog() << "ClientApp ready";
+        LOG(INFO) << "ClientApp ready";
         app.MainLoop();
-        GetLog() << "Main loop ended";
+        LOG(INFO) << "Main loop ended";
         res = 0;
     }
     catch (std::exception& e)
