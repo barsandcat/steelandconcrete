@@ -8,6 +8,8 @@
 #include <CEGUI.h>
 #include <RendererModules/Ogre/CEGUIOgreRenderer.h>
 
+#include <OgreLogRedirect.h>
+
 void LaunchServer();
 
 class ClientApp: public OIS::KeyListener, public OIS::MouseListener, public OIS::JoyStickListener,
@@ -83,6 +85,7 @@ private:
     ClientGame* mGame;
     boost::asio::io_service mIOService;
     boost::shared_ptr< boost::asio::io_service::work > mWork;
+    OgreLogRedirect mLogRedirect;
 };
 
 #endif // APP_H
