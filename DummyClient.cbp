@@ -37,9 +37,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add option="-Wreturn-type" />
-			<Add option="-Wsign-compare" />
-			<Add option="-Wunused-variable" />
+			<Add option="-Wno-unknown-pragmas" />
 			<Add option="-DBOOST_ALL_NO_LIB=1" />
 			<Add directory="src" />
 			<Add directory="ois-v1-3/includes" />
