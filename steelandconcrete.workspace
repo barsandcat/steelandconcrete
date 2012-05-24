@@ -26,7 +26,7 @@
 			<Depends filename="ogre/build/OgreMain/OgreMain.cbp" />
 			<Depends filename="gflags/gflags-2.0/vsprojects/libgflags/libgflags.cbp" />
 		</Project>
-		<Project filename="LinuxS&amp;C.cbp" active="1">
+		<Project filename="LinuxS&amp;C.cbp">
 			<Depends filename="ois-v1-3/LinuxCB/OIS.cbp" />
 			<Depends filename="ogreal/ogreal_r137/OgreAL/OgreAL.cbp" />
 			<Depends filename="protobuf-2.4.1/vsprojects/libprotobuf.cbp" />
@@ -46,7 +46,7 @@
 			<Depends filename="CEGUI-0.7.5/projects/premake/XMLParserModules/TinyXMLParser/CEGUITinyXMLParser.cbp" />
 			<Depends filename="ogre/build/OgreMain/OgreMain.cbp" />
 		</Project>
-		<Project filename="DummyClient.cbp">
+		<Project filename="DummyClient.cbp" active="1">
 			<Depends filename="ois-v1-3/LinuxCB/OIS.cbp" />
 			<Depends filename="protobuf-2.4.1/vsprojects/libprotobuf.cbp" />
 			<Depends filename="protobuf-2.4.1/vsprojects/protoc.cbp" />

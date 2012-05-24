@@ -1,7 +1,6 @@
 #include <pch.h>
 
 #include <MovementAnimation.h>
-#include <ClientLog.h>
 
 MovementAnimation::MovementAnimation(const Ogre::Vector3& aOrigin, const Ogre::Vector3& aDestination):
     mOrigin(Ogre::Vector3::UNIT_Z.getRotationTo(aOrigin)),

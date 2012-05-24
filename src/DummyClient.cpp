@@ -3,12 +3,14 @@
 #include <string>
 
 #include <Network.h>
-#include <ServerLog.h>
 #include <Payload.pb.h>
 #include <ProtocolVersion.h>
 
-int main()
+int main(int argc, char **argv)
 {
+    google::InstallFailureSignalHandler();
+    google::InitGoogleLogging(argv[0]);
+    google::ParseCommandLineFlags(&argc, &argv, true);
 
     try
     {
@@ -21,7 +23,7 @@ int main()
         sock->connect(*iterator);
 
         Network* net = new Network(sock);
-        GetLog() << "Connected";
+        LOG(INFO) << "Connected";
         PayloadMsg req;
         req.set_protocolversion(PROTOCOL_VERSION);
         net->WriteMessage(req);
@@ -43,22 +45,22 @@ int main()
                     req.set_time(mTime);
                     req.set_last(true);
                     net->WriteMessage(req);
-                    GetLog() << "REQUEST_GET_TIME";
+                    LOG(INFO) << "REQUEST_GET_TIME";
 
                     net->ReadMessage(rsp);
                     while(!rsp.last())
                     {
-                        GetLog() << "Changes " << rsp.changes_size();
+                        LOG(INFO) << "Changes " << rsp.changes_size();
                         rsp.Clear();
                         net->ReadMessage(rsp);
                     }
                     mTime = rsp.time();
                     updateLength = rsp.update_length();
-                    GetLog() << "New time " << mTime << " next update in " << updateLength;
+                    LOG(INFO) << "New time " << mTime << " next update in " << updateLength;
                 }
                 catch(std::exception& e)
                 {
-                    GetLog() << "Main loop crash: " << e.what();
+                    LOG(INFO) << "Main loop crash: " << e.what();
                     return 1;
                 }
             }
@@ -66,14 +68,14 @@ int main()
         else
         {
             delete net;
-            GetLog() << "Server rejected connection";
+            LOG(INFO) << "Server rejected connection";
             return 2;
         }
         return 0;
     }
     catch(...)
     {
-        GetLog() << boost::current_exception_diagnostic_information();
+        LOG(INFO) << boost::current_exception_diagnostic_information();
         return 1;
     }
 

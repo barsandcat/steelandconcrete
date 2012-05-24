@@ -67,8 +67,6 @@
 		<Unit filename="src/DummyClient.cpp" />
 		<Unit filename="src/Network.cpp" />
 		<Unit filename="src/Network.h" />
-		<Unit filename="src/ServerLog.cpp" />
-		<Unit filename="src/ServerLog.h" />
 		<Unit filename="src/proto/ChangeList.pb.cc" />
 		<Unit filename="src/proto/ChangeList.pb.h" />
 		<Unit filename="src/proto/ChangeList.proto" />
