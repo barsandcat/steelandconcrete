@@ -49,11 +49,11 @@ void LaunchServer()
     CloseHandle( pi.hThread );
 }
 
-int main(int argc, char **argv)
+INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT)
 {
     FLAGS_alsologtostderr = true;
-    google::InitGoogleLogging(argv[0]);
-    google::ParseCommandLineFlags(&argc, &argv, true);
+    google::InitGoogleLogging(__argv[0]);
+    google::ParseCommandLineFlags(&__argc, &__argv, true);
 
     // Create application object
     try
