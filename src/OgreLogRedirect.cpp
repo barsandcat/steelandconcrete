@@ -6,9 +6,6 @@ void OgreLogRedirect::messageLogged( const Ogre::String& message, Ogre::LogMessa
 {
     switch(lml)
     {
-        case Ogre::LML_NORMAL:
-            LOG(WARNING) << message;
-            break;
         case Ogre::LML_CRITICAL:
             LOG(ERROR) << message;
             break;
