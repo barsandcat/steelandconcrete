@@ -30,4 +30,5 @@ void RunServer(int argc, char **argv)
 
 	ServerGame app(FLAGS_size);
 	app.MainLoop(FLAGS_address, FLAGS_port);
+	google::ShutdownGoogleLogging();
 }

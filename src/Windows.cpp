@@ -64,16 +64,20 @@ int main(int argc, char **argv)
         Ogre::LogManager::getSingletonPtr()->logMessage("App ready");
         app.MainLoop();
         Ogre::LogManager::getSingletonPtr()->logMessage("Main loop ended");
+        google::ShutdownLogging();
         return 0;
     }
     catch (std::exception& e)
     {
         MessageBox(NULL, e.what(), "Steelandconcrete exception!", MB_OK | MB_ICONERROR | MB_TASKMODAL);
+        google::ShutdownLogging();
         return 1;
     }
     catch (...)
     {
         MessageBox(NULL, "Unknown excepiton", "Steelandconcrete occured!", MB_OK | MB_ICONERROR | MB_TASKMODAL);
+        google::ShutdownLogging();
         return 2;
     }
+
 }
