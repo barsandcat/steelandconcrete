@@ -2,7 +2,6 @@
 #include <Network.h>
 
 #include <Header.pb.h>
-#include <ServerLog.h>
 
 Network::Network(SocketSharedPtr aSocket): mSocket(aSocket), mMessageBuffer(NULL),
 mBufferSize(0), mAsync(false), mRequests(100)

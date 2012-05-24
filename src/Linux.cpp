@@ -63,7 +63,7 @@ int main(int argc, char **argv)
     {
         Ogre::String home = getenv("HOME");
         CheckConfigFile(home);
-        ClientApp app(home + "/.steelandconcrete/steelandconcrete1.cfg", argc, argv);
+        ClientApp app(home + "/.steelandconcrete/steelandconcrete1.cfg");
         LOG(INFO) << "ClientApp ready";
         app.MainLoop();
         LOG(INFO) << "Main loop ended";

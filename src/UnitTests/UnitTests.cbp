@@ -105,8 +105,6 @@
 		<Unit filename="../ServerEdge.h" />
 		<Unit filename="../ServerGame.cpp" />
 		<Unit filename="../ServerGeodesicGrid.h" />
-		<Unit filename="../ServerLog.cpp" />
-		<Unit filename="../ServerLog.h" />
 		<Unit filename="../ServerTile.cpp" />
 		<Unit filename="../ServerTile.h" />
 		<Unit filename="../ServerUnit.cpp" />
