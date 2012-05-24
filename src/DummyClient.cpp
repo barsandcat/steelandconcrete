@@ -69,13 +69,16 @@ int main(int argc, char **argv)
         {
             delete net;
             LOG(INFO) << "Server rejected connection";
+            google::ShutdownGoogleLogging();
             return 2;
         }
+        google::ShutdownGoogleLogging();
         return 0;
     }
     catch(...)
     {
         LOG(INFO) << boost::current_exception_diagnostic_information();
+        google::ShutdownGoogleLogging();
         return 1;
     }
 
