@@ -55,6 +55,7 @@ int main(int argc, char **argv)
 {
     google::InstallFailureSignalHandler();
     google::InitGoogleLogging(argv[0]);
+    FLAGS_alsologtostderr = true;
     google::ParseCommandLineFlags(&argc, &argv, true);
 
     int res = -1;

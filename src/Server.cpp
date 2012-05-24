@@ -15,6 +15,7 @@ void RunServer(int argc, char **argv)
 {
     google::InstallFailureSignalHandler();
     google::InitGoogleLogging(argv[0]);
+    FLAGS_alsologtostderr = true;
 	google::ParseCommandLineFlags(&argc, &argv, true);
 
 	// Define the command line object.
