@@ -40,9 +40,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-Winvalid-pch" />
-			<Add option="-Wreturn-type" />
-			<Add option="-Wsign-compare" />
-			<Add option="-Wunused-variable" />
+			<Add option="-Wno-unknown-pragmas" />
 			<Add option="-DBOOST_ALL_NO_LIB=1" />
 			<Add directory="src" />
 			<Add directory="src/proto" />
