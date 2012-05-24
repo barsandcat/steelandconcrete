@@ -119,9 +119,9 @@ void Network::WriteRequest(ResponseCallBack aCallBack, PayloadPtr aPayloadMsg)
     aPayloadMsg->SerializeToArray(mMessageBuffer, messageSize);
 
 
-    boost::array<boost::asio::mutable_buffer, 2> bufs = {
-    boost::asio::buffer(mHeaderBuffer, headerSize),
-    boost::asio::buffer(mMessageBuffer, messageSize)};
+    boost::array<boost::asio::mutable_buffer, 2> bufs = {{
+        boost::asio::buffer(mHeaderBuffer, headerSize),
+        boost::asio::buffer(mMessageBuffer, messageSize)}};
 
     boost::asio::async_write(*mSocket, bufs,
                              boost::bind(&Network::ReadResponse,
