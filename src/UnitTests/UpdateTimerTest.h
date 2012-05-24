@@ -2,10 +2,12 @@
 #define UPDATETIMERTEST_H_INCLUDED
 
 #include <cxxtest/TestSuite.h>
+#include <Warnings.h>
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-variable"
 #include <UpdateTimer.h>
 #pragma GCC diagnostic pop
+
 #include <SyncTimer.h>
 
 class UpdateTimerTest: public CxxTest::TestSuite

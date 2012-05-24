@@ -5,7 +5,8 @@
 
 int main(int argc, char **argv)
 {
-    signal(SIGPIPE, SIG_IGN);
+    signal(SIGPIPE, SIG_IGN);    
+    google::InstallFailureSignalHandler();
 
     try
     {
