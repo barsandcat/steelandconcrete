@@ -53,13 +53,17 @@ void LaunchServer()
 
 int main(int argc, char **argv)
 {
+    google::InstallFailureSignalHandler();
+    google::InitGoogleLogging(argv[0]);
+    google::ParseCommandLineFlags(&argc, &argv, true);
+
     int res = -1;
     // Create application object
     try
     {
         Ogre::String home = getenv("HOME");
         CheckConfigFile(home);
-        ClientApp app(home + "/.steelandconcrete/steelandconcrete1.cfg");
+        ClientApp app(home + "/.steelandconcrete/steelandconcrete1.cfg", argc, argv);
         LOG(INFO) << "ClientApp ready";
         app.MainLoop();
         LOG(INFO) << "Main loop ended";

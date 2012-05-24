@@ -1,9 +1,6 @@
 #include "pch.h"
 #include "ClientApp.h"
 
-#define WIN32_LEAN_AND_MEAN
-#include "windows.h"
-
 bool FileExists(const Ogre::String aFilename)
 {
     struct stat fileInfo;
@@ -15,7 +12,7 @@ void CheckConfigFile(const Ogre::String aHomeDir)
     Ogre::String ConfigDir = aHomeDir + "\\steelandconcrete";
     if (!FileExists(ConfigDir))
     {
-        CreateDirectory(ConfigDir.c_str(), NULL); 
+        CreateDirectory(ConfigDir.c_str(), NULL);
     }
     Ogre::String ConfigFile = ConfigDir + "\\steelandconcrete1.cfg";
     if (!FileExists(ConfigFile))
@@ -46,14 +43,18 @@ void LaunchServer()
     ZeroMemory( &pi, sizeof(pi) );
 
 
-    CreateProcess("steelandconcrete_server.exe", NULL, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi);    
-    
+    CreateProcess("steelandconcrete_server.exe", NULL, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi);
+
     CloseHandle( pi.hProcess );
-    CloseHandle( pi.hThread );    
+    CloseHandle( pi.hThread );
 }
 
-INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT)
+int main(int argc, char **argv)
 {
+    google::InstallFailureSignalHandler();
+    google::InitGoogleLogging(argv[0]);
+    google::ParseCommandLineFlags(&argc, &argv, true);
+
     // Create application object
     try
     {
