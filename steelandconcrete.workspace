@@ -46,7 +46,7 @@
 			<Depends filename="CEGUI-0.7.5/projects/premake/XMLParserModules/TinyXMLParser/CEGUITinyXMLParser.cbp" />
 			<Depends filename="ogre/build/OgreMain/OgreMain.cbp" />
 		</Project>
-		<Project filename="DummyClient.cbp" active="1">
+		<Project filename="DummyClient.cbp">
 			<Depends filename="ois-v1-3/LinuxCB/OIS.cbp" />
 			<Depends filename="protobuf-2.4.1/vsprojects/libprotobuf.cbp" />
 			<Depends filename="protobuf-2.4.1/vsprojects/protoc.cbp" />
@@ -56,8 +56,7 @@
 			<Depends filename="src/UnitTests/UnitTests.cbp" />
 			<Depends filename="protobuf-2.4.1/vsprojects/libprotoc.cbp" />
 		</Project>
-		<Project filename="src/UnitTests/UnitTests.cbp">
-			<Depends filename="ois-v1-3/LinuxCB/OIS.cbp" />
+		<Project filename="src/UnitTests/UnitTests.cbp" active="1">
 			<Depends filename="protobuf-2.4.1/vsprojects/libprotobuf.cbp" />
 			<Depends filename="protobuf-2.4.1/vsprojects/libprotoc.cbp" />
 			<Depends filename="protobuf-2.4.1/vsprojects/protoc.cbp" />
