@@ -64,7 +64,7 @@
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
 				ProgramDataBaseFileName="$(IntDir)\RenderSystem_GLStatic_d.pdb"
-				WarningLevel="3"
+				WarningLevel="0"
 				DebugInformationFormat="3"
 				CompileAs="2"
 			/>
@@ -200,10 +200,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLDefaultHardwareBufferManager.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLEngineDll.cpp"
 				>
 			</File>
 			<File

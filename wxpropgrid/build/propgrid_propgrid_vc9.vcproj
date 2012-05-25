@@ -52,7 +52,7 @@
 				RuntimeTypeInfo="true"
 				ObjectFile="$(IntDir)\"
 				ProgramDataBaseFileName="$(IntDir)\wxcode_msw28_propgrid.pdb"
-				WarningLevel="4"
+				WarningLevel="0"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="0"
 			/>
@@ -127,7 +127,7 @@
 				RuntimeTypeInfo="true"
 				ObjectFile="$(IntDir)\"
 				ProgramDataBaseFileName="$(IntDir)\wxcode_msw28d_propgrid.pdb"
-				WarningLevel="4"
+				WarningLevel="0"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
 			/>
@@ -1524,15 +1524,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\extras.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\manager.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\odcombo.cpp"
 				>
 			</File>
 			<File

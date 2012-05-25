@@ -189,10 +189,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\boost_1_46_1\libs\thread\src\win32\tss_dll.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\..\boost_1_46_1\libs\thread\src\win32\tss_pe.cpp"
 				>
 			</File>

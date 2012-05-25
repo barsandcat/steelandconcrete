@@ -179,10 +179,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\cegui\src\CEGUIBase.cpp"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\cegui\src\CEGUIBasicInterpolators.cpp"
 					>
 				</File>
@@ -244,10 +240,6 @@
 				</File>
 				<File
 					RelativePath="..\..\..\cegui\src\CEGUIEvent.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\cegui\src\CEGUIEventArgs.cpp"
 					>
 				</File>
 				<File
@@ -460,10 +452,6 @@
 				</File>
 				<File
 					RelativePath="..\..\..\cegui\src\CEGUIWindow.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\cegui\src\CEGUIWindowFactory.cpp"
 					>
 				</File>
 				<File
