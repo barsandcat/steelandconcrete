@@ -423,10 +423,6 @@
 				Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 				>
 				<File
-					RelativePath=".\Imath\ImathBox.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\Imath\ImathColorAlgo.cpp"
 					>
 				</File>
@@ -440,10 +436,6 @@
 				</File>
 				<File
 					RelativePath=".\Imath\ImathRandom.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Imath\ImathShear.cpp"
 					>
 				</File>
 				<File
