@@ -8,6 +8,7 @@
 #include <CEGUI.h>
 #include <RendererModules/Ogre/CEGUIOgreRenderer.h>
 
+#include <CEGUILogRedirect.h>
 #include <OgreLogRedirect.h>
 
 void LaunchServer();
@@ -85,7 +86,9 @@ private:
     ClientGame* mGame;
     boost::asio::io_service mIOService;
     boost::shared_ptr< boost::asio::io_service::work > mWork;
-    OgreLogRedirect mLogRedirect;
+    OgreLogRedirect mOgreLogRedirect;
+    CEGUILogRedirect mCEGUILogRedirect;
+
 };
 
 #endif // APP_H
