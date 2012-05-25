@@ -108,6 +108,8 @@
 		<Unit filename="src/BirdCamera.h" />
 		<Unit filename="src/CEGUILocalization.cpp" />
 		<Unit filename="src/CEGUILocalization.h" />
+		<Unit filename="src/CEGUILogRedirect.cpp" />
+		<Unit filename="src/CEGUILogRedirect.h" />
 		<Unit filename="src/ClientApp.cpp" />
 		<Unit filename="src/ClientApp.h" />
 		<Unit filename="src/ClientEdge.h" />
