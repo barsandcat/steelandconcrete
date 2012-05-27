@@ -11,8 +11,6 @@
 #include <CEGUILogRedirect.h>
 #include <OgreLogRedirect.h>
 
-void LaunchServer();
-
 class ClientApp: public OIS::KeyListener, public OIS::MouseListener, public OIS::JoyStickListener,
                  public Ogre::WindowEventListener
 {
