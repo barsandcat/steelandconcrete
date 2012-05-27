@@ -16,7 +16,6 @@
 configure: configure-stamp
 configure-stamp:
 	dh_testdir
-	# Add here commands to configure the package.
 
 	touch configure-stamp
 
@@ -25,12 +24,7 @@ build: build-stamp
 
 build-stamp: configure-stamp
 	dh_testdir
-
-	# Add here commands to compile the package.
-	# $(MAKE)
 	codeblocks --build --target="Release" $(CURDIR)/steelandconcrete.workspace
-	#docbook-to-man debian/testapp.sgml > testapp.1
-
 	touch $@
 
 clean:
@@ -38,8 +32,6 @@ clean:
 	dh_testroot
 	rm -f build-stamp configure-stamp
 
-	# Add here commands to clean up after the build process.
-	# $(MAKE) clean
 	codeblocks --clean --target="Release" $(CURDIR)/steelandconcrete.workspace
 
 	dh_clean
@@ -49,11 +41,10 @@ install: build
 	dh_testroot
 	dh_prep
 	dh_installdirs
-
-	# Add here commands to install the package into debian/testapp.
-	# $(MAKE) DESTDIR=$(CURDIR)/debian/testapp install
-	cp $(CURDIR)/bin/steelandconcrete $(CURDIR)/debian/steelandconcrete/usr/bin
-
+	dh_install
+	cd $(CURDIR)/bin/res;\
+	find . -type d -exec mkdir -p $(CURDIR)/debian/steelandconcrete/usr/share/games/steelandconcrete/{} \;;\
+	find . -type f -iregex '.*\.\(mesh\|material\|skeleton\|program\|cg\|scheme\|font\|imageset\|layout\|looknfeel\|wav\|ogg\|png\|tga\|jpg\|ttf\|mo\)' -exec cp {} $(CURDIR)/debian/steelandconcrete/usr/share/games/steelandconcrete/{} \;
 
 
 # Build architecture-independent files here.
