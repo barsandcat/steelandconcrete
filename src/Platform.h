@@ -3,7 +3,13 @@
 
 #include <Typedefs.h>
 
+#include <OgreString.h>
+
 int64 GetMiliseconds();
+
+void CheckConfigFile(const Ogre::String aHomeDir);
+
+void LaunchServer();
 
 
 #endif
