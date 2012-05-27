@@ -21,6 +21,14 @@ char ClientApp::EN[] = "LANGUAGE=en";
 char ClientApp::UK[] = "LANGUAGE=uk";
 char ClientApp::JA[] = "LANGUAGE=ja";
 
+DEFINE_string(fsaa, "0", "FSAA samples count");
+DEFINE_string(full_screen, "No", "Yes or No");
+DEFINE_string(rtt_preferred_mode, "FBO", "FBO, Copy, PBuffer");
+DEFINE_string(video_mode, "1024 x 768", "");
+DEFINE_string(display_frequency, "60 MHz", "");
+DEFINE_string(vsync, "No", "Yes or No");
+DEFINE_string(srgb_gamma_conversion, "No", "Yes or No");
+
 CEGUI::Window* GetWindow(CEGUI::String aWindowName)
 {
     return CEGUI::WindowManager::getSingleton().getWindow(aWindowName);
@@ -74,7 +82,7 @@ Ogre::Camera* ClientApp::mCamera = NULL;
 
 bool ClientApp::mQuit = false;
 
-ClientApp::ClientApp(const Ogre::String aConfigFile):
+ClientApp::ClientApp():
     mCEGUIRenderer(NULL),
     mMouse(NULL),
     mKeyboard(NULL),
@@ -93,7 +101,7 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
     {
         mWork.reset(new boost::asio::io_service::work(mIOService));
 
-        mRoot = new Ogre::Root("", "", "Ogre.log");
+        mRoot = new Ogre::Root("", "", "");
         LOG(INFO) << "Init OGRE";
 
         // Gl renedr system
@@ -129,18 +137,13 @@ ClientApp::ClientApp(const Ogre::String aConfigFile):
         Ogre::RenderSystem * renderSystem = mRoot->getRenderSystemByName("OpenGL Rendering Subsystem");
         mRoot->setRenderSystem(renderSystem);
 
-        // Настройки графики
-        Ogre::ConfigFile cf;
-        cf.load(aConfigFile);
-        Ogre::ConfigFile::SettingsIterator j = cf.getSettingsIterator("OpenGL Rendering Subsystem");
-        while (j.hasMoreElements())
-        {
-            Ogre::String name = j.peekNextKey();
-            Ogre::String value = j.peekNextValue();
-            renderSystem->setConfigOption(name, value);
-            LOG(INFO) << name << " " << value;
-            j.moveNext();
-        }
+        renderSystem->setConfigOption("FSAA", FLAGS_fsaa);
+        renderSystem->setConfigOption("Full Screen", FLAGS_full_screen);
+        renderSystem->setConfigOption("RTT Preferred Mode", FLAGS_rtt_preferred_mode);
+        renderSystem->setConfigOption("Video Mode", FLAGS_video_mode);
+		renderSystem->setConfigOption("Display Frequency", FLAGS_display_frequency);
+		renderSystem->setConfigOption("VSync", FLAGS_vsync);
+		renderSystem->setConfigOption("sRGB Gamma Conversion", FLAGS_srgb_gamma_conversion);
 
         // Here we choose to let the system create a default rendering window by passing 'true'
         mRoot->initialise(false);
