@@ -29,7 +29,7 @@ glob:bin/dummy
 glob:bin/log
 glob:*.bsc
 glob:*.log
-glob:*.*~
+glob:*~
 glob:bin/ValgrindOut.xml
 glob:bin/cpd/gprof.txt
 glob:*.pyc
@@ -53,3 +53,7 @@ glob:bin/res/gui/layouts/messages.h
 glob:*.skeleton.xml
 glob:*.aps
 glob:*.deps
+glob:debian/steelandconcrete/*
+glob:*-stamp
+glob:debian/files
+glob:debian/steelandconcrete.substvars
