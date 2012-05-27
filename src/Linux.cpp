@@ -11,9 +11,6 @@ int main(int argc, char **argv)
     // Create application object
     try
     {
-        Ogre::String home = getenv("HOME");
-        CheckConfigFile(home);
-
         Ogre::String config = "steelandconcrete.flags";
         if (boost::filesystem::exists(config))
         {
@@ -21,6 +18,7 @@ int main(int argc, char **argv)
         }
         else
         {
+            Ogre::String home = getenv("HOME");
             config = home + "/.steelandconcrete/steelandconcrete.flags";
             if (boost::filesystem::exists(config))
             {
@@ -28,11 +26,10 @@ int main(int argc, char **argv)
             }
         }
 
-
         google::ParseCommandLineFlags(&argc, &argv, true);
         google::InitGoogleLogging(argv[0]);
 
-        ClientApp app(home + "/.steelandconcrete/steelandconcrete1.cfg");
+        ClientApp app;
         LOG(INFO) << "ClientApp ready";
         app.MainLoop();
         LOG(INFO) << "Main loop ended";
