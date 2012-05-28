@@ -3,6 +3,8 @@
 #include <Platform.h>
 #include <sys/time.h>
 
+DEFINE_string(data_dir, "/usr/share/games/steelandconcrete", "Path for game data");
+
 int64 GetMiliseconds()
 {
     timeval epoch;
