@@ -4,6 +4,9 @@
 #include <Typedefs.h>
 
 #include <OgreString.h>
+#include <gflags/gflags.h>
+
+DECLARE_string(data_dir);
 
 int64 GetMiliseconds();
 

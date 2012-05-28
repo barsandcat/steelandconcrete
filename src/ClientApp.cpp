@@ -112,20 +112,22 @@ ClientApp::ClientApp():
         mOctreePlugin = new Ogre::OctreePlugin();
         mRoot->installPlugin(mOctreePlugin);
 
-        // Register resources
+
+        Ogre::String data_dir(FLAGS_data_dir);
+        LOG(INFO) << "Register resources in data_dir " << data_dir;
         Ogre::ResourceGroupManager& rgm = Ogre::ResourceGroupManager::getSingleton();
-        rgm.addResourceLocation("res/OgreCore", "FileSystem");
-        rgm.addResourceLocation("res/audio", "FileSystem");
-        rgm.addResourceLocation("res/textures", "FileSystem");
-        rgm.addResourceLocation("res/scripts", "FileSystem");
-        rgm.addResourceLocation("res/gui/fonts", "FileSystem");
-        rgm.addResourceLocation("res/gui/imagesets", "FileSystem");
-        rgm.addResourceLocation("res/gui/looknfeel", "FileSystem");
-        rgm.addResourceLocation("res/gui/schemes", "FileSystem");
-        rgm.addResourceLocation("res/gui/layouts", "FileSystem");
+        rgm.addResourceLocation(data_dir + "/OgreCore", "FileSystem");
+        rgm.addResourceLocation(data_dir + "/audio", "FileSystem");
+        rgm.addResourceLocation(data_dir + "/textures", "FileSystem");
+        rgm.addResourceLocation(data_dir + "/scripts", "FileSystem");
+        rgm.addResourceLocation(data_dir + "/gui/fonts", "FileSystem");
+        rgm.addResourceLocation(data_dir + "/gui/imagesets", "FileSystem");
+        rgm.addResourceLocation(data_dir + "/gui/looknfeel", "FileSystem");
+        rgm.addResourceLocation(data_dir + "/gui/schemes", "FileSystem");
+        rgm.addResourceLocation(data_dir + "/gui/layouts", "FileSystem");
 
         boost::filesystem::directory_iterator end;
-        boost::filesystem::path path("res/models");
+        boost::filesystem::path path(data_dir + "/models");
         for (boost::filesystem::directory_iterator i(path); i != end; ++i)
         {
             if (boost::filesystem::is_directory(i->status()))
