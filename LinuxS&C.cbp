@@ -81,7 +81,7 @@
 			<Add directory="protobuf-2.4.1/src" />
 			<Add directory="src/proto" />
 			<Add directory="SAL" />
-			<Add directory="boost/boost_1_46_1" />
+			<Add directory="boost/boost_1_49_0" />
 			<Add directory="CEGUI-0.7.5/cegui/include" />
 			<Add directory="gflags/gflags-2.0/src" />
 			<Add directory="gflags/gflags-2.0/src/linux" />
