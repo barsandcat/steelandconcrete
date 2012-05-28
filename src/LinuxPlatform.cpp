@@ -2,7 +2,6 @@
 
 #include <Platform.h>
 #include <sys/time.h>
-#include <boost/time.hpp>
 
 DEFINE_string(data_dir, "/usr/share/games/steelandconcrete", "Path for game data");
 

@@ -130,6 +130,7 @@
 		<Unit filename="src/Network.h" />
 		<Unit filename="src/OgreLogRedirect.cpp" />
 		<Unit filename="src/OgreLogRedirect.h" />
+		<Unit filename="src/Platform.h" />
 		<Unit filename="src/SyncTimer.h" />
 		<Unit filename="src/Typedefs.h" />
 		<Unit filename="src/VisualCodes.cpp" />
