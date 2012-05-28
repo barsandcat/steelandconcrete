@@ -3,13 +3,16 @@
 #include <Platform.h>
 #include <sys/time.h>
 
+#include <boost/timer/timer.hpp>
+
 DEFINE_string(data_dir, "/usr/share/games/steelandconcrete", "Path for game data");
 
 int64 GetMiliseconds()
 {
-    timeval epoch;
-    gettimeofday(&epoch, NULL);
-    return epoch.tv_sec * 1000 + epoch.tv_usec / 1000;
+    boost::timer::cpu_timer timer;
+    boost::timer::cpu_times const elapsed_times(timer.elapsed());
+    boost::timer::nanosecond_type const elapsed(elapsed_times.system + elapsed_times.user);
+    return elapsed * 1e-6;
 }
 
 void LaunchServer()
