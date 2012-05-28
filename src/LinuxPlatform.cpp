@@ -18,8 +18,14 @@ void LaunchServer()
     if (pID == 0) // child
     {
         // Code only executed by child process
-        const char* const cmd[] = { "steelandconcrete_d_server", 0 };
-        execv("steelandconcrete_d_server", const_cast<char* const*>(cmd));
+        #ifndef NDEBUG
+        const char* server = "steelandconcrete_d_server";
+        #else
+        const char* server = "steelandconcrete_server";
+        #endif
+        LOG(INFO) << "Launching server " << server;
+        const char* const cmd[] = { server, 0 };
+        execv(server, const_cast<char* const*>(cmd));
 
     }
     else if (pID < 0) // failed to fork
