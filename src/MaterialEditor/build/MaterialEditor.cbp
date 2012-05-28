@@ -58,7 +58,7 @@
 			<Add directory="../../../ogre/ogre_1.7.3/RenderSystems/GL/src/GLSL/include" />
 			<Add directory="../../../wxpropgrid/include" />
 			<Add directory="../../../wxogre-svn312/include" />
-			<Add directory="../../../boost/boost_1_46_1" />
+			<Add directory="../../../boost/boost_1_49_0" />
 		</Compiler>
 		<Linker>
 			<Add option="`wx-config --libs`" />
