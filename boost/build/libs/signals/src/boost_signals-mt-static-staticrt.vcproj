@@ -54,7 +54,7 @@
 				AdditionalOptions=" /Zm1000"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="$(SolutionDir)boost\boost_1_46_1"
+				AdditionalIncludeDirectories="$(SolutionDir)boost\boost_1_49_0"
 				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,BOOST_ALL_NO_LIB=1,BOOST_SIGNALS_NO_LIB=1,CMAKE_INTDIR=\&quot;Debug\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="1"
@@ -135,7 +135,7 @@
 				AdditionalOptions=" /Zm1000"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="$(SolutionDir)boost\boost_1_46_1"
+				AdditionalIncludeDirectories="$(SolutionDir)boost\boost_1_49_0"
 				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,BOOST_ALL_NO_LIB=1,BOOST_SIGNALS_NO_LIB=1,CMAKE_INTDIR=\&quot;Release\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="0"
@@ -185,23 +185,23 @@
 			Name="Source Files"
 			>
 			<File
-				RelativePath="..\..\..\..\boost_1_46_1\libs\signals\src\connection.cpp"
+				RelativePath="..\..\..\..\boost_1_49_0\libs\signals\src\connection.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\boost_1_46_1\libs\signals\src\named_slot_map.cpp"
+				RelativePath="..\..\..\..\boost_1_49_0\libs\signals\src\named_slot_map.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\boost_1_46_1\libs\signals\src\signal_base.cpp"
+				RelativePath="..\..\..\..\boost_1_49_0\libs\signals\src\signal_base.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\boost_1_46_1\libs\signals\src\slot.cpp"
+				RelativePath="..\..\..\..\boost_1_49_0\libs\signals\src\slot.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\boost_1_46_1\libs\signals\src\trackable.cpp"
+				RelativePath="..\..\..\..\boost_1_49_0\libs\signals\src\trackable.cpp"
 				>
 			</File>
 		</Filter>
