@@ -3,10 +3,10 @@
 
 #include <Warnings.h>
 
-// Disable all warnings for files icluded here 
+// Disable all warnings for files icluded here
 // For VC++
 #pragma warning(push, 3)
-// For GCC 
+// For GCC
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-variable"
 #pragma GCC diagnostic ignored "-Wreturn-type"
@@ -25,13 +25,17 @@
     #endif
 #endif
 
+#define BOOST_CHRONO_HEADER_ONLY
+#include <boost/chrono/chrono.hpp>
+#include <boost/timer/timer.hpp>
+#include <boost/thread.hpp>
+#include <boost/exception/diagnostic_information.hpp>
+
 #include <OIS.h>
 #include <algorithm>
 #include <string>
 #include <stdexcept>
 #include <vector>
-#include <boost/thread.hpp>
-#include <boost/exception/diagnostic_information.hpp>
 #include <OgreTextAreaOverlayElement.h>
 #include <OgreFont.h>
 #include <OgreFontManager.h>

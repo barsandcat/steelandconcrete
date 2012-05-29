@@ -42,6 +42,7 @@
 			<Add option="-Winvalid-pch" />
 			<Add option="-Wno-unknown-pragmas" />
 			<Add option="-DBOOST_ALL_NO_LIB=1" />
+			<Add option="-DBOOST_CHRONO_HEADER_ONLY=1" />
 			<Add directory="../../cxxtest" />
 			<Add directory=".." />
 			<Add directory="../../ogre/build/include" />

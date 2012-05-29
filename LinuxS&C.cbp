@@ -95,6 +95,7 @@
 			<Add library="GL" />
 			<Add library="GLU" />
 			<Add library="boost_system$(TARGET_NAME)" />
+			<Add library="boost_timer$(TARGET_NAME)" />
 			<Add library="glog$(TARGET_NAME)" />
 			<Add library="gflags$(TARGET_NAME)" />
 			<Add directory="lib" />

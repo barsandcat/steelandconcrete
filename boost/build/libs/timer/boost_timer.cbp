@@ -40,6 +40,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-DBOOST_ALL_NO_LIB=1" />
+			<Add option="-DBOOST_CHRONO_HEADER_ONLY=1" />
 			<Add directory="../../../../boost_1_49_0" />
 		</Compiler>
 		<Unit filename="../../../boost_1_49_0/libs/timer/src/auto_timers_construction.cpp" />
