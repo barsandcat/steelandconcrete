@@ -25,7 +25,6 @@
     #endif
 #endif
 
-#define BOOST_CHRONO_HEADER_ONLY
 #include <boost/chrono/chrono.hpp>
 #include <boost/timer/timer.hpp>
 #include <boost/thread.hpp>

@@ -42,6 +42,7 @@
 			<Add option="-Winvalid-pch" />
 			<Add option="-Wno-unknown-pragmas" />
 			<Add option="-DBOOST_ALL_NO_LIB=1" />
+			<Add option="-DBOOST_CHRONO_HEADER_ONLY=1" />
 			<Add directory="src" />
 			<Add directory="src/proto" />
 			<Add directory="ogre/build/include" />
@@ -59,6 +60,7 @@
 		</Compiler>
 		<Linker>
 			<Add library="pthread" />
+			<Add library="rt" />
 			<Add library="boost_thread$(TARGET_NAME)" />
 			<Add library="boost_system$(TARGET_NAME)" />
 			<Add library="gflags$(TARGET_NAME)" />

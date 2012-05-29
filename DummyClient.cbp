@@ -39,6 +39,7 @@
 			<Add option="-Wall" />
 			<Add option="-Wno-unknown-pragmas" />
 			<Add option="-DBOOST_ALL_NO_LIB=1" />
+			<Add option="-DBOOST_CHRONO_HEADER_ONLY=1" />
 			<Add directory="src" />
 			<Add directory="ois-v1-3/includes" />
 			<Add directory="ogre/build/include" />

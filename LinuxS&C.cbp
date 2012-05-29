@@ -67,6 +67,7 @@
 			<Add option="-Winvalid-pch" />
 			<Add option="-Wno-unknown-pragmas" />
 			<Add option="-DBOOST_ALL_NO_LIB=1" />
+			<Add option="-DBOOST_CHRONO_HEADER_ONLY=1" />
 			<Add option="-DCEGUI_STATIC" />
 			<Add directory="src" />
 			<Add directory="betagui2" />
@@ -95,7 +96,6 @@
 			<Add library="GL" />
 			<Add library="GLU" />
 			<Add library="boost_system$(TARGET_NAME)" />
-			<Add library="boost_timer$(TARGET_NAME)" />
 			<Add library="glog$(TARGET_NAME)" />
 			<Add library="gflags$(TARGET_NAME)" />
 			<Add directory="lib" />
