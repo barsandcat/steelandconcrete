@@ -13,6 +13,14 @@
 class UpdateTimerTest: public CxxTest::TestSuite
 {
 public:
+    void TestGetMiliseconds()
+    {
+        int64 res1 = GetMiliseconds();
+        boost::this_thread::sleep(boost::posix_time::milliseconds(50));
+        int64 res2 = GetMiliseconds();
+        TS_ASSERT_LESS_THAN(res1, res2);
+    }
+
     void TestTimer()
     {
         int64 period = 100;
