@@ -5,6 +5,12 @@
 
 DEFINE_string(data_dir, "/usr/share/games/steelandconcrete", "Path for game data");
 
+Ogre::String GetFlagsFilePath()
+{
+    Ogre::String home = getenv("HOME");
+    return home + "/.steelandconcrete/steelandconcrete.flags";
+}
+
 void LaunchServer()
 {
     pid_t pID = fork();

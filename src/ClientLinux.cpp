@@ -11,28 +11,8 @@ int main(int argc, char **argv)
     // Create application object
     try
     {
-        Ogre::String config = "steelandconcrete.flags";
-        if (boost::filesystem::exists(config))
-        {
-            FLAGS_flagfile = config;
-        }
-        else
-        {
-            Ogre::String home = getenv("HOME");
-            config = home + "/.steelandconcrete/steelandconcrete.flags";
-            if (boost::filesystem::exists(config))
-            {
-                FLAGS_flagfile = config;
-            }
-        }
-
-        google::ParseCommandLineFlags(&argc, &argv, true);
-        google::InitGoogleLogging(argv[0]);
-
-        ClientApp app;
-        LOG(INFO) << "ClientApp ready";
+        ClientApp app(argc, argv);
         app.MainLoop();
-        LOG(INFO) << "Main loop ended";
     }
     catch (std::exception& e)
     {
@@ -42,7 +22,6 @@ int main(int argc, char **argv)
     {
         std::cerr << "Exception!";
     }
-    google::ShutdownGoogleLogging();
     // this is to save gmon.out
     return chdir("cpd");
 }

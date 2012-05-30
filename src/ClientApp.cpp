@@ -83,12 +83,27 @@ Ogre::Camera* ClientApp::mCamera = NULL;
 
 bool ClientApp::mQuit = false;
 
-ClientApp::ClientApp():
+ClientApp::ClientApp(int argc, char **argv):
     mCEGUIRenderer(NULL),
     mMouse(NULL),
     mKeyboard(NULL),
     mGame(NULL)
 {
+    Ogre::String config = GetFlagsFilePath();
+    if (boost::filesystem::exists(config))
+    {
+        FLAGS_flagfile = config;
+    }
+
+    Ogre::String localConfig = "steelandconcrete.flags";
+    if (boost::filesystem::exists(localConfig))
+    {
+        FLAGS_flagfile = localConfig;
+    }
+
+    google::ParseCommandLineFlags(&argc, &argv, true);
+    google::InitGoogleLogging(argv[0]);
+
     // Только для инициализации!
     // Ни каких вызовов других функий этого класа, что бы небыло необходимости
     // проверять поля на то что они инициализированы.
@@ -284,6 +299,8 @@ ClientApp::~ClientApp()
 
     delete mGLPlugin;
     mGLPlugin = NULL;
+
+    google::ShutdownGoogleLogging();
 }
 
 void ClientApp::BuildMainGUILayout()
