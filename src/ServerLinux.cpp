@@ -1,16 +1,15 @@
 #include <pch.h>
 
-#include <Server.h>
-#include <iostream>
+#include <ServerApp.h>
 
 int main(int argc, char **argv)
 {
-    signal(SIGPIPE, SIG_IGN);    
+    signal(SIGPIPE, SIG_IGN);
     google::InstallFailureSignalHandler();
 
     try
     {
-        RunServer(argc, argv);
+        Run(argc, argv);
     }
     catch (std::exception& e)
     {

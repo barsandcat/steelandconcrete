@@ -35,6 +35,7 @@
 #include <string>
 #include <stdexcept>
 #include <vector>
+#include <iostream>
 #include <OgreTextAreaOverlayElement.h>
 #include <OgreFont.h>
 #include <OgreFontManager.h>

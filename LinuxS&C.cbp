@@ -119,14 +119,13 @@
 		<Unit filename="src/ClientGeodesicGrid.h" />
 		<Unit filename="src/ClientGridNode.cpp" />
 		<Unit filename="src/ClientGridNode.h" />
+		<Unit filename="src/ClientLinux.cpp" />
 		<Unit filename="src/ClientTile.cpp" />
 		<Unit filename="src/ClientTile.h" />
 		<Unit filename="src/ClientUnit.cpp" />
 		<Unit filename="src/ClientUnit.h" />
 		<Unit filename="src/HighResolutionClock.cpp" />
 		<Unit filename="src/HighResolutionClock.h" />
-		<Unit filename="src/Linux.cpp" />
-		<Unit filename="src/LinuxPlatform.cpp" />
 		<Unit filename="src/MovementAnimation.cpp" />
 		<Unit filename="src/MovementAnimation.h" />
 		<Unit filename="src/Network.cpp" />
@@ -134,6 +133,7 @@
 		<Unit filename="src/OgreLogRedirect.cpp" />
 		<Unit filename="src/OgreLogRedirect.h" />
 		<Unit filename="src/Platform.h" />
+		<Unit filename="src/PlatformLinux.cpp" />
 		<Unit filename="src/SyncTimer.h" />
 		<Unit filename="src/Typedefs.h" />
 		<Unit filename="src/VisualCodes.cpp" />
