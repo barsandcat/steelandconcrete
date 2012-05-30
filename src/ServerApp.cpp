@@ -11,7 +11,7 @@ DEFINE_string(address, "localhost", "Server address");
 DEFINE_int32(port, 4512, "Port");
 DEFINE_int32(size, 4, "Map size: 1 - 162, 2 - 642, 3 - 2562, 4 - 10242, 5 - 40962, 6 - 163842, 7 - 655362 tiles");
 
-void RunServer(int argc, char **argv)
+void Run(int argc, char **argv)
 {
     google::InitGoogleLogging(argv[0]);
     FLAGS_alsologtostderr = true;
