@@ -22,6 +22,8 @@ int main(int argc, char **argv)
     {
         std::cerr << "Exception!";
     }
+
+    google::ShutdownGoogleLogging();
     // this is to save gmon.out
     return chdir("cpd");
 }
