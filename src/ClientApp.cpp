@@ -299,8 +299,6 @@ ClientApp::~ClientApp()
 
     delete mGLPlugin;
     mGLPlugin = NULL;
-
-    google::ShutdownGoogleLogging();
 }
 
 void ClientApp::BuildMainGUILayout()
