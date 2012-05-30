@@ -89,6 +89,8 @@ ClientApp::ClientApp(int argc, char **argv):
     mKeyboard(NULL),
     mGame(NULL)
 {
+    // No function calls allowed here - to avoid any checks for uninitialized members.
+
     Ogre::String config = GetFlagsFilePath();
     if (boost::filesystem::exists(config))
     {
@@ -104,9 +106,6 @@ ClientApp::ClientApp(int argc, char **argv):
     google::ParseCommandLineFlags(&argc, &argv, true);
     google::InitGoogleLogging(argv[0]);
 
-    // Только для инициализации!
-    // Ни каких вызовов других функий этого класа, что бы небыло необходимости
-    // проверять поля на то что они инициализированы.
     {
         LOG(INFO) << "Redirect Ogre log";
         Ogre::LogManager* logManager = new Ogre::LogManager();
@@ -114,11 +113,11 @@ ClientApp::ClientApp(int argc, char **argv):
         log->addListener(&mOgreLogRedirect);
     }
 
-    {
-        mWork.reset(new boost::asio::io_service::work(mIOService));
+    mWork.reset(new boost::asio::io_service::work(mIOService));
 
-        mRoot = new Ogre::Root("", "", "");
+    {
         LOG(INFO) << "Init OGRE";
+        mRoot = new Ogre::Root("", "", "");
 
         // Gl renedr system
         mGLPlugin = new Ogre::GLPlugin();
