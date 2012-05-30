@@ -15,7 +15,7 @@ class ClientApp: public OIS::KeyListener, public OIS::MouseListener, public OIS:
                  public Ogre::WindowEventListener
 {
 public:
-    ClientApp();
+    ClientApp(int argc, char **argv);
     virtual ~ClientApp();
     void MainLoop();
 

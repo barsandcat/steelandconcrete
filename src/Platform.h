@@ -8,7 +8,7 @@
 
 DECLARE_string(data_dir);
 
+Ogre::String GetFlagsFilePath();
 void LaunchServer();
-
 
 #endif
