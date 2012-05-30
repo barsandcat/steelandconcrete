@@ -8,8 +8,6 @@
 
 DECLARE_string(data_dir);
 
-int64 GetMiliseconds();
-
 void LaunchServer();
 
 

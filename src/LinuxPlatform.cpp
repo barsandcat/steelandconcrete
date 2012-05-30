@@ -1,17 +1,9 @@
 #include <pch.h>
 
 #include <Platform.h>
-#include <sys/time.h>
 
-#include <boost/chrono/chrono.hpp>
 
 DEFINE_string(data_dir, "/usr/share/games/steelandconcrete", "Path for game data");
-
-int64 GetMiliseconds()
-{
-    boost::chrono::high_resolution_clock::time_point now = boost::chrono::high_resolution_clock::now();
-    return boost::chrono::duration_cast<boost::chrono::milliseconds>(now.time_since_epoch()).count();
-}
 
 void LaunchServer()
 {
