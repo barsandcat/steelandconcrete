@@ -2,7 +2,7 @@
 #define SYNCTIMER_H
 
 #include <Typedefs.h>
-#include <Platform.h>
+#include <HighResolutionClock.h>
 
 class SyncTimer
 {

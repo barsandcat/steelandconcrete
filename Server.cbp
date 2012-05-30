@@ -90,6 +90,8 @@
 		<Unit filename="src/Edge.h" />
 		<Unit filename="src/Exceptions.h" />
 		<Unit filename="src/GeodesicGrid.h" />
+		<Unit filename="src/HighResolutionClock.cpp" />
+		<Unit filename="src/HighResolutionClock.h" />
 		<Unit filename="src/IChange.h" />
 		<Unit filename="src/LinuxPlatform.cpp" />
 		<Unit filename="src/LinuxServer.cpp" />

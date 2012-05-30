@@ -89,6 +89,8 @@
 		<Unit filename="../DummyNetwork.cpp" />
 		<Unit filename="../DummyNetwork.h" />
 		<Unit filename="../Exceptions.h" />
+		<Unit filename="../HighResolutionClock.cpp" />
+		<Unit filename="../HighResolutionClock.h" />
 		<Unit filename="../IChange.h" />
 		<Unit filename="../INetwork.h" />
 		<Unit filename="../LinuxPlatform.cpp" />

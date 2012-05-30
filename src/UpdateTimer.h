@@ -2,7 +2,7 @@
 #define UPDATETIMER_H_INCLUDED
 
 #include <Typedefs.h>
-#include <Platform.h>
+#include <HighResolutionClock.h>
 #include <boost/thread.hpp>
 
 class UpdateTimer

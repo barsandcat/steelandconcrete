@@ -15,6 +15,7 @@
 #include <RendererModules/Ogre/CEGUIOgreResourceProvider.h>
 #include <RendererModules/Ogre/CEGUIOgreImageCodec.h>
 #include <CEGUILocalization.h>
+#include <Platform.h>
 
 char ClientApp::RU[] = "LANGUAGE=ru";
 char ClientApp::EN[] = "LANGUAGE=en";

@@ -123,6 +123,8 @@
 		<Unit filename="src/ClientTile.h" />
 		<Unit filename="src/ClientUnit.cpp" />
 		<Unit filename="src/ClientUnit.h" />
+		<Unit filename="src/HighResolutionClock.cpp" />
+		<Unit filename="src/HighResolutionClock.h" />
 		<Unit filename="src/Linux.cpp" />
 		<Unit filename="src/LinuxPlatform.cpp" />
 		<Unit filename="src/MovementAnimation.cpp" />
