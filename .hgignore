@@ -54,6 +54,7 @@ glob:*.skeleton.xml
 glob:*.aps
 glob:*.deps
 glob:debian/steelandconcrete/*
+glob:debian/steelandconcrete-server/*
 glob:*-stamp
 glob:debian/files
-glob:debian/steelandconcrete.substvars
+glob:debian/*.substvars

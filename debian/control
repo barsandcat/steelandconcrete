@@ -9,4 +9,9 @@ Homepage: http://code.google.com/p/steelandconcrete/
 Package: steelandconcrete
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description:
+Description: Multiplayer real-time strategy game. Client
+
+Package: steelandconcrete-server
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Multiplayer real-time strategy gmae. Server
