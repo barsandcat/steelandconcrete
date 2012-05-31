@@ -24,7 +24,7 @@
 			OutputDirectory="bin"
 			IntermediateDirectory="obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -51,8 +51,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;gflags\gflags-2.0\src\windows&quot;;&quot;glog\glog-0.3.2\src\windows&quot;;&quot;gettext-0.13.1\gettext-runtime\intl&quot;;boost\boost_1_46_1;QuickGUI_10_1\QuickGUI\include;&quot;protobuf-2.4.1\src&quot;;&quot;ois-v1-3\includes&quot;;src;ogre\build\include;ogre\ogre_1.7.3\OgreMain\include;src\proto"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;GFLAGS_DLL_DECL=;GFLAGS_DLL_DECLARE_FLAG=;GFLAGS_DLL_DEFINE_FLAG=;GOOGLE_GLOG_DLL_DECL="
+				AdditionalIncludeDirectories="&quot;gflags\gflags-2.0\src\windows&quot;;&quot;glog\glog-0.3.2\src\windows&quot;;&quot;gettext-0.13.1\gettext-runtime\intl&quot;;boost\boost_1_49_0;QuickGUI_10_1\QuickGUI\include;&quot;protobuf-2.4.1\src&quot;;&quot;ois-v1-3\includes&quot;;src;ogre\build\include;ogre\ogre_1.7.3\OgreMain\include;src\proto"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;BOOST_CHRONO_HEADER_ONLY=1;GFLAGS_DLL_DECL=;GFLAGS_DLL_DECLARE_FLAG=;GFLAGS_DLL_DEFINE_FLAG=;GOOGLE_GLOG_DLL_DECL="
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -106,7 +106,7 @@
 			OutputDirectory="bin"
 			IntermediateDirectory="obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -135,8 +135,8 @@
 				AdditionalOptions="/Zm200"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;gflags\gflags-2.0\src\windows&quot;;&quot;glog\glog-0.3.2\src\windows&quot;;&quot;gettext-0.13.1\gettext-runtime\intl&quot;;boost\boost_1_46_1;QuickGUI_10_1\QuickGUI\include;&quot;protobuf-2.4.1\src&quot;;&quot;ois-v1-3\includes&quot;;src;ogre\build\include;ogre\ogre_1.7.3\OgreMain\include;src\proto"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;GFLAGS_DLL_DECL=;GFLAGS_DLL_DECLARE_FLAG=;GFLAGS_DLL_DEFINE_FLAG=;GOOGLE_GLOG_DLL_DECL="
+				AdditionalIncludeDirectories="&quot;gflags\gflags-2.0\src\windows&quot;;&quot;glog\glog-0.3.2\src\windows&quot;;&quot;gettext-0.13.1\gettext-runtime\intl&quot;;boost\boost_1_49_0;QuickGUI_10_1\QuickGUI\include;&quot;protobuf-2.4.1\src&quot;;&quot;ois-v1-3\includes&quot;;src;ogre\build\include;ogre\ogre_1.7.3\OgreMain\include;src\proto"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;BOOST_CHRONO_HEADER_ONLY=1;GFLAGS_DLL_DECL=;GFLAGS_DLL_DECLARE_FLAG=;GFLAGS_DLL_DEFINE_FLAG=;GOOGLE_GLOG_DLL_DECL="
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"

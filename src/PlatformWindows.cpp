@@ -2,11 +2,30 @@
 
 #include <Platform.h>
 
-int64 GetMiliseconds()
+
+DEFINE_string(data_dir, "res", "Game data directory");
+
+Ogre::String GetFlagsFilePath()
 {
-	LARGE_INTEGER stop;
-	LARGE_INTEGER proc_freq;
-	QueryPerformanceCounter(&stop);
-	QueryPerformanceFrequency(&proc_freq);
-	return double(stop.QuadPart) / double(proc_freq.QuadPart) * 1000;
+    Ogre::String home = getenv("APPDATA");
+    return home + "\\steelandconcrete\\steelandconcrete.flags";
 }
+
+void LaunchServer()
+{
+    STARTUPINFO si;
+    PROCESS_INFORMATION pi;
+
+    ZeroMemory( &si, sizeof(si) );
+    si.cb = sizeof(si);
+    ZeroMemory( &pi, sizeof(pi) );
+
+
+    CreateProcess("steelandconcrete_server.exe", NULL, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi);
+
+    CloseHandle( pi.hProcess );
+    CloseHandle( pi.hThread );
+}
+
+
+

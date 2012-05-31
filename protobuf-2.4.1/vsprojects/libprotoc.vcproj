@@ -21,6 +21,7 @@
 			OutputDirectory="..\..\lib"
 			IntermediateDirectory="..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -85,6 +86,7 @@
 			OutputDirectory="..\..\lib"
 			IntermediateDirectory="..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -155,22 +157,6 @@
 			</File>
 			<File
 				RelativePath="..\src\google\protobuf\compiler\command_line_interface.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\google\protobuf\compiler\subprocess.h"
-				>
-			</File>
-      <File
-        RelativePath="..\src\google\protobuf\compiler\zip_writer.h"
-        >
-      </File>
-			<File
-				RelativePath="..\src\google\protobuf\compiler\plugin.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\google\protobuf\compiler\plugin.pb.h"
 				>
 			</File>
 			<File
@@ -270,7 +256,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\google\protobuf\compiler\plugin.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\google\protobuf\compiler\plugin.pb.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\google\protobuf\compiler\python\python_generator.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\google\protobuf\compiler\subprocess.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\google\protobuf\compiler\zip_writer.h"
 				>
 			</File>
 		</Filter>
@@ -291,22 +293,6 @@
 			</File>
 			<File
 				RelativePath="..\src\google\protobuf\compiler\command_line_interface.cc"
-				>
-			</File>
-			<File
-				RelativePath="..\src\google\protobuf\compiler\subprocess.cc"
-				>
-			</File>
-      <File
-        RelativePath="..\src\google\protobuf\compiler\zip_writer.cc"
-        >
-      </File>
-			<File
-				RelativePath="..\src\google\protobuf\compiler\plugin.cc"
-				>
-			</File>
-			<File
-				RelativePath="..\src\google\protobuf\compiler\plugin.pb.cc"
 				>
 			</File>
 			<File
@@ -406,7 +392,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\google\protobuf\compiler\plugin.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\src\google\protobuf\compiler\plugin.pb.cc"
+				>
+			</File>
+			<File
 				RelativePath="..\src\google\protobuf\compiler\python\python_generator.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\src\google\protobuf\compiler\subprocess.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\src\google\protobuf\compiler\zip_writer.cc"
 				>
 			</File>
 		</Filter>

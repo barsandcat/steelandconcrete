@@ -27,7 +27,7 @@
 			OutputDirectory="..\..\bin"
 			IntermediateDirectory="..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -62,8 +62,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(SolutionDir)gflags\gflags-2.0\src\windows&quot;;&quot;$(SolutionDir)gettext-0.13.1\gettext-runtime\intl&quot;;&quot;$(SolutionDir)boost\boost_1_46_1&quot;;&quot;$(SolutionDir)protobuf-2.4.1\src&quot;;&quot;$(SolutionDir)glog\glog-0.3.2\src\windows&quot;;..\proto;&quot;$(SolutionDir)ogre\build\include&quot;;&quot;$(SolutionDir)ogre\ogre_1.7.3\OgreMain\include&quot;;&quot;$(SolutionDir)QuickGUI_10_1\QuickGUI\include&quot;;&quot;$(SolutionDir)ois-v1-3\includes&quot;;&quot;$(SolutionDir)src&quot;;&quot;$(SolutionDir)cxxtest&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;_QuickGUIExport=;GFLAGS_DLL_DECL=;GFLAGS_DLL_DECLARE_FLAG=;GFLAGS_DLL_DEFINE_FLAG=;GOOGLE_GLOG_DLL_DECL=;_WIN32_WINNT=0x0500;_WIN32_WINDOWS=0x0500"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)gflags\gflags-2.0\src\windows&quot;;&quot;$(SolutionDir)gettext-0.13.1\gettext-runtime\intl&quot;;&quot;$(SolutionDir)boost\boost_1_49_0&quot;;&quot;$(SolutionDir)protobuf-2.4.1\src&quot;;&quot;$(SolutionDir)glog\glog-0.3.2\src\windows&quot;;..\proto;&quot;$(SolutionDir)ogre\build\include&quot;;&quot;$(SolutionDir)ogre\ogre_1.7.3\OgreMain\include&quot;;&quot;$(SolutionDir)QuickGUI_10_1\QuickGUI\include&quot;;&quot;$(SolutionDir)ois-v1-3\includes&quot;;&quot;$(SolutionDir)src&quot;;&quot;$(SolutionDir)cxxtest&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;BOOST_CHRONO_HEADER_ONLY=1;_QuickGUIExport=;GFLAGS_DLL_DECL=;GFLAGS_DLL_DECLARE_FLAG=;GFLAGS_DLL_DEFINE_FLAG=;GOOGLE_GLOG_DLL_DECL=;_WIN32_WINNT=0x0500;_WIN32_WINDOWS=0x0500"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -121,7 +121,7 @@
 			OutputDirectory="..\..\bin"
 			IntermediateDirectory="..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -158,8 +158,8 @@
 				AdditionalOptions="/Zm200"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;$(SolutionDir)gflags\gflags-2.0\src\windows&quot;;&quot;$(SolutionDir)gettext-0.13.1\gettext-runtime\intl&quot;;&quot;$(SolutionDir)boost\boost_1_46_1&quot;;&quot;$(SolutionDir)protobuf-2.4.1\src&quot;;&quot;$(SolutionDir)glog\glog-0.3.2\src\windows&quot;;..\proto;&quot;$(SolutionDir)ogre\build\include&quot;;&quot;$(SolutionDir)ogre\ogre_1.7.3\OgreMain\include&quot;;&quot;$(SolutionDir)QuickGUI_10_1\QuickGUI\include&quot;;&quot;$(SolutionDir)ois-v1-3\includes&quot;;&quot;$(SolutionDir)src&quot;;&quot;$(SolutionDir)cxxtest&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;_QuickGUIExport=;GFLAGS_DLL_DECL=;GFLAGS_DLL_DECLARE_FLAG=;GFLAGS_DLL_DEFINE_FLAG=;GOOGLE_GLOG_DLL_DECL=;_WIN32_WINNT=0x0500;_WIN32_WINDOWS=0x0500"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)gflags\gflags-2.0\src\windows&quot;;&quot;$(SolutionDir)gettext-0.13.1\gettext-runtime\intl&quot;;&quot;$(SolutionDir)boost\boost_1_49_0&quot;;&quot;$(SolutionDir)protobuf-2.4.1\src&quot;;&quot;$(SolutionDir)glog\glog-0.3.2\src\windows&quot;;..\proto;&quot;$(SolutionDir)ogre\build\include&quot;;&quot;$(SolutionDir)ogre\ogre_1.7.3\OgreMain\include&quot;;&quot;$(SolutionDir)QuickGUI_10_1\QuickGUI\include&quot;;&quot;$(SolutionDir)ois-v1-3\includes&quot;;&quot;$(SolutionDir)src&quot;;&quot;$(SolutionDir)cxxtest&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;BOOST_CHRONO_HEADER_ONLY=1;_QuickGUIExport=;GFLAGS_DLL_DECL=;GFLAGS_DLL_DECLARE_FLAG=;GFLAGS_DLL_DEFINE_FLAG=;GOOGLE_GLOG_DLL_DECL=;_WIN32_WINNT=0x0500;_WIN32_WINDOWS=0x0500"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
@@ -255,6 +255,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\HighResolutionClock.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\Mind.cpp"
 				>
 			</File>
@@ -287,6 +291,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\PlatformWindows.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\ServerGame.cpp"
 				>
 			</File>
@@ -312,10 +320,6 @@
 			</File>
 			<File
 				RelativePath="..\VisualCodes.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\WindowsPlatform.cpp"
 				>
 			</File>
 		</Filter>
@@ -346,6 +350,10 @@
 			</File>
 			<File
 				RelativePath="..\DummyNetwork.h"
+				>
+			</File>
+			<File
+				RelativePath="..\HighResolutionClock.h"
 				>
 			</File>
 			<File
