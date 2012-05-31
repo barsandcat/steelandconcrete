@@ -21,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)lib"
 			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
-			CharacterSet="0"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -84,7 +84,7 @@
 			OutputDirectory="$(SolutionDir)lib"
 			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
-			CharacterSet="0"
+			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
 			<Tool

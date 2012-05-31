@@ -21,6 +21,7 @@
 			OutputDirectory="..\..\lib"
 			IntermediateDirectory="..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -85,6 +86,7 @@
 			OutputDirectory="..\..\lib"
 			IntermediateDirectory="..\..\obj\$(ProjectName)$(ConfigurationName)$(PlatformName)"
 			ConfigurationType="4"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"

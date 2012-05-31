@@ -1,13 +1,13 @@
 #include <pch.h>
 
-#include <Server.h>
+#include <ServerApp.h>
 #include <iostream>
 
 int main(int argc, char **argv)
 {
     try
     {
-		RunServer(argc, argv);
+		Run(argc, argv);
     }
     catch (std::exception& e)
     {
