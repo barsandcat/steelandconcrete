@@ -29,6 +29,8 @@
 #include <boost/timer/timer.hpp>
 #include <boost/thread.hpp>
 #include <boost/exception/diagnostic_information.hpp>
+#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/path.hpp>
 
 #include <OIS.h>
 #include <algorithm>

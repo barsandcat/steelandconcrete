@@ -13,7 +13,6 @@ public:
     ServerTile& GetUnitTile() const { return *mPosition; }
     UnitId GetUnitId() const { return mUnitId; }
     virtual ~ServerUnit();
-    bool UpdateAgeAndIsTimeToDie(GameTime aPeriod);
     const UnitClass& GetClass() const { return mClass; }
     void Move(ServerTile& aNewPosition);
 protected:
@@ -22,7 +21,6 @@ private:
     const UnitClass& mClass;
     ServerTile* mPosition;
     ServerTile* mTarget;
-    uint32 mAge;
 };
 
 #endif // SERVERUNIT_H

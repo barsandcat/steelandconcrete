@@ -65,6 +65,7 @@
 			<Add library="boost_system$(TARGET_NAME)" />
 			<Add library="gflags$(TARGET_NAME)" />
 			<Add library="glog$(TARGET_NAME)" />
+			<Add library="boost_filesystem$(TARGET_NAME)" />
 			<Add directory="lib" />
 		</Linker>
 		<ExtraCommands>
