@@ -83,23 +83,11 @@ ServerGame::~ServerGame()
     }
 }
 
-void ServerGame::MainLoop(Ogre::String aAddress, int32 aPort)
+void ServerGame::Update()
 {
-    LOG(INFO) << "Connecting to " << aAddress << ":" << aPort;
+    LOG(INFO) << "Whait...";
+    mTimer.Wait();
 
-    boost::thread connectionManager(ConnectionManager, boost::ref(*this), aAddress, aPort);
-
-    while (true)
-    {
-        LOG(INFO) << "Whait...";
-        mTimer.Wait();
-        UpdateGame();
-    }
-    LOG(INFO) << "Game over";
-}
-
-void ServerGame::UpdateGame()
-{
     boost::lock_guard<boost::shared_mutex> cs(mGameMutex);
 
     LOG(INFO) << "Update Game!";
