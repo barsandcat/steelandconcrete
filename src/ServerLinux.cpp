@@ -2,24 +2,43 @@
 
 #include <ServerApp.h>
 
+int terminateSignal = 0;
+bool continueRun = true;
+
+void  HandleTerminateSignal(int sig)
+{
+    LOG(INFO) << "Recived signal " << sig;
+    terminateSignal = sig;
+    continueRun = false;
+}
+
 int main(int argc, char **argv)
 {
-    signal(SIGPIPE, SIG_IGN);
     google::InstallFailureSignalHandler();
+    signal(SIGPIPE, SIG_IGN);
+    signal(SIGINT, HandleTerminateSignal);
+    signal(SIGQUIT, HandleTerminateSignal);
 
     try
     {
-        Run(argc, argv);
+        Run(argc, argv, continueRun);
     }
     catch (std::exception& e)
     {
         std::cerr << "An exception has occured: " << e.what();
-        return 1;
     }
     catch (...)
     {
         std::cerr << "Exception!";
-        return 2;
     }
+
+    // Terminate with proper status/exit result, so calling program knows
+    if (terminateSignal)
+    {
+        signal(terminateSignal, SIG_DFL);
+        kill(getpid(), terminateSignal);
+    }
+
     return 0;
 }
+

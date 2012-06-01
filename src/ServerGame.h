@@ -20,8 +20,8 @@ public:
 	const ServerGeodesicGrid::Tiles& GetTiles() const { return mTiles; }
 	int32 GetSize() const { return mSize; }
 	boost::shared_mutex& GetGameMutex() { return mGameMutex; }
+    void Update();
 private:
-    void UpdateGame();
     ServerGeodesicGrid::Tiles mTiles;
     int32 mSize;
     static GameTime mTime;
