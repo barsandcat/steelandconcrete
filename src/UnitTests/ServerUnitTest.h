@@ -41,15 +41,7 @@ public:
         TS_ASSERT_EQUALS(mTile->GetUnitId(), 0);
     }
 
-    void TestAgeZero()
-    {
-        TS_ASSERT(!mUnit->UpdateAgeAndIsTimeToDie(0));
-    }
 
-    void TestAgeThousend()
-    {
-        TS_ASSERT(mUnit->UpdateAgeAndIsTimeToDie(1000));
-    }
 private:
     ServerUnit* mUnit;
     ServerTile* mTile;

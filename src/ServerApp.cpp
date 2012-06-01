@@ -13,22 +13,24 @@ DEFINE_int32(size, 4, "Map size: 1 - 162, 2 - 642, 3 - 2562, 4 - 10242, 5 - 4096
 
 void Run(int argc, char **argv)
 {
+    Ogre::String localConfig = "steelandconcrete_server.flags";
+    if (boost::filesystem::exists(localConfig))
+    {
+        FLAGS_flagfile = localConfig;
+    }
+
     google::InitGoogleLogging(argv[0]);
-    FLAGS_alsologtostderr = true;
 	google::ParseCommandLineFlags(&argc, &argv, true);
-
-	// Define the command line object.
-	Ogre::String version = Ogre::StringConverter::toString(PROTOCOL_VERSION) +
-		"." + Ogre::StringConverter::toString(RELEASE_VERSION);
-
 
 	if (FLAGS_short_version)
     {
-        std::cout << version;
-        return;
+        std::cout << PROTOCOL_VERSION << '.' << RELEASE_VERSION;
+    }
+    else
+    {
+        ServerGame app(FLAGS_size);
+        app.MainLoop(FLAGS_address, FLAGS_port);
     }
 
-	ServerGame app(FLAGS_size);
-	app.MainLoop(FLAGS_address, FLAGS_port);
 	google::ShutdownGoogleLogging();
 }

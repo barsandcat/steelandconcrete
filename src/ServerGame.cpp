@@ -106,15 +106,6 @@ void ServerGame::UpdateGame()
 
     MindList::UpdateMinds(mTimeStep);
 
-    for (UnitListIterator i = UnitList::GetIterator(); !i.IsDone(); i.Next())
-    {
-        ServerUnit* unit = i.GetUnit();
-        if (unit->UpdateAgeAndIsTimeToDie(mTimeStep))
-        {
-            UnitList::DeleteUnit(unit->GetUnitId());
-        }
-    }
-
     mTime += mTimeStep;
     for (ServerGeodesicGrid::Tiles::const_iterator i = mTiles.begin(); i != mTiles.end(); ++i)
     {

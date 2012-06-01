@@ -6,9 +6,6 @@
 #include <Network.h>
 #include <ProtocolVersion.h>
 
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
-
 #include <libintl.h>
 #include <locale.h>
 
@@ -429,7 +426,7 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
         CEGUI::String port = GetWindow("ServerBrowser/Port")->getText();
         CEGUI::String address = GetWindow("ServerBrowser/Address")->getText();
 
-        LOG(INFO) << "Port " << port << "Address " << address;
+        LOG(INFO) << "Port " << port << " Address " << address;
 
         tcp::resolver resolver(mIOService);
         tcp::resolver::query query(address.c_str(), port.c_str(), boost::asio::ip::resolver_query_base::numeric_service);

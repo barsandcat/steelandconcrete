@@ -7,8 +7,7 @@
 #include <UnitList.h>
 
 ServerUnit::ServerUnit(ServerTile& aTile, const UnitClass& aClass, UnitId aUnitId):
-    mUnitId(aUnitId), mClass(aClass), mPosition(&aTile),  mTarget(NULL),
-      mAge(0)
+    mUnitId(aUnitId), mClass(aClass), mPosition(&aTile),  mTarget(NULL)
 {
     mPosition->SetUnitId(mUnitId);
     if (aClass.GetMaxSpeed() > 0)
@@ -30,11 +29,5 @@ void ServerUnit::Move(ServerTile& aNewPosition)
     mPosition->SetUnitId(0);
     mPosition = &aNewPosition;
     mPosition->SetUnitId(mUnitId);
-}
-
-bool ServerUnit::UpdateAgeAndIsTimeToDie(GameTime aPeriod)
-{
-    mAge += aPeriod;
-    return mAge > mClass.GetMaxAge() + rand() % mClass.GetMaxAge();
 }
 
