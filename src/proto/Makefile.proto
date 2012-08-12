@@ -1,0 +1,17 @@
+PROTOC=../../bin/protoc
+
+all : Header.pb.h Payload.pb.h ChangeList.pb.h CommandList.pb.h
+
+Header.pb.h : Header.proto
+	$(PROTOC) --cpp_out=. Header.proto
+
+Payload.pb.h : Payload.proto
+	$(PROTOC) --cpp_out=. Payload.proto
+
+ChangeList.pb.h : ChangeList.proto
+	$(PROTOC) --cpp_out=. ChangeList.proto
+
+CommandList.pb.h : CommandList.proto
+	$(PROTOC) --cpp_out=. CommandList.proto
+
+

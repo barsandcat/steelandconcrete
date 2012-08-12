@@ -1,0 +1,14 @@
+all : uk/LC_MESSAGES/steelandconcrete.mo ru/LC_MESSAGES/steelandconcrete.mo en/LC_MESSAGES/steelandconcrete.mo ja/LC_MESSAGES/steelandconcrete.mo
+
+uk/LC_MESSAGES/steelandconcrete.mo:
+	msgfmt -o uk/LC_MESSAGES/steelandconcrete.mo uk/LC_MESSAGES/steelandconcrete.po
+
+ru/LC_MESSAGES/steelandconcrete.mo:
+	msgfmt -o ru/LC_MESSAGES/steelandconcrete.mo ru/LC_MESSAGES/steelandconcrete.po
+
+en/LC_MESSAGES/steelandconcrete.mo:
+	msgfmt -o en/LC_MESSAGES/steelandconcrete.mo en/LC_MESSAGES/steelandconcrete.po
+
+ja/LC_MESSAGES/steelandconcrete.mo:
+	msgfmt -o ja/LC_MESSAGES/steelandconcrete.mo ja/LC_MESSAGES/steelandconcrete.po
+

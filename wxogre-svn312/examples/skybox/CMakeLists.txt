@@ -1,0 +1,8 @@
+SET(TARGET skybox)
+
+ADD_EXECUTABLE(${TARGET}
+	WIN32
+    Skybox.cpp
+) 
+
+TARGET_LINK_LIBRARIES(${TARGET} wx_ogre)

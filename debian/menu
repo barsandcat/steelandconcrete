@@ -1,0 +1,2 @@
+?package(testapp):needs="X11" section="Applications/Programming"\
+  title="steelandconcrete" command="/usr/bin/steelandconcrete"
