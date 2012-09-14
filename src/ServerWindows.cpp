@@ -7,7 +7,8 @@ int main(int argc, char **argv)
 {
     try
     {
-		Run(argc, argv);
+        bool continueRun = true;
+        Run(argc, argv, continueRun);
     }
     catch (std::exception& e)
     {
