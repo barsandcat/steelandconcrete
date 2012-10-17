@@ -18,7 +18,6 @@ RequestExecutionLevel user
 ;--------------------------------
 
 ; Pages
-
 Page components
 Page directory
 Page instfiles
@@ -26,8 +25,14 @@ Page instfiles
 UninstPage uninstConfirm
 UninstPage instfiles
 
-;--------------------------------
-
+;-------------------------------- 
+ Function .onInit
+  IfFileExists $SYSDIR\OpenAL33.dll allOk 0 
+  MessageBox MB_OK "Can not find OpenAL32.dll in system directory. Please download and install OpenAL: http://connect.creativelabs.com/openal/Downloads/oalinst.zip"
+  Abort
+  allOk:
+ FunctionEnd
+ 
 ; The stuff to install
 Section "Files (required)"
 
