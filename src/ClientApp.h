@@ -57,6 +57,7 @@ public:
     virtual void windowResized(Ogre::RenderWindow* rw);
     virtual void windowClosed(Ogre::RenderWindow* rw);
 private:
+    void OnSocketConnect(SocketSharedPtr sock, const boost::system::error_code& error);
     void BuildMainGUILayout();
     Ogre::Ray GetMouseRay() const;
     static Ogre::SceneManager* mSceneMgr;
