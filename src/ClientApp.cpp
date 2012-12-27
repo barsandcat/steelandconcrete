@@ -415,25 +415,15 @@ bool ClientApp::OnCloseMessageBox(const CEGUI::EventArgs& args)
     return true;
 }
 
-
-bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
+void ClientApp::OnSocketConnect(SocketSharedPtr sock, const boost::system::error_code& error)
 {
-    LOG(INFO) << "On connect";
-    assert(!mGame);
-
     try
     {
-        CEGUI::String port = GetWindow("ServerBrowser/Port")->getText();
-        CEGUI::String address = GetWindow("ServerBrowser/Address")->getText();
-
-        LOG(INFO) << "Port " << port << " Address " << address;
-
-        tcp::resolver resolver(mIOService);
-        tcp::resolver::query query(address.c_str(), port.c_str(), boost::asio::ip::resolver_query_base::numeric_service);
-        tcp::resolver::iterator iterator = resolver.resolve(query);
-
-        SocketSharedPtr sock(new tcp::socket(mIOService));
-        sock->connect(*iterator);
+        if (error)
+        {
+            boost::system::system_error e(error);
+            boost::throw_exception(e);
+        }
 
         NetworkPtr net(new Network(sock));
         LOG(INFO) << "Connected";
@@ -452,6 +442,36 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
         mGame = new ClientGame(net, res.avatar(), res.size());
         GetWindow("MainMenu")->setVisible(false);
         HideModal("ServerBrowser");
+    }
+    catch (std::exception& e)
+    {
+        const char* what = e.what();
+        GetWindow("MessageBox/Message")->setText(what);
+        ShowModal("MessageBox");
+    }
+
+}
+
+bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
+{
+    LOG(INFO) << "On connect";
+    assert(!mGame);
+
+    try
+    {
+        CEGUI::String port = GetWindow("ServerBrowser/Port")->getText();
+        CEGUI::String address = GetWindow("ServerBrowser/Address")->getText();
+
+        LOG(INFO) << "Port " << port << " Address " << address;
+
+        tcp::resolver resolver(mIOService);
+        tcp::resolver::query query(address.c_str(), port.c_str(), boost::asio::ip::resolver_query_base::numeric_service);
+        tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
+
+        SocketSharedPtr sock(new tcp::socket(mIOService));
+        boost::asio::async_connect(*sock, endpoint_iterator,
+            boost::bind(&ClientApp::OnSocketConnect, this, sock, boost::asio::placeholders::error));
+
     }
     catch (std::exception& e)
     {
