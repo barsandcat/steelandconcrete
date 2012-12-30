@@ -17,9 +17,8 @@ void ClientGame::EraseUnitId(UnitId aUnitId)
     mUnits.erase(aUnitId);
 }
 
-ClientGame::ClientGame(NetworkPtr aNetwork, UnitId aAvatarId, int32 aGridSize):
+ClientGame::ClientGame(NetworkPtr aNetwork, TileId aLandingTileId, int32 aGridSize):
     mTileUnderCursor(NULL),
-    mAvatar(NULL),
     mTime(0),
     mSyncTimer(1000),
     mServerUpdateLength(1000),
@@ -27,15 +26,7 @@ ClientGame::ClientGame(NetworkPtr aNetwork, UnitId aAvatarId, int32 aGridSize):
 {
     ClientGeodesicGrid grid(mTiles, aGridSize);
 
-    LoadAvatar();
-
-    mAvatar = GetUnit(aAvatarId);
-    if (!mAvatar)
-    {
-        throw std::runtime_error("No avatar!");
-    }
-
-    Ogre::Vector3 avatarPosition = mAvatar->GetUnitTile()->GetPosition();
+    Ogre::Vector3 avatarPosition = mTiles.at(aLandingTileId)->GetPosition();
     mBirdCamera = new BirdCamera(avatarPosition, avatarPosition.length(), avatarPosition.length() + 200.0f);
 
     // Create a light
@@ -46,7 +37,7 @@ ClientGame::ClientGame(NetworkPtr aNetwork, UnitId aAvatarId, int32 aGridSize):
     myLight->setDiffuseColour(1, 1, 1);
     myLight->setSpecularColour(1, 1, 1);
 
-    mTileUnderCursor = mTiles.at(0);
+    mTileUnderCursor = mTiles.at(aLandingTileId);
     mSelectionMarker = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
     mSelectionMarker->setScale(Ogre::Vector3(0.1));
     mSelectionMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Marker", Ogre::SceneManager::PT_SPHERE));
@@ -62,6 +53,8 @@ ClientGame::ClientGame(NetworkPtr aNetwork, UnitId aAvatarId, int32 aGridSize):
                    CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
 
     CEGUI::System::getSingleton().setGUISheet(guiRoot);
+
+    RequestUpdate();
 }
 
 ClientGame::~ClientGame()
@@ -200,7 +193,8 @@ void ClientGame::OnAct()
         mTargetMarker->getParent()->removeChild(mTargetMarker);
         tile->GetNode().addChild(mTargetMarker);
         mTargetMarker->setVisible(true);
-        boost::shared_ptr<PayloadMsg> req(new PayloadMsg());
+
+        PayloadPtr req(new PayloadMsg());
         CommandMoveMsg* move = req->mutable_commandmove();
         move->set_position(mTileUnderCursor->GetTileId());
         mNetwork->Request(boost::bind(&ClientGame::OnPayloadMsg, this, _1), req);
@@ -301,28 +295,16 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
 
     if (mSyncTimer.IsTime())
     {
-        boost::shared_ptr<PayloadMsg> req(new PayloadMsg());
-        req->set_time(mTime);
-        mNetwork->Request(boost::bind(&ClientGame::OnPayloadMsg, this, _1), req);
+        RequestUpdate();
         mSyncTimer.Reset(mServerUpdateLength);
     }
 }
 
-void ClientGame::LoadAvatar()
+void ClientGame::RequestUpdate()
 {
-    PayloadMsg req;
-    req.set_time(0);
-    req.set_last(true);
-    mNetwork->WriteMessage(req);
-
-    boost::shared_ptr< PayloadMsg > rsp;
-    do
-    {
-        rsp.reset(new PayloadMsg());
-        mNetwork->ReadMessage(*rsp);
-        OnPayloadMsg(rsp);
-    }
-    while (!rsp->last());
+    PayloadPtr req(new PayloadMsg());
+    req->set_time(mTime);
+    mNetwork->Request(boost::bind(&ClientGame::OnPayloadMsg, this, _1), req);
 }
 
 void ClientGame::OnPayloadMsg(ConstPayloadPtr aPayloadMsg)

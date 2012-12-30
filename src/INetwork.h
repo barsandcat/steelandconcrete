@@ -3,7 +3,7 @@
 
 #include <Payload.pb.h>
 #include <boost/function.hpp>
-
+typedef boost::shared_ptr< PayloadMsg > PayloadPtr;
 typedef boost::shared_ptr< const PayloadMsg > ConstPayloadPtr;
 typedef boost::function< void (ConstPayloadPtr) > ResponseCallBack;
 
