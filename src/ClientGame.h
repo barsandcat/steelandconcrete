@@ -33,9 +33,9 @@ private:
     bool OnExit(const CEGUI::EventArgs& args);
     void OnEscape();
     void OnAct();
-    void OnPayloadMsg(PayloadPtr aPayloadMsg);
+    void OnPayloadMsg(ConstPayloadPtr aPayloadMsg);
     void LoadAvatar();
-    void LoadEvents(PayloadPtr aPayloadMsg);
+    void LoadEvents(ConstPayloadPtr aPayloadMsg);
 private:
     static ClientUnits mUnits;
     BirdCamera* mBirdCamera;

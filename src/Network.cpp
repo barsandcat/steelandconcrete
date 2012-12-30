@@ -94,7 +94,7 @@ void Network::ReadMessage(google::protobuf::Message& aMessage)
 }
 
 
-void Network::Request(ResponseCallBack aCallBack, PayloadPtr aPayloadMsg)
+void Network::Request(ResponseCallBack aCallBack, ConstPayloadPtr aPayloadMsg)
 {
     if (mAsync)
     {
@@ -107,7 +107,7 @@ void Network::Request(ResponseCallBack aCallBack, PayloadPtr aPayloadMsg)
     }
 }
 
-void Network::WriteRequest(ResponseCallBack aCallBack, PayloadPtr aPayloadMsg)
+void Network::WriteRequest(ResponseCallBack aCallBack, ConstPayloadPtr aPayloadMsg)
 {
     //std::cout << "NET:WriteRequest " << aPayloadMsg->ShortDebugString() << std::endl;
     size_t messageSize = aPayloadMsg->ByteSize();
@@ -200,7 +200,7 @@ void Network::ParseMessage(ResponseCallBack aCallBack,
     {
         if (!mRequests.empty())
         {
-            std::pair<ResponseCallBack, PayloadPtr> nextRequest = mRequests.front();
+            std::pair<ResponseCallBack, ConstPayloadPtr> nextRequest = mRequests.front();
             mRequests.pop_front();
             WriteRequest(nextRequest.first, nextRequest.second);
         }
