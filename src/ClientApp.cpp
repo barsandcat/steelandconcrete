@@ -434,12 +434,12 @@ void ClientApp::OnSocketConnect(SocketSharedPtr sock, const boost::system::error
 
         PayloadMsg res;
         net->ReadMessage(res);
-        if (!res.has_avatar() || !res.has_size())
+        if (!res.has_landing_tile() || !res.has_size())
         {
             throw std::runtime_error(res.reason());
         }
 
-        mGame = new ClientGame(net, res.avatar(), res.size());
+        mGame = new ClientGame(net, res.landing_tile(), res.size());
         GetWindow("MainMenu")->setVisible(false);
         HideModal("ServerBrowser");
     }

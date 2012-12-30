@@ -41,7 +41,8 @@ void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
         }
         avatar->SetFree(false);
 
-        res.set_avatar(avatar->GetUnitId());
+        ServerUnit* avatarUnit = UnitList::GetUnit(avatar->GetUnitId());
+        res.set_landing_tile(avatarUnit->GetUnitTile().GetTileId());
         res.set_size(aGame.GetSize());
         network.WriteMessage(res);
         LOG(INFO) << "Response " << res.ShortDebugString();
