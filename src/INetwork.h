@@ -4,15 +4,15 @@
 #include <Payload.pb.h>
 #include <boost/function.hpp>
 
-typedef boost::shared_ptr< const PayloadMsg > PayloadPtr;
-typedef boost::function< void (PayloadPtr) > ResponseCallBack;
+typedef boost::shared_ptr< const PayloadMsg > ConstPayloadPtr;
+typedef boost::function< void (ConstPayloadPtr) > ResponseCallBack;
 
 class INetwork
 {
 public:
     virtual void WriteMessage(const google::protobuf::Message& aMessage) = 0;
     virtual void ReadMessage(google::protobuf::Message& aMessage) = 0;
-    virtual void Request(ResponseCallBack aCallBack, PayloadPtr aPayloadMsg) = 0;
+    virtual void Request(ResponseCallBack aCallBack, ConstPayloadPtr aPayloadMsg) = 0;
     virtual ~INetwork() {}
 };
 

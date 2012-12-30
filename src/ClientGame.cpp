@@ -230,7 +230,7 @@ ClientUnit* ClientGame::GetUnit(UnitId aUnitId)
     return NULL;
 }
 
-void ClientGame::LoadEvents(PayloadPtr aPayloadMsg)
+void ClientGame::LoadEvents(ConstPayloadPtr aPayloadMsg)
 {
     for (int i = 0; i < aPayloadMsg->changes_size(); ++i)
     {
@@ -325,7 +325,7 @@ void ClientGame::LoadAvatar()
     while (!rsp->last());
 }
 
-void ClientGame::OnPayloadMsg(PayloadPtr aPayloadMsg)
+void ClientGame::OnPayloadMsg(ConstPayloadPtr aPayloadMsg)
 {
     if (aPayloadMsg->has_time())
     {
