@@ -415,6 +415,28 @@ bool ClientApp::OnCloseMessageBox(const CEGUI::EventArgs& args)
     return true;
 }
 
+void ClientApp::OnAppHanshake(NetworkPtr net, ConstPayloadPtr res)
+{
+    try
+    {
+        if (!res->has_landing_tile() || !res->has_size())
+        {
+            throw std::runtime_error(res->reason());
+        }
+
+        mGame = new ClientGame(net, res->landing_tile(), res->size());
+        GetWindow("MainMenu")->setVisible(false);
+        HideModal("ServerBrowser");
+    }
+    catch (std::exception& e)
+    {
+        const char* what = e.what();
+        GetWindow("MessageBox/Message")->setText(what);
+        ShowModal("MessageBox");
+    }
+
+}
+
 void ClientApp::OnSocketConnect(SocketSharedPtr sock, const boost::system::error_code& error)
 {
     try
@@ -428,20 +450,10 @@ void ClientApp::OnSocketConnect(SocketSharedPtr sock, const boost::system::error
         NetworkPtr net(new Network(sock));
         LOG(INFO) << "Connected";
 
-        PayloadMsg req;
-        req.set_protocolversion(PROTOCOL_VERSION);
-        net->WriteMessage(req);
+        PayloadPtr req(new PayloadMsg());
+        req->set_protocolversion(PROTOCOL_VERSION);
+        net->Request(boost::bind(&ClientApp::OnAppHanshake, this, net, _1), req);
 
-        PayloadMsg res;
-        net->ReadMessage(res);
-        if (!res.has_landing_tile() || !res.has_size())
-        {
-            throw std::runtime_error(res.reason());
-        }
-
-        mGame = new ClientGame(net, res.landing_tile(), res.size());
-        GetWindow("MainMenu")->setVisible(false);
-        HideModal("ServerBrowser");
     }
     catch (std::exception& e)
     {
@@ -449,7 +461,6 @@ void ClientApp::OnSocketConnect(SocketSharedPtr sock, const boost::system::error
         GetWindow("MessageBox/Message")->setText(what);
         ShowModal("MessageBox");
     }
-
 }
 
 bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
