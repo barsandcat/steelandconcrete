@@ -10,7 +10,6 @@ public:
     DummyNetwork(const DummyNetwork& other);
     virtual void WriteMessage(const google::protobuf::Message& aMessage);
     virtual void ReadMessage(google::protobuf::Message& aMessage);
-    virtual void Request(ResponseCallBack aCallBack, ConstPayloadPtr aPayloadMsg){};
 
     virtual bool IsOk();
     bool IsLastWrited() const { return mIsLastWrited; }

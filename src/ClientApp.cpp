@@ -3,7 +3,7 @@
 
 #include <OgreOctreePlugin.h>
 #include <OgreGLPlugin.h>
-#include <Network.h>
+#include <ServerProxy.h>
 #include <ProtocolVersion.h>
 
 #include <libintl.h>
@@ -415,16 +415,16 @@ bool ClientApp::OnCloseMessageBox(const CEGUI::EventArgs& args)
     return true;
 }
 
-void ClientApp::OnAppHanshake(NetworkPtr net, ConstPayloadPtr res)
+void ClientApp::OnAppHanshake(ServerProxyPtr aServerProxy, ConstPayloadPtr aRes)
 {
     try
     {
-        if (!res->has_landing_tile() || !res->has_size())
+        if (!aRes->has_landing_tile() || !aRes->has_size())
         {
-            throw std::runtime_error(res->reason());
+            throw std::runtime_error(aRes->reason());
         }
 
-        mGame = new ClientGame(net, res->landing_tile(), res->size());
+        mGame = new ClientGame(aServerProxy, aRes->landing_tile(), aRes->size());
         GetWindow("MainMenu")->setVisible(false);
         HideModal("ServerBrowser");
     }
@@ -437,22 +437,22 @@ void ClientApp::OnAppHanshake(NetworkPtr net, ConstPayloadPtr res)
 
 }
 
-void ClientApp::OnSocketConnect(SocketSharedPtr sock, const boost::system::error_code& error)
+void ClientApp::OnSocketConnect(SocketSharedPtr aSock, const boost::system::error_code& aError)
 {
     try
     {
-        if (error)
+        if (aError)
         {
-            boost::system::system_error e(error);
+            boost::system::system_error e(aError);
             boost::throw_exception(e);
         }
 
-        NetworkPtr net(new Network(sock));
+        ServerProxyPtr serverProxy(new ServerProxy(aSock));
         LOG(INFO) << "Connected";
 
         PayloadPtr req(new PayloadMsg());
         req->set_protocolversion(PROTOCOL_VERSION);
-        net->Request(boost::bind(&ClientApp::OnAppHanshake, this, net, _1), req);
+        serverProxy->Request(boost::bind(&ClientApp::OnAppHanshake, this, serverProxy, _1), req);
 
     }
     catch (std::exception& e)

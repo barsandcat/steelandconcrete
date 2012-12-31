@@ -5,7 +5,7 @@
 #include <ClientGeodesicGrid.h>
 #include <Payload.pb.h>
 #include <Typedefs.h>
-#include <Network.h>
+#include <ServerProxy.h>
 #include <SyncTimer.h>
 #include <CEGUI.h>
 #include <BirdCamera.h>
@@ -16,7 +16,7 @@ class ClientGame
 {
 public:
     typedef std::map< UnitId, ClientUnit* > ClientUnits;
-    ClientGame(NetworkPtr aNetwork, TileId aLandingTileId, int32 aGridSize);
+    ClientGame(ServerProxyPtr aServerProxy, TileId aLandingTileId, int32 aGridSize);
     virtual ~ClientGame(); // Для QuicGUI
     void UpdateTileUnderCursor(Ogre::Ray aRay);
     void Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats);
@@ -46,7 +46,7 @@ private:
     GameTime mTime;
     SyncTimer mSyncTimer;
     int32 mServerUpdateLength;
-    NetworkPtr mNetwork;
+    ServerProxyPtr mServerProxy;
 };
 
 #endif // CLIENTGAME_H

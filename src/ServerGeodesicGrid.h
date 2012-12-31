@@ -2,7 +2,6 @@
 #define SERVERGEODESICGRID_H
 
 #include <ServerTile.h>
-#include <Network.h>
 #include <GeodesicGrid.h>
 
 typedef GeodesicGrid<ServerTile> ServerGeodesicGrid;
