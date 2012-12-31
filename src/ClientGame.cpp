@@ -2,7 +2,7 @@
 #include <ClientGame.h>
 
 #include <ClientApp.h>
-#include <Network.h>
+#include <ServerProxy.h>
 #include <Payload.pb.h>
 #include <ChangeList.pb.h>
 #include <ClientApp.h>
@@ -17,12 +17,12 @@ void ClientGame::EraseUnitId(UnitId aUnitId)
     mUnits.erase(aUnitId);
 }
 
-ClientGame::ClientGame(NetworkPtr aNetwork, TileId aLandingTileId, int32 aGridSize):
+ClientGame::ClientGame(ServerProxyPtr aServerProxy, TileId aLandingTileId, int32 aGridSize):
     mTileUnderCursor(NULL),
     mTime(0),
     mSyncTimer(1000),
     mServerUpdateLength(1000),
-    mNetwork(aNetwork)
+    mServerProxy(aServerProxy)
 {
     ClientGeodesicGrid grid(mTiles, aGridSize);
 
@@ -197,7 +197,7 @@ void ClientGame::OnAct()
         PayloadPtr req(new PayloadMsg());
         CommandMoveMsg* move = req->mutable_commandmove();
         move->set_position(mTileUnderCursor->GetTileId());
-        mNetwork->Request(boost::bind(&ClientGame::OnPayloadMsg, this, _1), req);
+        mServerProxy->Request(boost::bind(&ClientGame::OnPayloadMsg, this, _1), req);
     }
 }
 
@@ -304,7 +304,7 @@ void ClientGame::RequestUpdate()
 {
     PayloadPtr req(new PayloadMsg());
     req->set_time(mTime);
-    mNetwork->Request(boost::bind(&ClientGame::OnPayloadMsg, this, _1), req);
+    mServerProxy->Request(boost::bind(&ClientGame::OnPayloadMsg, this, _1), req);
 }
 
 void ClientGame::OnPayloadMsg(ConstPayloadPtr aPayloadMsg)
