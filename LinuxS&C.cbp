@@ -135,6 +135,8 @@
 		<Unit filename="src/OgreLogRedirect.h" />
 		<Unit filename="src/Platform.h" />
 		<Unit filename="src/PlatformLinux.cpp" />
+		<Unit filename="src/SSLLogRedirect.cpp" />
+		<Unit filename="src/SSLLogRedirect.h" />
 		<Unit filename="src/ServerProxy.cpp" />
 		<Unit filename="src/ServerProxy.h" />
 		<Unit filename="src/SyncTimer.h" />

@@ -3,6 +3,7 @@
 
 #include <ServerGame.h>
 #include <ClientConnection.h>
+#include <SSLLogRedirect.h>
 
 typedef struct srp_server_arg_st
 {
@@ -18,7 +19,7 @@ static int ssl_srp_server_param_cb(SSL *s, int *ad, void *arg)
 
 	if (strcmp(p->expected_user, SSL_get_srp_username(s)) != 0)
 	{
-		LOG(ERROR) << "User %s doesn't exist\n" << SSL_get_srp_username(s);
+		LOG(ERROR) << "User " << SSL_get_srp_username(s) << " doesn't exist";
 		return SSL3_AL_FATAL;
 	}
 	if (SSL_set_srp_server_param_pw(s, p->expected_user, p->pass, "1024") < 0)
@@ -36,6 +37,7 @@ void ConnectionManager(ServerGame& aGame, Ogre::String aAddress, int32 aPort)
     boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tlsv1_server);
     SSL_CTX* ctx = sslCtx.native_handle();
 
+    SSL_CTX_set_info_callback(ctx, SSLInfoCallback);
     SSL_CTX_SRP_CTX_init(ctx);
     if (SSL_CTX_set_cipher_list(ctx, "SRP") != 1)
     {
