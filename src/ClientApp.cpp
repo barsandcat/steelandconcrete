@@ -27,19 +27,21 @@ DEFINE_string(video_mode, "1024 x 768", "");
 DEFINE_string(display_frequency, "60 MHz", "");
 DEFINE_string(vsync, "No", "Yes or No");
 DEFINE_string(srgb_gamma_conversion, "No", "Yes or No");
-
-static char* ssl_give_srp_client_pwd_cb(SSL *s, void *arg)
-{
-    SRP_CLIENT_ARG *srp_client_arg = (SRP_CLIENT_ARG *)arg;
-    LOG(INFO) << "ssl_give_srp_client_pwd_cb " << srp_client_arg->srplogin;
-    return BUF_strdup((char *)srp_client_arg->srppassin);
-}
+DEFINE_string(login, "test", "User name to use when connecting to server");
+DEFINE_string(password, "test", "Password to use when connecting to server");
+DEFINE_string(address, "127.0.0.1", "Server ip address");
+DEFINE_string(port, "4512", "Server port");
 
 CEGUI::Window* GetWindow(CEGUI::String aWindowName)
 {
     return CEGUI::WindowManager::getSingleton().getWindow(aWindowName);
 }
 
+static char* ssl_give_srp_client_pwd_cb(SSL *s, void *arg)
+{
+    LOG(INFO) << "ssl_give_srp_client_pwd_cb " << GetWindow("ServerBrowser/Password")->getText();
+    return BUF_strdup(GetWindow("ServerBrowser/Password")->getText().c_str());
+}
 void ShowModal(CEGUI::String aWindowName)
 {
     CEGUI::Window* window = GetWindow(aWindowName);
@@ -113,6 +115,15 @@ ClientApp::ClientApp(int argc, char **argv):
 
     // No logging before this call:
     google::InitGoogleLogging(argv[0]);
+
+    {
+        SSL_CTX* sslCtx = mSSLCtx.native_handle();
+        if (SSL_CTX_set_cipher_list(sslCtx, "SRP") != 1)
+        {
+            boost::throw_exception(std::runtime_error("SSL_CTX_set_cipher_list failed"));
+        }
+        SSL_CTX_set_verify(sslCtx, SSL_VERIFY_NONE, NULL);
+    }
 
     mWork.reset(new boost::asio::io_service::work(mIOService));
 
@@ -314,8 +325,10 @@ void ClientApp::BuildMainGUILayout()
     winMgr.destroyAllWindows();
     CEGUI::Window* myRoot = winMgr.loadWindowLayout("Main.layout", "", "", &PropertyCallback);
     CEGUI::System::getSingleton().setGUISheet(myRoot);
-    GetWindow("ServerBrowser/Port")->setText("4512");
-    GetWindow("ServerBrowser/Address")->setText("127.0.0.1");
+    GetWindow("ServerBrowser/Port")->setText(FLAGS_port);
+    GetWindow("ServerBrowser/Address")->setText(FLAGS_address);
+    GetWindow("ServerBrowser/Login")->setText(FLAGS_login);
+    GetWindow("ServerBrowser/Password")->setText(FLAGS_password);
 
     GetWindow("MainMenu/English")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
@@ -521,23 +534,15 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
         SSL_CTX* SSLCtx = mSSLCtx.native_handle();
         SSL_CTX_SRP_CTX_init(SSLCtx);
 
-        if (SSL_CTX_set_cipher_list(SSLCtx, "SRP") != 1)
-        {
-            boost::throw_exception(std::runtime_error("SSL_CTX_set_cipher_list failed"));
-        }
-        srp_client_arg.srplogin = "test";
-        srp_client_arg.srppassin = "test";
+        char* login = const_cast<char*>(GetWindow("ServerBrowser/Login")->getText().c_str());
+        LOG(INFO) << "SSL_CTX_set_srp_username " << login;
 
-        if (SSL_CTX_set_srp_username(mSSLCtx.native_handle(), srp_client_arg.srplogin) != 1)
+        if (SSL_CTX_set_srp_username(mSSLCtx.native_handle(), login) != 1)
         {
             boost::throw_exception(std::runtime_error("SSL_CTX_set_srp_username failed"));
         }
 
-
-        SSL_CTX_set_verify(SSLCtx, SSL_VERIFY_NONE, NULL);
-        SSL_CTX_set_srp_cb_arg(SSLCtx, &srp_client_arg);
         SSL_CTX_set_srp_client_pwd_callback(SSLCtx, ssl_give_srp_client_pwd_cb);
-
 
         SSLStreamPtr sslStream(new SSLStream(mIOService, mSSLCtx));
 
