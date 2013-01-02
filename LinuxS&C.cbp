@@ -99,6 +99,8 @@
 			<Add library="glog$(TARGET_NAME)" />
 			<Add library="gflags$(TARGET_NAME)" />
 			<Add library="boost_thread$(TARGET_NAME)" />
+			<Add library="ssl" />
+			<Add library="crypto" />
 			<Add directory="lib" />
 		</Linker>
 		<ExtraCommands>

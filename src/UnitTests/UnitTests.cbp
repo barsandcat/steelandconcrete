@@ -67,6 +67,8 @@
 			<Add library="boost_thread$(TARGET_NAME)" />
 			<Add library="glog$(TARGET_NAME)" />
 			<Add library="gflags$(TARGET_NAME)" />
+			<Add library="ssl" />
+			<Add library="crypto" />
 			<Add directory="../../lib" />
 		</Linker>
 		<ExtraCommands>
@@ -85,7 +87,6 @@
 		<Unit filename="../ClientFOV.cpp" />
 		<Unit filename="../ClientFOV.h" />
 		<Unit filename="../CompareEdgesAngles.h" />
-		<Unit filename="../ConnectionManager.cpp" />
 		<Unit filename="../DummyNetwork.cpp" />
 		<Unit filename="../DummyNetwork.h" />
 		<Unit filename="../Exceptions.h" />

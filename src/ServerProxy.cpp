@@ -3,10 +3,9 @@
 
 #include <Header.pb.h>
 
-ServerProxy::ServerProxy(SocketSharedPtr aSocket): mSocket(aSocket), mMessageBuffer(NULL),
+ServerProxy::ServerProxy(SSLStreamPtr aSSLStream): mSSLStream(aSSLStream), mMessageBuffer(NULL),
 mBufferSize(0), mAsync(false), mRequests(100)
 {
-    assert(aSocket);
     HeaderMsg header;
     header.set_size(0);
     mHeaderSize = header.ByteSize();
@@ -17,8 +16,7 @@ ServerProxy::~ServerProxy()
     try
     {
         delete mMessageBuffer;
-        mSocket->shutdown(boost::asio::ip::tcp::socket::shutdown_both);
-        mSocket->close();
+        mSSLStream->shutdown();
     }
     catch(std::exception& e)
     {
@@ -65,7 +63,7 @@ void ServerProxy::WriteRequest(ResponseCallBack aCallBack, PayloadPtr aPayloadMs
         boost::asio::buffer(mHeaderBuffer, headerSize),
         boost::asio::buffer(mMessageBuffer, messageSize)}};
 
-    boost::asio::async_write(*mSocket, bufs,
+    boost::asio::async_write(*mSSLStream, bufs,
                              boost::bind(&ServerProxy::ReadResponse,
                                          this, aCallBack,
                                          boost::asio::placeholders::error,
@@ -81,7 +79,7 @@ void ServerProxy::ReadResponse(ResponseCallBack aCallBack,
         boost::throw_exception(std::runtime_error("Не удалось отправить сообщение!"));
     }
 
-    boost::asio::async_read(*mSocket, boost::asio::buffer(mHeaderBuffer, mHeaderSize),
+    boost::asio::async_read(*mSSLStream, boost::asio::buffer(mHeaderBuffer, mHeaderSize),
                             boost::bind(&ServerProxy::ParseHeader,
                                         this, aCallBack,
                                         boost::asio::placeholders::error,
@@ -107,13 +105,12 @@ void ServerProxy::ParseHeader(ResponseCallBack aCallBack,
     size_t messageSize = header.size();
     AllocBuffer(messageSize);
 
-    boost::asio::async_read(*mSocket, boost::asio::buffer(mMessageBuffer, messageSize),
+    boost::asio::async_read(*mSSLStream, boost::asio::buffer(mMessageBuffer, messageSize),
                             boost::bind(&ServerProxy::ParseMessage,
                                         this, aCallBack,
                                         boost::asio::placeholders::error,
                                         boost::asio::placeholders::bytes_transferred));
 }
-
 
 void ServerProxy::ParseMessage(ResponseCallBack aCallBack,
                            const boost::system::error_code& aError,

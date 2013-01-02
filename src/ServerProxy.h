@@ -21,7 +21,7 @@ public:
 class ServerProxy: public IServerProxy
 {
 public:
-    ServerProxy(SocketSharedPtr aSocket);
+    ServerProxy(SSLStreamPtr aSSLStream);
     ~ServerProxy();
     virtual void Request(ResponseCallBack aCallBack, PayloadPtr aPayloadMsg);
 private:
@@ -36,7 +36,7 @@ private:
     void ParseMessage(ResponseCallBack aCallBack,
                       const boost::system::error_code& aError,
                       std::size_t aBytesTransferred);
-    SocketSharedPtr mSocket;
+    SSLStreamPtr mSSLStream;
     char* mMessageBuffer;
     char mHeaderBuffer[HEADER_BUFFER_SIZE];
     size_t mHeaderSize;

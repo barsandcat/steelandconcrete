@@ -13,6 +13,7 @@
 #include <RendererModules/Ogre/CEGUIOgreImageCodec.h>
 #include <CEGUILocalization.h>
 #include <Platform.h>
+#include <boost/asio/ssl.hpp>
 
 char ClientApp::RU[] = "LANGUAGE=ru";
 char ClientApp::EN[] = "LANGUAGE=en";
@@ -26,6 +27,13 @@ DEFINE_string(video_mode, "1024 x 768", "");
 DEFINE_string(display_frequency, "60 MHz", "");
 DEFINE_string(vsync, "No", "Yes or No");
 DEFINE_string(srgb_gamma_conversion, "No", "Yes or No");
+
+static char* ssl_give_srp_client_pwd_cb(SSL *s, void *arg)
+{
+    SRP_CLIENT_ARG *srp_client_arg = (SRP_CLIENT_ARG *)arg;
+    LOG(INFO) << "ssl_give_srp_client_pwd_cb " << srp_client_arg->srplogin;
+    return BUF_strdup((char *)srp_client_arg->srppassin);
+}
 
 CEGUI::Window* GetWindow(CEGUI::String aWindowName)
 {
@@ -84,7 +92,8 @@ ClientApp::ClientApp(int argc, char **argv):
     mCEGUIRenderer(NULL),
     mMouse(NULL),
     mKeyboard(NULL),
-    mGame(NULL)
+    mGame(NULL),
+    mSSLCtx(boost::asio::ssl::context::tlsv1_client)
 {
     // No function calls allowed here - to avoid any checks for uninitialized members.
 
@@ -101,7 +110,11 @@ ClientApp::ClientApp(int argc, char **argv):
     }
 
     google::ParseCommandLineFlags(&argc, &argv, true);
+
+    // No logging before this call:
     google::InitGoogleLogging(argv[0]);
+
+    mWork.reset(new boost::asio::io_service::work(mIOService));
 
     {
         LOG(INFO) << "Redirect Ogre log";
@@ -109,8 +122,6 @@ ClientApp::ClientApp(int argc, char **argv):
         Ogre::Log* log = logManager->createLog("default.log", true, false, true);
         log->addListener(&mOgreLogRedirect);
     }
-
-    mWork.reset(new boost::asio::io_service::work(mIOService));
 
     {
         LOG(INFO) << "Init OGRE";
@@ -424,6 +435,8 @@ void ClientApp::OnAppHanshake(ServerProxyPtr aServerProxy, ConstPayloadPtr aRes)
             throw std::runtime_error(aRes->reason());
         }
 
+        LOG(INFO) << "App handshake done. World size: " << aRes->size();
+
         mGame = new ClientGame(aServerProxy, aRes->landing_tile(), aRes->size());
         GetWindow("MainMenu")->setVisible(false);
         HideModal("ServerBrowser");
@@ -431,13 +444,14 @@ void ClientApp::OnAppHanshake(ServerProxyPtr aServerProxy, ConstPayloadPtr aRes)
     catch (std::exception& e)
     {
         const char* what = e.what();
+        LOG(ERROR) << "OnAppHandshake " << e.what();
         GetWindow("MessageBox/Message")->setText(what);
         ShowModal("MessageBox");
     }
 
 }
 
-void ClientApp::OnSocketConnect(SocketSharedPtr aSock, const boost::system::error_code& aError)
+void ClientApp::OnSSLHandShake(SSLStreamPtr aSSLStream, const boost::system::error_code& aError)
 {
     try
     {
@@ -447,17 +461,41 @@ void ClientApp::OnSocketConnect(SocketSharedPtr aSock, const boost::system::erro
             boost::throw_exception(e);
         }
 
-        ServerProxyPtr serverProxy(new ServerProxy(aSock));
-        LOG(INFO) << "Connected";
+        LOG(INFO) << "SSL handshake done";
+
+        ServerProxyPtr serverProxy(new ServerProxy(aSSLStream));
 
         PayloadPtr req(new PayloadMsg());
         req->set_protocolversion(PROTOCOL_VERSION);
         serverProxy->Request(boost::bind(&ClientApp::OnAppHanshake, this, serverProxy, _1), req);
-
     }
     catch (std::exception& e)
     {
         const char* what = e.what();
+        LOG(ERROR) << "OnSSLHandshake " << e.what();
+        GetWindow("MessageBox/Message")->setText(what);
+        ShowModal("MessageBox");
+    }
+}
+
+void ClientApp::OnSocketConnect(SSLStreamPtr aSSLStream, const boost::system::error_code& aError)
+{
+    try
+    {
+        if (aError)
+        {
+            boost::system::system_error e(aError);
+            boost::throw_exception(e);
+        }
+        LOG(INFO) << "Socket connected";
+
+        aSSLStream->async_handshake(boost::asio::ssl::stream_base::client,
+            boost::bind(&ClientApp::OnSSLHandShake, this, aSSLStream, boost::asio::placeholders::error));
+    }
+    catch (std::exception& e)
+    {
+        const char* what = e.what();
+        LOG(ERROR) << "OnSocketConnect " << e.what();
         GetWindow("MessageBox/Message")->setText(what);
         ShowModal("MessageBox");
     }
@@ -475,18 +513,41 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
 
         LOG(INFO) << "Port " << port << " Address " << address;
 
-        tcp::resolver resolver(mIOService);
-        tcp::resolver::query query(address.c_str(), port.c_str(), boost::asio::ip::resolver_query_base::numeric_service);
-        tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
+        boost::asio::ip::tcp::resolver resolver(mIOService);
+        boost::asio::ip::tcp::resolver::query query(address.c_str(), port.c_str(),
+            boost::asio::ip::resolver_query_base::numeric_service);
+        boost::asio::ip::tcp::resolver::iterator endpointIterator = resolver.resolve(query);
 
-        SocketSharedPtr sock(new tcp::socket(mIOService));
-        boost::asio::async_connect(*sock, endpoint_iterator,
-            boost::bind(&ClientApp::OnSocketConnect, this, sock, boost::asio::placeholders::error));
+        SSL_CTX* SSLCtx = mSSLCtx.native_handle();
+        SSL_CTX_SRP_CTX_init(SSLCtx);
 
+        if (SSL_CTX_set_cipher_list(SSLCtx, "SRP") != 1)
+        {
+            boost::throw_exception(std::runtime_error("SSL_CTX_set_cipher_list failed"));
+        }
+        srp_client_arg.srplogin = "test";
+        srp_client_arg.srppassin = "test";
+
+        if (SSL_CTX_set_srp_username(mSSLCtx.native_handle(), srp_client_arg.srplogin) != 1)
+        {
+            boost::throw_exception(std::runtime_error("SSL_CTX_set_srp_username failed"));
+        }
+
+
+        SSL_CTX_set_verify(SSLCtx, SSL_VERIFY_NONE, NULL);
+        SSL_CTX_set_srp_cb_arg(SSLCtx, &srp_client_arg);
+        SSL_CTX_set_srp_client_pwd_callback(SSLCtx, ssl_give_srp_client_pwd_cb);
+
+
+        SSLStreamPtr sslStream(new SSLStream(mIOService, mSSLCtx));
+
+        boost::asio::async_connect(sslStream->lowest_layer(), endpointIterator,
+            boost::bind(&ClientApp::OnSocketConnect, this, sslStream, boost::asio::placeholders::error));
     }
     catch (std::exception& e)
     {
         const char* what = e.what();
+        LOG(ERROR) << "OnConnect " << e.what();
         GetWindow("MessageBox/Message")->setText(what);
         ShowModal("MessageBox");
     }
