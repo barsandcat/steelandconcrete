@@ -14,6 +14,7 @@
 #include <CEGUILocalization.h>
 #include <Platform.h>
 #include <boost/asio/ssl.hpp>
+#include <SSLLogRedirect.h>
 
 char ClientApp::RU[] = "LANGUAGE=ru";
 char ClientApp::EN[] = "LANGUAGE=en";
@@ -39,9 +40,10 @@ CEGUI::Window* GetWindow(CEGUI::String aWindowName)
 
 static char* SSLGiveSRPClientPassword(SSL *s, void *arg)
 {
-    LOG(INFO) << "ssl_give_srp_client_pwd_cb " << GetWindow("ServerBrowser/Password")->getText();
+    LOG(INFO) << "SSLGiveSRPClientPassword " << GetWindow("ServerBrowser/Password")->getText();
     return BUF_strdup(GetWindow("ServerBrowser/Password")->getText().c_str());
 }
+
 void ShowModal(CEGUI::String aWindowName)
 {
     CEGUI::Window* window = GetWindow(aWindowName);
@@ -118,6 +120,7 @@ ClientApp::ClientApp(int argc, char **argv):
 
     {
         SSL_CTX* sslCtx = mSSLCtx.native_handle();
+        SSL_CTX_set_info_callback(sslCtx, SSLInfoCallback);
         if (SSL_CTX_set_cipher_list(sslCtx, "SRP") != 1)
         {
             boost::throw_exception(std::runtime_error("SSL_CTX_set_cipher_list failed"));

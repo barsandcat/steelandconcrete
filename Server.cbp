@@ -66,6 +66,8 @@
 			<Add library="gflags$(TARGET_NAME)" />
 			<Add library="glog$(TARGET_NAME)" />
 			<Add library="boost_filesystem$(TARGET_NAME)" />
+			<Add library="ssl" />
+			<Add library="crypto" />
 			<Add directory="lib" />
 		</Linker>
 		<ExtraCommands>
@@ -102,6 +104,8 @@
 		<Unit filename="src/Network.h" />
 		<Unit filename="src/Platform.h" />
 		<Unit filename="src/PlatformLinux.cpp" />
+		<Unit filename="src/SSLLogRedirect.cpp" />
+		<Unit filename="src/SSLLogRedirect.h" />
 		<Unit filename="src/ServerApp.cpp" />
 		<Unit filename="src/ServerApp.h" />
 		<Unit filename="src/ServerEdge.h" />
