@@ -37,7 +37,7 @@ CEGUI::Window* GetWindow(CEGUI::String aWindowName)
     return CEGUI::WindowManager::getSingleton().getWindow(aWindowName);
 }
 
-static char* ssl_give_srp_client_pwd_cb(SSL *s, void *arg)
+static char* SSLGiveSRPClientPassword(SSL *s, void *arg)
 {
     LOG(INFO) << "ssl_give_srp_client_pwd_cb " << GetWindow("ServerBrowser/Password")->getText();
     return BUF_strdup(GetWindow("ServerBrowser/Password")->getText().c_str());
@@ -542,7 +542,7 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
             boost::throw_exception(std::runtime_error("SSL_CTX_set_srp_username failed"));
         }
 
-        SSL_CTX_set_srp_client_pwd_callback(SSLCtx, ssl_give_srp_client_pwd_cb);
+        SSL_CTX_set_srp_client_pwd_callback(SSLCtx, SSLGiveSRPClientPassword);
 
         SSLStreamPtr sslStream(new SSLStream(mIOService, mSSLCtx));
 
