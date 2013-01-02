@@ -13,14 +13,17 @@
 #include <MindList.h>
 #include <Mind.h>
 
-void ClientConnection(ServerGame& aGame, SocketSharedPtr aSocket)
+void ClientConnection(ServerGame& aGame, SSLStreamPtr aSSLStream)
 {
-    Network network(aSocket);
+    Network network(aSSLStream);
     try
     {
+        LOG(INFO) << "SSL handshake";
+        aSSLStream->handshake(boost::asio::ssl::stream_base::server);
+
         PayloadMsg req;
         network.ReadMessage(req);
-        LOG(INFO) << "Request " << req.ShortDebugString();
+        LOG(INFO) << "App handshake " << req.ShortDebugString();
 
         PayloadMsg res;
         res.set_protocolversion(PROTOCOL_VERSION);

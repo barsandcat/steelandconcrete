@@ -9,13 +9,13 @@ const size_t HEADER_BUFFER_SIZE = 8;
 class Network: public INetwork
 {
 public:
-    Network(SocketSharedPtr aSocket);
+    Network(SSLStreamPtr aSocket);
     ~Network();
     virtual void WriteMessage(const google::protobuf::Message& aMessage);
     virtual void ReadMessage(google::protobuf::Message& aMessage);
 private:
     void AllocBuffer(int aSize);
-    SocketSharedPtr mSocket;
+    SSLStreamPtr mSSLStream;
     char* mMessageBuffer;
     char mHeaderBuffer[HEADER_BUFFER_SIZE];
     size_t mHeaderSize;

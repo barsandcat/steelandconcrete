@@ -11,6 +11,13 @@
 #include <CEGUILogRedirect.h>
 #include <OgreLogRedirect.h>
 
+
+typedef struct srp_client_arg_st
+{
+    char *srppassin;
+    char *srplogin;
+} SRP_CLIENT_ARG;
+
 class ClientApp: public OIS::KeyListener, public OIS::MouseListener, public OIS::JoyStickListener,
                  public Ogre::WindowEventListener
 {
@@ -58,7 +65,8 @@ public:
     virtual void windowClosed(Ogre::RenderWindow* rw);
 private:
     void OnAppHanshake(ServerProxyPtr aServerProxy, ConstPayloadPtr aRes);
-    void OnSocketConnect(SocketSharedPtr aSock, const boost::system::error_code& aError);
+    void OnSSLHandShake(SSLStreamPtr aSSLStream, const boost::system::error_code& aError);
+    void OnSocketConnect(SSLStreamPtr aSSLStream, const boost::system::error_code& aError);
     void BuildMainGUILayout();
     Ogre::Ray GetMouseRay() const;
     static Ogre::SceneManager* mSceneMgr;
@@ -86,8 +94,10 @@ private:
     ClientGame* mGame;
     boost::asio::io_service mIOService;
     boost::shared_ptr< boost::asio::io_service::work > mWork;
+    boost::asio::ssl::context mSSLCtx;
     OgreLogRedirect mOgreLogRedirect;
     CEGUILogRedirect mCEGUILogRedirect;
+    SRP_CLIENT_ARG srp_client_arg;
 
 };
 

@@ -3,10 +3,9 @@
 
 #include <Header.pb.h>
 
-Network::Network(SocketSharedPtr aSocket): mSocket(aSocket), mMessageBuffer(NULL),
+Network::Network(SSLStreamPtr aSSLStream): mSSLStream(aSSLStream), mMessageBuffer(NULL),
 mBufferSize(0)
 {
-    assert(aSocket);
     HeaderMsg header;
     header.set_size(0);
     mHeaderSize = header.ByteSize();
@@ -17,8 +16,7 @@ Network::~Network()
     try
     {
         delete mMessageBuffer;
-        mSocket->shutdown(boost::asio::ip::tcp::socket::shutdown_both);
-        mSocket->close();
+        mSSLStream->shutdown();
     }
     catch(std::exception& e)
     {
@@ -48,11 +46,11 @@ void Network::WriteMessage(const google::protobuf::Message& aMessage)
     size_t headerSize = header.ByteSize();
     header.SerializeToArray(mHeaderBuffer, headerSize);
 
-    if (boost::asio::write(*mSocket, boost::asio::buffer(mHeaderBuffer, headerSize)) != headerSize)
+    if (boost::asio::write(*mSSLStream, boost::asio::buffer(mHeaderBuffer, headerSize)) != headerSize)
     {
         boost::throw_exception(std::runtime_error("Неудалось записать в сокет загловок!"));
     }
-    if (boost::asio::write(*mSocket, boost::asio::buffer(mMessageBuffer, messageSize)) != messageSize)
+    if (boost::asio::write(*mSSLStream, boost::asio::buffer(mMessageBuffer, messageSize)) != messageSize)
     {
         boost::throw_exception(std::runtime_error("Неудалось записать в сокет сообщение!"));
     }
@@ -60,7 +58,7 @@ void Network::WriteMessage(const google::protobuf::Message& aMessage)
 
 void Network::ReadMessage(google::protobuf::Message& aMessage)
 {
-    if (boost::asio::read(*mSocket, boost::asio::buffer(mHeaderBuffer, mHeaderSize)) != mHeaderSize)
+    if (boost::asio::read(*mSSLStream, boost::asio::buffer(mHeaderBuffer, mHeaderSize)) != mHeaderSize)
     {
         boost::throw_exception(std::runtime_error("Не удалось прочитать из сокета заголовок!"));
     }
@@ -73,7 +71,7 @@ void Network::ReadMessage(google::protobuf::Message& aMessage)
     size_t messageSize = header.size();
     AllocBuffer(messageSize);
 
-    if (boost::asio::read(*mSocket, boost::asio::buffer(mMessageBuffer, messageSize)) != messageSize)
+    if (boost::asio::read(*mSSLStream, boost::asio::buffer(mMessageBuffer, messageSize)) != messageSize)
     {
         boost::throw_exception(std::runtime_error("Не удалось прочитать из сокета сообщение!"));
     }
