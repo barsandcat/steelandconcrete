@@ -4,12 +4,14 @@
 #include <ServerGame.h>
 #include <ClientConnection.h>
 #include <SSLLogRedirect.h>
+#include <openssl/srp.h>
 
 typedef struct srp_server_arg_st
 {
 	char *expected_user;
 	char *pass;
 } SRP_SERVER_ARG;
+
 
 static int ssl_srp_server_param_cb(SSL *s, int *ad, void *arg)
 {
@@ -22,11 +24,34 @@ static int ssl_srp_server_param_cb(SSL *s, int *ad, void *arg)
 		LOG(ERROR) << "User " << SSL_get_srp_username(s) << " doesn't exist";
 		return SSL3_AL_FATAL;
 	}
-	if (SSL_set_srp_server_param_pw(s, p->expected_user, p->pass, "1024") < 0)
+
+	SRP_gN *GN = SRP_get_default_gN("1024");
+	if(GN == NULL)
 	{
 		*ad = SSL_AD_INTERNAL_ERROR;
-		return SSL3_AL_FATAL;
+        return SSL3_AL_FATAL;
 	}
+
+    BIGNUM *salt = NULL;
+    BIGNUM *verifier = NULL;
+
+	if (!SRP_create_verifier_BN(p->expected_user, p->pass, &salt, &verifier, GN->N, GN->g))
+    {
+        *ad = SSL_AD_INTERNAL_ERROR;
+        return SSL3_AL_FATAL;
+    }
+
+    LOG(INFO) << "N:" << GN->N << " g:" << GN->g << " salt:" << salt << " verifier:" << verifier;
+
+    if (!SSL_set_srp_server_param(s, GN->N, GN->g, salt, verifier, NULL))
+    {
+        *ad = SSL_AD_INTERNAL_ERROR;
+        return SSL3_AL_FATAL;
+    }
+
+    BN_clear_free(salt);
+    BN_clear_free(verifier);
+
 	return SSL_ERROR_NONE;
 }
 
