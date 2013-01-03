@@ -6,22 +6,15 @@
 #include <SSLLogRedirect.h>
 #include <openssl/srp.h>
 
-typedef struct srp_server_arg_st
+static int SSLSRPServerParamCallback(SSL *s, int *ad, void *arg)
 {
-	char *expected_user;
-	char *pass;
-} SRP_SERVER_ARG;
+	const char* userName = SSL_get_srp_username(s);
 
+	LOG(INFO) << "User " << userName;
 
-static int ssl_srp_server_param_cb(SSL *s, int *ad, void *arg)
-{
-	SRP_SERVER_ARG * p = (SRP_SERVER_ARG *) arg;
-
-	LOG(INFO) << "ssl_srp_server_param_cb " << p->expected_user << " " << p->pass << std::endl;
-
-	if (strcmp(p->expected_user, SSL_get_srp_username(s)) != 0)
+	if (strcmp("test", userName) != 0)
 	{
-		LOG(ERROR) << "User " << SSL_get_srp_username(s) << " doesn't exist";
+		LOG(ERROR) << "User " << userName << " doesn't exist";
 		return SSL3_AL_FATAL;
 	}
 
@@ -32,21 +25,16 @@ static int ssl_srp_server_param_cb(SSL *s, int *ad, void *arg)
         return SSL3_AL_FATAL;
 	}
 
-    BIGNUM *salt = NULL;
-    BIGNUM *verifier = NULL;
-
-	if (!SRP_create_verifier_BN(p->expected_user, p->pass, &salt, &verifier, GN->N, GN->g))
-    {
-        *ad = SSL_AD_INTERNAL_ERROR;
-        return SSL3_AL_FATAL;
-    }
-    char* hexSalt = BN_bn2hex(salt);
-    char* hexVerifier = BN_bn2hex(verifier);
+    const char* hexSalt = "9049B5E776ADB519123C1961AE358D7BE4B12AD0";
+    const char* hexVerifier = "82744E847039DD77EA6D296FAFB575790F0394674887D5B991ABB3A49837B039E5D65D6947C0E94C83B0AA8DB100758C297172A03227A90917F2823E7865D88AB0EDA6DF798461DB705D64E5A978FA3DA55667AE4FB3C57D4343203C2F2A03F379DF811EF2955A5CB29F7AA8B97ECCBAB4089A7FB89B4E5CC979CA8E1DAE3034";//BN_bn2hex(verifier);
 
     LOG(INFO) << "Salt:" << hexSalt << " Verifier:" << hexVerifier;
 
-    OPENSSL_free(hexSalt);
-    OPENSSL_free(hexVerifier);
+    BIGNUM *salt = BN_new();
+    BIGNUM *verifier = BN_new();
+
+    BN_hex2bn(&salt, hexSalt);
+    BN_hex2bn(&verifier, hexVerifier);
 
     if (!SSL_set_srp_server_param(s, GN->N, GN->g, salt, verifier, NULL))
     {
@@ -75,10 +63,8 @@ void ConnectionManager(ServerGame& aGame, Ogre::String aAddress, int32 aPort)
         return;
     }
 
-    SRP_SERVER_ARG srp_server_arg = {"test", "test"};
     SSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, NULL);
-    SSL_CTX_set_srp_cb_arg(ctx, &srp_server_arg);
-    SSL_CTX_set_srp_username_callback(ctx, ssl_srp_server_param_cb);
+    SSL_CTX_set_srp_username_callback(ctx, SSLSRPServerParamCallback);
 
     LOG(INFO) << "Listening to " << aAddress << ":" << aPort;
     boost::asio::io_service IOService;
