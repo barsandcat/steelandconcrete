@@ -40,8 +40,13 @@ static int ssl_srp_server_param_cb(SSL *s, int *ad, void *arg)
         *ad = SSL_AD_INTERNAL_ERROR;
         return SSL3_AL_FATAL;
     }
+    char* hexSalt = BN_bn2hex(salt);
+    char* hexVerifier = BN_bn2hex(verifier);
 
-    LOG(INFO) << "N:" << GN->N << " g:" << GN->g << " salt:" << salt << " verifier:" << verifier;
+    LOG(INFO) << "Salt:" << hexSalt << " Verifier:" << hexVerifier;
+
+    OPENSSL_free(hexSalt);
+    OPENSSL_free(hexVerifier);
 
     if (!SSL_set_srp_server_param(s, GN->N, GN->g, salt, verifier, NULL))
     {
