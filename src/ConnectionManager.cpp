@@ -15,6 +15,7 @@ static int SSLSRPServerParamCallback(SSL *s, int *ad, void *arg)
 	if (strcmp("test", userName) != 0)
 	{
 		LOG(ERROR) << "User " << userName << " doesn't exist";
+		*ad = SSL_AD_ACCESS_DENIED;
 		return SSL3_AL_FATAL;
 	}
 
