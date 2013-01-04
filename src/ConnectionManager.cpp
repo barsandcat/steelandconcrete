@@ -5,6 +5,7 @@
 #include <ClientConnection.h>
 #include <SSLLogRedirect.h>
 #include <openssl/srp.h>
+#include <UserList.h>
 
 static int SSLSRPServerParamCallback(SSL *s, int *ad, void *arg)
 {
@@ -12,7 +13,9 @@ static int SSLSRPServerParamCallback(SSL *s, int *ad, void *arg)
 
 	LOG(INFO) << "User " << userName;
 
-	if (strcmp("test", userName) != 0)
+	const User* user = GetUser(userName);
+
+	if (!user)
 	{
 		LOG(ERROR) << "User " << userName << " doesn't exist";
 		*ad = SSL_AD_ACCESS_DENIED;
@@ -26,25 +29,11 @@ static int SSLSRPServerParamCallback(SSL *s, int *ad, void *arg)
         return SSL3_AL_FATAL;
 	}
 
-    const char* hexSalt = "9049B5E776ADB519123C1961AE358D7BE4B12AD0";
-    const char* hexVerifier = "82744E847039DD77EA6D296FAFB575790F0394674887D5B991ABB3A49837B039E5D65D6947C0E94C83B0AA8DB100758C297172A03227A90917F2823E7865D88AB0EDA6DF798461DB705D64E5A978FA3DA55667AE4FB3C57D4343203C2F2A03F379DF811EF2955A5CB29F7AA8B97ECCBAB4089A7FB89B4E5CC979CA8E1DAE3034";//BN_bn2hex(verifier);
-
-    LOG(INFO) << "Salt:" << hexSalt << " Verifier:" << hexVerifier;
-
-    BIGNUM *salt = BN_new();
-    BIGNUM *verifier = BN_new();
-
-    BN_hex2bn(&salt, hexSalt);
-    BN_hex2bn(&verifier, hexVerifier);
-
-    if (!SSL_set_srp_server_param(s, GN->N, GN->g, salt, verifier, NULL))
+    if (!SSL_set_srp_server_param(s, GN->N, GN->g, user->GetSalt(), user->GetVerifier(), NULL))
     {
         *ad = SSL_AD_INTERNAL_ERROR;
         return SSL3_AL_FATAL;
     }
-
-    BN_clear_free(salt);
-    BN_clear_free(verifier);
 
 	return SSL_ERROR_NONE;
 }
@@ -66,6 +55,8 @@ void ConnectionManager(ServerGame& aGame, Ogre::String aAddress, int32 aPort)
 
     SSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, NULL);
     SSL_CTX_set_srp_username_callback(ctx, SSLSRPServerParamCallback);
+
+    AddUser("test", "test");
 
     LOG(INFO) << "Listening to " << aAddress << ":" << aPort;
     boost::asio::io_service IOService;
