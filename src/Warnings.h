@@ -2,7 +2,7 @@
 #define WARNINGS_H
 
 // Pragma tricks are used here *only* to bring vc++ and gcc
-// closer to each other in terms of produced warinigs
+// closer to each other in terms of produced warnings
 #ifdef _MSC_VER
 #pragma warning(disable: 4800) // conversion from 'float' to 'int', possible loss of data
 #pragma warning(disable: 4244) // forcing value to bool 'true' or 'false'

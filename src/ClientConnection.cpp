@@ -10,8 +10,7 @@
 #include <ProtocolVersion.h>
 #include <UnitList.h>
 #include <ClientFOV.h>
-#include <MindList.h>
-#include <Mind.h>
+#include <UserList.h>
 
 void ClientConnection(ServerGame& aGame, SSLStreamPtr aSSLStream)
 {
@@ -35,22 +34,25 @@ void ClientConnection(ServerGame& aGame, SSLStreamPtr aSSLStream)
             return;
         }
 
-        Mind* const avatar = MindList::GetFreeMind();
-        if (!avatar)
+        const char* userName = SSL_get_srp_username(aSSLStream->native_handle());
+
+        LOG(INFO) << "ClientConnection " << userName;
+
+        const User* user = GetUser(userName);
+        if (!user)
         {
-            res.set_reason("No free mind");
+            res.set_reason("Unknown user!");
             network.WriteMessage(res);
             return;
         }
-        avatar->SetFree(false);
 
-        ServerUnit* avatarUnit = UnitList::GetUnit(avatar->GetUnitId());
+        ServerUnit* avatarUnit = UnitList::GetUnit(user->GetUnitId());
         res.set_landing_tile(avatarUnit->GetUnitTile().GetTileId());
         res.set_size(aGame.GetSize());
         network.WriteMessage(res);
         LOG(INFO) << "Response " << res.ShortDebugString();
 
-        ClientFOV fov(network, aGame, avatar->GetUnitId());
+        ClientFOV fov(network, aGame, user->GetUnitId());
 
         while (true)
         {
@@ -59,7 +61,7 @@ void ClientConnection(ServerGame& aGame, SSLStreamPtr aSSLStream)
             if (req.has_commandmove())
             {
                 const CommandMoveMsg& move = req.commandmove();
-                avatar->SetCommand(*aGame.GetTiles().at(move.position()));
+                user->GetMind()->SetCommand(*aGame.GetTiles().at(move.position()));
             }
             if (req.has_time())
             {

@@ -61,6 +61,8 @@
 			<Add library="boost_system$(TARGET_NAME)" />
 			<Add library="gflags$(TARGET_NAME)" />
 			<Add library="glog$(TARGET_NAME)" />
+			<Add library="ssl" />
+			<Add library="crypto" />
 			<Add directory="lib" />
 		</Linker>
 		<Unit filename="src/DummyClient.cpp" />

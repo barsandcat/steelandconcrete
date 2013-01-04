@@ -119,6 +119,10 @@
 		<Unit filename="../UnitListIterator.cpp" />
 		<Unit filename="../UnitListIterator.h" />
 		<Unit filename="../UpdateTimer.h" />
+		<Unit filename="../User.cpp" />
+		<Unit filename="../User.h" />
+		<Unit filename="../UserList.cpp" />
+		<Unit filename="../UserList.h" />
 		<Unit filename="../VisualCodes.cpp" />
 		<Unit filename="../VisualCodes.h" />
 		<Unit filename="../pch.cpp" />
