@@ -14,7 +14,7 @@
 	</Platforms>
 	<ToolFiles>
 		<ToolFile
-			RelativePath="..\nasm.rules"
+			RelativePath="nasm.rules"
 		/>
 	</ToolFiles>
 	<Configurations>
