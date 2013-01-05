@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="libeay32"
+	Name="openssl_libeay32"
 	ProjectGUID="{A29D9993-BF2D-46F7-9372-BE3E5C0DEFDA}"
 	RootNamespace="libeay32"
 	TargetFrameworkVersion="196613"
@@ -14,7 +14,7 @@
 	</Platforms>
 	<ToolFiles>
 		<ToolFile
-			RelativePath="nasm.rules"
+			RelativePath=".\nasm.rules"
 		/>
 	</ToolFiles>
 	<Configurations>
@@ -34,7 +34,7 @@
 			/>
 			<Tool
 				Name="Nasm"
-				nasm="nasm"
+				nasm="&quot;C:\Program Files\nasm\nasm.exe&quot;"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -103,7 +103,7 @@
 			/>
 			<Tool
 				Name="Nasm"
-				nasm="nasm"
+				nasm="&quot;C:\Program Files\nasm\nasm.exe&quot;"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"

@@ -53,7 +53,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;gflags\gflags-2.0\src\windows&quot;;&quot;glog\glog-0.3.2\src\windows&quot;;&quot;gettext-0.13.1\gettext-runtime\intl&quot;;boost\boost_1_49_0;&quot;protobuf-2.4.1\src&quot;;ogre\build\include;ogre\ogre_1.7.3\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;QuickGUI_10_1\QuickGUI\include;&quot;ois-v1-3\includes&quot;"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)openssl\openssl-1.0.1c\inc32&quot;;&quot;gflags\gflags-2.0\src\windows&quot;;&quot;glog\glog-0.3.2\src\windows&quot;;&quot;gettext-0.13.1\gettext-runtime\intl&quot;;boost\boost_1_49_0;&quot;protobuf-2.4.1\src&quot;;ogre\build\include;ogre\ogre_1.7.3\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;QuickGUI_10_1\QuickGUI\include;&quot;ois-v1-3\includes&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_WINDOWS;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;BOOST_CHRONO_HEADER_ONLY=1;_QuickGUIExport=;GFLAGS_DLL_DECL=;GFLAGS_DLL_DECLARE_FLAG=;GFLAGS_DLL_DEFINE_FLAG=;GOOGLE_GLOG_DLL_DECL="
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -142,7 +142,7 @@
 				AdditionalOptions="/Zm200"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;gflags\gflags-2.0\src\windows&quot;;&quot;glog\glog-0.3.2\src\windows&quot;;&quot;gettext-0.13.1\gettext-runtime\intl&quot;;boost\boost_1_49_0;&quot;protobuf-2.4.1\src&quot;;ogre\build\include;ogre\ogre_1.7.3\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;QuickGUI_10_1\QuickGUI\include;&quot;ois-v1-3\includes&quot;"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)openssl\openssl-1.0.1c\inc32&quot;;&quot;gflags\gflags-2.0\src\windows&quot;;&quot;glog\glog-0.3.2\src\windows&quot;;&quot;gettext-0.13.1\gettext-runtime\intl&quot;;boost\boost_1_49_0;&quot;protobuf-2.4.1\src&quot;;ogre\build\include;ogre\ogre_1.7.3\OgreMain\include;src\proto;src;ogreal\vorbis\include;ogreal\ogg\include;QuickGUI_10_1\QuickGUI\include;&quot;ois-v1-3\includes&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_WINDOWS;BOOST_SYSTEM_STATIC_LINK=1;BOOST_ALL_NO_LIB=1;BOOST_CHRONO_HEADER_ONLY=1;_QuickGUIExport=;GFLAGS_DLL_DECL=;GFLAGS_DLL_DECLARE_FLAG=;GFLAGS_DLL_DEFINE_FLAG=;GOOGLE_GLOG_DLL_DECL="
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
@@ -294,6 +294,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\SSLLogRedirect.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\UnitClass.cpp"
 				>
 			</File>
@@ -303,6 +307,14 @@
 			</File>
 			<File
 				RelativePath=".\src\UnitListIterator.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\User.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\UserList.cpp"
 				>
 			</File>
 		</Filter>
@@ -380,6 +392,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\SSLLogRedirect.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\UnitClass.h"
 				>
 			</File>
@@ -389,6 +405,14 @@
 			</File>
 			<File
 				RelativePath=".\src\UnitListIterator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\User.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\UserList.h"
 				>
 			</File>
 		</Filter>
