@@ -81,16 +81,9 @@ Ogre::Camera* ClientApp::GetCamera()
     return mCamera;
 }
 
-void ClientApp::Quit()
-{
-    mQuit = true;
-}
-
 Ogre::SceneManager* ClientApp::mSceneMgr = NULL;
 OgreAL::SoundManager* ClientApp::mSoundManager = NULL;
 Ogre::Camera* ClientApp::mCamera = NULL;
-
-bool ClientApp::mQuit = false;
 
 ClientApp::ClientApp(int argc, char **argv):
     mCEGUIRenderer(NULL),
@@ -688,8 +681,7 @@ void ClientApp::windowResized(Ogre::RenderWindow* rw)
 
 void ClientApp::windowClosed(Ogre::RenderWindow* rw)
 {
-    mQuit = true;
-    LOG(INFO) << "Window is closed";
+    boost::throw_exception(std::runtime_error("Window closed"));
 }
 
 
@@ -700,32 +692,40 @@ void ClientApp::MainLoop()
     unsigned long frameTime = 1;
 
     LOG(INFO) << "*** The Start ***";
-    while (!mQuit)
+    try
     {
-        OgreProfile("Ogre Main Loop");
-        FrameTime frameStart = mRoot->getTimer()->getMicroseconds();
-
+        while(true)
         {
-            OgreProfile("Update");
-            Ogre::WindowEventUtilities::messagePump();
-            CEGUI::System::getSingleton().injectTimePulse(frameTime / 1000000.0f);
+            OgreProfile("Ogre Main Loop");
+            FrameTime frameStart = mRoot->getTimer()->getMicroseconds();
 
-
-            mKeyboard->capture();
-            mMouse->capture();
-
-            if (mGame)
             {
-                mGame->UpdateTileUnderCursor(GetMouseRay());
-                mGame->Update(frameTime, mWindow->getStatistics());
+                OgreProfile("Update");
+                Ogre::WindowEventUtilities::messagePump();
+                CEGUI::System::getSingleton().injectTimePulse(frameTime / 1000000.0f);
+
+
+                mKeyboard->capture();
+                mMouse->capture();
+
+                if (mGame)
+                {
+                    mGame->UpdateTileUnderCursor(GetMouseRay());
+                    mGame->Update(frameTime, mWindow->getStatistics());
+                }
+
+                mIOService.poll();
             }
+            mRoot->renderOneFrame();
 
-            mIOService.poll();
+            frameTime = mRoot->getTimer()->getMicroseconds() - frameStart;
         }
-        mRoot->renderOneFrame();
-
-        frameTime = mRoot->getTimer()->getMicroseconds() - frameStart;
     }
+    catch(std::exception& e)
+    {
+        LOG(ERROR) << "Main loop exception:" << e.what();
+    }
+
     LOG(INFO) << "*** The End ***";
 
     // Подчищаем игру

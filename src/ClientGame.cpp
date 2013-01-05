@@ -203,8 +203,7 @@ void ClientGame::OnAct()
 
 bool ClientGame::OnExit(const CEGUI::EventArgs& args)
 {
-    ClientApp::Quit();
-    LOG(INFO) << "OnExit";
+    boost::throw_exception(std::runtime_error("Exit"));
     return true;
 }
 

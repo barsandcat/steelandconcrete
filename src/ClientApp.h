@@ -39,7 +39,6 @@ public:
 
     static Ogre::SceneManager& GetSceneMgr();
     static OgreAL::SoundManager& GetSoundMgr();
-    static void Quit();
     static Ogre::Camera* GetCamera();
 public:
     // OIS callbacks
@@ -72,7 +71,6 @@ private:
     static Ogre::SceneManager* mSceneMgr;
     static OgreAL::SoundManager* mSoundManager;
     static Ogre::Camera* mCamera;
-    static bool mQuit;
     static char RU[];
     static char EN[];
     static char UK[];
