@@ -1,0 +1,16 @@
+material Direction{
+  technique
+  {
+    pass
+    {
+      texture_unit
+
+      {
+
+        texture direction.png
+
+      }
+    }
+  }
+}
+

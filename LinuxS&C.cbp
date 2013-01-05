@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Client" />
+		<Option platforms="Unix;" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option platforms="Unix;" />
+				<Option output="bin/steelandconcrete_d" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin" />
+				<Option object_output="obj/ClientDebugLinux" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-pg" />
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-pg" />
+					<Add library="OIS_d" />
+					<Add library="RenderSystem_GL_d" />
+					<Add library="OgreMain_d" />
+					<Add library="OgreAL_d" />
+					<Add library="Plugin_OctreeSceneManager_d" />
+					<Add library="protobuf_d" />
+					<Add library="boost_filesystemDebug" />
+					<Add library="CEGUIOgreRenderer_d" />
+					<Add library="CEGUIBase_d" />
+					<Add library="CEGUIFalagardWRBase_d" />
+					<Add library="CEGUITinyXMLParser_d" />
+					<Add library="CEGUIFreeImageImageCodec_d" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option platforms="Unix;" />
+				<Option output="bin/steelandconcrete" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin" />
+				<Option object_output="obj/ClientReleaseLinux" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
+					<Add option="-DMOUSE_GRAB" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="OIS" />
+					<Add library="RenderSystem_GL" />
+					<Add library="OgreMain" />
+					<Add library="OgreAL" />
+					<Add library="Plugin_OctreeSceneManager" />
+					<Add library="protobuf" />
+					<Add library="boost_filesystemRelease" />
+					<Add library="CEGUIOgreRenderer" />
+					<Add library="CEGUIBase" />
+					<Add library="CEGUIFalagardWRBase" />
+					<Add library="CEGUITinyXMLParser" />
+					<Add library="CEGUIFreeImageImageCodec" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="`pkg-config --cflags zziplib freetype2 openal ogg vorbis vorbisfile xaw7 xrandr libpcre`" />
+			<Add option="-Winvalid-pch" />
+			<Add option="-Wno-unknown-pragmas" />
+			<Add option="-DBOOST_ALL_NO_LIB=1" />
+			<Add option="-DBOOST_CHRONO_HEADER_ONLY=1" />
+			<Add option="-DCEGUI_STATIC" />
+			<Add directory="src" />
+			<Add directory="betagui2" />
+			<Add directory="ogre/build/include" />
+			<Add directory="ogre/ogre_1.7.3/OgreMain/include" />
+			<Add directory="ogreal/ogreal_r137/include" />
+			<Add directory="ois-v1-3/includes" />
+			<Add directory="ogre/ogre_1.7.3/PlugIns/OctreeSceneManager/include" />
+			<Add directory="ogre/ogre_1.7.3/RenderSystems/GL/include" />
+			<Add directory="ogre/ogre_1.7.3/RenderSystems/GL/src/GLX" />
+			<Add directory="ogre/ogre_1.7.3/RenderSystems/GL/src/GLSL/include" />
+			<Add directory="protobuf-2.4.1/src" />
+			<Add directory="src/proto" />
+			<Add directory="SAL" />
+			<Add directory="boost/boost_1_49_0" />
+			<Add directory="CEGUI-0.7.5/cegui/include" />
+			<Add directory="gflags/gflags-2.0/src" />
+			<Add directory="gflags/gflags-2.0/src/linux" />
+			<Add directory="glog/glog-0.3.2/src" />
+			<Add directory="glog/glog-0.3.2/src/linux" />
+		</Compiler>
+		<Linker>
+			<Add option="`pkg-config --libs zziplib freetype2 openal ogg vorbis vorbisfile xaw7 xrandr libpcre`" />
+			<Add library="pthread" />
+			<Add library="freeimage" />
+			<Add library="GL" />
+			<Add library="GLU" />
+			<Add library="boost_system$(TARGET_NAME)" />
+			<Add library="glog$(TARGET_NAME)" />
+			<Add library="gflags$(TARGET_NAME)" />
+			<Add library="boost_thread$(TARGET_NAME)" />
+			<Add library="ssl" />
+			<Add library="crypto" />
+			<Add directory="lib" />
+		</Linker>
+		<ExtraCommands>
+			<Add before="make -C src/proto -f Makefile.proto" />
+			<Add after="make -w -C bin/lang -f Makefile.lang" />
+			<Mode after="always" />
+		</ExtraCommands>
+		<Unit filename="src/BirdCamera.cpp" />
+		<Unit filename="src/BirdCamera.h" />
+		<Unit filename="src/CEGUILocalization.cpp" />
+		<Unit filename="src/CEGUILocalization.h" />
+		<Unit filename="src/CEGUILogRedirect.cpp" />
+		<Unit filename="src/CEGUILogRedirect.h" />
+		<Unit filename="src/ClientApp.cpp" />
+		<Unit filename="src/ClientApp.h" />
+		<Unit filename="src/ClientEdge.h" />
+		<Unit filename="src/ClientGame.cpp" />
+		<Unit filename="src/ClientGame.h" />
+		<Unit filename="src/ClientGeodesicGrid.h" />
+		<Unit filename="src/ClientGridNode.cpp" />
+		<Unit filename="src/ClientGridNode.h" />
+		<Unit filename="src/ClientLinux.cpp" />
+		<Unit filename="src/ClientTile.cpp" />
+		<Unit filename="src/ClientTile.h" />
+		<Unit filename="src/ClientUnit.cpp" />
+		<Unit filename="src/ClientUnit.h" />
+		<Unit filename="src/HighResolutionClock.cpp" />
+		<Unit filename="src/HighResolutionClock.h" />
+		<Unit filename="src/MovementAnimation.cpp" />
+		<Unit filename="src/MovementAnimation.h" />
+		<Unit filename="src/OgreLogRedirect.cpp" />
+		<Unit filename="src/OgreLogRedirect.h" />
+		<Unit filename="src/Platform.h" />
+		<Unit filename="src/PlatformLinux.cpp" />
+		<Unit filename="src/SSLLogRedirect.cpp" />
+		<Unit filename="src/SSLLogRedirect.h" />
+		<Unit filename="src/ServerProxy.cpp" />
+		<Unit filename="src/ServerProxy.h" />
+		<Unit filename="src/SyncTimer.h" />
+		<Unit filename="src/Typedefs.h" />
+		<Unit filename="src/VisualCodes.cpp" />
+		<Unit filename="src/VisualCodes.h" />
+		<Unit filename="src/pch.cpp" />
+		<Unit filename="src/pch.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/proto/ChangeList.pb.cc" />
+		<Unit filename="src/proto/ChangeList.pb.h" />
+		<Unit filename="src/proto/ChangeList.proto" />
+		<Unit filename="src/proto/CommandList.pb.cc" />
+		<Unit filename="src/proto/CommandList.pb.h" />
+		<Unit filename="src/proto/CommandList.proto" />
+		<Unit filename="src/proto/Header.pb.cc" />
+		<Unit filename="src/proto/Header.pb.h" />
+		<Unit filename="src/proto/Header.proto" />
+		<Unit filename="src/proto/Payload.pb.cc" />
+		<Unit filename="src/proto/Payload.pb.h" />
+		<Unit filename="src/proto/Payload.proto" />
+		<Unit filename="src/proto/ProtocolVersion.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VisualStudioToolFile
+	Name="nasm"
+	Version="8,00"
+	>
+	<Rules>
+		<CustomBuildRule
+			Name="Nasm"
+			DisplayName="Nasm"
+			CommandLine="[nasm] -f win32 -o $(IntDir)\$(InputName).obj $(InputPath)"
+			Outputs="$(IntDir)\$(InputName).obj"
+			FileExtensions="*.asm"
+			ExecutionDescription="nasm $(InputFileName)"
+			>
+			<Properties>
+				<StringProperty
+					Name="nasm"
+					DisplayName="Nasm"
+					Description="Nasm"
+					Switch="[value]"
+					DefaultValue="nasm"
+					Delimited="true"
+					Inheritable="true"
+				/>
+			</Properties>
+		</CustomBuildRule>
+	</Rules>
+</VisualStudioToolFile>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="OgreXMLConverter 1.7.3" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../../../bin/OgreXMLConverter_d" prefix_auto="0" extension_auto="0" />
+				<Option object_output="../../../../obj/XMLConverterDebugLinux" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-w" />
+					<Add option="-pg" />
+					<Add option="-g" />
+					<Add option="-O0" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-pg" />
+					<Add library="OgreMain_d" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../../../bin/OgreXMLConverter" prefix_auto="0" extension_auto="0" />
+				<Option object_output="../../../../obj/XMLConverterReleaseLinux" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-w" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<Linker>
+					<Add library="OgreMain" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="`pkg-config --cflags zziplib freetype2 x11 xaw7 xt`" />
+			<Add option="-DTIXML_USE_STL" />
+			<Add directory="../../../ogre_1.7.3/OgreMain/include" />
+			<Add directory="../../include" />
+			<Add directory="../../../ogre_1.7.3/OgreMain/include/Threading" />
+			<Add directory="../../../ogre_1.7.3/Tools/XMLConverter/include" />
+		</Compiler>
+		<Linker>
+			<Add option="`pkg-config --libs zziplib freetype2 x11 xaw7 xt`" />
+			<Add library="pthread" />
+			<Add library="freeimage" />
+			<Add directory="../../../../lib" />
+		</Linker>
+		<Unit filename="../../../ogre_1.7.3/Tools/XMLConverter/include/OgreXMLMeshSerializer.h" />
+		<Unit filename="../../../ogre_1.7.3/Tools/XMLConverter/include/OgreXMLPrerequisites.h" />
+		<Unit filename="../../../ogre_1.7.3/Tools/XMLConverter/include/OgreXMLSkeletonSerializer.h" />
+		<Unit filename="../../../ogre_1.7.3/Tools/XMLConverter/include/tinystr.h" />
+		<Unit filename="../../../ogre_1.7.3/Tools/XMLConverter/include/tinyxml.h" />
+		<Unit filename="../../../ogre_1.7.3/Tools/XMLConverter/src/OgreXMLMeshSerializer.cpp" />
+		<Unit filename="../../../ogre_1.7.3/Tools/XMLConverter/src/OgreXMLSkeletonSerializer.cpp" />
+		<Unit filename="../../../ogre_1.7.3/Tools/XMLConverter/src/main.cpp" />
+		<Unit filename="../../../ogre_1.7.3/Tools/XMLConverter/src/tinystr.cpp" />
+		<Unit filename="../../../ogre_1.7.3/Tools/XMLConverter/src/tinyxml.cpp" />
+		<Unit filename="../../../ogre_1.7.3/Tools/XMLConverter/src/tinyxmlerror.cpp" />
+		<Unit filename="../../../ogre_1.7.3/Tools/XMLConverter/src/tinyxmlparser.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="boost_filesystem 1.49.0" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../../../../lib/boost_filesystemDebug" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../../../obj/boost_filesystemDebugLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-pg" />
+					<Add option="-g" />
+					<Add option="-DDEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-pg" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../../../../lib/boost_filesystemRelease" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../../../obj/boost_filesystemReleaseLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-DBOOST_FILESYSTEM_STATIC_LINK=1" />
+			<Add option="-DBOOST_CHRONO_HEADER_ONLY=1" />
+			<Add option="-DBOOST_ALL_NO_LIB=1" />
+			<Add directory="../../../../boost_1_49_0" />
+		</Compiler>
+		<Unit filename="../../../../boost_1_49_0/libs/filesystem/v2/src/v2_operations.cpp" />
+		<Unit filename="../../../../boost_1_49_0/libs/filesystem/v2/src/v2_path.cpp" />
+		<Unit filename="../../../../boost_1_49_0/libs/filesystem/v2/src/v2_portability.cpp" />
+		<Unit filename="../../../../boost_1_49_0/libs/filesystem/v3/src/codecvt_error_category.cpp" />
+		<Unit filename="../../../../boost_1_49_0/libs/filesystem/v3/src/operations.cpp" />
+		<Unit filename="../../../../boost_1_49_0/libs/filesystem/v3/src/path.cpp" />
+		<Unit filename="../../../../boost_1_49_0/libs/filesystem/v3/src/path_traits.cpp" />
+		<Unit filename="../../../../boost_1_49_0/libs/filesystem/v3/src/portability.cpp" />
+		<Unit filename="../../../../boost_1_49_0/libs/filesystem/v3/src/unique_path.cpp" />
+		<Unit filename="../../../../boost_1_49_0/libs/filesystem/v3/src/utf8_codecvt_facet.cpp" />
+		<Unit filename="../../../../boost_1_49_0/libs/filesystem/v3/src/windows_file_codecvt.cpp" />
+		<Unit filename="../../../../boost_1_49_0/libs/filesystem/v3/src/windows_file_codecvt.hpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

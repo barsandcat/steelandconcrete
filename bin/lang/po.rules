@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VisualStudioToolFile
+	Name="po"
+	Version="8,00"
+	>
+	<Rules>
+		<CustomBuildRule
+			Name="po"
+			DisplayName="po"
+			CommandLine="&quot;[msgfmt]&quot; -o $(InputDir)$(InputName).mo $(InputPath)"
+			Outputs="$(InputDir)$(InputName).mo"
+			FileExtensions="*.po"
+			ExecutionDescription="Compiling $(InputPath)"
+			>
+			<Properties>
+				<StringProperty
+					Name="msgfmt"
+					DisplayName="msgfmt"
+					Description="msgfmt"
+					Switch="[value]"
+					Delimited="true"
+					Inheritable="true"
+				/>
+			</Properties>
+		</CustomBuildRule>
+	</Rules>
+</VisualStudioToolFile>

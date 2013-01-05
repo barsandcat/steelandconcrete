@@ -1,0 +1,8 @@
+SET(TARGET ogrehead)
+
+ADD_EXECUTABLE(${TARGET}
+	WIN32
+    Ogrehead.cpp
+) 
+
+TARGET_LINK_LIBRARIES(${TARGET} wx_ogre)

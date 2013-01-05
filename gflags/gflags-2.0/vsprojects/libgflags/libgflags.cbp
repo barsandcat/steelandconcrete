@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="libgflags 2.0" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="$(WORKSPACEDIR)/lib/gflagsDebug" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="$(WORKSPACEDIR)/obj/libgflagsDebugLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-pg" />
+					<Add option="-g" />
+					<Add option="-O0" />
+				</Compiler>
+				<Linker>
+					<Add option="-pg" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="$(WORKSPACEDIR)/lib/gflagsRelease" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="$(WORKSPACEDIR)/obj/libgflagsReleaseLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-w" />
+			<Add directory="../../src" />
+			<Add directory="../../src/linux" />
+		</Compiler>
+		<Unit filename="../../src/gflags.cc" />
+		<Unit filename="../../src/gflags/gflags.h" />
+		<Unit filename="../../src/gflags/gflags_completions.h" />
+		<Unit filename="../../src/gflags/gflags_declare.h" />
+		<Unit filename="../../src/gflags_completions.cc" />
+		<Unit filename="../../src/gflags_reporting.cc" />
+		<Unit filename="../../src/linux/gflagsconfig.h" />
+		<Unit filename="../../src/mutex.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
