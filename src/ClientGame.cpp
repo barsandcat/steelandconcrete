@@ -210,7 +210,8 @@ bool ClientGame::OnExit(const CEGUI::EventArgs& args)
 void ClientGame::OnEscape()
 {
     CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-    winMgr.getWindow("InGameMenu")->setVisible(true);
+    CEGUI::Window* inGameMenu = winMgr.getWindow("InGameMenu");
+    inGameMenu->setVisible(!inGameMenu->isVisible());
 }
 
 ClientUnit* ClientGame::GetUnit(UnitId aUnitId)
