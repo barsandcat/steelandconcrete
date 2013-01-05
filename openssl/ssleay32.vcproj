@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="ssleay32"
+	Name="openssl_ssleay32"
 	ProjectGUID="{DC000C1D-8FAD-45E4-B461-7E98687AA560}"
 	RootNamespace="ssleay32"
 	TargetFrameworkVersion="196613"
@@ -24,7 +24,6 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description=""
 				CommandLine=""
 			/>
 			<Tool
@@ -89,7 +88,6 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description=""
 				CommandLine=""
 			/>
 			<Tool
