@@ -40,8 +40,8 @@ CEGUI::Window* GetWindow(CEGUI::String aWindowName)
 
 static char* SSLGiveSRPClientPassword(SSL *s, void *arg)
 {
-    LOG(INFO) << "SSLGiveSRPClientPassword " << GetWindow("ServerBrowser/Password")->getText();
-    return BUF_strdup(GetWindow("ServerBrowser/Password")->getText().c_str());
+    LOG(INFO) << "SSLGiveSRPClientPassword " << GetWindow("Main/ServerBrowser/Password")->getText();
+    return BUF_strdup(GetWindow("Main/ServerBrowser/Password")->getText().c_str());
 }
 
 void ShowModal(CEGUI::String aWindowName)
@@ -321,38 +321,38 @@ void ClientApp::BuildMainGUILayout()
     winMgr.destroyAllWindows();
     CEGUI::Window* myRoot = winMgr.loadWindowLayout("Main.layout", "", "", &PropertyCallback);
     CEGUI::System::getSingleton().setGUISheet(myRoot);
-    GetWindow("ServerBrowser/Port")->setText(FLAGS_port);
-    GetWindow("ServerBrowser/Address")->setText(FLAGS_address);
-    GetWindow("ServerBrowser/Login")->setText(FLAGS_login);
-    GetWindow("ServerBrowser/Password")->setText(FLAGS_password);
+    GetWindow("Main/ServerBrowser/Port")->setText(FLAGS_port);
+    GetWindow("Main/ServerBrowser/Address")->setText(FLAGS_address);
+    GetWindow("Main/ServerBrowser/Login")->setText(FLAGS_login);
+    GetWindow("Main/ServerBrowser/Password")->setText(FLAGS_password);
 
-    GetWindow("MainMenu/English")->
+    GetWindow("Main/Menu/English")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnEnglish, this));
-    GetWindow("MainMenu/Ukranian")->
+    GetWindow("Main/Menu/Ukranian")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnUkranian, this));
-    GetWindow("MainMenu/Russian")->
+    GetWindow("Main/Menu/Russian")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnRussian, this));
-    GetWindow("MainMenu/Japanese")->
+    GetWindow("Main/Menu/Japanese")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnJapanese, this));
 
-    GetWindow("MainMenu/Create")->
+    GetWindow("Main/Menu/Create")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnCreate, this));
-    GetWindow("MainMenu/Connect")->
+    GetWindow("Main/Menu/Connect")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnBrowse, this));
 
-    GetWindow("ServerBrowser/Connect")->
+    GetWindow("Main/ServerBrowser/Connect")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnConnect, this));
-    GetWindow("ServerBrowser/Cancel")->
+    GetWindow("Main/ServerBrowser/Cancel")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnMainMenu, this));
-    GetWindow("MessageBox/Close")->
+    GetWindow("Main/MessageBox/Close")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnCloseMessageBox, this));
 }
@@ -376,7 +376,7 @@ bool ClientApp::OnClick(const CEGUI::EventArgs& args)
 
 bool ClientApp::OnBrowse(const CEGUI::EventArgs& args)
 {
-    ShowModal("ServerBrowser");
+    ShowModal("Main/ServerBrowser");
     return true;
 }
 
@@ -425,13 +425,13 @@ bool ClientApp::OnJapanese(const CEGUI::EventArgs& args)
 
 bool ClientApp::OnMainMenu(const CEGUI::EventArgs& args)
 {
-    HideModal("ServerBrowser");
+    HideModal("Main/ServerBrowser");
     return true;
 }
 
 bool ClientApp::OnCloseMessageBox(const CEGUI::EventArgs& args)
 {
-    HideModal("MessageBox");
+    HideModal("Main/MessageBox");
     return true;
 }
 
@@ -447,17 +447,16 @@ void ClientApp::OnAppHanshake(ServerProxyPtr aServerProxy, ConstPayloadPtr aRes)
         LOG(INFO) << "App handshake done. World size: " << aRes->size();
 
         mGame = new ClientGame(aServerProxy, aRes->landing_tile(), aRes->size());
-        GetWindow("MainMenu")->setVisible(false);
-        HideModal("ServerBrowser");
+        GetWindow("Main/MainMenu")->setVisible(false);
+        HideModal("Main/ServerBrowser");
     }
     catch (std::exception& e)
     {
         const char* what = e.what();
         LOG(ERROR) << "OnAppHandshake " << e.what();
-        GetWindow("MessageBox/Message")->setText(what);
-        ShowModal("MessageBox");
+        GetWindow("Main/MessageBox/Message")->setText(what);
+        ShowModal("Main/MessageBox");
     }
-
 }
 
 void ClientApp::OnSSLHandShake(SSLStreamPtr aSSLStream, const boost::system::error_code& aError)
@@ -482,8 +481,8 @@ void ClientApp::OnSSLHandShake(SSLStreamPtr aSSLStream, const boost::system::err
     {
         const char* what = e.what();
         LOG(ERROR) << "OnSSLHandshake " << e.what();
-        GetWindow("MessageBox/Message")->setText(what);
-        ShowModal("MessageBox");
+        GetWindow("Main/MessageBox/Message")->setText(what);
+        ShowModal("Main/MessageBox");
     }
 }
 
@@ -505,8 +504,8 @@ void ClientApp::OnSocketConnect(SSLStreamPtr aSSLStream, const boost::system::er
     {
         const char* what = e.what();
         LOG(ERROR) << "OnSocketConnect " << e.what();
-        GetWindow("MessageBox/Message")->setText(what);
-        ShowModal("MessageBox");
+        GetWindow("Main/MessageBox/Message")->setText(what);
+        ShowModal("Main/MessageBox");
     }
 }
 
@@ -517,8 +516,8 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
 
     try
     {
-        CEGUI::String port = GetWindow("ServerBrowser/Port")->getText();
-        CEGUI::String address = GetWindow("ServerBrowser/Address")->getText();
+        CEGUI::String port = GetWindow("Main/ServerBrowser/Port")->getText();
+        CEGUI::String address = GetWindow("Main/ServerBrowser/Address")->getText();
 
         LOG(INFO) << "Port " << port << " Address " << address;
 
@@ -530,7 +529,7 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
         SSL_CTX* SSLCtx = mSSLCtx.native_handle();
         SSL_CTX_SRP_CTX_init(SSLCtx);
 
-        char* login = const_cast<char*>(GetWindow("ServerBrowser/Login")->getText().c_str());
+        char* login = const_cast<char*>(GetWindow("Main/ServerBrowser/Login")->getText().c_str());
         LOG(INFO) << "SSL_CTX_set_srp_username " << login;
 
         if (SSL_CTX_set_srp_username(mSSLCtx.native_handle(), login) != 1)
@@ -549,8 +548,8 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
     {
         const char* what = e.what();
         LOG(ERROR) << "OnConnect " << e.what();
-        GetWindow("MessageBox/Message")->setText(what);
-        ShowModal("MessageBox");
+        GetWindow("Main/MessageBox/Message")->setText(what);
+        ShowModal("Main/MessageBox");
     }
     return true;
 }
