@@ -1,37 +1,38 @@
-<?xml version="1.0"?>
 <GUILayout>
-    <Window Type="DefaultWindow" Name="Game" >
+    <Window Name="Game" Type="DefaultWindow">
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
         <Property Name="MousePassThroughEnabled" Value="True" />
-        <Window Type="TaharezLook/FrameWindow" Name="InGameMenu" >
-            <Property Name="UnifiedPosition" Value="{ {0.0, 0}, {0.0, 0} }" />
-            <Property Name="UnifiedSize" Value="{ {0.2, 0}, {0.2, 0} }" />
-            <Property Name="VerticalAlignment" Value="Centre" />
-            <Property Name="HorizontalAlignment" Value="Centre" />
+        <Window Name="Game/InGameMenu" Type="TaharezLook/FrameWindow">
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,256},{0,144}}" />
+            <Property Name="Visible" Value="False" />
+            <Property Name="RollUpEnabled" Value="False" />
             <Property Name="SizingEnabled" Value="False" />
+            <Property Name="DragMovingEnabled" Value="False" />
+            <Property Name="VerticalAlignment" Value="Centre" />
             <Property Name="CloseButtonEnabled" Value="False" />
-            <Property Name="DragMovingEnabled" Value="False" />            
-            <Property Name="RollUpEnabled" Value="False" />            
-            <Property Name="Visible" Value="False"/>
-
-            <Window Type="TaharezLook/Button" Name="InGameMenu/Exit" >
-                <Property Name="UnifiedPosition" Value="{{0.2,0},{0.2,0}}" />
-                <Property Name="UnifiedSize" Value="{{0.6,0},{0,25}}" />
+            <Property Name="HorizontalAlignment" Value="Centre" />
+            <AutoWindow NameSuffix="__auto_titlebar__">
+                <Property Name="DraggingEnabled" Value="False" />
+            </AutoWindow>
+            <Window Name="Game/InGameMenu/Exit" Type="TaharezLook/Button">
+                <Property Name="UnifiedAreaRect" Value="{{0,0},{0,10},{0,200},{0,40}}" />
                 <Property Name="Text" Value="Exit" />
+                <Property Name="HorizontalAlignment" Value="Centre" />
             </Window>
-
-            <Window Type="TaharezLook/Button" Name="DisconnectServer" >
-                <Property Name="UnifiedPosition" Value="{{0.2,0},{0.5,0}}" />
-                <Property Name="UnifiedSize" Value="{{0.6,0},{0,25}}" />
+            <Window Name="Game/InGameMenu/DisconnectServer" Type="TaharezLook/Button">
+                <Property Name="UnifiedAreaRect" Value="{{0,0},{0,60},{0,200},{0,90}}" />
                 <Property Name="Text" Value="Disconnect" />
+                <Property Name="HorizontalAlignment" Value="Centre" />
             </Window>
         </Window>
-        <Window Type="TaharezLook/StaticText" Name="Time" >
-            <Property Name="UnifiedPosition" Value="{ {0.05, 0}, {0.05, 0} }" />
-            <Property Name="UnifiedSize" Value="{ {0, 50}, {0, 25} }" />
-		</Window>
-        <Window Type="TaharezLook/StaticText" Name="FPS" >
-            <Property Name="UnifiedPosition" Value="{ {-0.05, 0}, {0.05, 0} }" />
-            <Property Name="UnifiedSize" Value="{ {0, 50}, {0, 25} }" />
+        <Window Name="Game/Time" Type="TaharezLook/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0,30},{0,30},{0,80},{0,55}}" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+        </Window>
+        <Window Name="Game/FPS" Type="TaharezLook/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0,-30},{0,30},{0,20},{0,55}}" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
             <Property Name="HorizontalAlignment" Value="Right" />
         </Window>
     </Window>

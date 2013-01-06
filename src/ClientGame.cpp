@@ -48,7 +48,7 @@ ClientGame::ClientGame(ServerProxyPtr aServerProxy, TileId aLandingTileId, int32
 
     CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
     CEGUI::Window* guiRoot = winMgr.loadWindowLayout("Game.layout", "", "", &PropertyCallback);
-    winMgr.getWindow("InGameMenu/Exit")->
+    winMgr.getWindow("Game/InGameMenu/Exit")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
 
@@ -210,7 +210,7 @@ bool ClientGame::OnExit(const CEGUI::EventArgs& args)
 void ClientGame::OnEscape()
 {
     CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-    CEGUI::Window* inGameMenu = winMgr.getWindow("InGameMenu");
+    CEGUI::Window* inGameMenu = winMgr.getWindow("Game/InGameMenu");
     inGameMenu->setVisible(!inGameMenu->isVisible());
 }
 
@@ -286,8 +286,8 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
     mBirdCamera->UpdatePosition(aFrameTime);
 
     CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-    winMgr.getWindow("FPS")->setText(Ogre::StringConverter::toString(aStats.avgFPS));
-    winMgr.getWindow("Time")->setText(Ogre::StringConverter::toString(static_cast<long>(mTime)));
+    winMgr.getWindow("Game/FPS")->setText(Ogre::StringConverter::toString(aStats.avgFPS));
+    winMgr.getWindow("Game/Time")->setText(Ogre::StringConverter::toString(static_cast<long>(mTime)));
 
     std::for_each(mUnits.begin(), mUnits.end(),
                   boost::bind(&ClientUnit::UpdateMovementAnimation,
