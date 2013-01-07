@@ -49,6 +49,9 @@ ClientGame::ClientGame(ServerProxyPtr aServerProxy, TileId aLandingTileId, int32
 
     CEGUI::System::getSingleton().setGUISheet(GetWindow("Game"));
 
+    GetWindow("Game/StatusPanel/User")->setText(GetWindow("ServerBrowser/Login")->getText());
+    GetWindow("Game/StatusPanel/Server")->setText(GetWindow("ServerBrowser/Address")->getText());
+
     SubscribeToGUI();
 
     RequestUpdate();
