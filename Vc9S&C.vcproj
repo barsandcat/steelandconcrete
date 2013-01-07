@@ -268,6 +268,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\GUI.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\HighResolutionClock.cpp"
 				>
 			</File>
@@ -374,6 +378,10 @@
 			</File>
 			<File
 				RelativePath=".\src\ClientUnit.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\GUI.h"
 				>
 			</File>
 			<File
@@ -564,10 +572,6 @@
 			Filter="po"
 			>
 			<File
-				RelativePath=".\bin\lang\uk\LC_MESSAGES\steelandconcrete.po"
-				>
-			</File>
-			<File
 				RelativePath=".\bin\lang\en\LC_MESSAGES\steelandconcrete.po"
 				>
 			</File>
@@ -577,6 +581,10 @@
 			</File>
 			<File
 				RelativePath=".\bin\lang\ru\LC_MESSAGES\steelandconcrete.po"
+				>
+			</File>
+			<File
+				RelativePath=".\bin\lang\uk\LC_MESSAGES\steelandconcrete.po"
 				>
 			</File>
 		</Filter>
