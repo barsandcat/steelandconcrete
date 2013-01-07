@@ -38,10 +38,9 @@ CEGUI::Window* GetWindow(CEGUI::String aWindowName)
     return CEGUI::WindowManager::getSingleton().getWindow(aWindowName);
 }
 
-static char* SSLGiveSRPClientPassword(SSL *s, void *arg)
+CEGUI::Window* LoadLayout(CEGUI::String aLayoutName)
 {
-    LOG(INFO) << "SSLGiveSRPClientPassword " << GetWindow("Main/ServerBrowser/Password")->getText();
-    return BUF_strdup(GetWindow("Main/ServerBrowser/Password")->getText().c_str());
+    return CEGUI::WindowManager::getSingleton().loadWindowLayout(aLayoutName, "", "", &PropertyCallback);
 }
 
 void ShowModal(CEGUI::String aWindowName)
@@ -51,6 +50,20 @@ void ShowModal(CEGUI::String aWindowName)
     window->setVisible(true);
     window->setAlwaysOnTop(true);
 }
+
+void ShowMessageBox(const char* aMessage)
+{
+    GetWindow("MessageBox/Message")->setText(aMessage);
+    ShowModal("MessageBox");
+}
+
+
+static char* SSLGiveSRPClientPassword(SSL *s, void *arg)
+{
+    LOG(INFO) << "SSLGiveSRPClientPassword " << GetWindow("Main/ServerBrowser/Password")->getText();
+    return BUF_strdup(GetWindow("Main/ServerBrowser/Password")->getText().c_str());
+}
+
 
 void HideModal(CEGUI::String aWindowName)
 {
@@ -319,12 +332,19 @@ void ClientApp::BuildMainGUILayout()
 {
     CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
     winMgr.destroyAllWindows();
-    CEGUI::Window* myRoot = winMgr.loadWindowLayout("Main.layout", "", "", &PropertyCallback);
+    CEGUI::Window* myRoot = LoadLayout("Main.layout");
     CEGUI::System::getSingleton().setGUISheet(myRoot);
-    GetWindow("Main/ServerBrowser/Port")->setText(FLAGS_port);
-    GetWindow("Main/ServerBrowser/Address")->setText(FLAGS_address);
-    GetWindow("Main/ServerBrowser/Login")->setText(FLAGS_login);
-    GetWindow("Main/ServerBrowser/Password")->setText(FLAGS_password);
+    CEGUI::Window* serverBrowser = LoadLayout("ServerBrowser.layout");
+    serverBrowser->setVisible(false);
+    myRoot->addChildWindow(serverBrowser);
+    CEGUI::Window* messageBox = LoadLayout("MessageBox.layout");
+    messageBox->setVisible(false);
+    myRoot->addChildWindow(messageBox);
+
+    GetWindow("ServerBrowser/Port")->setText(FLAGS_port);
+    GetWindow("ServerBrowser/Address")->setText(FLAGS_address);
+    GetWindow("ServerBrowser/Login")->setText(FLAGS_login);
+    GetWindow("ServerBrowser/Password")->setText(FLAGS_password);
 
     GetWindow("Main/Menu/English")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
@@ -346,13 +366,13 @@ void ClientApp::BuildMainGUILayout()
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnBrowse, this));
 
-    GetWindow("Main/ServerBrowser/Connect")->
+    GetWindow("ServerBrowser/Connect")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnConnect, this));
-    GetWindow("Main/ServerBrowser/Cancel")->
+    GetWindow("ServerBrowser/Cancel")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnMainMenu, this));
-    GetWindow("Main/MessageBox/Close")->
+    GetWindow("MessageBox/Close")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnCloseMessageBox, this));
 }
@@ -376,7 +396,7 @@ bool ClientApp::OnClick(const CEGUI::EventArgs& args)
 
 bool ClientApp::OnBrowse(const CEGUI::EventArgs& args)
 {
-    ShowModal("Main/ServerBrowser");
+    ShowModal("ServerBrowser");
     return true;
 }
 
@@ -425,13 +445,13 @@ bool ClientApp::OnJapanese(const CEGUI::EventArgs& args)
 
 bool ClientApp::OnMainMenu(const CEGUI::EventArgs& args)
 {
-    HideModal("Main/ServerBrowser");
+    HideModal("ServerBrowser");
     return true;
 }
 
 bool ClientApp::OnCloseMessageBox(const CEGUI::EventArgs& args)
 {
-    HideModal("Main/MessageBox");
+    HideModal("MessageBox");
     return true;
 }
 
@@ -447,15 +467,14 @@ void ClientApp::OnAppHanshake(ServerProxyPtr aServerProxy, ConstPayloadPtr aRes)
         LOG(INFO) << "App handshake done. World size: " << aRes->size();
 
         mGame = new ClientGame(aServerProxy, aRes->landing_tile(), aRes->size());
-        GetWindow("Main/MainMenu")->setVisible(false);
-        HideModal("Main/ServerBrowser");
+        GetWindow("Main/Main/Menu")->setVisible(false);
+        HideModal("ServerBrowser");
     }
     catch (std::exception& e)
     {
         const char* what = e.what();
         LOG(ERROR) << "OnAppHandshake " << e.what();
-        GetWindow("Main/MessageBox/Message")->setText(what);
-        ShowModal("Main/MessageBox");
+        ShowMessageBox(what);
     }
 }
 
@@ -481,8 +500,7 @@ void ClientApp::OnSSLHandShake(SSLStreamPtr aSSLStream, const boost::system::err
     {
         const char* what = e.what();
         LOG(ERROR) << "OnSSLHandshake " << e.what();
-        GetWindow("Main/MessageBox/Message")->setText(what);
-        ShowModal("Main/MessageBox");
+        ShowMessageBox(what);
     }
 }
 
@@ -504,8 +522,7 @@ void ClientApp::OnSocketConnect(SSLStreamPtr aSSLStream, const boost::system::er
     {
         const char* what = e.what();
         LOG(ERROR) << "OnSocketConnect " << e.what();
-        GetWindow("Main/MessageBox/Message")->setText(what);
-        ShowModal("Main/MessageBox");
+        ShowMessageBox(what);
     }
 }
 
@@ -548,8 +565,7 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
     {
         const char* what = e.what();
         LOG(ERROR) << "OnConnect " << e.what();
-        GetWindow("Main/MessageBox/Message")->setText(what);
-        ShowModal("Main/MessageBox");
+        ShowMessageBox(what);
     }
     return true;
 }
