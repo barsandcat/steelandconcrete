@@ -253,6 +253,9 @@ ClientApp::ClientApp(int argc, char **argv):
 
         CEGUI::GlobalEventSet::getSingleton().subscribeEvent("PushButton/Clicked",
                 CEGUI::Event::Subscriber(&ClientApp::OnClick, this));
+        CEGUI::GlobalEventSet::getSingleton().subscribeEvent("MenuItem/Clicked",
+                CEGUI::Event::Subscriber(&ClientApp::OnClick, this));
+
     }
 #if OGRE_PROFILING
     Ogre::Profiler::getSingleton().setEnabled(true);
