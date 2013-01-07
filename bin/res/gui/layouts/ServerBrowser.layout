@@ -15,6 +15,8 @@
             <Property Name="UnifiedAreaRect" Value="{{0,20},{0,20},{0,130},{0,50}}" />
             <Property Name="Text" Value="Address" />
             <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
         </Window>
         <Window Name="ServerBrowser/Address" Type="TaharezLook/Editbox">
             <Property Name="UnifiedAreaRect" Value="{{0,150},{0,20},{0,530},{0,50}}" />
@@ -23,6 +25,8 @@
             <Property Name="UnifiedAreaRect" Value="{{0,20},{0,70},{0,130},{0,100}}" />
             <Property Name="Text" Value="Port" />
             <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
         </Window>
         <Window Name="ServerBrowser/Port" Type="TaharezLook/Editbox">
             <Property Name="UnifiedAreaRect" Value="{{0,150},{0,70},{0,530},{0,100}}" />
@@ -31,6 +35,8 @@
             <Property Name="UnifiedAreaRect" Value="{{0,20},{0,120},{0,130},{0,150}}" />
             <Property Name="Text" Value="Login" />
             <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
         </Window>
         <Window Name="ServerBrowser/Login" Type="TaharezLook/Editbox">
             <Property Name="UnifiedAreaRect" Value="{{0,150},{0,120},{0,530},{0,150}}" />
@@ -39,6 +45,8 @@
             <Property Name="UnifiedAreaRect" Value="{{0,20},{0,170},{0,130},{0,200}}" />
             <Property Name="Text" Value="Password" />
             <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
         </Window>
         <Window Name="ServerBrowser/Password" Type="TaharezLook/Editbox">
             <Property Name="UnifiedAreaRect" Value="{{0,150},{0,170},{0,530},{0,200}}" />

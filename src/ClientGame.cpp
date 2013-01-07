@@ -58,6 +58,9 @@ void ClientGame::SubscribeToGUI()
 {
     GetWindow("InGameMenu/Exit")->subscribeEvent(CEGUI::PushButton::EventClicked,
         CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
+
+    GetWindow("Game/StatusPanel/OpenInGameMenu")->subscribeEvent(CEGUI::PushButton::EventClicked,
+        CEGUI::Event::Subscriber(&ClientGame::OnEscape, this));
 }
 
 ClientGame::~ClientGame()
@@ -155,7 +158,10 @@ void ClientGame::keyPressed(const OIS::KeyEvent& arg)
         mBirdCamera->ZoomIn();
         break;
     case OIS::KC_ESCAPE:
-        OnEscape();
+        {
+            CEGUI::EventArgs args;
+            OnEscape(args);
+        }
         break;
     default:
         ;
@@ -212,11 +218,12 @@ bool ClientGame::OnExit(const CEGUI::EventArgs& args)
     return true;
 }
 
-void ClientGame::OnEscape()
+bool ClientGame::OnEscape(const CEGUI::EventArgs& args)
 {
     CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
     CEGUI::Window* inGameMenu = winMgr.getWindow("InGameMenu");
     inGameMenu->setVisible(!inGameMenu->isVisible());
+    return true;
 }
 
 ClientUnit* ClientGame::GetUnit(UnitId aUnitId)
@@ -291,8 +298,8 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
     mBirdCamera->UpdatePosition(aFrameTime);
 
     CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-    winMgr.getWindow("Game/FPS")->setText(Ogre::StringConverter::toString(aStats.avgFPS));
-    winMgr.getWindow("Game/Time")->setText(Ogre::StringConverter::toString(static_cast<long>(mTime)));
+    winMgr.getWindow("Game/StatusPanel/FPS")->setText(Ogre::StringConverter::toString(static_cast<long>(aStats.avgFPS)));
+    winMgr.getWindow("Game/StatusPanel/Time")->setText(Ogre::StringConverter::toString(static_cast<long>(mTime)));
 
     std::for_each(mUnits.begin(), mUnits.end(),
                   boost::bind(&ClientUnit::UpdateMovementAnimation,
