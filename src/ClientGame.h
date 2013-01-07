@@ -32,7 +32,7 @@ public:
     static void EraseUnitId(UnitId aUnitId);
 private:
     bool OnExit(const CEGUI::EventArgs& args);
-    void OnEscape();
+    bool OnEscape(const CEGUI::EventArgs& args);
     void OnAct();
     void OnPayloadMsg(ConstPayloadPtr aPayloadMsg);
     void RequestUpdate();
