@@ -44,10 +44,12 @@ void ShowMessageBox(const char* aMessage)
 
 void BuildLayout()
 {
-    CEGUI::Window* myRoot = LoadLayout("Main.layout");
+    CEGUI::Window* main = LoadLayout("Main.layout");
 
-    myRoot->addChildWindow(LoadWindow("ServerBrowser.layout"));
-    myRoot->addChildWindow(LoadWindow("MessageBox.layout"));
+    main->addChildWindow(LoadWindow("ServerBrowser.layout"));
+    main->addChildWindow(LoadWindow("MessageBox.layout"));
 
-    CEGUI::System::getSingleton().setGUISheet(myRoot);
+    CEGUI::System::getSingleton().setGUISheet(main);
+
+    LoadLayout("Game.layout");
 }

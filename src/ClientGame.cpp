@@ -47,10 +47,9 @@ ClientGame::ClientGame(ServerProxyPtr aServerProxy, TileId aLandingTileId, int32
     mTargetMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Target", "TargetMarker.mesh"));
     mTargetMarker->setVisible(false);
 
-    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-    CEGUI::Window* guiRoot = winMgr.loadWindowLayout("Game.layout", "", "", &PropertyCallback);
+    CEGUI::System::getSingleton().setGUISheet(GetWindow("Game"));
 
-    CEGUI::System::getSingleton().setGUISheet(guiRoot);
+    SubscribeToGUI();
 
     RequestUpdate();
 }
@@ -74,6 +73,8 @@ ClientGame::~ClientGame()
     }
 
     ClientApp::GetSceneMgr().clearScene();
+
+    CEGUI::System::getSingleton().setGUISheet(GetWindow("Main"));
 }
 
 void ClientGame::UpdateTileUnderCursor(Ogre::Ray aRay)

@@ -35,8 +35,8 @@ DEFINE_string(port, "4512", "Server port");
 
 static char* SSLGiveSRPClientPassword(SSL *s, void *arg)
 {
-    LOG(INFO) << "SSLGiveSRPClientPassword " << GetWindow("Main/ServerBrowser/Password")->getText();
-    return BUF_strdup(GetWindow("Main/ServerBrowser/Password")->getText().c_str());
+    LOG(INFO) << "SSLGiveSRPClientPassword " << GetWindow("ServerBrowser/Password")->getText();
+    return BUF_strdup(GetWindow("ServerBrowser/Password")->getText().c_str());
 }
 
 Ogre::SceneManager& ClientApp::GetSceneMgr()
@@ -337,6 +337,7 @@ void InitGUIData()
 
 void ClientApp::ReloadGUI()
 {
+    LOG(INFO) << "Reload gui";
     CEGUI::WindowManager::getSingleton().destroyAllWindows();
     BuildLayout();
     InitGUIData();
@@ -436,9 +437,9 @@ void ClientApp::OnAppHanshake(ServerProxyPtr aServerProxy, ConstPayloadPtr aRes)
 
         LOG(INFO) << "App handshake done. World size: " << aRes->size();
 
-        mGame = new ClientGame(aServerProxy, aRes->landing_tile(), aRes->size());
-        GetWindow("Main/Main/Menu")->setVisible(false);
         HideModal("ServerBrowser");
+
+        mGame = new ClientGame(aServerProxy, aRes->landing_tile(), aRes->size());
     }
     catch (std::exception& e)
     {
@@ -503,8 +504,8 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
 
     try
     {
-        CEGUI::String port = GetWindow("Main/ServerBrowser/Port")->getText();
-        CEGUI::String address = GetWindow("Main/ServerBrowser/Address")->getText();
+        CEGUI::String port = GetWindow("ServerBrowser/Port")->getText();
+        CEGUI::String address = GetWindow("ServerBrowser/Address")->getText();
 
         LOG(INFO) << "Port " << port << " Address " << address;
 
@@ -516,7 +517,7 @@ bool ClientApp::OnConnect(const CEGUI::EventArgs& args)
         SSL_CTX* SSLCtx = mSSLCtx.native_handle();
         SSL_CTX_SRP_CTX_init(SSLCtx);
 
-        char* login = const_cast<char*>(GetWindow("Main/ServerBrowser/Login")->getText().c_str());
+        char* login = const_cast<char*>(GetWindow("ServerBrowser/Login")->getText().c_str());
         LOG(INFO) << "SSL_CTX_set_srp_username " << login;
 
         if (SSL_CTX_set_srp_username(mSSLCtx.native_handle(), login) != 1)
