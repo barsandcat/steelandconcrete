@@ -9,6 +9,7 @@
 #include <ClientTile.h>
 
 #include <CEGUILocalization.h>
+#include <GUI.h>
 
 ClientGame::ClientUnits ClientGame::mUnits;
 
@@ -48,13 +49,16 @@ ClientGame::ClientGame(ServerProxyPtr aServerProxy, TileId aLandingTileId, int32
 
     CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
     CEGUI::Window* guiRoot = winMgr.loadWindowLayout("Game.layout", "", "", &PropertyCallback);
-    winMgr.getWindow("Game/InGameMenu/Exit")->
-    subscribeEvent(CEGUI::PushButton::EventClicked,
-                   CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
 
     CEGUI::System::getSingleton().setGUISheet(guiRoot);
 
     RequestUpdate();
+}
+
+void ClientGame::SubscribeToGUI()
+{
+    GetWindow("Game/InGameMenu/Exit")->subscribeEvent(CEGUI::PushButton::EventClicked,
+        CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
 }
 
 ClientGame::~ClientGame()

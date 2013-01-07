@@ -26,6 +26,7 @@ public:
     void mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
     void keyPressed(const OIS::KeyEvent& arg);
     void keyReleased(const OIS::KeyEvent& arg);
+    void SubscribeToGUI();
 
     static ClientUnit* GetUnit(UnitId aUnitId);
     static void EraseUnitId(UnitId aUnitId);
