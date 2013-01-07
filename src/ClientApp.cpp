@@ -319,6 +319,10 @@ void ClientApp::SubscribeToGUI()
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnBrowse, this));
 
+    GetWindow("Main/Menu/ExitApp")->
+    subscribeEvent(CEGUI::PushButton::EventClicked,
+                   CEGUI::Event::Subscriber(&ClientApp::OnExit, this));
+
     GetWindow("ServerBrowser/Connect")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnConnect, this));
@@ -673,6 +677,11 @@ void ClientApp::windowClosed(Ogre::RenderWindow* rw)
     boost::throw_exception(std::runtime_error("Window closed"));
 }
 
+bool ClientApp::OnExit(const CEGUI::EventArgs& args)
+{
+    boost::throw_exception(std::runtime_error("Exit"));
+    return true;
+}
 
 void ClientApp::MainLoop()
 {

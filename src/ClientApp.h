@@ -26,17 +26,6 @@ public:
     virtual ~ClientApp();
     void MainLoop();
 
-    bool OnClick(const CEGUI::EventArgs& args);
-    bool OnConnect(const CEGUI::EventArgs& args);
-    bool OnCreate(const CEGUI::EventArgs& args);
-    bool OnBrowse(const CEGUI::EventArgs& args);
-    bool OnRussian(const CEGUI::EventArgs& args);
-    bool OnUkranian(const CEGUI::EventArgs& args);
-    bool OnEnglish(const CEGUI::EventArgs& args);
-    bool OnJapanese(const CEGUI::EventArgs& args);
-    bool OnMainMenu(const CEGUI::EventArgs& args);
-    bool OnCloseMessageBox(const CEGUI::EventArgs& args);
-
     static Ogre::SceneManager& GetSceneMgr();
     static OgreAL::SoundManager& GetSoundMgr();
     static Ogre::Camera* GetCamera();
@@ -63,6 +52,17 @@ public:
     virtual void windowResized(Ogre::RenderWindow* rw);
     virtual void windowClosed(Ogre::RenderWindow* rw);
 private:
+    bool OnClick(const CEGUI::EventArgs& args);
+    bool OnConnect(const CEGUI::EventArgs& args);
+    bool OnCreate(const CEGUI::EventArgs& args);
+    bool OnBrowse(const CEGUI::EventArgs& args);
+    bool OnRussian(const CEGUI::EventArgs& args);
+    bool OnUkranian(const CEGUI::EventArgs& args);
+    bool OnEnglish(const CEGUI::EventArgs& args);
+    bool OnJapanese(const CEGUI::EventArgs& args);
+    bool OnMainMenu(const CEGUI::EventArgs& args);
+    bool OnCloseMessageBox(const CEGUI::EventArgs& args);
+    bool OnExit(const CEGUI::EventArgs& args);
     void OnAppHanshake(ServerProxyPtr aServerProxy, ConstPayloadPtr aRes);
     void OnSSLHandShake(SSLStreamPtr aSSLStream, const boost::system::error_code& aError);
     void OnSocketConnect(SSLStreamPtr aSSLStream, const boost::system::error_code& aError);
