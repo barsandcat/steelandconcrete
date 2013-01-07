@@ -11,10 +11,10 @@
 
 #include <RendererModules/Ogre/CEGUIOgreResourceProvider.h>
 #include <RendererModules/Ogre/CEGUIOgreImageCodec.h>
-#include <CEGUILocalization.h>
 #include <Platform.h>
 #include <boost/asio/ssl.hpp>
 #include <SSLLogRedirect.h>
+#include <GUI.h>
 
 char ClientApp::RU[] = "LANGUAGE=ru";
 char ClientApp::EN[] = "LANGUAGE=en";
@@ -33,44 +33,10 @@ DEFINE_string(password, "test", "Password to use when connecting to server");
 DEFINE_string(address, "127.0.0.1", "Server ip address");
 DEFINE_string(port, "4512", "Server port");
 
-CEGUI::Window* GetWindow(CEGUI::String aWindowName)
-{
-    return CEGUI::WindowManager::getSingleton().getWindow(aWindowName);
-}
-
-CEGUI::Window* LoadLayout(CEGUI::String aLayoutName)
-{
-    return CEGUI::WindowManager::getSingleton().loadWindowLayout(aLayoutName, "", "", &PropertyCallback);
-}
-
-void ShowModal(CEGUI::String aWindowName)
-{
-    CEGUI::Window* window = GetWindow(aWindowName);
-    window->setModalState(true);
-    window->setVisible(true);
-    window->setAlwaysOnTop(true);
-}
-
-void ShowMessageBox(const char* aMessage)
-{
-    GetWindow("MessageBox/Message")->setText(aMessage);
-    ShowModal("MessageBox");
-}
-
-
 static char* SSLGiveSRPClientPassword(SSL *s, void *arg)
 {
     LOG(INFO) << "SSLGiveSRPClientPassword " << GetWindow("Main/ServerBrowser/Password")->getText();
     return BUF_strdup(GetWindow("Main/ServerBrowser/Password")->getText().c_str());
-}
-
-
-void HideModal(CEGUI::String aWindowName)
-{
-    CEGUI::Window* window = GetWindow(aWindowName);
-    window->setModalState(false);
-    window->setVisible(false);
-    window->setAlwaysOnTop(false);
 }
 
 Ogre::SceneManager& ClientApp::GetSceneMgr()
@@ -328,24 +294,8 @@ ClientApp::~ClientApp()
     mGLPlugin = NULL;
 }
 
-void ClientApp::BuildMainGUILayout()
+void ClientApp::SubscribeToGUI()
 {
-    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-    winMgr.destroyAllWindows();
-    CEGUI::Window* myRoot = LoadLayout("Main.layout");
-    CEGUI::System::getSingleton().setGUISheet(myRoot);
-    CEGUI::Window* serverBrowser = LoadLayout("ServerBrowser.layout");
-    serverBrowser->setVisible(false);
-    myRoot->addChildWindow(serverBrowser);
-    CEGUI::Window* messageBox = LoadLayout("MessageBox.layout");
-    messageBox->setVisible(false);
-    myRoot->addChildWindow(messageBox);
-
-    GetWindow("ServerBrowser/Port")->setText(FLAGS_port);
-    GetWindow("ServerBrowser/Address")->setText(FLAGS_address);
-    GetWindow("ServerBrowser/Login")->setText(FLAGS_login);
-    GetWindow("ServerBrowser/Password")->setText(FLAGS_password);
-
     GetWindow("Main/Menu/English")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnEnglish, this));
@@ -375,6 +325,26 @@ void ClientApp::BuildMainGUILayout()
     GetWindow("MessageBox/Close")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnCloseMessageBox, this));
+}
+
+void InitGUIData()
+{
+    GetWindow("ServerBrowser/Port")->setText(FLAGS_port);
+    GetWindow("ServerBrowser/Address")->setText(FLAGS_address);
+    GetWindow("ServerBrowser/Login")->setText(FLAGS_login);
+    GetWindow("ServerBrowser/Password")->setText(FLAGS_password);
+}
+
+void ClientApp::ReloadGUI()
+{
+    CEGUI::WindowManager::getSingleton().destroyAllWindows();
+    BuildLayout();
+    InitGUIData();
+    SubscribeToGUI();
+    if (mGame)
+    {
+        mGame->SubscribeToGUI();
+    }
 }
 
 bool ClientApp::OnClick(const CEGUI::EventArgs& args)
@@ -415,7 +385,7 @@ bool ClientApp::OnRussian(const CEGUI::EventArgs& args)
 {
     putenv(RU);
     TriggerMsgCatalogReload();
-    BuildMainGUILayout();
+    ReloadGUI();
     return true;
 }
 
@@ -423,7 +393,7 @@ bool ClientApp::OnEnglish(const CEGUI::EventArgs& args)
 {
     putenv(EN);
     TriggerMsgCatalogReload();
-    BuildMainGUILayout();
+    ReloadGUI();
     return true;
 }
 
@@ -431,7 +401,7 @@ bool ClientApp::OnUkranian(const CEGUI::EventArgs& args)
 {
     putenv(UK);
     TriggerMsgCatalogReload();
-    BuildMainGUILayout();
+    ReloadGUI();
     return true;
 }
 
@@ -439,7 +409,7 @@ bool ClientApp::OnJapanese(const CEGUI::EventArgs& args)
 {
     putenv(JA);
     TriggerMsgCatalogReload();
-    BuildMainGUILayout();
+    ReloadGUI();
     return true;
 }
 
@@ -702,7 +672,7 @@ void ClientApp::windowClosed(Ogre::RenderWindow* rw)
 
 void ClientApp::MainLoop()
 {
-    BuildMainGUILayout();
+    ReloadGUI();
 
     unsigned long frameTime = 1;
 

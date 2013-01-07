@@ -66,7 +66,8 @@ private:
     void OnAppHanshake(ServerProxyPtr aServerProxy, ConstPayloadPtr aRes);
     void OnSSLHandShake(SSLStreamPtr aSSLStream, const boost::system::error_code& aError);
     void OnSocketConnect(SSLStreamPtr aSSLStream, const boost::system::error_code& aError);
-    void BuildMainGUILayout();
+    void ReloadGUI();
+    void SubscribeToGUI();
     Ogre::Ray GetMouseRay() const;
     static Ogre::SceneManager* mSceneMgr;
     static OgreAL::SoundManager* mSoundManager;
