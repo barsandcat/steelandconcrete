@@ -1,0 +1,24 @@
+<GUILayout>
+    <Window Name="InGameMenu" Type="TaharezLook/FrameWindow">
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,256},{0,144}}" />
+        <Property Name="RollUpEnabled" Value="False" />
+        <Property Name="SizingEnabled" Value="False" />
+        <Property Name="DragMovingEnabled" Value="False" />
+        <Property Name="VerticalAlignment" Value="Centre" />
+        <Property Name="CloseButtonEnabled" Value="False" />
+        <Property Name="HorizontalAlignment" Value="Centre" />
+        <AutoWindow NameSuffix="__auto_titlebar__">
+            <Property Name="DraggingEnabled" Value="False" />
+        </AutoWindow>
+        <Window Name="InGameMenu/Exit" Type="TaharezLook/Button">
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,10},{0,200},{0,40}}" />
+            <Property Name="Text" Value="Exit" />
+            <Property Name="HorizontalAlignment" Value="Centre" />
+        </Window>
+        <Window Name="InGameMenu/DisconnectServer" Type="TaharezLook/Button">
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,60},{0,200},{0,90}}" />
+            <Property Name="Text" Value="Disconnect" />
+            <Property Name="HorizontalAlignment" Value="Centre" />
+        </Window>
+    </Window>
+</GUILayout>
