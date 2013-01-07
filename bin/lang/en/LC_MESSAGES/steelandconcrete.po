@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: steelandconcret\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-12 16:47+0300\n"
-"PO-Revision-Date: 2011-06-12 16:48+0300\n"
+"POT-Creation-Date: 2013-01-07 22:03+0300\n"
+"PO-Revision-Date: 2013-01-07 22:05+0300\n"
 "Last-Translator: Цахилов Дмитрий Михайлович <barsandcat@gmail.com>\n"
 "Language-Team: ddr <barsandcat@gmail.com>\n"
 "Language: \n"
@@ -38,17 +38,13 @@ msgstr "Address"
 msgid "Port"
 msgstr "Port"
 
-#: src/SystemMenuSheet.cpp:35
-msgid "Exit"
-msgstr "Exit"
-
-#: src/MainMenuSheet.cpp:40
-msgid "Create server"
-msgstr "Create server"
-
 #: bin/res/gui/layouts/messages.h:1
 msgid "Steel and Concrete"
 msgstr "Steel and Concrete"
+
+#: bin/res/gui/layouts/messages.h:2
+msgid "Create server"
+msgstr "Create server"
 
 #: bin/res/gui/layouts/messages.h:4
 msgid "English"
@@ -65,4 +61,45 @@ msgstr "Русский"
 #: bin/res/gui/layouts/messages.h:7
 msgid "Japanese"
 msgstr "日本"
+
+#: bin/res/gui/layouts/messages.h:8
+#: bin/res/gui/layouts/messages.h:19
+msgid "Exit"
+msgstr "Exit"
+
+#: bin/res/gui/layouts/messages.h:9
+msgid "Server browser"
+msgstr "Server browser"
+
+#: bin/res/gui/layouts/messages.h:12
+msgid "Login"
+msgstr "Login"
+
+#: bin/res/gui/layouts/messages.h:13
+msgid "Password"
+msgstr "Password"
+
+#: bin/res/gui/layouts/messages.h:15
+msgid "Cancel"
+msgstr "Cancel"
+
+#: bin/res/gui/layouts/messages.h:16
+msgid "Server:"
+msgstr "Server:"
+
+#: bin/res/gui/layouts/messages.h:17
+msgid "User:"
+msgstr "User:"
+
+#: bin/res/gui/layouts/messages.h:18
+msgid "Menu"
+msgstr "Menu"
+
+#: bin/res/gui/layouts/messages.h:20
+msgid "Disconnect"
+msgstr "Disconnect"
+
+#: bin/res/gui/layouts/messages.h:21
+msgid "Close"
+msgstr "Close"
 
