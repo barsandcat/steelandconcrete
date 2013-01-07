@@ -51,5 +51,6 @@ void BuildLayout()
 
     CEGUI::System::getSingleton().setGUISheet(main);
 
-    LoadLayout("Game.layout");
+    CEGUI::Window* game = LoadLayout("Game.layout");
+    game->addChildWindow(LoadWindow("InGameMenu.layout"));
 }

@@ -56,7 +56,7 @@ ClientGame::ClientGame(ServerProxyPtr aServerProxy, TileId aLandingTileId, int32
 
 void ClientGame::SubscribeToGUI()
 {
-    GetWindow("Game/InGameMenu/Exit")->subscribeEvent(CEGUI::PushButton::EventClicked,
+    GetWindow("InGameMenu/Exit")->subscribeEvent(CEGUI::PushButton::EventClicked,
         CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
 }
 
@@ -215,7 +215,7 @@ bool ClientGame::OnExit(const CEGUI::EventArgs& args)
 void ClientGame::OnEscape()
 {
     CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-    CEGUI::Window* inGameMenu = winMgr.getWindow("Game/InGameMenu");
+    CEGUI::Window* inGameMenu = winMgr.getWindow("InGameMenu");
     inGameMenu->setVisible(!inGameMenu->isVisible());
 }
 
