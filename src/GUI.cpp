@@ -38,6 +38,17 @@ void HideModal(CEGUI::String aWindowName)
     window->setAlwaysOnTop(false);
 }
 
+
+void Show(CEGUI::String aWindowName)
+{
+    GetWindow(aWindowName)->setVisible(true);
+}
+
+void Hide(CEGUI::String aWindowName)
+{
+    GetWindow(aWindowName)->setVisible(false);
+}
+
 void ShowMessageBox(const char* aMessage)
 {
     GetWindow("MessageBox/Message")->setText(aMessage);
@@ -53,7 +64,8 @@ bool OnEscape(const CEGUI::EventArgs& args)
 
 bool OnBrowse(const CEGUI::EventArgs& args)
 {
-    ShowModal("ServerBrowser");
+    Show("ServerBrowser");
+    Hide("Main/Menu");
     return true;
 }
 
@@ -65,7 +77,8 @@ bool OnExit(const CEGUI::EventArgs& args)
 
 bool OnMainMenu(const CEGUI::EventArgs& args)
 {
-    HideModal("ServerBrowser");
+    Hide("ServerBrowser");
+    Show("Main/Menu");
     return true;
 }
 
@@ -103,7 +116,7 @@ void SubscribeToGUI()
     GetWindow("ServerBrowser/Cancel")->subscribeEvent(CEGUI::PushButton::EventClicked, &OnMainMenu);
     GetWindow("MessageBox/Close")->subscribeEvent(CEGUI::PushButton::EventClicked, &OnCloseMessageBox);
     GetWindow("InGameMenu/Exit")->subscribeEvent(CEGUI::PushButton::EventClicked, &OnExit);
-    GetWindow("Game/StatusPanel/OpenInGameMenu")->subscribeEvent(CEGUI::PushButton::EventClicked, &OnEscape);
+    GetWindow("StatusPanel/OpenInGameMenu")->subscribeEvent(CEGUI::PushButton::EventClicked, &OnEscape);
 }
 
 void InitGUIData()
@@ -120,11 +133,10 @@ void InitGUI()
 
     main->addChildWindow(LoadWindow("ServerBrowser.layout"));
     main->addChildWindow(LoadWindow("MessageBox.layout"));
+    main->addChildWindow(LoadWindow("InGameMenu.layout"));
+    main->addChildWindow(LoadWindow("StatusPanel.layout"));
 
     CEGUI::System::getSingleton().setGUISheet(main);
-
-    CEGUI::Window* game = LoadLayout("Game.layout");
-    game->addChildWindow(LoadWindow("InGameMenu.layout"));
 
     SubscribeToGUI();
     InitGUIData();

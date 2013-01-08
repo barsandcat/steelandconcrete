@@ -9,6 +9,10 @@ void ShowModal(CEGUI::String aWindowName);
 
 void HideModal(CEGUI::String aWindowName);
 
+void Show(CEGUI::String aWindowName);
+
+void Hide(CEGUI::String aWindowName);
+
 void ShowMessageBox(const char* aMessage);
 
 void InitGUI();

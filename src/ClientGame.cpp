@@ -47,11 +47,11 @@ ClientGame::ClientGame(ServerProxyPtr aServerProxy, TileId aLandingTileId, int32
     mTargetMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Target", "TargetMarker.mesh"));
     mTargetMarker->setVisible(false);
 
-    CEGUI::System::getSingleton().setGUISheet(GetWindow("Game"));
+    GetWindow("StatusPanel/User")->setText(GetWindow("ServerBrowser/Login")->getText());
+    GetWindow("StatusPanel/Server")->setText(GetWindow("ServerBrowser/Address")->getText());
 
-    GetWindow("Game/StatusPanel/User")->setText(GetWindow("ServerBrowser/Login")->getText());
-    GetWindow("Game/StatusPanel/Server")->setText(GetWindow("ServerBrowser/Address")->getText());
-    HideModal("ServerBrowser");
+    Hide("ServerBrowser");
+    Show("StatusPanel");
 
     RequestUpdate();
 }
@@ -76,9 +76,9 @@ ClientGame::~ClientGame()
 
     delete mBirdCamera;
 
-    GetWindow("InGameMenu")->setVisible(false);
-
-    CEGUI::System::getSingleton().setGUISheet(GetWindow("Main"));
+    Hide("InGameMenu");
+    Hide("StatusPanel");
+    Show("Main/Menu");
 }
 
 void ClientGame::UpdateTileUnderCursor(Ogre::Ray aRay)
@@ -292,9 +292,8 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
 {
     mBirdCamera->UpdatePosition(aFrameTime);
 
-    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-    winMgr.getWindow("Game/StatusPanel/FPS")->setText(Ogre::StringConverter::toString(static_cast<long>(aStats.avgFPS)));
-    winMgr.getWindow("Game/StatusPanel/Time")->setText(Ogre::StringConverter::toString(static_cast<long>(mTime)));
+    GetWindow("StatusPanel/FPS")->setText(Ogre::StringConverter::toString(static_cast<long>(aStats.avgFPS)));
+    GetWindow("StatusPanel/Time")->setText(Ogre::StringConverter::toString(static_cast<long>(mTime)));
 
     std::for_each(mUnits.begin(), mUnits.end(),
                   boost::bind(&ClientUnit::UpdateMovementAnimation,
