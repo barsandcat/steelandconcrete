@@ -11,7 +11,7 @@ void HideModal(CEGUI::String aWindowName);
 
 void ShowMessageBox(const char* aMessage);
 
-void BuildLayout();
+void InitGUI();
 
 
 #endif // GUI_H_INCLUDED

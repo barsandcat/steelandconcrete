@@ -250,12 +250,6 @@ ClientApp::ClientApp(int argc, char **argv):
         CEGUI::FontManager::getSingleton().create("unifont.font");
         CEGUI::SchemeManager::getSingleton().create("TaharezLook.scheme");
         CEGUI::System::getSingleton().setDefaultMouseCursor("TaharezLook", "MouseArrow");
-
-        CEGUI::GlobalEventSet::getSingleton().subscribeEvent("PushButton/Clicked",
-                CEGUI::Event::Subscriber(&ClientApp::OnClick, this));
-        CEGUI::GlobalEventSet::getSingleton().subscribeEvent("MenuItem/Clicked",
-                CEGUI::Event::Subscriber(&ClientApp::OnClick, this));
-
     }
 #if OGRE_PROFILING
     Ogre::Profiler::getSingleton().setEnabled(true);
@@ -317,70 +311,21 @@ void ClientApp::SubscribeToGUI()
     GetWindow("Main/Menu/Create")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnCreate, this));
-    GetWindow("Main/Menu/Connect")->
-    subscribeEvent(CEGUI::PushButton::EventClicked,
-                   CEGUI::Event::Subscriber(&ClientApp::OnBrowse, this));
-
-    GetWindow("Main/Menu/ExitApp")->
-    subscribeEvent(CEGUI::PushButton::EventClicked,
-                   CEGUI::Event::Subscriber(&ClientApp::OnExit, this));
 
     GetWindow("ServerBrowser/Connect")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnConnect, this));
-    GetWindow("ServerBrowser/Cancel")->
-    subscribeEvent(CEGUI::PushButton::EventClicked,
-                   CEGUI::Event::Subscriber(&ClientApp::OnMainMenu, this));
-    GetWindow("MessageBox/Close")->
-    subscribeEvent(CEGUI::PushButton::EventClicked,
-                   CEGUI::Event::Subscriber(&ClientApp::OnCloseMessageBox, this));
 
     GetWindow("InGameMenu/DisconnectServer")->subscribeEvent(CEGUI::PushButton::EventClicked,
             CEGUI::Event::Subscriber(&ClientApp::OnDisconnect, this));
-}
-
-void InitGUIData()
-{
-    GetWindow("ServerBrowser/Port")->setText(FLAGS_port);
-    GetWindow("ServerBrowser/Address")->setText(FLAGS_address);
-    GetWindow("ServerBrowser/Login")->setText(FLAGS_login);
-    GetWindow("ServerBrowser/Password")->setText(FLAGS_password);
 }
 
 void ClientApp::ReloadGUI()
 {
     LOG(INFO) << "Reload gui";
     CEGUI::WindowManager::getSingleton().destroyAllWindows();
-    BuildLayout();
-    InitGUIData();
+    InitGUI();
     SubscribeToGUI();
-    if (mGame)
-    {
-        mGame->SubscribeToGUI();
-    }
-}
-
-bool ClientApp::OnClick(const CEGUI::EventArgs& args)
-{
-    OgreAL::Sound *sound = NULL;
-    if (mSoundManager->hasSound("click"))
-    {
-        sound = mSoundManager->getSound("click");
-        sound->stop();
-    }
-    else
-    {
-        sound = mSoundManager->createSound("click", "clickclick.ogg", false, false);
-        sound->setRelativeToListener(true);
-    }
-    sound->play();
-    return true;
-}
-
-bool ClientApp::OnBrowse(const CEGUI::EventArgs& args)
-{
-    ShowModal("ServerBrowser");
-    return true;
 }
 
 void TriggerMsgCatalogReload()
@@ -426,18 +371,6 @@ bool ClientApp::OnJapanese(const CEGUI::EventArgs& args)
     return true;
 }
 
-bool ClientApp::OnMainMenu(const CEGUI::EventArgs& args)
-{
-    HideModal("ServerBrowser");
-    return true;
-}
-
-bool ClientApp::OnCloseMessageBox(const CEGUI::EventArgs& args)
-{
-    HideModal("MessageBox");
-    return true;
-}
-
 bool ClientApp::OnDisconnect(const CEGUI::EventArgs& args)
 {
     delete mGame;
@@ -456,10 +389,7 @@ void ClientApp::OnAppHanshake(ServerProxyPtr aServerProxy, ConstPayloadPtr aRes)
 
         LOG(INFO) << "App handshake done. World size: " << aRes->size();
 
-        HideModal("ServerBrowser");
-
         mGame = new ClientGame(aServerProxy, aRes->landing_tile(), aRes->size());
-
     }
     catch (std::exception& e)
     {
@@ -688,12 +618,6 @@ void ClientApp::windowResized(Ogre::RenderWindow* rw)
 void ClientApp::windowClosed(Ogre::RenderWindow* rw)
 {
     boost::throw_exception(std::runtime_error("Window closed"));
-}
-
-bool ClientApp::OnExit(const CEGUI::EventArgs& args)
-{
-    boost::throw_exception(std::runtime_error("Exit"));
-    return true;
 }
 
 void ClientApp::MainLoop()

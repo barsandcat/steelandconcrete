@@ -51,8 +51,7 @@ ClientGame::ClientGame(ServerProxyPtr aServerProxy, TileId aLandingTileId, int32
 
     GetWindow("Game/StatusPanel/User")->setText(GetWindow("ServerBrowser/Login")->getText());
     GetWindow("Game/StatusPanel/Server")->setText(GetWindow("ServerBrowser/Address")->getText());
-
-    SubscribeToGUI();
+    HideModal("ServerBrowser");
 
     RequestUpdate();
 }
@@ -80,15 +79,6 @@ ClientGame::~ClientGame()
     GetWindow("InGameMenu")->setVisible(false);
 
     CEGUI::System::getSingleton().setGUISheet(GetWindow("Main"));
-}
-
-void ClientGame::SubscribeToGUI()
-{
-    GetWindow("InGameMenu/Exit")->subscribeEvent(CEGUI::PushButton::EventClicked,
-        CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
-
-    GetWindow("Game/StatusPanel/OpenInGameMenu")->subscribeEvent(CEGUI::PushButton::EventClicked,
-        CEGUI::Event::Subscriber(&ClientGame::OnEscape, this));
 }
 
 void ClientGame::UpdateTileUnderCursor(Ogre::Ray aRay)
@@ -223,11 +213,6 @@ void ClientGame::OnAct()
     }
 }
 
-bool ClientGame::OnExit(const CEGUI::EventArgs& args)
-{
-    boost::throw_exception(std::runtime_error("Exit"));
-    return true;
-}
 
 bool ClientGame::OnEscape(const CEGUI::EventArgs& args)
 {
