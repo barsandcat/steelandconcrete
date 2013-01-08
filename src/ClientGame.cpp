@@ -57,15 +57,6 @@ ClientGame::ClientGame(ServerProxyPtr aServerProxy, TileId aLandingTileId, int32
     RequestUpdate();
 }
 
-void ClientGame::SubscribeToGUI()
-{
-    GetWindow("InGameMenu/Exit")->subscribeEvent(CEGUI::PushButton::EventClicked,
-        CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
-
-    GetWindow("Game/StatusPanel/OpenInGameMenu")->subscribeEvent(CEGUI::PushButton::EventClicked,
-        CEGUI::Event::Subscriber(&ClientGame::OnEscape, this));
-}
-
 ClientGame::~ClientGame()
 {
     std::map< UnitId, ClientUnit* >::iterator i = mUnits.begin();
@@ -78,9 +69,26 @@ ClientGame::~ClientGame()
         mTiles[i] = NULL;
     }
 
-    ClientApp::GetSceneMgr().clearScene();
+    mSelectionMarker->removeAndDestroyAllChildren();
+    mTargetMarker->removeAndDestroyAllChildren();
+    ClientApp::GetSceneMgr().destroyLight("Light0");
+    ClientApp::GetSceneMgr().destroyEntity("Marker");
+    ClientApp::GetSceneMgr().destroyEntity("Target");
+
+    delete mBirdCamera;
+
+    GetWindow("InGameMenu")->setVisible(false);
 
     CEGUI::System::getSingleton().setGUISheet(GetWindow("Main"));
+}
+
+void ClientGame::SubscribeToGUI()
+{
+    GetWindow("InGameMenu/Exit")->subscribeEvent(CEGUI::PushButton::EventClicked,
+        CEGUI::Event::Subscriber(&ClientGame::OnExit, this));
+
+    GetWindow("Game/StatusPanel/OpenInGameMenu")->subscribeEvent(CEGUI::PushButton::EventClicked,
+        CEGUI::Event::Subscriber(&ClientGame::OnEscape, this));
 }
 
 void ClientGame::UpdateTileUnderCursor(Ogre::Ray aRay)
@@ -223,8 +231,7 @@ bool ClientGame::OnExit(const CEGUI::EventArgs& args)
 
 bool ClientGame::OnEscape(const CEGUI::EventArgs& args)
 {
-    CEGUI::WindowManager& winMgr = CEGUI::WindowManager::getSingleton();
-    CEGUI::Window* inGameMenu = winMgr.getWindow("InGameMenu");
+    CEGUI::Window* inGameMenu = GetWindow("InGameMenu");
     inGameMenu->setVisible(!inGameMenu->isVisible());
     return true;
 }

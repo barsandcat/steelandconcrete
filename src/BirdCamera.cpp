@@ -43,4 +43,8 @@ void BirdCamera::UpdatePosition(unsigned long aTime)
 
 BirdCamera::~BirdCamera()
 {
+    mCameraNode->removeAllChildren();
+    mCameraHolder->removeAllChildren();
+    ClientApp::GetSceneMgr().destroySceneNode(mCameraNode);
+    ClientApp::GetSceneMgr().destroySceneNode(mCameraHolder);
 }
