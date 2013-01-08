@@ -11,12 +11,10 @@
 #include <CEGUILogRedirect.h>
 #include <OgreLogRedirect.h>
 
-
-typedef struct srp_client_arg_st
-{
-    char *srppassin;
-    char *srplogin;
-} SRP_CLIENT_ARG;
+DECLARE_string(login);
+DECLARE_string(password);
+DECLARE_string(address);
+DECLARE_string(port);
 
 class ClientApp: public OIS::KeyListener, public OIS::MouseListener, public OIS::JoyStickListener,
                  public Ogre::WindowEventListener
@@ -55,14 +53,10 @@ private:
     bool OnClick(const CEGUI::EventArgs& args);
     bool OnConnect(const CEGUI::EventArgs& args);
     bool OnCreate(const CEGUI::EventArgs& args);
-    bool OnBrowse(const CEGUI::EventArgs& args);
     bool OnRussian(const CEGUI::EventArgs& args);
     bool OnUkranian(const CEGUI::EventArgs& args);
     bool OnEnglish(const CEGUI::EventArgs& args);
     bool OnJapanese(const CEGUI::EventArgs& args);
-    bool OnMainMenu(const CEGUI::EventArgs& args);
-    bool OnCloseMessageBox(const CEGUI::EventArgs& args);
-    bool OnExit(const CEGUI::EventArgs& args);
     bool OnDisconnect(const CEGUI::EventArgs& args);
     void OnAppHanshake(ServerProxyPtr aServerProxy, ConstPayloadPtr aRes);
     void OnSSLHandShake(SSLStreamPtr aSSLStream, const boost::system::error_code& aError);
@@ -97,8 +91,6 @@ private:
     boost::asio::ssl::context mSSLCtx;
     OgreLogRedirect mOgreLogRedirect;
     CEGUILogRedirect mCEGUILogRedirect;
-    SRP_CLIENT_ARG srp_client_arg;
-
 };
 
 #endif // APP_H
