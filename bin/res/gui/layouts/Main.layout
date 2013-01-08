@@ -2,6 +2,7 @@
     <Window Name="Main" Type="DefaultWindow">
         <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
         <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+        <Property Name="MousePassThroughEnabled" Value="True" />
         <Window Name="Main/Menu" Type="TaharezLook/FrameWindow">
             <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,300},{0,450}}" />
             <Property Name="Text" Value="Steel and Concrete" />
