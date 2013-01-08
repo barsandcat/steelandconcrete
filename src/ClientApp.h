@@ -63,6 +63,7 @@ private:
     bool OnMainMenu(const CEGUI::EventArgs& args);
     bool OnCloseMessageBox(const CEGUI::EventArgs& args);
     bool OnExit(const CEGUI::EventArgs& args);
+    bool OnDisconnect(const CEGUI::EventArgs& args);
     void OnAppHanshake(ServerProxyPtr aServerProxy, ConstPayloadPtr aRes);
     void OnSSLHandShake(SSLStreamPtr aSSLStream, const boost::system::error_code& aError);
     void OnSocketConnect(SSLStreamPtr aSSLStream, const boost::system::error_code& aError);

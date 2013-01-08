@@ -269,6 +269,8 @@ ClientApp::~ClientApp()
     // все остальное должно быть уже почищено!
     LOG(INFO) << "App destructor";
 
+    mSceneMgr->clearScene();
+
     CEGUI::OgreRenderer::destroySystem();
 
     mSoundManager->destroyAllSounds();
@@ -332,6 +334,9 @@ void ClientApp::SubscribeToGUI()
     GetWindow("MessageBox/Close")->
     subscribeEvent(CEGUI::PushButton::EventClicked,
                    CEGUI::Event::Subscriber(&ClientApp::OnCloseMessageBox, this));
+
+    GetWindow("InGameMenu/DisconnectServer")->subscribeEvent(CEGUI::PushButton::EventClicked,
+            CEGUI::Event::Subscriber(&ClientApp::OnDisconnect, this));
 }
 
 void InitGUIData()
@@ -433,6 +438,13 @@ bool ClientApp::OnCloseMessageBox(const CEGUI::EventArgs& args)
     return true;
 }
 
+bool ClientApp::OnDisconnect(const CEGUI::EventArgs& args)
+{
+    delete mGame;
+    mGame = 0;
+    return true;
+}
+
 void ClientApp::OnAppHanshake(ServerProxyPtr aServerProxy, ConstPayloadPtr aRes)
 {
     try
@@ -447,6 +459,7 @@ void ClientApp::OnAppHanshake(ServerProxyPtr aServerProxy, ConstPayloadPtr aRes)
         HideModal("ServerBrowser");
 
         mGame = new ClientGame(aServerProxy, aRes->landing_tile(), aRes->size());
+
     }
     catch (std::exception& e)
     {
