@@ -154,6 +154,8 @@
 		<Unit filename="MindTest.h" />
 		<Unit filename="NetworkTest.cpp" />
 		<Unit filename="NetworkTest.h" />
+		<Unit filename="PartialUpdateTest.cpp" />
+		<Unit filename="PartialUpdateTest.h" />
 		<Unit filename="ServerUnitTest.cpp" />
 		<Unit filename="ServerUnitTest.h" />
 		<Unit filename="UnitListTest.cpp" />
