@@ -4,8 +4,8 @@
 #include <ServerTile.h>
 #include <UnitList.h>
 
-ClientFOV::ClientFOV(INetwork& aNetwork, ServerGame& aGame, UnitId aAvatarId):
-    mAvatarId(aAvatarId), mNetwork(aNetwork), mGame(aGame)
+ClientFOV::ClientFOV(INetwork& aNetwork, const ServerGeodesicGrid::Tiles& aTiles, UnitId aAvatarId):
+    mAvatarId(aAvatarId), mNetwork(aNetwork), mTiles(aTiles)
 {
 }
 
@@ -19,7 +19,7 @@ void ClientFOV::AddShowTile(PayloadMsg& aResponse, TileId aTileId)
     ChangeMsg* change = aResponse.add_changes();
     ShowTileMsg* showTile = change->mutable_showtile();
     showTile->set_tileid(aTileId);
-    const ServerTile& tile = *mGame.GetTiles().at(aTileId);
+    const ServerTile& tile = *mTiles.at(aTileId);
     showTile->set_height(tile.GetHeight());
     showTile->set_whater(tile.GetWater());
 
@@ -54,7 +54,7 @@ std::set<TileId> ClientFOV::GetVisibleTiles(int aDepth)
         std::set<TileId> newTiles;
         for (std::set<TileId>::iterator i = toIterate.begin(); i != toIterate.end(); ++i)
         {
-            ServerTile* tile = mGame.GetTiles().at(*i);
+            ServerTile* tile = mTiles.at(*i);
             for (size_t n = 0; n < tile->GetNeighbourCount(); ++n)
             {
                 const TileId tileId = tile->GetNeighbour(n).GetTileId();
@@ -72,14 +72,13 @@ std::set<TileId> ClientFOV::GetVisibleTiles(int aDepth)
 }
 
 
-void ClientFOV::SendUpdate(GameTime aClientTime)
+void ClientFOV::SendUpdate(const GameTime aServerTime, const GameTime aClientTime,
+                           const GameTime aTimeStep, const int32 aVisionRadius,
+                           const int32 aGameUpdateLength)
 {
-    boost::shared_lock<boost::shared_mutex> rl(mGame.GetGameMutex());
+    std::set<TileId> currentVisibleTiles = GetVisibleTiles(aVisionRadius);
 
-    std::set<TileId> currentVisibleTiles = GetVisibleTiles(6);
-
-    const GameTime serverTime = mGame.GetTime();
-    const int32 toSend = (serverTime - aClientTime) / mGame.GetTimeStep();
+    const int32 toSend = (aServerTime - aClientTime) / aTimeStep;
     const bool outOfBounds = aClientTime <= 0 || toSend >= ChangeList::mSize;
     if (!outOfBounds)
     {
@@ -119,7 +118,7 @@ void ClientFOV::SendUpdate(GameTime aClientTime)
             for (std::set<TileId>::iterator n = currentVisibleTiles.begin(); n != currentVisibleTiles.end(); ++n)
             {
                 const TileId id = *n;
-                ServerTile* tile = mGame.GetTiles().at(id);
+                ServerTile* tile = mTiles.at(id);
                 tile->GetChangeList()->Write(mNetwork, t, currentVisibleTiles);
             }
         }
@@ -139,8 +138,8 @@ void ClientFOV::SendUpdate(GameTime aClientTime)
     // set time
     PayloadMsg emptyMsg;
     emptyMsg.set_last(true);
-    emptyMsg.set_time(serverTime);
-    emptyMsg.set_update_length(mGame.GetUpdateLength());
+    emptyMsg.set_time(aServerTime);
+    emptyMsg.set_update_length(aGameUpdateLength);
     mNetwork.WriteMessage(emptyMsg);
 
     mVisibleTiles = currentVisibleTiles;

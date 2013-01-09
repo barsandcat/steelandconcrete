@@ -52,7 +52,7 @@ void ClientConnection(ServerGame& aGame, SSLStreamPtr aSSLStream)
         network.WriteMessage(res);
         LOG(INFO) << "Response " << res.ShortDebugString();
 
-        ClientFOV fov(network, aGame, user->GetUnitId());
+        ClientFOV fov(network, aGame.GetTiles(), user->GetUnitId());
 
         while (true)
         {
@@ -65,7 +65,8 @@ void ClientConnection(ServerGame& aGame, SSLStreamPtr aSSLStream)
             }
             if (req.has_time())
             {
-                fov.SendUpdate(req.time());
+                boost::shared_lock<boost::shared_mutex> rl(aGame.GetGameMutex());
+                fov.SendUpdate(aGame.GetTime(), req.time(), aGame.GetTimeStep(), 6, aGame.GetUpdateLength());
             }
             else
             {
