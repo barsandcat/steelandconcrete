@@ -14,12 +14,12 @@ ClientFOV::~ClientFOV()
     //dtor
 }
 
-void ClientFOV::AddShowTile(PayloadMsg& aResponse, TileId aTileId)
+void AddShowTile(PayloadMsg& aResponse, TileId aTileId, const ServerGeodesicGrid::Tiles& aTiles)
 {
     ChangeMsg* change = aResponse.add_changes();
     ShowTileMsg* showTile = change->mutable_showtile();
     showTile->set_tileid(aTileId);
-    const ServerTile& tile = *mTiles.at(aTileId);
+    const ServerTile& tile = *aTiles.at(aTileId);
     showTile->set_height(tile.GetHeight());
     showTile->set_whater(tile.GetWater());
 
@@ -101,7 +101,7 @@ void ClientFOV::SendUpdate(const GameTime aServerTime, const GameTime aClientTim
             std::vector<TileId>::iterator n;
             for (n = newVisibleTiles.begin(); n != newVisibleEnd; ++n)
             {
-                AddShowTile(response, *n);
+                AddShowTile(response, *n, mTiles);
             }
 
             for (n = newHiddenTiles.begin(); n != newHiddenEnd; ++n)
@@ -130,7 +130,7 @@ void ClientFOV::SendUpdate(const GameTime aServerTime, const GameTime aClientTim
         msg.set_last(false);
         for (std::set<TileId>::iterator n = currentVisibleTiles.begin(); n != currentVisibleTiles.end(); ++n)
         {
-            AddShowTile(msg, *n);
+            AddShowTile(msg, *n, mTiles);
         }
         mNetwork.WriteMessage(msg);
     }
