@@ -66,7 +66,8 @@ void ClientConnection(ServerGame& aGame, SSLStreamPtr aSSLStream)
             if (req.has_time())
             {
                 boost::shared_lock<boost::shared_mutex> rl(aGame.GetGameMutex());
-                fov.SendUpdate(aGame.GetTime(), req.time(), aGame.GetTimeStep(), 6, aGame.GetUpdateLength());
+                fov.SendUpdate(aGame.GetTime(), req.time(), aGame.GetTimeStep(), 6);
+                fov.WriteFinalMessage(aGame.GetTime(), aGame.GetUpdateLength());
             }
             else
             {

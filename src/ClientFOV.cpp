@@ -73,8 +73,7 @@ std::set<TileId> ClientFOV::GetVisibleTiles(int aDepth)
 
 
 void ClientFOV::SendUpdate(const GameTime aServerTime, const GameTime aClientTime,
-                           const GameTime aTimeStep, const int32 aVisionRadius,
-                           const int32 aGameUpdateLength)
+                           const GameTime aTimeStep, const int32 aVisionRadius)
 {
     std::set<TileId> currentVisibleTiles = GetVisibleTiles(aVisionRadius);
 
@@ -135,12 +134,15 @@ void ClientFOV::SendUpdate(const GameTime aServerTime, const GameTime aClientTim
         mNetwork.WriteMessage(msg);
     }
 
-    // set time
+    mVisibleTiles = currentVisibleTiles;
+}
+
+void ClientFOV::WriteFinalMessage(const GameTime aServerTime, const int32 aGameUpdateLength)
+{
     PayloadMsg emptyMsg;
     emptyMsg.set_last(true);
     emptyMsg.set_time(aServerTime);
     emptyMsg.set_update_length(aGameUpdateLength);
     mNetwork.WriteMessage(emptyMsg);
-
-    mVisibleTiles = currentVisibleTiles;
 }
+
