@@ -31,14 +31,8 @@ public:
 
     void TestClientAtZero()
     {
-        mFOV->SendUpdate(1, 0, 1, 1, 1);
-        TS_ASSERT(mNetwork->GetMessages().size() == 2);
-
-        PayloadMsg fin;
-        fin.set_last(true);
-        fin.set_time(1);
-        fin.set_update_length(1);
-        TS_ASSERT(mNetwork->GetMessages().at(1) == fin);
+        mFOV->SendUpdate(1, 0, 1, 1);
+        TS_ASSERT(mNetwork->GetMessages().size() == 1);
 
         PayloadMsg showTiles;
         showTiles.set_last(false);

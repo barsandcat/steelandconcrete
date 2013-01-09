@@ -18,8 +18,8 @@ public:
     ClientFOV(INetwork& aNetwork, const ServerGeodesicGrid::Tiles& aTiles, UnitId aAvatarId);
     ~ClientFOV();
     void SendUpdate(const GameTime aServerTime, const GameTime aClientTime,
-                           const GameTime aTimeStep, const int32 aVisionRadius,
-                           const int32 aGameUpdateLength);
+                           const GameTime aTimeStep, const int32 aVisionRadius);
+    void WriteFinalMessage(const GameTime aServerTime, const int32 aGameUpdateLength);
 private:
     std::set<TileId> GetVisibleTiles(int aDepth);
     const UnitId mAvatarId;
