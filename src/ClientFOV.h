@@ -7,6 +7,11 @@
 #include<IChange.h>
 #include<boost/noncopyable.hpp>
 
+
+void AddShowTile(PayloadMsg& aResponse, TileId aTileId, const ServerGeodesicGrid::Tiles& aTiles);
+
+void AddHideTile(PayloadMsg& aResponse, TileId aTileId);
+
 class ClientFOV: public boost::noncopyable
 {
 public:
@@ -17,7 +22,6 @@ public:
                            const int32 aGameUpdateLength);
 private:
     std::set<TileId> GetVisibleTiles(int aDepth);
-    void AddShowTile(PayloadMsg& aResponse, TileId aTileId);
     const UnitId mAvatarId;
     INetwork& mNetwork;
     const ServerGeodesicGrid::Tiles& mTiles;

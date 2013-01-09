@@ -29,14 +29,31 @@ public:
         delete mFOV;
     }
 
-    void TestA()
+    void TestClientAtZero()
     {
         mFOV->SendUpdate(1, 0, 1, 1, 1);
         TS_ASSERT(mNetwork->GetMessages().size() == 2);
-        PayloadMsg showTiles;
-        TS_ASSERT(mNetwork->GetMessages().at(0) == showTiles);
+
         PayloadMsg fin;
+        fin.set_last(true);
+        fin.set_time(1);
+        fin.set_update_length(1);
         TS_ASSERT(mNetwork->GetMessages().at(1) == fin);
+
+        PayloadMsg showTiles;
+        showTiles.set_last(false);
+
+        AddShowTile(showTiles, 0, mTiles);
+        AddShowTile(showTiles, 163, mTiles);
+        AddShowTile(showTiles, 167, mTiles);
+        AddShowTile(showTiles, 171, mTiles);
+        AddShowTile(showTiles, 175, mTiles);
+        AddShowTile(showTiles, 179, mTiles);
+
+        //std::cout << mNetwork->GetMessages().at(0).DebugString() << std::endl;
+        //std::cout << showTiles.DebugString();
+
+        TS_ASSERT(mNetwork->GetMessages().at(0) == showTiles);
     }
 
 private:
