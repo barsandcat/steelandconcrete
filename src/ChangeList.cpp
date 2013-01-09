@@ -21,10 +21,6 @@ void ChangeList::AddLeave(UnitId aUnit, TileId aTo)
     mCurrentChanges.push_back(new ChangeLeave(aUnit, aTo));
 }
 
-void ChangeList::Clear()
-{
-}
-
 void ChangeList::Commit()
 {
     mChanges.push_front(TurnChanges());
@@ -47,10 +43,6 @@ void ChangeList::Write(INetwork& aNetwork, size_t aIndex, VisibleTiles& aVisible
         }
         aNetwork.WriteMessage(msg);
     }
-}
-
-void ChangeList::AddCommandDone(UnitId aUnit)
-{
 }
 
 void ChangeList::AddRemove(UnitId aUnit)

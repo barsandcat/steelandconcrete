@@ -34,7 +34,7 @@ void Network::AllocBuffer(int aSize)
     }
 }
 
-void Network::WriteMessage(const google::protobuf::Message& aMessage)
+void Network::WriteMessage(const PayloadMsg& aMessage)
 {
     //std::cout << "NET:WriteMessage " << aMessage.ShortDebugString() << std::endl;
     size_t messageSize = aMessage.ByteSize();
@@ -56,7 +56,7 @@ void Network::WriteMessage(const google::protobuf::Message& aMessage)
     }
 }
 
-void Network::ReadMessage(google::protobuf::Message& aMessage)
+void Network::ReadMessage(PayloadMsg& aMessage)
 {
     if (boost::asio::read(*mSSLStream, boost::asio::buffer(mHeaderBuffer, mHeaderSize)) != mHeaderSize)
     {

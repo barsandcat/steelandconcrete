@@ -3,12 +3,13 @@
 
 #include <google/protobuf/message.h>
 #include <boost/shared_ptr.hpp>
+#include <Payload.pb.h>
 
 class INetwork
 {
 public:
-    virtual void WriteMessage(const google::protobuf::Message& aMessage) = 0;
-    virtual void ReadMessage(google::protobuf::Message& aMessage) = 0;
+    virtual void WriteMessage(const PayloadMsg& aMessage) = 0;
+    virtual void ReadMessage(PayloadMsg& aMessage) = 0;
     virtual ~INetwork() {}
 };
 
