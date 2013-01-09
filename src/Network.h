@@ -11,8 +11,8 @@ class Network: public INetwork
 public:
     Network(SSLStreamPtr aSocket);
     ~Network();
-    virtual void WriteMessage(const google::protobuf::Message& aMessage);
-    virtual void ReadMessage(google::protobuf::Message& aMessage);
+    virtual void WriteMessage(const PayloadMsg& aMessage);
+    virtual void ReadMessage(PayloadMsg& aMessage);
 private:
     void AllocBuffer(int aSize);
     SSLStreamPtr mSSLStream;

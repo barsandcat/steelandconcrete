@@ -14,11 +14,9 @@ public:
     ChangeList(): mChanges(mSize) { }
     void AddEnter(UnitId aUnit, uint32 aVisualCode, TileId aFrom);
     void AddLeave(UnitId aUnit, TileId aTo);
-    void AddCommandDone(UnitId aUnit);
     void AddRemove(UnitId aUnit);
     void Write(INetwork& aNetwork, size_t aIndex, VisibleTiles& aVisibleTiles) const;
     void Commit();
-    void Clear();
     void SetTileId(TileId aTileId) { mTileId = aTileId; }
 private:
     boost::circular_buffer<TurnChanges> mChanges;

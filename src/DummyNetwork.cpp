@@ -5,39 +5,23 @@
 #include <Payload.pb.h>
 
 
-void DummyNetwork::WriteMessage(const google::protobuf::Message& aMessage)
+void DummyNetwork::WriteMessage(const PayloadMsg& aMessage)
 {
     ++mWrites;
-    const google::protobuf::Reflection* reflection = aMessage.GetReflection();
-    const google::protobuf::FieldDescriptor* fieldDescriptor = aMessage.GetDescriptor()->FindFieldByName("last");
-    if (fieldDescriptor)
+    if (aMessage.has_last() && aMessage.last())
     {
-        mIsLastWrited = reflection->GetBool(aMessage, fieldDescriptor);
-        if (mIsLastWrited)
-        {
-            fieldDescriptor = aMessage.GetDescriptor()->FindFieldByName("time");
-            if (fieldDescriptor)
-            {
-                mTimeWrited = reflection->GetUInt64(aMessage, fieldDescriptor);
-            }
-        }
+        mIsLastWrited = true;
     }
-
-    fieldDescriptor = aMessage.GetDescriptor()->FindFieldByName("changes");
-    if (fieldDescriptor)
+    if (aMessage.has_time())
     {
-        mChangesWrited += reflection->FieldSize(aMessage, fieldDescriptor);
+        mTimeWrited = aMessage.time();
     }
+    mChangesWrited += aMessage.changes_size();
 }
 
-void DummyNetwork::ReadMessage(google::protobuf::Message& aMessage)
+void DummyNetwork::ReadMessage(PayloadMsg& aMessage)
 {
 
-}
-
-bool DummyNetwork::IsOk()
-{
-    return true;
 }
 
 DummyNetwork::DummyNetwork(): mIsLastWrited(false), mChangesWrited(0), mWrites(0)
