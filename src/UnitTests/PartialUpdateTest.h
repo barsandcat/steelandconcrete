@@ -7,6 +7,7 @@
 #include <UnitList.h>
 #include <DummyNetwork.h>
 #include <ClientFOV.h>
+#include <ComparePayload.h>
 
 class PartialUpdateTest: public CxxTest::TestSuite
 {
@@ -31,7 +32,11 @@ public:
     void TestA()
     {
         mFOV->SendUpdate(1, 0, 1, 1, 1);
-        TS_ASSERT(true);
+        TS_ASSERT(mNetwork->GetMessages().size() == 2);
+        PayloadMsg showTiles;
+        TS_ASSERT(mNetwork->GetMessages().at(0) == showTiles);
+        PayloadMsg fin;
+        TS_ASSERT(mNetwork->GetMessages().at(1) == fin);
     }
 
 private:

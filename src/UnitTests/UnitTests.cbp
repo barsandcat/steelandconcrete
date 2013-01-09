@@ -87,6 +87,8 @@
 		<Unit filename="../ClientFOV.cpp" />
 		<Unit filename="../ClientFOV.h" />
 		<Unit filename="../CompareEdgesAngles.h" />
+		<Unit filename="../ComparePayload.cpp" />
+		<Unit filename="../ComparePayload.h" />
 		<Unit filename="../DummyNetwork.cpp" />
 		<Unit filename="../DummyNetwork.h" />
 		<Unit filename="../Exceptions.h" />
@@ -146,6 +148,8 @@
 		<Unit filename="../proto/Payload.pb.h" />
 		<Unit filename="../proto/Payload.proto" />
 		<Unit filename="../proto/ProtocolVersion.h" />
+		<Unit filename="ComparePayloadTest.cpp" />
+		<Unit filename="ComparePayloadTest.h" />
 		<Unit filename="GeodesicGridTest.cpp" />
 		<Unit filename="GeodesicGridTest.h" />
 		<Unit filename="MindListTest.cpp" />

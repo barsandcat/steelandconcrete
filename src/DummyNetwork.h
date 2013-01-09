@@ -15,11 +15,13 @@ public:
     int GetChangesWrited() const { return mChangesWrited; }
     int GetWrites() const { return mWrites; }
     GameTime GetTimeWrited() const { return mTimeWrited; }
+    const std::vector<PayloadMsg>& GetMessages() const { return mMessages; }
 private:
    bool mIsLastWrited;
    int mChangesWrited;
    int mWrites;
    GameTime mTimeWrited;
+   std::vector<PayloadMsg> mMessages;
 };
 
 #endif // DUMMYNETWORK_H
