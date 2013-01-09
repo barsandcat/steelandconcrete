@@ -9,17 +9,14 @@
 #include <UnitListIterator.h>
 #include <MindList.h>
 
+DEFINE_int32(update_length, 1000, "Time in milliseconds between game updates");
+DEFINE_int32(time_step, 1, "Amount on which time advance on each update");
+
 GameTime ServerGame::mTime = 1;
-GameTime ServerGame::mTimeStep = 1;
 
 GameTime ServerGame::GetTime()
 {
     return mTime;
-}
-
-GameTime ServerGame::GetTimeStep()
-{
-    return mTimeStep;
 }
 
 void SpreadHeight(ServerTile& aTile, int32 aHeight)
@@ -42,7 +39,7 @@ ServerGame::ServerGame(int aSize):mSize(aSize),
     mGrass(VC::LIVE | VC::PLANT, 100, 0),
     mZebra(VC::LIVE | VC::ANIMAL | VC::HERBIVORES, 500, 1),
     mAvatar(VC::LIVE | VC::ANIMAL | VC::HUMAN, 999999, 1),
-    mTimer(2000)
+    mTimer(FLAGS_update_length)
 {
     // Create map
     ServerGeodesicGrid grid(mTiles, aSize);
@@ -92,9 +89,9 @@ void ServerGame::Update()
 
     LOG(INFO) << "Update Game!";
 
-    MindList::UpdateMinds(mTimeStep);
+    MindList::UpdateMinds(FLAGS_time_step);
 
-    mTime += mTimeStep;
+    mTime += FLAGS_time_step;
     for (ServerGeodesicGrid::Tiles::const_iterator i = mTiles.begin(); i != mTiles.end(); ++i)
     {
         (*i)->GetChangeList()->Commit();

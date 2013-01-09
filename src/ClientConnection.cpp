@@ -12,6 +12,8 @@
 #include <ClientFOV.h>
 #include <UserList.h>
 
+DEFINE_int32(vision_range, 6, "Radius (in tiles) around player to send over network");
+
 void ClientConnection(ServerGame& aGame, SSLStreamPtr aSSLStream)
 {
     Network network(aSSLStream);
@@ -66,7 +68,16 @@ void ClientConnection(ServerGame& aGame, SSLStreamPtr aSSLStream)
             if (req.has_time())
             {
                 boost::shared_lock<boost::shared_mutex> rl(aGame.GetGameMutex());
-                fov.SendUpdate(aGame.GetTime(), req.time(), aGame.GetTimeStep(), 6);
+                const int32 toSend = (aGame.GetTime() - req.time()) / FLAGS_time_step;
+                const bool outOfBounds = req.time() <= 0 || toSend >= FLAGS_max_change_list_size;
+                if (outOfBounds)
+                {
+                    fov.WriteFullUpdate(FLAGS_vision_range);
+                }
+                else
+                {
+                    fov.WritePartialUpdate(toSend, FLAGS_vision_range);
+                }
                 fov.WriteFinalMessage(aGame.GetTime(), aGame.GetUpdateLength());
             }
             else

@@ -8,6 +8,8 @@
 #include <boost/thread.hpp>
 #include <UpdateTimer.h>
 
+DECLARE_int32(time_step);
+
 class ServerGame: public boost::noncopyable
 {
 public:
@@ -15,7 +17,6 @@ public:
     ~ServerGame();
     void MainLoop(Ogre::String aAddress, int32 aPort);
     static GameTime GetTime();
-    static GameTime GetTimeStep();
 	int32 GetUpdateLength() { return mTimer.GetLeft(); }
 	const ServerGeodesicGrid::Tiles& GetTiles() const { return mTiles; }
 	int32 GetSize() const { return mSize; }
@@ -25,7 +26,6 @@ private:
     ServerGeodesicGrid::Tiles mTiles;
     int32 mSize;
     static GameTime mTime;
-    static GameTime mTimeStep;
     UnitClass mGrass;
     UnitClass mZebra;
     UnitClass mAvatar;

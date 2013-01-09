@@ -71,68 +71,64 @@ std::set<TileId> ClientFOV::GetVisibleTiles(int aDepth)
     return result;
 }
 
-
-void ClientFOV::SendUpdate(const GameTime aServerTime, const GameTime aClientTime,
-                           const GameTime aTimeStep, const int32 aVisionRadius)
+void ClientFOV::WritePartialUpdate(const int32 toSend, const int32 aVisionRadius)
 {
     std::set<TileId> currentVisibleTiles = GetVisibleTiles(aVisionRadius);
 
-    const int32 toSend = (aServerTime - aClientTime) / aTimeStep;
-    const bool outOfBounds = aClientTime <= 0 || toSend >= ChangeList::mSize;
-    if (!outOfBounds)
+    std::vector<TileId> newVisibleTiles(currentVisibleTiles.size());
+    std::vector<TileId>::iterator newVisibleEnd = std::set_difference(
+                currentVisibleTiles.begin(), currentVisibleTiles.end(),
+                mVisibleTiles.begin(), mVisibleTiles.end(), newVisibleTiles.begin());
+
+    std::vector<TileId> newHiddenTiles(mVisibleTiles.size());
+    std::vector<TileId>::iterator newHiddenEnd = std::set_difference(
+                mVisibleTiles.begin(), mVisibleTiles.end(),
+                currentVisibleTiles.begin(), currentVisibleTiles.end(), newHiddenTiles.begin());
+
+    if (newVisibleTiles.begin() != newVisibleEnd || newHiddenTiles.begin() != newHiddenEnd)
     {
-        //GetLog() << "Show new tiles";
-        std::vector<TileId> newVisibleTiles(currentVisibleTiles.size());
-        std::vector<TileId>::iterator newVisibleEnd = std::set_difference(
-            currentVisibleTiles.begin(), currentVisibleTiles.end(),
-            mVisibleTiles.begin(), mVisibleTiles.end(), newVisibleTiles.begin());
+        PayloadMsg response;
+        response.set_last(false);
 
-        std::vector<TileId> newHiddenTiles(mVisibleTiles.size());
-        std::vector<TileId>::iterator newHiddenEnd = std::set_difference(
-            mVisibleTiles.begin(), mVisibleTiles.end(),
-            currentVisibleTiles.begin(), currentVisibleTiles.end(), newHiddenTiles.begin());
-
-        if (newVisibleTiles.begin() != newVisibleEnd || newHiddenTiles.begin() != newHiddenEnd)
+        std::vector<TileId>::iterator n;
+        for (n = newVisibleTiles.begin(); n != newVisibleEnd; ++n)
         {
-            PayloadMsg response;
-            response.set_last(false);
-
-            std::vector<TileId>::iterator n;
-            for (n = newVisibleTiles.begin(); n != newVisibleEnd; ++n)
-            {
-                AddShowTile(response, *n, mTiles);
-            }
-
-            for (n = newHiddenTiles.begin(); n != newHiddenEnd; ++n)
-            {
-                AddHideTile(response, *n);
-            }
-
-            mNetwork.WriteMessage(response);
+            AddShowTile(response, *n, mTiles);
         }
 
-        // send events
-        for (int32 t = toSend - 1; t >= 0; --t)
+        for (n = newHiddenTiles.begin(); n != newHiddenEnd; ++n)
         {
-            for (std::set<TileId>::iterator n = currentVisibleTiles.begin(); n != currentVisibleTiles.end(); ++n)
-            {
-                const TileId id = *n;
-                ServerTile* tile = mTiles.at(id);
-                tile->GetChangeList()->Write(mNetwork, t, currentVisibleTiles);
-            }
+            AddHideTile(response, *n);
         }
+
+        mNetwork.WriteMessage(response);
     }
-    else
+
+    // send events
+    for (int32 t = toSend - 1; t >= 0; --t)
     {
-        //GetLog() << "Send everything in view";
-        PayloadMsg msg;
-        msg.set_last(false);
         for (std::set<TileId>::iterator n = currentVisibleTiles.begin(); n != currentVisibleTiles.end(); ++n)
         {
-            AddShowTile(msg, *n, mTiles);
+            const TileId id = *n;
+            ServerTile* tile = mTiles.at(id);
+            tile->GetChangeList()->Write(mNetwork, t, currentVisibleTiles);
         }
-        mNetwork.WriteMessage(msg);
     }
+
+    mVisibleTiles = currentVisibleTiles;
+}
+
+void ClientFOV::WriteFullUpdate(const int32 aVisionRadius)
+{
+    std::set<TileId> currentVisibleTiles = GetVisibleTiles(aVisionRadius);
+
+    PayloadMsg msg;
+    msg.set_last(false);
+    for (std::set<TileId>::iterator n = currentVisibleTiles.begin(); n != currentVisibleTiles.end(); ++n)
+    {
+        AddShowTile(msg, *n, mTiles);
+    }
+    mNetwork.WriteMessage(msg);
 
     mVisibleTiles = currentVisibleTiles;
 }

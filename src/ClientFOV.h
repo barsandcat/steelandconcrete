@@ -17,8 +17,8 @@ class ClientFOV: public boost::noncopyable
 public:
     ClientFOV(INetwork& aNetwork, const ServerGeodesicGrid::Tiles& aTiles, UnitId aAvatarId);
     ~ClientFOV();
-    void SendUpdate(const GameTime aServerTime, const GameTime aClientTime,
-                           const GameTime aTimeStep, const int32 aVisionRadius);
+    void WritePartialUpdate(const int32 toSend, const int32 aVisionRadius);
+    void WriteFullUpdate(const int32 aVisionRadius);
     void WriteFinalMessage(const GameTime aServerTime, const int32 aGameUpdateLength);
 private:
     std::set<TileId> GetVisibleTiles(int aDepth);

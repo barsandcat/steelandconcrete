@@ -29,9 +29,9 @@ public:
         delete mFOV;
     }
 
-    void TestClientAtZero()
+    void TestClientFullUpdate()
     {
-        mFOV->SendUpdate(1, 0, 1, 1);
+        mFOV->WriteFullUpdate(1);
         TS_ASSERT(mNetwork->GetMessages().size() == 1);
 
         PayloadMsg showTiles;
