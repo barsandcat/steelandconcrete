@@ -7,6 +7,7 @@
 
 void DummyNetwork::WriteMessage(const PayloadMsg& aMessage)
 {
+    mMessages.push_back(aMessage);
     ++mWrites;
     if (aMessage.has_last() && aMessage.last())
     {
