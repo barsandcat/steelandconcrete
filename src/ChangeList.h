@@ -5,13 +5,15 @@
 #include <boost/circular_buffer.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <IChange.h>
+#include <gflags/gflags.h>
+
+DECLARE_int32(max_change_list_size);
 
 class ChangeList
 {
 public:
-    static const int32 mSize;
     typedef boost::ptr_vector<IChange> TurnChanges;
-    ChangeList(): mChanges(mSize) { }
+    ChangeList(): mChanges(FLAGS_max_change_list_size) { }
     void AddEnter(UnitId aUnit, uint32 aVisualCode, TileId aFrom);
     void AddLeave(UnitId aUnit, TileId aTo);
     void AddRemove(UnitId aUnit);

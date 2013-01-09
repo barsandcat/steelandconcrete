@@ -8,8 +8,8 @@
 #include <ChangeEnter.h>
 #include <ChangeList.pb.h>
 
-const int32 ChangeList::mSize = 100;
 
+DEFINE_int32(max_change_list_size, 100, "Maximum amount of changes (game turns) stored in memory");
 
 void ChangeList::AddEnter(UnitId aUnit, uint32 aVisualCode, TileId aFrom)
 {
