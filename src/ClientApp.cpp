@@ -620,6 +620,11 @@ void ClientApp::windowClosed(Ogre::RenderWindow* rw)
     boost::throw_exception(std::runtime_error("Window closed"));
 }
 
+float FrameTimeToSeconds(unsigned long aFrimeTime)
+{
+    return aFrimeTime / 1000000.0f;
+}
+
 void ClientApp::MainLoop()
 {
     ReloadGUI();
@@ -637,7 +642,7 @@ void ClientApp::MainLoop()
             {
                 OgreProfile("Update");
                 Ogre::WindowEventUtilities::messagePump();
-                CEGUI::System::getSingleton().injectTimePulse(frameTime / 1000000.0f);
+                CEGUI::System::getSingleton().injectTimePulse(FrameTimeToSeconds(frameTime));
 
 
                 mKeyboard->capture();

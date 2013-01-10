@@ -47,6 +47,7 @@ private:
     SyncTimer mSyncTimer;
     int32 mServerUpdateLength;
     ServerProxyPtr mServerProxy;
+    unsigned long mLifeTime;
 };
 
 #endif // CLIENTGAME_H

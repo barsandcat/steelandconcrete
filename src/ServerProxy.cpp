@@ -3,8 +3,10 @@
 
 #include <Header.pb.h>
 
+#include <HighResolutionClock.h>
+
 ServerProxy::ServerProxy(SSLStreamPtr aSSLStream): mSSLStream(aSSLStream), mMessageBuffer(NULL),
-mBufferSize(0), mAsync(false), mRequests(100)
+mBufferSize(0), mAsync(false), mRequests(100), mInBytes(0), mOutBytes(0), mRequestTime(0), mPing(0)
 {
     HeaderMsg header;
     header.set_size(0);
@@ -36,6 +38,7 @@ void ServerProxy::AllocBuffer(int aSize)
 
 void ServerProxy::Request(ResponseCallBack aCallBack, PayloadPtr aPayloadMsg)
 {
+
     if (mAsync)
     {
         mRequests.push_back(std::make_pair(aCallBack, aPayloadMsg));
@@ -49,12 +52,15 @@ void ServerProxy::Request(ResponseCallBack aCallBack, PayloadPtr aPayloadMsg)
 
 void ServerProxy::WriteRequest(ResponseCallBack aCallBack, PayloadPtr aPayloadMsg)
 {
+    mRequestTime = GetMiliseconds();
     //std::cout << "NET:WriteRequest " << aPayloadMsg->ShortDebugString() << std::endl;
     size_t messageSize = aPayloadMsg->ByteSize();
     HeaderMsg header;
     header.set_size(messageSize);
     size_t headerSize = header.ByteSize();
     header.SerializeToArray(mHeaderBuffer, headerSize);
+    mOutBytes += headerSize;
+    mOutBytes += messageSize;
     AllocBuffer(messageSize);
     aPayloadMsg->SerializeToArray(mMessageBuffer, messageSize);
 
@@ -90,6 +96,8 @@ void ServerProxy::ParseHeader(ResponseCallBack aCallBack,
                           const boost::system::error_code& aError,
                           std::size_t aBytesTransferred)
 {
+    mPing = GetMiliseconds() - mRequestTime;
+
     //std::cout << "NET:ParseHeader " << aError << " " << aBytesTransferred << std::endl;
     if (aError)
     {
@@ -104,6 +112,8 @@ void ServerProxy::ParseHeader(ResponseCallBack aCallBack,
 
     size_t messageSize = header.size();
     AllocBuffer(messageSize);
+
+    mInBytes += messageSize;
 
     boost::asio::async_read(*mSSLStream, boost::asio::buffer(mMessageBuffer, messageSize),
                             boost::bind(&ServerProxy::ParseMessage,
@@ -121,6 +131,8 @@ void ServerProxy::ParseMessage(ResponseCallBack aCallBack,
     {
         boost::throw_exception(std::runtime_error("Не удалось прочитать из сокета сообщение!"));
     }
+
+    mInBytes += aBytesTransferred;
 
     boost::shared_ptr<PayloadMsg> msg(new PayloadMsg());
     if (!msg->ParseFromArray(mMessageBuffer, aBytesTransferred))
