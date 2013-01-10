@@ -23,7 +23,8 @@ ClientGame::ClientGame(ServerProxyPtr aServerProxy, TileId aLandingTileId, int32
     mTime(0),
     mSyncTimer(1000),
     mServerUpdateLength(1000),
-    mServerProxy(aServerProxy)
+    mServerProxy(aServerProxy),
+    mLifeTime(0)
 {
     ClientGeodesicGrid grid(mTiles, aGridSize);
 
@@ -290,10 +291,19 @@ void ClientGame::LoadEvents(ConstPayloadPtr aPayloadMsg)
 
 void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats)
 {
+    mLifeTime += aFrameTime;
     mBirdCamera->UpdatePosition(aFrameTime);
 
     GetWindow("StatusPanel/FPS")->setText(Ogre::StringConverter::toString(static_cast<long>(aStats.avgFPS)));
     GetWindow("StatusPanel/Time")->setText(Ogre::StringConverter::toString(static_cast<long>(mTime)));
+
+    int32 lifeTime = FrameTimeToSeconds(mLifeTime);
+    if (lifeTime > 0)
+    {
+        GetWindow("StatusPanel/NetIn")->setText(Ogre::StringConverter::toString(mServerProxy->GetInBytes() / lifeTime));
+        GetWindow("StatusPanel/NetOut")->setText(Ogre::StringConverter::toString(mServerProxy->GetOutBytes() / lifeTime));
+        GetWindow("StatusPanel/Ping")->setText(Ogre::StringConverter::toString(mServerProxy->GetPing()));
+    }
 
     std::for_each(mUnits.begin(), mUnits.end(),
                   boost::bind(&ClientUnit::UpdateMovementAnimation,

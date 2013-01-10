@@ -4,51 +4,80 @@
         <Property Name="VerticalAlignment" Value="Bottom" />
         <Property Name="HorizontalAlignment" Value="Centre" />
         <Window Name="StatusPanel/FPS" Type="TaharezLook/StaticText">
-            <Property Name="UnifiedAreaRect" Value="{{0,370},{0,0},{0,420},{0,30}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0,310},{0,0},{0,360},{0,30}}" />
             <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
             <Property Name="FrameEnabled" Value="False" />
             <Property Name="HorzFormatting" Value="CentreAligned" />
             <Property Name="BackgroundEnabled" Value="False" />
         </Window>
         <Window Name="StatusPanel/Server" Type="TaharezLook/StaticText">
-            <Property Name="UnifiedAreaRect" Value="{{0,510},{0,0},{0,710},{0,30}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0,170},{0,0},{0,270},{0,30}}" />
             <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
             <Property Name="FrameEnabled" Value="False" />
             <Property Name="BackgroundEnabled" Value="False" />
         </Window>
-        <Window Name="StatusPanel/ServerLabel" Type="TaharezLook/StaticText">
-            <Property Name="UnifiedAreaRect" Value="{{0,430},{0,0},{0,500},{0,30}}" />
-            <Property Name="Text" Value="Server:" />
+        <Window Name="StatusPanel/PingLabel" Type="TaharezLook/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0,360},{0,0},{0,400},{0,30}}" />
+            <Property Name="Text" Value="Ping:" />
             <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
             <Property Name="FrameEnabled" Value="False" />
-            <Property Name="HorzFormatting" Value="RightAligned" />
+            <Property Name="HorzFormatting" Value="CentreAligned" />
             <Property Name="BackgroundEnabled" Value="False" />
         </Window>
         <Window Name="StatusPanel/Time" Type="TaharezLook/StaticText">
-            <Property Name="UnifiedAreaRect" Value="{{0,720},{0,0},{0,770},{0,30}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0,600},{0,0},{0,650},{0,30}}" />
             <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
             <Property Name="FrameEnabled" Value="False" />
             <Property Name="HorzFormatting" Value="CentreAligned" />
             <Property Name="BackgroundEnabled" Value="False" />
         </Window>
         <Window Name="StatusPanel/User" Type="TaharezLook/StaticText">
-            <Property Name="UnifiedAreaRect" Value="{{0,160},{0,0},{0,360},{0,30}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0,70},{0,0},{0,170},{0,30}}" />
             <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
             <Property Name="FrameEnabled" Value="False" />
             <Property Name="BackgroundEnabled" Value="False" />
         </Window>
-        <Window Name="StatusPanel/UserLabel" Type="TaharezLook/StaticText">
-            <Property Name="UnifiedAreaRect" Value="{{0,80},{0,0},{0,150},{0,30}}" />
-            <Property Name="Text" Value="User:" />
+        <Window Name="StatusPanel/FPSLabel" Type="TaharezLook/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0,270},{0,0},{0,310},{0,30}}" />
+            <Property Name="Text" Value="FPS:" />
             <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
             <Property Name="FrameEnabled" Value="False" />
-            <Property Name="HorzFormatting" Value="RightAligned" />
+            <Property Name="HorzFormatting" Value="CentreAligned" />
             <Property Name="BackgroundEnabled" Value="False" />
         </Window>
         <Window Name="StatusPanel/OpenInGameMenu" Type="TaharezLook/MenuItem">
-            <Property Name="UnifiedAreaRect" Value="{{0,8},{0,0},{0,75},{0,25}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0,8},{0,0},{0,62},{0,26}}" />
             <Property Name="Text" Value="Menu" />
             <Property Name="VerticalAlignment" Value="Centre" />
+        </Window>
+        <Window Name="StatusPanel/NetIn" Type="TaharezLook/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0,490},{0,0},{0,540},{0,30}}" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="HorzFormatting" Value="CentreAligned" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="StatusPanel/NetOut" Type="TaharezLook/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0,540},{0,0},{0,590},{0,30}}" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="HorzFormatting" Value="CentreAligned" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="StatusPanel/Ping" Type="TaharezLook/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0,400},{0,0},{0,450},{0,30}}" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="HorzFormatting" Value="CentreAligned" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="StatusPanel/NetLabel" Type="TaharezLook/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0,450},{0,0},{0,490},{0,30}}" />
+            <Property Name="Text" Value="B/s:" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="HorzFormatting" Value="CentreAligned" />
+            <Property Name="BackgroundEnabled" Value="False" />
         </Window>
     </Window>
 </GUILayout>

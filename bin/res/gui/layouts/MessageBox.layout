@@ -9,6 +9,9 @@
         <Window Name="MessageBox/Message" Type="TaharezLook/StaticText">
             <Property Name="UnifiedAreaRect" Value="{{0,0},{0,10},{0,670},{0,120}}" />
             <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="HorzFormatting" Value="WordWrapCentreAligned" />
+            <Property Name="BackgroundEnabled" Value="False" />
             <Property Name="HorizontalAlignment" Value="Centre" />
         </Window>
         <Window Name="MessageBox/Close" Type="TaharezLook/Button">

@@ -24,6 +24,9 @@ public:
     ServerProxy(SSLStreamPtr aSSLStream);
     ~ServerProxy();
     virtual void Request(ResponseCallBack aCallBack, PayloadPtr aPayloadMsg);
+    int32 GetInBytes() const { return mInBytes; }
+    int32 GetOutBytes() const { return mOutBytes; }
+    int32 GetPing() const { return mPing; }
 private:
     void AllocBuffer(int aSize);
     void WriteRequest(ResponseCallBack aCallBack, PayloadPtr aPayloadMsg);
@@ -43,9 +46,13 @@ private:
     int mBufferSize;
     bool mAsync;
     Requests mRequests;
+    int32 mInBytes;
+    int32 mOutBytes;
+    int64 mRequestTime;
+    int64 mPing;
 };
 
-typedef boost::shared_ptr< IServerProxy > ServerProxyPtr;
+typedef boost::shared_ptr< ServerProxy > ServerProxyPtr;
 
 
 #endif
