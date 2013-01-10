@@ -70,6 +70,11 @@ void ClientUnit::UpdateMovementAnimation(FrameTime aFrameTime)
 void ClientUnit::SetTile(ClientGridNode* aTile)
 {
     assert(aTile);
+    if (aTile == mTile)
+    {
+        return;
+    }
+
     const Ogre::Vector3 origin = mTile->GetPosition();
     const Ogre::Vector3 destin = aTile->GetPosition();
     mMoveAnim.reset(new MovementAnimation(origin, destin));
