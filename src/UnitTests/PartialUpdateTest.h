@@ -17,6 +17,7 @@ public:
         ServerGeodesicGrid grid(mTiles, 2);
         mUnitClass = new UnitClass(0, 0, 0);
         mUnit = &UnitList::NewUnit(*mTiles.at(0), *mUnitClass);
+        mStranger = &UnitList::NewUnit(*mTiles.at(42), *mUnitClass);
         mNetwork = new DummyNetwork();
         mFOV = new ClientFOV(*mNetwork, mTiles, mUnit->GetUnitId());
     }
@@ -27,12 +28,18 @@ public:
         delete mUnitClass;
         delete mNetwork;
         delete mFOV;
+        ServerGeodesicGrid::Tiles::iterator it = mTiles.begin();
+        for (;it != mTiles.end(); ++it)
+        {
+            delete *it;
+        }
+        mTiles.clear();
     }
 
     void TestClientFullUpdate()
     {
         mFOV->WriteFullUpdate(1);
-        TS_ASSERT(mNetwork->GetMessages().size() == 1);
+        TS_ASSERT_EQUALS(mNetwork->GetMessages().size(), 1);
 
         PayloadMsg showTiles;
         showTiles.set_last(false);
@@ -50,9 +57,97 @@ public:
         TS_ASSERT(mNetwork->GetMessages().at(0) == showTiles);
     }
 
+    void TestEmptyPartialUpdate()
+    {
+        mFOV->WriteFullUpdate(1);
+        TS_ASSERT_EQUALS(mNetwork->GetMessages().size(), 1);
+
+        for (ServerGeodesicGrid::Tiles::const_iterator i = mTiles.begin(); i != mTiles.end(); ++i)
+        {
+            (*i)->GetChangeList()->Commit();
+        }
+
+        mFOV->WritePartialUpdate(1, 1);
+        TS_ASSERT_EQUALS(mNetwork->GetMessages().size(), 1);
+    }
+
+    void TestMoveInPartialUpdate()
+    {
+        mFOV->WriteFullUpdate(1);
+        TS_ASSERT_EQUALS(mNetwork->GetMessages().size(), 1);
+        mStranger->Move(*mTiles.at(163));
+
+        for (ServerGeodesicGrid::Tiles::const_iterator i = mTiles.begin(); i != mTiles.end(); ++i)
+        {
+            (*i)->GetChangeList()->Commit();
+        }
+
+        mFOV->WritePartialUpdate(1, 1);
+
+        TS_ASSERT_EQUALS(mNetwork->GetMessages().size(), 2);
+
+        PayloadMsg enterMsg;
+        ChangeMsg* change = enterMsg.add_changes();
+        UnitEnterMsg* msg = change->mutable_unitenter();
+        msg->set_unitid(mStranger->GetUnitId());
+        msg->set_to(163);
+        msg->set_visualcode(0);
+        enterMsg.set_last(false);
+
+        TS_ASSERT(mNetwork->GetMessages().at(1) == enterMsg);
+
+        //std::cout << enterMsg.DebugString() << std::endl;
+
+        //std::cout << mNetwork->GetMessages().at(1).DebugString() << std::endl;
+        //std::cout << mNetwork->GetMessages().at(2).DebugString() << std::endl;
+        //std::cout << mNetwork->GetMessages().at(3).DebugString() << std::endl;
+    }
+
+    void TestClientMovePartialUpdate()
+    {
+        mFOV->WriteFullUpdate(1);
+        TS_ASSERT_EQUALS(mNetwork->GetMessages().size(), 1);
+        mUnit->Move(*mTiles.at(163));
+
+        for (ServerGeodesicGrid::Tiles::const_iterator i = mTiles.begin(); i != mTiles.end(); ++i)
+        {
+            (*i)->GetChangeList()->Commit();
+        }
+
+        mFOV->WritePartialUpdate(1, 1);
+
+        TS_ASSERT_EQUALS(mNetwork->GetMessages().size(), 4);
+
+        PayloadMsg showHideMsg;
+        AddShowTile(showHideMsg, 42, mTiles);
+        AddShowTile(showHideMsg, 403, mTiles);
+        AddShowTile(showHideMsg, 404, mTiles);
+        AddHideTile(showHideMsg, 167);
+        AddHideTile(showHideMsg, 171);
+        showHideMsg.set_last(false);
+
+        TS_ASSERT(mNetwork->GetMessages().at(1) == showHideMsg);
+
+        PayloadMsg enterMsg;
+        ChangeMsg* change = enterMsg.add_changes();
+        UnitEnterMsg* msg = change->mutable_unitenter();
+        msg->set_unitid(mUnit->GetUnitId());
+        msg->set_to(163);
+        enterMsg.set_last(false);
+
+        TS_ASSERT(mNetwork->GetMessages().at(3) == enterMsg);
+
+        //std::cout << showHideMsg.DebugString() << std::endl;
+
+        //std::cout << mNetwork->GetMessages().at(1).DebugString() << std::endl;
+        //std::cout << mNetwork->GetMessages().at(2).DebugString() << std::endl;
+        //std::cout << mNetwork->GetMessages().at(3).DebugString() << std::endl;
+    }
+
 private:
     UnitClass* mUnitClass;
     ServerUnit* mUnit;
+    ServerUnit* mStranger;
     DummyNetwork* mNetwork;
     ClientFOV* mFOV;
     ServerGeodesicGrid::Tiles mTiles;

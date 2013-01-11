@@ -14,7 +14,7 @@
 		<Project filename="boost/build/libs/system/src/boost_system-mt-static-staticrt.cbp" />
 		<Project filename="boost/build/libs/thread/src/boost_thread-mt-static-staticrt.cbp" />
 		<Project filename="boost/build/libs/filesystem/src/boost_filesystem-mt-static-staticrt.cbp" />
-		<Project filename="Server.cbp" active="1">
+		<Project filename="Server.cbp">
 			<Depends filename="ois-v1-3/LinuxCB/OIS.cbp" />
 			<Depends filename="protobuf-2.4.1/vsprojects/libprotobuf.cbp" />
 			<Depends filename="protobuf-2.4.1/vsprojects/libprotoc.cbp" />
@@ -53,7 +53,7 @@
 			<Depends filename="boost/build/libs/thread/src/boost_thread-mt-static-staticrt.cbp" />
 			<Depends filename="boost/build/libs/system/src/boost_system-mt-static-staticrt.cbp" />
 		</Project>
-		<Project filename="src/UnitTests/UnitTests.cbp">
+		<Project filename="src/UnitTests/UnitTests.cbp" active="1">
 			<Depends filename="protobuf-2.4.1/vsprojects/libprotobuf.cbp" />
 			<Depends filename="protobuf-2.4.1/vsprojects/libprotoc.cbp" />
 			<Depends filename="protobuf-2.4.1/vsprojects/protoc.cbp" />
