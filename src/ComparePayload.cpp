@@ -20,7 +20,7 @@ bool operator==(const google::protobuf::Message& aMsg1, const google::protobuf::
         return false;
     }
 
-    for (int i = 0; i < aMsg1Fields.size(); ++i)
+    for (size_t i = 0; i < aMsg1Fields.size(); ++i)
     {
         const google::protobuf::FieldDescriptor* field1 = aMsg1Fields.at(i);
         const google::protobuf::FieldDescriptor* field2 = aMsg2Fields.at(i);
