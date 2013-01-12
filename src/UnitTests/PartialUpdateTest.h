@@ -144,6 +144,46 @@ public:
         //std::cout << mNetwork->GetMessages().at(3).DebugString() << std::endl;
     }
 
+    void TestLeavePartialUpdate()
+    {
+        mStranger->Move(*mTiles.at(163));
+
+        for (ServerGeodesicGrid::Tiles::const_iterator i = mTiles.begin(); i != mTiles.end(); ++i)
+        {
+            (*i)->GetChangeList()->Commit();
+        }
+
+        mFOV->WriteFullUpdate(1);
+
+        TS_ASSERT_EQUALS(mNetwork->GetMessages().size(), 1);
+
+        mStranger->Move(*mTiles.at(42));
+
+        for (ServerGeodesicGrid::Tiles::const_iterator i = mTiles.begin(); i != mTiles.end(); ++i)
+        {
+            (*i)->GetChangeList()->Commit();
+        }
+
+        mFOV->WritePartialUpdate(1, 1);
+
+        TS_ASSERT_EQUALS(mNetwork->GetMessages().size(), 2);
+
+        PayloadMsg leaveMsg;
+        ChangeMsg* change = leaveMsg.add_changes();
+        UnitLeaveMsg* msg = change->mutable_unitleave();
+        msg->set_unitid(mStranger->GetUnitId());
+        msg->set_to(42);
+        leaveMsg.set_last(false);
+
+        TS_ASSERT(mNetwork->GetMessages().at(1) == leaveMsg);
+
+        //std::cout << enterMsg.DebugString() << std::endl;
+
+        //std::cout << mNetwork->GetMessages().at(1).DebugString() << std::endl;
+        //std::cout << mNetwork->GetMessages().at(2).DebugString() << std::endl;
+        //std::cout << mNetwork->GetMessages().at(3).DebugString() << std::endl;
+    }
+
 private:
     UnitClass* mUnitClass;
     ServerUnit* mUnit;
