@@ -247,6 +247,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\ComparePayload.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\ConnectionManager.cpp"
 				>
 			</File>
@@ -358,6 +362,10 @@
 			</File>
 			<File
 				RelativePath="..\ClientFOV.h"
+				>
+			</File>
+			<File
+				RelativePath="..\ComparePayload.h"
 				>
 			</File>
 			<File
@@ -551,6 +559,66 @@
 			Name="tests"
 			>
 			<File
+				RelativePath=".\ComparePayloadTest.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\ComparePayloadTest.h"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="CxxTest"
+						output="$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="CxxTest"
+						output="$(InputName).cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeodesicGridTest.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\GeodesicGridTest.h"
 				>
 				<FileConfiguration
@@ -691,6 +759,46 @@
 						runner="1"
 						output="$(InputName).cpp"
 						Part="false"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\PartialUpdateTest.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\PartialUpdateTest.h"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="CxxTest"
+						output="$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="CxxTest"
+						output="$(InputName).cpp"
 					/>
 				</FileConfiguration>
 			</File>

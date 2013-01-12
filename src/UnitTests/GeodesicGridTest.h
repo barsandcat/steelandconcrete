@@ -6,6 +6,7 @@
 #include <ServerGeodesicGrid.h>
 #include <CompareEdgesAngles.h>
 
+
 class GeodesicGridTest: public CxxTest::TestSuite
 {
 public:
@@ -39,25 +40,25 @@ public:
 
     void TestCompareAngles()
     {
-        Ogre::Vector3 root(0,           0.52573108,  0.850650787);
-        Ogre::Vector3 pole(0.309016973, 0.809016943, 0.49999997);
+        Ogre::Vector3 root(0.0f,           0.52573108f,  0.850650787f);
+        Ogre::Vector3 pole(0.309016973f, 0.809016943f, 0.49999997f);
         CompareEdgesAngles<ServerTile> compare(root, pole);
-        Ogre::Vector3 u(-0.309016973, 0.809016943, 0.49999997);
+        Ogre::Vector3 u(-0.309016973f, 0.809016943f, 0.49999997f);
         Ogre::Radian angle = compare.CalcAngle(u);
-        TS_ASSERT(angle == Ogre::Radian(5.02654839));
+        TS_ASSERT(angle == Ogre::Radian(5.02654839f));
     }
 
 
     void TestCompareAngles2()
     {
         std::vector<ServerTile*> m;
-        m.push_back(new ServerTile(0, Ogre::Vector3( 09.11,  23.83,  14.73)));
-        m.push_back(new ServerTile(1, Ogre::Vector3(-09.11,  23.83,  14.73)));
-        m.push_back(new ServerTile(2, Ogre::Vector3( 14.73,  09.11,  23.84)));
-        m.push_back(new ServerTile(3, Ogre::Vector3(-14.73,  09.11,  23.84)));
-        m.push_back(new ServerTile(4, Ogre::Vector3( 00.00,  15.49,  25.07)));
+        m.push_back(new ServerTile(0, Ogre::Vector3( 09.11f,  23.83f,  14.73f)));
+        m.push_back(new ServerTile(1, Ogre::Vector3(-09.11f,  23.83f,  14.73f)));
+        m.push_back(new ServerTile(2, Ogre::Vector3( 14.73f,  09.11f,  23.84f)));
+        m.push_back(new ServerTile(3, Ogre::Vector3(-14.73f,  09.11f,  23.84f)));
+        m.push_back(new ServerTile(4, Ogre::Vector3( 00.00f,  15.49f,  25.07f)));
 
-        Ogre::Vector3 root(00.00,  15.49,  25.07);
+        Ogre::Vector3 root(00.00f,  15.49f,  25.07f);
 
         CompareEdgesAngles<ServerTile> compare(root, m.at(0)->GetPosition());
         std::sort(m.begin() + 1, m.end(), compare);
