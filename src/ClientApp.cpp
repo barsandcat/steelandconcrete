@@ -152,9 +152,9 @@ ClientApp::ClientApp(int argc, char **argv):
         renderSystem->setConfigOption("Full Screen", FLAGS_full_screen);
         renderSystem->setConfigOption("RTT Preferred Mode", FLAGS_rtt_preferred_mode);
         renderSystem->setConfigOption("Video Mode", FLAGS_video_mode);
-		renderSystem->setConfigOption("Display Frequency", FLAGS_display_frequency);
-		renderSystem->setConfigOption("VSync", FLAGS_vsync);
-		renderSystem->setConfigOption("sRGB Gamma Conversion", FLAGS_srgb_gamma_conversion);
+        renderSystem->setConfigOption("Display Frequency", FLAGS_display_frequency);
+        renderSystem->setConfigOption("VSync", FLAGS_vsync);
+        renderSystem->setConfigOption("sRGB Gamma Conversion", FLAGS_srgb_gamma_conversion);
 
         // Here we choose to let the system create a default rendering window by passing 'true'
         mRoot->initialise(false);

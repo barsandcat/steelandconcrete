@@ -21,9 +21,9 @@ void Run(int argc, char **argv, const bool& aContinue)
     }
 
     google::InitGoogleLogging(argv[0]);
-	google::ParseCommandLineFlags(&argc, &argv, true);
+    google::ParseCommandLineFlags(&argc, &argv, true);
 
-	if (FLAGS_short_version)
+    if (FLAGS_short_version)
     {
         std::cout << PROTOCOL_VERSION << '.' << RELEASE_VERSION;
     }
