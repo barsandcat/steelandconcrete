@@ -4,6 +4,8 @@
 #include <openssl/bn.h>
 #include <Mind.h>
 
+DECLARE_string(srp_default_gN);
+
 class User
 {
 public:

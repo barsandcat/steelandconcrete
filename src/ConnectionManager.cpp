@@ -18,11 +18,11 @@ static int SSLSRPServerParamCallback(SSL *s, int *ad, void *arg)
 	if (!user)
 	{
 		LOG(ERROR) << "User " << userName << " doesn't exist";
-		*ad = SSL_AD_ACCESS_DENIED;
+		*ad = SSL_AD_UNKNOWN_PSK_IDENTITY;
 		return SSL3_AL_FATAL;
 	}
 
-	SRP_gN *GN = SRP_get_default_gN("1024");
+	SRP_gN *GN = SRP_get_default_gN(FLAGS_srp_default_gN.c_str());
 	if(GN == NULL)
 	{
 		*ad = SSL_AD_INTERNAL_ERROR;
