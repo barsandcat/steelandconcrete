@@ -16,7 +16,8 @@ Network::~Network()
     try
     {
         delete mMessageBuffer;
-        mSSLStream->shutdown();
+        //LOG(INFO) << "SSLStream shutdown";
+        //mSSLStream->shutdown();
     }
     catch(std::exception& e)
     {
