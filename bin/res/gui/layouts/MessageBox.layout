@@ -1,0 +1,23 @@
+<GUILayout>
+    <Window Name="MessageBox" Type="TaharezLook/FrameWindow">
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,700},{0,200}}" />
+        <Property Name="RollUpEnabled" Value="False" />
+        <Property Name="SizingEnabled" Value="False" />
+        <Property Name="VerticalAlignment" Value="Centre" />
+        <Property Name="CloseButtonEnabled" Value="False" />
+        <Property Name="HorizontalAlignment" Value="Centre" />
+        <Window Name="MessageBox/Message" Type="TaharezLook/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,10},{0,670},{0,120}}" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="HorzFormatting" Value="WordWrapCentreAligned" />
+            <Property Name="BackgroundEnabled" Value="False" />
+            <Property Name="HorizontalAlignment" Value="Centre" />
+        </Window>
+        <Window Name="MessageBox/Close" Type="TaharezLook/Button">
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,130},{0,200},{0,160}}" />
+            <Property Name="Text" Value="Close" />
+            <Property Name="HorizontalAlignment" Value="Centre" />
+        </Window>
+    </Window>
+</GUILayout>

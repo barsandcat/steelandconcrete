@@ -1,0 +1,55 @@
+<GUILayout>
+    <Window Name="Main" Type="DefaultWindow">
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+        <Property Name="MousePassThroughEnabled" Value="True" />
+        <Window Name="Main/Menu" Type="TaharezLook/FrameWindow">
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,300},{0,450}}" />
+            <Property Name="Text" Value="Steel and Concrete" />
+            <Property Name="RollUpEnabled" Value="False" />
+            <Property Name="SizingEnabled" Value="False" />
+            <Property Name="DragMovingEnabled" Value="False" />
+            <Property Name="VerticalAlignment" Value="Centre" />
+            <Property Name="CloseButtonEnabled" Value="False" />
+            <Property Name="HorizontalAlignment" Value="Centre" />
+            <AutoWindow NameSuffix="__auto_titlebar__">
+                <Property Name="DraggingEnabled" Value="False" />
+            </AutoWindow>
+            <Window Name="Main/Menu/Create" Type="TaharezLook/Button">
+                <Property Name="UnifiedAreaRect" Value="{{0,0},{0,20},{0,200},{0,50}}" />
+                <Property Name="Text" Value="Create server" />
+                <Property Name="HorizontalAlignment" Value="Centre" />
+            </Window>
+            <Window Name="Main/Menu/Connect" Type="TaharezLook/Button">
+                <Property Name="UnifiedAreaRect" Value="{{0,0},{0,70},{0,200},{0,100}}" />
+                <Property Name="Text" Value="Connect" />
+                <Property Name="HorizontalAlignment" Value="Centre" />
+            </Window>
+            <Window Name="Main/Menu/English" Type="TaharezLook/Button">
+                <Property Name="UnifiedAreaRect" Value="{{0,0},{0,150},{0,200},{0,180}}" />
+                <Property Name="Text" Value="English" />
+                <Property Name="HorizontalAlignment" Value="Centre" />
+            </Window>
+            <Window Name="Main/Menu/Ukranian" Type="TaharezLook/Button">
+                <Property Name="UnifiedAreaRect" Value="{{0,0},{0,200},{0,200},{0,230}}" />
+                <Property Name="Text" Value="Ukranian" />
+                <Property Name="HorizontalAlignment" Value="Centre" />
+            </Window>
+            <Window Name="Main/Menu/Russian" Type="TaharezLook/Button">
+                <Property Name="UnifiedAreaRect" Value="{{0,0},{0,250},{0,200},{0,280}}" />
+                <Property Name="Text" Value="Russian" />
+                <Property Name="HorizontalAlignment" Value="Centre" />
+            </Window>
+            <Window Name="Main/Menu/Japanese" Type="TaharezLook/Button">
+                <Property Name="UnifiedAreaRect" Value="{{0,0},{0,300},{0,200},{0,330}}" />
+                <Property Name="Text" Value="Japanese" />
+                <Property Name="HorizontalAlignment" Value="Centre" />
+            </Window>
+            <Window Name="Main/Menu/ExitApp" Type="TaharezLook/Button">
+                <Property Name="UnifiedAreaRect" Value="{{0,0},{0,370},{0,200},{0,400}}" />
+                <Property Name="Text" Value="Exit" />
+                <Property Name="HorizontalAlignment" Value="Centre" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

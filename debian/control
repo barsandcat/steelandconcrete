@@ -1,0 +1,17 @@
+Source: steelandconcrete
+Section: x11
+Priority: extra
+Maintainer: Цахілов Дмитро Михайлович (barsandcat) <barsandcat@gmail.com>
+Build-Depends: debhelper (>= 7), codeblocks, libfreetype6-dev, libfreeimage-dev, libzzip-dev, libvorbis-dev, libwxgtk2.8-dev
+Standards-Version: 3.8.0
+Homepage: http://code.google.com/p/steelandconcrete/
+
+Package: steelandconcrete
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Multiplayer real-time strategy game. Client
+
+Package: steelandconcrete-server
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Multiplayer real-time strategy gmae. Server

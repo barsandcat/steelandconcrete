@@ -1,0 +1,8 @@
+SET(TARGET splitter)
+
+ADD_EXECUTABLE(${TARGET}
+	WIN32
+    Splitter.cpp
+) 
+
+TARGET_LINK_LIBRARIES(${TARGET} wx_ogre)

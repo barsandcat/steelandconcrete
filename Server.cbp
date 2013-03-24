@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Server" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/steelandconcrete_d_server" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin" />
+				<Option object_output="obj/ServerDebugLinux" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-pg" />
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-pg" />
+					<Add library="protobuf_d" />
+					<Add library="OgreMain_d" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/steelandconcrete_server" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin" />
+				<Option object_output="obj/ServerReleaseLinux" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="protobuf" />
+					<Add library="OgreMain" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Winvalid-pch" />
+			<Add option="-Wno-unknown-pragmas" />
+			<Add option="-DBOOST_ALL_NO_LIB=1" />
+			<Add option="-DBOOST_CHRONO_HEADER_ONLY=1" />
+			<Add directory="src" />
+			<Add directory="src/proto" />
+			<Add directory="ogre/build/include" />
+			<Add directory="ogre/ogre_1.7.3/OgreMain/include" />
+			<Add directory="protobuf-2.4.1/src" />
+			<Add directory="SAL" />
+			<Add directory="QuickGUI_10_1/QuickGUI/include" />
+			<Add directory="ogreal/ogreal/include" />
+			<Add directory="ois-v1-3/includes" />
+			<Add directory="boost/boost_1_49_0" />
+			<Add directory="gflags/gflags-2.0/src" />
+			<Add directory="gflags/gflags-2.0/src/linux" />
+			<Add directory="glog/glog-0.3.2/src" />
+			<Add directory="glog/glog-0.3.2/src/linux" />
+		</Compiler>
+		<Linker>
+			<Add library="pthread" />
+			<Add library="rt" />
+			<Add library="boost_thread$(TARGET_NAME)" />
+			<Add library="boost_system$(TARGET_NAME)" />
+			<Add library="gflags$(TARGET_NAME)" />
+			<Add library="glog$(TARGET_NAME)" />
+			<Add library="boost_filesystem$(TARGET_NAME)" />
+			<Add library="ssl" />
+			<Add library="crypto" />
+			<Add directory="lib" />
+		</Linker>
+		<ExtraCommands>
+			<Add before="make -C src/proto -f Makefile.proto" />
+			<Add after="bin/UnitTests" />
+			<Mode after="always" />
+		</ExtraCommands>
+		<Unit filename="src/Avatar.h" />
+		<Unit filename="src/ChangeEnter.cpp" />
+		<Unit filename="src/ChangeEnter.h" />
+		<Unit filename="src/ChangeLeave.cpp" />
+		<Unit filename="src/ChangeLeave.h" />
+		<Unit filename="src/ChangeList.cpp" />
+		<Unit filename="src/ChangeList.h" />
+		<Unit filename="src/ChangeRemove.cpp" />
+		<Unit filename="src/ChangeRemove.h" />
+		<Unit filename="src/ClientConnection.cpp" />
+		<Unit filename="src/ClientConnection.h" />
+		<Unit filename="src/ClientFOV.cpp" />
+		<Unit filename="src/ClientFOV.h" />
+		<Unit filename="src/ConnectionManager.cpp" />
+		<Unit filename="src/ConnectionManager.h" />
+		<Unit filename="src/Edge.h" />
+		<Unit filename="src/Exceptions.h" />
+		<Unit filename="src/GeodesicGrid.h" />
+		<Unit filename="src/HighResolutionClock.cpp" />
+		<Unit filename="src/HighResolutionClock.h" />
+		<Unit filename="src/IChange.h" />
+		<Unit filename="src/Mind.cpp" />
+		<Unit filename="src/Mind.h" />
+		<Unit filename="src/MindList.cpp" />
+		<Unit filename="src/MindList.h" />
+		<Unit filename="src/Network.cpp" />
+		<Unit filename="src/Network.h" />
+		<Unit filename="src/Platform.h" />
+		<Unit filename="src/PlatformLinux.cpp" />
+		<Unit filename="src/SSLLogRedirect.cpp" />
+		<Unit filename="src/SSLLogRedirect.h" />
+		<Unit filename="src/ServerApp.cpp" />
+		<Unit filename="src/ServerApp.h" />
+		<Unit filename="src/ServerEdge.h" />
+		<Unit filename="src/ServerGame.cpp" />
+		<Unit filename="src/ServerGame.h" />
+		<Unit filename="src/ServerGeodesicGrid.h" />
+		<Unit filename="src/ServerLinux.cpp" />
+		<Unit filename="src/ServerTile.cpp" />
+		<Unit filename="src/ServerTile.h" />
+		<Unit filename="src/ServerUnit.cpp" />
+		<Unit filename="src/ServerUnit.h" />
+		<Unit filename="src/Typedefs.h" />
+		<Unit filename="src/UnitClass.cpp" />
+		<Unit filename="src/UnitClass.h" />
+		<Unit filename="src/UnitList.cpp" />
+		<Unit filename="src/UnitList.h" />
+		<Unit filename="src/UnitListIterator.cpp" />
+		<Unit filename="src/UnitListIterator.h" />
+		<Unit filename="src/UpdateTimer.h" />
+		<Unit filename="src/User.cpp" />
+		<Unit filename="src/User.h" />
+		<Unit filename="src/UserList.cpp" />
+		<Unit filename="src/UserList.h" />
+		<Unit filename="src/pch.cpp" />
+		<Unit filename="src/pch.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="src/proto/ChangeList.pb.cc" />
+		<Unit filename="src/proto/ChangeList.pb.h" />
+		<Unit filename="src/proto/ChangeList.proto" />
+		<Unit filename="src/proto/CommandList.pb.cc" />
+		<Unit filename="src/proto/CommandList.pb.h" />
+		<Unit filename="src/proto/CommandList.proto" />
+		<Unit filename="src/proto/Header.pb.cc" />
+		<Unit filename="src/proto/Header.pb.h" />
+		<Unit filename="src/proto/Header.proto" />
+		<Unit filename="src/proto/Makefile.proto" />
+		<Unit filename="src/proto/Payload.pb.cc" />
+		<Unit filename="src/proto/Payload.pb.h" />
+		<Unit filename="src/proto/Payload.proto" />
+		<Unit filename="src/proto/ProtocolVersion.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="wxpropgrid" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../lib/libwxpropgrid_d" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../obj/propgridLinuxDebug" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-pg" />
+					<Add option="-g" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="$(WXWIN)/lib/vc_amd64_lib/mswud" />
+					<Add directory="$(WXWIN)/include" />
+					<Add directory="../include" />
+				</ResourceCompiler>
+				<Linker>
+					<Add option="-pg" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../lib/libwxpropgrid" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../obj/propgridLinuxRelease" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="$(WXWIN)/lib/vc_amd64_lib/mswu" />
+					<Add directory="$(WXWIN)/include" />
+					<Add directory="../include" />
+				</ResourceCompiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="`wx-config --cflags`" />
+			<Add option="-D_LIB" />
+			<Add directory="../include" />
+		</Compiler>
+		<Unit filename="../include/wx/propgrid/advprops.h" />
+		<Unit filename="../include/wx/propgrid/editors.h" />
+		<Unit filename="../include/wx/propgrid/extras.h" />
+		<Unit filename="../include/wx/propgrid/manager.h" />
+		<Unit filename="../include/wx/propgrid/odcombo.h" />
+		<Unit filename="../include/wx/propgrid/pg_dox_mainpage.h" />
+		<Unit filename="../include/wx/propgrid/propdev.h" />
+		<Unit filename="../include/wx/propgrid/propgrid.h" />
+		<Unit filename="../include/wx/propgrid/props.h" />
+		<Unit filename="../include/wx/propgrid/xh_propgrid.h" />
+		<Unit filename="../src/advprops.cpp" />
+		<Unit filename="../src/editors.cpp" />
+		<Unit filename="../src/extras.cpp" />
+		<Unit filename="../src/manager.cpp" />
+		<Unit filename="../src/odcombo.cpp" />
+		<Unit filename="../src/propgrid.cpp" />
+		<Unit filename="../src/props.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

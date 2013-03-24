@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="boost_signals 1.49.0" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../../../../lib/libboost_signalsDebug" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../../../obj/boost_signalsDebugLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-pg" />
+					<Add option="-g" />
+					<Add directory="$(SolutionDir)boost/boost_1_49_0" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="$(SolutionDir)boost/boost_1_49_0" />
+				</ResourceCompiler>
+				<Linker>
+					<Add option="-pg" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../../../../lib/libboost_signalsRelease" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../../../obj/boost_signalsReleaseLinux" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
+					<Add directory="$(SolutionDir)boost/boost_1_49_0" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="$(SolutionDir)boost/boost_1_49_0" />
+				</ResourceCompiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-DBOOST_ALL_NO_LIB=1" />
+			<Add option="-DBOOST_SIGNALS_NO_LIB=1" />
+		</Compiler>
+		<Unit filename="../../../../boost_1_49_0/libs/signals/src/connection.cpp" />
+		<Unit filename="../../../../boost_1_49_0/libs/signals/src/named_slot_map.cpp" />
+		<Unit filename="../../../../boost_1_49_0/libs/signals/src/signal_base.cpp" />
+		<Unit filename="../../../../boost_1_49_0/libs/signals/src/slot.cpp" />
+		<Unit filename="../../../../boost_1_49_0/libs/signals/src/trackable.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

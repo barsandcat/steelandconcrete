@@ -1,0 +1,64 @@
+<GUILayout>
+    <Window Name="ServerBrowser" Type="TaharezLook/FrameWindow">
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,560},{0,360}}" />
+        <Property Name="Text" Value="Server browser" />
+        <Property Name="RollUpEnabled" Value="False" />
+        <Property Name="SizingEnabled" Value="False" />
+        <Property Name="DragMovingEnabled" Value="False" />
+        <Property Name="VerticalAlignment" Value="Centre" />
+        <Property Name="CloseButtonEnabled" Value="False" />
+        <Property Name="HorizontalAlignment" Value="Centre" />
+        <AutoWindow NameSuffix="__auto_titlebar__">
+            <Property Name="DraggingEnabled" Value="False" />
+        </AutoWindow>
+        <Window Name="ServerBrowser/AddressLabel" Type="TaharezLook/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0,20},{0,20},{0,130},{0,50}}" />
+            <Property Name="Text" Value="Address" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="ServerBrowser/Address" Type="TaharezLook/Editbox">
+            <Property Name="UnifiedAreaRect" Value="{{0,150},{0,20},{0,530},{0,50}}" />
+        </Window>
+        <Window Name="ServerBrowser/PortLabel" Type="TaharezLook/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0,20},{0,70},{0,130},{0,100}}" />
+            <Property Name="Text" Value="Port" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="ServerBrowser/Port" Type="TaharezLook/Editbox">
+            <Property Name="UnifiedAreaRect" Value="{{0,150},{0,70},{0,530},{0,100}}" />
+        </Window>
+        <Window Name="ServerBrowser/LoginLabel" Type="TaharezLook/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0,20},{0,120},{0,130},{0,150}}" />
+            <Property Name="Text" Value="Login" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="ServerBrowser/Login" Type="TaharezLook/Editbox">
+            <Property Name="UnifiedAreaRect" Value="{{0,150},{0,120},{0,530},{0,150}}" />
+        </Window>
+        <Window Name="ServerBrowser/PasswordLabel" Type="TaharezLook/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0,20},{0,170},{0,130},{0,200}}" />
+            <Property Name="Text" Value="Password" />
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="ServerBrowser/Password" Type="TaharezLook/Editbox">
+            <Property Name="UnifiedAreaRect" Value="{{0,150},{0,170},{0,530},{0,200}}" />
+            <Property Name="MaskText" Value="True" />
+        </Window>
+        <Window Name="ServerBrowser/Connect" Type="TaharezLook/Button">
+            <Property Name="UnifiedAreaRect" Value="{{0.55,0},{0.8,0},{0.55,200},{0.8,30}}" />
+            <Property Name="Text" Value="Connect" />
+        </Window>
+        <Window Name="ServerBrowser/Cancel" Type="TaharezLook/Button">
+            <Property Name="UnifiedAreaRect" Value="{{0.1,0},{0.8,0},{0.1,200},{0.8,30}}" />
+            <Property Name="Text" Value="Cancel" />
+        </Window>
+    </Window>
+</GUILayout>
