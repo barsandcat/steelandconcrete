@@ -4,42 +4,35 @@
 
 void SSLInfoCallback(const SSL *s, int where, int ret)
 {
-    const char *str;
-    int w;
-
-    w = where& ~SSL_ST_MASK;
-
-    if (w & SSL_ST_CONNECT)
-    {
-        str = "SSL_connect";
-    }
-    else if (w & SSL_ST_ACCEPT)
-    {
-        str = "SSL_accept";
-    }
-    else
-    {
-        str = "undefined";
-    }
-
-    if (where & SSL_CB_LOOP)
-    {
-        LOG(INFO) << str << ":" << SSL_state_string_long(s);
-    }
-    else if (where & SSL_CB_ALERT)
-    {
-        str = (where & SSL_CB_READ) ? "read" : "write";
-        LOG(INFO) << "SSL3 alert " << str << ":" << SSL_alert_type_string_long(ret) << ":" << SSL_alert_desc_string_long(ret);
-    }
-    else if (where & SSL_CB_EXIT)
-    {
-        if (ret == 0)
-        {
-            LOG(INFO) << str << ":failed in " << SSL_state_string_long(s);
-        }
-        else if (ret < 0)
-        {
-            LOG(INFO) << str << ":error in " << SSL_state_string_long(s);
-        }
-    }
+	std::stringstream stateMsg;
+	stateMsg << " [" << SSL_state_string_long(s) << ", " << std::hex << where << ", " << std::dec << ret << "]";
+	switch(where)
+	{
+	case SSL_CB_READ_ALERT:
+		LOG(INFO) << "SSL_CB_READ_ALERT, " << SSL_alert_type_string_long(ret) << ", " << SSL_alert_desc_string_long(ret) << stateMsg.str();
+		break;
+	case SSL_CB_WRITE_ALERT:
+		LOG(INFO) << "SSL_CB_WRITE_ALERT, " << SSL_alert_type_string_long(ret) << ", " << SSL_alert_desc_string_long(ret) << stateMsg.str();
+		break;
+	case SSL_CB_ACCEPT_LOOP:
+		LOG(INFO) << "SSL_CB_ACCEPT_LOOP" << stateMsg.str();
+		break;
+	case SSL_CB_ACCEPT_EXIT:
+		LOG(INFO) << "SSL_CB_ACCEPT_EXIT" << stateMsg.str();
+		break;
+	case SSL_CB_CONNECT_LOOP:
+		LOG(INFO) << "SSL_CB_CONNECT_LOOP" << stateMsg.str();
+		break;
+	case SSL_CB_CONNECT_EXIT:
+		LOG(INFO) << "SSL_CB_CONNECT_EXIT" << stateMsg.str();
+		break;
+	case SSL_CB_HANDSHAKE_START:
+		LOG(INFO) << "SSL_CB_HANDSHAKE_START" << stateMsg.str();
+		break;
+	case SSL_CB_HANDSHAKE_DONE:
+		LOG(INFO) << "SSL_CB_HANDSHAKE_DONE" << stateMsg.str();
+		break;
+	default:
+		LOG(INFO) << stateMsg.str();
+	}
 }
