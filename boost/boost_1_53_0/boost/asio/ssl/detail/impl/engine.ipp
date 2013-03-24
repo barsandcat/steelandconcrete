@@ -243,7 +243,7 @@ engine::want engine::perform(int (engine::* op)(void*, std::size_t),
   {
     ec = boost::system::error_code(sys_error,
         boost::asio::error::get_system_category());
-    return want_nothing;
+    return pending_output_after > pending_output_before ? want_output_and_retry : want_nothing;
   }
 
   if (result > 0 && bytes_transferred)
