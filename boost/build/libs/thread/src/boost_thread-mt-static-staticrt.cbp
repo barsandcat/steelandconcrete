@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="boost_thread 1.49.0" />
+		<Option title="boost_thread 1.53.0" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -18,7 +18,7 @@
 					<Add option="-g" />
 				</Compiler>
 				<ResourceCompiler>
-					<Add directory="../../../../boost_1_49_0" />
+					<Add directory="../../../../boost_1_53_0" />
 				</ResourceCompiler>
 				<Linker>
 					<Add option="-pg" />
@@ -36,7 +36,7 @@
 					<Add option="-DNDEBUG" />
 				</Compiler>
 				<ResourceCompiler>
-					<Add directory="../../../../boost_1_49_0" />
+					<Add directory="../../../../boost_1_53_0" />
 				</ResourceCompiler>
 				<Linker>
 					<Add option="-s" />
@@ -47,11 +47,11 @@
 			<Add option="-DBOOST_THREAD_BUILD_LIB=1" />
 			<Add option="-DBOOST_CHRONO_HEADER_ONLY=1" />
 			<Add option="-DBOOST_ALL_NO_LIB=1" />
-			<Add directory="../../../../boost_1_49_0" />
+			<Add directory="../../../../boost_1_53_0" />
 		</Compiler>
-		<Unit filename="../../../../boost_1_49_0/libs/thread/src/pthread/once.cpp" />
-		<Unit filename="../../../../boost_1_49_0/libs/thread/src/pthread/thread.cpp" />
-		<Unit filename="../../../../boost_1_49_0/libs/thread/src/pthread/timeconv.inl" />
+		<Unit filename="../../../../boost_1_53_0/libs/thread/src/pthread/once.cpp" />
+		<Unit filename="../../../../boost_1_53_0/libs/thread/src/pthread/thread.cpp" />
+		<Unit filename="../../../../boost_1_53_0/libs/thread/src/pthread/timeconv.inl" />
 		<Extensions>
 			<code_completion />
 			<envvars />

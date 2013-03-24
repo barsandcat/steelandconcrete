@@ -54,7 +54,7 @@
 			<Add directory="../proto" />
 			<Add directory="../../SAL" />
 			<Add directory="../../QuickGUI_10_1/QuickGUI/include" />
-			<Add directory="../../boost/boost_1_49_0" />
+			<Add directory="../../boost/boost_1_53_0" />
 			<Add directory="../../gflags/gflags-2.0/src/linux" />
 			<Add directory="../../gflags/gflags-2.0/src" />
 			<Add directory="../../glog/glog-0.3.2/src/linux" />
@@ -62,13 +62,13 @@
 		</Compiler>
 		<Linker>
 			<Add library="freeimage" />
-			<Add library="pthread" />
-			<Add library="boost_system$(TARGET_NAME)" />
-			<Add library="boost_thread$(TARGET_NAME)" />
-			<Add library="glog$(TARGET_NAME)" />
-			<Add library="gflags$(TARGET_NAME)" />
 			<Add library="ssl" />
 			<Add library="crypto" />
+			<Add library="boost_thread$(TARGET_NAME)" />
+			<Add library="pthread" />
+			<Add library="boost_system$(TARGET_NAME)" />
+			<Add library="glog$(TARGET_NAME)" />
+			<Add library="gflags$(TARGET_NAME)" />
 			<Add directory="../../lib" />
 		</Linker>
 		<ExtraCommands>

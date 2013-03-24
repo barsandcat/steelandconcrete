@@ -49,7 +49,7 @@
 			<Add directory="QuickGUI_10_1/QuickGUI/include" />
 			<Add directory="protobuf-2.4.1/src" />
 			<Add directory="src/proto" />
-			<Add directory="boost/boost_1_49_0" />
+			<Add directory="boost/boost_1_53_0" />
 			<Add directory="gflags/gflags-2.0/src" />
 			<Add directory="gflags/gflags-2.0/src/linux" />
 			<Add directory="glog/glog-0.3.2/src" />
