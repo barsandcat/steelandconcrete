@@ -82,12 +82,9 @@ ServerGame::~ServerGame()
 
 void ServerGame::Update()
 {
-    LOG(INFO) << "Whait...";
     mTimer.Wait();
 
     boost::lock_guard<boost::shared_mutex> cs(mGameMutex);
-
-    LOG(INFO) << "Update Game!";
 
     MindList::UpdateMinds(FLAGS_time_step);
 
@@ -96,8 +93,6 @@ void ServerGame::Update()
     {
         (*i)->GetChangeList()->Commit();
     }
-
-    LOG(INFO) << "Time: " << mTime;
 }
 
 

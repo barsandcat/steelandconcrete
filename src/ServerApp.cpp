@@ -63,11 +63,27 @@ private:
     ServerGame& mGame;
 };
 
-class LogWindow
+
+
+class LogWindow: public google::LogSink
 {
 public:
+
+    virtual void send(google::LogSeverity severity, const char* full_filename,
+                    const char* base_filename, int line,
+                    const struct ::tm* tm_time,
+                    const char* message, size_t message_len)
+    {
+        boost::lock_guard<boost::mutex> guard(mIncomingMutex);
+        mIncoming->push_back(message);
+    }
+
     LogWindow()
     {
+        mPrinting = new std::vector<std::string>();
+        mIncoming = new std::vector<std::string>();
+        google::AddLogSink(this);
+
         mWin = newwin(LINES - 1, COLS, 0, 0);
         scrollok(mWin, TRUE);
         counter = 0;
@@ -76,14 +92,23 @@ public:
     ~LogWindow()
     {
         delwin(mWin);
+        google::RemoveLogSink(this);
+        delete mPrinting;
+        delete mIncoming;
     }
 
     void Update()
     {
-        counter++;
-        std::stringstream ss;
-        ss << '\n' << "Just some log line " << counter;
-        waddstr(mWin, ss.str().c_str());
+        {
+            boost::lock_guard<boost::mutex> guard(mIncomingMutex);
+            std::swap(mIncoming, mPrinting);
+        }
+        for (size_t i = 0; i < mPrinting->size(); ++i)
+        {
+            waddch(mWin, '\n');
+            waddstr(mWin, mPrinting->at(i).c_str());
+        }
+        mPrinting->clear();
         wrefresh(mWin);
     }
 
@@ -94,6 +119,9 @@ public:
 private:
     WINDOW* mWin;
     int counter;
+    boost::mutex mIncomingMutex;
+    std::vector<std::string>* mIncoming;
+    std::vector<std::string>* mPrinting;
 };
 
 class MenuWindow
@@ -239,6 +267,10 @@ void Run(int argc, char **argv, const bool& aContinue)
     }
     else
     {
+        ServerGame game(FLAGS_size);
+        boost::thread cm(ConnectionManager, boost::ref(game), FLAGS_address, FLAGS_port);
+        boost::thread ml(GameLoop, boost::ref(game));
+
         setlocale(LC_ALL, "");
 
 #ifdef XCURSES
@@ -247,9 +279,6 @@ void Run(int argc, char **argv, const bool& aContinue)
         initscr();
 #endif
 
-        ServerGame game(FLAGS_size);
-        boost::thread cm(ConnectionManager, boost::ref(game), FLAGS_address, FLAGS_port);
-        boost::thread ml(GameLoop, boost::ref(game));
         try
         {
             RunTUI(game);
