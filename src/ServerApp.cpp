@@ -2,7 +2,7 @@
 
 #include <ServerGame.h>
 #include <gflags/gflags.h>
-
+#include <UnitList.h>
 #include <ReleaseVersion.h>
 #include <ProtocolVersion.h>
 #include <ConnectionManager.h>
@@ -36,7 +36,7 @@ void RunKillServer()
 class StatusWindow
 {
 public:
-    StatusWindow()
+    StatusWindow(ServerGame& aGame):mGame(aGame)
     {
         mWin = newwin(1, COLS, LINES - 1, 0);
         wbkgd(mWin, A_REVERSE);
@@ -48,7 +48,10 @@ public:
     void Update()
     {
         wclear(mWin);
-        mvwaddstr(mWin, 0, 0, "Local server");
+        std::stringstream ss;
+        ss << "S&C " << PROTOCOL_VERSION << '.' << RELEASE_VERSION << " at:" << FLAGS_address;
+        ss << " T:" << mGame.GetTiles().size() << " U:" << UnitList::GetCount() << " S:" << mGame.GetTime();
+        mvwaddstr(mWin, 0, 0, ss.str().c_str());
         wrefresh(mWin);
     }
     void Redraw()
@@ -57,6 +60,7 @@ public:
     }
 private:
     WINDOW* mWin;
+    ServerGame& mGame;
 };
 
 class LogWindow
@@ -174,9 +178,9 @@ private:
     CommandVector mCommands;
 };
 
-void RunTUI()
+void RunTUI(ServerGame& aGame)
 {
-    StatusWindow statusWindow;
+    StatusWindow statusWindow(aGame);
     LogWindow logWindow;
     MenuWindow menuWindow;
 
@@ -248,7 +252,7 @@ void Run(int argc, char **argv, const bool& aContinue)
         boost::thread ml(GameLoop, boost::ref(game));
         try
         {
-            RunTUI();
+            RunTUI(game);
         }
         catch(...)
         {
