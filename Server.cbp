@@ -68,6 +68,7 @@
 			<Add library="boost_filesystem$(TARGET_NAME)" />
 			<Add library="ssl" />
 			<Add library="crypto" />
+			<Add library="ncurses" />
 			<Add directory="lib" />
 		</Linker>
 		<ExtraCommands>
