@@ -12,6 +12,15 @@ DEFINE_string(address, "localhost", "Server address");
 DEFINE_int32(port, 4512, "Port");
 DEFINE_int32(size, 4, "Map size: 1 - 162, 2 - 642, 3 - 2562, 4 - 10242, 5 - 40962, 6 - 163842, 7 - 655362 tiles");
 
+
+void GameLoop(ServerGame& aGame)
+{
+    while (true)
+    {
+        aGame.Update();
+    }
+}
+
 void Run(int argc, char **argv, const bool& aContinue)
 {
     Ogre::String localConfig = "steelandconcrete_server.flags";
@@ -31,12 +40,14 @@ void Run(int argc, char **argv, const bool& aContinue)
     {
         ServerGame game(FLAGS_size);
         boost::thread cm(ConnectionManager, boost::ref(game), FLAGS_address, FLAGS_port);
-
+        boost::thread ml(GameLoop, boost::ref(game));
         while (aContinue)
         {
-            game.Update();
+            boost::this_thread::sleep(boost::posix_time::milliseconds(200));
         }
-        LOG(INFO) << "Game over";
+        cm.interrupt();
+        ml.interrupt();
+        ml.join();
     }
 
 	google::ShutdownGoogleLogging();
