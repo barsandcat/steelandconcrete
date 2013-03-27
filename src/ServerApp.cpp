@@ -75,7 +75,7 @@ public:
                     const char* message, size_t message_len)
     {
         boost::lock_guard<boost::mutex> guard(mIncomingMutex);
-        mIncoming->push_back(message);
+        mIncoming->push_back(std::string(message, message_len));
     }
 
     LogWindow()
