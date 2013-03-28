@@ -1,5 +1,5 @@
-#ifndef SERVERAPP_H
-#define SERVERAPP_H
+#ifndef SERVERGAME_H
+#define SERVERGAME_H
 
 #include <Typedefs.h>
 #include <ServerGeodesicGrid.h>
@@ -33,4 +33,4 @@ private:
 	UpdateTimer mTimer;
 };
 
-#endif // SERVERAPP_H
+#endif // SERVERGAME_H
