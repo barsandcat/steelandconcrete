@@ -27,7 +27,7 @@ void GameLoop(ServerGame& aGame)
     }
 }
 
-void Run(int argc, char **argv, const bool& aContinue)
+void Run(int argc, char **argv)
 {
     Ogre::String localConfig = "steelandconcrete_server.flags";
     if (boost::filesystem::exists(localConfig))
@@ -48,14 +48,14 @@ void Run(int argc, char **argv, const bool& aContinue)
         boost::thread cm(ConnectionManager, boost::ref(game), FLAGS_address, FLAGS_port);
         boost::thread ml(GameLoop, boost::ref(game));
 
-				TUI tui(argc, argv, game);
-				try
-				{
-					tui.Run();
-				}
-				catch(...)
-				{
-				}
+        TUI tui(argc, argv, game);
+        try
+        {
+            tui.Run();
+        }
+        catch(...)
+        {
+        }
 
         cm.interrupt();
         ml.interrupt();

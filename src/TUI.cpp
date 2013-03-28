@@ -136,7 +136,6 @@ public:
 
 		while (true)
 		{
-			nodelay(mWin, false);
 			noecho();
 			keypad(stdscr, true);
 			raw();
