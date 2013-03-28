@@ -5,6 +5,6 @@
 
 DECLARE_string(address);
 
-void Run(int argc, char **argv, const bool& aContinue);
+void Run(int argc, char **argv);
 
 #endif

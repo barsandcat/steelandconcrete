@@ -118,6 +118,8 @@
 		<Unit filename="src/ServerTile.h" />
 		<Unit filename="src/ServerUnit.cpp" />
 		<Unit filename="src/ServerUnit.h" />
+		<Unit filename="src/TUI.cpp" />
+		<Unit filename="src/TUI.h" />
 		<Unit filename="src/Typedefs.h" />
 		<Unit filename="src/UnitClass.cpp" />
 		<Unit filename="src/UnitClass.h" />
