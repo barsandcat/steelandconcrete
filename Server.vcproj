@@ -298,6 +298,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\TUI.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\UnitClass.cpp"
 				>
 			</File>
@@ -393,6 +397,10 @@
 			</File>
 			<File
 				RelativePath=".\src\SSLLogRedirect.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\TUI.h"
 				>
 			</File>
 			<File

@@ -36,6 +36,7 @@
 #include <OIS.h>
 #include <algorithm>
 #include <string>
+#include <sstream>
 #include <stdexcept>
 #include <vector>
 #include <iostream>
@@ -49,6 +50,9 @@
 
 #include <Typedefs.h>
 #include <Ogre.h>
+
+#include <ProtocolVersion.h>
+#include <ReleaseVersion.h>
 
 // Restore warnings
 #pragma warning(pop)
