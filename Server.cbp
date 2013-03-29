@@ -120,6 +120,8 @@
 		<Unit filename="src/ServerUnit.h" />
 		<Unit filename="src/TUI.cpp" />
 		<Unit filename="src/TUI.h" />
+		<Unit filename="src/TUILogWindow.cpp" />
+		<Unit filename="src/TUILogWindow.h" />
 		<Unit filename="src/TUIStatusWindow.cpp" />
 		<Unit filename="src/TUIStatusWindow.h" />
 		<Unit filename="src/Typedefs.h" />
