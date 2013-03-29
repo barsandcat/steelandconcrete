@@ -122,6 +122,8 @@
 		<Unit filename="src/TUI.h" />
 		<Unit filename="src/TUILogWindow.cpp" />
 		<Unit filename="src/TUILogWindow.h" />
+		<Unit filename="src/TUIMenuWindow.cpp" />
+		<Unit filename="src/TUIMenuWindow.h" />
 		<Unit filename="src/TUIStatusWindow.cpp" />
 		<Unit filename="src/TUIStatusWindow.h" />
 		<Unit filename="src/Typedefs.h" />
