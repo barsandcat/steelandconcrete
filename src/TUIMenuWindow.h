@@ -8,7 +8,7 @@
 class TUIMenuWindow
 {
 private:
-	typedef std::pair<std::string, void (*)()> Command;
+	typedef std::pair<std::string, boost::function< void()> > Command;
 	typedef std::vector<Command> CommandVector;
 public:
 	TUIMenuWindow();
@@ -16,6 +16,8 @@ public:
 	void Run();
 private:
 	void Update();
+	void Exit() {mQuit = true;}
+	bool mQuit;
 	int mOption;
 	WINDOW* mWin;
 	CommandVector mCommands;

@@ -6,16 +6,15 @@ void RunCloseMenu() {}
 void RunAddUser() {}
 void RunKillServer()
 {
-	throw 1;
+	boost::throw_exception(std::runtime_error("TUI Kill server"));
 }
 
 
-TUIMenuWindow::TUIMenuWindow()
+TUIMenuWindow::TUIMenuWindow():mOption(0), mQuit(false)
 {
     mWin = newwin(LINES, COLS, 0, 0);
     wborder(mWin, 0, 0, 0, 0, 0, 0, 0, 0);
-    mOption = 0;
-    mCommands.push_back(Command("Close menu", RunCloseMenu));
+    mCommands.push_back(Command("Close menu", boost::bind(&TUIMenuWindow::Exit, this)));
     mCommands.push_back(Command("Add user", RunAddUser));
     mCommands.push_back(Command("Kill server", RunKillServer));
 }
@@ -27,9 +26,11 @@ TUIMenuWindow::~TUIMenuWindow()
 
 void TUIMenuWindow::Run()
 {
+    mQuit = false;
+
     touchwin(mWin);
 
-    while (true)
+    while (!mQuit)
     {
         noecho();
         keypad(stdscr, true);
@@ -42,7 +43,7 @@ void TUIMenuWindow::Run()
         case 10:
         case 13:
         case KEY_ENTER:
-            (*mCommands[mOption].second)();
+            mCommands[mOption].second();
             touchwin(mWin);
             break;
 
