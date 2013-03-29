@@ -48,13 +48,18 @@ void Run(int argc, char **argv)
         boost::thread cm(ConnectionManager, boost::ref(game), FLAGS_address, FLAGS_port);
         boost::thread ml(GameLoop, boost::ref(game));
 
-        TUI tui(argc, argv, game);
         try
         {
+            TUI tui(argc, argv, game);
             tui.Run();
+        }
+        catch(std::exception& e)
+        {
+            LOG(INFO) << "TUI: " << e.what();
         }
         catch(...)
         {
+            LOG(ERROR) << "TUI unknown exception!";
         }
 
         cm.interrupt();
