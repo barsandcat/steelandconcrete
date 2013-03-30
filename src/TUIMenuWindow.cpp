@@ -2,8 +2,55 @@
 
 #include <TUIMenuWindow.h>
 
-void RunCloseMenu() {}
-void RunAddUser() {}
+#include <UserList.h>
+
+void RunAddUser()
+{
+    const size_t bufferSize = 80;
+    WINDOW* mWin = newwin(LINES / 2, COLS / 2, LINES / 4, COLS / 4);
+    wborder(mWin, 0, 0, 0, 0, 0, 0, 0, 0);
+    mvwaddstr(mWin, 1, 1, "Enter user name:");
+    curs_set(1);
+    echo();
+    timeout(-1);
+    char userName[bufferSize];
+    wrefresh(mWin);
+    wgetnstr(mWin, userName, bufferSize);
+    const User* user = GetUser(userName);
+    if (!user)
+    {
+        char userPassword[bufferSize];
+        char userPasswordConf[bufferSize];
+        noecho();
+        mvwaddstr(mWin, 2, 1, "Enter user password:");
+        wrefresh(mWin);
+        wgetnstr(mWin, userPassword, bufferSize);
+        mvwaddstr(mWin, 3, 1, "Confirm user password:");
+        wrefresh(mWin);
+        wgetnstr(mWin, userPasswordConf, bufferSize);
+        if (!strcmp(userPassword, userPasswordConf))
+        {
+            AddUser(userName, userPassword);
+            mvwaddstr(mWin, 4, 1, "User added");
+            wrefresh(mWin);
+        }
+        else
+        {
+            mvwaddstr(mWin, 4, 1, "Passwords does not match");
+            wrefresh(mWin);
+        }
+
+    }
+    else
+    {
+        mvwaddstr(mWin, 2, 1, "Such user exists");
+        wrefresh(mWin);
+    }
+    curs_set(0);
+    getch();
+    delwin(mWin);
+}
+
 void RunKillServer()
 {
 	boost::throw_exception(std::runtime_error("TUI Kill server"));
@@ -33,6 +80,7 @@ void TUIMenuWindow::Run()
     while (!mQuit)
     {
         noecho();
+        timeout(300);
         keypad(stdscr, true);
         raw();
 
