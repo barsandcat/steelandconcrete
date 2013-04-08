@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="OgreMain 1.7.3"
+	Name="OgreMain 1.8.1"
 	ProjectGUID="{9CAE2D34-579A-40DC-B1C8-66FFF446C5AA}"
 	RootNamespace="OgreMain 1.7.3"
 	Keyword="Win32Proj"
@@ -55,7 +55,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\ogre_1.7.3\OgreMain\include;..\include;..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\ogre_1.7.3\OgreMain\include\WIN32;..\..\ogre_1.7.3\OgreMain\src\nedmalloc;&quot;$(SolutionDir)zziplib-0.13.50&quot;;&quot;$(SolutionDir)freetype-2.3.8\include&quot;;&quot;$(SolutionDir)FreeImage\Source&quot;"
+				AdditionalIncludeDirectories="..\..\ogre_src_v1-8-1\OgreMain\include;..\include;..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\ogre_src_v1-8-1\OgreMain\include\WIN32;..\..\ogre_src_v1-8-1\OgreMain\src\nedmalloc;&quot;$(SolutionDir)zziplib-0.13.50&quot;;&quot;$(SolutionDir)freetype-2.3.8\include&quot;;&quot;$(SolutionDir)FreeImage\Source&quot;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;OGRE_NONCLIENT_BUILD;FREEIMAGE_LIB;_MT;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -77,7 +77,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;OGRE_NONCLIENT_BUILD;FREEIMAGE_LIB;_MT;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
-				AdditionalIncludeDirectories="..\..\ogre_1.7.3\OgreMain\include;..\include;..\..\Dependencies\include;..\..\Dependencies\include\OIS;..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\ogre_1.7.3\OgreMain\include\WIN32;..\..\ogre_1.7.3\OgreMain\src\nedmalloc;"
+				AdditionalIncludeDirectories="..\..\ogre_src_v1-8-1\OgreMain\include;..\include;..\..\Dependencies\include;..\..\Dependencies\include\OIS;..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\ogre_src_v1-8-1\OgreMain\include\WIN32;..\..\ogre_src_v1-8-1\OgreMain\src\nedmalloc;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -140,7 +140,7 @@
 				AdditionalOptions=" /Zm1000 /fp:fast"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="..\..\ogre_1.7.3\OgreMain\include;..\include;..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\ogre_1.7.3\OgreMain\include\WIN32;..\..\ogre_1.7.3\OgreMain\src\nedmalloc;&quot;$(SolutionDir)zziplib-0.13.50&quot;;&quot;$(SolutionDir)freetype-2.3.8\include&quot;;&quot;$(SolutionDir)FreeImage\Source&quot;"
+				AdditionalIncludeDirectories="..\..\ogre_src_v1-8-1\OgreMain\include;..\include;..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\ogre_src_v1-8-1\OgreMain\include\WIN32;..\..\ogre_src_v1-8-1\OgreMain\src\nedmalloc;&quot;$(SolutionDir)zziplib-0.13.50&quot;;&quot;$(SolutionDir)freetype-2.3.8\include&quot;;&quot;$(SolutionDir)FreeImage\Source&quot;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;OGRE_NONCLIENT_BUILD;FREEIMAGE_LIB;_MT;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="0"
@@ -160,7 +160,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;OGRE_NONCLIENT_BUILD;FREEIMAGE_LIB;_MT;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
-				AdditionalIncludeDirectories="..\..\ogre_1.7.3\OgreMain\include;..\include;..\..\Dependencies\include;..\..\Dependencies\include\OIS;..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\ogre_1.7.3\OgreMain\include\WIN32;..\..\ogre_1.7.3\OgreMain\src\nedmalloc;"
+				AdditionalIncludeDirectories="..\..\ogre_src_v1-8-1\OgreMain\include;..\include;..\..\Dependencies\include;..\..\Dependencies\include\OIS;..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\ogre_src_v1-8-1\OgreMain\include\WIN32;..\..\ogre_src_v1-8-1\OgreMain\src\nedmalloc;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -193,451 +193,451 @@
 			Name="Source Files"
 			>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreAlignedAllocator.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreAlignedAllocator.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreAnimable.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreAnimable.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreAnimation.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreAnimation.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreAnimationState.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreAnimationState.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreAnimationTrack.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreAnimationTrack.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreArchiveManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreArchiveManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreAutoParamDataSource.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreAutoParamDataSource.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreAxisAlignedBox.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreAxisAlignedBox.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreBillboard.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreBillboard.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreBillboardChain.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreBillboardChain.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreBillboardParticleRenderer.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreBillboardParticleRenderer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreBillboardSet.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreBillboardSet.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreBone.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreBone.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreBorderPanelOverlayElement.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreBorderPanelOverlayElement.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreCamera.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreCamera.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreCodec.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreCodec.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreColourValue.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreColourValue.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreCommon.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreCommon.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreCompositionPass.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreCompositionPass.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreCompositionTargetPass.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreCompositionTargetPass.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreCompositionTechnique.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreCompositionTechnique.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreCompositor.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreCompositor.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreCompositorChain.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreCompositorChain.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreCompositorInstance.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreCompositorInstance.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreCompositorManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreCompositorManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\WIN32\OgreConfigDialog.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\WIN32\OgreConfigDialog.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreConfigFile.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreConfigFile.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreControllerManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreControllerManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreConvexBody.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreConvexBody.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreDataStream.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreDataStream.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreDDSCodec.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreDDSCodec.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreDefaultHardwareBufferManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreDefaultHardwareBufferManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreDefaultSceneQueries.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreDefaultSceneQueries.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\Threading\OgreDefaultWorkQueueStandard.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\Threading\OgreDefaultWorkQueueStandard.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreDistanceLodStrategy.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreDistanceLodStrategy.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreDynLib.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreDynLib.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreDynLibManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreDynLibManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreEdgeListBuilder.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreEdgeListBuilder.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreEntity.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreEntity.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\WIN32\OgreErrorDialog.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\WIN32\OgreErrorDialog.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreException.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreException.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreExternalTextureSource.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreExternalTextureSource.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreExternalTextureSourceManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreExternalTextureSourceManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreFileSystem.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreFileSystem.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreFont.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreFont.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreFontManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreFontManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreFreeImageCodec.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreFreeImageCodec.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreFrustum.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreFrustum.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreGpuProgram.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreGpuProgram.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreGpuProgramManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreGpuProgramManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreGpuProgramParams.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreGpuProgramParams.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreGpuProgramUsage.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreGpuProgramUsage.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreHardwareBufferManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreHardwareBufferManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreHardwareIndexBuffer.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreHardwareIndexBuffer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreHardwareOcclusionQuery.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreHardwareOcclusionQuery.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreHardwarePixelBuffer.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreHardwarePixelBuffer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreHardwareVertexBuffer.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreHardwareVertexBuffer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreHighLevelGpuProgram.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreHighLevelGpuProgram.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreHighLevelGpuProgramManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreHighLevelGpuProgramManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreImage.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreImage.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreInstancedGeometry.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreInstancedGeometry.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreKeyFrame.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreKeyFrame.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreLight.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreLight.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreLodStrategy.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreLodStrategy.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreLodStrategyManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreLodStrategyManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreLog.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreLog.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreLogManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreLogManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreManualObject.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreManualObject.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreMaterial.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreMaterial.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreMaterialManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreMaterialManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreMaterialSerializer.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreMaterialSerializer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreMath.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreMath.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreMatrix3.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreMatrix3.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreMatrix4.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreMatrix4.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreMemoryAllocatedObject.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreMemoryAllocatedObject.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreMemoryNedAlloc.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreMemoryNedAlloc.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreMemoryNedPooling.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreMemoryNedPooling.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreMemoryTracker.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreMemoryTracker.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreMesh.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreMesh.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreMeshManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreMeshManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreMeshSerializer.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreMeshSerializer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreMeshSerializerImpl.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreMeshSerializerImpl.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreMovableObject.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreMovableObject.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreMovablePlane.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreMovablePlane.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreNode.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreNode.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreNumerics.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreNumerics.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreOptimisedUtil.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreOptimisedUtil.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreOptimisedUtilGeneral.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreOptimisedUtilGeneral.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreOptimisedUtilSSE.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreOptimisedUtilSSE.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreOverlay.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreOverlay.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreOverlayContainer.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreOverlayContainer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreOverlayElement.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreOverlayElement.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreOverlayElementCommands.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreOverlayElementCommands.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreOverlayElementFactory.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreOverlayElementFactory.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreOverlayManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreOverlayManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgrePanelOverlayElement.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgrePanelOverlayElement.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreParticle.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreParticle.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreParticleEmitter.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreParticleEmitter.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreParticleEmitterCommands.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreParticleEmitterCommands.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreParticleIterator.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreParticleIterator.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreParticleSystem.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreParticleSystem.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreParticleSystemManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreParticleSystemManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgrePass.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgrePass.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgrePatchMesh.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgrePatchMesh.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgrePatchSurface.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgrePatchSurface.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgrePixelCountLodStrategy.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgrePixelCountLodStrategy.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgrePixelFormat.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgrePixelFormat.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgrePlane.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgrePlane.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgrePlatformInformation.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgrePlatformInformation.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgrePolygon.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgrePolygon.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgrePose.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgrePose.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgrePrecompiledHeaders.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgrePrecompiledHeaders.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -659,303 +659,303 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgrePredefinedControllers.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgrePredefinedControllers.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgrePrefabFactory.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgrePrefabFactory.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreProfiler.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreProfiler.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreProgressiveMesh.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreProgressiveMesh.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgrePVRTCCodec.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgrePVRTCCodec.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreQuaternion.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreQuaternion.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreRectangle2D.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreRectangle2D.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreRenderQueue.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreRenderQueue.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreRenderQueueInvocation.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreRenderQueueInvocation.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreRenderQueueSortingGrouping.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreRenderQueueSortingGrouping.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreRenderSystem.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreRenderSystem.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreRenderSystemCapabilities.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreRenderSystemCapabilities.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreRenderSystemCapabilitiesManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreRenderSystemCapabilitiesManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreRenderSystemCapabilitiesSerializer.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreRenderSystemCapabilitiesSerializer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreRenderTarget.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreRenderTarget.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreRenderTexture.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreRenderTexture.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreRenderToVertexBuffer.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreRenderToVertexBuffer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreRenderWindow.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreRenderWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreResource.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreResource.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreResourceBackgroundQueue.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreResourceBackgroundQueue.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreResourceGroupManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreResourceGroupManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreResourceManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreResourceManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreRibbonTrail.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreRibbonTrail.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreRoot.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreRoot.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreRotationSpline.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreRotationSpline.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreSceneManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreSceneManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreSceneManagerEnumerator.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreSceneManagerEnumerator.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreSceneNode.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreSceneNode.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreSceneQuery.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreSceneQuery.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreScriptCompiler.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreScriptCompiler.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreScriptLexer.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreScriptLexer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreScriptParser.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreScriptParser.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreScriptTranslator.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreScriptTranslator.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreSerializer.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreSerializer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreShadowCameraSetup.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreShadowCameraSetup.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreShadowCameraSetupFocused.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreShadowCameraSetupFocused.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreShadowCameraSetupLiSPSM.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreShadowCameraSetupLiSPSM.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreShadowCameraSetupPlaneOptimal.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreShadowCameraSetupPlaneOptimal.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreShadowCameraSetupPSSM.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreShadowCameraSetupPSSM.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreShadowCaster.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreShadowCaster.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreShadowTextureManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreShadowTextureManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreShadowVolumeExtrudeProgram.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreShadowVolumeExtrudeProgram.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreSimpleRenderable.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreSimpleRenderable.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreSimpleSpline.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreSimpleSpline.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreSkeleton.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreSkeleton.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreSkeletonInstance.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreSkeletonInstance.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreSkeletonManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreSkeletonManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreSkeletonSerializer.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreSkeletonSerializer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreStaticGeometry.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreStaticGeometry.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreStreamSerialiser.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreStreamSerialiser.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreString.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreString.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreStringConverter.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreStringConverter.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreStringInterface.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreStringInterface.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreSubEntity.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreSubEntity.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreSubMesh.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreSubMesh.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreTagPoint.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreTagPoint.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreTangentSpaceCalc.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreTangentSpaceCalc.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreTechnique.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreTechnique.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreTextAreaOverlayElement.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreTextAreaOverlayElement.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreTexture.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreTexture.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreTextureManager.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreTextureManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreTextureUnitState.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreTextureUnitState.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\WIN32\OgreTimer.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\WIN32\OgreTimer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreUnifiedHighLevelGpuProgram.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreUnifiedHighLevelGpuProgram.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreUserObjectBindings.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreUserObjectBindings.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreUTFString.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreUTFString.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreVector2.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreVector2.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreVector3.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreVector3.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreVector4.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreVector4.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreVertexIndexData.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreVertexIndexData.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreViewport.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreViewport.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreWindowEventUtilities.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreWindowEventUtilities.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreWireBoundingBox.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreWireBoundingBox.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreWorkQueue.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreWorkQueue.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreZip.cpp"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreZip.cpp"
 				>
 			</File>
 		</Filter>
@@ -963,91 +963,91 @@
 			Name="Header Files"
 			>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\asm_math.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\asm_math.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\Ogre.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\Ogre.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreAlignedAllocator.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreAlignedAllocator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreAnimable.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreAnimable.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreAnimation.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreAnimation.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreAnimationState.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreAnimationState.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreAnimationTrack.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreAnimationTrack.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreAny.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreAny.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreArchive.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreArchive.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreArchiveFactory.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreArchiveFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreArchiveManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreArchiveManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreAtomicWrappers.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreAtomicWrappers.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreAutoParamDataSource.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreAutoParamDataSource.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreAxisAlignedBox.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreAxisAlignedBox.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreBillboard.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreBillboard.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreBillboardChain.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreBillboardChain.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreBillboardParticleRenderer.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreBillboardParticleRenderer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreBillboardSet.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreBillboardSet.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreBitwise.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreBitwise.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreBlendMode.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreBlendMode.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreBone.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreBone.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreBorderPanelOverlayElement.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreBorderPanelOverlayElement.h"
 				>
 			</File>
 			<File
@@ -1055,915 +1055,915 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreCamera.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreCamera.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreCodec.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreCodec.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreColourValue.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreColourValue.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreCommon.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreCommon.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreCompositionPass.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreCompositionPass.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreCompositionTargetPass.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreCompositionTargetPass.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreCompositionTechnique.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreCompositionTechnique.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreCompositor.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreCompositor.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreCompositorChain.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreCompositorChain.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreCompositorInstance.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreCompositorInstance.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreCompositorLogic.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreCompositorLogic.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreCompositorManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreCompositorManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreConfig.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreConfig.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreConfigDialog.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreConfigDialog.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\WIN32\OgreConfigDialogImp.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\WIN32\OgreConfigDialogImp.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreConfigFile.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreConfigFile.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreConfigOptionMap.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreConfigOptionMap.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreController.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreController.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreControllerManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreControllerManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreConvexBody.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreConvexBody.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreCustomCompositionPass.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreCustomCompositionPass.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreDataStream.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreDataStream.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreDDSCodec.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreDDSCodec.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreDefaultHardwareBufferManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreDefaultHardwareBufferManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\Threading\OgreDefaultWorkQueue.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\Threading\OgreDefaultWorkQueue.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\Threading\OgreDefaultWorkQueueStandard.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\Threading\OgreDefaultWorkQueueStandard.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreDistanceLodStrategy.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreDistanceLodStrategy.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreDynLib.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreDynLib.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreDynLibManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreDynLibManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreEdgeListBuilder.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreEdgeListBuilder.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreEntity.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreEntity.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreErrorDialog.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreErrorDialog.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\WIN32\OgreErrorDialogImp.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\WIN32\OgreErrorDialogImp.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreException.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreException.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreExternalTextureSource.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreExternalTextureSource.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreExternalTextureSourceManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreExternalTextureSourceManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreFactoryObj.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreFactoryObj.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreFileSystem.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreFileSystem.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreFont.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreFont.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreFontManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreFontManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreFrameListener.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreFrameListener.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreFreeImageCodec.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreFreeImageCodec.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreFrustum.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreFrustum.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreGpuProgram.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreGpuProgram.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreGpuProgramManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreGpuProgramManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreGpuProgramParams.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreGpuProgramParams.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreGpuProgramUsage.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreGpuProgramUsage.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreHardwareBuffer.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreHardwareBuffer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreHardwareBufferManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreHardwareBufferManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreHardwareIndexBuffer.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreHardwareIndexBuffer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreHardwareOcclusionQuery.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreHardwareOcclusionQuery.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreHardwarePixelBuffer.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreHardwarePixelBuffer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreHardwareVertexBuffer.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreHardwareVertexBuffer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreHeaderPrefix.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreHeaderPrefix.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreHeaderSuffix.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreHeaderSuffix.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreHighLevelGpuProgram.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreHighLevelGpuProgram.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreHighLevelGpuProgramManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreHighLevelGpuProgramManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreImage.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreImage.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreImageCodec.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreImageCodec.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreImageResampler.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreImageResampler.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreInstancedGeometry.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreInstancedGeometry.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreIteratorRange.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreIteratorRange.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreIteratorWrapper.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreIteratorWrapper.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreIteratorWrappers.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreIteratorWrappers.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreKeyFrame.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreKeyFrame.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreLight.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreLight.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreLodListener.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreLodListener.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreLodStrategy.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreLodStrategy.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreLodStrategyManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreLodStrategyManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreLog.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreLog.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreLogManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreLogManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreManualObject.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreManualObject.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreMaterial.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreMaterial.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreMaterialManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreMaterialManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreMaterialSerializer.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreMaterialSerializer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreMath.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreMath.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreMatrix3.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreMatrix3.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreMatrix4.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreMatrix4.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreMemoryAllocatedObject.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreMemoryAllocatedObject.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreMemoryAllocatorConfig.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreMemoryAllocatorConfig.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreMemoryNedAlloc.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreMemoryNedAlloc.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreMemoryNedPooling.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreMemoryNedPooling.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreMemoryStdAlloc.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreMemoryStdAlloc.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreMemorySTLAllocator.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreMemorySTLAllocator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreMemoryTracker.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreMemoryTracker.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreMesh.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreMesh.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreMeshFileFormat.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreMeshFileFormat.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreMeshManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreMeshManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreMeshSerializer.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreMeshSerializer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreMeshSerializerImpl.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreMeshSerializerImpl.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\WIN32\OgreMinGWSupport.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\WIN32\OgreMinGWSupport.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreMovableObject.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreMovableObject.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreMovablePlane.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreMovablePlane.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreNode.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreNode.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreNumerics.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreNumerics.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreOptimisedUtil.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreOptimisedUtil.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreOverlay.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreOverlay.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreOverlayContainer.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreOverlayContainer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreOverlayElement.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreOverlayElement.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreOverlayElementCommands.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreOverlayElementCommands.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreOverlayElementFactory.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreOverlayElementFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreOverlayManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreOverlayManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgrePanelOverlayElement.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgrePanelOverlayElement.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreParticle.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreParticle.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreParticleAffector.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreParticleAffector.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreParticleAffectorFactory.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreParticleAffectorFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreParticleEmitter.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreParticleEmitter.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreParticleEmitterCommands.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreParticleEmitterCommands.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreParticleEmitterFactory.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreParticleEmitterFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreParticleIterator.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreParticleIterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreParticleScriptCompiler.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreParticleScriptCompiler.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreParticleSystem.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreParticleSystem.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreParticleSystemManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreParticleSystemManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreParticleSystemRenderer.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreParticleSystemRenderer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgrePass.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgrePass.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgrePatchMesh.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgrePatchMesh.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgrePatchSurface.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgrePatchSurface.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgrePixelConversions.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgrePixelConversions.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgrePixelCountLodStrategy.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgrePixelCountLodStrategy.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgrePixelFormat.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgrePixelFormat.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgrePlane.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgrePlane.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgrePlaneBoundedVolume.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgrePlaneBoundedVolume.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgrePlatform.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgrePlatform.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgrePlatformInformation.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgrePlatformInformation.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgrePlugin.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgrePlugin.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgrePolygon.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgrePolygon.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgrePose.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgrePose.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgrePredefinedControllers.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgrePredefinedControllers.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgrePrefabFactory.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgrePrefabFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgrePrerequisites.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgrePrerequisites.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreProfiler.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreProfiler.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreProgressiveMesh.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreProgressiveMesh.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgrePVRTCCodec.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgrePVRTCCodec.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreQuaternion.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreQuaternion.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRadixSort.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRadixSort.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRay.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRay.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRectangle.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRectangle.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRectangle2D.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRectangle2D.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRenderable.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRenderable.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRenderObjectListener.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRenderObjectListener.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRenderOperation.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRenderOperation.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRenderQueue.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRenderQueue.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRenderQueueInvocation.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRenderQueueInvocation.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRenderQueueListener.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRenderQueueListener.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRenderQueueSortingGrouping.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRenderQueueSortingGrouping.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRenderSystem.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRenderSystem.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRenderSystemCapabilities.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRenderSystemCapabilities.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRenderSystemCapabilitiesManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRenderSystemCapabilitiesManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRenderSystemCapabilitiesSerializer.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRenderSystemCapabilitiesSerializer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRenderTarget.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRenderTarget.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRenderTargetListener.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRenderTargetListener.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRenderTexture.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRenderTexture.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRenderToVertexBuffer.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRenderToVertexBuffer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRenderWindow.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRenderWindow.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreResource.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreResource.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreResourceBackgroundQueue.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreResourceBackgroundQueue.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreResourceGroupManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreResourceGroupManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreResourceManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreResourceManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRibbonTrail.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRibbonTrail.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRoot.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRoot.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreRotationalSpline.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreRotationalSpline.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreSceneManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreSceneManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreSceneManagerEnumerator.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreSceneManagerEnumerator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreSceneNode.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreSceneNode.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreSceneQuery.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreSceneQuery.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreScriptCompiler.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreScriptCompiler.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreScriptLexer.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreScriptLexer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreScriptLoader.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreScriptLoader.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreScriptParser.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreScriptParser.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreScriptTranslator.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreScriptTranslator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreSearchOps.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreSearchOps.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreSerializer.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreSerializer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreShadowCameraSetup.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreShadowCameraSetup.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreShadowCameraSetupFocused.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreShadowCameraSetupFocused.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreShadowCameraSetupLiSPSM.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreShadowCameraSetupLiSPSM.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreShadowCameraSetupPlaneOptimal.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreShadowCameraSetupPlaneOptimal.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreShadowCameraSetupPSSM.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreShadowCameraSetupPSSM.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreShadowCaster.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreShadowCaster.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreShadowTextureManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreShadowTextureManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreShadowVolumeExtrudeProgram.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreShadowVolumeExtrudeProgram.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreSharedPtr.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreSharedPtr.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\OgreSIMDHelper.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreSIMDHelper.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreSimpleRenderable.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreSimpleRenderable.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreSimpleSpline.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreSimpleSpline.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreSingleton.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreSingleton.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreSkeleton.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreSkeleton.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreSkeletonFileFormat.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreSkeletonFileFormat.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreSkeletonInstance.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreSkeletonInstance.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreSkeletonManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreSkeletonManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreSkeletonSerializer.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreSkeletonSerializer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreSphere.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreSphere.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreSpotShadowFadePng.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreSpotShadowFadePng.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreStableHeaders.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreStableHeaders.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreStaticFaceGroup.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreStaticFaceGroup.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreStaticGeometry.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreStaticGeometry.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreStdHeaders.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreStdHeaders.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreStreamSerialiser.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreStreamSerialiser.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreString.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreString.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreStringConverter.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreStringConverter.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreStringInterface.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreStringInterface.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreStringVector.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreStringVector.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreSubEntity.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreSubEntity.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreSubMesh.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreSubMesh.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreTagPoint.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreTagPoint.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreTangentSpaceCalc.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreTangentSpaceCalc.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreTechnique.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreTechnique.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreTextAreaOverlayElement.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreTextAreaOverlayElement.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreTexture.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreTexture.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreTextureManager.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreTextureManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreTextureUnitState.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreTextureUnitState.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\Threading\OgreThreadDefines.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\Threading\OgreThreadDefines.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\Threading\OgreThreadDefinesNone.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\Threading\OgreThreadDefinesNone.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\Threading\OgreThreadHeaders.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\Threading\OgreThreadHeaders.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreTimer.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreTimer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\WIN32\OgreTimerImp.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\WIN32\OgreTimerImp.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreUnifiedHighLevelGpuProgram.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreUnifiedHighLevelGpuProgram.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreUserObjectBindings.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreUserObjectBindings.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreUTFString.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreUTFString.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreVector2.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreVector2.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreVector3.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreVector3.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreVector4.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreVector4.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreVertexBoneAssignment.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreVertexBoneAssignment.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreVertexIndexData.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreVertexIndexData.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreViewport.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreViewport.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreWindowEventUtilities.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreWindowEventUtilities.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreWireBoundingBox.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreWireBoundingBox.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreWorkQueue.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreWorkQueue.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\include\OgreZip.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\include\OgreZip.h"
 				>
 			</File>
 		</Filter>
@@ -1971,20 +1971,56 @@
 			Name="Resources"
 			>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\WIN32\OgreWin32Resources.rc"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\WIN32\OgreWin32Resources.rc"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\WIN32\resource.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\WIN32\resource.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\ogre_1.7.3\OgreMain\src\WIN32\winres.h"
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\WIN32\winres.h"
 				>
 			</File>
 		</Filter>
 		<File
-			RelativePath="..\..\ogre_1.7.3\OgreMain\src\ogremain.map"
+			RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreDepthBuffer.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreDualQuaternion.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreInstanceBatch.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreInstanceBatchHW.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreInstanceBatchHW_VTF.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreInstanceBatchShader.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreInstanceBatchVTF.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreInstancedEntity.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreInstanceManager.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\ogremain.map"
 			>
 		</File>
 	</Files>

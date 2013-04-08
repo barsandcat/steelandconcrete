@@ -54,7 +54,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;CMAKE_INTDIR=\&quot;Debug\&quot;"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -73,7 +73,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;CMAKE_INTDIR=\&quot;Debug\&quot;"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -153,7 +153,7 @@
 				AdditionalOptions=" /Zm1000 /fp:fast"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\&quot;Release\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -170,7 +170,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\&quot;Release\&quot;"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -219,7 +219,7 @@
 			Name="Source Files"
 			>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\Tools\MeshUpgrader\src\main.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\Tools\MeshUpgrader\src\main.cpp"
 				>
 			</File>
 		</Filter>

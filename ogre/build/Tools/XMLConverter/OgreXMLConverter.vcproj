@@ -55,7 +55,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\Tools\XMLConverter\include"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\Tools\XMLConverter\include"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;TIXML_USE_STL;CMAKE_INTDIR=\&quot;Debug\&quot;"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -74,7 +74,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;TIXML_USE_STL;CMAKE_INTDIR=\&quot;Debug\&quot;"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\Tools\XMLConverter\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\Tools\XMLConverter\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -153,7 +153,7 @@
 				AdditionalOptions=" /Zm1000 /fp:fast"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\Tools\XMLConverter\include"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\Tools\XMLConverter\include"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;TIXML_USE_STL;CMAKE_INTDIR=\&quot;Release\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="0"
@@ -170,7 +170,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;TIXML_USE_STL;CMAKE_INTDIR=\&quot;Release\&quot;"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\Tools\XMLConverter\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\Tools\XMLConverter\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -218,31 +218,31 @@
 			Name="Source Files"
 			>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\Tools\XMLConverter\src\main.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\Tools\XMLConverter\src\main.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\Tools\XMLConverter\src\OgreXMLMeshSerializer.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\Tools\XMLConverter\src\OgreXMLMeshSerializer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\Tools\XMLConverter\src\OgreXMLSkeletonSerializer.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\Tools\XMLConverter\src\OgreXMLSkeletonSerializer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\Tools\XMLConverter\src\tinystr.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\Tools\XMLConverter\src\tinystr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\Tools\XMLConverter\src\tinyxml.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\Tools\XMLConverter\src\tinyxml.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\Tools\XMLConverter\src\tinyxmlerror.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\Tools\XMLConverter\src\tinyxmlerror.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\Tools\XMLConverter\src\tinyxmlparser.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\Tools\XMLConverter\src\tinyxmlparser.cpp"
 				>
 			</File>
 		</Filter>
@@ -250,23 +250,23 @@
 			Name="Header Files"
 			>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\Tools\XMLConverter\include\OgreXMLMeshSerializer.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\Tools\XMLConverter\include\OgreXMLMeshSerializer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\Tools\XMLConverter\include\OgreXMLPrerequisites.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\Tools\XMLConverter\include\OgreXMLPrerequisites.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\Tools\XMLConverter\include\OgreXMLSkeletonSerializer.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\Tools\XMLConverter\include\OgreXMLSkeletonSerializer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\Tools\XMLConverter\include\tinystr.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\Tools\XMLConverter\include\tinystr.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\Tools\XMLConverter\include\tinyxml.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\Tools\XMLConverter\include\tinyxml.h"
 				>
 			</File>
 		</Filter>

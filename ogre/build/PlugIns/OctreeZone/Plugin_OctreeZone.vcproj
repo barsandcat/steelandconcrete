@@ -54,7 +54,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\OctreeZone\include;..\..\..\ogre_1.7.3\PlugIns\OctreeZone\..\PCZSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\include;..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\..\PCZSceneManager\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -73,7 +73,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\OctreeZone\include;..\..\..\ogre_1.7.3\PlugIns\OctreeZone\..\PCZSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\include;..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\..\PCZSceneManager\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -136,7 +136,7 @@
 				AdditionalOptions=" /Zm1000 /fp:fast"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\OctreeZone\include;..\..\..\ogre_1.7.3\PlugIns\OctreeZone\..\PCZSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\include;..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\..\PCZSceneManager\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -153,7 +153,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\OctreeZone\include;..\..\..\ogre_1.7.3\PlugIns\OctreeZone\..\PCZSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\include;..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\..\PCZSceneManager\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -186,43 +186,43 @@
 			Name="Source Files"
 			>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\src\OgreHeightmapTerrainZonePageSource.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\src\OgreHeightmapTerrainZonePageSource.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\src\OgreOctreeZone.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\src\OgreOctreeZone.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\src\OgreOctreeZoneDll.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\src\OgreOctreeZoneDll.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\src\OgreOctreeZoneOctree.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\src\OgreOctreeZoneOctree.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\src\OgreOctreeZonePlugin.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\src\OgreOctreeZonePlugin.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\src\OgreTerrainVertexProgram.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\src\OgreTerrainVertexProgram.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\src\OgreTerrainZone.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\src\OgreTerrainZone.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\src\OgreTerrainZonePage.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\src\OgreTerrainZonePage.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\src\OgreTerrainZonePageSource.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\src\OgreTerrainZonePageSource.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\src\OgreTerrainZoneRenderable.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\src\OgreTerrainZoneRenderable.cpp"
 				>
 			</File>
 		</Filter>
@@ -230,47 +230,47 @@
 			Name="Header Files"
 			>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\include\OgreHeightmapTerrainZonePageSource.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\include\OgreHeightmapTerrainZonePageSource.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\include\OgreOctreeZone.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\include\OgreOctreeZone.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\include\OgreOctreeZoneOctree.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\include\OgreOctreeZoneOctree.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\include\OgreOctreeZonePlugin.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\include\OgreOctreeZonePlugin.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\include\OgreOctreeZonePrerequisites.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\include\OgreOctreeZonePrerequisites.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\include\OgreTerrainVertexProgram.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\include\OgreTerrainVertexProgram.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\include\OgreTerrainZone.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\include\OgreTerrainZone.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\include\OgreTerrainZonePage.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\include\OgreTerrainZonePage.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\include\OgreTerrainZonePageSource.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\include\OgreTerrainZonePageSource.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\include\OgreTerrainZonePrerequisites.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\include\OgreTerrainZonePrerequisites.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeZone\include\OgreTerrainZoneRenderable.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeZone\include\OgreTerrainZoneRenderable.h"
 				>
 			</File>
 		</Filter>
