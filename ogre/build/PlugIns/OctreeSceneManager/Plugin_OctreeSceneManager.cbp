@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="OgrePlugin_OctreeSceneManager 1.7.3" />
+		<Option title="OgrePlugin_OctreeSceneManager 1.8.1" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -38,37 +38,24 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add directory="../../../ogre_1.7.3/OgreMain/include" />
+			<Add directory="../../../ogre_src_v1-8-1/OgreMain/include" />
 			<Add directory="../../include" />
-			<Add directory="../../../ogre_1.7.3/OgreMain/include/Threading" />
-			<Add directory="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/include" />
+			<Add directory="../../../ogre_src_v1-8-1/OgreMain/include/Threading" />
+			<Add directory="../../../ogre_src_v1-8-1/PlugIns/OctreeSceneManager/include" />
 		</Compiler>
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/include/OgreHeightmapTerrainPageSource.h" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/include/OgreOctree.h" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/include/OgreOctreeCamera.h" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/include/OgreOctreeNode.h" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/include/OgreOctreePlugin.h" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/include/OgreOctreeSceneManager.h" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/include/OgreOctreeSceneQuery.h" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/include/OgreTerrainPage.h" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/include/OgreTerrainPageSource.h" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/include/OgreTerrainPrerequisites.h" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/include/OgreTerrainRenderable.h" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/include/OgreTerrainSceneManager.h" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/include/OgreTerrainVertexProgram.h" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/src/OgreHeightmapTerrainPageSource.cpp" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/src/OgreOctree.cpp" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/src/OgreOctreeCamera.cpp" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/src/OgreOctreeNode.cpp" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/src/OgreOctreePlugin.cpp" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/src/OgreOctreeSceneManager.cpp" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/src/OgreOctreeSceneManagerDll.cpp" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/src/OgreOctreeSceneQuery.cpp" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/src/OgreTerrainPage.cpp" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/src/OgreTerrainPageSource.cpp" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/src/OgreTerrainRenderable.cpp" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/src/OgreTerrainSceneManager.cpp" />
-		<Unit filename="../../../ogre_1.7.3/PlugIns/OctreeSceneManager/src/OgreTerrainVertexProgram.cpp" />
+		<Unit filename="../../../ogre_src_v1-8-1/PlugIns/OctreeSceneManager/include/OgreOctree.h" />
+		<Unit filename="../../../ogre_src_v1-8-1/PlugIns/OctreeSceneManager/include/OgreOctreeCamera.h" />
+		<Unit filename="../../../ogre_src_v1-8-1/PlugIns/OctreeSceneManager/include/OgreOctreeNode.h" />
+		<Unit filename="../../../ogre_src_v1-8-1/PlugIns/OctreeSceneManager/include/OgreOctreePlugin.h" />
+		<Unit filename="../../../ogre_src_v1-8-1/PlugIns/OctreeSceneManager/include/OgreOctreeSceneManager.h" />
+		<Unit filename="../../../ogre_src_v1-8-1/PlugIns/OctreeSceneManager/include/OgreOctreeSceneQuery.h" />
+		<Unit filename="../../../ogre_src_v1-8-1/PlugIns/OctreeSceneManager/src/OgreOctree.cpp" />
+		<Unit filename="../../../ogre_src_v1-8-1/PlugIns/OctreeSceneManager/src/OgreOctreeCamera.cpp" />
+		<Unit filename="../../../ogre_src_v1-8-1/PlugIns/OctreeSceneManager/src/OgreOctreeNode.cpp" />
+		<Unit filename="../../../ogre_src_v1-8-1/PlugIns/OctreeSceneManager/src/OgreOctreePlugin.cpp" />
+		<Unit filename="../../../ogre_src_v1-8-1/PlugIns/OctreeSceneManager/src/OgreOctreeSceneManager.cpp" />
+		<Unit filename="../../../ogre_src_v1-8-1/PlugIns/OctreeSceneManager/src/OgreOctreeSceneManagerDll.cpp" />
+		<Unit filename="../../../ogre_src_v1-8-1/PlugIns/OctreeSceneManager/src/OgreOctreeSceneQuery.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

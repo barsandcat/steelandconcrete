@@ -36,7 +36,7 @@
 #include "OgreALException.h"
 #include "OgreALSoundManager.h"
 
-template<> OgreAL::SoundManager* Ogre::Singleton<OgreAL::SoundManager>::ms_Singleton = 0;
+template<> OgreAL::SoundManager* Ogre::Singleton<OgreAL::SoundManager>::msSingleton = 0;
 
 #if OGREAL_THREADED
 	boost::thread *OgreAL::SoundManager::mOgreALThread = 0;
@@ -52,7 +52,7 @@ namespace OgreAL {
 	const ALenum SoundManager::xRamHardware = alGetEnumValue("AL_STORAGE_HARDWARE");
 	const ALenum SoundManager::xRamAccessible = alGetEnumValue("AL_STORAGE_ACCESSIBLE");
 
-  SoundManager::SoundManager(const Ogre::String& deviceName, int maxNumSources) : 
+  SoundManager::SoundManager(const Ogre::String& deviceName, int maxNumSources) :
 		mEAXSupport(false),
 		mEAXVersion(0),
 		mXRAMSupport(false),
@@ -73,7 +73,7 @@ namespace OgreAL {
 		// Create and register Sound and Listener Factories
 		mSoundFactory = new SoundFactory();
 		mListenerFactory = new ListenerFactory();
-		
+
 		Ogre::Root::getSingleton().addMovableObjectFactory(mSoundFactory);
 		Ogre::Root::getSingleton().addMovableObjectFactory(mListenerFactory);
 
@@ -149,15 +149,15 @@ namespace OgreAL {
 
 	SoundManager* SoundManager::getSingletonPtr(void)
 	{
-		return ms_Singleton;
+		return msSingleton;
 	}
 
 	SoundManager& SoundManager::getSingleton(void)
-	{  
-		assert( ms_Singleton );  return (*ms_Singleton);  
+	{
+		assert( msSingleton );  return (*msSingleton);
 	}
 
-	Sound* SoundManager::createSound(const Ogre::String& name, 
+	Sound* SoundManager::createSound(const Ogre::String& name,
 		const Ogre::String& fileName, bool loop, bool stream)
 	{
 		// Lock Mutex
@@ -169,7 +169,7 @@ namespace OgreAL {
 		fileTypePair[SOUND_FILE] = fileName;
 		fileTypePair[LOOP_STATE] = Ogre::StringConverter::toString(loop);
 		fileTypePair[STREAM] = Ogre::StringConverter::toString(stream);
-		
+
 		Sound *newSound = static_cast<Sound*>(mSoundFactory->createInstance(name, NULL, &fileTypePair));
 		mSoundMap[name] = newSound;
 		return newSound;
@@ -183,8 +183,8 @@ namespace OgreAL {
 		SoundMap::const_iterator soundItr = mSoundMap.find(name);
 		if(soundItr == mSoundMap.end())
 		{
-			throw Ogre::Exception(Ogre::Exception::ERR_ITEM_NOT_FOUND, 
-					"Object named '" + name + "' does not exist.", 
+			throw Ogre::Exception(Ogre::Exception::ERR_ITEM_NOT_FOUND,
+					"Object named '" + name + "' does not exist.",
 					"SceneManager::getMovableObject");
 		}
 
@@ -206,7 +206,7 @@ namespace OgreAL {
   SoundMapIterPair SoundManager::getSoundIterator() {
     return SoundMapIterPair(mSoundMap.begin(), mSoundMap.end());
   }
-  
+
 	void SoundManager::destroySound(Sound *sound)
 	{
 		// Lock Mutex
@@ -222,7 +222,7 @@ namespace OgreAL {
 
 		SoundMap::iterator soundItr = mSoundMap.find(name);
 		if(soundItr != mSoundMap.end())
-		{			
+		{
 			mSoundsToDestroy.push_back(soundItr->second);
 			mSoundMap.erase(soundItr);
 		}
@@ -242,7 +242,7 @@ namespace OgreAL {
 		// Also flush gain values.
 		mSoundGainMap.clear();
 	}
-	
+
 	void SoundManager::pauseAllSounds()
 	{
 		// Lock Mutex
@@ -270,7 +270,7 @@ namespace OgreAL {
 			(*soundItr)->play();
 		}
 		mPauseResumeAll.clear();
-	} 
+	}
 
 	void SoundManager::createListener()
 	{
@@ -396,7 +396,7 @@ namespace OgreAL {
 		if(mSoundsToDestroy.size() > 0) {
 		  performDeleteQueueCycle();
 		}
-		
+
 		updateSounds();
 		return true;
 	}
@@ -437,7 +437,7 @@ namespace OgreAL {
 
     // Go over all sounds.
     for(SoundMap::iterator i = mSoundMap.begin(); i != mSoundMap.end(); ++i) {
-      // Perform a cull cycle on the sound, redoing all culls based on the 
+      // Perform a cull cycle on the sound, redoing all culls based on the
       // newly set cull distance.
       performSoundCull(i->second);
     }
@@ -454,7 +454,7 @@ namespace OgreAL {
 		** two NULL characters, so we can cast the list into a string and it
 		** will automatically stop at the first NULL that it sees, then we
 		** can move the pointer ahead by the lenght of that string + 1 and we
-		** will be at the begining of the next string.  Once we hit an empty 
+		** will be at the begining of the next string.  Once we hit an empty
 		** string we know that we've found the double NULL that terminates the
 		** list and we can stop there.
 		*/
@@ -542,7 +542,7 @@ namespace OgreAL {
 		mXRamFree = alGetEnumValue("AL_EAX_RAM_FREE");
 		return AL_TRUE;
 	}
-	
+
 	ALenum SoundManager::eaxGetBufferMode(BufferRef buffer, ALint *reserved)
 	{
 		// Lock Mutex
@@ -661,7 +661,7 @@ namespace OgreAL {
 		SourceRef source = sound->getSource();
 		// If the sound released had a valid source.
 		if(source != AL_NONE) {
-		  // Unbind the buffer from the source. This also decrements the reference count, 
+		  // Unbind the buffer from the source. This also decrements the reference count,
 		  // which needs to be done before we try to release the buffer. In any case we
 		  // want the next sound to have a clean buffer.
 		  alSourcei(source, AL_BUFFER, 0);
@@ -672,7 +672,7 @@ namespace OgreAL {
 		    // Give the first queued sound the source.
 		    Sound *queuedSound = mQueuedSounds.front();
 		    mQueuedSounds.erase(mQueuedSounds.begin());
-		    
+
 		    queuedSound->setSource(source);
 		    queuedSound->play();
 		    mActiveSounds.push_back(queuedSound);
@@ -692,7 +692,7 @@ namespace OgreAL {
 
 	  // Starting with no sources.
 	  int numSources = 0;
-	  // So 
+	  // So
 	  while(alGetError() == AL_NO_ERROR && numSources < mMaxNumSources) {
 	    // Clear source handle and generate the source.
 	    source = 0;
@@ -703,7 +703,7 @@ namespace OgreAL {
 	      // Store the source in the list and keep track of count.
 	      mSourcePool.push(source);
 	      numSources++;
-	      
+
 	    }else{
 	      // Failed to generate all required sources. Clear state.
 	      alGetError();
@@ -711,7 +711,7 @@ namespace OgreAL {
 	      break;
 	    }
 	  }
-	  
+
 	  // If we could not generate all necessary sources.
 	  if(numSources != mMaxNumSources) {
 	    // Notify the user that they are limited.
@@ -727,14 +727,14 @@ namespace OgreAL {
 		CheckError(alcGetError(NULL), "Failed to retrieve version info");
 		alcGetIntegerv(NULL, ALC_MINOR_VERSION, sizeof(mMinorVersion), &mMinorVersion);
 		CheckError(alcGetError(NULL), "Failed to retrieve version info");
-		
+
 		Ogre::LogManager::getSingleton().logMessage("OpenAL Version: " +
 			Ogre::StringConverter::toString(mMajorVersion) + "." +
 			Ogre::StringConverter::toString(mMinorVersion));
 
 		/*
 		** OpenAL versions prior to 1.0 DO NOT support device enumeration, so we
-		** need to test the current version and decide if we should try to find 
+		** need to test the current version and decide if we should try to find
 		** an appropriate device or if we should just open the default device.
 		*/
 		bool deviceInList = false;
@@ -777,22 +777,22 @@ namespace OgreAL {
 		// Check for Supported Formats
 		ALenum eBufferFormat = 0;
 		eBufferFormat = alGetEnumValue("AL_FORMAT_MONO16");
-		if(eBufferFormat) mSupportedFormats[MONO_CHANNEL] = 
+		if(eBufferFormat) mSupportedFormats[MONO_CHANNEL] =
 			new FormatData(eBufferFormat, "AL_FORMAT_MONO16", "Monophonic Sound");
 		eBufferFormat = alGetEnumValue("AL_FORMAT_STEREO16");
-		if(eBufferFormat) mSupportedFormats[STEREO_CHANNEL] = 
+		if(eBufferFormat) mSupportedFormats[STEREO_CHANNEL] =
 			new FormatData(eBufferFormat, "AL_FORMAT_STEREO16", "Stereo Sound");
 		eBufferFormat = alGetEnumValue("AL_FORMAT_QUAD16");
-		if(eBufferFormat) mSupportedFormats[QUAD_CHANNEL] = 
+		if(eBufferFormat) mSupportedFormats[QUAD_CHANNEL] =
 			new FormatData(eBufferFormat, "AL_FORMAT_QUAD16", "4 Channel Sound");
 		eBufferFormat = alGetEnumValue("AL_FORMAT_51CHN16");
-		if(eBufferFormat) mSupportedFormats[MULTI_CHANNEL_51] = 
+		if(eBufferFormat) mSupportedFormats[MULTI_CHANNEL_51] =
 			new FormatData(eBufferFormat, "AL_FORMAT_51CHN16", "5.1 Surround Sound");
 		eBufferFormat = alGetEnumValue("AL_FORMAT_61CHN16");
-		if(eBufferFormat) mSupportedFormats[MULTI_CHANNEL_61] = 
+		if(eBufferFormat) mSupportedFormats[MULTI_CHANNEL_61] =
 			new FormatData(eBufferFormat, "AL_FORMAT_61CHN16", "6.1 Surround Sound");
 		eBufferFormat = alGetEnumValue("AL_FORMAT_71CHN16");
-		if(eBufferFormat) mSupportedFormats[MULTI_CHANNEL_71] = 
+		if(eBufferFormat) mSupportedFormats[MULTI_CHANNEL_71] =
 			new FormatData(eBufferFormat, "AL_FORMAT_71CHN16", "7.1 Surround Sound");
 
 		// Log supported formats
@@ -801,7 +801,7 @@ namespace OgreAL {
 		Ogre::LogManager::getSingleton().logMessage("-----------------");
 		while(itr.hasMoreElements())
 		{
-			Ogre::LogManager::getSingleton().logMessage(" * " + 
+			Ogre::LogManager::getSingleton().logMessage(" * " +
 				(itr.peekNextValue()->formatName) + ", " + itr.peekNextValue()->formatDescription);
 			itr.getNext();
 		}
@@ -837,7 +837,7 @@ namespace OgreAL {
 			EAXGetBufferMode getXRamMode = (EAXGetBufferMode)alGetProcAddress("EAXGetBufferMode");
 			mXRamSize = alGetEnumValue("AL_EAX_RAM_SIZE");
 			mXRamFree = alGetEnumValue("AL_EAX_RAM_FREE");
-			
+
 			Ogre::LogManager::getSingleton().logMessage("X-RAM: " + Ogre::StringConverter::toString(mXRamSize) +
 				" (" + Ogre::StringConverter::toString(mXRamFree) + " free)");
 		}
@@ -851,11 +851,11 @@ namespace OgreAL {
 		// Lock Mutex
 		OGREAL_LOCK_AUTO_MUTEX
 
-		// Update the Sound and Listeners if necessary	
+		// Update the Sound and Listeners if necessary
 		  for(SoundMap::iterator i = mSoundMap.begin(); i != mSoundMap.end(); ++i) {
 		    // Perform a sound update.
 		    i->second->updateSound();
-		    
+
 		    // If culling is enabled, perform cull on the sound.
 		    if(mCullDistance > 0.0) {
 		      performSoundCull(i->second);
@@ -910,7 +910,7 @@ namespace OgreAL {
 			}
 
 			if(queuedSound->getPriority() > activeSound->getPriority() ||
-			   queuedSound->getPriority() == activeSound->getPriority() && 
+			   queuedSound->getPriority() == activeSound->getPriority() &&
 			   distQueuedSound < distActiveSound)
 			{
 				// Remove the sounds from their respective lists
@@ -975,14 +975,14 @@ namespace OgreAL {
 
       // Or if the sound is closer than the cull distance to the listener,
       // or the culling has been turned off but the sound is culled, uncull.
-    }else if((soundToListener.length() <= mCullDistance || 
+    }else if((soundToListener.length() <= mCullDistance ||
 	      mCullDistance <= 0.0) &&
 	     soundGainItr != mSoundGainMap.end()) {
       uncullSound(soundGainItr);
     }
   }
 
-  // Callers of this function must guarantee that the sound is valid and not 
+  // Callers of this function must guarantee that the sound is valid and not
   // already culled.
   void SoundManager::cullSound(Sound* sound) {
     // Add to the culling map.

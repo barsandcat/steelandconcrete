@@ -36,7 +36,7 @@
 #include "OgreALException.h"
 #include "OgreALListener.h"
 
-template<> OgreAL::Listener* Ogre::Singleton<OgreAL::Listener>::ms_Singleton = 0;
+template<> OgreAL::Listener* Ogre::Singleton<OgreAL::Listener>::msSingleton = 0;
 
 namespace OgreAL {
 	Listener::Listener() :
@@ -66,18 +66,18 @@ namespace OgreAL {
 		mParentNode = NULL;
 		initListener();
 	}
-	
+
 	Listener::~Listener()
 	{}
 
 	Listener* Listener::getSingletonPtr(void)
 	{
-		return ms_Singleton;
+		return msSingleton;
 	}
 
 	Listener& Listener::getSingleton(void)
-	{  
-		assert(ms_Singleton);  return (*ms_Singleton);  
+	{
+		assert(msSingleton);  return (*msSingleton);
 	}
 
 	void Listener::setGain(Ogre::Real gain)
@@ -87,7 +87,7 @@ namespace OgreAL {
 		alListenerf(AL_GAIN, mGain);
 		CheckError(alGetError(), "Failed to set Gain");
 	}
-	
+
 	void Listener::setPosition(Ogre::Real x, Ogre::Real y, Ogre::Real z)
 	{
 		mPosition.x = x;
@@ -210,7 +210,7 @@ namespace OgreAL {
 		mOrientation[4]= mUp.y; // Up.y
 		mOrientation[5]= mUp.z; // Up.z
 
-		alListenerfv(AL_ORIENTATION, mOrientation); 
+		alListenerfv(AL_ORIENTATION, mOrientation);
 		CheckError(alGetError(), "Failed to set Orientation");
 	}
 
@@ -243,7 +243,7 @@ namespace OgreAL {
 		return FACTORY_TYPE_NAME;
 	}
 
-	Ogre::MovableObject* ListenerFactory::createInstanceImpl(const Ogre::String& name, 
+	Ogre::MovableObject* ListenerFactory::createInstanceImpl(const Ogre::String& name,
 				const Ogre::NameValuePairList* params)
 	{
 		Listener *listener = Listener::getSingletonPtr();
