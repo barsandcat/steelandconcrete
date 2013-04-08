@@ -43,7 +43,7 @@
 			<Add directory="src" />
 			<Add directory="ois-v1-3/includes" />
 			<Add directory="ogre/build/include" />
-			<Add directory="ogre/ogre_1.7.3/OgreMain/include" />
+			<Add directory="ogre/ogre_src_v1-8-1/OgreMain/include" />
 			<Add directory="ogreal/ogreal/include" />
 			<Add directory="SAL" />
 			<Add directory="QuickGUI_10_1/QuickGUI/include" />

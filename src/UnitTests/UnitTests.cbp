@@ -46,7 +46,7 @@
 			<Add directory="../../cxxtest" />
 			<Add directory=".." />
 			<Add directory="../../ogre/build/include" />
-			<Add directory="../../ogre/ogre_1.7.3/OgreMain/include" />
+			<Add directory="../../ogre/ogre_src_v1-8-1/OgreMain/include" />
 			<Add directory="../../protobuf-2.4.1/src" />
 			<Add directory="../../ois-v1-3/includes" />
 			<Add directory="../../ogreal/ogreal_r137/include" />

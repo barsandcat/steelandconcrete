@@ -41,7 +41,7 @@
 			<Add option="-DCEGUI_STATIC" />
 			<Add directory="../../../../cegui/include" />
 			<Add directory="../../../../cegui/include/RendererModules/Ogre/" />
-			<Add directory="../../../../../ogre/ogre_1.7.3/OgreMain/include" />
+			<Add directory="../../../../../ogre/ogre_src_v1-8-1/OgreMain/include" />
 			<Add directory="../../../../../ogre/build/include" />
 		</Compiler>
 		<Unit filename="../../../../cegui/include/RendererModules/Ogre/CEGUIOgreGeometryBuffer.h" />

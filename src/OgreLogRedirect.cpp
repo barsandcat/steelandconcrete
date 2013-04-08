@@ -2,7 +2,7 @@
 #include <OgreLogRedirect.h>
 
 void OgreLogRedirect::messageLogged( const Ogre::String& message, Ogre::LogMessageLevel lml,
-                                            bool maskDebug, const Ogre::String &logName )
+                                            bool maskDebug, const Ogre::String &logName, bool& skipThisMessage)
 {
     switch(lml)
     {
