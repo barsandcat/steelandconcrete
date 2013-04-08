@@ -41,11 +41,9 @@ ClientUnit::ClientUnit(UnitId aUnitId, uint32 aVisual, ClientGridNode* aTile):
 
 ClientUnit::~ClientUnit()
 {
-    ClientGame::EraseUnitId(mUnitId);
     ClientApp::GetSceneMgr().destroyEntity(mEntity);
     ClientApp::GetSceneMgr().destroySceneNode(mPositionNode);
     ClientApp::GetSceneMgr().destroySceneNode(mDirectonNode);
-    mTile->RemoveUnit();
 }
 
 void ClientUnit::UpdateMovementAnimation(FrameTime aFrameTime)
