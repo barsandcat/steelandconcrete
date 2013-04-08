@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="OgrePlugin_OctreeSceneManager 1.7.3"
+	Name="OgrePlugin_OctreeSceneManager 1.8.1"
 	ProjectGUID="{828EF642-BDC1-4FBC-A504-8649728425C4}"
 	RootNamespace="OgrePlugin_OctreeSceneManager 1.7.3"
 	Keyword="Win32Proj"
@@ -55,7 +55,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\PlugIns\OctreeSceneManager\include"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -74,7 +74,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\PlugIns\OctreeSceneManager\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -137,7 +137,7 @@
 				AdditionalOptions=" /Zm1000 /fp:fast"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\PlugIns\OctreeSceneManager\include"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="0"
@@ -154,7 +154,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\PlugIns\OctreeSceneManager\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -187,55 +187,31 @@
 			Name="Source Files"
 			>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreHeightmapTerrainPageSource.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeSceneManager\src\OgreOctree.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctree.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeSceneManager\src\OgreOctreeCamera.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctreeCamera.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeSceneManager\src\OgreOctreeNode.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctreeNode.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeSceneManager\src\OgreOctreePlugin.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctreePlugin.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeSceneManager\src\OgreOctreeSceneManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctreeSceneManager.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeSceneManager\src\OgreOctreeSceneManagerDll.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctreeSceneManagerDll.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreOctreeSceneQuery.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreTerrainPage.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreTerrainPageSource.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreTerrainRenderable.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreTerrainSceneManager.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\src\OgreTerrainVertexProgram.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeSceneManager\src\OgreOctreeSceneQuery.cpp"
 				>
 			</File>
 		</Filter>
@@ -243,55 +219,27 @@
 			Name="Header Files"
 			>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreHeightmapTerrainPageSource.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeSceneManager\include\OgreOctree.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreOctree.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeSceneManager\include\OgreOctreeCamera.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreOctreeCamera.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeSceneManager\include\OgreOctreeNode.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreOctreeNode.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeSceneManager\include\OgreOctreePlugin.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreOctreePlugin.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeSceneManager\include\OgreOctreeSceneManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreOctreeSceneManager.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreOctreeSceneQuery.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreTerrainPage.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreTerrainPageSource.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreTerrainPrerequisites.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreTerrainRenderable.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreTerrainSceneManager.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\OctreeSceneManager\include\OgreTerrainVertexProgram.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\OctreeSceneManager\include\OgreOctreeSceneQuery.h"
 				>
 			</File>
 		</Filter>

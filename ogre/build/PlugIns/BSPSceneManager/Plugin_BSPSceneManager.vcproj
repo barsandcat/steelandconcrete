@@ -54,7 +54,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -73,7 +73,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -136,7 +136,7 @@
 				AdditionalOptions=" /Zm1000 /fp:fast"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -153,7 +153,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -216,7 +216,7 @@
 				AdditionalOptions=" /Zm1000 /fp:fast"
 				Optimization="1"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;MinSizeRel\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -233,7 +233,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;MinSizeRel\&quot;"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -296,7 +296,7 @@
 				AdditionalOptions=" /Zm1000 /fp:fast"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -314,7 +314,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -347,43 +347,43 @@
 			Name="Source Files"
 			>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\src\OgreBspLevel.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\src\OgreBspLevel.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\src\OgreBspNode.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\src\OgreBspNode.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\src\OgreBspResourceManager.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\src\OgreBspResourceManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\src\OgreBspSceneManager.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\src\OgreBspSceneManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\src\OgreBspSceneManagerDll.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\src\OgreBspSceneManagerDll.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\src\OgreBspSceneManagerPlugin.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\src\OgreBspSceneManagerPlugin.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\src\OgreBspSceneNode.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\src\OgreBspSceneNode.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\src\OgreQuake3Level.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\src\OgreQuake3Level.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\src\OgreQuake3Shader.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\src\OgreQuake3Shader.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\src\OgreQuake3ShaderManager.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\src\OgreQuake3ShaderManager.cpp"
 				>
 			</File>
 		</Filter>
@@ -391,47 +391,47 @@
 			Name="Header Files"
 			>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\include\OgreBspLevel.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\include\OgreBspLevel.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\include\OgreBspNode.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\include\OgreBspNode.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\include\OgreBspPrerequisites.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\include\OgreBspPrerequisites.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\include\OgreBspResourceManager.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\include\OgreBspResourceManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\include\OgreBspSceneManager.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\include\OgreBspSceneManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\include\OgreBspSceneManagerPlugin.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\include\OgreBspSceneManagerPlugin.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\include\OgreBspSceneNode.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\include\OgreBspSceneNode.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\include\OgreQuake3Level.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\include\OgreQuake3Level.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\include\OgreQuake3Shader.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\include\OgreQuake3Shader.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\include\OgreQuake3ShaderManager.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\include\OgreQuake3ShaderManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\BSPSceneManager\include\OgreQuake3Types.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\BSPSceneManager\include\OgreQuake3Types.h"
 				>
 			</File>
 		</Filter>

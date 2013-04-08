@@ -54,7 +54,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -73,7 +73,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Debug\&quot;"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -136,7 +136,7 @@
 				AdditionalOptions=" /Zm1000 /fp:fast"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -153,7 +153,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;CMAKE_INTDIR=\&quot;Release\&quot;"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -186,75 +186,75 @@
 			Name="Source Files"
 			>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\src\OgreAreaEmitter.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\src\OgreAreaEmitter.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\src\OgreBoxEmitter.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\src\OgreBoxEmitter.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\src\OgreColourFaderAffector.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\src\OgreColourFaderAffector.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\src\OgreColourFaderAffector2.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\src\OgreColourFaderAffector2.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\src\OgreColourImageAffector.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\src\OgreColourImageAffector.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\src\OgreColourInterpolatorAffector.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\src\OgreColourInterpolatorAffector.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\src\OgreCylinderEmitter.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\src\OgreCylinderEmitter.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\src\OgreDeflectorPlaneAffector.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\src\OgreDeflectorPlaneAffector.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\src\OgreDirectionRandomiserAffector.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\src\OgreDirectionRandomiserAffector.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\src\OgreEllipsoidEmitter.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\src\OgreEllipsoidEmitter.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\src\OgreHollowEllipsoidEmitter.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\src\OgreHollowEllipsoidEmitter.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\src\OgreLinearForceAffector.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\src\OgreLinearForceAffector.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\src\OgreParticleFX.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\src\OgreParticleFX.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\src\OgreParticleFXPlugin.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\src\OgreParticleFXPlugin.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\src\OgrePointEmitter.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\src\OgrePointEmitter.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\src\OgreRingEmitter.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\src\OgreRingEmitter.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\src\OgreRotationAffector.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\src\OgreRotationAffector.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\src\OgreScaleAffector.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\src\OgreScaleAffector.cpp"
 				>
 			</File>
 		</Filter>
@@ -262,135 +262,135 @@
 			Name="Header Files"
 			>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreAreaEmitter.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreAreaEmitter.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreBoxEmitter.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreBoxEmitter.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreBoxEmitterFactory.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreBoxEmitterFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourFaderAffector.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreColourFaderAffector.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourFaderAffector2.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreColourFaderAffector2.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourFaderAffectorFactory.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreColourFaderAffectorFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourFaderAffectorFactory2.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreColourFaderAffectorFactory2.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourImageAffector.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreColourImageAffector.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourImageAffectorFactory.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreColourImageAffectorFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourInterpolatorAffector.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreColourInterpolatorAffector.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreColourInterpolatorAffectorFactory.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreColourInterpolatorAffectorFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreCylinderEmitter.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreCylinderEmitter.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreCylinderEmitterFactory.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreCylinderEmitterFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreDeflectorPlaneAffector.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreDeflectorPlaneAffector.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreDeflectorPlaneAffectorFactory.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreDeflectorPlaneAffectorFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreDirectionRandomiserAffector.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreDirectionRandomiserAffector.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreDirectionRandomiserAffectorFactory.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreDirectionRandomiserAffectorFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreEllipsoidEmitter.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreEllipsoidEmitter.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreEllipsoidEmitterFactory.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreEllipsoidEmitterFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreHollowEllipsoidEmitter.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreHollowEllipsoidEmitter.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreHollowEllipsoidEmitterFactory.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreHollowEllipsoidEmitterFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreLinearForceAffector.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreLinearForceAffector.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreLinearForceAffectorFactory.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreLinearForceAffectorFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreParticleFXPlugin.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreParticleFXPlugin.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreParticleFXPrerequisites.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreParticleFXPrerequisites.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgrePointEmitter.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgrePointEmitter.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgrePointEmitterFactory.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgrePointEmitterFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreRingEmitter.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreRingEmitter.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreRingEmitterFactory.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreRingEmitterFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreRotationAffector.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreRotationAffector.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreRotationAffectorFactory.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreRotationAffectorFactory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreScaleAffector.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreScaleAffector.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\PlugIns\ParticleFX\include\OgreScaleAffectorFactory.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\PlugIns\ParticleFX\include\OgreScaleAffectorFactory.h"
 				>
 			</File>
 		</Filter>

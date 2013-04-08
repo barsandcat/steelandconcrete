@@ -54,7 +54,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\RenderSystems\GLES\src\EGL\WIN32;..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EGL\WIN32;..\..\..\ogre_1.7.3\RenderSystems\GLES\include;..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EGL;..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EAGL;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\EGL\WIN32;..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EGL\WIN32;..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include;..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EGL;..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EAGL;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;CMAKE_INTDIR=\&quot;Debug\&quot;"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -73,7 +73,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;CMAKE_INTDIR=\&quot;Debug\&quot;"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\RenderSystems\GLES\src\EGL\WIN32;..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EGL\WIN32;..\..\..\ogre_1.7.3\RenderSystems\GLES\include;..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EGL;..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EAGL;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\EGL\WIN32;..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EGL\WIN32;..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include;..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EGL;..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EAGL;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -136,7 +136,7 @@
 				AdditionalOptions=" /Zm1000 /fp:fast"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\RenderSystems\GLES\src\EGL\WIN32;..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EGL\WIN32;..\..\..\ogre_1.7.3\RenderSystems\GLES\include;..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EGL;..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EAGL;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\EGL\WIN32;..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EGL\WIN32;..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include;..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EGL;..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EAGL;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\&quot;Release\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -153,7 +153,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\&quot;Release\&quot;"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\RenderSystems\GLES\src\EGL\WIN32;..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EGL\WIN32;..\..\..\ogre_1.7.3\RenderSystems\GLES\include;..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EGL;..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EAGL;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\EGL\WIN32;..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EGL\WIN32;..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include;..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EGL;..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EAGL;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -186,111 +186,111 @@
 			Name="Source Files"
 			>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\EGL\OgreEGLContext.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\EGL\OgreEGLContext.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\EGL\OgreEGLRenderTexture.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\EGL\OgreEGLRenderTexture.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\EGL\OgreEGLSupport.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\EGL\OgreEGLSupport.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\EGL\OgreEGLWindow.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\EGL\OgreEGLWindow.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\OgreGLESContext.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\OgreGLESContext.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\OgreGLESDefaultHardwareBufferManager.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\OgreGLESDefaultHardwareBufferManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\OgreGLESEngineDll.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\OgreGLESEngineDll.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\OgreGLESFBOMultiRenderTarget.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\OgreGLESFBOMultiRenderTarget.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\OgreGLESFBORenderTexture.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\OgreGLESFBORenderTexture.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\OgreGLESFrameBufferObject.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\OgreGLESFrameBufferObject.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\OgreGLESGpuProgramManager.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\OgreGLESGpuProgramManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\OgreGLESHardwareBufferManager.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\OgreGLESHardwareBufferManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\OgreGLESHardwareIndexBuffer.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\OgreGLESHardwareIndexBuffer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\OgreGLESHardwarePixelBuffer.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\OgreGLESHardwarePixelBuffer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\OgreGLESHardwareVertexBuffer.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\OgreGLESHardwareVertexBuffer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\OgreGLESPBRenderTexture.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\OgreGLESPBRenderTexture.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\OgreGLESPixelFormat.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\OgreGLESPixelFormat.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\OgreGLESPlugin.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\OgreGLESPlugin.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\OgreGLESRenderSystem.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\OgreGLESRenderSystem.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\OgreGLESRenderTexture.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\OgreGLESRenderTexture.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\OgreGLESSupport.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\OgreGLESSupport.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\OgreGLESTexture.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\OgreGLESTexture.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\OgreGLESTextureManager.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\OgreGLESTextureManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\EGL\WIN32\OgreWin32EGLContext.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\EGL\WIN32\OgreWin32EGLContext.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\EGL\WIN32\OgreWin32EGLRenderTexture.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\EGL\WIN32\OgreWin32EGLRenderTexture.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\EGL\WIN32\OgreWin32EGLSupport.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\EGL\WIN32\OgreWin32EGLSupport.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\src\EGL\WIN32\OgreWin32EGLWindow.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\src\EGL\WIN32\OgreWin32EGLWindow.cpp"
 				>
 			</File>
 		</Filter>
@@ -298,119 +298,119 @@
 			Name="Header Files"
 			>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EGL\OgreEGLContext.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EGL\OgreEGLContext.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EGL\OgreEGLRenderTexture.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EGL\OgreEGLRenderTexture.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EGL\OgreEGLSupport.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EGL\OgreEGLSupport.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EGL\OgreEGLWindow.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EGL\OgreEGLWindow.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\OgreGLESContext.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\OgreGLESContext.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\OgreGLESDefaultHardwareBufferManager.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\OgreGLESDefaultHardwareBufferManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\OgreGLESFBOMultiRenderTarget.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\OgreGLESFBOMultiRenderTarget.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\OgreGLESFBORenderTexture.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\OgreGLESFBORenderTexture.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\OgreGLESFrameBufferObject.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\OgreGLESFrameBufferObject.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\OgreGLESGpuProgramManager.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\OgreGLESGpuProgramManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\OgreGLESHardwareBufferManager.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\OgreGLESHardwareBufferManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\OgreGLESHardwareIndexBuffer.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\OgreGLESHardwareIndexBuffer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\OgreGLESHardwarePixelBuffer.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\OgreGLESHardwarePixelBuffer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\OgreGLESHardwareVertexBuffer.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\OgreGLESHardwareVertexBuffer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\OgreGLESPBRenderTexture.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\OgreGLESPBRenderTexture.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\OgreGLESPBuffer.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\OgreGLESPBuffer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\OgreGLESPixelFormat.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\OgreGLESPixelFormat.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\OgreGLESPlugin.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\OgreGLESPlugin.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\OgreGLESPrerequisites.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\OgreGLESPrerequisites.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\OgreGLESRenderSystem.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\OgreGLESRenderSystem.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\OgreGLESRenderTexture.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\OgreGLESRenderTexture.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\OgreGLESSupport.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\OgreGLESSupport.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\OgreGLESTexture.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\OgreGLESTexture.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\OgreGLESTextureManager.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\OgreGLESTextureManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EGL\WIN32\OgreGLESUtil.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EGL\WIN32\OgreGLESUtil.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EGL\WIN32\OgreWin32EGLContext.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EGL\WIN32\OgreWin32EGLContext.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EGL\WIN32\OgreWin32EGLRenderTexture.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EGL\WIN32\OgreWin32EGLRenderTexture.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EGL\WIN32\OgreWin32EGLSupport.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EGL\WIN32\OgreWin32EGLSupport.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GLES\include\EGL\WIN32\OgreWin32EGLWindow.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GLES\include\EGL\WIN32\OgreWin32EGLWindow.h"
 				>
 			</File>
 		</Filter>

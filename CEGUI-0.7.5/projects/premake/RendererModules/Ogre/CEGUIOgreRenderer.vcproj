@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../../cegui/include;../../../../cegui/include/RendererModules/Ogre/;&quot;$(SolutionDir)ogre/build/include&quot;;&quot;$(SolutionDir)ogre/ogre_1.7.3/OgreMain/include&quot;"
+				AdditionalIncludeDirectories="../../../../cegui/include;../../../../cegui/include/RendererModules/Ogre/;&quot;$(SolutionDir)ogre/build/include&quot;;&quot;$(SolutionDir)ogre/ogre_src_v1-8-1/OgreMain/include&quot;"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;HAVE_CONFIG_H;OGRE_GUIRENDERER_EXPORTS;_DEBUG;CEGUI_STATIC;TOLUA_STATIC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -57,7 +57,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;HAVE_CONFIG_H;OGRE_GUIRENDERER_EXPORTS;_DEBUG;CEGUI_STATIC;TOLUA_STATIC"
-				AdditionalIncludeDirectories="../../../../cegui/include;../../../../dependencies/include;../../../../cegui/include/RendererModules/Ogre/;../../../../;../../../../../ogre/ogre_1.7.3/OgreMain/include"
+				AdditionalIncludeDirectories="../../../../cegui/include;../../../../dependencies/include;../../../../cegui/include/RendererModules/Ogre/;../../../../;../../../../../ogre/ogre_src_v1-8-1/OgreMain/include"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -108,7 +108,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="../../../../cegui/include;../../../../cegui/include/RendererModules/Ogre/;&quot;$(SolutionDir)ogre/build/include&quot;;&quot;$(SolutionDir)ogre/ogre_1.7.3/OgreMain/include&quot;"
+				AdditionalIncludeDirectories="../../../../cegui/include;../../../../cegui/include/RendererModules/Ogre/;&quot;$(SolutionDir)ogre/build/include&quot;;&quot;$(SolutionDir)ogre/ogre_src_v1-8-1/OgreMain/include&quot;"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;HAVE_CONFIG_H;OGRE_GUIRENDERER_EXPORTS;CEGUI_STATIC;TOLUA_STATIC"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -123,7 +123,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;HAVE_CONFIG_H;OGRE_GUIRENDERER_EXPORTS;CEGUI_STATIC;TOLUA_STATIC"
-				AdditionalIncludeDirectories="../../../../cegui/include;../../../../dependencies/include;../../../../cegui/include/RendererModules/Ogre/;../../../../;../../../../../ogre/ogre_1.7.3/OgreMain/include"
+				AdditionalIncludeDirectories="../../../../cegui/include;../../../../dependencies/include;../../../../cegui/include/RendererModules/Ogre/;../../../../;../../../../../ogre/ogre_src_v1-8-1/OgreMain/include"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"

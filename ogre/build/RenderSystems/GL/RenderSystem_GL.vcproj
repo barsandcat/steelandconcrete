@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="OgreRenderSystem_GL 1.7.3"
+	Name="OgreRenderSystem_GL 1.8.1"
 	ProjectGUID="{5941A752-C5C1-46D3-A340-3674A93C5F18}"
 	RootNamespace="OgreRenderSystem_GL 1.7.3"
 	Keyword="Win32Proj"
@@ -55,7 +55,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\RenderSystems\GL\include;..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\winheaders;..\..\..\ogre_1.7.3\RenderSystems\GL\src\win32;..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\include;..\..\..\ogre_1.7.3\RenderSystems\GL\src\atifs\include;..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include;..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\winheaders;..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\win32;..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\GLSL\include;..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\atifs\include;..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;CMAKE_INTDIR=\&quot;Debug\&quot;"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -74,7 +74,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;CMAKE_INTDIR=\&quot;Debug\&quot;"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\RenderSystems\GL\include;..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\winheaders;..\..\..\ogre_1.7.3\RenderSystems\GL\src\win32;..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\include;..\..\..\ogre_1.7.3\RenderSystems\GL\src\atifs\include;..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include;..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\winheaders;..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\win32;..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\GLSL\include;..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\atifs\include;..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -137,7 +137,7 @@
 				AdditionalOptions=" /Zm1000 /fp:fast"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\RenderSystems\GL\include;..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\winheaders;..\..\..\ogre_1.7.3\RenderSystems\GL\src\win32;..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\include;..\..\..\ogre_1.7.3\RenderSystems\GL\src\atifs\include;..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include;..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\winheaders;..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\win32;..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\GLSL\include;..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\atifs\include;..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\&quot;Release\&quot;"
 				ExceptionHandling="1"
 				RuntimeLibrary="0"
@@ -154,7 +154,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\&quot;Release\&quot;"
-				AdditionalIncludeDirectories="..\..\..\ogre_1.7.3\RenderSystems\GL\include;..\..\..\ogre_1.7.3\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_1.7.3\OgreMain\include\Threading;..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\winheaders;..\..\..\ogre_1.7.3\RenderSystems\GL\src\win32;..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\include;..\..\..\ogre_1.7.3\RenderSystems\GL\src\atifs\include;..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse;"
+				AdditionalIncludeDirectories="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include;..\..\..\ogre_src_v1-8-1\OgreMain\include;..\..\include;..\..\..\Dependencies\include;..\..\..\Dependencies\include\OIS;..\..\..\Dependencies\include\Cg;&quot;C:\Program Files (x86)\Microsoft DirectX SDK (March 2009)\Include&quot;;..\..\..\ogre_src_v1-8-1\OgreMain\include\Threading;..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\winheaders;..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\win32;..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\GLSL\include;..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\atifs\include;..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse;"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -187,115 +187,115 @@
 			Name="Source Files"
 			>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\glew.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\glew.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLATIFSInit.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLATIFSInit.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLContext.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLContext.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLDefaultHardwareBufferManager.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLDefaultHardwareBufferManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLFBOMultiRenderTarget.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLFBOMultiRenderTarget.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLFBORenderTexture.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLFBORenderTexture.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLFrameBufferObject.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLFrameBufferObject.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLGpuNvparseProgram.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLGpuNvparseProgram.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLGpuProgram.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLGpuProgram.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLGpuProgramManager.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLGpuProgramManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLHardwareBufferManager.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLHardwareBufferManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLHardwareIndexBuffer.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLHardwareIndexBuffer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLHardwareOcclusionQuery.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLHardwareOcclusionQuery.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLHardwarePixelBuffer.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLHardwarePixelBuffer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLHardwareVertexBuffer.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLHardwareVertexBuffer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLPBRenderTexture.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLPBRenderTexture.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLPixelFormat.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLPixelFormat.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLPlugin.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLPlugin.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLRenderSystem.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLRenderSystem.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLRenderTexture.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLRenderTexture.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLRenderToVertexBuffer.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLRenderToVertexBuffer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLSupport.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLSupport.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLTexture.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLTexture.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreGLTextureManager.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLTextureManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\win32\OgreWin32Context.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\win32\OgreWin32Context.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreWin32GLSupport.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreWin32GLSupport.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreWin32RenderTexture.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreWin32RenderTexture.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\OgreWin32Window.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreWin32Window.cpp"
 				>
 			</File>
 		</Filter>
@@ -303,127 +303,127 @@
 			Name="Header Files"
 			>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLATIFSInit.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLATIFSInit.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLContext.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLContext.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLDefaultHardwareBufferManager.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLDefaultHardwareBufferManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLFBOMultiRenderTarget.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLFBOMultiRenderTarget.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLFBORenderTexture.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLFBORenderTexture.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLFrameBufferObject.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLFrameBufferObject.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLGpuNvparseProgram.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLGpuNvparseProgram.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLGpuProgram.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLGpuProgram.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLGpuProgramManager.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLGpuProgramManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLHardwareBufferManager.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLHardwareBufferManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLHardwareIndexBuffer.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLHardwareIndexBuffer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLHardwareOcclusionQuery.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLHardwareOcclusionQuery.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLHardwarePixelBuffer.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLHardwarePixelBuffer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLHardwareVertexBuffer.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLHardwareVertexBuffer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLPBRenderTexture.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLPBRenderTexture.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLPBuffer.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLPBuffer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLPixelFormat.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLPixelFormat.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLPlugin.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLPlugin.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLPrerequisites.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLPrerequisites.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLRenderSystem.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLRenderSystem.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLRenderTexture.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLRenderTexture.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLRenderToVertexBuffer.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLRenderToVertexBuffer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLSupport.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLSupport.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLTexture.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLTexture.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreGLTextureManager.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreGLTextureManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\win32\OgreGLUtil.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\win32\OgreGLUtil.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreWin32Context.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreWin32Context.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreWin32GLSupport.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreWin32GLSupport.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreWin32Prerequisites.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreWin32Prerequisites.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreWin32RenderTexture.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreWin32RenderTexture.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\include\OgreWin32Window.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\include\OgreWin32Window.h"
 				>
 			</File>
 		</Filter>
@@ -431,159 +431,159 @@
 			Name="NVparse"
 			>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\_ps1.0_lexer.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\_ps1.0_lexer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\_ps1.0_parser.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\_ps1.0_parser.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\_ps1.0_parser.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\_ps1.0_parser.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\_rc1.0_lexer.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\_rc1.0_lexer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\_rc1.0_parser.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\_rc1.0_parser.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\_rc1.0_parser.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\_rc1.0_parser.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\_ts1.0_lexer.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\_ts1.0_lexer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\_ts1.0_parser.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\_ts1.0_parser.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\_ts1.0_parser.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\_ts1.0_parser.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\_vs1.0_lexer.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\_vs1.0_lexer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\_vs1.0_parser.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\_vs1.0_parser.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\_vs1.0_parser.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\_vs1.0_parser.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\avp1.0_impl.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\avp1.0_impl.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\macro.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\macro.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\nvparse.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\nvparse.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\nvparse.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\nvparse.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\nvparse_errors.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\nvparse_errors.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\nvparse_errors.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\nvparse_errors.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\nvparse_externs.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\nvparse_externs.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\ps1.0_program.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\ps1.0_program.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\ps1.0_program.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\ps1.0_program.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\rc1.0_combiners.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\rc1.0_combiners.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\rc1.0_combiners.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\rc1.0_combiners.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\rc1.0_final.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\rc1.0_final.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\rc1.0_final.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\rc1.0_final.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\rc1.0_general.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\rc1.0_general.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\rc1.0_general.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\rc1.0_general.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\rc1.0_register.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\rc1.0_register.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\ts1.0_inst.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\ts1.0_inst.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\ts1.0_inst.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\ts1.0_inst.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\ts1.0_inst_list.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\ts1.0_inst_list.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\ts1.0_inst_list.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\ts1.0_inst_list.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\vcp1.0_impl.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\vcp1.0_impl.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\vp1.0_impl.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\vp1.0_impl.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\vs1.0_inst.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\vs1.0_inst.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\vs1.0_inst.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\vs1.0_inst.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\vs1.0_inst_list.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\vs1.0_inst_list.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\vs1.0_inst_list.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\vs1.0_inst_list.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\nvparse\vsp1.0_impl.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\nvparse\vsp1.0_impl.cpp"
 				>
 			</File>
 		</Filter>
@@ -591,27 +591,27 @@
 			Name="ATIFS"
 			>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\atifs\src\ATI_FS_GLGpuProgram.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\atifs\src\ATI_FS_GLGpuProgram.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\atifs\include\ATI_FS_GLGpuProgram.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\atifs\include\ATI_FS_GLGpuProgram.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\atifs\src\Compiler2Pass.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\atifs\src\Compiler2Pass.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\atifs\include\Compiler2Pass.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\atifs\include\Compiler2Pass.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\atifs\src\ps_1_4.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\atifs\src\ps_1_4.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\atifs\include\ps_1_4.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\atifs\include\ps_1_4.h"
 				>
 			</File>
 		</Filter>
@@ -619,62 +619,66 @@
 			Name="GLSL"
 			>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\src\OgreGLSLExtSupport.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\GLSL\src\OgreGLSLExtSupport.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\include\OgreGLSLExtSupport.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\GLSL\include\OgreGLSLExtSupport.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\src\OgreGLSLGpuProgram.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\GLSL\src\OgreGLSLGpuProgram.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\include\OgreGLSLGpuProgram.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\GLSL\include\OgreGLSLGpuProgram.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\src\OgreGLSLLinkProgram.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\GLSL\src\OgreGLSLLinkProgram.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\include\OgreGLSLLinkProgram.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\GLSL\include\OgreGLSLLinkProgram.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\src\OgreGLSLLinkProgramManager.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\GLSL\src\OgreGLSLLinkProgramManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\include\OgreGLSLLinkProgramManager.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\GLSL\include\OgreGLSLLinkProgramManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\src\OgreGLSLPreprocessor.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\GLSL\src\OgreGLSLPreprocessor.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\include\OgreGLSLPreprocessor.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\GLSL\include\OgreGLSLPreprocessor.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\src\OgreGLSLProgram.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\GLSL\src\OgreGLSLProgram.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\include\OgreGLSLProgram.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\GLSL\include\OgreGLSLProgram.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\src\OgreGLSLProgramFactory.cpp"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\GLSL\src\OgreGLSLProgramFactory.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\ogre_1.7.3\RenderSystems\GL\src\GLSL\include\OgreGLSLProgramFactory.h"
+				RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\GLSL\include\OgreGLSLProgramFactory.h"
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath="..\..\..\ogre_src_v1-8-1\RenderSystems\GL\src\OgreGLDepthBuffer.cpp"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
