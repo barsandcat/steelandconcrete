@@ -13,11 +13,6 @@
 
 ClientGame::ClientUnits ClientGame::mUnits;
 
-void ClientGame::EraseUnitId(UnitId aUnitId)
-{
-    mUnits.erase(aUnitId);
-}
-
 ClientGame::ClientGame(ServerProxyPtr aServerProxy, TileId aLandingTileId, int32 aGridSize):
     mTileUnderCursor(NULL),
     mTime(0),
@@ -61,13 +56,17 @@ ClientGame::~ClientGame()
 {
     std::map< UnitId, ClientUnit* >::iterator i = mUnits.begin();
     for (; i != mUnits.end(); ++i)
+		{
         delete i->second;
+		}
     mUnits.clear();
-    for (size_t i = 0; i < mTiles.size(); ++i)
-    {
-        delete mTiles[i];
-        mTiles[i] = NULL;
+
+		GeodesicGrid<ClientGridNode>::Tiles::iterator j = mTiles.begin();
+    for (; j != mTiles.end(); ++j)
+		{
+        delete *j;
     }
+		mTiles.clear();
 
     mSelectionMarker->removeAndDestroyAllChildren();
     mTargetMarker->removeAndDestroyAllChildren();
@@ -232,6 +231,18 @@ ClientUnit* ClientGame::GetUnit(UnitId aUnitId)
     return NULL;
 }
 
+void ClientGame::DeleteUnit(UnitId aUnitId)
+{
+	ClientUnits::iterator i = mUnits.find(aUnitId);
+	if(mUnits.end() != i)
+	{
+		ClientUnit* unit = i->second;
+		unit->GetUnitTile().RemoveUnit();
+		delete unit;
+		mUnits.erase(i);
+	}
+}
+
 void ClientGame::LoadEvents(ConstPayloadPtr aPayloadMsg)
 {
     for (int i = 0; i < aPayloadMsg->changes_size(); ++i)
@@ -258,7 +269,7 @@ void ClientGame::LoadEvents(ConstPayloadPtr aPayloadMsg)
         if (change.has_unitleave())
         {
             const UnitLeaveMsg& leave = change.unitleave();
-            delete GetUnit(leave.unitid());
+            DeleteUnit(leave.unitid());
         }
 
         if (change.has_commanddone())
@@ -269,7 +280,7 @@ void ClientGame::LoadEvents(ConstPayloadPtr aPayloadMsg)
         if (change.has_remove())
         {
             const RemoveMsg& command = change.remove();
-            delete GetUnit(command.unitid());
+            DeleteUnit(command.unitid());
         }
 
         if (change.has_showtile())
@@ -284,7 +295,10 @@ void ClientGame::LoadEvents(ConstPayloadPtr aPayloadMsg)
             TileId tileId = change.hidetile().tileid();
             ClientGridNode* node = mTiles.at(tileId);
             node->DestroyTile();
-            delete node->GetUnit();
+						if (node->GetUnit())
+						{
+							DeleteUnit(node->GetUnit()->GetUnitId());
+						}            
         }
     }
 }

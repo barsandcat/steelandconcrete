@@ -28,7 +28,7 @@ public:
     void keyReleased(const OIS::KeyEvent& arg);
 
     static ClientUnit* GetUnit(UnitId aUnitId);
-    static void EraseUnitId(UnitId aUnitId);
+		static void DeleteUnit(UnitId aUnitId);
 private:
     bool OnExit(const CEGUI::EventArgs& args);
     bool OnEscape(const CEGUI::EventArgs& args);

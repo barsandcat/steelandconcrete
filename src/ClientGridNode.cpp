@@ -30,7 +30,6 @@ void ClientGridNode::DestroyTile()
 
 ClientGridNode::~ClientGridNode()
 {
-    delete mUnit;
     delete mTile;
 }
 
