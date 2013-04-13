@@ -243,6 +243,12 @@ void ClientGame::DeleteUnit(UnitId aUnitId)
 	}
 }
 
+void ClientGame::CreateUnit(UnitId aUnitId, uint32 aVisualCode, TileId aTile)
+{
+    ClientUnit* unit = new ClientUnit(aUnitId, aVisualCode, mTiles.at(aTile));
+    mUnits.insert(std::make_pair(aUnitId, unit));
+}
+
 void ClientGame::LoadEvents(ConstPayloadPtr aPayloadMsg)
 {
     for (int i = 0; i < aPayloadMsg->changes_size(); ++i)
@@ -256,8 +262,7 @@ void ClientGame::LoadEvents(ConstPayloadPtr aPayloadMsg)
             {
                 if (move.has_visualcode())
                 {
-                    ClientUnit* unit = new ClientUnit(move.unitid(), move.visualcode(), mTiles.at(move.to()));
-                    mUnits.insert(std::make_pair(move.unitid(), unit));
+                    CreateUnit(move.unitid(), move.visualcode(), move.to());
                 }
             }
             else
@@ -295,10 +300,10 @@ void ClientGame::LoadEvents(ConstPayloadPtr aPayloadMsg)
             TileId tileId = change.hidetile().tileid();
             ClientGridNode* node = mTiles.at(tileId);
             node->DestroyTile();
-						if (node->GetUnit())
-						{
-							DeleteUnit(node->GetUnit()->GetUnitId());
-						}            
+            if (node->GetUnit())
+            {
+                DeleteUnit(node->GetUnit()->GetUnitId());
+            }
         }
     }
 }

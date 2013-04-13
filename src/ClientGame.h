@@ -28,8 +28,10 @@ public:
     void keyReleased(const OIS::KeyEvent& arg);
 
     static ClientUnit* GetUnit(UnitId aUnitId);
-		static void DeleteUnit(UnitId aUnitId);
 private:
+    void DeleteUnit(UnitId aUnitId);
+    void CreateUnit(UnitId aUnitId, uint32 aVisualCode, TileId aTile);
+
     bool OnExit(const CEGUI::EventArgs& args);
     bool OnEscape(const CEGUI::EventArgs& args);
     void OnAct();
