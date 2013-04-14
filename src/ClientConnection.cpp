@@ -48,8 +48,7 @@ void ClientConnection(ServerGame& aGame, SSLStreamPtr aSSLStream)
             return;
         }
 
-        ServerUnit* avatarUnit = UnitList::GetUnit(user->GetUnitId());
-        res.set_landing_tile(avatarUnit->GetUnitTile().GetTileId());
+        res.set_avatar(user->GetUnitId());
         res.set_size(aGame.GetSize());
         network.WriteMessage(res);
         LOG(INFO) << "Response " << res.ShortDebugString();

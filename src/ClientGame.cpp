@@ -13,18 +13,16 @@
 
 ClientGame::ClientUnits ClientGame::mUnits;
 
-ClientGame::ClientGame(ServerProxyPtr aServerProxy, TileId aLandingTileId, int32 aGridSize):
+ClientGame::ClientGame(ServerProxyPtr aServerProxy, UnitId aAvatar, int32 aGridSize):
     mTileUnderCursor(NULL),
     mTime(0),
     mSyncTimer(1000),
     mServerUpdateLength(1000),
     mServerProxy(aServerProxy),
-    mLifeTime(0)
+    mLifeTime(0),
+    mAvatar(aAvatar)
 {
     ClientGeodesicGrid grid(mTiles, aGridSize);
-
-    Ogre::Vector3 avatarPosition = mTiles.at(aLandingTileId)->GetPosition();
-    mBirdCamera = new BirdCamera(avatarPosition, avatarPosition.length(), avatarPosition.length() + 200.0f);
 
     // Create a light
     Ogre::Light* myLight = ClientApp::GetSceneMgr().createLight("Light0");
@@ -34,9 +32,8 @@ ClientGame::ClientGame(ServerProxyPtr aServerProxy, TileId aLandingTileId, int32
     myLight->setDiffuseColour(1, 1, 1);
     myLight->setSpecularColour(1, 1, 1);
 
-    mTileUnderCursor = mTiles.at(aLandingTileId);
+    mTileUnderCursor = mTiles.at(0);
     mSelectionMarker = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
-    mSelectionMarker->setScale(Ogre::Vector3(0.1));
     mSelectionMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Marker", Ogre::SceneManager::PT_SPHERE));
 
     mTargetMarker = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
@@ -56,29 +53,23 @@ ClientGame::~ClientGame()
 {
     std::map< UnitId, ClientUnit* >::iterator i = mUnits.begin();
     for (; i != mUnits.end(); ++i)
-		{
+    {
         delete i->second;
-		}
+    }
     mUnits.clear();
 
-		GeodesicGrid<ClientGridNode>::Tiles::iterator j = mTiles.begin();
+    GeodesicGrid<ClientGridNode>::Tiles::iterator j = mTiles.begin();
     for (; j != mTiles.end(); ++j)
-		{
+    {
         delete *j;
     }
-		mTiles.clear();
-
-    mSelectionMarker->removeAndDestroyAllChildren();
-    mTargetMarker->removeAndDestroyAllChildren();
-    ClientApp::GetSceneMgr().destroyLight("Light0");
-    ClientApp::GetSceneMgr().destroyEntity("Marker");
-    ClientApp::GetSceneMgr().destroyEntity("Target");
-
-    delete mBirdCamera;
+    mTiles.clear();
 
     Hide("InGameMenu");
     Hide("StatusPanel");
     Show("Main/Menu");
+
+    ClientApp::GetSceneMgr().clearScene();
 }
 
 void ClientGame::UpdateTileUnderCursor(Ogre::Ray aRay)
@@ -106,20 +97,10 @@ void ClientGame::UpdateTileUnderCursor(Ogre::Ray aRay)
 
 void ClientGame::mouseMoved(const OIS::MouseEvent& arg)
 {
-    if (arg.state.X.abs >= arg.state.width && arg.state.X.rel > 0 ||
-            arg.state.X.abs <= 0 && arg.state.X.rel < 0)
-    {
-        mBirdCamera->SetHorizontalSpeed(arg.state.X.rel);
-    }
-
-    if (arg.state.Y.abs >= arg.state.height && arg.state.Y.rel > 0 ||
-            arg.state.Y.abs <= 0 && arg.state.Y.rel < 0 )
-    {
-        mBirdCamera->SetVerticalSpeed(arg.state.Y.rel);
-    }
 
 
 }
+
 void ClientGame::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
 {
     switch (id)
@@ -152,18 +133,16 @@ void ClientGame::keyPressed(const OIS::KeyEvent& arg)
         break;
     case OIS::KC_SUBTRACT:
     case OIS::KC_MINUS:
-        mBirdCamera->ZoomOut();
         break;
     case OIS::KC_ADD:
     case OIS::KC_EQUALS:
-        mBirdCamera->ZoomIn();
         break;
     case OIS::KC_ESCAPE:
-        {
-            CEGUI::EventArgs args;
-            OnEscape(args);
-        }
-        break;
+    {
+        CEGUI::EventArgs args;
+        OnEscape(args);
+    }
+    break;
     default:
         ;
     }
@@ -182,11 +161,9 @@ void ClientGame::keyReleased(const OIS::KeyEvent& arg)
         break;
     case OIS::KC_SUBTRACT:
     case OIS::KC_MINUS:
-        mBirdCamera->ZoomIn();
         break;
     case OIS::KC_ADD:
     case OIS::KC_EQUALS:
-        mBirdCamera->ZoomOut();
         break;
     default:
         ;
@@ -233,14 +210,14 @@ ClientUnit* ClientGame::GetUnit(UnitId aUnitId)
 
 void ClientGame::DeleteUnit(UnitId aUnitId)
 {
-	ClientUnits::iterator i = mUnits.find(aUnitId);
-	if(mUnits.end() != i)
-	{
-		ClientUnit* unit = i->second;
-		unit->GetUnitTile().RemoveUnit();
-		delete unit;
-		mUnits.erase(i);
-	}
+    ClientUnits::iterator i = mUnits.find(aUnitId);
+    if(mUnits.end() != i)
+    {
+        ClientUnit* unit = i->second;
+        unit->GetUnitTile().RemoveUnit();
+        delete unit;
+        mUnits.erase(i);
+    }
 }
 
 void ClientGame::CreateUnit(UnitId aUnitId, uint32 aVisualCode, TileId aTile)
@@ -311,7 +288,6 @@ void ClientGame::LoadEvents(ConstPayloadPtr aPayloadMsg)
 void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats)
 {
     mLifeTime += aFrameTime;
-    mBirdCamera->UpdatePosition(aFrameTime);
 
     GetWindow("StatusPanel/FPS")->setText(Ogre::StringConverter::toString(static_cast<long>(aStats.avgFPS)));
     GetWindow("StatusPanel/Time")->setText(Ogre::StringConverter::toString(static_cast<long>(mTime)));

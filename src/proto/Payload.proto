@@ -4,7 +4,7 @@ import "ChangeList.proto";
 message PayloadMsg
 {
     optional uint32 protocolVersion = 1;
-    optional uint32 landing_tile = 2;
+    optional uint32 avatar = 2;
     optional int32 size = 3;
     optional uint64 time = 4;
     optional int32 update_length = 5;

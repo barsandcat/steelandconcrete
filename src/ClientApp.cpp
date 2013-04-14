@@ -258,12 +258,9 @@ ClientApp::ClientApp(int argc, char **argv):
 
 ClientApp::~ClientApp()
 {
-    // Зачистка системных библиотек.
-    // ТОЛЬКО ДЛЯ ТОГО ЧТО БЫЛО ИНИЦИАЛИЗОРВАНО В КОНСТРУКТОЕ
-    // все остальное должно быть уже почищено!
     LOG(INFO) << "App destructor";
 
-    mSceneMgr->clearScene();
+    delete mGame;
 
     CEGUI::OgreRenderer::destroySystem();
 
@@ -382,14 +379,14 @@ void ClientApp::OnAppHanshake(ServerProxyPtr aServerProxy, ConstPayloadPtr aRes)
 {
     try
     {
-        if (!aRes->has_landing_tile() || !aRes->has_size())
+        if (!aRes->has_avatar() || !aRes->has_size())
         {
             throw std::runtime_error(aRes->reason());
         }
 
         LOG(INFO) << "App handshake done. World size: " << aRes->size();
 
-        mGame = new ClientGame(aServerProxy, aRes->landing_tile(), aRes->size());
+        mGame = new ClientGame(aServerProxy, aRes->avatar(), aRes->size());
     }
     catch (std::exception& e)
     {
