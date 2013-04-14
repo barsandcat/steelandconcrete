@@ -43,7 +43,6 @@
 				<Compiler>
 					<Add option="-O3" />
 					<Add option="-DNDEBUG" />
-					<Add option="-DMOUSE_GRAB" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
