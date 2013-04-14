@@ -28,7 +28,7 @@ public:
 
     static Ogre::SceneManager& GetSceneMgr();
     static OgreAL::SoundManager& GetSoundMgr();
-    static Ogre::Camera* GetCamera();
+    static Ogre::Camera& GetCamera();
 public:
     // OIS callbacks
     virtual bool buttonPressed(const OIS::JoyStickEvent &arg, int button)

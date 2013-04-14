@@ -34,6 +34,7 @@ ClientGame::ClientGame(ServerProxyPtr aServerProxy, UnitId aAvatar, int32 aGridS
 
     mTileUnderCursor = mTiles.at(0);
     mSelectionMarker = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
+    mSelectionMarker->setScale(Ogre::Vector3(0.1));
     mSelectionMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Marker", Ogre::SceneManager::PT_SPHERE));
 
     mTargetMarker = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
@@ -288,6 +289,14 @@ void ClientGame::LoadEvents(ConstPayloadPtr aPayloadMsg)
 void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats)
 {
     mLifeTime += aFrameTime;
+
+    ClientUnit* avatar = GetUnit(mAvatar);
+    if (avatar)
+    {
+        Ogre::Vector3 pos = avatar->GetUnitTile().GetPosition();
+        ClientApp::GetCamera().setPosition(pos * 1.5f);
+        ClientApp::GetCamera().lookAt(pos);
+    }
 
     GetWindow("StatusPanel/FPS")->setText(Ogre::StringConverter::toString(static_cast<long>(aStats.avgFPS)));
     GetWindow("StatusPanel/Time")->setText(Ogre::StringConverter::toString(static_cast<long>(mTime)));
