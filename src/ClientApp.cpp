@@ -53,11 +53,11 @@ OgreAL::SoundManager& ClientApp::GetSoundMgr()
     return *ClientApp::mSoundManager;
 }
 
-Ogre::Camera* ClientApp::GetCamera()
+Ogre::Camera& ClientApp::GetCamera()
 {
     assert(mCamera && "ClientApp::GetCamera() \
         нельзя вызывать в конструкторе и деструкторе ClientApp!");
-    return mCamera;
+    return *mCamera;
 }
 
 Ogre::SceneManager* ClientApp::mSceneMgr = NULL;
@@ -214,11 +214,7 @@ ClientApp::ClientApp(int argc, char **argv):
         pl.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_NONEXCLUSIVE")));
         pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_FOREGROUND")));
         pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_NONEXCLUSIVE")));
-#ifdef MOUSE_GRAB
-        pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("true")));
-#else
         pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
-#endif
         pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("true")));
         pl.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
         pl.insert(std::make_pair(std::string("XAutoRepeatOn"), std::string("true")));

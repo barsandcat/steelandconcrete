@@ -14,7 +14,7 @@ BirdCamera::BirdCamera(Ogre::Vector3 aInitPos, Ogre::Real aMinDist, Ogre::Real a
     mCameraHolder->lookAt(aInitPos, Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_Z);
     mCameraNode = mCameraHolder->createChildSceneNode("Camera.node");
     mCameraNode->setPosition(Ogre::Vector3(0, 0, aMaxDist));
-    mCameraNode->attachObject(ClientApp::GetCamera());
+//    mCameraNode->attachObject(ClientApp::GetCamera());
     mCameraNode->attachObject(ClientApp::GetSoundMgr().getListener());
 }
 
