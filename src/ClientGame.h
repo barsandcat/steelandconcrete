@@ -16,7 +16,7 @@ class ClientGame
 {
 public:
     typedef std::map< UnitId, ClientUnit* > ClientUnits;
-    ClientGame(ServerProxyPtr aServerProxy, TileId aLandingTileId, int32 aGridSize);
+    ClientGame(ServerProxyPtr aServerProxy, UnitId aAvatar, int32 aGridSize);
     virtual ~ClientGame(); // Для QuicGUI
     void UpdateTileUnderCursor(Ogre::Ray aRay);
     void Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats);
@@ -40,7 +40,7 @@ private:
     void LoadEvents(ConstPayloadPtr aPayloadMsg);
 private:
     static ClientUnits mUnits;
-    BirdCamera* mBirdCamera;
+    const UnitId mAvatar;
     ClientGeodesicGrid::Tiles mTiles;
     ClientGridNode* mTileUnderCursor;
     Ogre::SceneNode* mSelectionMarker;

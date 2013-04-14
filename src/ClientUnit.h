@@ -16,6 +16,7 @@ public:
     void SetTile(ClientGridNode* aTile);
     ClientGridNode& GetUnitTile() const { return *mTile; }
 	UnitId GetUnitId() const { return mUnitId; }
+	Ogre::SceneNode& GetDirectionNode() const { return *mDirectonNode; }
 private:
     MovementAnimationPtr mMoveAnim;
     Ogre::AnimationState* mAnimState;
