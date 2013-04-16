@@ -88,3 +88,8 @@ void ClientUnit::SetTile(ClientGridNode* aTile)
     aTile->SetUnit(this);
     mTile = aTile;
 }
+
+Ogre::Vector3 ClientUnit::GetPosition() const
+{
+    return mPositionNode->convertLocalToWorldPosition(mDirectonNode->getPosition());
+}
