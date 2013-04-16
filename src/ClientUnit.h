@@ -17,6 +17,7 @@ public:
     ClientGridNode& GetUnitTile() const { return *mTile; }
 	UnitId GetUnitId() const { return mUnitId; }
 	Ogre::SceneNode& GetDirectionNode() const { return *mDirectonNode; }
+    Ogre::SceneNode& GetPositionNode() const { return *mPositionNode; }
 private:
     MovementAnimationPtr mMoveAnim;
     Ogre::AnimationState* mAnimState;
