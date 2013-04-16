@@ -41,9 +41,6 @@ ClientGame::ClientGame(ServerProxyPtr aServerProxy, UnitId aAvatar, int32 aGridS
     mTargetMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Target", "TargetMarker.mesh"));
     mTargetMarker->setVisible(false);
 
-    mCameraHandle = ClientApp::GetSceneMgr().createSceneNode();
-    mCameraHandle->attachObject(&ClientApp::GetCamera());
-
     GetWindow("StatusPanel/User")->setText(GetWindow("ServerBrowser/Login")->getText());
     GetWindow("StatusPanel/Server")->setText(GetWindow("ServerBrowser/Address")->getText());
 
@@ -294,15 +291,11 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
     mLifeTime += aFrameTime;
 
     ClientUnit* avatar = GetUnit(mAvatar);
-    if (avatar && !mCameraHandle->getParent())
+    if (avatar)
     {
-        LOG(INFO) << "Attach camera";
-        Ogre::Vector3 pos = avatar->GetUnitTile().GetPosition();
-        avatar->GetDirectionNode().addChild(mCameraHandle);
-        mCameraHandle->setPosition(Ogre::Vector3(0, 0, 150));
-        //mCameraHandle->setDirection()
-        //ClientApp::GetCamera().setPosition(pos * 1.2f);
-        //ClientApp::GetCamera().lookAt(pos);
+        Ogre::Vector3 pos = avatar->GetPosition();
+        ClientApp::GetCamera().setPosition(pos * 1.3f);
+        ClientApp::GetCamera().lookAt(pos);
     }
 
     GetWindow("StatusPanel/FPS")->setText(Ogre::StringConverter::toString(static_cast<long>(aStats.avgFPS)));
