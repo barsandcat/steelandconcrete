@@ -70,7 +70,7 @@ int main(int argc, char **argv)
 
         PayloadMsg res;
         net->ReadMessage(res);
-        if(res.has_landing_tile() && res.has_size())
+        if(res.has_avatar() && res.has_size())
         {
             int64 mTime = 0;
 
