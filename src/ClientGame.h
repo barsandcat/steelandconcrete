@@ -50,6 +50,7 @@ private:
     int32 mServerUpdateLength;
     ServerProxyPtr mServerProxy;
     unsigned long mLifeTime;
+    bool mFreeCamera;
 };
 
 #endif // CLIENTGAME_H

@@ -60,14 +60,21 @@ Ogre::Camera& ClientApp::GetCamera()
     return *mCamera;
 }
 
+OIS::Keyboard& ClientApp::GetKeyboard()
+{
+    assert(mKeyboard && "ClientApp::GetKeyboard() \
+        нельзя вызывать в конструкторе и деструкторе ClientApp!");
+    return *mKeyboard;
+}
+
 Ogre::SceneManager* ClientApp::mSceneMgr = NULL;
 OgreAL::SoundManager* ClientApp::mSoundManager = NULL;
 Ogre::Camera* ClientApp::mCamera = NULL;
+OIS::Keyboard* ClientApp::mKeyboard = NULL;
 
 ClientApp::ClientApp(int argc, char **argv):
     mCEGUIRenderer(NULL),
     mMouse(NULL),
-    mKeyboard(NULL),
     mGame(NULL),
     mSSLCtx(boost::asio::ssl::context::tlsv1_client)
 {
@@ -613,7 +620,7 @@ void ClientApp::windowClosed(Ogre::RenderWindow* rw)
     boost::throw_exception(std::runtime_error("Window closed"));
 }
 
-float FrameTimeToSeconds(unsigned long aFrimeTime)
+Ogre::Real FrameTimeToSeconds(unsigned long aFrimeTime)
 {
     return aFrimeTime / 1000000.0f;
 }
