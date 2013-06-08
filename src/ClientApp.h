@@ -29,6 +29,7 @@ public:
     static Ogre::SceneManager& GetSceneMgr();
     static OgreAL::SoundManager& GetSoundMgr();
     static Ogre::Camera& GetCamera();
+    static OIS::Keyboard& GetKeyboard();
 public:
     // OIS callbacks
     virtual bool buttonPressed(const OIS::JoyStickEvent &arg, int button)
@@ -69,6 +70,7 @@ private:
     static Ogre::SceneManager* mSceneMgr;
     static OgreAL::SoundManager* mSoundManager;
     static Ogre::Camera* mCamera;
+    static OIS::Keyboard* mKeyboard;
     static char RU[];
     static char EN[];
     static char UK[];
@@ -85,7 +87,7 @@ private:
     //OIS Input devices
     OIS::InputManager* mInputManager;
     OIS::Mouse* mMouse;
-    OIS::Keyboard* mKeyboard;
+
 
     ClientGame* mGame;
     boost::asio::io_service mIOService;

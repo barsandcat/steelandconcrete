@@ -20,7 +20,8 @@ ClientGame::ClientGame(ServerProxyPtr aServerProxy, UnitId aAvatar, int32 aGridS
     mServerUpdateLength(1000),
     mServerProxy(aServerProxy),
     mLifeTime(0),
-    mAvatar(aAvatar)
+    mAvatar(aAvatar),
+    mFreeCamera(false)
 {
     ClientGeodesicGrid grid(mTiles, aGridSize);
 
@@ -142,8 +143,15 @@ void ClientGame::keyPressed(const OIS::KeyEvent& arg)
     {
         CEGUI::EventArgs args;
         OnEscape(args);
+        break;
     }
-    break;
+    case OIS::KC_F3:
+    {
+        mFreeCamera = !mFreeCamera;
+        ClientApp::GetCamera().setFixedYawAxis(mFreeCamera, ClientApp::GetCamera().getPosition().normalisedCopy());
+        break;
+    }
+
     default:
         ;
     }
@@ -289,13 +297,54 @@ void ClientGame::LoadEvents(ConstPayloadPtr aPayloadMsg)
 void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats)
 {
     mLifeTime += aFrameTime;
+    Ogre::Real frameSeconds = FrameTimeToSeconds(aFrameTime);
 
     ClientUnit* avatar = GetUnit(mAvatar);
-    if (avatar)
+    if (mFreeCamera)
     {
-        Ogre::Vector3 pos = avatar->GetPosition();
-        ClientApp::GetCamera().setPosition(pos * 1.3f);
-        ClientApp::GetCamera().lookAt(pos);
+        const Ogre::Radian rotationSpeed(frameSeconds * 1.0f);
+        const Ogre::Real movementSpeed(frameSeconds * 100.0f);
+        if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_UP))
+        {
+            ClientApp::GetCamera().pitch(rotationSpeed);
+        }
+        if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_DOWN))
+        {
+            ClientApp::GetCamera().pitch(-rotationSpeed);
+        }
+        if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_RIGHT))
+        {
+            ClientApp::GetCamera().yaw(-rotationSpeed);
+        }
+        if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_LEFT))
+        {
+            ClientApp::GetCamera().yaw(rotationSpeed);
+        }
+        if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_W))
+        {
+            ClientApp::GetCamera().moveRelative(Ogre::Vector3::NEGATIVE_UNIT_Z * movementSpeed);
+        }
+        if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_S))
+        {
+            ClientApp::GetCamera().moveRelative(Ogre::Vector3::UNIT_Z * movementSpeed);
+        }
+        if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_D))
+        {
+            ClientApp::GetCamera().roll(-rotationSpeed);
+        }
+        if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_A))
+        {
+            ClientApp::GetCamera().roll(rotationSpeed);
+        }
+    }
+    else
+    {
+        if (avatar)
+        {
+            Ogre::Vector3 pos = avatar->GetPosition();
+            ClientApp::GetCamera().setPosition(pos * 1.3f);
+            ClientApp::GetCamera().lookAt(pos);
+        }
     }
 
     GetWindow("StatusPanel/FPS")->setText(Ogre::StringConverter::toString(static_cast<long>(aStats.avgFPS)));
