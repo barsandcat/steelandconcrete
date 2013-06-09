@@ -108,9 +108,9 @@ void ClientGame::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
     switch (id)
     {
     case OIS::MB_Left:
+        OnAct();
         break;
     case OIS::MB_Right:
-        OnAct();
         break;
     default:
         ;
