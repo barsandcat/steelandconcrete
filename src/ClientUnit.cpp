@@ -82,6 +82,7 @@ void ClientUnit::SetTile(ClientGridNode* aTile)
     }
 
     const Ogre::Vector3 dir = destin - origin;
+    mDirectonNode->setFixedYawAxis(true, origin);
     mDirectonNode->setDirection(dir, Ogre::Node::TS_WORLD, Ogre::Vector3::NEGATIVE_UNIT_Y);
 
     mTile->RemoveUnit();
