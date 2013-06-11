@@ -462,6 +462,7 @@
 		<Unit filename="../../ogre_src_v1-8-1/OgreMain/src/OgreSkeletonInstance.cpp" />
 		<Unit filename="../../ogre_src_v1-8-1/OgreMain/src/OgreSkeletonManager.cpp" />
 		<Unit filename="../../ogre_src_v1-8-1/OgreMain/src/OgreSkeletonSerializer.cpp" />
+		<Unit filename="../../ogre_src_v1-8-1/OgreMain/src/OgreSmallVector.cpp" />
 		<Unit filename="../../ogre_src_v1-8-1/OgreMain/src/OgreStaticGeometry.cpp" />
 		<Unit filename="../../ogre_src_v1-8-1/OgreMain/src/OgreStreamSerialiser.cpp" />
 		<Unit filename="../../ogre_src_v1-8-1/OgreMain/src/OgreString.cpp" />
