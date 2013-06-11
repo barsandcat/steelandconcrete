@@ -37,9 +37,9 @@
 			<Add option="`pkg-config --cflags gtk+-2.0`" />
 			<Add directory="include" />
 			<Add directory="../ogre/build/include" />
-			<Add directory="../ogre/ogre_1.7.3/OgreMain/include" />
-			<Add directory="../ogre/ogre_1.7.3/RenderSystems/GL/include" />
-			<Add directory="../ogre/ogre_1.7.3/RenderSystems/GL/src/GLSL/include" />
+			<Add directory="../ogre/ogre_src_v1-8-1/OgreMain/include" />
+			<Add directory="../ogre/ogre_src_v1-8-1/RenderSystems/GL/include" />
+			<Add directory="../ogre/ogre_src_v1-8-1/RenderSystems/GL/src/GLSL/include" />
 		</Compiler>
 		<Unit filename="include/wx/ogre/app.h" />
 		<Unit filename="include/wx/ogre/control.h" />
