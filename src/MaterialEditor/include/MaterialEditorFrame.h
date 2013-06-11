@@ -86,6 +86,7 @@ protected:
     void OnFileOpen(wxCommandEvent& event);
     void OnFileSave(wxCommandEvent& event);
     void OnFileSaveAs(wxCommandEvent& event);
+    void OnAddFileSystem(wxCommandEvent& event);
     void OnFileClose(wxCommandEvent& event);
     void OnFileExit(wxCommandEvent& event);
     void OnEditUndo(wxCommandEvent& event);

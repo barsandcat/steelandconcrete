@@ -67,6 +67,7 @@ http://www.gnu.org/copyleft/lesser.txt
 const long ID_FILE_MENU_OPEN = wxNewId();
 const long ID_FILE_MENU_SAVE = wxNewId();
 const long ID_FILE_MENU_SAVE_AS = wxNewId();
+const long ID_FILE_MENU_ADD_FILESYSTEM = wxNewId();
 const long ID_FILE_MENU_EXIT = wxNewId();
 
 const long ID_EDIT_MENU_UNDO = wxNewId();
@@ -163,6 +164,7 @@ BEGIN_EVENT_TABLE(MaterialEditorFrame, wxFrame)
     EVT_MENU (ID_FILE_MENU_OPEN,		 MaterialEditorFrame::OnFileOpen)
     EVT_MENU (ID_FILE_MENU_SAVE,		 MaterialEditorFrame::OnFileSave)
     EVT_MENU (ID_FILE_MENU_SAVE_AS,		 MaterialEditorFrame::OnFileSaveAs)
+    EVT_MENU (ID_FILE_MENU_ADD_FILESYSTEM, MaterialEditorFrame::OnAddFileSystem)
     EVT_MENU (ID_FILE_MENU_EXIT,		 MaterialEditorFrame::OnFileExit)
     // Edit Menu
     EVT_MENU (ID_EDIT_MENU_UNDO,  MaterialEditorFrame::OnEditUndo)
@@ -670,6 +672,11 @@ void MaterialEditorFrame::createFileMenu()
     menuItem->SetBitmap(IconManager::getSingleton().getIcon(IconManager::SAVE_AS));
     mFileMenu->Append(menuItem);
 
+    menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_ADD_FILESYSTEM, wxT("Add FileSystem resource location"));
+    menuItem->SetBitmap(IconManager::getSingleton().getIcon(IconManager::FILE_SYSTEM));
+    mFileMenu->Append(menuItem);
+
+
     mFileMenu->AppendSeparator();
 
     menuItem = new wxMenuItem(mFileMenu, ID_FILE_MENU_EXIT, wxT("E&xit"));
@@ -862,6 +869,20 @@ void MaterialEditorFrame::OnFileSaveAs(wxCommandEvent& event)
     if(editor != NULL) editor->saveAs();
 
     // TODO: Support project & workspace saveAs
+}
+
+void MaterialEditorFrame::OnAddFileSystem(wxCommandEvent& event)
+{
+    wxDirDialog * dirDialog = new wxDirDialog(this, wxT("Choose FileSystem resource location"), wxT("."));
+
+    if(dirDialog->ShowModal() == wxID_OK)
+    {
+        wxString path = dirDialog->GetPath();
+        Ogre::String group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
+        Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(path.mb_str()), Ogre::String("FileSystem"), group);
+        FillMaterialMap();
+        FillResourceTree();
+    }
 }
 
 void MaterialEditorFrame::OnFileExit(wxCommandEvent& event)
