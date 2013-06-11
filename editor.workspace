@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_workspace_file>
 	<Workspace title="Editor">
-		<Project filename="boost/build/libs/system/src/boost_system-mt-static-staticrt.cbp" active="1" />
+		<Project filename="boost/build/libs/system/src/boost_system-mt-static-staticrt.cbp" />
 		<Project filename="boost/build/libs/thread/src/boost_thread-mt-static-staticrt.cbp" />
 		<Project filename="boost/build/libs/filesystem/src/boost_filesystem-mt-static-staticrt.cbp" />
 		<Project filename="boost/build/libs/signals/src/boost_signals-mt-static-staticrt.cbp" />
-		<Project filename="src/MaterialEditor/build/MaterialEditor.cbp">
+		<Project filename="src/MaterialEditor/build/MaterialEditor.cbp" active="1">
 			<Depends filename="boost/build/libs/system/src/boost_system-mt-static-staticrt.cbp" />
-			<Depends filename="boost/build/libs/signals/src/boost_signals-mt-static-staticrt.cbp" />
 			<Depends filename="wxpropgrid/build/propgrid_propgrid_vc9.cbp" />
 			<Depends filename="wxogre-svn312/wxogre.cbp" />
 			<Depends filename="ogre/build/RenderSystems/GL/RenderSystem_GL.cbp" />
 			<Depends filename="wxscintilla/wxscintilla_1.69.2/build/wxscintilla.cbp" />
 			<Depends filename="ogre/build/OgreMain/OgreMain.cbp" />
+			<Depends filename="boost/build/libs/signals/src/boost_signals-mt-static-staticrt.cbp" />
 		</Project>
 		<Project filename="wxpropgrid/build/propgrid_propgrid_vc9.cbp" />
 		<Project filename="wxscintilla/wxscintilla_1.69.2/build/wxscintilla.cbp" />
@@ -23,6 +23,8 @@
 		<Project filename="ogre/build/OgreMain/OgreMain.cbp" />
 		<Project filename="ogre/build/RenderSystems/GL/RenderSystem_GL.cbp" />
 		<Project filename="ogre/build/PlugIns/OctreeSceneManager/Plugin_OctreeSceneManager.cbp" />
-		<Project filename="ogre/build/Tools/XMLConverter/OgreXMLConverter.cbp" />
+		<Project filename="ogre/build/Tools/XMLConverter/OgreXMLConverter.cbp">
+			<Depends filename="ogre/build/OgreMain/OgreMain.cbp" />
+		</Project>
 	</Workspace>
 </CodeBlocks_workspace_file>
