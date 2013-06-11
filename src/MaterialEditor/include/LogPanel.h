@@ -22,7 +22,7 @@ public:
 	void attachLog(Ogre::Log *log);
 	void detachLog(Ogre::Log *log);
 
-	virtual void messageLogged(const Ogre::String& message, Ogre::LogMessageLevel lml, bool maskDebug, const Ogre::String &logName);
+    virtual void messageLogged(const Ogre::String& message, Ogre::LogMessageLevel lml, bool maskDebug, const Ogre::String &logName, bool& skipThisMessage);
 
 protected:
 	wxBoxSizer* mBoxSizer;
