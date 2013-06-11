@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="boost_signals 1.49.0" />
+		<Option title="boost_signals 1.53.0" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -16,10 +16,10 @@
 				<Compiler>
 					<Add option="-pg" />
 					<Add option="-g" />
-					<Add directory="$(SolutionDir)boost/boost_1_49_0" />
+					<Add directory="$(SolutionDir)boost/boost_1_53_0" />
 				</Compiler>
 				<ResourceCompiler>
-					<Add directory="$(SolutionDir)boost/boost_1_49_0" />
+					<Add directory="$(SolutionDir)boost/boost_1_53_0" />
 				</ResourceCompiler>
 				<Linker>
 					<Add option="-pg" />
@@ -35,10 +35,10 @@
 				<Compiler>
 					<Add option="-O3" />
 					<Add option="-DNDEBUG" />
-					<Add directory="$(SolutionDir)boost/boost_1_49_0" />
+					<Add directory="$(SolutionDir)boost/boost_1_53_0" />
 				</Compiler>
 				<ResourceCompiler>
-					<Add directory="$(SolutionDir)boost/boost_1_49_0" />
+					<Add directory="$(SolutionDir)boost/boost_1_53_0" />
 				</ResourceCompiler>
 				<Linker>
 					<Add option="-s" />
@@ -49,11 +49,11 @@
 			<Add option="-DBOOST_ALL_NO_LIB=1" />
 			<Add option="-DBOOST_SIGNALS_NO_LIB=1" />
 		</Compiler>
-		<Unit filename="../../../../boost_1_49_0/libs/signals/src/connection.cpp" />
-		<Unit filename="../../../../boost_1_49_0/libs/signals/src/named_slot_map.cpp" />
-		<Unit filename="../../../../boost_1_49_0/libs/signals/src/signal_base.cpp" />
-		<Unit filename="../../../../boost_1_49_0/libs/signals/src/slot.cpp" />
-		<Unit filename="../../../../boost_1_49_0/libs/signals/src/trackable.cpp" />
+		<Unit filename="../../../../boost_1_53_0/libs/signals/src/connection.cpp" />
+		<Unit filename="../../../../boost_1_53_0/libs/signals/src/named_slot_map.cpp" />
+		<Unit filename="../../../../boost_1_53_0/libs/signals/src/signal_base.cpp" />
+		<Unit filename="../../../../boost_1_53_0/libs/signals/src/slot.cpp" />
+		<Unit filename="../../../../boost_1_53_0/libs/signals/src/trackable.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
