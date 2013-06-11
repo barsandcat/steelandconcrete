@@ -25,17 +25,17 @@
 
 #define IMPLEMENT_OGRE_SINGLETON(CLASS)                         \
                                                                 \
-    template<> CLASS* Ogre::Singleton<CLASS>::ms_Singleton = 0; \
+    template<> CLASS* Ogre::Singleton<CLASS>::msSingleton = 0; \
                                                                 \
     CLASS& CLASS::getSingleton()                                \
     {                                                           \
-        assert(ms_Singleton);                                   \
-        return *ms_Singleton;                                   \
+        assert(msSingleton);                                   \
+        return *msSingleton;                                   \
     }                                                           \
                                                                 \
     CLASS* CLASS::getSingletonPtr()                             \
     {                                                           \
-        return ms_Singleton;                                    \
+        return msSingleton;                                    \
     }                                                           \
 
 #define DECLARE_OGRE_SINGLETON(CLASS)                           \
