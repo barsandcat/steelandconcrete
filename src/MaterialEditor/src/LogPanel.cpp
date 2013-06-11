@@ -33,7 +33,8 @@ void LogPanel::detachLog(Ogre::Log *log)
 	log->removeListener(this);
 }
 
-void LogPanel::messageLogged(const Ogre::String& message, Ogre::LogMessageLevel lml, bool maskDebug, const Ogre::String &logName)
+void LogPanel::messageLogged(const Ogre::String& message, Ogre::LogMessageLevel lml,
+                              bool maskDebug, const Ogre::String &logName, bool& skipThisMessage)
 {
 	if(lml == Ogre::LML_CRITICAL || lml == Ogre::LML_NORMAL)
 	{
