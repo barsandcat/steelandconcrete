@@ -33,14 +33,16 @@ Torus Knot Software Ltd.
 
 #include <OgreString.h>
 #include "wx/string.h"
+#include <boost/filesystem/path.hpp>
 
 class Workspace
 {
 public:
-	static void OpenConfigFile(const Ogre::String& aPath);
-	static const Ogre::String& GetFileName() { return mConfigFile; }
+	static void OpenConfigFile(const boost::filesystem::path& aPath);
+	static const boost::filesystem::path& GetFileName() { return mConfigFile; }
+	static void AddFileSystemLocation(const boost::filesystem::path& aPath);
 private:
-	static Ogre::String mConfigFile;
+	static boost::filesystem::path mConfigFile;
 };
 
 #endif // WORKSPACE_H

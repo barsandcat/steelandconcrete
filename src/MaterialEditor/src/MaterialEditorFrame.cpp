@@ -842,7 +842,7 @@ void MaterialEditorFrame::OnFileOpen(wxCommandEvent& event)
     if(openDialog->ShowModal() == wxID_OK)
     {
         wxString path = openDialog->GetPath();
-        Workspace::OpenConfigFile(Ogre::String(path.mb_str()));
+        Workspace::OpenConfigFile(path.c_str());
         FillMaterialMap();
         FillResourceTree();
     }
@@ -858,13 +858,13 @@ void MaterialEditorFrame::OnFileSave(wxCommandEvent& event)
 
 void MaterialEditorFrame::OnAddFileSystem(wxCommandEvent& event)
 {
-    wxDirDialog * dirDialog = new wxDirDialog(this, wxT("Choose FileSystem resource location"), wxT("."));
-
+    wxString root(Workspace::GetFileName().parent_path().c_str(), wxConvUTF8);
+    wxDirDialog * dirDialog = new wxDirDialog(this, wxT("Choose FileSystem resource location"),
+                                              root);
     if(dirDialog->ShowModal() == wxID_OK)
     {
         wxString path = dirDialog->GetPath();
-        Ogre::String group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
-        Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(path.mb_str()), Ogre::String("FileSystem"), group);
+        Workspace::AddFileSystemLocation(path.c_str());
         FillMaterialMap();
         FillResourceTree();
     }
