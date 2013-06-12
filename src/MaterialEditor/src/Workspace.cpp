@@ -31,13 +31,13 @@ Torus Knot Software Ltd.
 #include <OgreConfigFile.h>
 #include <OgreResourceGroupManager.h>
 
-Ogre::String Workspace::mConfigFile;
+boost::filesystem::path Workspace::mConfigFile;
 
-void Workspace::OpenConfigFile(const Ogre::String& aPath)
+void Workspace::OpenConfigFile(const boost::filesystem::path& aPath)
 {
     mConfigFile = aPath;
     Ogre::ConfigFile cf;
-    cf.load(mConfigFile);
+    cf.load(mConfigFile.string());
     Ogre::ConfigFile::SectionIterator it = cf.getSectionIterator();
 
     Ogre::String location, type, group;
@@ -61,4 +61,10 @@ void Workspace::OpenConfigFile(const Ogre::String& aPath)
 
     Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
+}
+
+void Workspace::AddFileSystemLocation(const boost::filesystem::path& aPath)
+{
+    Ogre::String group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
+    Ogre::ResourceGroupManager::getSingleton().addResourceLocation(aPath.string(), Ogre::String("FileSystem"), group);
 }
