@@ -297,80 +297,101 @@ void ClientGame::LoadEvents(ConstPayloadPtr aPayloadMsg)
     }
 }
 
-void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats)
+void GetCameraPosAndOrt(const Ogre::Vector3 aAvatarPos, Ogre::Vector3& aCameraPos, Ogre::Quaternion& aCameraOrt)
 {
-    mLifeTime += aFrameTime;
-    Ogre::Real frameSeconds = FrameTimeToSeconds(aFrameTime);
+    const Ogre::Quaternion tileSpace = Ogre::Vector3::UNIT_Z.getRotationTo(aAvatarPos);
+    aCameraPos = aAvatarPos + tileSpace * Ogre::Vector3(0, -40, 50);
+    // Camera directed down -z axis!
+    const Ogre::Radian angle(Ogre::Math::PI / 5.0f);
+    aCameraOrt = tileSpace * Ogre::Quaternion(angle, Ogre::Vector3::UNIT_X);
+}
 
-    ClientUnit* avatar = GetUnit(mAvatar);
+void FreeCameraControl(unsigned long aFrameTime)
+{
+    const Ogre::Real frameSeconds = FrameTimeToSeconds(aFrameTime);
 
+    const Ogre::Radian rotationSpeed(frameSeconds * 1.0f);
+    const Ogre::Real movementSpeed(frameSeconds * 100.0f);
 
-    if (avatar)
+    if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_UP))
     {
-        Ogre::Vector3 pos = avatar->GetPosition();
-        const Ogre::Quaternion tileSpace = Ogre::Vector3::UNIT_Z.getRotationTo(pos);
-        const Ogre::Vector3 cameraPos = pos + tileSpace * Ogre::Vector3(0, -40, 50);
-        const Ogre::Radian angle(Ogre::Math::PI / 5.0f);
-        const Ogre::Quaternion cameraOri = tileSpace * Ogre::Quaternion(angle, Ogre::Vector3::UNIT_X);
+        ClientApp::GetCamera().pitch(rotationSpeed);
+    }
+    if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_DOWN))
+    {
+        ClientApp::GetCamera().pitch(-rotationSpeed);
+    }
+    if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_RIGHT))
+    {
+        ClientApp::GetCamera().yaw(-rotationSpeed);
+    }
+    if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_LEFT))
+    {
+        ClientApp::GetCamera().yaw(rotationSpeed);
+    }
+    if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_W))
+    {
+        ClientApp::GetCamera().moveRelative(Ogre::Vector3::NEGATIVE_UNIT_Z * movementSpeed);
+    }
+    if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_S))
+    {
+        ClientApp::GetCamera().moveRelative(Ogre::Vector3::UNIT_Z * movementSpeed);
+    }
+    if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_D))
+    {
+        ClientApp::GetCamera().roll(-rotationSpeed);
+    }
+    if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_A))
+    {
+        ClientApp::GetCamera().roll(rotationSpeed);
+    }
+}
 
+void ClientGame::UpdateCamera(unsigned long aFrameTime) const
+{
+    Ogre::Vector3 pos(Ogre::Vector3::ZERO);
+    Ogre::Quaternion ort(Ogre::Quaternion::ZERO);
 
-        if (mFreeCamera)
-        {
-            mAxes->setOrientation(cameraOri);
-            mAxes->setPosition(cameraPos);
-
-            const Ogre::Radian rotationSpeed(frameSeconds * 1.0f);
-            const Ogre::Real movementSpeed(frameSeconds * 100.0f);
-            if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_UP))
-            {
-                ClientApp::GetCamera().pitch(rotationSpeed);
-            }
-            if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_DOWN))
-            {
-                ClientApp::GetCamera().pitch(-rotationSpeed);
-            }
-            if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_RIGHT))
-            {
-                ClientApp::GetCamera().yaw(-rotationSpeed);
-            }
-            if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_LEFT))
-            {
-                ClientApp::GetCamera().yaw(rotationSpeed);
-            }
-            if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_W))
-            {
-                ClientApp::GetCamera().moveRelative(Ogre::Vector3::NEGATIVE_UNIT_Z * movementSpeed);
-            }
-            if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_S))
-            {
-                ClientApp::GetCamera().moveRelative(Ogre::Vector3::UNIT_Z * movementSpeed);
-            }
-            if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_D))
-            {
-                ClientApp::GetCamera().roll(-rotationSpeed);
-            }
-            if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_A))
-            {
-                ClientApp::GetCamera().roll(rotationSpeed);
-            }
-        }
-        else
-        {
-            ClientApp::GetCamera().setPosition(cameraPos);
-            ClientApp::GetCamera().setOrientation(cameraOri);
-        }
+    if (ClientUnit* avatar = GetUnit(mAvatar))
+    {
+        GetCameraPosAndOrt(avatar->GetPosition(), pos, ort);
     }
 
-    GetWindow("StatusPanel/FPS")->setText(Ogre::StringConverter::toString(static_cast<long>(aStats.avgFPS)));
+    if (mFreeCamera)
+    {
+        mAxes->setOrientation(ort);
+        mAxes->setPosition(pos);
+        FreeCameraControl(aFrameTime);
+    }
+    else
+    {
+        ClientApp::GetCamera().setPosition(pos);
+        ClientApp::GetCamera().setOrientation(ort);
+    }
+}
+
+
+void ClientGame::UpdateStatusPanel(float aAvgFPS) const
+{
+    GetWindow("StatusPanel/FPS")->setText(Ogre::StringConverter::toString(static_cast<long>(aAvgFPS)));
     GetWindow("StatusPanel/Time")->setText(Ogre::StringConverter::toString(static_cast<long>(mTime)));
+    GetWindow("StatusPanel/Ping")->setText(Ogre::StringConverter::toString(mServerProxy->GetPing()));
 
     int32 lifeTime = FrameTimeToSeconds(mLifeTime);
     if (lifeTime > 0)
     {
         GetWindow("StatusPanel/NetIn")->setText(Ogre::StringConverter::toString(mServerProxy->GetInBytes() / lifeTime));
         GetWindow("StatusPanel/NetOut")->setText(Ogre::StringConverter::toString(mServerProxy->GetOutBytes() / lifeTime));
-        GetWindow("StatusPanel/Ping")->setText(Ogre::StringConverter::toString(mServerProxy->GetPing()));
     }
+}
+
+void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats)
+{
+    mLifeTime += aFrameTime;
+
+    UpdateCamera(aFrameTime);
+
+    UpdateStatusPanel(aStats.avgFPS);
 
     std::for_each(mUnits.begin(), mUnits.end(),
                   boost::bind(&ClientUnit::UpdateMovementAnimation,

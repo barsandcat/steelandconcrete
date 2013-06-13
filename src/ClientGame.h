@@ -38,6 +38,8 @@ private:
     void OnPayloadMsg(ConstPayloadPtr aPayloadMsg);
     void RequestUpdate();
     void LoadEvents(ConstPayloadPtr aPayloadMsg);
+    void UpdateCamera(unsigned long aFrameTime) const;
+    void UpdateStatusPanel(float aAvgFPS) const;
 private:
     static ClientUnits mUnits;
     const UnitId mAvatar;
