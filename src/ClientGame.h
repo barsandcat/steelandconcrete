@@ -45,6 +45,7 @@ private:
     ClientGridNode* mTileUnderCursor;
     Ogre::SceneNode* mSelectionMarker;
     Ogre::SceneNode* mTargetMarker;
+    Ogre::SceneNode* mAxes;
     GameTime mTime;
     SyncTimer mSyncTimer;
     int32 mServerUpdateLength;

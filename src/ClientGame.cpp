@@ -42,6 +42,9 @@ ClientGame::ClientGame(ServerProxyPtr aServerProxy, UnitId aAvatar, int32 aGridS
     mTargetMarker->attachObject(ClientApp::GetSceneMgr().createEntity("Target", "TargetMarker.mesh"));
     mTargetMarker->setVisible(false);
 
+    mAxes = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
+    mAxes->attachObject(ClientApp::GetSceneMgr().createEntity("axes", "axes.mesh"));
+
     GetWindow("StatusPanel/User")->setText(GetWindow("ServerBrowser/Login")->getText());
     GetWindow("StatusPanel/Server")->setText(GetWindow("ServerBrowser/Address")->getText());
 
@@ -300,50 +303,61 @@ void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::Fram
     Ogre::Real frameSeconds = FrameTimeToSeconds(aFrameTime);
 
     ClientUnit* avatar = GetUnit(mAvatar);
-    if (mFreeCamera)
+
+
+    if (avatar)
     {
-        const Ogre::Radian rotationSpeed(frameSeconds * 1.0f);
-        const Ogre::Real movementSpeed(frameSeconds * 100.0f);
-        if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_UP))
+        Ogre::Vector3 pos = avatar->GetPosition();
+        const Ogre::Quaternion tileSpace = Ogre::Vector3::UNIT_Z.getRotationTo(pos);
+        const Ogre::Vector3 cameraPos = pos + tileSpace * Ogre::Vector3(0, -40, 50);
+        const Ogre::Radian angle(Ogre::Math::PI / 5.0f);
+        const Ogre::Quaternion cameraOri = tileSpace * Ogre::Quaternion(angle, Ogre::Vector3::UNIT_X);
+
+
+        if (mFreeCamera)
         {
-            ClientApp::GetCamera().pitch(rotationSpeed);
+            mAxes->setOrientation(cameraOri);
+            mAxes->setPosition(cameraPos);
+
+            const Ogre::Radian rotationSpeed(frameSeconds * 1.0f);
+            const Ogre::Real movementSpeed(frameSeconds * 100.0f);
+            if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_UP))
+            {
+                ClientApp::GetCamera().pitch(rotationSpeed);
+            }
+            if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_DOWN))
+            {
+                ClientApp::GetCamera().pitch(-rotationSpeed);
+            }
+            if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_RIGHT))
+            {
+                ClientApp::GetCamera().yaw(-rotationSpeed);
+            }
+            if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_LEFT))
+            {
+                ClientApp::GetCamera().yaw(rotationSpeed);
+            }
+            if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_W))
+            {
+                ClientApp::GetCamera().moveRelative(Ogre::Vector3::NEGATIVE_UNIT_Z * movementSpeed);
+            }
+            if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_S))
+            {
+                ClientApp::GetCamera().moveRelative(Ogre::Vector3::UNIT_Z * movementSpeed);
+            }
+            if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_D))
+            {
+                ClientApp::GetCamera().roll(-rotationSpeed);
+            }
+            if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_A))
+            {
+                ClientApp::GetCamera().roll(rotationSpeed);
+            }
         }
-        if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_DOWN))
+        else
         {
-            ClientApp::GetCamera().pitch(-rotationSpeed);
-        }
-        if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_RIGHT))
-        {
-            ClientApp::GetCamera().yaw(-rotationSpeed);
-        }
-        if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_LEFT))
-        {
-            ClientApp::GetCamera().yaw(rotationSpeed);
-        }
-        if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_W))
-        {
-            ClientApp::GetCamera().moveRelative(Ogre::Vector3::NEGATIVE_UNIT_Z * movementSpeed);
-        }
-        if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_S))
-        {
-            ClientApp::GetCamera().moveRelative(Ogre::Vector3::UNIT_Z * movementSpeed);
-        }
-        if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_D))
-        {
-            ClientApp::GetCamera().roll(-rotationSpeed);
-        }
-        if (ClientApp::GetKeyboard().isKeyDown(OIS::KC_A))
-        {
-            ClientApp::GetCamera().roll(rotationSpeed);
-        }
-    }
-    else
-    {
-        if (avatar)
-        {
-            Ogre::Vector3 pos = avatar->GetPosition();
-            ClientApp::GetCamera().setPosition(pos * 1.3f);
-            ClientApp::GetCamera().lookAt(pos);
+            ClientApp::GetCamera().setPosition(cameraPos);
+            ClientApp::GetCamera().setOrientation(cameraOri);
         }
     }
 
