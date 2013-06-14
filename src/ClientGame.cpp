@@ -128,20 +128,6 @@ void ClientGame::keyPressed(const OIS::KeyEvent& arg)
 {
     switch (arg.key)
     {
-    case OIS::KC_W:
-        break;
-    case OIS::KC_S:
-        break;
-    case OIS::KC_A:
-        break;
-    case OIS::KC_D:
-        break;
-    case OIS::KC_SUBTRACT:
-    case OIS::KC_MINUS:
-        break;
-    case OIS::KC_ADD:
-    case OIS::KC_EQUALS:
-        break;
     case OIS::KC_ESCAPE:
     {
         CEGUI::EventArgs args;
@@ -161,29 +147,8 @@ void ClientGame::keyPressed(const OIS::KeyEvent& arg)
 }
 void ClientGame::keyReleased(const OIS::KeyEvent& arg)
 {
-    switch (arg.key)
-    {
-    case OIS::KC_W:
-        break;
-    case OIS::KC_S:
-        break;
-    case OIS::KC_A:
-        break;
-    case OIS::KC_D:
-        break;
-    case OIS::KC_SUBTRACT:
-    case OIS::KC_MINUS:
-        break;
-    case OIS::KC_ADD:
-    case OIS::KC_EQUALS:
-        break;
-    default:
-        ;
-    }
-
 
 }
-
 
 void ClientGame::OnAct()
 {
