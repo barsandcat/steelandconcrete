@@ -12,7 +12,7 @@ class ClientUnit: public boost::noncopyable
 public:
     ClientUnit(UnitId aUnitId, uint32 aVisual, ClientGridNode* aTile);
     ~ClientUnit();
-    void UpdateMovementAnimation(FrameTime aFrameTime);
+    void UpdateMovementAnimation(Miliseconds aFrameTime);
     void SetTile(ClientGridNode* aTile);
     ClientGridNode& GetUnitTile() const { return *mTile; }
 	UnitId GetUnitId() const { return mUnitId; }

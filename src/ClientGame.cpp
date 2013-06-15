@@ -271,7 +271,7 @@ void GetCameraPosAndOrt(const Ogre::Vector3 aAvatarPos, Ogre::Vector3& aCameraPo
     aCameraOrt = tileSpace * Ogre::Quaternion(angle, Ogre::Vector3::UNIT_X);
 }
 
-void FreeCameraControl(unsigned long aFrameTime)
+void FreeCameraControl(Miliseconds aFrameTime)
 {
     const Ogre::Real frameSeconds = FrameTimeToSeconds(aFrameTime);
 
@@ -312,7 +312,7 @@ void FreeCameraControl(unsigned long aFrameTime)
     }
 }
 
-void ClientGame::UpdateCamera(unsigned long aFrameTime) const
+void ClientGame::UpdateCamera(Miliseconds aFrameTime) const
 {
     Ogre::Vector3 pos(Ogre::Vector3::ZERO);
     Ogre::Quaternion ort(Ogre::Quaternion::ZERO);
@@ -336,12 +336,13 @@ void ClientGame::UpdateCamera(unsigned long aFrameTime) const
 }
 
 
-void ClientGame::UpdateStatusPanel(float aAvgFPS) const
+void ClientGame::UpdateStatusPanel(Miliseconds aFrameTime, float aAvgFPS)
 {
     GetWindow("StatusPanel/FPS")->setText(Ogre::StringConverter::toString(static_cast<long>(aAvgFPS)));
     GetWindow("StatusPanel/Time")->setText(Ogre::StringConverter::toString(static_cast<long>(mTime)));
     GetWindow("StatusPanel/Ping")->setText(Ogre::StringConverter::toString(mServerProxy->GetPing()));
 
+    mLifeTime += aFrameTime;
     int32 lifeTime = FrameTimeToSeconds(mLifeTime);
     if (lifeTime > 0)
     {
@@ -350,18 +351,15 @@ void ClientGame::UpdateStatusPanel(float aAvgFPS) const
     }
 }
 
-void ClientGame::Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats)
+void ClientGame::UpdateMovementAnimation(Miliseconds aFrameTime)
 {
-    mLifeTime += aFrameTime;
-
-    UpdateCamera(aFrameTime);
-
-    UpdateStatusPanel(aStats.avgFPS);
-
     std::for_each(mUnits.begin(), mUnits.end(),
                   boost::bind(&ClientUnit::UpdateMovementAnimation,
                               boost::bind(&ClientUnits::value_type::second, _1), aFrameTime));
+}
 
+void ClientGame::CheckSyncTimer()
+{
     if (mSyncTimer.IsTime())
     {
         RequestUpdate();

@@ -28,6 +28,7 @@ public:
     int32 GetWater() const { return mWater; }
 private:
     std::vector< ServerTile* > mNeighbourhood;
+    std::set<TileId> mUnitList;
     const Ogre::Vector3 mPosition;
     const TileId mTileId;
     int32 mHeight;

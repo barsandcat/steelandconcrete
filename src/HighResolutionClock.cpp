@@ -3,7 +3,7 @@
 
 #include <boost/chrono/chrono.hpp>
 
-int64 GetMiliseconds()
+Miliseconds GetMiliseconds()
 {
     boost::chrono::high_resolution_clock::time_point now = boost::chrono::high_resolution_clock::now();
     return boost::chrono::duration_cast<boost::chrono::milliseconds>(now.time_since_epoch()).count();

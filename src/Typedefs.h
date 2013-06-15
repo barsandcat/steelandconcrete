@@ -18,6 +18,6 @@ typedef boost::shared_ptr< SSLStream > SSLStreamPtr;
 typedef uint32 TileId;
 typedef int32 UnitId;
 typedef uint64 GameTime;
-typedef uint64 FrameTime;
+typedef int64 Miliseconds;
 
 #endif // TYPEDEFS_H_INCLUDED
