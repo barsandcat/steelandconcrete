@@ -46,14 +46,14 @@ ClientUnit::~ClientUnit()
     ClientApp::GetSceneMgr().destroySceneNode(mDirectonNode);
 }
 
-void ClientUnit::UpdateMovementAnimation(FrameTime aFrameTime)
+void ClientUnit::UpdateMovementAnimation(Miliseconds aFrameTime)
 {
     if (mMoveAnim)
     {
         mMoveAnim->Update(aFrameTime);
         const Ogre::Quaternion orientation = mMoveAnim->GetPosition();
         mPositionNode->setOrientation(orientation);
-        mAnimState->addTime(aFrameTime / 1000000.0f);
+        mAnimState->addTime(FrameTimeToSeconds(aFrameTime));
         if (mMoveAnim->IsDone())
         {
             mMoveAnim.reset();

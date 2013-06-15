@@ -16,7 +16,7 @@ DECLARE_string(password);
 DECLARE_string(address);
 DECLARE_string(port);
 
-float FrameTimeToSeconds(unsigned long aFrimeTime);
+float FrameTimeToSeconds(Miliseconds aFrimeTime);
 
 class ClientApp: public OIS::KeyListener, public OIS::MouseListener, public OIS::JoyStickListener,
                  public Ogre::WindowEventListener

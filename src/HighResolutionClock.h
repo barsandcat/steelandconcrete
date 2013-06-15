@@ -3,6 +3,6 @@
 
 #include <Typedefs.h>
 
-int64 GetMiliseconds();
+Miliseconds GetMiliseconds();
 
 #endif

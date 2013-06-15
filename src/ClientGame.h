@@ -19,7 +19,10 @@ public:
     ClientGame(ServerProxyPtr aServerProxy, UnitId aAvatar, int32 aGridSize);
     virtual ~ClientGame(); // Для QuicGUI
     void UpdateTileUnderCursor(Ogre::Ray aRay);
-    void Update(unsigned long aFrameTime, const Ogre::RenderTarget::FrameStats& aStats);
+    void UpdateCamera(Miliseconds aFrameTime) const;
+    void UpdateStatusPanel(Miliseconds aFrameTime, float aAvgFPS);
+    void UpdateMovementAnimation(Miliseconds aFrameTime);
+    void CheckSyncTimer();
 
     void mouseMoved(const OIS::MouseEvent& arg);
     void mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
@@ -38,8 +41,6 @@ private:
     void OnPayloadMsg(ConstPayloadPtr aPayloadMsg);
     void RequestUpdate();
     void LoadEvents(ConstPayloadPtr aPayloadMsg);
-    void UpdateCamera(unsigned long aFrameTime) const;
-    void UpdateStatusPanel(float aAvgFPS) const;
 private:
     static ClientUnits mUnits;
     const UnitId mAvatar;
@@ -52,7 +53,7 @@ private:
     SyncTimer mSyncTimer;
     int32 mServerUpdateLength;
     ServerProxyPtr mServerProxy;
-    unsigned long mLifeTime;
+    Miliseconds mLifeTime;
     bool mFreeCamera;
 };
 

@@ -620,16 +620,16 @@ void ClientApp::windowClosed(Ogre::RenderWindow* rw)
     boost::throw_exception(std::runtime_error("Window closed"));
 }
 
-Ogre::Real FrameTimeToSeconds(unsigned long aFrimeTime)
+Ogre::Real FrameTimeToSeconds(Miliseconds aFrimeTime)
 {
-    return aFrimeTime / 1000000.0f;
+    return aFrimeTime / 1000.0f;
 }
 
 void ClientApp::MainLoop()
 {
     ReloadGUI();
 
-    unsigned long frameTime = 1;
+    Miliseconds frameTime = 1;
 
     LOG(INFO) << "*** The Start ***";
     try
@@ -637,8 +637,7 @@ void ClientApp::MainLoop()
         while(true)
         {
             OgreProfile("Ogre Main Loop");
-            FrameTime frameStart = mRoot->getTimer()->getMicroseconds();
-
+            Miliseconds frameStart = GetMiliseconds();
             {
                 OgreProfile("Update");
                 Ogre::WindowEventUtilities::messagePump();
@@ -651,14 +650,17 @@ void ClientApp::MainLoop()
                 if (mGame)
                 {
                     mGame->UpdateTileUnderCursor(GetMouseRay());
-                    mGame->Update(frameTime, mWindow->getStatistics());
+                    mGame->UpdateCamera(frameTime);
+                    mGame->UpdateStatusPanel(frameTime, mWindow->getStatistics().avgFPS);
+                    mGame->UpdateMovementAnimation(frameTime);
+                    mGame->CheckSyncTimer();
                 }
 
                 mIOService.poll();
             }
             mRoot->renderOneFrame();
 
-            frameTime = mRoot->getTimer()->getMicroseconds() - frameStart;
+            frameTime = GetMiliseconds() - frameStart;
         }
     }
     catch(std::exception& e)
