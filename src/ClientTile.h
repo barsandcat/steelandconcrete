@@ -8,6 +8,7 @@ class TileEntity;
 class ClientTile: public boost::noncopyable
 {
 public:
+    typedef std::set<UnitId>::const_iterator UnitIterator;
     explicit ClientTile(TileId aId, const Ogre::Vector3& aPosition);
     ~ClientTile();
 
@@ -25,14 +26,15 @@ public:
     Ogre::Vector3 GetPosition() const { return mPosition; }
     ClientTile* GetTileAtPosition(const Ogre::Vector3& aPosistion);
 
-    UnitId GetUnit() const { return mUnit; }
-    void SetUnit(UnitId aUnit) { mUnit = aUnit; }
-    void RemoveUnit() { mUnit = 0; }
+    UnitIterator GetUnits() const { return mUnits.begin(); }
+    bool IsLastUnit(UnitIterator aIterator) const { return aIterator == mUnits.end(); }
+    void AddUnit(UnitId aUnit) { mUnits.insert(aUnit); }
+    void RemoveUnit(UnitId aUnit) { mUnits.erase(aUnit); }
 private:
     std::vector< ClientTile* > mNeighbourhood;
+    std::set<UnitId> mUnits;
     const TileId mTileId;
     TileEntity* mTile;
-    UnitId mUnit;
     Ogre::Vector3 mPosition;
 };
 
