@@ -9,7 +9,7 @@
 ServerUnit::ServerUnit(ServerTile& aTile, const UnitClass& aClass, UnitId aUnitId):
     mUnitId(aUnitId), mClass(aClass), mPosition(&aTile),  mTarget(NULL)
 {
-    mPosition->SetUnitId(mUnitId);
+    mPosition->AddUnitId(mUnitId);
     if (aClass.GetMaxSpeed() > 0)
     {
         MindList::NewMind(aUnitId);
@@ -18,7 +18,7 @@ ServerUnit::ServerUnit(ServerTile& aTile, const UnitClass& aClass, UnitId aUnitI
 
 ServerUnit::~ServerUnit()
 {
-    mPosition->SetUnitId(0);
+    mPosition->RemoveUnitId(mUnitId);
     mPosition->GetChangeList()->AddRemove(mUnitId);
 }
 
@@ -26,8 +26,8 @@ void ServerUnit::Move(ServerTile& aNewPosition)
 {
     mPosition->GetChangeList()->AddLeave(mUnitId, aNewPosition.GetTileId());
     aNewPosition.GetChangeList()->AddEnter(mUnitId, mClass.GetVisualCode(), mPosition->GetTileId());
-    mPosition->SetUnitId(0);
+    mPosition->RemoveUnitId(mUnitId);
     mPosition = &aNewPosition;
-    mPosition->SetUnitId(mUnitId);
+    mPosition->AddUnitId(mUnitId);
 }
 

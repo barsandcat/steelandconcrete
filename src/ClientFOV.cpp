@@ -23,12 +23,12 @@ void AddShowTile(PayloadMsg& aResponse, TileId aTileId, const ServerGeodesicGrid
     showTile->set_height(tile.GetHeight());
     showTile->set_whater(tile.GetWater());
 
-    if (const UnitId unitId = tile.GetUnitId())
+    for (ServerTile::UnitIterator i = tile.GetUnits(); !tile.IsLastUnit(i); ++i)
     {
-        const ServerUnit* unit = UnitList::GetUnit(unitId);
+        const ServerUnit* unit = UnitList::GetUnit(*i);
         ChangeMsg* change = aResponse.add_changes();
         UnitEnterMsg* unitEnter = change->mutable_unitenter();
-        unitEnter->set_unitid(unitId);
+        unitEnter->set_unitid(*i);
         unitEnter->set_to(aTileId);
         unitEnter->set_visualcode(unit->GetClass().GetVisualCode());
     }

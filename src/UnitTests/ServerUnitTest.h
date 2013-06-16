@@ -29,8 +29,8 @@ public:
     void TestMove()
     {
         mUnit->Move(*mTile2);
-        TS_ASSERT_EQUALS(mTile->GetUnitId(), 0);
-        TS_ASSERT_EQUALS(mTile2->GetUnitId(), mUnit->GetUnitId());
+        TS_ASSERT(mTile->IsLastUnit(mTile->GetUnits()));
+        TS_ASSERT_EQUALS(*mTile2->GetUnits(), mUnit->GetUnitId());
         TS_ASSERT_EQUALS(mTile2->GetTileId(), mUnit->GetUnitTile().GetTileId());
     }
 
@@ -38,7 +38,7 @@ public:
     {
         delete mUnit;
         mUnit = NULL;
-        TS_ASSERT_EQUALS(mTile->GetUnitId(), 0);
+        TS_ASSERT(mTile->IsLastUnit(mTile->GetUnits()));
     }
 
 
