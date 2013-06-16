@@ -256,7 +256,7 @@ void ClientGame::LoadEvents(ConstPayloadPtr aPayloadMsg)
             tile->DestroyEntity();
             if (tile->GetUnit())
             {
-                DeleteUnit(tile->GetUnit()->GetUnitId());
+                DeleteUnit(tile->GetUnit());
             }
         }
     }
