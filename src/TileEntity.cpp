@@ -1,10 +1,10 @@
 #include <pch.h>
-#include <ClientTile.h>
+#include <TileEntity.h>
 
 #include <ClientApp.h>
 #include <CompareEdgesAngles.h>
 
-ClientTile::ClientTile(bool ground, ClientGridNode& aGridNode):
+TileEntity::TileEntity(bool ground, ClientGridNode& aGridNode):
         mNode(NULL),
         mGridNode(aGridNode),
         mGround(ground),
@@ -16,14 +16,14 @@ ClientTile::ClientTile(bool ground, ClientGridNode& aGridNode):
     mNode->setDirection(aGridNode.GetPosition().normalisedCopy(), Ogre::Node::TS_LOCAL, Ogre::Vector3::UNIT_Z);
 
     Ogre::String indexName = Ogre::StringConverter::toString(mGridNode.GetTileId());
-    Ogre::String meshName = indexName + "ClientTile.mesh";
+    Ogre::String meshName = indexName + "TileEntity.mesh";
     // Create entity
     Ogre::MeshPtr tileMesh = ConstructMesh(meshName);
     mEntity = aSceneManager.createEntity(indexName + "ClientTile.entity", meshName);
     root->attachObject(mEntity);
 }
 
-ClientTile::~ClientTile()
+TileEntity::~TileEntity()
 {
     Ogre::SceneManager& aSceneManager = ClientApp::GetSceneMgr();
     aSceneManager.getRootSceneNode()->detachObject(mEntity);
@@ -31,13 +31,13 @@ ClientTile::~ClientTile()
     aSceneManager.destroySceneNode(mNode);
 }
 
-Ogre::Vector3 ClientTile::GetPosition() const
+Ogre::Vector3 TileEntity::GetPosition() const
 {
     return mGridNode.GetPosition();
 }
 
 
-Ogre::MeshPtr ClientTile::ConstructMesh(const Ogre::String& aMeshName) const
+Ogre::MeshPtr TileEntity::ConstructMesh(const Ogre::String& aMeshName) const
 {
     const Ogre::Real pentagonHorizont = 0.5f / tan(Ogre::Math::DegreesToRadians(108.0f / 2.0f));
     const Ogre::Real pentagonBottomStep = (1.0f - 0.5f / sin(Ogre::Math::DegreesToRadians(108.0f / 2.0f))) / 2.0f;

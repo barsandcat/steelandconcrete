@@ -5,11 +5,11 @@
 class ClientUnit;
 class ClientGridNode;
 
-class ClientTile: public boost::noncopyable
+class TileEntity: public boost::noncopyable
 {
 public:
-    explicit ClientTile(bool ground, ClientGridNode& aGridNode);
-    ~ClientTile();
+    explicit TileEntity(bool ground, ClientGridNode& aGridNode);
+    ~TileEntity();
 
     Ogre::SceneNode& GetNode() { return *mNode; }
     Ogre::Vector3 GetPosition() const;

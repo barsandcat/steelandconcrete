@@ -4,7 +4,7 @@
 #include <ClientGridNode.h>
 #include <ClientApp.h>
 #include <VisualCodes.h>
-#include <ClientTile.h>
+#include <TileEntity.h>
 
 const char* WALK_ANIMATION_NAME = "walk";
 

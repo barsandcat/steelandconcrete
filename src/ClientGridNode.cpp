@@ -3,7 +3,7 @@
 #include <ClientGridNode.h>
 #include <CompareEdgesAngles.h>
 #include <ClientApp.h>
-#include <ClientTile.h>
+#include <TileEntity.h>
 
 ClientGridNode::ClientGridNode(TileId aId, const Ogre::Vector3& aPosition):
         mPosition(aPosition),
@@ -18,7 +18,7 @@ void ClientGridNode::CreateTile(bool ground)
 {
     if (!mTile)
     {
-        mTile = new ClientTile(ground, *this);
+        mTile = new TileEntity(ground, *this);
     }
 }
 

@@ -3,7 +3,7 @@
 
 
 class ClientUnit;
-class ClientTile;
+class TileEntity;
 
 class ClientGridNode: public boost::noncopyable
 {
@@ -12,7 +12,7 @@ public:
     ~ClientGridNode();
 
     void CreateTile(bool ground);
-    ClientTile* GetTile() const { return mTile; }
+    TileEntity* GetTile() const { return mTile; }
     void DestroyTile();
 
     void AddNeighbour(ClientGridNode& aTile) { mNeighbourhood.push_back(&aTile); }
@@ -31,7 +31,7 @@ public:
 private:
     std::vector< ClientGridNode* > mNeighbourhood;
     const TileId mTileId;
-    ClientTile* mTile;
+    TileEntity* mTile;
     ClientUnit* mUnit;
     Ogre::Vector3 mPosition;
 };
