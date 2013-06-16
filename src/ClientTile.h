@@ -25,14 +25,14 @@ public:
     Ogre::Vector3 GetPosition() const { return mPosition; }
     ClientTile* GetTileAtPosition(const Ogre::Vector3& aPosistion);
 
-    ClientUnit* GetUnit() const { return mUnit; }
-    void SetUnit(ClientUnit* aUnit) { assert(aUnit); mUnit = aUnit; }
-    void RemoveUnit() { mUnit = NULL; }
+    UnitId GetUnit() const { return mUnit; }
+    void SetUnit(UnitId aUnit) { mUnit = aUnit; }
+    void RemoveUnit() { mUnit = 0; }
 private:
     std::vector< ClientTile* > mNeighbourhood;
     const TileId mTileId;
     TileEntity* mTile;
-    ClientUnit* mUnit;
+    UnitId mUnit;
     Ogre::Vector3 mPosition;
 };
 
