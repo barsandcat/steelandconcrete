@@ -18,7 +18,7 @@ ClientUnit::ClientUnit(UnitId aUnitId, uint32 aVisual, ClientTile* aTile):
     mAnimState(NULL)
 {
     assert(mTile);
-    mTile->SetUnit(aUnitId);
+    mTile->AddUnit(aUnitId);
     const Ogre::Vector3 pos = mTile->GetPosition();
 
     mPositionNode = ClientApp::GetSceneMgr().getRootSceneNode()->createChildSceneNode();
@@ -85,8 +85,8 @@ void ClientUnit::SetTile(ClientTile* aTile)
     mDirectonNode->setFixedYawAxis(true, origin);
     mDirectonNode->setDirection(dir, Ogre::Node::TS_WORLD, Ogre::Vector3::NEGATIVE_UNIT_Y);
 
-    mTile->RemoveUnit();
-    aTile->SetUnit(mUnitId);
+    mTile->RemoveUnit(mUnitId);
+    aTile->AddUnit(mUnitId);
     mTile = aTile;
 }
 

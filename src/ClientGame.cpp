@@ -191,7 +191,7 @@ void ClientGame::DeleteUnit(UnitId aUnitId)
     if(mUnits.end() != i)
     {
         ClientUnit* unit = i->second;
-        unit->GetUnitTile().RemoveUnit();
+        unit->GetUnitTile().RemoveUnit(unit->GetUnitId());
         delete unit;
         mUnits.erase(i);
     }
@@ -254,9 +254,9 @@ void ClientGame::LoadEvents(ConstPayloadPtr aPayloadMsg)
             TileId tileId = change.hidetile().tileid();
             ClientTile* tile = mTiles.at(tileId);
             tile->DestroyEntity();
-            if (tile->GetUnit())
+            for (ClientTile::UnitIterator i = tile->GetUnits(); !tile->IsLastUnit(i); ++i)
             {
-                DeleteUnit(tile->GetUnit());
+                DeleteUnit(*i);
             }
         }
     }
