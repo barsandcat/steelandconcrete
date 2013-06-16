@@ -6,7 +6,7 @@
 #include <Payload.pb.h>
 #include <ChangeList.pb.h>
 #include <ClientApp.h>
-#include <ClientTile.h>
+#include <TileEntity.h>
 
 #include <CEGUILocalization.h>
 #include <GUI.h>
@@ -153,7 +153,7 @@ void ClientGame::keyReleased(const OIS::KeyEvent& arg)
 void ClientGame::OnAct()
 {
     assert(mTileUnderCursor && "Тайл под курсором должен быть!");
-    ClientTile* tile = mTileUnderCursor->GetTile();
+    TileEntity* tile = mTileUnderCursor->GetTile();
     if (tile)
     {
         mTargetMarker->getParent()->removeChild(mTargetMarker);
