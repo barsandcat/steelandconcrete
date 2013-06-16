@@ -1,9 +1,9 @@
 #ifndef CLIENTGEODESICGRID_H
 #define CLIENTGEODESICGRID_H
 
-#include <ClientGridNode.h>
+#include <ClientTile.h>
 #include <GeodesicGrid.h>
 
-typedef GeodesicGrid<ClientGridNode> ClientGeodesicGrid;
+typedef GeodesicGrid<ClientTile> ClientGeodesicGrid;
 
 #endif // CLIENTGEODESICGRID_H

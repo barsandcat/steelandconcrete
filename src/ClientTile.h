@@ -5,31 +5,31 @@
 class ClientUnit;
 class TileEntity;
 
-class ClientGridNode: public boost::noncopyable
+class ClientTile: public boost::noncopyable
 {
 public:
-    explicit ClientGridNode(TileId aId, const Ogre::Vector3& aPosition);
-    ~ClientGridNode();
+    explicit ClientTile(TileId aId, const Ogre::Vector3& aPosition);
+    ~ClientTile();
 
-    void CreateTile(bool ground);
+    void CreateEntity(bool ground);
     TileEntity* GetTile() const { return mTile; }
-    void DestroyTile();
+    void DestroyEntity();
 
-    void AddNeighbour(ClientGridNode& aTile) { mNeighbourhood.push_back(&aTile); }
-    void RemoveNeighbour(ClientGridNode& aTile);
+    void AddNeighbour(ClientTile& aTile) { mNeighbourhood.push_back(&aTile); }
+    void RemoveNeighbour(ClientTile& aTile);
     void SortNeighbourhood();
     inline size_t GetNeighbourCount() const { return mNeighbourhood.size(); }
-    ClientGridNode& GetNeighbour(size_t aIndex) const { return *mNeighbourhood[aIndex]; }
+    ClientTile& GetNeighbour(size_t aIndex) const { return *mNeighbourhood[aIndex]; }
 
     TileId GetTileId() const { return mTileId; }
     Ogre::Vector3 GetPosition() const { return mPosition; }
-    ClientGridNode* GetTileAtPosition(const Ogre::Vector3& aPosistion);
+    ClientTile* GetTileAtPosition(const Ogre::Vector3& aPosistion);
 
     ClientUnit* GetUnit() const { return mUnit; }
     void SetUnit(ClientUnit* aUnit) { assert(aUnit); mUnit = aUnit; }
     void RemoveUnit() { mUnit = NULL; }
 private:
-    std::vector< ClientGridNode* > mNeighbourhood;
+    std::vector< ClientTile* > mNeighbourhood;
     const TileId mTileId;
     TileEntity* mTile;
     ClientUnit* mUnit;

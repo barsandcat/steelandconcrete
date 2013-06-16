@@ -3,12 +3,12 @@
 #include <Ogre.h>
 
 class ClientUnit;
-class ClientGridNode;
+class ClientTile;
 
 class TileEntity: public boost::noncopyable
 {
 public:
-    explicit TileEntity(bool ground, ClientGridNode& aGridNode);
+    explicit TileEntity(bool ground, ClientTile& aTile);
     ~TileEntity();
 
     Ogre::SceneNode& GetNode() { return *mNode; }
@@ -19,7 +19,7 @@ private:
     Ogre::SceneNode* mNode;
     Ogre::Entity* mEntity;
     const bool mGround;
-    ClientGridNode& mGridNode;
+    ClientTile& mTile;
 };
 
 #endif // TILE_H

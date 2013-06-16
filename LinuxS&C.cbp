@@ -119,8 +119,6 @@
 		<Unit filename="src/ClientGame.cpp" />
 		<Unit filename="src/ClientGame.h" />
 		<Unit filename="src/ClientGeodesicGrid.h" />
-		<Unit filename="src/ClientGridNode.cpp" />
-		<Unit filename="src/ClientGridNode.h" />
 		<Unit filename="src/ClientLinux.cpp" />
 		<Unit filename="src/ClientTile.cpp" />
 		<Unit filename="src/ClientTile.h" />
@@ -141,6 +139,8 @@
 		<Unit filename="src/ServerProxy.cpp" />
 		<Unit filename="src/ServerProxy.h" />
 		<Unit filename="src/SyncTimer.h" />
+		<Unit filename="src/TileEntity.cpp" />
+		<Unit filename="src/TileEntity.h" />
 		<Unit filename="src/Typedefs.h" />
 		<Unit filename="src/VisualCodes.cpp" />
 		<Unit filename="src/VisualCodes.h" />

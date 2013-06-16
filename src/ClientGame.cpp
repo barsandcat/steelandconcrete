@@ -63,7 +63,7 @@ ClientGame::~ClientGame()
     }
     mUnits.clear();
 
-    GeodesicGrid<ClientGridNode>::Tiles::iterator j = mTiles.begin();
+    GeodesicGrid<ClientTile>::Tiles::iterator j = mTiles.begin();
     for (; j != mTiles.end(); ++j)
     {
         delete *j;
@@ -245,18 +245,18 @@ void ClientGame::LoadEvents(ConstPayloadPtr aPayloadMsg)
         if (change.has_showtile())
         {
             TileId tileId = change.showtile().tileid();
-            ClientGridNode* node = mTiles.at(tileId);
-            node->CreateTile(change.showtile().whater() == 0);
+            ClientTile* tile = mTiles.at(tileId);
+            tile->CreateEntity(change.showtile().whater() == 0);
         }
 
         if (change.has_hidetile())
         {
             TileId tileId = change.hidetile().tileid();
-            ClientGridNode* node = mTiles.at(tileId);
-            node->DestroyTile();
-            if (node->GetUnit())
+            ClientTile* tile = mTiles.at(tileId);
+            tile->DestroyEntity();
+            if (tile->GetUnit())
             {
-                DeleteUnit(node->GetUnit()->GetUnitId());
+                DeleteUnit(tile->GetUnit()->GetUnitId());
             }
         }
     }

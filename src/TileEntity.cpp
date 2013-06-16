@@ -4,18 +4,18 @@
 #include <ClientApp.h>
 #include <CompareEdgesAngles.h>
 
-TileEntity::TileEntity(bool ground, ClientGridNode& aGridNode):
+TileEntity::TileEntity(bool ground, ClientTile& aTile):
         mNode(NULL),
-        mGridNode(aGridNode),
+        mTile(aTile),
         mGround(ground),
         mEntity(NULL)
 {
     Ogre::SceneManager& aSceneManager = ClientApp::GetSceneMgr();
     Ogre::SceneNode* root = aSceneManager.getRootSceneNode();
-    mNode = root->createChildSceneNode(aGridNode.GetPosition());
-    mNode->setDirection(aGridNode.GetPosition().normalisedCopy(), Ogre::Node::TS_LOCAL, Ogre::Vector3::UNIT_Z);
+    mNode = root->createChildSceneNode(aTile.GetPosition());
+    mNode->setDirection(aTile.GetPosition().normalisedCopy(), Ogre::Node::TS_LOCAL, Ogre::Vector3::UNIT_Z);
 
-    Ogre::String indexName = Ogre::StringConverter::toString(mGridNode.GetTileId());
+    Ogre::String indexName = Ogre::StringConverter::toString(aTile.GetTileId());
     Ogre::String meshName = indexName + "TileEntity.mesh";
     // Create entity
     Ogre::MeshPtr tileMesh = ConstructMesh(meshName);
@@ -33,7 +33,7 @@ TileEntity::~TileEntity()
 
 Ogre::Vector3 TileEntity::GetPosition() const
 {
-    return mGridNode.GetPosition();
+    return mTile.GetPosition();
 }
 
 
@@ -62,7 +62,7 @@ Ogre::MeshPtr TileEntity::ConstructMesh(const Ogre::String& aMeshName) const
     // 1       4      1 - hexagonStep
     //
 
-    bool pentagon = mGridNode.GetNeighbourCount() == 5;
+    bool pentagon = mTile.GetNeighbourCount() == 5;
 
     Ogre::Vector3 point;
     Ogre::String material;
@@ -77,45 +77,45 @@ Ogre::MeshPtr TileEntity::ConstructMesh(const Ogre::String& aMeshName) const
 
     manual.begin(material, Ogre::RenderOperation::OT_TRIANGLE_LIST);
 
-    assert(mGridNode.GetNeighbourCount() > 4);
+    assert(mTile.GetNeighbourCount() > 4);
 
-    const Ogre::Vector3 positon = mGridNode.GetPosition();
+    const Ogre::Vector3 positon = mTile.GetPosition();
     const Ogre::Vector3 normal = positon.normalisedCopy();
     const Ogre::Real len = positon.length();
 
     // Vetex setup
     //0
-    manual.position((positon + mGridNode.GetNeighbour(0).GetPosition() + mGridNode.GetNeighbour(1).GetPosition()).normalisedCopy() * len);
+    manual.position((positon + mTile.GetNeighbour(0).GetPosition() + mTile.GetNeighbour(1).GetPosition()).normalisedCopy() * len);
     manual.normal(normal);
     manual.textureCoord(pentagon ? pentagonHorizont : hexagonStep, 0);
     //1
-    manual.position((positon + mGridNode.GetNeighbour(1).GetPosition() + mGridNode.GetNeighbour(2).GetPosition()).normalisedCopy() * len);
+    manual.position((positon + mTile.GetNeighbour(1).GetPosition() + mTile.GetNeighbour(2).GetPosition()).normalisedCopy() * len);
     manual.normal(normal);
     manual.textureCoord(0, 0.5);
     //2
-    manual.position((positon + mGridNode.GetNeighbour(2).GetPosition() + mGridNode.GetNeighbour(3).GetPosition()).normalisedCopy() * len);
+    manual.position((positon + mTile.GetNeighbour(2).GetPosition() + mTile.GetNeighbour(3).GetPosition()).normalisedCopy() * len);
     manual.normal(normal);
     manual.textureCoord(pentagon ? pentagonHorizont : hexagonStep, 1);
     //3
-    manual.position((positon + mGridNode.GetNeighbour(3).GetPosition() + mGridNode.GetNeighbour(4).GetPosition()).normalisedCopy() * len);
+    manual.position((positon + mTile.GetNeighbour(3).GetPosition() + mTile.GetNeighbour(4).GetPosition()).normalisedCopy() * len);
     manual.normal(normal);
     manual.textureCoord(1.0f - (pentagon ? 0 : hexagonStep), 1.0f - (pentagon ? pentagonBottomStep : 0));
 
     if (pentagon)
     {
         //4
-        manual.position((positon + mGridNode.GetNeighbour(4).GetPosition() + mGridNode.GetNeighbour(0).GetPosition()).normalisedCopy() * len);
+        manual.position((positon + mTile.GetNeighbour(4).GetPosition() + mTile.GetNeighbour(0).GetPosition()).normalisedCopy() * len);
         manual.normal(normal);
         manual.textureCoord(1.0f, pentagonBottomStep);
     }
     else
     {
         //4
-        manual.position((positon + mGridNode.GetNeighbour(4).GetPosition() + mGridNode.GetNeighbour(5).GetPosition()).normalisedCopy() * len);
+        manual.position((positon + mTile.GetNeighbour(4).GetPosition() + mTile.GetNeighbour(5).GetPosition()).normalisedCopy() * len);
         manual.normal(normal);
         manual.textureCoord(1.0f, 0.5f);
         //5
-        manual.position((positon + mGridNode.GetNeighbour(5).GetPosition() + mGridNode.GetNeighbour(0).GetPosition()).normalisedCopy() * len);
+        manual.position((positon + mTile.GetNeighbour(5).GetPosition() + mTile.GetNeighbour(0).GetPosition()).normalisedCopy() * len);
         manual.normal(normal);
         manual.textureCoord(1.0f - hexagonStep, 0.0f);
     }
