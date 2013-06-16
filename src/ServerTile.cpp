@@ -35,7 +35,7 @@ void ServerTile::SortNeighbourhood()
 
 bool ServerTile::CanEnter() const
 {
-    return mUnitList.empty() && mWater <= 0;
+    return mWater <= 0;
 }
 
 void ServerTile::RemoveNeighbour(ServerTile& aTile)
