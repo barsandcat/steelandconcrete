@@ -2,8 +2,8 @@
 #define CLIENTEDGE_H
 
 #include <Edge.h>
-#include <ClientGridNode.h>
+#include <ClientTile.h>
 
-typedef Edge<ClientGridNode> ClientEdge;
+typedef Edge<ClientTile> ClientEdge;
 
 #endif // EDGE_H

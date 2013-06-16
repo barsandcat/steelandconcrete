@@ -1,14 +1,14 @@
 #include <pch.h>
 #include <ClientUnit.h>
 
-#include <ClientGridNode.h>
+#include <ClientTile.h>
 #include <ClientApp.h>
 #include <VisualCodes.h>
 #include <TileEntity.h>
 
 const char* WALK_ANIMATION_NAME = "walk";
 
-ClientUnit::ClientUnit(UnitId aUnitId, uint32 aVisual, ClientGridNode* aTile):
+ClientUnit::ClientUnit(UnitId aUnitId, uint32 aVisual, ClientTile* aTile):
     mTile(aTile),
     mEntity(NULL),
     mUnitId(aUnitId),
@@ -65,7 +65,7 @@ void ClientUnit::UpdateMovementAnimation(Miliseconds aFrameTime)
     }
 }
 
-void ClientUnit::SetTile(ClientGridNode* aTile)
+void ClientUnit::SetTile(ClientTile* aTile)
 {
     assert(aTile);
     if (aTile == mTile)

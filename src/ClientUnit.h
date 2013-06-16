@@ -5,22 +5,22 @@
 #include <Typedefs.h>
 #include <MovementAnimation.h>
 
-class ClientGridNode;
+class ClientTile;
 
 class ClientUnit: public boost::noncopyable
 {
 public:
-    ClientUnit(UnitId aUnitId, uint32 aVisual, ClientGridNode* aTile);
+    ClientUnit(UnitId aUnitId, uint32 aVisual, ClientTile* aTile);
     ~ClientUnit();
     void UpdateMovementAnimation(Miliseconds aFrameTime);
-    void SetTile(ClientGridNode* aTile);
-    ClientGridNode& GetUnitTile() const { return *mTile; }
+    void SetTile(ClientTile* aTile);
+    ClientTile& GetUnitTile() const { return *mTile; }
 	UnitId GetUnitId() const { return mUnitId; }
 	Ogre::Vector3 GetPosition() const;
 private:
     MovementAnimationPtr mMoveAnim;
     Ogre::AnimationState* mAnimState;
-    ClientGridNode* mTile;
+    ClientTile* mTile;
     Ogre::SceneNode* mPositionNode;
     Ogre::SceneNode* mDirectonNode;
     Ogre::Entity* mEntity;

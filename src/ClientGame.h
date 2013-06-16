@@ -45,7 +45,7 @@ private:
     static ClientUnits mUnits;
     const UnitId mAvatar;
     ClientGeodesicGrid::Tiles mTiles;
-    ClientGridNode* mTileUnderCursor;
+    ClientTile* mTileUnderCursor;
     Ogre::SceneNode* mSelectionMarker;
     Ogre::SceneNode* mTargetMarker;
     Ogre::SceneNode* mAxes;
