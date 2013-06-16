@@ -9,7 +9,6 @@
 ServerTile::ServerTile(TileId aId, const Ogre::Vector3& aPosition):
         mPosition(aPosition),
         mTileId(aId),
-		mUnit(0),
 		mHeight(0),
 		mWater(1111)
 {
@@ -36,7 +35,7 @@ void ServerTile::SortNeighbourhood()
 
 bool ServerTile::CanEnter() const
 {
-     return !UnitList::GetUnit(mUnit) && mWater <= 0;
+    return mUnitList.empty() && mWater <= 0;
 }
 
 void ServerTile::RemoveNeighbour(ServerTile& aTile)
