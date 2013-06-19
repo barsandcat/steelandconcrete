@@ -133,7 +133,7 @@ void ClientFOV::WriteFullUpdate(const int32 aVisionRadius)
     mVisibleTiles = currentVisibleTiles;
 }
 
-void ClientFOV::WriteFinalMessage(const GameTime aServerTime, const int32 aGameUpdateLength)
+void ClientFOV::WriteFinalMessage(const GameTime aServerTime, const Miliseconds aGameUpdateLength)
 {
     PayloadMsg emptyMsg;
     emptyMsg.set_last(true);

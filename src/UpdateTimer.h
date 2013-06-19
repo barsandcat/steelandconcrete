@@ -8,7 +8,7 @@
 class UpdateTimer
 {
 public:
-    UpdateTimer(int64 aPeriod): mPeriod(aPeriod)
+    UpdateTimer(Miliseconds aPeriod): mPeriod(aPeriod)
     {
         assert(aPeriod > 0);
         mStart = GetMiliseconds();
@@ -16,9 +16,9 @@ public:
 
     void Wait()
     {
-        int64 current = GetMiliseconds();
+        Miliseconds current = GetMiliseconds();
         mPassed = current - mStart;
-        int64 left = mPeriod - mPassed;
+        Miliseconds left = mPeriod - mPassed;
 
         if (left > 0)
         {
@@ -29,24 +29,24 @@ public:
         mStartRWL.unlock();
     }
 
-    int64 GetLeft()
+    Miliseconds GetLeft()
     {
-        int64 current = GetMiliseconds();
+        Miliseconds current = GetMiliseconds();
         mStartRWL.lock_shared();
-        int64 passed = current - mStart;
+        Miliseconds passed = current - mStart;
         mStartRWL.unlock_shared();
-        int64 left = mPeriod - passed;
+        Miliseconds left = mPeriod - passed;
         return left < 0 ? 0 : left;
     }
 
-    int64 GetPassedTime() const
+    Miliseconds GetPassedTime() const
     {
         return mPassed;
     }
 private:
-    const int64 mPeriod;
-    int64 mStart;
-    int64 mPassed;
+    const Miliseconds mPeriod;
+    Miliseconds mStart;
+    Miliseconds mPassed;
     boost::shared_mutex mStartRWL;
 };
 

@@ -121,7 +121,7 @@ void TUIMenuWindow::Run()
 
 void TUIMenuWindow::Update()
 {
-    for (int i = 0; i < mCommands.size(); ++i)
+    for (size_t i = 0; i < mCommands.size(); ++i)
     {
         wattrset(mWin, i == mOption ? A_REVERSE : A_NORMAL);
         mvwaddstr(mWin, 1 + i, 1, mCommands[i].first.c_str());

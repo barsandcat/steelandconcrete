@@ -1,18 +1,6 @@
 #ifndef PCH_H
 #define PCH_H
 
-#include <Warnings.h>
-
-// Disable all warnings for files icluded here
-// For VC++
-#pragma warning(push, 3)
-// For GCC
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-variable"
-#pragma GCC diagnostic ignored "-Wreturn-type"
-#pragma GCC diagnostic ignored "-Wsign-compare"
-#pragma GCC diagnostic ignored "-Wall"
-
 // Disable some of windows includes to speedup build and avoid collision with glog ERROR
 #ifdef _WIN32
     #define WIN32_LEAN_AND_MEAN
@@ -33,29 +21,27 @@
 #include <boost/filesystem/path.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 
-#include <OIS.h>
 #include <algorithm>
 #include <string>
 #include <sstream>
 #include <stdexcept>
 #include <vector>
 #include <iostream>
-#include <OgreTextAreaOverlayElement.h>
-#include <OgreFont.h>
-#include <OgreFontManager.h>
-#include <google/protobuf/stubs/common.h>
 
+#include <google/protobuf/stubs/common.h>
 #include <gflags/gflags.h>
 #include <glog/logging.h>
 
-#include <Typedefs.h>
+#include <OIS.h>
 #include <Ogre.h>
 
+#include <Typedefs.h>
 #include <ProtocolVersion.h>
 #include <ReleaseVersion.h>
 
-// Restore warnings
-#pragma warning(pop)
-#pragma GCC diagnostic pop
+#include <Warnings.h>
+
+// curses.h vs wincon.h macro collision. Currently there is no need in any, just to remove warning:
+#undef MOUSE_MOVED
 
 #endif // PCH_H
