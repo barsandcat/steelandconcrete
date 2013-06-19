@@ -256,10 +256,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\ClientGridNode.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\ClientTile.cpp"
 				>
 			</File>
@@ -336,6 +332,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\TileEntity.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\VisualCodes.cpp"
 				>
 			</File>
@@ -366,10 +366,6 @@
 			</File>
 			<File
 				RelativePath=".\src\ClientGeodesicGrid.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\ClientGridNode.h"
 				>
 			</File>
 			<File
@@ -414,6 +410,10 @@
 			</File>
 			<File
 				RelativePath=".\src\SSLLogRedirect.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\TileEntity.h"
 				>
 			</File>
 			<File
@@ -572,10 +572,6 @@
 			Filter="po"
 			>
 			<File
-				RelativePath=".\bin\lang\ja\LC_MESSAGES\steelandconcrete.po"
-				>
-			</File>
-			<File
 				RelativePath=".\bin\lang\ru\LC_MESSAGES\steelandconcrete.po"
 				>
 			</File>
@@ -585,6 +581,10 @@
 			</File>
 			<File
 				RelativePath=".\bin\lang\en\LC_MESSAGES\steelandconcrete.po"
+				>
+			</File>
+			<File
+				RelativePath=".\bin\lang\ja\LC_MESSAGES\steelandconcrete.po"
 				>
 			</File>
 		</Filter>
