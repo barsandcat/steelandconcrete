@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="ToolOgreXMLConverter 1.7.3"
+	Name="ToolOgreXMLConverter 1.8.1"
 	ProjectGUID="{EA355D15-E687-438E-917E-8C6A557BAB4D}"
-	RootNamespace="ToolOgreXMLConverter 1.7.3"
+	RootNamespace="ToolOgreXMLConverter 1.8.1"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
 	>
