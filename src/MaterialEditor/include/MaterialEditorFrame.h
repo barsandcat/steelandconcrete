@@ -58,6 +58,7 @@ typedef std::map<Ogre::String, MaterialMap> ScriptMap;
 typedef std::map<Ogre::String, ScriptMap> ArchiveMap;
 typedef std::map<Ogre::String, ArchiveMap> GroupMap;
 
+
 class MaterialEditorFrame : public wxFrame
 {
 public:
@@ -147,5 +148,6 @@ private:
 
     DECLARE_EVENT_TABLE();
 };
+
 
 #endif // _MATERIALEDITORFRAME_H_

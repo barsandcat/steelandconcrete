@@ -851,6 +851,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreSmallVector.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\ogre_src_v1-8-1\OgreMain\src\OgreStaticGeometry.cpp"
 				>
 			</File>

@@ -24,6 +24,9 @@ Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA or go to
 http://www.gnu.org/copyleft/lesser.txt
 -------------------------------------------------------------------------
 */
+
+
+#pragma warning(disable:4503)
 #include "MaterialEditorFrame.h"
 
 #include <wx/bitmap.h>
@@ -62,6 +65,8 @@ http://www.gnu.org/copyleft/lesser.txt
 #include "PassPropertyGridPage.h"
 #include <Workspace.h>
 #include <OgreControl.h>
+
+
 
 
 const long ID_FILE_MENU_OPEN = wxNewId();
@@ -912,3 +917,4 @@ void MaterialEditorFrame::OnEditPaste(wxCommandEvent& event)
     EditorBase* editor = EditorManager::getSingletonPtr()->getActiveEditor();
     if(editor != NULL) editor->paste();
 }
+
