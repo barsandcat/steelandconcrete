@@ -103,7 +103,7 @@
 			/>
 			<Tool
 				Name="Nasm"
-				nasm="&quot;C:\Program Files(x86)\nasm\nasm.exe&quot;"
+				nasm="nasm.exe"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
