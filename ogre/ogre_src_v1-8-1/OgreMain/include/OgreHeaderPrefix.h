@@ -23,10 +23,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
-#ifndef __OgreHeaderPrefix_H__
-#define __OgreHeaderPrefix_H__
+//#ifndef __OgreHeaderPrefix_H__
+//#define __OgreHeaderPrefix_H__
 
-#include "OgrePrerequisites.h"
+//#include "OgrePrerequisites.h"
 
 #if OGRE_COMPILER == OGRE_COMPILER_MSVC
 
@@ -77,6 +77,6 @@ THE SOFTWARE
 #endif
 
 
-#endif
+//#endif
 
 
