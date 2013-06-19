@@ -17,7 +17,7 @@ public:
     ~ServerGame();
     void MainLoop(Ogre::String aAddress, int32 aPort);
     static GameTime GetTime();
-	int32 GetUpdateLength() { return mTimer.GetLeft(); }
+	Miliseconds GetUpdateLength() { return mTimer.GetLeft(); }
 	const ServerGeodesicGrid::Tiles& GetTiles() const { return mTiles; }
 	int32 GetSize() const { return mSize; }
 	boost::shared_mutex& GetGameMutex() { return mGameMutex; }
