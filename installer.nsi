@@ -1,4 +1,3 @@
-!system 'get_version.bat'
 !include version.nsh
 ; The name of the installer
 Name "Steel and concrete ${VERSION}"
